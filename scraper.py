@@ -60,4 +60,4 @@ def main():
     with open('odds.json', 'w') as f:
         json.dump(output, f, indent=2)
 
-    pprint("Done! Saved odds.json!")
+    print("Done! Saved odds.json!")
