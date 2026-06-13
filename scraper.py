@@ -61,3 +61,5 @@ def main():
         json.dump(output, f, indent=2)
 
     print("Done! Saved odds.json!")
+if __name__ == '__main__':
+    main()
