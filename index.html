@@ -1,10 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Auto Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uganda Odds Scraper</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a1a;color:#fff;font-family:Arial,sans-serif;padding:10px}
+h1{color:#00ff88;text-align:center;padding:15px 0;font-size:1.3em}
+.sub{text-align:center;color:#666;font-size:.75em;margin-bottom:15px}
+.bar{background:#111;border:1px solid #222;border-radius:8px;padding:10px;margin-bottom:10px;font-size:.8em;display:flex;justify-content:space-between}
+.stats{display:flex;gap:8px;margin-bottom:10px}
+.stat{flex:1;background:#111;border:1px solid #222;border-radius:8px;padding:10px;text-align:center}
+.num{font-size:1.5em;font-weight:bold;color:#00ff88}
+.lbl{font-size:.65em;color:#666;margin-top:3px}
+.sec{color:#666;font-size:.8em;margin:10px 0 8px;padding-bottom:5px;border-bottom:1px solid #222}
+table{width:100%;border-collapse:collapse;font-size:.75em;margin-bottom:15px}
+th{background:#111;padding:8px;text-align:left;color:#666;border-bottom:1px solid #222}
+td{padding:8px;border-bottom:1px solid #1a1a1a}
+tr:hover{background:#111}
+.g{color:#00ff88;font-weight:bold}
+.bk{color:#fff;font-weight:bold}
+.empty{text-align:center;color:#444;padding:30px;font-size:.85em}
+.tag{display:inline-block;background:#111;border:1px solid #333;border-radius:20px;padding:3px 10px;font-size:.7em;color:#888;margin:3px}
+.tag.on{border-color:#00ff88;color:#00ff88}
+</style>
 </head>
 <body>
-  <h1>My Website is Live</h1>
-  <p>This page is hosted on GitHub.</p>
+
+<h1>🇺🇬 Uganda Odds Scraper</h1>
+<p class="sub">Scraping 27 bookmakers every 5 minutes</p>
+
+<div class="bar">
+  <span id="st">⏳ Loading...</span>
+  <span id="lu" style="color:#666"></span>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="num" id="tm">0</div>
+    <div class="lbl">Total Matches</div>
+  </div>
+  <div class="stat">
+    <div class="num" id="tb">0</div>
+    <div class="lbl">Bookmakers</div>
+  </div>
+  <div class="stat">
+    <div class="num" id="to">0</div>
+    <div class="lbl">Total Odds</div>
+  </div>
+</div>
+
+<p class="sec">📡 Bookmakers Scraped</p>
+<div id="tags"></div>
+
+<p class="sec">📊 All Scraped Odds</p>
+<div id="odds"><div class="empty">⏳ Waiting for scraper...</div></div>
+
+<script>
+async function load(){
+  try{
+    const r=await fetch('odds.json?t='+Date.now());
+    const d=await r.json();
+    const raw=d.raw_odds||[];
+    const bookies=[...new Set(raw.map(x=>x.bookmaker))];
+
+    document.getElementById('st').textContent='✅ Scraped '+raw.length+' odds entries';
+    document.getElementById('lu').textContent='🕐 '+(d.last_updated||'');
+    document.getElementById('tm').textContent=d.total_matches||0;
+    document.getElementById('tb').textContent=bookies.length;
+    document.getElementById('to').textContent=raw.length;
+
+    document.getElementById('tags').innerHTML=
+      d.bookmakers_scraped
+        ? d.bookmakers_scraped.map(b=>
+            `<span class="tag ${bookies.includes(b)?'on':''}">${b}</span>`
+          ).join('')
+        : bookies.map(b=>`<span class="tag on">${b}</span>`).join('');
+
+    document.getElementById('odds').innerHTML=raw.length?`
+      <table>
+        <thead>
+          <tr>
+            <th>Match</th>
+            <th>Bookmaker</th>
+            <th>Home</th>
+            <th>Draw</th>
+            <th>Away</th>
+            <th>Sport</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${raw.map(o=>`
+            <tr>
+              <td>${o.match}</td>
+              <td class="g">${o.bookmaker}</td>
+              <td class="bk">${o.home||'-'}</td>
+              <td class="bk">${o.draw||'-'}</td>
+              <td class="bk">${o.away||'-'}</td>
+              <td style="color:#666">${o.sport||'Football'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>`
+    :'<div class="empty">⏳ No odds yet. Scraper runs every 5 min.</div>';
+
+  }catch(e){
+    document.getElementById('st').textContent='⚠️ No data yet';
+    document.getElementById('odds').innerHTML=
+      '<div class="empty">⏳ Scraper has not run yet.</div>';
+  }
+}
+load();
+setInterval(load,300000);
+</script>
 </body>
-</html>
+  </html>
