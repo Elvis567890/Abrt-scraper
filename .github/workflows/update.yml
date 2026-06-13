@@ -1,22 +1,33 @@
-name: Auto Update
+name: Auto Scraper
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
-  update:
+  scrape:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Update timestamp
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install libraries
         run: |
-          date > update.txt
-      - name: Commit changes
+          pip install requests beautifulsoup4 cloudscraper
+
+      - name: Run scraper
+        run: |
+          python scraper.py
+
+      - name: Save to repository
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
-          git add update.txt
-          git commit -m "Auto update" || exit 0
+          git add odds.json
+          git commit -m "Odds update $(date)" || exit 0
           git push
