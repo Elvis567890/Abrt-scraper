@@ -17,6 +17,7 @@ def scrape_betpawa():
         response = requests.get(url, headers=headers, timeout=30)
         soup = BeautifulSoup(response.text, 'html.parser')
         links = soup.find_all('a', href=re.compile(r'/event/\d+'))
+        print(f"BetPawa: found {len(links)} event links")
         for link in links:
             try:
                 text = link.get_text(separator='|', strip=True)
@@ -24,17 +25,22 @@ def scrape_betpawa():
                 teams = []
                 odd_values = []
                 competition = ''
-                skip_words = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri',
-                             'Full Time','Half','1UP','2UP','1X2','Double','Both',
-                             'Over','Under','Total','Score','Chance','Teams']
+                skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri',
+                        'Full Time','Half','1UP','2UP','1X2','Double','Both',
+                        'Over','Under','Total','Score','Chance','Teams',
+                        'Football','Interval','minutes','First']
                 for part in parts:
                     if re.match(r'^\d+\.\d+$', part):
                         odd_values.append(float(part))
-                    elif 'Football' in part:
+                    elif any(s in part for s in ['Football','Soccer']):
                         competition = part
                     elif part in ['1','X','2','1X','X2','12']:
                         continue
-                    elif any(w in part for w in skip_words):
+                    elif any(s in part for s in skip):
+                        continue
+                    elif re.match(r'^\d+:\d+', part):
+                        continue
+                    elif re.match(r'^\d+/\d+', part):
                         continue
                     elif len(part) > 2:
                         teams.append(part)
@@ -53,7 +59,7 @@ def scrape_betpawa():
                     })
             except:
                 continue
-        print(f"BetPawa: {len(odds)} matches found")
+        print(f"BetPawa: {len(odds)} matches extracted")
     except Exception as e:
         print(f"BetPawa error: {e}")
     return odds
@@ -80,30 +86,30 @@ def find_arbitrage(all_odds):
             continue
         arb2 = (1/h) + (1/a)
         if arb2 < 1:
-            profit = round((1 - arb2) * 100, 2)
+            profit = round((1-arb2)*100, 2)
             opportunities.append({
                 'match': match_name,
                 'type': '2-way',
                 'profit_percent': profit,
                 'total_stake': STAKE,
                 'bets': [
-                    {'bookmaker': best_home['bookmaker'],'outcome': 'Home','team': best_home.get('home_team','Home'),'odd': h,'stake': round(STAKE * (1/h) / arb2)},
-                    {'bookmaker': best_away['bookmaker'],'outcome': 'Away','team': best_away.get('away_team','Away'),'odd': a,'stake': round(STAKE * (1/a) / arb2)}
+                    {'bookmaker': best_home['bookmaker'],'outcome': 'Home','team': best_home.get('home_team','Home'),'odd': h,'stake': round(STAKE*(1/h)/arb2)},
+                    {'bookmaker': best_away['bookmaker'],'outcome': 'Away','team': best_away.get('away_team','Away'),'odd': a,'stake': round(STAKE*(1/a)/arb2)}
                 ]
             })
         if d:
-            arb3 = (1/h) + (1/d) + (1/a)
+            arb3 = (1/h)+(1/d)+(1/a)
             if arb3 < 1:
-                profit = round((1 - arb3) * 100, 2)
+                profit = round((1-arb3)*100, 2)
                 opportunities.append({
                     'match': match_name,
                     'type': '3-way',
                     'profit_percent': profit,
                     'total_stake': STAKE,
                     'bets': [
-                        {'bookmaker': best_home['bookmaker'],'outcome': 'Home','team': best_home.get('home_team','Home'),'odd': h,'stake': round(STAKE * (1/h) / arb3)},
-                        {'bookmaker': best_draw['bookmaker'],'outcome': 'Draw','team': 'Draw','odd': d,'stake': round(STAKE * (1/d) / arb3)},
-                        {'bookmaker': best_away['bookmaker'],'outcome': 'Away','team': best_away.get('away_team','Away'),'odd': a,'stake': round(STAKE * (1/a) / arb3)}
+                        {'bookmaker': best_home['bookmaker'],'outcome': 'Home','team': best_home.get('home_team','Home'),'odd': h,'stake': round(STAKE*(1/h)/arb3)},
+                        {'bookmaker': best_draw['bookmaker'],'outcome': 'Draw','team': 'Draw','odd': d,'stake': round(STAKE*(1/d)/arb3)},
+                        {'bookmaker': best_away['bookmaker'],'outcome': 'Away','team': best_away.get('away_team','Away'),'odd': a,'stake': round(STAKE*(1/a)/arb3)}
                     ]
                 })
     return sorted(opportunities, key=lambda x: x['profit_percent'], reverse=True)
@@ -129,7 +135,7 @@ def main():
     }
     with open('odds.json', 'w') as f:
         json.dump(output, f, indent=2)
-    print(f"Done! {len(all_odds)} matches, {len(opportunities)} arb opportunities")
+    print(f"Done! {len(all_odds)} matches saved")
 
 if __name__ == '__main__':
     main()
