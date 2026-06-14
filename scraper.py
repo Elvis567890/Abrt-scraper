@@ -33,33 +33,3 @@ def scrape_site(bookmaker):
         # Save raw HTML for debugging
         with open(f"debug_{bookmaker['name'].replace(' ','_')}.html", 'w') as f:
             f.write(response.text[:5000])
-            
-    except Exception as e:
-        print(f"{bookmaker['name']} error: {e}")
-    return odds
-
-def main():
-    print("Scraper started:", datetime.utcnow())
-    all_odds = []
-    scraped = []
-
-    for bm in BOOKMAKERS:
-        print(f"Trying {bm['name']}...")
-        odds = scrape_site(bm)
-        all_odds.extend(odds)
-        scraped.append(bm['name'])
-        time.sleep(2)
-
-    output = {
-        'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
-        'total_matches': len(all_odds),
-        'bookmakers_scraped': scraped,
-        'raw_odds': all_odds
-    }
-
-    with open('odds.json', 'w') as f:
-        json.dump(output, f, indent=2)
-
-    print("Done! Saved odds.json!")
-if __name__ == '__main__':
-    main()
