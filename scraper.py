@@ -8,13 +8,26 @@ import time
 def scrape_betpawa():
     odds = []
     try:
+        session = requests.Session()
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
             'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Cache-Control': 'max-age=0',
         }
+        session.headers.update(headers)
+        session.get('https://www.betpawa.ug', timeout=30)
+        time.sleep(2)
         url = 'https://www.betpawa.ug/events?categoryId=2&marketId=1X2'
-        response = requests.get(url, headers=headers, timeout=30)
+        response = session.get(url, timeout=30)
+        print(f"BetPawa status: {response.status_code}")
+        print(f"BetPawa page size: {len(response.text)} bytes")
         soup = BeautifulSoup(response.text, 'html.parser')
         links = soup.find_all('a', href=re.compile(r'/event/\d+'))
         print(f"BetPawa: found {len(links)} event links")
@@ -28,7 +41,7 @@ def scrape_betpawa():
                 skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri',
                         'Full Time','Half','1UP','2UP','1X2','Double','Both',
                         'Over','Under','Total','Score','Chance','Teams',
-                        'Football','Interval','minutes','First']
+                        'Interval','minutes','First']
                 for part in parts:
                     if re.match(r'^\d+\.\d+$', part):
                         odd_values.append(float(part))
@@ -84,7 +97,7 @@ def find_arbitrage(all_odds):
         a = best_away.get('away', 0)
         if not h or not a:
             continue
-        arb2 = (1/h) + (1/a)
+        arb2 = (1/h)+(1/a)
         if arb2 < 1:
             profit = round((1-arb2)*100, 2)
             opportunities.append({
@@ -123,7 +136,6 @@ def main():
     all_odds.extend(bp)
     if bp:
         scraped.append('BetPawa')
-    time.sleep(2)
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {
