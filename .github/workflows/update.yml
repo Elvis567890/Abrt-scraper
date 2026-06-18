@@ -1,29 +1,24 @@
 name: Auto Scraper
-
 on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
-
 jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-
       - name: Install libraries
         run: |
-          pip install requests beautifulsoup4 cloudscraper
-
+          pip install requests beautifulsoup4 playwright
+          playwright install chromium
+          playwright install-deps chromium
       - name: Run scraper
-        run: |
-          python scraper.py
-
+        run: python scraper.py
       - name: Save to repository
         run: |
           git config --global user.name "github-actions"
