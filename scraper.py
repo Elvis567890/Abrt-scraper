@@ -60,13 +60,22 @@ def scrape_fortebet():
             page.wait_for_timeout(8000)
             html = page.content()
             print(f"Fortebet loaded: {len(html)} bytes")
-            # Try to find match rows - Fortebet uses table rows
             rows = page.query_selector_all('tr.market-row, div.event-row, div[class*="match"], tr[class*="event"], div[class*="event"]')
             print(f"Fortebet: found {len(rows)} rows (method 1)")
+            for i, row in enumerate(rows[:3]):
+                try:
+                    print(f"ROW {i}: {row.inner_text()[:300]}")
+                except:
+                    print(f"ROW {i}: could not read")
+            print("---END DEBUG---")
             if len(rows) == 0:
-                # Fallback: get all text from page and parse
                 rows = page.query_selector_all('tr')
                 print(f"Fortebet: found {len(rows)} rows (method 2 - all tr)")
+                for i, row in enumerate(rows[:3]):
+                    try:
+                        print(f"TR ROW {i}: {row.inner_text()[:300]}")
+                    except:
+                        print(f"TR ROW {i}: could not read")
             for row in rows[:80]:
                 try:
                     text = row.inner_text()
