@@ -14,7 +14,7 @@ def scrape_site(name, url):
             page.wait_for_timeout(6000)
             html = page.content()
             print(f"{name} loaded: {len(html)} bytes")
-            links = page.query_selector_all('a[href*="/event/"]')
+            links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"], a[href*="/prematch/"]')
             print(f"{name}: found {len(links)} links")
             for link in links[:60]:
                 try:
@@ -86,7 +86,7 @@ def main():
     scraped = []
     BOOKMAKERS = [
         {'name': 'BetPawa', 'url': 'https://www.betpawa.ug/events?categoryId=2&marketId=1X2'},
-        {'name': 'Fortebet', 'url': 'https://www.fortebet.ug/sports/football'},
+        {'name': 'Fortebet', 'url': 'https://desktop.fortebet.ug/prematch/landing'},
     ]
     for bm in BOOKMAKERS:
         odds = scrape_site(bm['name'], bm['url'])
