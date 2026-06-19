@@ -7,11 +7,17 @@ def scrape_betpawa():
     odds = []
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page(user_agent='Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36')
+            browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
+            context = browser.new_context(
+                user_agent='Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+                viewport={'width': 390, 'height': 844},
+                locale='en-UG'
+            )
+            page = context.new_page()
+            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
             print("Opening BetPawa...")
             page.goto('https://www.betpawa.ug/events?categoryId=2&marketId=1X2', timeout=60000)
-            page.wait_for_timeout(6000)
+            page.wait_for_timeout(8000)
             html = page.content()
             print(f"BetPawa loaded: {len(html)} bytes")
             links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
@@ -53,7 +59,7 @@ def scrape_fortebet():
     odds = []
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            browser = p.chromium.launch(headless=True, args=['--no-sandbox'])
             page = browser.new_page(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
             print("Opening Fortebet...")
             page.goto('https://desktop.fortebet.ug/prematch/landing', timeout=60000)
@@ -61,42 +67,33 @@ def scrape_fortebet():
             html = page.content()
             print(f"Fortebet loaded: {len(html)} bytes")
             rows = page.query_selector_all('tr.market-row, div.event-row, div[class*="match"], tr[class*="event"], div[class*="event"]')
-            print(f"Fortebet: found {len(rows)} rows (method 1)")
-            for i, row in enumerate(rows[:3]):
-                try:
-                    print(f"ROW {i}: {row.inner_text()[:300]}")
-                except:
-                    print(f"ROW {i}: could not read")
-            print("---END DEBUG---")
-            if len(rows) == 0:
-                rows = page.query_selector_all('tr')
-                print(f"Fortebet: found {len(rows)} rows (method 2 - all tr)")
-                for i, row in enumerate(rows[:3]):
-                    try:
-                        print(f"TR ROW {i}: {row.inner_text()[:300]}")
-                    except:
-                        print(f"TR ROW {i}: could not read")
+            print(f"Fortebet: found {len(rows)} rows")
             for row in rows[:80]:
                 try:
                     text = row.inner_text()
-                    parts = [p.strip() for p in text.split('\n') if p.strip()]
-                    teams = []
+                    # Match format is "TEAM1 - TEAM2" on first line
+                    lines = [l.strip() for l in text.split('\n') if l.strip()]
+                    if not lines:
+                        continue
+                    # Skip navigation/menu rows
+                    skip_words = ['Today','Tomorrow','All','Hour','Hours','Reset','Odds','Top Bets','Australia','Europe','America','Tennis','Baseball','Basketball','FIFA','Asia','PDF','Offer','LIVE','selection']
+                    if any(w in lines[0] for w in skip_words):
+                        continue
+                    # Parse "TEAM1 - TEAM2"
+                    match_line = lines[0]
+                    if ' - ' in match_line:
+                        parts = match_line.split(' - ', 1)
+                        home_team = parts[0].strip()
+                        away_team = parts[1].strip()
+                    else:
+                        continue
+                    # Get odds from remaining lines
                     odd_values = []
-                    for part in parts:
-                        if re.match(r'^\d+\.\d+$', part):
-                            odd_values.append(float(part))
-                        elif part in ['1','X','2','1X','X2','12','HT','FT']:
-                            continue
-                        elif re.match(r'^\d+:\d+', part):
-                            continue
-                        elif re.match(r'^\d+/\d+', part):
-                            continue
-                        elif re.match(r'^\d+$', part):
-                            continue
-                        elif len(part) > 2 and len(part) < 50:
-                            teams.append(part)
-                    if len(teams) >= 2 and len(odd_values) >= 3:
-                        odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': 'Fortebet','competition': '','home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
+                    for line in lines[1:]:
+                        if re.match(r'^\d+\.\d+$', line):
+                            odd_values.append(float(line))
+                    if len(odd_values) >= 3:
+                        odds.append({'match': f"{home_team} vs {away_team}",'home_team': home_team,'away_team': away_team,'bookmaker': 'Fortebet','competition': '','home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
                 except:
                     continue
             browser.close()
