@@ -9,11 +9,14 @@ def scrape_betpawa():
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(user_agent='Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36')
+            print("Opening BetPawa...")
             page.goto('https://www.betpawa.ug/events?categoryId=2&marketId=1X2', timeout=60000)
             page.wait_for_timeout(6000)
-            print(f"BetPawa loaded: {len(page.content())} bytes")
-            links = page.query_selector_all('a[href*="/event/"]')
+            html = page.content()
+            print(f"BetPawa loaded: {len(html)} bytes")
+            links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
             print(f"BetPawa: found {len(links)} links")
+            skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1UP','2UP','1X2','Double','Both','Over','Under','Total','Score','Chance','Teams','Interval','minutes','First']
             for link in links[:60]:
                 try:
                     text = link.inner_text()
@@ -21,7 +24,6 @@ def scrape_betpawa():
                     teams = []
                     odd_values = []
                     competition = ''
-                    skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1UP','2UP','1X2','Double','Both','Over','Under','Total','Score','Chance','Teams','Interval','minutes','First']
                     for part in parts:
                         if re.match(r'^\d+\.\d+$', part):
                             odd_values.append(float(part))
@@ -52,30 +54,37 @@ def scrape_fortebet():
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
-            page = browser.new_page(user_agent='Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36')
+            page = browser.new_page(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
+            print("Opening Fortebet...")
             page.goto('https://desktop.fortebet.ug/prematch/landing', timeout=60000)
             page.wait_for_timeout(8000)
             html = page.content()
             print(f"Fortebet loaded: {len(html)} bytes")
-            rows = page.query_selector_all('.event-row, .match-row, .game-row, [class*="event"], [class*="match"]')
-            print(f"Fortebet: found {len(rows)} rows")
-            for row in rows[:60]:
+            # Try to find match rows - Fortebet uses table rows
+            rows = page.query_selector_all('tr.market-row, div.event-row, div[class*="match"], tr[class*="event"], div[class*="event"]')
+            print(f"Fortebet: found {len(rows)} rows (method 1)")
+            if len(rows) == 0:
+                # Fallback: get all text from page and parse
+                rows = page.query_selector_all('tr')
+                print(f"Fortebet: found {len(rows)} rows (method 2 - all tr)")
+            for row in rows[:80]:
                 try:
                     text = row.inner_text()
                     parts = [p.strip() for p in text.split('\n') if p.strip()]
                     teams = []
                     odd_values = []
-                    skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1X2','Over','Under','Total','Score']
                     for part in parts:
                         if re.match(r'^\d+\.\d+$', part):
                             odd_values.append(float(part))
-                        elif part in ['1','X','2','1X','X2','12']:
-                            continue
-                        elif any(s in part for s in skip):
+                        elif part in ['1','X','2','1X','X2','12','HT','FT']:
                             continue
                         elif re.match(r'^\d+:\d+', part):
                             continue
-                        elif len(part) > 2:
+                        elif re.match(r'^\d+/\d+', part):
+                            continue
+                        elif re.match(r'^\d+$', part):
+                            continue
+                        elif len(part) > 2 and len(part) < 50:
                             teams.append(part)
                     if len(teams) >= 2 and len(odd_values) >= 3:
                         odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': 'Fortebet','competition': '','home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
