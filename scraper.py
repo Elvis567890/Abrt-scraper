@@ -3,19 +3,17 @@ from datetime import datetime
 from playwright.sync_api import sync_playwright
 import re
 
-def scrape_site(name, url):
+def scrape_betpawa():
     odds = []
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(user_agent='Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36')
-            print(f"Opening {name}...")
-            page.goto(url, timeout=60000)
+            page.goto('https://www.betpawa.ug/events?categoryId=2&marketId=1X2', timeout=60000)
             page.wait_for_timeout(6000)
-            html = page.content()
-            print(f"{name} loaded: {len(html)} bytes")
-            links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"], a[href*="/prematch/"]')
-            print(f"{name}: found {len(links)} links")
+            print(f"BetPawa loaded: {len(page.content())} bytes")
+            links = page.query_selector_all('a[href*="/event/"]')
+            print(f"BetPawa: found {len(links)} links")
             for link in links[:60]:
                 try:
                     text = link.inner_text()
@@ -40,13 +38,53 @@ def scrape_site(name, url):
                         elif len(part) > 2:
                             teams.append(part)
                     if len(teams) >= 2 and len(odd_values) >= 3:
-                        odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': name,'competition': competition,'home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
+                        odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': 'BetPawa','competition': competition,'home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
                 except:
                     continue
             browser.close()
-            print(f"{name}: {len(odds)} matches extracted")
+            print(f"BetPawa: {len(odds)} matches extracted")
     except Exception as e:
-        print(f"{name} error: {e}")
+        print(f"BetPawa error: {e}")
+    return odds
+
+def scrape_fortebet():
+    odds = []
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(user_agent='Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36')
+            page.goto('https://desktop.fortebet.ug/prematch/landing', timeout=60000)
+            page.wait_for_timeout(8000)
+            html = page.content()
+            print(f"Fortebet loaded: {len(html)} bytes")
+            rows = page.query_selector_all('.event-row, .match-row, .game-row, [class*="event"], [class*="match"]')
+            print(f"Fortebet: found {len(rows)} rows")
+            for row in rows[:60]:
+                try:
+                    text = row.inner_text()
+                    parts = [p.strip() for p in text.split('\n') if p.strip()]
+                    teams = []
+                    odd_values = []
+                    skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1X2','Over','Under','Total','Score']
+                    for part in parts:
+                        if re.match(r'^\d+\.\d+$', part):
+                            odd_values.append(float(part))
+                        elif part in ['1','X','2','1X','X2','12']:
+                            continue
+                        elif any(s in part for s in skip):
+                            continue
+                        elif re.match(r'^\d+:\d+', part):
+                            continue
+                        elif len(part) > 2:
+                            teams.append(part)
+                    if len(teams) >= 2 and len(odd_values) >= 3:
+                        odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': 'Fortebet','competition': '','home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
+                except:
+                    continue
+            browser.close()
+            print(f"Fortebet: {len(odds)} matches extracted")
+    except Exception as e:
+        print(f"Fortebet error: {e}")
     return odds
 
 def find_arbitrage(all_odds):
@@ -84,15 +122,16 @@ def main():
     print(f"Scraper started: {datetime.utcnow()}")
     all_odds = []
     scraped = []
-    BOOKMAKERS = [
-        {'name': 'BetPawa', 'url': 'https://www.betpawa.ug/events?categoryId=2&marketId=1X2'},
-        {'name': 'Fortebet', 'url': 'https://desktop.fortebet.ug/prematch/landing'},
-    ]
-    for bm in BOOKMAKERS:
-        odds = scrape_site(bm['name'], bm['url'])
-        all_odds.extend(odds)
-        if odds:
-            scraped.append(bm['name'])
+    print("Scraping BetPawa...")
+    bp = scrape_betpawa()
+    all_odds.extend(bp)
+    if bp:
+        scraped.append('BetPawa')
+    print("Scraping Fortebet...")
+    fb = scrape_fortebet()
+    all_odds.extend(fb)
+    if fb:
+        scraped.append('Fortebet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),'total_matches': len(all_odds),'bookmakers_scraped': scraped,'opportunities': opportunities,'raw_odds': all_odds}
