@@ -69,10 +69,17 @@ def scrape_fortebet():
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         inner = data.get('data', {})
-        print(f"Fortebet data keys: {list(inner.keys()) if isinstance(inner, dict) else type(inner)}")
-        if isinstance(inner, dict):
-            for key, val in inner.items():
-                print(f"  Key: {key} -> type: {type(val)}, len: {len(val) if hasattr(val,'__len__') else 'N/A'}")
+        events = inner.get('event', {})
+        markets = inner.get('markets', {})
+        competitors = inner.get('competitors', {})
+        print(f"Fortebet: {len(events)} events, {len(markets)} markets, {len(competitors)} competitors")
+        # Print first event to understand structure
+        for eid, event in list(events.items())[:1]:
+            print(f"Sample event: {json.dumps(event)[:300]}")
+        for mid, market in list(markets.items())[:1]:
+            print(f"Sample market: {json.dumps(market)[:300]}")
+        for cid, comp in list(competitors.items())[:1]:
+            print(f"Sample competitor: {json.dumps(comp)[:300]}")
         print(f"Fortebet: {len(odds)} matches extracted")
     except Exception as e:
         print(f"Fortebet error: {e}")
