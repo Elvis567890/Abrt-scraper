@@ -73,14 +73,48 @@ def scrape_fortebet():
         markets = inner.get('markets', {})
         competitors = inner.get('competitors', {})
         print(f"Fortebet: {len(events)} events, {len(markets)} markets, {len(competitors)} competitors")
-        # Print first event to understand structure
-        for eid, event in list(events.items())[:1]:
-            print(f"Sample event: {json.dumps(event)[:300]}")
-        for mid, market in list(markets.items())[:1]:
-            print(f"Sample market: {json.dumps(market)[:300]}")
-        for cid, comp in list(competitors.items())[:1]:
-            print(f"Sample competitor: {json.dumps(comp)[:300]}")
-        print(f"Fortebet: {len(odds)} matches extracted")
+
+        # Build event_id -> market lookup
+        event_markets = {}
+        for mid, market in markets.items():
+            eid = market.get('eventId','')
+            if eid not in event_markets:
+                event_markets[eid] = []
+            event_markets[eid].append(market)
+
+        football_count = 0
+        for eid, event in events.items():
+            try:
+                comp_ids = event.get('competitors', [])
+                if len(comp_ids) < 2:
+                    continue
+                home_team = competitors.get(str(comp_ids[0]), {}).get('name','')
+                away_team = competitors.get(str(comp_ids[1]), {}).get('name','')
+                if not home_team or not away_team:
+                    continue
+                # Find 1X2 market (marketId=1)
+                h_odd = None
+                d_odd = None
+                a_odd = None
+                for market in event_markets.get(eid, []):
+                    if market.get('marketId') == 1:
+                        mkt_odds = market.get('odds', {})
+                        odd_list = []
+                        for k, v in mkt_odds.items():
+                            if isinstance(v, dict) and 'odds' in v:
+                                odd_list.append((v.get('outcomeId', 0), float(v['odds'])))
+                        odd_list.sort(key=lambda x: x[0])
+                        if len(odd_list) >= 3:
+                            h_odd = odd_list[0][1]
+                            d_odd = odd_list[1][1]
+                            a_odd = odd_list[2][1]
+                        break
+                if h_odd and a_odd:
+                    football_count += 1
+                    odds.append({'match': f"{home_team} vs {away_team}",'home_team': home_team,'away_team': away_team,'bookmaker': 'Fortebet','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
+            except:
+                continue
+        print(f"Fortebet: {football_count} matches extracted")
     except Exception as e:
         print(f"Fortebet error: {e}")
     return odds
