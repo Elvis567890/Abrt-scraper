@@ -1,30 +1,11 @@
 {
-  "last_updated": "2026-06-20 18:27 UTC",
+  "last_updated": "2026-06-20 18:37 UTC",
   "total_matches": 265,
   "bookmakers_scraped": [
     "BetPawa",
     "Fortebet"
   ],
   "opportunities": [
-    {
-      "match": "norway vs senegal",
-      "type": "2-way",
-      "profit_percent": 25.18,
-      "bets": [
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Home",
-          "odd": 2.27,
-          "stake": 58877
-        },
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Away",
-          "odd": 3.25,
-          "stake": 41123
-        }
-      ]
-    },
     {
       "match": "argentina vs austria",
       "type": "2-way",
@@ -121,21 +102,21 @@
       ]
     },
     {
-      "match": "portugal vs uzbekistan",
+      "match": "deportes linares vs deportes rengo",
       "type": "2-way",
-      "profit_percent": 11.11,
+      "profit_percent": 16.88,
       "bets": [
         {
           "bookmaker": "Fortebet",
           "outcome": "Home",
-          "odd": 1.21,
-          "stake": 92969
+          "odd": 1.54,
+          "stake": 78125
         },
         {
-          "bookmaker": "Fortebet",
+          "bookmaker": "BetPawa",
           "outcome": "Away",
-          "odd": 16.0,
-          "stake": 7031
+          "odd": 5.5,
+          "stake": 21875
         }
       ]
     },
@@ -199,72 +180,6 @@
   ],
   "raw_odds": [
     {
-      "match": "Real Pilar FC vs CA Villa San Carlos",
-      "home_team": "Real Pilar FC",
-      "away_team": "CA Villa San Carlos",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Argentina / Primera B",
-      "home": 1.74,
-      "draw": 3.36,
-      "away": 5.06,
-      "sport": "Football"
-    },
-    {
-      "match": "Villa Dalmine vs CS Italiano",
-      "home_team": "Villa Dalmine",
-      "away_team": "CS Italiano",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Argentina / Primera B",
-      "home": 2.38,
-      "draw": 2.82,
-      "away": 3.4,
-      "sport": "Football"
-    },
-    {
-      "match": "AL Ansar SC vs Al Ahed FC",
-      "home_team": "AL Ansar SC",
-      "away_team": "Al Ahed FC",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Lebanon / Premier League",
-      "home": 1.69,
-      "draw": 3.57,
-      "away": 4.57,
-      "sport": "Football"
-    },
-    {
-      "match": "CA Acassuso vs CA San Miguel",
-      "home_team": "CA Acassuso",
-      "away_team": "CA San Miguel",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Argentina / Primera Nacional",
-      "home": 3.24,
-      "draw": 2.65,
-      "away": 2.6,
-      "sport": "Football"
-    },
-    {
-      "match": "CD Armenio vs CSD Flandria",
-      "home_team": "CD Armenio",
-      "away_team": "CSD Flandria",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Argentina / Primera B",
-      "home": 2.14,
-      "draw": 2.92,
-      "away": 3.84,
-      "sport": "Football"
-    },
-    {
-      "match": "Ferro Carril Oeste Women vs CA Independiente Women",
-      "home_team": "Ferro Carril Oeste Women",
-      "away_team": "CA Independiente Women",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Argentina / Primera Division, Women",
-      "home": 1.65,
-      "draw": 3.38,
-      "away": 5.33,
-      "sport": "Football"
-    },
-    {
       "match": "Deportes Copiapo vs CD Universidad Catolica",
       "home_team": "Deportes Copiapo",
       "away_team": "CD Universidad Catolica",
@@ -314,9 +229,9 @@
       "away_team": "Colon de Santa Fe",
       "bookmaker": "BetPawa",
       "competition": "Football / Argentina / Primera Nacional",
-      "home": 4.7,
+      "home": 4.8,
       "draw": 3.08,
-      "away": 1.88,
+      "away": 1.86,
       "sport": "Football"
     },
     {
@@ -358,9 +273,9 @@
       "away_team": "Universidad Catolica Women",
       "bookmaker": "BetPawa",
       "competition": "Football / Chile / Primera Division, Women",
-      "home": 6.89,
-      "draw": 4.78,
-      "away": 1.36,
+      "home": 6.69,
+      "draw": 4.68,
+      "away": 1.38,
       "sport": "Football"
     },
     {
@@ -394,6 +309,83 @@
       "home": 1.44,
       "draw": 4.94,
       "away": 6.61,
+      "sport": "Football"
+    },
+    {
+      "match": "CD Trasandino de Los Andes vs Santiago City FC",
+      "home_team": "CD Trasandino de Los Andes",
+      "away_team": "Santiago City FC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Chile / Segunda Division",
+      "home": 2.44,
+      "draw": 3.29,
+      "away": 2.66,
+      "sport": "Football"
+    },
+    {
+      "match": "Deportes Linares vs Deportes Rengo",
+      "home_team": "Deportes Linares",
+      "away_team": "Deportes Rengo",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Chile / Segunda Division",
+      "home": 1.53,
+      "draw": 3.93,
+      "away": 5.5,
+      "sport": "Football"
+    },
+    {
+      "match": "Botafogo FC PB vs Volta Redonda FC RJ",
+      "home_team": "Botafogo FC PB",
+      "away_team": "Volta Redonda FC RJ",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Brazil / Brasileiro Serie C",
+      "home": 1.97,
+      "draw": 3.05,
+      "away": 3.91,
+      "sport": "Football"
+    },
+    {
+      "match": "Union Comercio vs AD Comerciantes FC",
+      "home_team": "Union Comercio",
+      "away_team": "AD Comerciantes FC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Peru / Copa de la Liga",
+      "home": 2.16,
+      "draw": 3.0,
+      "away": 3.3,
+      "sport": "Football"
+    },
+    {
+      "match": "Philadelphia Lone Star Usl2 vs Delaware FC",
+      "home_team": "Philadelphia Lone Star Usl2",
+      "away_team": "Delaware FC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / USA / USL League Two",
+      "home": 1.73,
+      "draw": 4.29,
+      "away": 3.57,
+      "sport": "Football"
+    },
+    {
+      "match": "Atletico Oriente vs Aguara",
+      "home_team": "Atletico Oriente",
+      "away_team": "Aguara",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Chile / Chile Tercera Division",
+      "home": 2.54,
+      "draw": 3.59,
+      "away": 2.39,
+      "sport": "Football"
+    },
+    {
+      "match": "Resende FC RJ vs Serrano FC RJ",
+      "home_team": "Resende FC RJ",
+      "away_team": "Serrano FC RJ",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Brazil / Carioca, Serie A2",
+      "home": 1.66,
+      "draw": 3.15,
+      "away": 5.0,
       "sport": "Football"
     },
     {
@@ -460,6 +452,28 @@
       "home": 2.49,
       "draw": 3.56,
       "away": 2.58,
+      "sport": "Football"
+    },
+    {
+      "match": "Phoenix Rising FC vs Oakland Roots SC",
+      "home_team": "Phoenix Rising FC",
+      "away_team": "Oakland Roots SC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / USA / USL Championship",
+      "home": 2.11,
+      "draw": 3.64,
+      "away": 3.11,
+      "sport": "Football"
+    },
+    {
+      "match": "Las Vegas Lights vs Orange County SC",
+      "home_team": "Las Vegas Lights",
+      "away_team": "Orange County SC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / USA / USL Championship",
+      "home": 2.13,
+      "draw": 3.53,
+      "away": 3.15,
       "sport": "Football"
     },
     {
@@ -537,28 +551,6 @@
       "home": 1.06,
       "draw": 12.73,
       "away": 33.5,
-      "sport": "Football"
-    },
-    {
-      "match": "Norway vs Senegal",
-      "home_team": "Norway",
-      "away_team": "Senegal",
-      "bookmaker": "BetPawa",
-      "competition": "Football / International / FIFA World Cup",
-      "home": 2.26,
-      "draw": 3.46,
-      "away": 3.14,
-      "sport": "Football"
-    },
-    {
-      "match": "Portugal vs Uzbekistan",
-      "home_team": "Portugal",
-      "away_team": "Uzbekistan",
-      "bookmaker": "BetPawa",
-      "competition": "Football / International / FIFA World Cup",
-      "home": 1.18,
-      "draw": 7.26,
-      "away": 15.45,
       "sport": "Football"
     },
     {
@@ -1343,17 +1335,6 @@
       "sport": "Football"
     },
     {
-      "match": "Sao Luiz vs Blumenau EC ",
-      "home_team": "Sao Luiz",
-      "away_team": "Blumenau EC ",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.49,
-      "draw": 2.67,
-      "away": 3.0,
-      "sport": "Football"
-    },
-    {
       "match": "Aparecidense vs Capital ",
       "home_team": "Aparecidense",
       "away_team": "Capital ",
@@ -1612,9 +1593,9 @@
       "away_team": "Tampa Bay",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.75,
-      "draw": 4.05,
-      "away": 1.59,
+      "home": 4.55,
+      "draw": 4.0,
+      "away": 1.62,
       "sport": "Football"
     },
     {
@@ -2036,61 +2017,6 @@
       "sport": "Football"
     },
     {
-      "match": "Real Pilar vs Villa San Carlos",
-      "home_team": "Real Pilar",
-      "away_team": "Villa San Carlos",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.72,
-      "draw": 3.2,
-      "away": 4.65,
-      "sport": "Football"
-    },
-    {
-      "match": "Villa Dalmine vs Sp. Italiano",
-      "home_team": "Villa Dalmine",
-      "away_team": "Sp. Italiano",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.32,
-      "draw": 2.7,
-      "away": 3.25,
-      "sport": "Football"
-    },
-    {
-      "match": "Excursionistas vs Atl. Camioneros",
-      "home_team": "Excursionistas",
-      "away_team": "Atl. Camioneros",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.81,
-      "draw": 3.05,
-      "away": 4.35,
-      "sport": "Football"
-    },
-    {
-      "match": "Dep. Armenio vs Flandria",
-      "home_team": "Dep. Armenio",
-      "away_team": "Flandria",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.1,
-      "draw": 2.82,
-      "away": 3.55,
-      "sport": "Football"
-    },
-    {
-      "match": "Ferro W  vs Independiente W",
-      "home_team": "Ferro W ",
-      "away_team": "Independiente W",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.67,
-      "draw": 3.3,
-      "away": 4.8,
-      "sport": "Football"
-    },
-    {
       "match": "Racing Club W vs River Plate W",
       "home_team": "Racing Club W",
       "away_team": "River Plate W",
@@ -2102,25 +2028,14 @@
       "sport": "Football"
     },
     {
-      "match": "Acassuso vs San Miguel",
-      "home_team": "Acassuso",
-      "away_team": "San Miguel",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 3.25,
-      "draw": 2.67,
-      "away": 2.62,
-      "sport": "Football"
-    },
-    {
       "match": "Chaco For Ever vs Colon Santa Fe",
       "home_team": "Chaco For Ever",
       "away_team": "Colon Santa Fe",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.55,
+      "home": 4.75,
       "draw": 3.1,
-      "away": 1.92,
+      "away": 1.89,
       "sport": "Football"
     },
     {
@@ -2465,17 +2380,6 @@
       "sport": "Football"
     },
     {
-      "match": "Al Ansar vs Al Ahed",
-      "home_team": "Al Ansar",
-      "away_team": "Al Ahed",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.75,
-      "draw": 3.2,
-      "away": 4.4,
-      "sport": "Football"
-    },
-    {
       "match": "New York City II vs Chattanooga ",
       "home_team": "New York City II",
       "away_team": "Chattanooga ",
@@ -2602,9 +2506,9 @@
       "away_team": "U. De Concepcion",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.25,
-      "draw": 3.65,
-      "away": 1.97,
+      "home": 3.5,
+      "draw": 3.7,
+      "away": 1.88,
       "sport": "Football"
     },
     {
@@ -3111,6 +3015,83 @@
       "home": 2.83,
       "draw": 2.8,
       "away": 2.5,
+      "sport": "Football"
+    },
+    {
+      "match": "Palestino W vs U. Catolica W",
+      "home_team": "Palestino W",
+      "away_team": "U. Catolica W",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 5.9,
+      "draw": 4.4,
+      "away": 1.4,
+      "sport": "Football"
+    },
+    {
+      "match": "Shelbourne vs Bohemians",
+      "home_team": "Shelbourne",
+      "away_team": "Bohemians",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.69,
+      "draw": 3.15,
+      "away": 2.67,
+      "sport": "Football"
+    },
+    {
+      "match": "Shamrock vs Derry City",
+      "home_team": "Shamrock",
+      "away_team": "Derry City",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.9,
+      "draw": 3.35,
+      "away": 4.15,
+      "sport": "Football"
+    },
+    {
+      "match": "Al Shabab vs Al Jahra",
+      "home_team": "Al Shabab",
+      "away_team": "Al Jahra",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.86,
+      "draw": 3.45,
+      "away": 3.55,
+      "sport": "Football"
+    },
+    {
+      "match": "Al Tadamon vs Al Nassr",
+      "home_team": "Al Tadamon",
+      "away_team": "Al Nassr",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.97,
+      "draw": 3.1,
+      "away": 2.21,
+      "sport": "Football"
+    },
+    {
+      "match": "Agadir vs Union Touarga",
+      "home_team": "Agadir",
+      "away_team": "Union Touarga",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.84,
+      "draw": 3.15,
+      "away": 4.0,
+      "sport": "Football"
+    },
+    {
+      "match": "Maghreb Fez vs Berkane",
+      "home_team": "Maghreb Fez",
+      "away_team": "Berkane",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.2,
+      "draw": 2.9,
+      "away": 3.2,
       "sport": "Football"
     }
   ]
