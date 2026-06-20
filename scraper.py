@@ -68,53 +68,11 @@ def scrape_fortebet():
         })
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
-        print(f"Fortebet API response keys: {list(data.keys()) if isinstance(data, dict) else type(data)}")
-        # Try to find football matches
-        events = []
-        if isinstance(data, dict):
-            # Search recursively for events
-            def find_events(obj, depth=0):
-                if depth > 5:
-                    return
-                if isinstance(obj, list):
-                    for item in obj:
-                        find_events(item, depth+1)
-                elif isinstance(obj, dict):
-                    # Check if this looks like a match
-                    keys = set(obj.keys())
-                    if any(k in keys for k in ['homeTeam','home_team','homeName','home','teamHome']):
-                        events.append(obj)
-                    else:
-                        for v in obj.values():
-                            find_events(v, depth+1)
-            find_events(data)
-        elif isinstance(data, list):
-            events = data
-        print(f"Fortebet: found {len(events)} events in API")
-        for event in events[:100]:
-            try:
-                # Try common field names
-                home = event.get('homeTeam') or event.get('home_team') or event.get('homeName') or event.get('teamHome','')
-                away = event.get('awayTeam') or event.get('away_team') or event.get('awayName') or event.get('teamAway','')
-                if not home or not away:
-                    continue
-                # Find odds
-                h_odd = None
-                d_odd = None
-                a_odd = None
-                markets = event.get('markets') or event.get('odds') or event.get('bets') or []
-                for market in markets:
-                    if isinstance(market, dict):
-                        outcomes = market.get('outcomes') or market.get('selections') or []
-                        if len(outcomes) >= 3:
-                            h_odd = float(outcomes[0].get('odds') or outcomes[0].get('odd') or outcomes[0].get('value') or 0)
-                            d_odd = float(outcomes[1].get('odds') or outcomes[1].get('odd') or outcomes[1].get('value') or 0)
-                            a_odd = float(outcomes[2].get('odds') or outcomes[2].get('odd') or outcomes[2].get('value') or 0)
-                            break
-                if h_odd and a_odd:
-                    odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'Fortebet','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
-            except:
-                continue
+        inner = data.get('data', {})
+        print(f"Fortebet data keys: {list(inner.keys()) if isinstance(inner, dict) else type(inner)}")
+        if isinstance(inner, dict):
+            for key, val in inner.items():
+                print(f"  Key: {key} -> type: {type(val)}, len: {len(val) if hasattr(val,'__len__') else 'N/A'}")
         print(f"Fortebet: {len(odds)} matches extracted")
     except Exception as e:
         print(f"Fortebet error: {e}")
