@@ -23,8 +23,7 @@ def scrape_betpawa():
             print(f"BetPawa loaded: {len(html)} bytes")
             links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
             print(f"BetPawa: found {len(links)} links")
-            skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1UP','2UP','1X2','Double','Both','Over','Under','Total','Score','Chance','Teams','Interval','minutes','First']
-            for link in links[:60]:
+            
                 try:
                     text = link.inner_text()
                     parts = [p.strip() for p in text.split('\n') if p.strip()]
@@ -74,10 +73,16 @@ def scrape_fortebet():
         competitors = inner.get('competitors', {})
         print(f"Fortebet: {len(events)} events, {len(markets)} markets, {len(competitors)} competitors")
 
-        # Build event_id -> market lookup
+        # Print first event key and value to understand ID format
+        for eid, event in list(events.items())[:2]:
+            print(f"Event key: {eid}, value: {json.dumps(event)[:150]}")
+        for mid, market in list(markets.items())[:2]:
+            print(f"Market key: {mid}, eventId: {market.get('eventId')}, marketId: {market.get('marketId')}")
+
+        # Build marketEventId -> list of markets
         event_markets = {}
         for mid, market in markets.items():
-            eid = market.get('eventId','')
+            eid = str(market.get('eventId',''))
             if eid not in event_markets:
                 event_markets[eid] = []
             event_markets[eid].append(market)
@@ -92,11 +97,12 @@ def scrape_fortebet():
                 away_team = competitors.get(str(comp_ids[1]), {}).get('name','')
                 if not home_team or not away_team:
                     continue
-                # Find 1X2 market (marketId=1)
+                # Try matching market by event key directly
+                mkt_list = event_markets.get(eid, []) or event_markets.get(str(eid), [])
                 h_odd = None
                 d_odd = None
                 a_odd = None
-                for market in event_markets.get(eid, []):
+                for market in mkt_list:
                     if market.get('marketId') == 1:
                         mkt_odds = market.get('odds', {})
                         odd_list = []
