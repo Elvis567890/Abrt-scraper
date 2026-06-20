@@ -7,13 +7,9 @@ import urllib.request
 def scrape_betpawa():
     odds = []
     seen_matches = set()
-    # Try multiple pages to get more matches
     urls = [
         'https://www.betpawa.ug/events?categoryId=2&marketId=1X2',
         'https://www.betpawa.ug/events/popular',
-        'https://www.betpawa.ug/events?categoryId=2&marketId=1X2&dateFilter=TODAY',
-        'https://www.betpawa.ug/events?categoryId=2&marketId=1X2&dateFilter=TOMORROW',
-        'https://www.betpawa.ug/events?categoryId=2&marketId=1X2&dateFilter=FUTURE',
     ]
     skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1UP','2UP','1X2','Double','Both','Over','Under','Total','Score','Chance','Teams','Interval','minutes','First']
     try:
@@ -28,7 +24,7 @@ def scrape_betpawa():
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
             for url in urls:
                 try:
-                    print(f"BetPawa scraping: {url}")
+                    print(f"BetPawa: {url}")
                     page.goto(url, timeout=60000)
                     page.wait_for_timeout(6000)
                     links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
@@ -64,10 +60,9 @@ def scrape_betpawa():
                                     odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': 'BetPawa','competition': competition,'home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
                         except:
                             continue
-                    print(f"  New matches from this page: {page_odds}")
+                    print(f"  New matches: {page_odds}")
                 except Exception as e:
                     print(f"  Page failed: {e}")
-                    continue
             browser.close()
         print(f"BetPawa total: {len(odds)} matches extracted")
     except Exception as e:
@@ -132,6 +127,79 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
+def scrape_sportpesa():
+    odds = []
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
+            context = browser.new_context(
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                locale='en-UG',
+                viewport={'width': 1280, 'height': 800}
+            )
+            page = context.new_page()
+            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            api_data = []
+            def handle_response(response):
+                try:
+                    if response.status == 200:
+                        ct = response.headers.get('content-type','')
+                        if 'json' in ct:
+                            data = response.json()
+                            api_data.append({'url': response.url, 'data': data})
+                            print(f"SportPesa API: {response.url[:100]}")
+                except:
+                    pass
+            page.on('response', handle_response)
+            print("Opening SportPesa...")
+            page.goto('https://www.sportpesa.ug/games/1/leagues?sport=1&top=1&country=0&region=1', timeout=60000)
+            page.wait_for_timeout(10000)
+            html = page.content()
+            print(f"SportPesa loaded: {len(html)} bytes, API calls: {len(api_data)}")
+            for item in api_data:
+                try:
+                    d = item['data']
+                    events = []
+                    if isinstance(d, dict):
+                        for key in ['games','events','data','matches','items']:
+                            if key in d and isinstance(d[key], list):
+                                events = d[key]
+                                print(f"SportPesa: found {len(events)} events under '{key}'")
+                                break
+                    elif isinstance(d, list):
+                        events = d
+                    for event in events:
+                        if not isinstance(event, dict):
+                            continue
+                        home = (event.get('home_team') or event.get('homeName') or
+                                event.get('HomeTeam') or event.get('home',''))
+                        away = (event.get('away_team') or event.get('awayName') or
+                                event.get('AwayTeam') or event.get('away',''))
+                        if not home or not away:
+                            continue
+                        h_odd = d_odd = a_odd = None
+                        picks = event.get('picks', event.get('odds', event.get('markets', [])))
+                        for pick in picks:
+                            if not isinstance(pick, dict):
+                                continue
+                            odd_val = float(pick.get('odd', pick.get('odds', pick.get('value', 0))))
+                            pick_name = str(pick.get('pick', pick.get('name', pick.get('outcome', ''))))
+                            if pick_name in ['1','home','Home','W1']:
+                                h_odd = odd_val
+                            elif pick_name in ['X','draw','Draw']:
+                                d_odd = odd_val
+                            elif pick_name in ['2','away','Away','W2']:
+                                a_odd = odd_val
+                        if h_odd and a_odd:
+                            odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'SportPesa','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
+                except:
+                    continue
+            browser.close()
+        print(f"SportPesa: {len(odds)} matches extracted")
+    except Exception as e:
+        print(f"SportPesa error: {e}")
+    return odds
+
 def find_arbitrage(all_odds):
     opportunities = []
     STAKE = 100000
@@ -175,6 +243,10 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
+    print("Scraping SportPesa...")
+    sp = scrape_sportpesa()
+    all_odds.extend(sp)
+    if sp: scraped.append('SportPesa')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),'total_matches': len(all_odds),'bookmakers_scraped': scraped,'opportunities': opportunities,'raw_odds': all_odds}
