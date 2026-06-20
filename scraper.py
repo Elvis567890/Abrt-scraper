@@ -152,7 +152,7 @@ def scrape_sportpesa():
                     pass
             page.on('response', handle_response)
             print("Opening SportPesa...")
-            page.goto('https://www.sportpesa.ug/games/1/leagues?sport=1&top=1&country=0&region=1', timeout=60000)
+            page.goto('https://sportpesa.ug/sports/1/leagues?sport=1&top=1&country=0&region=1', timeout=60000)
             page.wait_for_timeout(10000)
             html = page.content()
             print(f"SportPesa loaded: {len(html)} bytes, API calls: {len(api_data)}")
@@ -161,10 +161,10 @@ def scrape_sportpesa():
                     d = item['data']
                     events = []
                     if isinstance(d, dict):
-                        for key in ['games','events','data','matches','items']:
+                        for key in ['games','events','data','matches','items','leagues']:
                             if key in d and isinstance(d[key], list):
                                 events = d[key]
-                                print(f"SportPesa: found {len(events)} events under '{key}'")
+                                print(f"SportPesa: {len(events)} items under '{key}'")
                                 break
                     elif isinstance(d, list):
                         events = d
