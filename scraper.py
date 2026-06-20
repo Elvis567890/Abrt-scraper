@@ -127,7 +127,7 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_sportpesa():
+def scrape_betway():
     odds = []
     try:
         with sync_playwright() as p:
@@ -147,57 +147,57 @@ def scrape_sportpesa():
                         if 'json' in ct:
                             data = response.json()
                             api_data.append({'url': response.url, 'data': data})
-                            print(f"SportPesa API: {response.url[:100]}")
+                            print(f"Betway API: {response.url[:100]}")
                 except:
                     pass
             page.on('response', handle_response)
-            print("Opening SportPesa...")
-            page.goto('https://sportpesa.ug/sports/1/leagues?sport=1&top=1&country=0&region=1', timeout=60000)
-            page.wait_for_timeout(10000)
+            print("Opening Betway...")
+            page.goto('https://www.betway.ug/sport/football', timeout=60000)
+            page.wait_for_timeout(12000)
             html = page.content()
-            print(f"SportPesa loaded: {len(html)} bytes, API calls: {len(api_data)}")
+            print(f"Betway loaded: {len(html)} bytes, API calls: {len(api_data)}")
             for item in api_data:
                 try:
                     d = item['data']
                     events = []
                     if isinstance(d, dict):
-                        for key in ['games','events','data','matches','items','leagues']:
+                        for key in ['events','data','matches','items','fixtures','content']:
                             if key in d and isinstance(d[key], list):
                                 events = d[key]
-                                print(f"SportPesa: {len(events)} items under '{key}'")
+                                print(f"Betway: {len(events)} items under '{key}' from {item['url'][:60]}")
                                 break
                     elif isinstance(d, list):
                         events = d
                     for event in events:
                         if not isinstance(event, dict):
                             continue
-                        home = (event.get('home_team') or event.get('homeName') or
-                                event.get('HomeTeam') or event.get('home',''))
-                        away = (event.get('away_team') or event.get('awayName') or
-                                event.get('AwayTeam') or event.get('away',''))
+                        home = (event.get('homeTeam',{}).get('name','') or
+                                event.get('home_team','') or event.get('homeName','') or
+                                event.get('home',''))
+                        away = (event.get('awayTeam',{}).get('name','') or
+                                event.get('away_team','') or event.get('awayName','') or
+                                event.get('away',''))
                         if not home or not away:
                             continue
                         h_odd = d_odd = a_odd = None
-                        picks = event.get('picks', event.get('odds', event.get('markets', [])))
-                        for pick in picks:
-                            if not isinstance(pick, dict):
+                        markets = event.get('markets', event.get('odds', []))
+                        for market in markets:
+                            if not isinstance(market, dict):
                                 continue
-                            odd_val = float(pick.get('odd', pick.get('odds', pick.get('value', 0))))
-                            pick_name = str(pick.get('pick', pick.get('name', pick.get('outcome', ''))))
-                            if pick_name in ['1','home','Home','W1']:
-                                h_odd = odd_val
-                            elif pick_name in ['X','draw','Draw']:
-                                d_odd = odd_val
-                            elif pick_name in ['2','away','Away','W2']:
-                                a_odd = odd_val
+                            selections = market.get('selections', market.get('outcomes', []))
+                            if len(selections) >= 3:
+                                h_odd = float(selections[0].get('price', selections[0].get('odds', 0)))
+                                d_odd = float(selections[1].get('price', selections[1].get('odds', 0)))
+                                a_odd = float(selections[2].get('price', selections[2].get('odds', 0)))
+                                break
                         if h_odd and a_odd:
-                            odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'SportPesa','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
+                            odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'Betway','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
                 except:
                     continue
             browser.close()
-        print(f"SportPesa: {len(odds)} matches extracted")
+        print(f"Betway: {len(odds)} matches extracted")
     except Exception as e:
-        print(f"SportPesa error: {e}")
+        print(f"Betway error: {e}")
     return odds
 
 def find_arbitrage(all_odds):
@@ -243,10 +243,10 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping SportPesa...")
-    sp = scrape_sportpesa()
-    all_odds.extend(sp)
-    if sp: scraped.append('SportPesa')
+    print("Scraping Betway...")
+    bw = scrape_betway()
+    all_odds.extend(bw)
+    if bw: scraped.append('Betway')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),'total_matches': len(all_odds),'bookmakers_scraped': scraped,'opportunities': opportunities,'raw_odds': all_odds}
