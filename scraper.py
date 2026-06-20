@@ -16,15 +16,38 @@ def scrape_betpawa():
             )
             page = context.new_page()
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            # Intercept API calls
+            api_data = []
+            def handle_response(response):
+                try:
+                    if response.status == 200:
+                        ct = response.headers.get('content-type','')
+                        url = response.url
+                        if 'json' in ct and any(x in url for x in ['event','odds','match','market','sport']):
+                            data = response.json()
+                            api_data.append({'url': url, 'data': data})
+                            print(f"BetPawa API: {url[:100]}")
+                except:
+                    pass
+            page.on('response', handle_response)
             print("Opening BetPawa...")
             page.goto('https://www.betpawa.ug/events?categoryId=2&marketId=1X2', timeout=60000)
-            page.wait_for_timeout(8000)
+            page.wait_for_timeout(5000)
+            # Scroll down multiple times to load more matches
+            print("Scrolling BetPawa to load more matches...")
+            for i in range(10):
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                page.wait_for_timeout(2000)
+                links_count = len(page.query_selector_all('a[href*="/event/"], a[href*="/match/"]'))
+                print(f"Scroll {i+1}: {links_count} links found")
+                if links_count > 150:
+                    break
             html = page.content()
             print(f"BetPawa loaded: {len(html)} bytes")
             links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
-            print(f"BetPawa: found {len(links)} links")
+            print(f"BetPawa: found {len(links)} links total")
             skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1UP','2UP','1X2','Double','Both','Over','Under','Total','Score','Chance','Teams','Interval','minutes','First']
-            for link in links[:60]:
+            for link in links[:200]:
                 try:
                     text = link.inner_text()
                     parts = [p.strip() for p in text.split('\n') if p.strip()]
@@ -114,59 +137,6 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_1xbet():
-    odds = []
-    try:
-        print("Fetching 1xBet API...")
-        urls_to_try = [
-            'https://1xbet.ug/fatman-api/a6f69e4388362d761ee5bb073edb23ae3d9341fb/event.json',
-            'https://1xbet.ug/bff-api/config/v2/contacts.json?lang=en&country=153&isVipUser=false&d=1xbet.ug&g=US',
-        ]
-        for api_url in urls_to_try:
-            try:
-                req = urllib.request.Request(api_url, headers={
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-                    'Accept': 'application/json',
-                    'Referer': 'https://1xbet.ug/en/line/football'
-                })
-                with urllib.request.urlopen(req, timeout=30) as resp:
-                    raw = resp.read().decode()
-                data = json.loads(raw)
-                print(f"1xBet response keys: {list(data.keys()) if isinstance(data, dict) else type(data)}")
-                print(f"1xBet sample: {raw[:300]}")
-                events = []
-                if isinstance(data, dict):
-                    events = data.get('Value', data.get('data', data.get('events', [])))
-                elif isinstance(data, list):
-                    events = data
-                if not isinstance(events, list):
-                    continue
-                for event in events:
-                    if not isinstance(event, dict):
-                        continue
-                    home = event.get('O1','')
-                    away = event.get('O2','')
-                    if not home or not away:
-                        continue
-                    h_odd = d_odd = a_odd = None
-                    for e in event.get('E', []):
-                        t = e.get('T')
-                        coef = e.get('C', 0)
-                        if t == 1: h_odd = float(coef)
-                        elif t == 2: d_odd = float(coef)
-                        elif t == 3: a_odd = float(coef)
-                    if h_odd and a_odd:
-                        odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': '1xBet','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
-                if odds:
-                    break
-            except Exception as e:
-                print(f"1xBet URL failed: {e}")
-                continue
-        print(f"1xBet: {len(odds)} matches extracted")
-    except Exception as e:
-        print(f"1xBet error: {e}")
-    return odds
-
 def find_arbitrage(all_odds):
     opportunities = []
     STAKE = 100000
@@ -210,10 +180,6 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping 1xBet...")
-    xb = scrape_1xbet()
-    all_odds.extend(xb)
-    if xb: scraped.append('1xBet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),'total_matches': len(all_odds),'bookmakers_scraped': scraped,'opportunities': opportunities,'raw_odds': all_odds}
