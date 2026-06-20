@@ -61,41 +61,26 @@ def scrape_fortebet():
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=['--no-sandbox'])
             page = browser.new_page(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
+            api_data = []
+            def handle_response(response):
+                try:
+                    if response.status == 200:
+                        ct = response.headers.get('content-type','')
+                        if 'json' in ct:
+                            data = response.json()
+                            api_data.append({'url': response.url, 'data': data})
+                            print(f"API caught: {response.url[:80]}")
+                except:
+                    pass
+            page.on('response', handle_response)
             print("Opening Fortebet...")
             page.goto('https://desktop.fortebet.ug/prematch/landing', timeout=60000)
-            page.wait_for_timeout(8000)
+            page.wait_for_timeout(10000)
             html = page.content()
             print(f"Fortebet loaded: {len(html)} bytes")
-            rows = page.query_selector_all('tr.market-row, div.event-row, div[class*="match"], tr[class*="event"], div[class*="event"]')
-            print(f"Fortebet: found {len(rows)} rows")
-            for row in rows[:80]:
-                try:
-                    text = row.inner_text()
-                    # Match format is "TEAM1 - TEAM2" on first line
-                    lines = [l.strip() for l in text.split('\n') if l.strip()]
-                    if not lines:
-                        continue
-                    # Skip navigation/menu rows
-                    skip_words = ['Today','Tomorrow','All','Hour','Hours','Reset','Odds','Top Bets','Australia','Europe','America','Tennis','Baseball','Basketball','FIFA','Asia','PDF','Offer','LIVE','selection']
-                    if any(w in lines[0] for w in skip_words):
-                        continue
-                    # Parse "TEAM1 - TEAM2"
-                    match_line = lines[0]
-                    if ' - ' in match_line:
-                        parts = match_line.split(' - ', 1)
-                        home_team = parts[0].strip()
-                        away_team = parts[1].strip()
-                    else:
-                        continue
-                    # Get odds from remaining lines
-                    odd_values = []
-                    for line in lines[1:]:
-                        if re.match(r'^\d+\.\d+$', line):
-                            odd_values.append(float(line))
-                    if len(odd_values) >= 3:
-                        odds.append({'match': f"{home_team} vs {away_team}",'home_team': home_team,'away_team': away_team,'bookmaker': 'Fortebet','competition': '','home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
-                except:
-                    continue
+            print(f"API calls caught: {len(api_data)}")
+            for item in api_data[:5]:
+                print(f"URL: {item['url'][:100]}")
             browser.close()
             print(f"Fortebet: {len(odds)} matches extracted")
     except Exception as e:
