@@ -24,7 +24,7 @@ def scrape_betpawa():
             links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
             print(f"BetPawa: found {len(links)} links")
             
-                try:
+
                     text = link.inner_text()
                     parts = [p.strip() for p in text.split('\n') if p.strip()]
                     teams = []
