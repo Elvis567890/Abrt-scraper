@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 from playwright.sync_api import sync_playwright
 import re
+import urllib.request
 
 def scrape_betpawa():
     odds = []
@@ -58,31 +59,63 @@ def scrape_betpawa():
 def scrape_fortebet():
     odds = []
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=['--no-sandbox'])
-            page = browser.new_page(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
-            api_data = []
-            def handle_response(response):
-                try:
-                    if response.status == 200:
-                        ct = response.headers.get('content-type','')
-                        if 'json' in ct:
-                            data = response.json()
-                            api_data.append({'url': response.url, 'data': data})
-                            print(f"API caught: {response.url[:80]}")
-                except:
-                    pass
-            page.on('response', handle_response)
-            print("Opening Fortebet...")
-            page.goto('https://desktop.fortebet.ug/prematch/landing', timeout=60000)
-            page.wait_for_timeout(10000)
-            html = page.content()
-            print(f"Fortebet loaded: {len(html)} bytes")
-            print(f"API calls caught: {len(api_data)}")
-            for item in api_data[:5]:
-                print(f"URL: {item['url'][:100]}")
-            browser.close()
-            print(f"Fortebet: {len(odds)} matches extracted")
+        print("Fetching Fortebet API...")
+        url = 'https://desktop.fortebet.ug/api/web/v1/offer/full-prematch-en'
+        req = urllib.request.Request(url, headers={
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'application/json',
+            'Referer': 'https://desktop.fortebet.ug/prematch/landing'
+        })
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())
+        print(f"Fortebet API response keys: {list(data.keys()) if isinstance(data, dict) else type(data)}")
+        # Try to find football matches
+        events = []
+        if isinstance(data, dict):
+            # Search recursively for events
+            def find_events(obj, depth=0):
+                if depth > 5:
+                    return
+                if isinstance(obj, list):
+                    for item in obj:
+                        find_events(item, depth+1)
+                elif isinstance(obj, dict):
+                    # Check if this looks like a match
+                    keys = set(obj.keys())
+                    if any(k in keys for k in ['homeTeam','home_team','homeName','home','teamHome']):
+                        events.append(obj)
+                    else:
+                        for v in obj.values():
+                            find_events(v, depth+1)
+            find_events(data)
+        elif isinstance(data, list):
+            events = data
+        print(f"Fortebet: found {len(events)} events in API")
+        for event in events[:100]:
+            try:
+                # Try common field names
+                home = event.get('homeTeam') or event.get('home_team') or event.get('homeName') or event.get('teamHome','')
+                away = event.get('awayTeam') or event.get('away_team') or event.get('awayName') or event.get('teamAway','')
+                if not home or not away:
+                    continue
+                # Find odds
+                h_odd = None
+                d_odd = None
+                a_odd = None
+                markets = event.get('markets') or event.get('odds') or event.get('bets') or []
+                for market in markets:
+                    if isinstance(market, dict):
+                        outcomes = market.get('outcomes') or market.get('selections') or []
+                        if len(outcomes) >= 3:
+                            h_odd = float(outcomes[0].get('odds') or outcomes[0].get('odd') or outcomes[0].get('value') or 0)
+                            d_odd = float(outcomes[1].get('odds') or outcomes[1].get('odd') or outcomes[1].get('value') or 0)
+                            a_odd = float(outcomes[2].get('odds') or outcomes[2].get('odd') or outcomes[2].get('value') or 0)
+                            break
+                if h_odd and a_odd:
+                    odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'Fortebet','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
+            except:
+                continue
+        print(f"Fortebet: {len(odds)} matches extracted")
     except Exception as e:
         print(f"Fortebet error: {e}")
     return odds
