@@ -6,32 +6,17 @@ import urllib.request
 
 def scrape_betpawa():
     odds = []
+    seen_matches = set()
+    # Try multiple pages to get more matches
+    urls = [
+        'https://www.betpawa.ug/events?categoryId=2&marketId=1X2',
+        'https://www.betpawa.ug/events/popular',
+        'https://www.betpawa.ug/events?categoryId=2&marketId=1X2&dateFilter=TODAY',
+        'https://www.betpawa.ug/events?categoryId=2&marketId=1X2&dateFilter=TOMORROW',
+        'https://www.betpawa.ug/events?categoryId=2&marketId=1X2&dateFilter=FUTURE',
+    ]
+    skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1UP','2UP','1X2','Double','Both','Over','Under','Total','Score','Chance','Teams','Interval','minutes','First']
     try:
-        print("Fetching BetPawa API directly...")
-        # Try BetPawa's direct odds API endpoints
-        urls_to_try = [
-            'https://www.betpawa.ug/api/sportsbook/v1/events?categoryId=2&marketId=1X2&limit=200',
-            'https://www.betpawa.ug/api/sportsbook/v1/leagues?categoryId=2',
-            'https://www.betpawa.ug/api/v1/events?sport=football&market=1X2&limit=200',
-            'https://www.betpawa.ug/api/events?categoryId=2&marketId=1X2',
-            'https://www.betpawa.ug/api/preference/v1/brand-component-data',
-        ]
-        for api_url in urls_to_try:
-            try:
-                req = urllib.request.Request(api_url, headers={
-                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
-                    'Accept': 'application/json',
-                    'Referer': 'https://www.betpawa.ug/events?categoryId=2&marketId=1X2'
-                })
-                with urllib.request.urlopen(req, timeout=15) as resp:
-                    raw = resp.read().decode()
-                data = json.loads(raw)
-                print(f"BetPawa API success: {api_url[:80]}")
-                print(f"Keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
-                print(f"Sample: {raw[:200]}")
-            except Exception as e:
-                print(f"BetPawa URL failed ({api_url[:60]}): {e}")
-        # Fallback HTML scraping
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
             context = browser.new_context(
@@ -41,40 +26,50 @@ def scrape_betpawa():
             )
             page = context.new_page()
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-            print("Opening BetPawa fallback...")
-            page.goto('https://www.betpawa.ug/events?categoryId=2&marketId=1X2', timeout=60000)
-            page.wait_for_timeout(8000)
-            links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
-            print(f"BetPawa fallback: {len(links)} links")
-            skip = ['pm','am','Sat','Sun','Mon','Tue','Wed','Thu','Fri','Full Time','Half','1UP','2UP','1X2','Double','Both','Over','Under','Total','Score','Chance','Teams','Interval','minutes','First']
-            for link in links[:60]:
+            for url in urls:
                 try:
-                    text = link.inner_text()
-                    parts = [p.strip() for p in text.split('\n') if p.strip()]
-                    teams = []
-                    odd_values = []
-                    competition = ''
-                    for part in parts:
-                        if re.match(r'^\d+\.\d+$', part):
-                            odd_values.append(float(part))
-                        elif any(s in part for s in ['Football','Soccer']):
-                            competition = part
-                        elif part in ['1','X','2','1X','X2','12']:
+                    print(f"BetPawa scraping: {url}")
+                    page.goto(url, timeout=60000)
+                    page.wait_for_timeout(6000)
+                    links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
+                    print(f"  Found {len(links)} links")
+                    page_odds = 0
+                    for link in links[:60]:
+                        try:
+                            text = link.inner_text()
+                            parts = [p.strip() for p in text.split('\n') if p.strip()]
+                            teams = []
+                            odd_values = []
+                            competition = ''
+                            for part in parts:
+                                if re.match(r'^\d+\.\d+$', part):
+                                    odd_values.append(float(part))
+                                elif any(s in part for s in ['Football','Soccer']):
+                                    competition = part
+                                elif part in ['1','X','2','1X','X2','12']:
+                                    continue
+                                elif any(s in part for s in skip):
+                                    continue
+                                elif re.match(r'^\d+:\d+', part):
+                                    continue
+                                elif re.match(r'^\d+/\d+', part):
+                                    continue
+                                elif len(part) > 2:
+                                    teams.append(part)
+                            if len(teams) >= 2 and len(odd_values) >= 3:
+                                match_key = f"{teams[0]}vs{teams[1]}".lower().replace(' ','')
+                                if match_key not in seen_matches:
+                                    seen_matches.add(match_key)
+                                    page_odds += 1
+                                    odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': 'BetPawa','competition': competition,'home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
+                        except:
                             continue
-                        elif any(s in part for s in skip):
-                            continue
-                        elif re.match(r'^\d+:\d+', part):
-                            continue
-                        elif re.match(r'^\d+/\d+', part):
-                            continue
-                        elif len(part) > 2:
-                            teams.append(part)
-                    if len(teams) >= 2 and len(odd_values) >= 3:
-                        odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': 'BetPawa','competition': competition,'home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
-                except:
+                    print(f"  New matches from this page: {page_odds}")
+                except Exception as e:
+                    print(f"  Page failed: {e}")
                     continue
             browser.close()
-        print(f"BetPawa: {len(odds)} matches extracted")
+        print(f"BetPawa total: {len(odds)} matches extracted")
     except Exception as e:
         print(f"BetPawa error: {e}")
     return odds
