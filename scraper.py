@@ -3,6 +3,7 @@ from datetime import datetime
 from playwright.sync_api import sync_playwright
 import re
 import urllib.request
+import urllib.error
 
 def scrape_betpawa():
     odds = []
@@ -127,74 +128,113 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_betway():
+def scrape_1xbet_mobile():
     odds = []
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
-            context = browser.new_context(
-                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-                locale='en-UG',
-                viewport={'width': 1280, 'height': 800}
-            )
-            page = context.new_page()
-            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-            api_data = []
-            def handle_response(response):
-                try:
-                    if response.status == 200:
-                        ct = response.headers.get('content-type','')
-                        if 'json' in ct:
-                            data = response.json()
-                            api_data.append({'url': response.url, 'data': data})
-                            print(f"Betway API: {response.url[:100]}")
-                except:
-                    pass
-            page.on('response', handle_response)
-            print("Opening Betway...")
-            page.goto('https://www.betway.ug/sport/football', timeout=60000)
-            page.wait_for_timeout(12000)
-            html = page.content()
-            print(f"Betway loaded: {len(html)} bytes, API calls: {len(api_data)}")
-            for item in api_data:
-                try:
-                    d = item['data']
-                    events = []
-                    if isinstance(d, dict):
-                        for key in ['events','data','matches','items','fixtures','content']:
-                            if key in d and isinstance(d[key], list):
-                                events = d[key]
-                                print(f"Betway: {len(events)} items under '{key}' from {item['url'][:60]}")
-                                break
-                    elif isinstance(d, list):
-                        events = d
-                    for event in events:
-                        if not isinstance(event, dict):
-                            continue
-                        home = (event.get('homeTeam',{}).get('name','') or
-                                event.get('home_team','') or event.get('homeName','') or
-                                event.get('home',''))
-                        away = (event.get('awayTeam',{}).get('name','') or
-                                event.get('away_team','') or event.get('awayName','') or
-                                event.get('away',''))
-                        if not home or not away:
-                            continue
-                        h_odd = d_odd = a_odd = None
-                        markets = event.get('markets', event.get('odds', []))
-                        for market in markets:
-                            if not isinstance(market, dict):
-                                continue
-                            selections = market.get('selections', market.get('outcomes', []))
-                            if len(selections) >= 3:
-                                h_odd = float(selections[0].get('price', selections[0].get('odds', 0)))
-                                d_odd = float(selections[1].get('price', selections[1].get('odds', 0)))
-                                a_odd = float(selections[2].get('price', selections[2].get('odds', 0)))
-                                break
-                        if h_odd and a_odd:
-                            odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'Betway','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
-                except:
-                    continue
-            browser.close()
+        print("Fetching 1xBet mobile API...")
+        urls_to_try = [
+            'https://mobile.1xbet.ug/LineFeed/Get1x2_Virt?sports=1&count=200&tf=2200000&tz=3&antisports=&regularChampionship=true&drawnGame=true&lang=en&afterId=0',
+            'https://api.1xbet.ug/LineFeed/Get1x2_Virt?sports=1&count=200&tf=2200000&tz=3&lang=en',
+            'https://1xbet.ug/en/LineFeed/Get1x2_Virt?sports=1&count=200&tf=2200000&tz=3&lang=en',
+        ]
+        headers = {
+            'User-Agent': 'okhttp/4.9.0',
+            'Accept': 'application/json',
+            'X-App-Version': '1102070',
+            'Accept-Language': 'en'
+        }
+        for url in urls_to_try:
+            try:
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=20) as resp:
+                    raw = resp.read().decode()
+                data = json.loads(raw)
+                print(f"1xBet mobile success: {url[:80]}")
+                print(f"1xBet keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
+                events = []
+                if isinstance(data, dict):
+                    events = data.get('Value', data.get('data', []))
+                elif isinstance(data, list):
+                    events = data
+                print(f"1xBet events: {len(events)}")
+                for event in events:
+                    if not isinstance(event, dict):
+                        continue
+                    home = event.get('O1','')
+                    away = event.get('O2','')
+                    if not home or not away:
+                        continue
+                    h_odd = d_odd = a_odd = None
+                    for e in event.get('E', []):
+                        t = e.get('T')
+                        coef = e.get('C', 0)
+                        if t == 1: h_odd = float(coef)
+                        elif t == 2: d_odd = float(coef)
+                        elif t == 3: a_odd = float(coef)
+                    if h_odd and a_odd:
+                        odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': '1xBet','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
+                if odds:
+                    break
+            except Exception as e:
+                print(f"1xBet URL failed: {e}")
+        print(f"1xBet: {len(odds)} matches extracted")
+    except Exception as e:
+        print(f"1xBet error: {e}")
+    return odds
+
+def scrape_betway_mobile():
+    odds = []
+    try:
+        print("Fetching Betway mobile API...")
+        urls_to_try = [
+            'https://sports.betway.ug/api/pub/v2/categories/event-list?lang=en&country=UGA&eventPhase=Pre-match&categoryId=soccer&pageSize=100',
+            'https://sports.betway.ug/api/pub/v2/events?lang=en&country=UGA&eventPhase=Pre-match&sport=soccer&pageSize=100',
+            'https://betway.ug/api/pub/v2/event-list?sport=soccer&country=UGA&lang=en&pageSize=100',
+        ]
+        headers = {
+            'User-Agent': 'BetwayApp/1.0 Android',
+            'Accept': 'application/json',
+            'Accept-Language': 'en-UG',
+        }
+        for url in urls_to_try:
+            try:
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=20) as resp:
+                    raw = resp.read().decode()
+                data = json.loads(raw)
+                print(f"Betway mobile success: {url[:80]}")
+                print(f"Betway keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
+                events = []
+                if isinstance(data, dict):
+                    for key in ['events','data','matches','items','fixtures']:
+                        if key in data and isinstance(data[key], list):
+                            events = data[key]
+                            break
+                elif isinstance(data, list):
+                    events = data
+                print(f"Betway events: {len(events)}")
+                for event in events:
+                    if not isinstance(event, dict):
+                        continue
+                    home = (event.get('homeTeam',{}).get('name','') or event.get('home',''))
+                    away = (event.get('awayTeam',{}).get('name','') or event.get('away',''))
+                    if not home or not away:
+                        continue
+                    h_odd = d_odd = a_odd = None
+                    markets = event.get('markets', event.get('odds', []))
+                    for market in markets:
+                        selections = market.get('selections', market.get('outcomes', []))
+                        if len(selections) >= 3:
+                            h_odd = float(selections[0].get('price', selections[0].get('odds', 0)))
+                            d_odd = float(selections[1].get('price', selections[1].get('odds', 0)))
+                            a_odd = float(selections[2].get('price', selections[2].get('odds', 0)))
+                            break
+                    if h_odd and a_odd:
+                        odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'Betway','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
+                if odds:
+                    break
+            except Exception as e:
+                print(f"Betway URL failed: {e}")
         print(f"Betway: {len(odds)} matches extracted")
     except Exception as e:
         print(f"Betway error: {e}")
@@ -243,8 +283,12 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping Betway...")
-    bw = scrape_betway()
+    print("Scraping 1xBet mobile...")
+    xb = scrape_1xbet_mobile()
+    all_odds.extend(xb)
+    if xb: scraped.append('1xBet')
+    print("Scraping Betway mobile...")
+    bw = scrape_betway_mobile()
     all_odds.extend(bw)
     if bw: scraped.append('Betway')
     opportunities = find_arbitrage(all_odds)
