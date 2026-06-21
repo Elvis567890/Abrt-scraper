@@ -4,6 +4,13 @@ from playwright.sync_api import sync_playwright
 import re
 import urllib.request
 
+def normalize(name):
+    name = name.lower().strip()
+    name = re.sub(r'\b(fc|sc|cf|ac|united|city|sports|club|utd)\b', '', name)
+    name = re.sub(r'[^a-z0-9 ]', '', name)
+    name = re.sub(r'\s+', ' ', name).strip()
+    return name
+
 def scrape_betpawa():
     odds = []
     seen_matches = set()
@@ -57,7 +64,18 @@ def scrape_betpawa():
                                 if match_key not in seen_matches:
                                     seen_matches.add(match_key)
                                     page_odds += 1
-                                    odds.append({'match': f"{teams[0]} vs {teams[1]}",'home_team': teams[0],'away_team': teams[1],'bookmaker': 'BetPawa','competition': competition,'home': odd_values[0],'draw': odd_values[1],'away': odd_values[2],'sport': 'Football'})
+                                    odds.append({
+                                        'match': f"{teams[0]} vs {teams[1]}",
+                                        'home_team': teams[0],
+                                        'away_team': teams[1],
+                                        'match_key': f"{normalize(teams[0])} vs {normalize(teams[1])}",
+                                        'bookmaker': 'BetPawa',
+                                        'competition': competition,
+                                        'home': odd_values[0],
+                                        'draw': odd_values[1],
+                                        'away': odd_values[2],
+                                        'sport': 'Football'
+                                    })
                         except:
                             continue
                     print(f"  New matches: {page_odds}")
@@ -119,7 +137,18 @@ def scrape_fortebet():
                         break
                 if h_odd and a_odd:
                     football_count += 1
-                    odds.append({'match': f"{home_team} vs {away_team}",'home_team': home_team,'away_team': away_team,'bookmaker': 'Fortebet','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
+                    odds.append({
+                        'match': f"{home_team} vs {away_team}",
+                        'home_team': home_team,
+                        'away_team': away_team,
+                        'match_key': f"{normalize(home_team)} vs {normalize(away_team)}",
+                        'bookmaker': 'Fortebet',
+                        'competition': '',
+                        'home': h_odd,
+                        'draw': d_odd,
+                        'away': a_odd,
+                        'sport': 'Football'
+                    })
             except:
                 continue
         print(f"Fortebet: {football_count} matches extracted")
@@ -127,85 +156,105 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_betika():
+def scrape_mbet():
     odds = []
     try:
-        print("Fetching Betika API...")
-        # Try multiple parameter combinations
-        urls_to_try = [
-            'https://api.betika.com/v1/uo/matches?limit=100&page=1&period=1&sport_id=1&tab=upcoming&order_by=start_time&combo=false',
-            'https://api.betika.com/v1/uo/matches?limit=100&page=1&sport_id=1&tab=upcoming&combo=false',
-            'https://api.betika.com/v1/uo/matches?limit=100&page=1&sport_id=1',
-            'https://api.betika.com/v1/matches?limit=100&page=1&sport_id=1&combo=false',
-        ]
-        for url in urls_to_try:
-            try:
-                req = urllib.request.Request(url, headers={
-                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
-                    'Accept': 'application/json',
-                    'Origin': 'https://www.betika.com',
-                    'Referer': 'https://www.betika.com/ug/en/sport/football'
-                })
-                with urllib.request.urlopen(req, timeout=20) as resp:
-                    raw = resp.read().decode()
-                data = json.loads(raw)
-                events = []
-                if isinstance(data, dict):
-                    inner = data.get('data', [])
-                    if isinstance(inner, list):
-                        events = inner
-                    elif isinstance(inner, dict):
-                        events = inner.get('matches', inner.get('events', []))
-                elif isinstance(data, list):
-                    events = data
-                print(f"Betika URL: {url[:80]}")
-                print(f"Betika events: {len(events)}")
-                if len(events) > 0:
-                    # Print sample to understand structure
-                    print(f"Betika sample: {json.dumps(events[0])[:300]}")
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
+            context = browser.new_context(
+                user_agent='Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+                viewport={'width': 390, 'height': 844},
+                locale='en-UG'
+            )
+            page = context.new_page()
+            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            api_data = []
+            def handle_response(response):
+                try:
+                    if response.status == 200:
+                        ct = response.headers.get('content-type','')
+                        if 'json' in ct:
+                            data = response.json()
+                            api_data.append({'url': response.url, 'data': data})
+                            print(f"Mbet API: {response.url[:100]}")
+                except:
+                    pass
+            page.on('response', handle_response)
+            print("Opening Mbet...")
+            page.goto('https://www.mbet.ug/sports/soccer', timeout=60000)
+            page.wait_for_timeout(10000)
+            html = page.content()
+            print(f"Mbet loaded: {len(html)} bytes, API calls: {len(api_data)}")
+            for item in api_data:
+                try:
+                    d = item['data']
+                    events = []
+                    if isinstance(d, dict):
+                        for key in ['events','data','matches','items','fixtures','games']:
+                            if key in d and isinstance(d[key], list):
+                                events = d[key]
+                                print(f"Mbet: {len(events)} items under '{key}'")
+                                break
+                    elif isinstance(d, list):
+                        events = d
                     for event in events:
                         if not isinstance(event, dict):
                             continue
-                        home = event.get('home_team', event.get('home',''))
-                        away = event.get('away_team', event.get('away',''))
+                        home = (event.get('homeTeam',{}).get('name','') or
+                                event.get('home_team','') or event.get('home',''))
+                        away = (event.get('awayTeam',{}).get('name','') or
+                                event.get('away_team','') or event.get('away',''))
                         if not home or not away:
                             continue
                         h_odd = d_odd = a_odd = None
-                        picks = event.get('picks', event.get('odds', event.get('markets', [])))
-                        for pick in picks:
-                            if not isinstance(pick, dict):
+                        markets = event.get('markets', event.get('odds', []))
+                        for market in markets:
+                            if not isinstance(market, dict):
                                 continue
-                            odd_val = float(pick.get('odd_value', pick.get('odds', pick.get('odd', 0))))
-                            pick_name = str(pick.get('pick', pick.get('name', pick.get('outcome', ''))))
-                            if pick_name in ['1','home','Home','W1']:
-                                h_odd = odd_val
-                            elif pick_name in ['X','draw','Draw']:
-                                d_odd = odd_val
-                            elif pick_name in ['2','away','Away','W2']:
-                                a_odd = odd_val
+                            selections = market.get('selections', market.get('outcomes', []))
+                            if len(selections) >= 3:
+                                h_odd = float(selections[0].get('price', selections[0].get('odds', 0)))
+                                d_odd = float(selections[1].get('price', selections[1].get('odds', 0)))
+                                a_odd = float(selections[2].get('price', selections[2].get('odds', 0)))
+                                break
                         if h_odd and a_odd:
-                            odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'Betika','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
-                    if odds:
-                        break
-            except Exception as e:
-                print(f"Betika URL failed: {e}")
-        print(f"Betika: {len(odds)} matches extracted")
+                            odds.append({
+                                'match': f"{home} vs {away}",
+                                'home_team': home,
+                                'away_team': away,
+                                'match_key': f"{normalize(home)} vs {normalize(away)}",
+                                'bookmaker': 'Mbet',
+                                'competition': '',
+                                'home': h_odd,
+                                'draw': d_odd,
+                                'away': a_odd,
+                                'sport': 'Football'
+                            })
+                except:
+                    continue
+            browser.close()
+        print(f"Mbet: {len(odds)} matches extracted")
     except Exception as e:
-        print(f"Betika error: {e}")
+        print(f"Mbet error: {e}")
     return odds
 
 def find_arbitrage(all_odds):
     opportunities = []
     STAKE = 100000
+    # Group by normalized match key
     matches = {}
     for odd in all_odds:
-        key = odd['match'].lower().strip()
+        key = odd.get('match_key', odd['match'].lower().strip())
         if key not in matches:
             matches[key] = []
         matches[key].append(odd)
+
     for match_name, bookmakers in matches.items():
-        if len(bookmakers) < 2:
+        # Need at least 2 different bookmakers
+        bookie_names = set(b['bookmaker'] for b in bookmakers)
+        if len(bookie_names) < 2:
             continue
+
         best_home = max(bookmakers, key=lambda x: x.get('home') or 0)
         best_draw = max(bookmakers, key=lambda x: x.get('draw') or 0)
         best_away = max(bookmakers, key=lambda x: x.get('away') or 0)
@@ -214,15 +263,39 @@ def find_arbitrage(all_odds):
         a = best_away.get('away', 0)
         if not h or not a:
             continue
-        arb2 = (1/h)+(1/a)
-        if arb2 < 1:
-            profit = round((1-arb2)*100, 2)
-            opportunities.append({'match': match_name,'type': '2-way','profit_percent': profit,'bets': [{'bookmaker': best_home['bookmaker'],'outcome':'Home','odd': h,'stake': round(STAKE*(1/h)/arb2)},{'bookmaker': best_away['bookmaker'],'outcome':'Away','odd': a,'stake': round(STAKE*(1/a)/arb2)}]})
+
+        # 2-way arbitrage - must be different bookmakers
+        if best_home['bookmaker'] != best_away['bookmaker']:
+            arb2 = (1/h)+(1/a)
+            if arb2 < 1:
+                profit = round((1-arb2)*100, 2)
+                opportunities.append({
+                    'match': match_name,
+                    'type': '2-way',
+                    'profit_percent': profit,
+                    'bets': [
+                        {'bookmaker': best_home['bookmaker'],'outcome':'Home','odd': h,'stake': round(STAKE*(1/h)/arb2)},
+                        {'bookmaker': best_away['bookmaker'],'outcome':'Away','odd': a,'stake': round(STAKE*(1/a)/arb2)}
+                    ]
+                })
+
+        # 3-way arbitrage - at least 2 different bookmakers
         if d:
             arb3 = (1/h)+(1/d)+(1/a)
-            if arb3 < 1:
+            books_used = set([best_home['bookmaker'], best_draw['bookmaker'], best_away['bookmaker']])
+            if arb3 < 1 and len(books_used) >= 2:
                 profit = round((1-arb3)*100, 2)
-                opportunities.append({'match': match_name,'type': '3-way','profit_percent': profit,'bets': [{'bookmaker': best_home['bookmaker'],'outcome':'Home','odd': h,'stake': round(STAKE*(1/h)/arb3)},{'bookmaker': best_draw['bookmaker'],'outcome':'Draw','odd': d,'stake': round(STAKE*(1/d)/arb3)},{'bookmaker': best_away['bookmaker'],'outcome':'Away','odd': a,'stake': round(STAKE*(1/a)/arb3)}]})
+                opportunities.append({
+                    'match': match_name,
+                    'type': '3-way',
+                    'profit_percent': profit,
+                    'bets': [
+                        {'bookmaker': best_home['bookmaker'],'outcome':'Home','odd': h,'stake': round(STAKE*(1/h)/arb3)},
+                        {'bookmaker': best_draw['bookmaker'],'outcome':'Draw','odd': d,'stake': round(STAKE*(1/d)/arb3)},
+                        {'bookmaker': best_away['bookmaker'],'outcome':'Away','odd': a,'stake': round(STAKE*(1/a)/arb3)}
+                    ]
+                })
+
     return sorted(opportunities, key=lambda x: x['profit_percent'], reverse=True)
 
 def main():
@@ -237,13 +310,19 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping Betika...")
-    bk = scrape_betika()
-    all_odds.extend(bk)
-    if bk: scraped.append('Betika')
+    print("Scraping Mbet...")
+    mb = scrape_mbet()
+    all_odds.extend(mb)
+    if mb: scraped.append('Mbet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
-    output = {'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),'total_matches': len(all_odds),'bookmakers_scraped': scraped,'opportunities': opportunities,'raw_odds': all_odds}
+    output = {
+        'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
+        'total_matches': len(all_odds),
+        'bookmakers_scraped': scraped,
+        'opportunities': opportunities,
+        'raw_odds': all_odds
+    }
     with open('odds.json', 'w') as f:
         json.dump(output, f, indent=2)
     print(f"Done! {len(all_odds)} matches saved")
