@@ -3,6 +3,7 @@ from datetime import datetime
 from playwright.sync_api import sync_playwright
 import re
 import urllib.request
+import ssl
 
 def normalize(name):
     name = name.lower().strip()
@@ -156,162 +157,69 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_22bet():
+def scrape_with_browser(name, url, referer):
     odds = []
     try:
-        print("Fetching 22Bet API...")
-        urls_to_try = [
-            'https://www.22bet.ug/api/LineFeed/Get1x2_Virt?sports=1&count=100&tf=2200000&tz=3&lang=en',
-            'https://22bet.ug/LineFeed/Get1x2_Virt?sports=1&count=100&tf=2200000&tz=3&lang=en',
-        ]
-        for url in urls_to_try:
-            try:
-                req = urllib.request.Request(url, headers={
-                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
-                    'Accept': 'application/json',
-                    'Referer': 'https://www.22bet.ug/'
-                })
-                with urllib.request.urlopen(req, timeout=20) as resp:
-                    data = json.loads(resp.read().decode())
-                print(f"22Bet success: {url[:80]}")
-                events = data.get('Value', data.get('data', []))
-                if not isinstance(events, list):
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
+            context = browser.new_context(
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                viewport={'width': 1280, 'height': 800}
+            )
+            page = context.new_page()
+            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            api_data = []
+            def handle_response(response):
+                try:
+                    if response.status == 200:
+                        ct = response.headers.get('content-type','')
+                        if 'json' in ct:
+                            data = response.json()
+                            api_data.append({'url': response.url, 'data': data})
+                            print(f"{name} API: {response.url[:100]}")
+                except:
+                    pass
+            page.on('response', handle_response)
+            print(f"Opening {name}...")
+            page.goto(url, timeout=60000)
+            page.wait_for_timeout(12000)
+            html = page.content()
+            print(f"{name} loaded: {len(html)} bytes, API calls: {len(api_data)}")
+            for item in api_data:
+                try:
+                    d = item['data']
+                    events = d.get('Value', d.get('data', d.get('events', d.get('matches', []))))
+                    if not isinstance(events, list):
+                        continue
+                    for event in events:
+                        if not isinstance(event, dict):
+                            continue
+                        home = event.get('O1', event.get('home_team', event.get('home','')))
+                        away = event.get('O2', event.get('away_team', event.get('away','')))
+                        if not home or not away:
+                            continue
+                        h_odd = d_odd = a_odd = None
+                        for e in event.get('E', []):
+                            t = e.get('T')
+                            coef = e.get('C', 0)
+                            if t == 1: h_odd = float(coef)
+                            elif t == 2: d_odd = float(coef)
+                            elif t == 3: a_odd = float(coef)
+                        if h_odd and a_odd:
+                            odds.append({
+                                'match': f"{home} vs {away}",
+                                'home_team': home, 'away_team': away,
+                                'match_key': f"{normalize(home)} vs {normalize(away)}",
+                                'bookmaker': name, 'competition': '',
+                                'home': h_odd, 'draw': d_odd, 'away': a_odd,
+                                'sport': 'Football'
+                            })
+                except:
                     continue
-                print(f"22Bet events: {len(events)}")
-                for event in events:
-                    if not isinstance(event, dict):
-                        continue
-                    home = event.get('O1','')
-                    away = event.get('O2','')
-                    if not home or not away:
-                        continue
-                    h_odd = d_odd = a_odd = None
-                    for e in event.get('E', []):
-                        t = e.get('T')
-                        coef = e.get('C', 0)
-                        if t == 1: h_odd = float(coef)
-                        elif t == 2: d_odd = float(coef)
-                        elif t == 3: a_odd = float(coef)
-                    if h_odd and a_odd:
-                        odds.append({
-                            'match': f"{home} vs {away}",
-                            'home_team': home, 'away_team': away,
-                            'match_key': f"{normalize(home)} vs {normalize(away)}",
-                            'bookmaker': '22Bet', 'competition': '',
-                            'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': 'Football'
-                        })
-                if odds: break
-            except Exception as e:
-                print(f"22Bet URL failed: {e}")
-        print(f"22Bet: {len(odds)} matches extracted")
+            browser.close()
+        print(f"{name}: {len(odds)} matches extracted")
     except Exception as e:
-        print(f"22Bet error: {e}")
-    return odds
-
-def scrape_melbet():
-    odds = []
-    try:
-        print("Fetching Melbet API...")
-        urls_to_try = [
-            'https://melbet.ug/LineFeed/Get1x2_Virt?sports=1&count=100&tf=2200000&tz=3&lang=en',
-            'https://www.melbet.ug/api/LineFeed/Get1x2_Virt?sports=1&count=100&tf=2200000&tz=3&lang=en',
-        ]
-        for url in urls_to_try:
-            try:
-                req = urllib.request.Request(url, headers={
-                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
-                    'Accept': 'application/json',
-                    'Referer': 'https://melbet.ug/'
-                })
-                with urllib.request.urlopen(req, timeout=20) as resp:
-                    data = json.loads(resp.read().decode())
-                print(f"Melbet success: {url[:80]}")
-                events = data.get('Value', data.get('data', []))
-                if not isinstance(events, list):
-                    continue
-                print(f"Melbet events: {len(events)}")
-                for event in events:
-                    if not isinstance(event, dict):
-                        continue
-                    home = event.get('O1','')
-                    away = event.get('O2','')
-                    if not home or not away:
-                        continue
-                    h_odd = d_odd = a_odd = None
-                    for e in event.get('E', []):
-                        t = e.get('T')
-                        coef = e.get('C', 0)
-                        if t == 1: h_odd = float(coef)
-                        elif t == 2: d_odd = float(coef)
-                        elif t == 3: a_odd = float(coef)
-                    if h_odd and a_odd:
-                        odds.append({
-                            'match': f"{home} vs {away}",
-                            'home_team': home, 'away_team': away,
-                            'match_key': f"{normalize(home)} vs {normalize(away)}",
-                            'bookmaker': 'Melbet', 'competition': '',
-                            'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': 'Football'
-                        })
-                if odds: break
-            except Exception as e:
-                print(f"Melbet URL failed: {e}")
-        print(f"Melbet: {len(odds)} matches extracted")
-    except Exception as e:
-        print(f"Melbet error: {e}")
-    return odds
-
-def scrape_mozzartbet():
-    odds = []
-    try:
-        print("Fetching Mozzartbet API...")
-        url = 'https://www.mozzartbet.co.ug/api/offer/football/prematch?page=0&size=100'
-        req = urllib.request.Request(url, headers={
-            'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
-            'Accept': 'application/json',
-            'Referer': 'https://www.mozzartbet.co.ug/'
-        })
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            data = json.loads(resp.read().decode())
-        print(f"Mozzartbet keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
-        events = []
-        if isinstance(data, dict):
-            for key in ['matches','events','data','items','content']:
-                if key in data and isinstance(data[key], list):
-                    events = data[key]
-                    print(f"Mozzartbet: {len(events)} items under '{key}'")
-                    break
-        elif isinstance(data, list):
-            events = data
-        for event in events:
-            if not isinstance(event, dict):
-                continue
-            home = (event.get('home',{}).get('name','') or event.get('homeTeam','') or event.get('home_team',''))
-            away = (event.get('visitor',{}).get('name','') or event.get('awayTeam','') or event.get('away_team',''))
-            if not home or not away:
-                continue
-            h_odd = d_odd = a_odd = None
-            odds_list = event.get('odds', event.get('markets', []))
-            for o in odds_list:
-                if not isinstance(o, dict):
-                    continue
-                subgames = o.get('subgames', o.get('selections', []))
-                for sg in subgames:
-                    name = str(sg.get('pick', sg.get('name', sg.get('outcome', ''))))
-                    val = float(sg.get('odd', sg.get('odds', sg.get('value', 0))))
-                    if name in ['1','Home']: h_odd = val
-                    elif name in ['X','Draw']: d_odd = val
-                    elif name in ['2','Away']: a_odd = val
-            if h_odd and a_odd:
-                odds.append({
-                    'match': f"{home} vs {away}",
-                    'home_team': home, 'away_team': away,
-                    'match_key': f"{normalize(home)} vs {normalize(away)}",
-                    'bookmaker': 'Mozzartbet', 'competition': '',
-                    'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': 'Football'
-                })
-        print(f"Mozzartbet: {len(odds)} matches extracted")
-    except Exception as e:
-        print(f"Mozzartbet error: {e}")
+        print(f"{name} error: {e}")
     return odds
 
 def find_arbitrage(all_odds):
@@ -374,17 +282,13 @@ def main():
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
     print("Scraping 22Bet...")
-    tb = scrape_22bet()
+    tb = scrape_with_browser('22Bet', 'https://www.22bet.ug/line/football', 'https://www.22bet.ug/')
     all_odds.extend(tb)
     if tb: scraped.append('22Bet')
     print("Scraping Melbet...")
-    mb = scrape_melbet()
+    mb = scrape_with_browser('Melbet', 'https://melbet.ug/line/football', 'https://melbet.ug/')
     all_odds.extend(mb)
     if mb: scraped.append('Melbet')
-    print("Scraping Mozzartbet...")
-    mz = scrape_mozzartbet()
-    all_odds.extend(mz)
-    if mz: scraped.append('Mozzartbet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {
