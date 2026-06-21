@@ -156,105 +156,177 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_mbet():
+def scrape_22bet():
     odds = []
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
-            context = browser.new_context(
-                user_agent='Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
-                viewport={'width': 390, 'height': 844},
-                locale='en-UG'
-            )
-            page = context.new_page()
-            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-            api_data = []
-            def handle_response(response):
-                try:
-                    if response.status == 200:
-                        ct = response.headers.get('content-type','')
-                        if 'json' in ct:
-                            data = response.json()
-                            api_data.append({'url': response.url, 'data': data})
-                            print(f"Mbet API: {response.url[:100]}")
-                except:
-                    pass
-            page.on('response', handle_response)
-            print("Opening Mbet...")
-            page.goto('https://www.mbet.ug/sports/soccer', timeout=60000)
-            page.wait_for_timeout(10000)
-            html = page.content()
-            print(f"Mbet loaded: {len(html)} bytes, API calls: {len(api_data)}")
-            for item in api_data:
-                try:
-                    d = item['data']
-                    events = []
-                    if isinstance(d, dict):
-                        for key in ['events','data','matches','items','fixtures','games']:
-                            if key in d and isinstance(d[key], list):
-                                events = d[key]
-                                print(f"Mbet: {len(events)} items under '{key}'")
-                                break
-                    elif isinstance(d, list):
-                        events = d
-                    for event in events:
-                        if not isinstance(event, dict):
-                            continue
-                        home = (event.get('homeTeam',{}).get('name','') or
-                                event.get('home_team','') or event.get('home',''))
-                        away = (event.get('awayTeam',{}).get('name','') or
-                                event.get('away_team','') or event.get('away',''))
-                        if not home or not away:
-                            continue
-                        h_odd = d_odd = a_odd = None
-                        markets = event.get('markets', event.get('odds', []))
-                        for market in markets:
-                            if not isinstance(market, dict):
-                                continue
-                            selections = market.get('selections', market.get('outcomes', []))
-                            if len(selections) >= 3:
-                                h_odd = float(selections[0].get('price', selections[0].get('odds', 0)))
-                                d_odd = float(selections[1].get('price', selections[1].get('odds', 0)))
-                                a_odd = float(selections[2].get('price', selections[2].get('odds', 0)))
-                                break
-                        if h_odd and a_odd:
-                            odds.append({
-                                'match': f"{home} vs {away}",
-                                'home_team': home,
-                                'away_team': away,
-                                'match_key': f"{normalize(home)} vs {normalize(away)}",
-                                'bookmaker': 'Mbet',
-                                'competition': '',
-                                'home': h_odd,
-                                'draw': d_odd,
-                                'away': a_odd,
-                                'sport': 'Football'
-                            })
-                except:
+        print("Fetching 22Bet API...")
+        urls_to_try = [
+            'https://www.22bet.ug/api/LineFeed/Get1x2_Virt?sports=1&count=100&tf=2200000&tz=3&lang=en',
+            'https://22bet.ug/LineFeed/Get1x2_Virt?sports=1&count=100&tf=2200000&tz=3&lang=en',
+        ]
+        for url in urls_to_try:
+            try:
+                req = urllib.request.Request(url, headers={
+                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
+                    'Accept': 'application/json',
+                    'Referer': 'https://www.22bet.ug/'
+                })
+                with urllib.request.urlopen(req, timeout=20) as resp:
+                    data = json.loads(resp.read().decode())
+                print(f"22Bet success: {url[:80]}")
+                events = data.get('Value', data.get('data', []))
+                if not isinstance(events, list):
                     continue
-            browser.close()
-        print(f"Mbet: {len(odds)} matches extracted")
+                print(f"22Bet events: {len(events)}")
+                for event in events:
+                    if not isinstance(event, dict):
+                        continue
+                    home = event.get('O1','')
+                    away = event.get('O2','')
+                    if not home or not away:
+                        continue
+                    h_odd = d_odd = a_odd = None
+                    for e in event.get('E', []):
+                        t = e.get('T')
+                        coef = e.get('C', 0)
+                        if t == 1: h_odd = float(coef)
+                        elif t == 2: d_odd = float(coef)
+                        elif t == 3: a_odd = float(coef)
+                    if h_odd and a_odd:
+                        odds.append({
+                            'match': f"{home} vs {away}",
+                            'home_team': home, 'away_team': away,
+                            'match_key': f"{normalize(home)} vs {normalize(away)}",
+                            'bookmaker': '22Bet', 'competition': '',
+                            'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': 'Football'
+                        })
+                if odds: break
+            except Exception as e:
+                print(f"22Bet URL failed: {e}")
+        print(f"22Bet: {len(odds)} matches extracted")
     except Exception as e:
-        print(f"Mbet error: {e}")
+        print(f"22Bet error: {e}")
+    return odds
+
+def scrape_melbet():
+    odds = []
+    try:
+        print("Fetching Melbet API...")
+        urls_to_try = [
+            'https://melbet.ug/LineFeed/Get1x2_Virt?sports=1&count=100&tf=2200000&tz=3&lang=en',
+            'https://www.melbet.ug/api/LineFeed/Get1x2_Virt?sports=1&count=100&tf=2200000&tz=3&lang=en',
+        ]
+        for url in urls_to_try:
+            try:
+                req = urllib.request.Request(url, headers={
+                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
+                    'Accept': 'application/json',
+                    'Referer': 'https://melbet.ug/'
+                })
+                with urllib.request.urlopen(req, timeout=20) as resp:
+                    data = json.loads(resp.read().decode())
+                print(f"Melbet success: {url[:80]}")
+                events = data.get('Value', data.get('data', []))
+                if not isinstance(events, list):
+                    continue
+                print(f"Melbet events: {len(events)}")
+                for event in events:
+                    if not isinstance(event, dict):
+                        continue
+                    home = event.get('O1','')
+                    away = event.get('O2','')
+                    if not home or not away:
+                        continue
+                    h_odd = d_odd = a_odd = None
+                    for e in event.get('E', []):
+                        t = e.get('T')
+                        coef = e.get('C', 0)
+                        if t == 1: h_odd = float(coef)
+                        elif t == 2: d_odd = float(coef)
+                        elif t == 3: a_odd = float(coef)
+                    if h_odd and a_odd:
+                        odds.append({
+                            'match': f"{home} vs {away}",
+                            'home_team': home, 'away_team': away,
+                            'match_key': f"{normalize(home)} vs {normalize(away)}",
+                            'bookmaker': 'Melbet', 'competition': '',
+                            'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': 'Football'
+                        })
+                if odds: break
+            except Exception as e:
+                print(f"Melbet URL failed: {e}")
+        print(f"Melbet: {len(odds)} matches extracted")
+    except Exception as e:
+        print(f"Melbet error: {e}")
+    return odds
+
+def scrape_mozzartbet():
+    odds = []
+    try:
+        print("Fetching Mozzartbet API...")
+        url = 'https://www.mozzartbet.co.ug/api/offer/football/prematch?page=0&size=100'
+        req = urllib.request.Request(url, headers={
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
+            'Accept': 'application/json',
+            'Referer': 'https://www.mozzartbet.co.ug/'
+        })
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            data = json.loads(resp.read().decode())
+        print(f"Mozzartbet keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
+        events = []
+        if isinstance(data, dict):
+            for key in ['matches','events','data','items','content']:
+                if key in data and isinstance(data[key], list):
+                    events = data[key]
+                    print(f"Mozzartbet: {len(events)} items under '{key}'")
+                    break
+        elif isinstance(data, list):
+            events = data
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            home = (event.get('home',{}).get('name','') or event.get('homeTeam','') or event.get('home_team',''))
+            away = (event.get('visitor',{}).get('name','') or event.get('awayTeam','') or event.get('away_team',''))
+            if not home or not away:
+                continue
+            h_odd = d_odd = a_odd = None
+            odds_list = event.get('odds', event.get('markets', []))
+            for o in odds_list:
+                if not isinstance(o, dict):
+                    continue
+                subgames = o.get('subgames', o.get('selections', []))
+                for sg in subgames:
+                    name = str(sg.get('pick', sg.get('name', sg.get('outcome', ''))))
+                    val = float(sg.get('odd', sg.get('odds', sg.get('value', 0))))
+                    if name in ['1','Home']: h_odd = val
+                    elif name in ['X','Draw']: d_odd = val
+                    elif name in ['2','Away']: a_odd = val
+            if h_odd and a_odd:
+                odds.append({
+                    'match': f"{home} vs {away}",
+                    'home_team': home, 'away_team': away,
+                    'match_key': f"{normalize(home)} vs {normalize(away)}",
+                    'bookmaker': 'Mozzartbet', 'competition': '',
+                    'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': 'Football'
+                })
+        print(f"Mozzartbet: {len(odds)} matches extracted")
+    except Exception as e:
+        print(f"Mozzartbet error: {e}")
     return odds
 
 def find_arbitrage(all_odds):
     opportunities = []
     STAKE = 100000
-    # Group by normalized match key
     matches = {}
     for odd in all_odds:
         key = odd.get('match_key', odd['match'].lower().strip())
         if key not in matches:
             matches[key] = []
         matches[key].append(odd)
-
     for match_name, bookmakers in matches.items():
-        # Need at least 2 different bookmakers
         bookie_names = set(b['bookmaker'] for b in bookmakers)
         if len(bookie_names) < 2:
             continue
-
         best_home = max(bookmakers, key=lambda x: x.get('home') or 0)
         best_draw = max(bookmakers, key=lambda x: x.get('draw') or 0)
         best_away = max(bookmakers, key=lambda x: x.get('away') or 0)
@@ -263,39 +335,30 @@ def find_arbitrage(all_odds):
         a = best_away.get('away', 0)
         if not h or not a:
             continue
-
-        # 2-way arbitrage - must be different bookmakers
         if best_home['bookmaker'] != best_away['bookmaker']:
             arb2 = (1/h)+(1/a)
             if arb2 < 1:
                 profit = round((1-arb2)*100, 2)
                 opportunities.append({
-                    'match': match_name,
-                    'type': '2-way',
-                    'profit_percent': profit,
+                    'match': match_name,'type': '2-way','profit_percent': profit,
                     'bets': [
                         {'bookmaker': best_home['bookmaker'],'outcome':'Home','odd': h,'stake': round(STAKE*(1/h)/arb2)},
                         {'bookmaker': best_away['bookmaker'],'outcome':'Away','odd': a,'stake': round(STAKE*(1/a)/arb2)}
                     ]
                 })
-
-        # 3-way arbitrage - at least 2 different bookmakers
         if d:
             arb3 = (1/h)+(1/d)+(1/a)
             books_used = set([best_home['bookmaker'], best_draw['bookmaker'], best_away['bookmaker']])
             if arb3 < 1 and len(books_used) >= 2:
                 profit = round((1-arb3)*100, 2)
                 opportunities.append({
-                    'match': match_name,
-                    'type': '3-way',
-                    'profit_percent': profit,
+                    'match': match_name,'type': '3-way','profit_percent': profit,
                     'bets': [
                         {'bookmaker': best_home['bookmaker'],'outcome':'Home','odd': h,'stake': round(STAKE*(1/h)/arb3)},
                         {'bookmaker': best_draw['bookmaker'],'outcome':'Draw','odd': d,'stake': round(STAKE*(1/d)/arb3)},
                         {'bookmaker': best_away['bookmaker'],'outcome':'Away','odd': a,'stake': round(STAKE*(1/a)/arb3)}
                     ]
                 })
-
     return sorted(opportunities, key=lambda x: x['profit_percent'], reverse=True)
 
 def main():
@@ -310,10 +373,18 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping Mbet...")
-    mb = scrape_mbet()
+    print("Scraping 22Bet...")
+    tb = scrape_22bet()
+    all_odds.extend(tb)
+    if tb: scraped.append('22Bet')
+    print("Scraping Melbet...")
+    mb = scrape_melbet()
     all_odds.extend(mb)
-    if mb: scraped.append('Mbet')
+    if mb: scraped.append('Melbet')
+    print("Scraping Mozzartbet...")
+    mz = scrape_mozzartbet()
+    all_odds.extend(mz)
+    if mz: scraped.append('Mozzartbet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {
