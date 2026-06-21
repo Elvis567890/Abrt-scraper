@@ -127,86 +127,16 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_ababet():
-    odds = []
-    try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
-            context = browser.new_context(
-                user_agent='Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
-                viewport={'width': 390, 'height': 844},
-                locale='en-UG'
-            )
-            page = context.new_page()
-            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-            api_data = []
-            def handle_response(response):
-                try:
-                    if response.status == 200:
-                        ct = response.headers.get('content-type','')
-                        if 'json' in ct:
-                            data = response.json()
-                            api_data.append({'url': response.url, 'data': data})
-                            print(f"AbaBet API: {response.url[:100]}")
-                except:
-                    pass
-            page.on('response', handle_response)
-            print("Opening AbaBet...")
-            page.goto('https://www.ababet.ug/sports/football', timeout=60000)
-            page.wait_for_timeout(10000)
-            html = page.content()
-            print(f"AbaBet loaded: {len(html)} bytes, API calls: {len(api_data)}")
-            for item in api_data:
-                try:
-                    d = item['data']
-                    events = []
-                    if isinstance(d, dict):
-                        for key in ['events','data','matches','items','fixtures','games']:
-                            if key in d and isinstance(d[key], list):
-                                events = d[key]
-                                print(f"AbaBet: {len(events)} items under '{key}'")
-                                break
-                    elif isinstance(d, list):
-                        events = d
-                    for event in events:
-                        if not isinstance(event, dict):
-                            continue
-                        home = (event.get('homeTeam',{}).get('name','') or
-                                event.get('home_team','') or event.get('homeName','') or
-                                event.get('home','') or event.get('team1',''))
-                        away = (event.get('awayTeam',{}).get('name','') or
-                                event.get('away_team','') or event.get('awayName','') or
-                                event.get('away','') or event.get('team2',''))
-                        if not home or not away:
-                            continue
-                        h_odd = d_odd = a_odd = None
-                        markets = event.get('markets', event.get('odds', event.get('picks', [])))
-                        for market in markets:
-                            if not isinstance(market, dict):
-                                continue
-                            selections = market.get('selections', market.get('outcomes', market.get('picks', [])))
-                            if len(selections) >= 3:
-                                h_odd = float(selections[0].get('price', selections[0].get('odds', selections[0].get('odd', 0))))
-                                d_odd = float(selections[1].get('price', selections[1].get('odds', selections[1].get('odd', 0))))
-                                a_odd = float(selections[2].get('price', selections[2].get('odds', selections[2].get('odd', 0))))
-                                break
-                        if h_odd and a_odd:
-                            odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'AbaBet','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
-                except:
-                    continue
-            browser.close()
-        print(f"AbaBet: {len(odds)} matches extracted")
-    except Exception as e:
-        print(f"AbaBet error: {e}")
-    return odds
-
 def scrape_betika():
     odds = []
     try:
         print("Fetching Betika API...")
+        # Try multiple parameter combinations
         urls_to_try = [
-            'https://api.betika.com/v1/uo/matches?limit=100&page=1&period=1&sport_id=1&tab=upcoming&order_by=start_time',
-            'https://api.betika.com/v1/matches?limit=100&page=1&sport_id=1&tab=upcoming',
+            'https://api.betika.com/v1/uo/matches?limit=100&page=1&period=1&sport_id=1&tab=upcoming&order_by=start_time&combo=false',
+            'https://api.betika.com/v1/uo/matches?limit=100&page=1&sport_id=1&tab=upcoming&combo=false',
+            'https://api.betika.com/v1/uo/matches?limit=100&page=1&sport_id=1',
+            'https://api.betika.com/v1/matches?limit=100&page=1&sport_id=1&combo=false',
         ]
         for url in urls_to_try:
             try:
@@ -214,42 +144,49 @@ def scrape_betika():
                     'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
                     'Accept': 'application/json',
                     'Origin': 'https://www.betika.com',
-                    'Referer': 'https://www.betika.com/'
+                    'Referer': 'https://www.betika.com/ug/en/sport/football'
                 })
                 with urllib.request.urlopen(req, timeout=20) as resp:
-                    data = json.loads(resp.read().decode())
-                print(f"Betika success: {url[:80]}")
-                print(f"Betika keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
+                    raw = resp.read().decode()
+                data = json.loads(raw)
                 events = []
                 if isinstance(data, dict):
-                    events = data.get('data', data.get('matches', data.get('results', [])))
+                    inner = data.get('data', [])
+                    if isinstance(inner, list):
+                        events = inner
+                    elif isinstance(inner, dict):
+                        events = inner.get('matches', inner.get('events', []))
                 elif isinstance(data, list):
                     events = data
+                print(f"Betika URL: {url[:80]}")
                 print(f"Betika events: {len(events)}")
-                for event in events:
-                    if not isinstance(event, dict):
-                        continue
-                    home = event.get('home_team', event.get('home',''))
-                    away = event.get('away_team', event.get('away',''))
-                    if not home or not away:
-                        continue
-                    h_odd = d_odd = a_odd = None
-                    picks = event.get('picks', event.get('odds', event.get('markets', [])))
-                    for pick in picks:
-                        if not isinstance(pick, dict):
+                if len(events) > 0:
+                    # Print sample to understand structure
+                    print(f"Betika sample: {json.dumps(events[0])[:300]}")
+                    for event in events:
+                        if not isinstance(event, dict):
                             continue
-                        odd_val = float(pick.get('odd_value', pick.get('odds', pick.get('odd', 0))))
-                        pick_name = str(pick.get('pick', pick.get('name', pick.get('outcome', ''))))
-                        if pick_name in ['1','home','Home','W1']:
-                            h_odd = odd_val
-                        elif pick_name in ['X','draw','Draw']:
-                            d_odd = odd_val
-                        elif pick_name in ['2','away','Away','W2']:
-                            a_odd = odd_val
-                    if h_odd and a_odd:
-                        odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'Betika','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
-                if odds:
-                    break
+                        home = event.get('home_team', event.get('home',''))
+                        away = event.get('away_team', event.get('away',''))
+                        if not home or not away:
+                            continue
+                        h_odd = d_odd = a_odd = None
+                        picks = event.get('picks', event.get('odds', event.get('markets', [])))
+                        for pick in picks:
+                            if not isinstance(pick, dict):
+                                continue
+                            odd_val = float(pick.get('odd_value', pick.get('odds', pick.get('odd', 0))))
+                            pick_name = str(pick.get('pick', pick.get('name', pick.get('outcome', ''))))
+                            if pick_name in ['1','home','Home','W1']:
+                                h_odd = odd_val
+                            elif pick_name in ['X','draw','Draw']:
+                                d_odd = odd_val
+                            elif pick_name in ['2','away','Away','W2']:
+                                a_odd = odd_val
+                        if h_odd and a_odd:
+                            odds.append({'match': f"{home} vs {away}",'home_team': home,'away_team': away,'bookmaker': 'Betika','competition': '','home': h_odd,'draw': d_odd,'away': a_odd,'sport': 'Football'})
+                    if odds:
+                        break
             except Exception as e:
                 print(f"Betika URL failed: {e}")
         print(f"Betika: {len(odds)} matches extracted")
@@ -300,10 +237,6 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping AbaBet...")
-    ab = scrape_ababet()
-    all_odds.extend(ab)
-    if ab: scraped.append('AbaBet')
     print("Scraping Betika...")
     bk = scrape_betika()
     all_odds.extend(bk)
