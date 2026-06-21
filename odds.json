@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-06-20 23:39 UTC",
-  "total_matches": 245,
+  "last_updated": "2026-06-21 00:08 UTC",
+  "total_matches": 240,
   "bookmakers_scraped": [
     "BetPawa",
     "Fortebet"
@@ -83,25 +83,6 @@
       ]
     },
     {
-      "match": "tunisia vs japan",
-      "type": "2-way",
-      "profit_percent": 20.39,
-      "bets": [
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Home",
-          "odd": 8.0,
-          "stake": 15701
-        },
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Away",
-          "odd": 1.49,
-          "stake": 84299
-        }
-      ]
-    },
-    {
       "match": "jordan vs algeria",
       "type": "2-way",
       "profit_percent": 20.3,
@@ -117,6 +98,44 @@
           "outcome": "Away",
           "odd": 1.59,
           "stake": 78912
+        }
+      ]
+    },
+    {
+      "match": "tunisia vs japan",
+      "type": "2-way",
+      "profit_percent": 19.15,
+      "bets": [
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Home",
+          "odd": 7.8,
+          "stake": 15858
+        },
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Away",
+          "odd": 1.47,
+          "stake": 84142
+        }
+      ]
+    },
+    {
+      "match": "scotland vs brazil",
+      "type": "2-way",
+      "profit_percent": 16.81,
+      "bets": [
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Home",
+          "odd": 8.5,
+          "stake": 14141
+        },
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Away",
+          "odd": 1.4,
+          "stake": 85859
         }
       ]
     },
@@ -155,25 +174,6 @@
           "outcome": "Away",
           "odd": 16.0,
           "stake": 7031
-        }
-      ]
-    },
-    {
-      "match": "ecuador vs curacao",
-      "type": "2-way",
-      "profit_percent": 10.61,
-      "bets": [
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Home",
-          "odd": 1.18,
-          "stake": 94804
-        },
-        {
-          "bookmaker": "BetPawa",
-          "outcome": "Away",
-          "odd": 21.53,
-          "stake": 5196
         }
       ]
     },
@@ -237,91 +237,14 @@
   ],
   "raw_odds": [
     {
-      "match": "Maranhao AC MA vs Paysandu SC PA",
-      "home_team": "Maranhao AC MA",
-      "away_team": "Paysandu SC PA",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Brazil / Brasileiro Serie C",
-      "home": 2.92,
-      "draw": 3.06,
-      "away": 2.37,
-      "sport": "Football"
-    },
-    {
-      "match": "Charlottesville Blues vs Virginia Marauders FC",
-      "home_team": "Charlottesville Blues",
-      "away_team": "Virginia Marauders FC",
-      "bookmaker": "BetPawa",
-      "competition": "Football / USA / USL League Two",
-      "home": 1.04,
-      "draw": 11.43,
-      "away": 25.71,
-      "sport": "Football"
-    },
-    {
-      "match": "Forward Madison FC vs New York Cosmos",
-      "home_team": "Forward Madison FC",
-      "away_team": "New York Cosmos",
-      "bookmaker": "BetPawa",
-      "competition": "Football / USA / USL League One",
-      "home": 1.52,
-      "draw": 4.1,
-      "away": 5.34,
-      "sport": "Football"
-    },
-    {
-      "match": "Ecuador vs Curacao",
-      "home_team": "Ecuador",
-      "away_team": "Curacao",
-      "bookmaker": "BetPawa",
-      "competition": "Football / International / FIFA World Cup",
-      "home": 1.12,
-      "draw": 9.16,
-      "away": 21.53,
-      "sport": "Football"
-    },
-    {
-      "match": "Cashmere Technical vs Nomads United AFC",
-      "home_team": "Cashmere Technical",
-      "away_team": "Nomads United AFC",
-      "bookmaker": "BetPawa",
-      "competition": "Football / New Zealand / National League",
-      "home": 1.08,
-      "draw": 8.4,
-      "away": 18.0,
-      "sport": "Football"
-    },
-    {
-      "match": "Little Rock Rangers vs Mississippi Brilla",
-      "home_team": "Little Rock Rangers",
-      "away_team": "Mississippi Brilla",
-      "bookmaker": "BetPawa",
-      "competition": "Football / USA / USL League Two",
-      "home": 1.29,
-      "draw": 5.16,
-      "away": 8.22,
-      "sport": "Football"
-    },
-    {
-      "match": "Coastal Spirit FC vs Dunedin City Royals FC",
-      "home_team": "Coastal Spirit FC",
-      "away_team": "Dunedin City Royals FC",
-      "bookmaker": "BetPawa",
-      "competition": "Football / New Zealand / National League",
-      "home": 1.75,
-      "draw": 4.1,
-      "away": 3.5,
-      "sport": "Football"
-    },
-    {
       "match": "FC Tulsa vs Colorado Springs Switchbacks FC",
       "home_team": "FC Tulsa",
       "away_team": "Colorado Springs Switchbacks FC",
       "bookmaker": "BetPawa",
       "competition": "Football / USA / USL Championship",
-      "home": 2.49,
-      "draw": 3.56,
-      "away": 2.58,
+      "home": 2.71,
+      "draw": 3.39,
+      "away": 2.47,
       "sport": "Football"
     },
     {
@@ -330,9 +253,9 @@
       "away_team": "Sarasota Paradise",
       "bookmaker": "BetPawa",
       "competition": "Football / USA / USL League One",
-      "home": 1.93,
-      "draw": 3.59,
-      "away": 3.4,
+      "home": 2.17,
+      "draw": 3.25,
+      "away": 3.11,
       "sport": "Football"
     },
     {
@@ -413,6 +336,94 @@
       "sport": "Football"
     },
     {
+      "match": "El Farolito vs Cruizers FC",
+      "home_team": "El Farolito",
+      "away_team": "Cruizers FC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / USA / National Premier Soccer League",
+      "home": 1.08,
+      "draw": 9.35,
+      "away": 18.12,
+      "sport": "Football"
+    },
+    {
+      "match": "Phoenix Rising FC vs Oakland Roots SC",
+      "home_team": "Phoenix Rising FC",
+      "away_team": "Oakland Roots SC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / USA / USL Championship",
+      "home": 2.11,
+      "draw": 3.64,
+      "away": 3.11,
+      "sport": "Football"
+    },
+    {
+      "match": "Las Vegas Lights vs Orange County SC",
+      "home_team": "Las Vegas Lights",
+      "away_team": "Orange County SC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / USA / USL Championship",
+      "home": 2.25,
+      "draw": 3.46,
+      "away": 2.97,
+      "sport": "Football"
+    },
+    {
+      "match": "Marconi Stallions FC U20 vs University of NSW U20",
+      "home_team": "Marconi Stallions FC U20",
+      "away_team": "University of NSW U20",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / U20 NSW NPL",
+      "home": 1.55,
+      "draw": 4.35,
+      "away": 4.44,
+      "sport": "Football"
+    },
+    {
+      "match": "Blacktown City FC U20 vs APIA Leichhardt Tigers U20",
+      "home_team": "Blacktown City FC U20",
+      "away_team": "APIA Leichhardt Tigers U20",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / U20 NSW NPL",
+      "home": 5.28,
+      "draw": 4.71,
+      "away": 1.43,
+      "sport": "Football"
+    },
+    {
+      "match": "Maitland FC vs Newcastle Olympic FC",
+      "home_team": "Maitland FC",
+      "away_team": "Newcastle Olympic FC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / Northern NSW NPL",
+      "home": 1.77,
+      "draw": 4.31,
+      "away": 3.4,
+      "sport": "Football"
+    },
+    {
+      "match": "Glenorchy Knights Women vs South Hobart FC Women",
+      "home_team": "Glenorchy Knights Women",
+      "away_team": "South Hobart FC Women",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / Tasmania Super League, Women",
+      "home": 2.14,
+      "draw": 3.95,
+      "away": 2.63,
+      "sport": "Football"
+    },
+    {
+      "match": "Kingborough Lions United FC vs South Hobart FC",
+      "home_team": "Kingborough Lions United FC",
+      "away_team": "South Hobart FC",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / Tasmania NPL",
+      "home": 3.25,
+      "draw": 4.39,
+      "away": 1.8,
+      "sport": "Football"
+    },
+    {
       "match": "Tunisia vs Japan",
       "home_team": "Tunisia",
       "away_team": "Japan",
@@ -454,28 +465,6 @@
       "home": 1.45,
       "draw": 4.21,
       "away": 8.07,
-      "sport": "Football"
-    },
-    {
-      "match": "Phoenix Rising FC vs Oakland Roots SC",
-      "home_team": "Phoenix Rising FC",
-      "away_team": "Oakland Roots SC",
-      "bookmaker": "BetPawa",
-      "competition": "Football / USA / USL Championship",
-      "home": 2.11,
-      "draw": 3.64,
-      "away": 3.11,
-      "sport": "Football"
-    },
-    {
-      "match": "Las Vegas Lights vs Orange County SC",
-      "home_team": "Las Vegas Lights",
-      "away_team": "Orange County SC",
-      "bookmaker": "BetPawa",
-      "competition": "Football / USA / USL Championship",
-      "home": 2.25,
-      "draw": 3.46,
-      "away": 2.97,
       "sport": "Football"
     },
     {
@@ -567,6 +556,28 @@
       "sport": "Football"
     },
     {
+      "match": "Scotland vs Brazil",
+      "home_team": "Scotland",
+      "away_team": "Brazil",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / FIFA World Cup",
+      "home": 8.5,
+      "draw": 5.17,
+      "away": 1.35,
+      "sport": "Football"
+    },
+    {
+      "match": "Colombia vs Congo DR",
+      "home_team": "Colombia",
+      "away_team": "Congo DR",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / FIFA World Cup",
+      "home": 1.48,
+      "draw": 4.25,
+      "away": 7.22,
+      "sport": "Football"
+    },
+    {
       "match": "Arsenal vs Coventry",
       "home_team": "Arsenal",
       "away_team": "Coventry",
@@ -638,9 +649,9 @@
       "away_team": "Aston Villa",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.27,
+      "home": 2.28,
       "draw": 3.6,
-      "away": 2.91,
+      "away": 2.88,
       "sport": "Football"
     },
     {
@@ -726,9 +737,9 @@
       "away_team": "Japan",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 8.0,
-      "draw": 4.25,
-      "away": 1.49,
+      "home": 7.8,
+      "draw": 4.5,
+      "away": 1.47,
       "sport": "Football"
     },
     {
@@ -1249,17 +1260,6 @@
       "sport": "Football"
     },
     {
-      "match": "Maranhao vs Paysandu",
-      "home_team": "Maranhao",
-      "away_team": "Paysandu",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 3.1,
-      "draw": 3.05,
-      "away": 2.3,
-      "sport": "Football"
-    },
-    {
       "match": "SER Caxias  vs Maringa",
       "home_team": "SER Caxias ",
       "away_team": "Maringa",
@@ -1414,25 +1414,14 @@
       "sport": "Football"
     },
     {
-      "match": "Birmingham vs Loudoun",
-      "home_team": "Birmingham",
-      "away_team": "Loudoun",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.68,
-      "draw": 3.85,
-      "away": 4.3,
-      "sport": "Football"
-    },
-    {
       "match": "FC Tulsa vs Colorado Springs",
       "home_team": "FC Tulsa",
       "away_team": "Colorado Springs",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.48,
-      "draw": 3.45,
-      "away": 2.55,
+      "home": 2.67,
+      "draw": 3.3,
+      "away": 2.45,
       "sport": "Football"
     },
     {
@@ -1441,9 +1430,9 @@
       "away_team": "El Paso",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.71,
-      "draw": 3.25,
-      "away": 2.45,
+      "home": 2.72,
+      "draw": 3.15,
+      "away": 2.5,
       "sport": "Football"
     },
     {
@@ -1463,9 +1452,9 @@
       "away_team": "New Mexico",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.7,
-      "draw": 3.55,
-      "away": 4.6,
+      "home": 1.72,
+      "draw": 3.6,
+      "away": 4.4,
       "sport": "Football"
     },
     {
@@ -1485,20 +1474,9 @@
       "away_team": "Sarasota Paradise",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.94,
-      "draw": 3.45,
-      "away": 3.25,
-      "sport": "Football"
-    },
-    {
-      "match": "Madison vs NY Cosmos",
-      "home_team": "Madison",
-      "away_team": "NY Cosmos",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.5,
-      "draw": 3.9,
-      "away": 5.3,
+      "home": 2.16,
+      "draw": 3.15,
+      "away": 3.0,
       "sport": "Football"
     },
     {
@@ -1521,28 +1499,6 @@
       "home": 2.16,
       "draw": 3.35,
       "away": 2.88,
-      "sport": "Football"
-    },
-    {
-      "match": "Colorado II vs Portland II",
-      "home_team": "Colorado II",
-      "away_team": "Portland II",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.62,
-      "draw": 3.45,
-      "away": 2.27,
-      "sport": "Football"
-    },
-    {
-      "match": "Huntsville vs Crown Legacy",
-      "home_team": "Huntsville",
-      "away_team": "Crown Legacy",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 3.2,
-      "draw": 3.5,
-      "away": 1.95,
       "sport": "Football"
     },
     {
@@ -1606,7 +1562,7 @@
       "away_team": "Napoli",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 5.0,
+      "home": 4.95,
       "draw": 3.55,
       "away": 1.72,
       "sport": "Football"
@@ -1914,9 +1870,9 @@
       "away_team": "Yunnan Yukun",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 8.6,
+      "home": 10.0,
       "draw": 5.5,
-      "away": 1.23,
+      "away": 1.2,
       "sport": "Football"
     },
     {
@@ -1961,17 +1917,6 @@
       "home": 1.78,
       "draw": 4.05,
       "away": 3.3,
-      "sport": "Football"
-    },
-    {
-      "match": "Ecuador vs Curacao",
-      "home_team": "Ecuador",
-      "away_team": "Curacao",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.18,
-      "draw": 8.0,
-      "away": 17.0,
       "sport": "Football"
     },
     {
@@ -2112,9 +2057,9 @@
       "away_team": "Tobol",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.45,
-      "draw": 3.2,
-      "away": 2.57,
+      "home": 2.5,
+      "draw": 3.15,
+      "away": 2.55,
       "sport": "Football"
     },
     {
@@ -2794,9 +2739,9 @@
       "away_team": "U. Espanola",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.67,
+      "home": 1.66,
       "draw": 3.7,
-      "away": 4.6,
+      "away": 4.65,
       "sport": "Football"
     },
     {
