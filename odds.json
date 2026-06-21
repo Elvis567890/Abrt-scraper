@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-06-21 20:09 UTC",
-  "total_matches": 190,
+  "last_updated": "2026-06-21 21:40 UTC",
+  "total_matches": 186,
   "bookmakers_scraped": [
     "BetPawa",
     "Fortebet",
@@ -102,93 +102,57 @@
           "win": 106901
         }
       ]
+    },
+    {
+      "match": "tallinna jk legion vs parnu jk vaprus ii",
+      "type": "2-way",
+      "profit_percent": 2.06,
+      "profit_ugx": 2059,
+      "total_stake": 100000,
+      "arb_sum": 0.9794,
+      "bets": [
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Home",
+          "odd": 14.22,
+          "stake": 7180,
+          "win": 102100
+        },
+        {
+          "bookmaker": "SportyBet",
+          "outcome": "Away",
+          "odd": 1.1,
+          "stake": 92820,
+          "win": 102102
+        }
+      ]
+    },
+    {
+      "match": "rfs vs ogre",
+      "type": "2-way",
+      "profit_percent": 1.35,
+      "profit_ugx": 1348,
+      "total_stake": 100000,
+      "arb_sum": 0.9865,
+      "bets": [
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Home",
+          "odd": 1.05,
+          "stake": 96539,
+          "win": 101366
+        },
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Away",
+          "odd": 29.29,
+          "stake": 3461,
+          "win": 101373
+        }
+      ]
     }
   ],
   "raw_odds": [
-    {
-      "match": "CD Estudiantil Cni vs Sporting Cristal",
-      "home_team": "CD Estudiantil Cni",
-      "away_team": "Sporting Cristal",
-      "match_key": "cd estudiantil cni vs sporting cristal",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Peru / Copa de la Liga",
-      "home": 2.23,
-      "draw": 3.25,
-      "away": 2.9,
-      "sport": "Football"
-    },
-    {
-      "match": "West Seattle Rhodies FC Women vs Portland Cherry Bombs FC Women",
-      "home_team": "West Seattle Rhodies FC Women",
-      "away_team": "Portland Cherry Bombs FC Women",
-      "match_key": "west seattle rhodies vs portland cherry bombs",
-      "bookmaker": "BetPawa",
-      "competition": "Football / USA / USL W League",
-      "home": 1.23,
-      "draw": 5.0,
-      "away": 12.0,
-      "sport": "Football"
-    },
-    {
-      "match": "Annapolis Blues FC Women vs Virginia Beach United FC Women",
-      "home_team": "Annapolis Blues FC Women",
-      "away_team": "Virginia Beach United FC Women",
-      "match_key": "annapolis blues vs virginia beach",
-      "bookmaker": "BetPawa",
-      "competition": "Football / USA / USL W League",
-      "home": 2.45,
-      "draw": 3.15,
-      "away": 2.65,
-      "sport": "Football"
-    },
-    {
-      "match": "Universidad de Chile vs Santiago Wanderers",
-      "home_team": "Universidad de Chile",
-      "away_team": "Santiago Wanderers",
-      "match_key": "universidad de chile vs santiago wanderers",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Chile / Copa Chile",
-      "home": 1.56,
-      "draw": 4.15,
-      "away": 5.02,
-      "sport": "Football"
-    },
-    {
-      "match": "Barra FC SC vs Amazonas FC AM",
-      "home_team": "Barra FC SC",
-      "away_team": "Amazonas FC AM",
-      "match_key": "barra vs amazonas am",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Brazil / Brasileiro Serie C",
-      "home": 1.9,
-      "draw": 2.91,
-      "away": 4.57,
-      "sport": "Football"
-    },
-    {
-      "match": "Ferroviaria Araraquara SP vs AA Internacional Limeira SP",
-      "home_team": "Ferroviaria Araraquara SP",
-      "away_team": "AA Internacional Limeira SP",
-      "match_key": "ferroviaria araraquara sp vs aa internacional limeira sp",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Brazil / Brasileiro Serie C",
-      "home": 2.02,
-      "draw": 2.9,
-      "away": 4.0,
-      "sport": "Football"
-    },
-    {
-      "match": "Goias EC GO vs Operario Ferroviario EC PR",
-      "home_team": "Goias EC GO",
-      "away_team": "Operario Ferroviario EC PR",
-      "match_key": "goias ec go vs operario ferroviario ec pr",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Brazil / Brasileiro Serie B",
-      "home": 2.18,
-      "draw": 3.04,
-      "away": 3.54,
-      "sport": "Football"
-    },
     {
       "match": "Uruguay vs Cape Verde",
       "home_team": "Uruguay",
@@ -196,9 +160,9 @@
       "match_key": "uruguay vs cape verde",
       "bookmaker": "BetPawa",
       "competition": "Football / International / FIFA World Cup",
-      "home": 1.39,
-      "draw": 4.52,
-      "away": 9.31,
+      "home": 1.37,
+      "draw": 4.65,
+      "away": 9.62,
       "sport": "Football"
     },
     {
@@ -232,8 +196,8 @@
       "match_key": "cienciano vs deportivo garcilaso",
       "bookmaker": "BetPawa",
       "competition": "Football / Peru / Copa de la Liga",
-      "home": 2.31,
-      "draw": 3.05,
+      "home": 2.26,
+      "draw": 3.15,
       "away": 2.95,
       "sport": "Football"
     },
@@ -304,9 +268,105 @@
       "match_key": "new zealand vs egypt",
       "bookmaker": "BetPawa",
       "competition": "Football / International / FIFA World Cup",
-      "home": 6.11,
-      "draw": 4.09,
-      "away": 1.56,
+      "home": 5.9,
+      "draw": 4.06,
+      "away": 1.58,
+      "sport": "Football"
+    },
+    {
+      "match": "Melbourne Victory FC U23 vs Brunswick City SC U23",
+      "home_team": "Melbourne Victory FC U23",
+      "away_team": "Brunswick City SC U23",
+      "match_key": "melbourne victory vs brunswick",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / U23 Victoria Premier League 1",
+      "home": 1.74,
+      "draw": 4.05,
+      "away": 3.58,
+      "sport": "Football"
+    },
+    {
+      "match": "Melbourne Victory vs Brunswick City SC",
+      "home_team": "Melbourne Victory",
+      "away_team": "Brunswick City SC",
+      "match_key": "melbourne victory vs brunswick",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / NPL 2, Victoria",
+      "home": 1.66,
+      "draw": 4.21,
+      "away": 4.02,
+      "sport": "Football"
+    },
+    {
+      "match": "Defensor Sporting Reserves vs Deportivo Maldonado Reserves",
+      "home_team": "Defensor Sporting Reserves",
+      "away_team": "Deportivo Maldonado Reserves",
+      "match_key": "defensor sporting reserves vs deportivo maldonado reserves",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Uruguay / Uruguay Primera Divisi\u00f3n Reserves",
+      "home": 1.77,
+      "draw": 3.7,
+      "away": 3.9,
+      "sport": "Football"
+    },
+    {
+      "match": "Tallinna JK Legion vs Parnu JK Vaprus II U21",
+      "home_team": "Tallinna JK Legion",
+      "away_team": "Parnu JK Vaprus II U21",
+      "match_key": "tallinna jk legion vs parnu jk vaprus ii",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Estonia / Esiliiga B",
+      "home": 14.22,
+      "draw": 10.43,
+      "away": 1.07,
+      "sport": "Football"
+    },
+    {
+      "match": "Universidad de Concepcion Women vs Deportes Iquique Women",
+      "home_team": "Universidad de Concepcion Women",
+      "away_team": "Deportes Iquique Women",
+      "match_key": "universidad de concepcion vs deportes iquique",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Chile / Primera Division, Women",
+      "home": 2.25,
+      "draw": 3.2,
+      "away": 3.0,
+      "sport": "Football"
+    },
+    {
+      "match": "FC RFS vs Ogre United",
+      "home_team": "FC RFS",
+      "away_team": "Ogre United",
+      "match_key": "rfs vs ogre",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Latvia / Virsliga",
+      "home": 1.04,
+      "draw": 12.69,
+      "away": 29.29,
+      "sport": "Football"
+    },
+    {
+      "match": "Aalesund FK 2 vs Ranheim 2",
+      "home_team": "Aalesund FK 2",
+      "away_team": "Ranheim 2",
+      "match_key": "aalesund fk 2 vs ranheim 2",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / 3rd Division Group 2",
+      "home": 2.07,
+      "draw": 4.1,
+      "away": 2.7,
+      "sport": "Football"
+    },
+    {
+      "match": "Odds BK 2 vs Flekkeroy IL",
+      "home_team": "Odds BK 2",
+      "away_team": "Flekkeroy IL",
+      "match_key": "odds bk 2 vs flekkeroy il",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / 3rd Division Group 4",
+      "home": 5.6,
+      "draw": 4.8,
+      "away": 1.41,
       "sport": "Football"
     },
     {
@@ -322,18 +382,6 @@
       "sport": "Football"
     },
     {
-      "match": "Norway vs Senegal",
-      "home_team": "Norway",
-      "away_team": "Senegal",
-      "match_key": "norway vs senegal",
-      "bookmaker": "BetPawa",
-      "competition": "Football / International / FIFA World Cup",
-      "home": 2.26,
-      "draw": 3.46,
-      "away": 3.14,
-      "sport": "Football"
-    },
-    {
       "match": "France vs Iraq",
       "home_team": "France",
       "away_team": "Iraq",
@@ -343,6 +391,18 @@
       "home": 1.06,
       "draw": 13.2,
       "away": 36.85,
+      "sport": "Football"
+    },
+    {
+      "match": "Norway vs Senegal",
+      "home_team": "Norway",
+      "away_team": "Senegal",
+      "match_key": "norway vs senegal",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / FIFA World Cup",
+      "home": 2.26,
+      "draw": 3.46,
+      "away": 3.14,
       "sport": "Football"
     },
     {
@@ -364,9 +424,9 @@
       "match_key": "england vs ghana",
       "bookmaker": "BetPawa",
       "competition": "Football / International / FIFA World Cup",
-      "home": 1.19,
-      "draw": 6.92,
-      "away": 14.78,
+      "home": 1.2,
+      "draw": 6.81,
+      "away": 14.17,
       "sport": "Football"
     },
     {
@@ -487,6 +547,30 @@
       "home": 5.61,
       "draw": 3.96,
       "away": 1.61,
+      "sport": "Football"
+    },
+    {
+      "match": "Norway vs France",
+      "home_team": "Norway",
+      "away_team": "France",
+      "match_key": "norway vs france",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / FIFA World Cup",
+      "home": 4.41,
+      "draw": 3.86,
+      "away": 1.77,
+      "sport": "Football"
+    },
+    {
+      "match": "Japan vs Sweden",
+      "home_team": "Japan",
+      "away_team": "Sweden",
+      "match_key": "japan vs sweden",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / FIFA World Cup",
+      "home": 1.94,
+      "draw": 3.46,
+      "away": 4.05,
       "sport": "Football"
     },
     {
@@ -688,9 +772,9 @@
       "match_key": "new zealand vs egypt",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 6.4,
+      "home": 6.1,
       "draw": 4.05,
-      "away": 1.59,
+      "away": 1.61,
       "sport": "Football"
     },
     {
@@ -700,9 +784,9 @@
       "match_key": "uruguay vs cape verde",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.45,
-      "draw": 4.35,
-      "away": 9.0,
+      "home": 1.4,
+      "draw": 4.55,
+      "away": 10.0,
       "sport": "Football"
     },
     {
@@ -724,9 +808,9 @@
       "match_key": "norway vs senegal",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.29,
+      "home": 2.32,
       "draw": 3.6,
-      "away": 3.15,
+      "away": 3.1,
       "sport": "Football"
     },
     {
@@ -748,9 +832,9 @@
       "match_key": "jordan vs algeria",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 5.9,
-      "draw": 4.15,
-      "away": 1.61,
+      "home": 6.1,
+      "draw": 4.2,
+      "away": 1.59,
       "sport": "Football"
     },
     {
@@ -772,9 +856,9 @@
       "match_key": "colombia vs dr congo",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.52,
+      "home": 1.53,
       "draw": 4.35,
-      "away": 7.0,
+      "away": 6.8,
       "sport": "Football"
     },
     {
@@ -856,9 +940,9 @@
       "match_key": "new zealand vs belgium",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 12.0,
-      "draw": 6.3,
-      "away": 1.22,
+      "home": 13.0,
+      "draw": 6.5,
+      "away": 1.2,
       "sport": "Football"
     },
     {
@@ -868,9 +952,9 @@
       "match_key": "egypt vs iran",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.05,
-      "draw": 3.1,
-      "away": 3.95,
+      "home": 2.15,
+      "draw": 2.85,
+      "away": 4.05,
       "sport": "Football"
     },
     {
@@ -892,9 +976,9 @@
       "match_key": "cape verde vs saudi arabia",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.5,
-      "draw": 3.7,
-      "away": 2.54,
+      "home": 2.6,
+      "draw": 3.75,
+      "away": 2.42,
       "sport": "Football"
     },
     {
@@ -1036,9 +1120,9 @@
       "match_key": "oddevold vs ljungskille",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.92,
+      "home": 1.91,
       "draw": 3.7,
-      "away": 3.65,
+      "away": 3.7,
       "sport": "Football"
     },
     {
@@ -1054,18 +1138,6 @@
       "sport": "Football"
     },
     {
-      "match": "Fram vs Vik. Reykjavik",
-      "home_team": "Fram",
-      "away_team": "Vik. Reykjavik",
-      "match_key": "fram vs vik reykjavik",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 3.65,
-      "draw": 4.05,
-      "away": 1.76,
-      "sport": "Football"
-    },
-    {
       "match": "KR Reykjavik vs Akranes",
       "home_team": "KR Reykjavik",
       "away_team": "Akranes",
@@ -1078,39 +1150,15 @@
       "sport": "Football"
     },
     {
-      "match": "Ferroviaria vs Inter de Limeira",
-      "home_team": "Ferroviaria",
-      "away_team": "Inter de Limeira",
-      "match_key": "ferroviaria vs inter de limeira",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.06,
-      "draw": 2.89,
-      "away": 3.9,
-      "sport": "Football"
-    },
-    {
       "match": "Confianca vs Guarani ",
       "home_team": "Confianca",
       "away_team": "Guarani ",
       "match_key": "confianca vs guarani",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.88,
-      "draw": 2.99,
-      "away": 2.47,
-      "sport": "Football"
-    },
-    {
-      "match": "Barra  vs Amazonas",
-      "home_team": "Barra ",
-      "away_team": "Amazonas",
-      "match_key": "barra vs amazonas",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.94,
-      "draw": 2.91,
-      "away": 4.4,
+      "home": 3.35,
+      "draw": 3.1,
+      "away": 2.15,
       "sport": "Football"
     },
     {
@@ -1135,18 +1183,6 @@
       "home": 3.0,
       "draw": 2.99,
       "away": 2.51,
-      "sport": "Football"
-    },
-    {
-      "match": "Goias vs Operario",
-      "home_team": "Goias",
-      "away_team": "Operario",
-      "match_key": "goias vs operario",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.21,
-      "draw": 3.05,
-      "away": 3.5,
       "sport": "Football"
     },
     {
@@ -1240,9 +1276,9 @@
       "match_key": "columbus ii vs atlanta ii",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.1,
+      "home": 2.61,
       "draw": 3.65,
-      "away": 1.95,
+      "away": 2.2,
       "sport": "Football"
     },
     {
@@ -1420,9 +1456,9 @@
       "match_key": "talleres cordoba w vs huracan w",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.78,
-      "draw": 3.0,
-      "away": 4.65,
+      "home": 1.73,
+      "draw": 3.05,
+      "away": 4.85,
       "sport": "Football"
     },
     {
@@ -1435,18 +1471,6 @@
       "home": 2.36,
       "draw": 2.65,
       "away": 3.8,
-      "sport": "Football"
-    },
-    {
-      "match": "U. De Chile vs S. Wanderers",
-      "home_team": "U. De Chile",
-      "away_team": "S. Wanderers",
-      "match_key": "u de chile vs s wanderers",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.59,
-      "draw": 4.05,
-      "away": 4.75,
       "sport": "Football"
     },
     {
@@ -1582,42 +1606,6 @@
       "sport": "Football"
     },
     {
-      "match": "Araguaina  vs Nacional AM",
-      "home_team": "Araguaina ",
-      "away_team": "Nacional AM",
-      "match_key": "araguaina vs nacional am",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.98,
-      "draw": 2.66,
-      "away": 2.5,
-      "sport": "Football"
-    },
-    {
-      "match": "Independencia  vs Manauara ",
-      "home_team": "Independencia ",
-      "away_team": "Manauara ",
-      "match_key": "independencia vs manauara",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 5.3,
-      "draw": 3.6,
-      "away": 1.55,
-      "sport": "Football"
-    },
-    {
-      "match": "Sao Raimundo vs Porto Velho",
-      "home_team": "Sao Raimundo",
-      "away_team": "Porto Velho",
-      "match_key": "sao raimundo vs porto velho",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.55,
-      "draw": 2.86,
-      "away": 2.7,
-      "sport": "Football"
-    },
-    {
       "match": "Syrianska  vs Ragsveds",
       "home_team": "Syrianska ",
       "away_team": "Ragsveds",
@@ -1696,9 +1684,9 @@
       "match_key": "al kuwait vs al arabi kuw",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.24,
+      "home": 2.3,
       "draw": 3.2,
-      "away": 3.05,
+      "away": 2.95,
       "sport": "Football"
     },
     {
@@ -1720,153 +1708,9 @@
       "match_key": "uruguay vs cape verde",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.43,
-      "draw": 4.61,
-      "away": 9.49,
-      "sport": "Football"
-    },
-    {
-      "match": "Fram Reykjavik vs Vikingur Reykjavik",
-      "home_team": "Fram Reykjavik",
-      "away_team": "Vikingur Reykjavik",
-      "match_key": "fram reykjavik vs vikingur reykjavik",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 3.75,
-      "draw": 4.2,
-      "away": 1.77,
-      "sport": "Football"
-    },
-    {
-      "match": "CD Estudiantil Cni vs Sporting Cristal",
-      "home_team": "CD Estudiantil Cni",
-      "away_team": "Sporting Cristal",
-      "match_key": "cd estudiantil cni vs sporting cristal",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.25,
-      "draw": 3.25,
-      "away": 2.9,
-      "sport": "Football"
-    },
-    {
-      "match": "Araguaina TO vs Nacional FC AM",
-      "home_team": "Araguaina TO",
-      "away_team": "Nacional FC AM",
-      "match_key": "araguaina to vs nacional am",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 3.1,
-      "draw": 2.75,
-      "away": 2.55,
-      "sport": "Football"
-    },
-    {
-      "match": "Independencia FC AC vs Manauara EC AM",
-      "home_team": "Independencia FC AC",
-      "away_team": "Manauara EC AM",
-      "match_key": "independencia vs manauara ec am",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 5.9,
-      "draw": 3.75,
-      "away": 1.55,
-      "sport": "Football"
-    },
-    {
-      "match": "Sao Raimundo EC RR vs Porto Velho Ec/Ro",
-      "home_team": "Sao Raimundo EC RR",
-      "away_team": "Porto Velho Ec/Ro",
-      "match_key": "sao raimundo ec rr vs porto velho ecro",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.6,
-      "draw": 2.95,
-      "away": 2.8,
-      "sport": "Football"
-    },
-    {
-      "match": "Annapolis Blues FC vs Virginia Beach United FC",
-      "home_team": "Annapolis Blues FC",
-      "away_team": "Virginia Beach United FC",
-      "match_key": "annapolis blues vs virginia beach",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.45,
-      "draw": 3.2,
-      "away": 2.65,
-      "sport": "Football"
-    },
-    {
-      "match": "West Seattle Rhodies FC vs Portland Cherry Bombs FC",
-      "home_team": "West Seattle Rhodies FC",
-      "away_team": "Portland Cherry Bombs FC",
-      "match_key": "west seattle rhodies vs portland cherry bombs",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.23,
-      "draw": 5.1,
-      "away": 11.5,
-      "sport": "Football"
-    },
-    {
-      "match": "Goias EC GO vs Operario Ferroviario EC PR",
-      "home_team": "Goias EC GO",
-      "away_team": "Operario Ferroviario EC PR",
-      "match_key": "goias ec go vs operario ferroviario ec pr",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.2,
-      "draw": 3.1,
-      "away": 3.5,
-      "sport": "Football"
-    },
-    {
-      "match": "Universidad de Chile vs Santiago Wanderers",
-      "home_team": "Universidad de Chile",
-      "away_team": "Santiago Wanderers",
-      "match_key": "universidad de chile vs santiago wanderers",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.58,
-      "draw": 4.1,
-      "away": 4.9,
-      "sport": "Football"
-    },
-    {
-      "match": "Long Island Rough Riders vs Westchester Flames",
-      "home_team": "Long Island Rough Riders",
-      "away_team": "Westchester Flames",
-      "match_key": "long island rough riders vs westchester flames",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.07,
-      "draw": 8.9,
-      "away": 17.5,
-      "sport": "Football"
-    },
-    {
-      "match": "Barra FC SC vs Amazonas FC AM",
-      "home_team": "Barra FC SC",
-      "away_team": "Amazonas FC AM",
-      "match_key": "barra vs amazonas am",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.93,
-      "draw": 2.9,
-      "away": 4.5,
-      "sport": "Football"
-    },
-    {
-      "match": "Ferroviaria SP vs AA Internacional Limeira SP",
-      "home_team": "Ferroviaria SP",
-      "away_team": "AA Internacional Limeira SP",
-      "match_key": "ferroviaria sp vs aa internacional limeira sp",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.05,
-      "draw": 2.9,
-      "away": 4.0,
+      "home": 1.41,
+      "draw": 4.75,
+      "away": 9.8,
       "sport": "Football"
     },
     {
@@ -1888,9 +1732,9 @@
       "match_key": "columbus crew 2 vs atlanta 2",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 3.0,
-      "draw": 3.75,
-      "away": 2.05,
+      "home": 2.95,
+      "draw": 3.8,
+      "away": 2.1,
       "sport": "Football"
     },
     {
@@ -1960,7 +1804,7 @@
       "match_key": "cs cienciano vs deportivo garcilaso",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.3,
+      "home": 2.25,
       "draw": 3.1,
       "away": 2.95,
       "sport": "Football"
@@ -1990,15 +1834,87 @@
       "sport": "Football"
     },
     {
+      "match": "AHFC Royals vs San Antonio FC 2",
+      "home_team": "AHFC Royals",
+      "away_team": "San Antonio FC 2",
+      "match_key": "ahfc royals vs san antonio 2",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.52,
+      "draw": 4.2,
+      "away": 4.9,
+      "sport": "Football"
+    },
+    {
+      "match": "Austin FC II vs Sporting Kansas City II",
+      "home_team": "Austin FC II",
+      "away_team": "Sporting Kansas City II",
+      "match_key": "austin ii vs sporting kansas ii",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.35,
+      "draw": 5.2,
+      "away": 6.9,
+      "sport": "Football"
+    },
+    {
       "match": "New Zealand vs Egypt",
       "home_team": "New Zealand",
       "away_team": "Egypt",
       "match_key": "new zealand vs egypt",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 6.27,
-      "draw": 4.2,
-      "away": 1.61,
+      "home": 6.04,
+      "draw": 4.16,
+      "away": 1.63,
+      "sport": "Football"
+    },
+    {
+      "match": "Tacoma Defiance vs Real Monarchs SLC",
+      "home_team": "Tacoma Defiance",
+      "away_team": "Real Monarchs SLC",
+      "match_key": "tacoma defiance vs real monarchs slc",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.15,
+      "draw": 3.7,
+      "away": 2.9,
+      "sport": "Football"
+    },
+    {
+      "match": "Melbourne Victory FC vs Brunswick City SC",
+      "home_team": "Melbourne Victory FC",
+      "away_team": "Brunswick City SC",
+      "match_key": "melbourne victory vs brunswick",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.73,
+      "draw": 3.8,
+      "away": 3.4,
+      "sport": "Football"
+    },
+    {
+      "match": "Melbourne Victory vs Brunswick City SC",
+      "home_team": "Melbourne Victory",
+      "away_team": "Brunswick City SC",
+      "match_key": "melbourne victory vs brunswick",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.66,
+      "draw": 4.1,
+      "away": 3.9,
+      "sport": "Football"
+    },
+    {
+      "match": "Viljandi JK Tulevik vs Tartu JK Tammeka U21",
+      "home_team": "Viljandi JK Tulevik",
+      "away_team": "Tartu JK Tammeka U21",
+      "match_key": "viljandi jk tulevik vs tartu jk tammeka",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.85,
+      "draw": 4.4,
+      "away": 3.0,
       "sport": "Football"
     },
     {
@@ -2038,6 +1954,18 @@
       "sport": "Football"
     },
     {
+      "match": "Tallinna JK Legion vs Parnu JK Vaprus II",
+      "home_team": "Tallinna JK Legion",
+      "away_team": "Parnu JK Vaprus II",
+      "match_key": "tallinna jk legion vs parnu jk vaprus ii",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 12.5,
+      "draw": 8.8,
+      "away": 1.1,
+      "sport": "Football"
+    },
+    {
       "match": "Aalesund 2 vs Ranheim 2",
       "home_team": "Aalesund 2",
       "away_team": "Ranheim 2",
@@ -2057,8 +1985,44 @@
       "bookmaker": "SportyBet",
       "competition": "",
       "home": 5.5,
-      "draw": 5.0,
-      "away": 1.39,
+      "draw": 4.8,
+      "away": 1.41,
+      "sport": "Football"
+    },
+    {
+      "match": "FC Telavi vs Aragvi Dusheti",
+      "home_team": "FC Telavi",
+      "away_team": "Aragvi Dusheti",
+      "match_key": "telavi vs aragvi dusheti",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.66,
+      "draw": 3.5,
+      "away": 4.8,
+      "sport": "Football"
+    },
+    {
+      "match": "FCI Levadia Tallinn vs FC Phoenix Johvi",
+      "home_team": "FCI Levadia Tallinn",
+      "away_team": "FC Phoenix Johvi",
+      "match_key": "fci levadia tallinn vs phoenix johvi",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.05,
+      "draw": 4.2,
+      "away": 2.65,
+      "sport": "Football"
+    },
+    {
+      "match": "JK Tallinna Kalev vs JK Narva Trans",
+      "home_team": "JK Tallinna Kalev",
+      "away_team": "JK Narva Trans",
+      "match_key": "jk tallinna kalev vs jk narva trans",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.1,
+      "draw": 4.3,
+      "away": 1.82,
       "sport": "Football"
     },
     {
@@ -2134,6 +2098,18 @@
       "sport": "Football"
     },
     {
+      "match": "Syrianska FC vs Raagsveds IF",
+      "home_team": "Syrianska FC",
+      "away_team": "Raagsveds IF",
+      "match_key": "syrianska vs raagsveds if",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.4,
+      "draw": 3.7,
+      "away": 1.87,
+      "sport": "Football"
+    },
+    {
       "match": "Kj\u00f8benhavns Boldklub U21 vs Snekkersten IF U21",
       "home_team": "Kj\u00f8benhavns Boldklub U21",
       "away_team": "Snekkersten IF U21",
@@ -2182,6 +2158,18 @@
       "sport": "Football"
     },
     {
+      "match": "AA Ponte Preta SP vs Gremio Novorizontino SP",
+      "home_team": "AA Ponte Preta SP",
+      "away_team": "Gremio Novorizontino SP",
+      "match_key": "aa ponte preta sp vs gremio novorizontino sp",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 5.0,
+      "draw": 3.4,
+      "away": 1.78,
+      "sport": "Football"
+    },
+    {
       "match": "Norway vs Senegal",
       "home_team": "Norway",
       "away_team": "Senegal",
@@ -2203,6 +2191,42 @@
       "home": 6.1,
       "draw": 4.29,
       "away": 1.6,
+      "sport": "Football"
+    },
+    {
+      "match": "FC Lahti vs Turun Palloseura",
+      "home_team": "FC Lahti",
+      "away_team": "Turun Palloseura",
+      "match_key": "lahti vs turun palloseura",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.89,
+      "draw": 3.5,
+      "away": 4.1,
+      "sport": "Football"
+    },
+    {
+      "match": "Kuopion Palloseura vs Tampereen Ilves",
+      "home_team": "Kuopion Palloseura",
+      "away_team": "Tampereen Ilves",
+      "match_key": "kuopion palloseura vs tampereen ilves",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.67,
+      "draw": 4.0,
+      "away": 4.8,
+      "sport": "Football"
+    },
+    {
+      "match": "Vaasan Palloseura vs AC Oulu",
+      "home_team": "Vaasan Palloseura",
+      "away_team": "AC Oulu",
+      "match_key": "vaasan palloseura vs oulu",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.5,
+      "draw": 3.25,
+      "away": 2.85,
       "sport": "Football"
     },
     {
@@ -2254,15 +2278,27 @@
       "sport": "Football"
     },
     {
+      "match": "Coquimbo Unido vs Deportes Limache",
+      "home_team": "Coquimbo Unido",
+      "away_team": "Deportes Limache",
+      "match_key": "coquimbo unido vs deportes limache",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.56,
+      "draw": 4.1,
+      "away": 4.9,
+      "sport": "Football"
+    },
+    {
       "match": "England vs Ghana",
       "home_team": "England",
       "away_team": "Ghana",
       "match_key": "england vs ghana",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.23,
-      "draw": 7.13,
-      "away": 15.23,
+      "home": 1.24,
+      "draw": 7.04,
+      "away": 14.64,
       "sport": "Football"
     },
     {
@@ -2278,18 +2314,6 @@
       "sport": "Football"
     },
     {
-      "match": "Colombia vs Congo DR",
-      "home_team": "Colombia",
-      "away_team": "Congo DR",
-      "match_key": "colombia vs congo dr",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.55,
-      "draw": 4.27,
-      "away": 7.06,
-      "sport": "Football"
-    },
-    {
       "match": "Vaxjo DFF vs IF Brommapojkarna",
       "home_team": "Vaxjo DFF",
       "away_team": "IF Brommapojkarna",
@@ -2302,75 +2326,27 @@
       "sport": "Football"
     },
     {
-      "match": "Bosnia & Herzegovina vs Qatar",
-      "home_team": "Bosnia & Herzegovina",
-      "away_team": "Qatar",
-      "match_key": "bosnia herzegovina vs qatar",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.46,
-      "draw": 5.1,
-      "away": 7.26,
-      "sport": "Football"
-    },
-    {
-      "match": "Switzerland vs Canada",
-      "home_team": "Switzerland",
-      "away_team": "Canada",
-      "match_key": "switzerland vs canada",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.51,
-      "draw": 3.17,
-      "away": 3.26,
-      "sport": "Football"
-    },
-    {
-      "match": "Belgium vs IR Iran",
-      "home_team": "Belgium",
-      "away_team": "IR Iran",
-      "match_key": "belgium vs ir iran",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.55,
-      "draw": 3.3,
-      "away": 10.0,
-      "sport": "Football"
-    },
-    {
-      "match": "CR Brasil AL vs Fortaleza EC CE",
-      "home_team": "CR Brasil AL",
-      "away_team": "Fortaleza EC CE",
-      "match_key": "cr brasil al vs fortaleza ec ce",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.5,
-      "draw": 3.75,
-      "away": 8.0,
-      "sport": "Football"
-    },
-    {
       "match": "Sao Bernardo FC vs EC Juventude RS",
       "home_team": "Sao Bernardo FC",
       "away_team": "EC Juventude RS",
       "match_key": "sao bernardo vs ec juventude rs",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.75,
-      "draw": 2.85,
-      "away": 2.9,
+      "home": 27.0,
+      "draw": 4.6,
+      "away": 1.24,
       "sport": "Football"
     },
     {
-      "match": "Deportes Temuco vs Deportes Concepcion",
-      "home_team": "Deportes Temuco",
-      "away_team": "Deportes Concepcion",
-      "match_key": "deportes temuco vs deportes concepcion",
+      "match": "Goias EC GO vs Operario Ferroviario EC PR",
+      "home_team": "Goias EC GO",
+      "away_team": "Operario Ferroviario EC PR",
+      "match_key": "goias ec go vs operario ferroviario ec pr",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 3.2,
-      "draw": 2.45,
-      "away": 2.7,
+      "home": 2.4,
+      "draw": 3.0,
+      "away": 3.2,
       "sport": "Football"
     },
     {
@@ -2380,9 +2356,33 @@
       "match_key": "curico unido vs nublense",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.8,
-      "draw": 3.15,
-      "away": 2.5,
+      "home": 1.37,
+      "draw": 3.4,
+      "away": 13.0,
+      "sport": "Football"
+    },
+    {
+      "match": "Universidad de Chile vs Santiago Wanderers",
+      "home_team": "Universidad de Chile",
+      "away_team": "Santiago Wanderers",
+      "match_key": "universidad de chile vs santiago wanderers",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.65,
+      "draw": 3.85,
+      "away": 4.85,
+      "sport": "Football"
+    },
+    {
+      "match": "Chicago Dutch Lions FC vs RKC Soccer Club",
+      "home_team": "Chicago Dutch Lions FC",
+      "away_team": "RKC Soccer Club",
+      "match_key": "chicago dutch lions vs rkc",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 4.8,
+      "draw": 1.65,
+      "away": 3.5,
       "sport": "Football"
     }
   ]
