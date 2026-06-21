@@ -14,18 +14,27 @@ h1{color:#00ff88;text-align:center;font-size:1.4em;padding:15px 0 5px}
 #lu{color:#666;font-size:0.75em}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px}
 .stat{background:#111;border:1px solid #222;border-radius:8px;padding:10px;text-align:center}
-.num{color:#00ff88;font-size:1.6em;font-weight:bold}
-.arb-num{color:#ff6b00;font-size:1.6em;font-weight:bold}
+.num{color:#00ff88;font-size:1.4em;font-weight:bold}
+.arb-num{color:#ff6b00;font-size:1.4em;font-weight:bold}
 .lbl{color:#888;font-size:0.7em;margin-top:3px}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:15px}
 .tag{background:#1a2a1a;border:1px solid #00ff88;color:#00ff88;border-radius:20px;padding:4px 12px;font-size:0.8em}
-.sec{color:#aaa;font-size:0.9em;font-weight:bold;margin:15px 0 8px;padding-bottom:5px;border-bottom:1px solid #222}
-/* Arbitrage Cards */
+.sec{color:#aaa;font-size:0.9em;font-weight:bold;margin:15px 0 8px;padding-bottom:5px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center}
+.filter-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.filter-btn{background:#1a1a1a;border:1px solid #333;color:#aaa;border-radius:20px;padding:5px 14px;font-size:0.8em;cursor:pointer}
+.filter-btn.active{background:#ff6b00;border-color:#ff6b00;color:#000;font-weight:bold}
+.stake-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;background:#111;border:1px solid #222;border-radius:8px;padding:8px 12px}
+.stake-row label{color:#888;font-size:0.8em;white-space:nowrap}
+.stake-input{background:#1a1a1a;border:1px solid #333;color:#00ff88;border-radius:6px;padding:5px 8px;font-size:0.85em;width:120px}
 .arb-card{background:#111;border:2px solid #ff6b00;border-radius:10px;padding:12px;margin-bottom:12px}
-.arb-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.arb-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:8px}
 .arb-match{color:#fff;font-weight:bold;font-size:0.9em;flex:1}
-.arb-profit{background:#ff6b00;color:#000;font-weight:bold;border-radius:20px;padding:3px 10px;font-size:0.85em;white-space:nowrap}
-.arb-type{color:#888;font-size:0.75em;margin-bottom:8px}
+.arb-profit{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.profit-pct{background:#ff6b00;color:#000;font-weight:bold;border-radius:20px;padding:3px 10px;font-size:0.85em;white-space:nowrap}
+.profit-ugx{color:#ff6b00;font-size:0.75em;text-align:right}
+.arb-meta{display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.arb-type{color:#888;font-size:0.75em}
+.arb-time{color:#4af;font-size:0.75em}
 .arb-bets{display:flex;flex-direction:column;gap:6px}
 .arb-bet{background:#1a1a1a;border-radius:6px;padding:8px;display:flex;justify-content:space-between;align-items:center}
 .bet-left{display:flex;flex-direction:column}
@@ -35,7 +44,6 @@ h1{color:#00ff88;text-align:center;font-size:1.4em;padding:15px 0 5px}
 .bet-odd{color:#fff;font-weight:bold;font-size:0.9em}
 .bet-stake{color:#ff6b00;font-size:0.75em}
 .no-arb{background:#111;border:1px solid #333;border-radius:8px;padding:20px;text-align:center;color:#666}
-/* Odds Table */
 .tbl-wrap{overflow-x:auto;margin-bottom:20px}
 table{width:100%;border-collapse:collapse;font-size:0.8em;min-width:400px}
 th{background:#1a1a1a;color:#888;padding:8px 6px;text-align:left;border-bottom:1px solid #333}
@@ -44,6 +52,7 @@ td{padding:7px 6px;border-bottom:1px solid #1a1a1a;color:#ddd}
 .bk{color:#4af;font-weight:bold}
 tr:hover td{background:#141414}
 .empty{text-align:center;padding:30px;color:#666}
+.count{color:#ff6b00;font-size:0.85em}
 </style>
 </head>
 <body>
@@ -72,7 +81,23 @@ tr:hover td{background:#141414}
 
 <div class="tags" id="tags"></div>
 
-<p class="sec">🎯 Arbitrage Opportunities</p>
+<div class="stake-row">
+  <label>💰 Your Stake (UGX):</label>
+  <input class="stake-input" type="number" id="stake" value="100000" min="1000" step="1000" oninput="renderArbs()">
+</div>
+
+<p class="sec">
+  🎯 Arbitrage Opportunities
+  <span class="count" id="arb-count"></span>
+</p>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+  <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Bookmaker Only</button>
+  <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
+  <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
+</div>
+
 <div id="arbs"><div class="empty">⏳ Loading opportunities...</div></div>
 
 <p class="sec">📊 All Scraped Odds</p>
@@ -81,57 +106,101 @@ tr:hover td{background:#141414}
 </div>
 
 <script>
+let allOpps = [];
+let currentFilter = 'all';
+
+function setFilter(f, btn){
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderArbs();
+}
+
+function renderArbs(){
+  const stake = parseInt(document.getElementById('stake').value) || 100000;
+  let opps = allOpps;
+
+  if(currentFilter === 'cross'){
+    opps = opps.filter(o=>{
+      const books = new Set(o.bets.map(b=>b.bookmaker));
+      return books.size >= 2;
+    });
+  } else if(currentFilter === '2way'){
+    opps = opps.filter(o=>o.type==='2-way');
+  } else if(currentFilter === '3way'){
+    opps = opps.filter(o=>o.type==='3-way');
+  }
+
+  document.getElementById('arb-count').textContent = opps.length + ' found';
+  document.getElementById('ao').textContent = opps.length;
+
+  const arbDiv = document.getElementById('arbs');
+  if(opps.length===0){
+    arbDiv.innerHTML='<div class="no-arb">😔 No arbitrage opportunities match this filter right now.</div>';
+    return;
+  }
+
+  arbDiv.innerHTML = opps.map(o=>{
+    const arb = o.bets.reduce((s,b)=>s+(1/b.odd),0);
+    const profitUGX = Math.round(stake*(1-arb));
+    const books = new Set(o.bets.map(b=>b.bookmaker));
+    const isCross = books.size >= 2;
+
+    // Recalculate stakes based on user input
+    const betsHtml = o.bets.map(b=>{
+      const userStake = Math.round(stake*(1/b.odd)/arb);
+      return `
+        <div class="arb-bet">
+          <div class="bet-left">
+            <span class="bet-book">${b.bookmaker}</span>
+            <span class="bet-outcome">${b.outcome} @ ${b.odd}</span>
+          </div>
+          <div class="bet-right">
+            <span class="bet-odd">UGX ${userStake.toLocaleString()}</span>
+            <span class="bet-stake">Win: UGX ${Math.round(userStake*b.odd).toLocaleString()}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="arb-card" style="border-color:${isCross?'#ff6b00':'#555'}">
+        <div class="arb-header">
+          <div class="arb-match">${o.match}</div>
+          <div class="arb-profit">
+            <span class="profit-pct">+${o.profit_percent}%</span>
+            <span class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</span>
+          </div>
+        </div>
+        <div class="arb-meta">
+          <span class="arb-type">${o.type==='3-way'?'🔺 3-way (1X2)':'🔷 2-way'}</span>
+          ${isCross?'<span style="color:#00ff88;font-size:0.75em">✅ Cross-bookmaker</span>':'<span style="color:#888;font-size:0.75em">⚠️ Same bookmaker</span>'}
+        </div>
+        <div class="arb-bets">${betsHtml}</div>
+      </div>
+    `;
+  }).join('');
+}
+
 async function load(){
   try{
     const r=await fetch('odds.json?t='+Date.now());
     const d=await r.json();
     const raw=d.raw_odds||[];
-    const opps=d.opportunities||[];
-    const bookies=[...new Set(raw.map(x=>x.bookmaker))];
+    allOpps=d.opportunities||[];
+    const scraped=d.bookmakers_scraped||[...new Set(raw.map(x=>x.bookmaker))];
 
     document.getElementById('st').textContent='✅ Scraped '+raw.length+' odds entries';
-    document.getElementById('lu').textContent='🕐 '+( d.last_updated||'');
+    document.getElementById('lu').textContent='🕐 '+(d.last_updated||'');
     document.getElementById('tm').textContent=d.total_matches||raw.length;
-    document.getElementById('tb').textContent=(d.bookmakers_scraped||bookies).length;
-    document.getElementById('ao').textContent=opps.length;
+    document.getElementById('tb').textContent=scraped.length;
 
-    // Bookmaker tags
-    const scraped=d.bookmakers_scraped||bookies;
     document.getElementById('tags').innerHTML=scraped.map(b=>
       `<span class="tag">${b}</span>`
     ).join('');
 
-    // Arbitrage opportunities
-    const arbDiv=document.getElementById('arbs');
-    if(opps.length===0){
-      arbDiv.innerHTML='<div class="no-arb">😔 No arbitrage opportunities found right now. Check back in 5 minutes.</div>';
-    } else {
-      arbDiv.innerHTML=opps.map(o=>`
-        <div class="arb-card">
-          <div class="arb-header">
-            <div class="arb-match">${o.match}</div>
-            <div class="arb-profit">+${o.profit_percent}% profit</div>
-          </div>
-          <div class="arb-type">${o.type==='3-way'?'3-way (1X2)':'2-way (Win/Win)'} • Stake: UGX 100,000</div>
-          <div class="arb-bets">
-            ${(o.bets||[]).map(b=>`
-              <div class="arb-bet">
-                <div class="bet-left">
-                  <span class="bet-book">${b.bookmaker}</span>
-                  <span class="bet-outcome">${b.outcome}</span>
-                </div>
-                <div class="bet-right">
-                  <span class="bet-odd">@ ${b.odd}</span>
-                  <span class="bet-stake">UGX ${b.stake.toLocaleString()}</span>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `).join('');
-    }
+    renderArbs();
 
-    // Odds table
     document.getElementById('odds').innerHTML=raw.length>0?`
       <table>
         <thead>
