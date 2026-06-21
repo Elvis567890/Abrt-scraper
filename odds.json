@@ -1,221 +1,32 @@
 {
-  "last_updated": "2026-06-21 07:04 UTC",
-  "total_matches": 250,
+  "last_updated": "2026-06-21 10:41 UTC",
+  "total_matches": 264,
   "bookmakers_scraped": [
     "BetPawa",
     "Fortebet"
   ],
   "opportunities": [
     {
-      "match": "norway vs senegal",
-      "type": "2-way",
-      "profit_percent": 25.05,
-      "bets": [
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Home",
-          "odd": 2.32,
-          "stake": 57509
-        },
-        {
-          "bookmaker": "BetPawa",
-          "outcome": "Away",
-          "odd": 3.14,
-          "stake": 42491
-        }
-      ]
-    },
-    {
-      "match": "jordan vs algeria",
-      "type": "2-way",
-      "profit_percent": 21.84,
-      "bets": [
-        {
-          "bookmaker": "BetPawa",
-          "outcome": "Home",
-          "odd": 5.95,
-          "stake": 21504
-        },
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Away",
-          "odd": 1.63,
-          "stake": 78496
-        }
-      ]
-    },
-    {
       "match": "spain vs saudi arabia",
       "type": "2-way",
-      "profit_percent": 7.5,
+      "profit_percent": 6.98,
       "bets": [
         {
           "bookmaker": "Fortebet",
           "outcome": "Home",
           "odd": 1.12,
-          "stake": 96527
+          "stake": 95986
         },
         {
           "bookmaker": "BetPawa",
           "outcome": "Away",
-          "odd": 31.13,
-          "stake": 3473
-        }
-      ]
-    },
-    {
-      "match": "france vs iraq",
-      "type": "2-way",
-      "profit_percent": 6.25,
-      "bets": [
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Home",
-          "odd": 1.1,
-          "stake": 96966
-        },
-        {
-          "bookmaker": "BetPawa",
-          "outcome": "Away",
-          "odd": 35.15,
-          "stake": 3034
+          "odd": 26.78,
+          "stake": 4014
         }
       ]
     }
   ],
   "raw_odds": [
-    {
-      "match": "Casuarina FC Women vs Hellenic Athletic Women",
-      "home_team": "Casuarina FC Women",
-      "away_team": "Hellenic Athletic Women",
-      "match_key": "casuarina women vs hellenic athletic women",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Australia / Northern Territory Premier League, Women",
-      "home": 8.44,
-      "draw": 6.67,
-      "away": 1.22,
-      "sport": "Football"
-    },
-    {
-      "match": "Inter Lions FC Women U23 vs Bankstown City FC Women U23",
-      "home_team": "Inter Lions FC Women U23",
-      "away_team": "Bankstown City FC Women U23",
-      "match_key": "inter lions women u23 vs bankstown women u23",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Australia / U23 NSW League One, Women",
-      "home": 3.39,
-      "draw": 3.58,
-      "away": 1.94,
-      "sport": "Football"
-    },
-    {
-      "match": "Pocheon Citizen FC vs FC Gangneung",
-      "home_team": "Pocheon Citizen FC",
-      "away_team": "FC Gangneung",
-      "match_key": "pocheon citizen vs gangneung",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Republic of Korea / K3 League",
-      "home": 1.6,
-      "draw": 3.63,
-      "away": 5.32,
-      "sport": "Football"
-    },
-    {
-      "match": "JK Tallinna Kalev vs Nomme Kalju FC U21",
-      "home_team": "JK Tallinna Kalev",
-      "away_team": "Nomme Kalju FC U21",
-      "match_key": "jk tallinna kalev vs nomme kalju u21",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Estonia / Esiliiga",
-      "home": 1.95,
-      "draw": 4.09,
-      "away": 3.02,
-      "sport": "Football"
-    },
-    {
-      "match": "FC Levadia Tallinn U21 vs FC Tallinn",
-      "home_team": "FC Levadia Tallinn U21",
-      "away_team": "FC Tallinn",
-      "match_key": "levadia tallinn u21 vs tallinn",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Estonia / Esiliiga",
-      "home": 1.45,
-      "draw": 4.85,
-      "away": 5.09,
-      "sport": "Football"
-    },
-    {
-      "match": "Hawassa Kenema SC vs Bahir Dar Kenema FC",
-      "home_team": "Hawassa Kenema SC",
-      "away_team": "Bahir Dar Kenema FC",
-      "match_key": "hawassa kenema vs bahir dar kenema",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Ethiopia / Premier League",
-      "home": 2.3,
-      "draw": 2.55,
-      "away": 3.43,
-      "sport": "Football"
-    },
-    {
-      "match": "Arendal FK vs SK Traeff",
-      "home_team": "Arendal FK",
-      "away_team": "SK Traeff",
-      "match_key": "arendal fk vs sk traeff",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Norway / 2nd Division Group 1",
-      "home": 2.36,
-      "draw": 3.58,
-      "away": 2.58,
-      "sport": "Football"
-    },
-    {
-      "match": "Nacka FC vs IF Eker Orebro",
-      "home_team": "Nacka FC",
-      "away_team": "IF Eker Orebro",
-      "match_key": "nacka vs if eker orebro",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Sweden / Division 2",
-      "home": 1.95,
-      "draw": 3.7,
-      "away": 3.15,
-      "sport": "Football"
-    },
-    {
-      "match": "Pyeongtaek Citizen FC vs Jecheon Citizen FC",
-      "home_team": "Pyeongtaek Citizen FC",
-      "away_team": "Jecheon Citizen FC",
-      "match_key": "pyeongtaek citizen vs jecheon citizen",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Republic of Korea / Korea Republic K4 League",
-      "home": 3.48,
-      "draw": 3.67,
-      "away": 1.89,
-      "sport": "Football"
-    },
-    {
-      "match": "Tromsoe 2 vs Skedsmo",
-      "home_team": "Tromsoe 2",
-      "away_team": "Skedsmo",
-      "match_key": "tromsoe 2 vs skedsmo",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Norway / 3rd Division Group 5",
-      "home": 3.2,
-      "draw": 4.0,
-      "away": 1.87,
-      "sport": "Football"
-    },
-    {
-      "match": "CF Badalona vs SD Compostela",
-      "home_team": "CF Badalona",
-      "away_team": "SD Compostela",
-      "match_key": "badalona vs sd compostela",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Spain / Tercera Federacion, Playoffs",
-      "home": 2.77,
-      "draw": 3.0,
-      "away": 2.53,
-      "sport": "Football"
-    },
     {
       "match": "SK Super Nova vs FK Auda Riga",
       "home_team": "SK Super Nova",
@@ -223,9 +34,9 @@
       "match_key": "sk super nova vs fk auda riga",
       "bookmaker": "BetPawa",
       "competition": "Football / Latvia / Virsliga",
-      "home": 4.67,
-      "draw": 3.64,
-      "away": 1.72,
+      "home": 5.26,
+      "draw": 4.19,
+      "away": 1.56,
       "sport": "Football"
     },
     {
@@ -235,9 +46,9 @@
       "match_key": "ready fotball vs valerenga if 2",
       "bookmaker": "BetPawa",
       "competition": "Football / Norway / 3rd Division Group 1",
-      "home": 1.31,
-      "draw": 5.4,
-      "away": 6.8,
+      "home": 1.3,
+      "draw": 5.6,
+      "away": 6.6,
       "sport": "Football"
     },
     {
@@ -247,9 +58,9 @@
       "match_key": "enskede ik women vs sandvikens if women",
       "bookmaker": "BetPawa",
       "competition": "Football / Sweden / Elitettan, Women",
-      "home": 1.2,
-      "draw": 6.15,
-      "away": 10.57,
+      "home": 1.22,
+      "draw": 5.72,
+      "away": 10.48,
       "sport": "Football"
     },
     {
@@ -271,9 +82,9 @@
       "match_key": "kfum u19 vs skedsmo u19",
       "bookmaker": "BetPawa",
       "competition": "Football / Norway / Norway Interkretsserie U19",
-      "home": 1.34,
-      "draw": 5.82,
-      "away": 5.82,
+      "home": 2.37,
+      "draw": 4.55,
+      "away": 2.23,
       "sport": "Football"
     },
     {
@@ -283,9 +94,9 @@
       "match_key": "viking fk 2 vs staal joerpeland il",
       "bookmaker": "BetPawa",
       "competition": "Football / Norway / 3rd Division Group 4",
-      "home": 1.35,
-      "draw": 5.0,
-      "away": 6.2,
+      "home": 1.54,
+      "draw": 4.6,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -295,9 +106,141 @@
       "match_key": "karlslunds if hfk vs foc farsta",
       "bookmaker": "BetPawa",
       "competition": "Football / Sweden / Division 2",
-      "home": 3.79,
+      "home": 3.8,
+      "draw": 3.9,
+      "away": 1.71,
+      "sport": "Football"
+    },
+    {
+      "match": "BK Forward vs Fittja IF",
+      "home_team": "BK Forward",
+      "away_team": "Fittja IF",
+      "match_key": "bk forward vs fittja if",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Sweden / Division 2",
+      "home": 1.81,
+      "draw": 4.0,
+      "away": 3.35,
+      "sport": "Football"
+    },
+    {
+      "match": "Suzhou Dongwu vs Yunnan Yukun",
+      "home_team": "Suzhou Dongwu",
+      "away_team": "Yunnan Yukun",
+      "match_key": "suzhou dongwu vs yunnan yukun",
+      "bookmaker": "BetPawa",
+      "competition": "Football / China / FA Cup",
+      "home": 16.15,
+      "draw": 7.79,
+      "away": 1.11,
+      "sport": "Football"
+    },
+    {
+      "match": "Hoenefoss BK vs Eidsvold TF",
+      "home_team": "Hoenefoss BK",
+      "away_team": "Eidsvold TF",
+      "match_key": "hoenefoss bk vs eidsvold tf",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / 2nd Division Group 2",
+      "home": 2.49,
       "draw": 3.69,
-      "away": 1.77,
+      "away": 2.4,
+      "sport": "Football"
+    },
+    {
+      "match": "Carlos Renaux SC U20 vs Concordia SC U20",
+      "home_team": "Carlos Renaux SC U20",
+      "away_team": "Concordia SC U20",
+      "match_key": "carlos renaux u20 vs concordia u20",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Brazil / U20 Catarinense, Serie A",
+      "home": 2.27,
+      "draw": 3.14,
+      "away": 2.94,
+      "sport": "Football"
+    },
+    {
+      "match": "ASA Aarhus vs Glostrup FK",
+      "home_team": "ASA Aarhus",
+      "away_team": "Glostrup FK",
+      "match_key": "asa aarhus vs glostrup fk",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Denmark / Danmarksserien",
+      "home": 1.75,
+      "draw": 3.95,
+      "away": 3.61,
+      "sport": "Football"
+    },
+    {
+      "match": "Stabaek Fotball 2 vs Varhaug",
+      "home_team": "Stabaek Fotball 2",
+      "away_team": "Varhaug",
+      "match_key": "stabaek fotball 2 vs varhaug",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / 3rd Division Group 4",
+      "home": 3.45,
+      "draw": 3.95,
+      "away": 1.79,
+      "sport": "Football"
+    },
+    {
+      "match": "Kjelsas U19 vs Sprint-Jel\u00f8y U19",
+      "home_team": "Kjelsas U19",
+      "away_team": "Sprint-Jel\u00f8y U19",
+      "match_key": "kjelsas u19 vs sprintjely u19",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / Norway Interkretsserie U19 B",
+      "home": 1.35,
+      "draw": 5.55,
+      "away": 5.55,
+      "sport": "Football"
+    },
+    {
+      "match": "Asker U19 vs Nordstrand U19",
+      "home_team": "Asker U19",
+      "away_team": "Nordstrand U19",
+      "match_key": "asker u19 vs nordstrand u19",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / Norway Interkretsserie U19",
+      "home": 3.06,
+      "draw": 4.66,
+      "away": 1.82,
+      "sport": "Football"
+    },
+    {
+      "match": "Brattvaag vs FK Jerv",
+      "home_team": "Brattvaag",
+      "away_team": "FK Jerv",
+      "match_key": "brattvaag vs fk jerv",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / 2nd Division Group 1",
+      "home": 2.15,
+      "draw": 3.54,
+      "away": 2.92,
+      "sport": "Football"
+    },
+    {
+      "match": "Grei Kvinner Elite FK Women vs Odds BK Women",
+      "home_team": "Grei Kvinner Elite FK Women",
+      "away_team": "Odds BK Women",
+      "match_key": "grei kvinner elite fk women vs odds bk women",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / 1st Division, Women",
+      "home": 2.5,
+      "draw": 3.55,
+      "away": 2.38,
+      "sport": "Football"
+    },
+    {
+      "match": "Klofta U19 vs Grorud U19",
+      "home_team": "Klofta U19",
+      "away_team": "Grorud U19",
+      "match_key": "klofta u19 vs grorud u19",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / Norway Interkretsserie U19 B",
+      "home": 22.19,
+      "draw": 11.58,
+      "away": 1.03,
       "sport": "Football"
     },
     {
@@ -308,8 +251,8 @@
       "bookmaker": "BetPawa",
       "competition": "Football / International / FIFA World Cup",
       "home": 1.07,
-      "draw": 11.98,
-      "away": 31.13,
+      "draw": 12.3,
+      "away": 26.78,
       "sport": "Football"
     },
     {
@@ -319,9 +262,9 @@
       "match_key": "belgium vs ir iran",
       "bookmaker": "BetPawa",
       "competition": "Football / International / FIFA World Cup",
-      "home": 1.41,
-      "draw": 4.73,
-      "away": 7.6,
+      "home": 1.4,
+      "draw": 4.76,
+      "away": 8.03,
       "sport": "Football"
     },
     {
@@ -331,9 +274,9 @@
       "match_key": "uruguay vs cape verde",
       "bookmaker": "BetPawa",
       "competition": "Football / International / FIFA World Cup",
-      "home": 1.45,
-      "draw": 4.21,
-      "away": 8.07,
+      "home": 1.43,
+      "draw": 4.36,
+      "away": 8.17,
       "sport": "Football"
     },
     {
@@ -349,6 +292,30 @@
       "sport": "Football"
     },
     {
+      "match": "Bryne FK vs Aasane Fotball",
+      "home_team": "Bryne FK",
+      "away_team": "Aasane Fotball",
+      "match_key": "bryne fk vs aasane fotball",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / 1st Division",
+      "home": 1.47,
+      "draw": 4.68,
+      "away": 5.65,
+      "sport": "Football"
+    },
+    {
+      "match": "Kongsvinger IL Toppfotball vs Stroemsgodset IF",
+      "home_team": "Kongsvinger IL Toppfotball",
+      "away_team": "Stroemsgodset IF",
+      "match_key": "kongsvinger il toppfotball vs stroemsgodset if",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Norway / 1st Division",
+      "home": 2.58,
+      "draw": 4.0,
+      "away": 2.31,
+      "sport": "Football"
+    },
+    {
       "match": "Osters IF vs Falkenbergs FF",
       "home_team": "Osters IF",
       "away_team": "Falkenbergs FF",
@@ -361,27 +328,15 @@
       "sport": "Football"
     },
     {
-      "match": "Bryne FK vs Aasane Fotball",
-      "home_team": "Bryne FK",
-      "away_team": "Aasane Fotball",
-      "match_key": "bryne fk vs aasane fotball",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Norway / 1st Division",
-      "home": 1.45,
-      "draw": 4.77,
-      "away": 5.84,
-      "sport": "Football"
-    },
-    {
       "match": "Raufoss IL vs Sogndal Fotball",
       "home_team": "Raufoss IL",
       "away_team": "Sogndal Fotball",
       "match_key": "raufoss il vs sogndal fotball",
       "bookmaker": "BetPawa",
       "competition": "Football / Norway / 1st Division",
-      "home": 2.97,
+      "home": 2.87,
       "draw": 3.79,
-      "away": 2.13,
+      "away": 2.19,
       "sport": "Football"
     },
     {
@@ -391,9 +346,9 @@
       "match_key": "stroemmen if vs stabaek if",
       "bookmaker": "BetPawa",
       "competition": "Football / Norway / 1st Division",
-      "home": 4.37,
-      "draw": 4.08,
-      "away": 1.68,
+      "home": 4.49,
+      "draw": 4.1,
+      "away": 1.66,
       "sport": "Football"
     },
     {
@@ -403,9 +358,9 @@
       "match_key": "moss fk vs sandnes ulf",
       "bookmaker": "BetPawa",
       "competition": "Football / Norway / 1st Division",
-      "home": 1.92,
+      "home": 1.97,
       "draw": 3.84,
-      "away": 3.45,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -427,21 +382,9 @@
       "match_key": "egersunds ik vs fk haugesund",
       "bookmaker": "BetPawa",
       "competition": "Football / Norway / 1st Division",
-      "home": 3.55,
-      "draw": 3.99,
-      "away": 1.86,
-      "sport": "Football"
-    },
-    {
-      "match": "Kongsvinger IL Toppfotball vs Stroemsgodset IF",
-      "home_team": "Kongsvinger IL Toppfotball",
-      "away_team": "Stroemsgodset IF",
-      "match_key": "kongsvinger il toppfotball vs stroemsgodset if",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Norway / 1st Division",
-      "home": 2.58,
-      "draw": 4.0,
-      "away": 2.31,
+      "home": 3.46,
+      "draw": 3.89,
+      "away": 1.91,
       "sport": "Football"
     },
     {
@@ -469,51 +412,39 @@
       "sport": "Football"
     },
     {
-      "match": "Argentina vs Austria",
-      "home_team": "Argentina",
-      "away_team": "Austria",
-      "match_key": "argentina vs austria",
+      "match": "FUS Rabat vs Olympique Dcheira",
+      "home_team": "FUS Rabat",
+      "away_team": "Olympique Dcheira",
+      "match_key": "fus rabat vs olympique dcheira",
       "bookmaker": "BetPawa",
-      "competition": "Football / International / FIFA World Cup",
-      "home": 1.54,
-      "draw": 4.14,
-      "away": 6.24,
+      "competition": "Football / Morocco / Botola",
+      "home": 1.52,
+      "draw": 3.8,
+      "away": 5.96,
       "sport": "Football"
     },
     {
-      "match": "France vs Iraq",
-      "home_team": "France",
-      "away_team": "Iraq",
-      "match_key": "france vs iraq",
+      "match": "Difaa Hassani d'el-Jadida vs Wydad AC",
+      "home_team": "Difaa Hassani d'el-Jadida",
+      "away_team": "Wydad AC",
+      "match_key": "difaa hassani deljadida vs wydad",
       "bookmaker": "BetPawa",
-      "competition": "Football / International / FIFA World Cup",
-      "home": 1.06,
-      "draw": 12.87,
-      "away": 35.15,
+      "competition": "Football / Morocco / Botola",
+      "home": 5.19,
+      "draw": 3.51,
+      "away": 1.63,
       "sport": "Football"
     },
     {
-      "match": "Norway vs Senegal",
-      "home_team": "Norway",
-      "away_team": "Senegal",
-      "match_key": "norway vs senegal",
+      "match": "Hassania Union Sport Agadir vs Union Touarga",
+      "home_team": "Hassania Union Sport Agadir",
+      "away_team": "Union Touarga",
+      "match_key": "hassania union sport agadir vs union touarga",
       "bookmaker": "BetPawa",
-      "competition": "Football / International / FIFA World Cup",
-      "home": 2.26,
-      "draw": 3.46,
-      "away": 3.14,
-      "sport": "Football"
-    },
-    {
-      "match": "Jordan vs Algeria",
-      "home_team": "Jordan",
-      "away_team": "Algeria",
-      "match_key": "jordan vs algeria",
-      "bookmaker": "BetPawa",
-      "competition": "Football / International / FIFA World Cup",
-      "home": 5.95,
-      "draw": 4.18,
-      "away": 1.56,
+      "competition": "Football / Morocco / Botola",
+      "home": 1.96,
+      "draw": 3.13,
+      "away": 3.85,
       "sport": "Football"
     },
     {
@@ -679,9 +610,9 @@
       "match_key": "bosnia her vs qatar",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.47,
-      "draw": 4.85,
-      "away": 6.9,
+      "home": 1.45,
+      "draw": 4.95,
+      "away": 7.2,
       "sport": "Football"
     },
     {
@@ -703,9 +634,9 @@
       "match_key": "turkey vs usa",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.35,
+      "home": 3.4,
       "draw": 4.1,
-      "away": 2.05,
+      "away": 2.03,
       "sport": "Football"
     },
     {
@@ -715,9 +646,9 @@
       "match_key": "belgium vs iran",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.47,
-      "draw": 4.5,
-      "away": 7.8,
+      "home": 1.45,
+      "draw": 4.6,
+      "away": 8.1,
       "sport": "Football"
     },
     {
@@ -751,9 +682,9 @@
       "match_key": "uruguay vs cape verde",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.49,
-      "draw": 4.15,
-      "away": 8.4,
+      "home": 1.48,
+      "draw": 4.25,
+      "away": 8.3,
       "sport": "Football"
     },
     {
@@ -765,7 +696,7 @@
       "competition": "",
       "home": 1.1,
       "draw": 12.0,
-      "away": 29.0,
+      "away": 26.0,
       "sport": "Football"
     },
     {
@@ -799,9 +730,9 @@
       "match_key": "jordan vs algeria",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 5.6,
+      "home": 5.7,
       "draw": 4.2,
-      "away": 1.63,
+      "away": 1.62,
       "sport": "Football"
     },
     {
@@ -835,9 +766,9 @@
       "match_key": "england vs ghana",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.25,
-      "draw": 6.4,
-      "away": 13.0,
+      "home": 1.24,
+      "draw": 6.5,
+      "away": 14.0,
       "sport": "Football"
     },
     {
@@ -859,8 +790,8 @@
       "match_key": "morocco vs haiti",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.19,
-      "draw": 6.3,
+      "home": 1.18,
+      "draw": 6.7,
       "away": 15.0,
       "sport": "Football"
     },
@@ -883,9 +814,9 @@
       "match_key": "tunisia vs netherlands",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 18.0,
-      "draw": 7.8,
-      "away": 1.18,
+      "home": 20.0,
+      "draw": 8.0,
+      "away": 1.17,
       "sport": "Football"
     },
     {
@@ -895,9 +826,9 @@
       "match_key": "japan vs sweden",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.05,
+      "home": 2.08,
       "draw": 3.25,
-      "away": 3.75,
+      "away": 3.65,
       "sport": "Football"
     },
     {
@@ -1027,9 +958,9 @@
       "match_key": "panama vs england",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 9.3,
-      "draw": 7.0,
-      "away": 1.23,
+      "home": 9.5,
+      "draw": 7.2,
+      "away": 1.22,
       "sport": "Football"
     },
     {
@@ -1052,8 +983,8 @@
       "bookmaker": "Fortebet",
       "competition": "",
       "home": 3.65,
-      "draw": 3.9,
-      "away": 2.0,
+      "draw": 3.95,
+      "away": 1.98,
       "sport": "Football"
     },
     {
@@ -1087,9 +1018,9 @@
       "match_key": "bryne vs asane",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.47,
-      "draw": 4.7,
-      "away": 5.9,
+      "home": 1.5,
+      "draw": 4.6,
+      "away": 5.5,
       "sport": "Football"
     },
     {
@@ -1099,9 +1030,9 @@
       "match_key": "egersund vs haugesund",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.55,
-      "draw": 3.95,
-      "away": 1.89,
+      "home": 3.45,
+      "draw": 3.9,
+      "away": 1.94,
       "sport": "Football"
     },
     {
@@ -1123,9 +1054,9 @@
       "match_key": "moss vs sandnes",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.96,
+      "home": 2.0,
       "draw": 3.8,
-      "away": 3.45,
+      "away": 3.35,
       "sport": "Football"
     },
     {
@@ -1147,9 +1078,9 @@
       "match_key": "raufoss vs sogndal",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.94,
-      "draw": 3.8,
-      "away": 2.17,
+      "home": 2.9,
+      "draw": 3.75,
+      "away": 2.21,
       "sport": "Football"
     },
     {
@@ -1159,9 +1090,9 @@
       "match_key": "strommen vs stabaek",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.3,
-      "draw": 4.0,
-      "away": 1.72,
+      "home": 4.4,
+      "draw": 4.1,
+      "away": 1.69,
       "sport": "Football"
     },
     {
@@ -1171,9 +1102,9 @@
       "match_key": "honefoss vs eidsvold",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.51,
+      "home": 2.55,
       "draw": 3.6,
-      "away": 2.43,
+      "away": 2.4,
       "sport": "Football"
     },
     {
@@ -1213,18 +1144,6 @@
       "sport": "Football"
     },
     {
-      "match": "Arendal vs Traeff",
-      "home_team": "Arendal",
-      "away_team": "Traeff",
-      "match_key": "arendal vs traeff",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.38,
-      "draw": 3.5,
-      "away": 2.62,
-      "sport": "Football"
-    },
-    {
       "match": "Brattvaag vs Jerv",
       "home_team": "Brattvaag",
       "away_team": "Jerv",
@@ -1232,8 +1151,8 @@
       "bookmaker": "Fortebet",
       "competition": "",
       "home": 2.18,
-      "draw": 3.35,
-      "away": 3.05,
+      "draw": 3.5,
+      "away": 2.93,
       "sport": "Football"
     },
     {
@@ -1244,8 +1163,8 @@
       "bookmaker": "Fortebet",
       "competition": "",
       "home": 1.31,
-      "draw": 5.2,
-      "away": 6.4,
+      "draw": 5.4,
+      "away": 6.1,
       "sport": "Football"
     },
     {
@@ -1255,21 +1174,9 @@
       "match_key": "mandalskameratene vs vaag",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.72,
-      "draw": 3.95,
-      "away": 3.6,
-      "sport": "Football"
-    },
-    {
-      "match": "Floya vs Stromsgodset II",
-      "home_team": "Floya",
-      "away_team": "Stromsgodset II",
-      "match_key": "floya vs stromsgodset ii",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.57,
-      "draw": 4.3,
-      "away": 4.15,
+      "home": 1.69,
+      "draw": 4.0,
+      "away": 3.7,
       "sport": "Football"
     },
     {
@@ -1303,9 +1210,9 @@
       "match_key": "afc malmo vs olympic",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.67,
-      "draw": 4.0,
-      "away": 4.2,
+      "home": 1.69,
+      "draw": 3.95,
+      "away": 4.15,
       "sport": "Football"
     },
     {
@@ -1363,9 +1270,9 @@
       "match_key": "oddevold vs ljungskille",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.0,
-      "draw": 3.55,
-      "away": 3.55,
+      "home": 1.92,
+      "draw": 3.7,
+      "away": 3.65,
       "sport": "Football"
     },
     {
@@ -1411,9 +1318,9 @@
       "match_key": "brage vs varnamo",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.0,
-      "draw": 3.7,
-      "away": 3.4,
+      "home": 2.1,
+      "draw": 3.55,
+      "away": 3.25,
       "sport": "Football"
     },
     {
@@ -1423,9 +1330,9 @@
       "match_key": "selfoss w vs grotta w",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 5.4,
-      "draw": 4.75,
-      "away": 1.4,
+      "home": 4.75,
+      "draw": 4.55,
+      "away": 1.47,
       "sport": "Football"
     },
     {
@@ -1459,9 +1366,9 @@
       "match_key": "valur vs keflavik",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.13,
-      "draw": 3.85,
-      "away": 2.79,
+      "home": 2.16,
+      "draw": 3.95,
+      "away": 2.71,
       "sport": "Football"
     },
     {
@@ -1471,9 +1378,9 @@
       "match_key": "breidablik vs ka akureyri",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.62,
-      "draw": 4.35,
-      "away": 4.15,
+      "home": 1.59,
+      "draw": 4.45,
+      "away": 4.25,
       "sport": "Football"
     },
     {
@@ -1507,9 +1414,9 @@
       "match_key": "kr reykjavik vs akranes",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.54,
-      "draw": 4.65,
-      "away": 4.5,
+      "home": 1.56,
+      "draw": 4.55,
+      "away": 4.45,
       "sport": "Football"
     },
     {
@@ -1543,9 +1450,9 @@
       "match_key": "kopavogur vs grindavik",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.56,
-      "draw": 4.4,
-      "away": 4.6,
+      "home": 1.58,
+      "draw": 4.35,
+      "away": 4.45,
       "sport": "Football"
     },
     {
@@ -1555,9 +1462,9 @@
       "match_key": "ir reykjavik vs volsungur",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.28,
-      "draw": 5.7,
-      "away": 7.7,
+      "home": 1.26,
+      "draw": 6.0,
+      "away": 7.9,
       "sport": "Football"
     },
     {
@@ -1568,8 +1475,8 @@
       "bookmaker": "Fortebet",
       "competition": "",
       "home": 3.35,
-      "draw": 4.0,
-      "away": 1.86,
+      "draw": 3.85,
+      "away": 1.89,
       "sport": "Football"
     },
     {
@@ -1579,9 +1486,9 @@
       "match_key": "aegir vs throttur",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 5.4,
-      "draw": 4.8,
-      "away": 1.44,
+      "home": 6.7,
+      "draw": 5.2,
+      "away": 1.34,
       "sport": "Football"
     },
     {
@@ -1591,9 +1498,9 @@
       "match_key": "ferroviaria vs inter de limeira",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.05,
-      "draw": 2.83,
-      "away": 4.05,
+      "home": 2.06,
+      "draw": 2.89,
+      "away": 3.9,
       "sport": "Football"
     },
     {
@@ -1615,9 +1522,9 @@
       "match_key": "confianca vs guarani",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.25,
-      "draw": 2.97,
-      "away": 2.26,
+      "home": 3.05,
+      "draw": 2.98,
+      "away": 2.37,
       "sport": "Football"
     },
     {
@@ -1639,9 +1546,9 @@
       "match_key": "barra vs amazonas",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.92,
-      "draw": 2.9,
-      "away": 4.5,
+      "home": 1.94,
+      "draw": 2.91,
+      "away": 4.4,
       "sport": "Football"
     },
     {
@@ -1675,9 +1582,9 @@
       "match_key": "maguary vs piaui",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.54,
-      "draw": 3.45,
-      "away": 5.8,
+      "home": 1.56,
+      "draw": 3.55,
+      "away": 5.3,
       "sport": "Football"
     },
     {
@@ -1687,9 +1594,9 @@
       "match_key": "serra branca vs juazeirense",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.05,
-      "draw": 2.8,
-      "away": 3.75,
+      "home": 1.92,
+      "draw": 2.88,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -1723,9 +1630,9 @@
       "match_key": "boa vs patrocinense",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.89,
-      "draw": 3.0,
-      "away": 4.05,
+      "home": 1.72,
+      "draw": 3.1,
+      "away": 4.85,
       "sport": "Football"
     },
     {
@@ -1735,9 +1642,9 @@
       "match_key": "ponte preta vs novorizontino",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.8,
+      "home": 5.2,
       "draw": 3.35,
-      "away": 1.79,
+      "away": 1.75,
       "sport": "Football"
     },
     {
@@ -1795,9 +1702,9 @@
       "match_key": "goias vs operario",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.18,
+      "home": 2.21,
       "draw": 3.05,
-      "away": 3.6,
+      "away": 3.5,
       "sport": "Football"
     },
     {
@@ -1891,9 +1798,9 @@
       "match_key": "columbus ii vs atlanta ii",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.74,
-      "draw": 3.45,
-      "away": 2.2,
+      "home": 2.85,
+      "draw": 3.55,
+      "away": 2.09,
       "sport": "Football"
     },
     {
@@ -2059,8 +1966,8 @@
       "match_key": "udinese vs como",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.6,
-      "draw": 3.6,
+      "home": 4.65,
+      "draw": 3.55,
       "away": 1.76,
       "sport": "Football"
     },
@@ -2095,9 +2002,9 @@
       "match_key": "argentino merlo vs dock sud",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.43,
-      "draw": 2.76,
-      "away": 2.96,
+      "home": 2.77,
+      "draw": 2.72,
+      "away": 2.62,
       "sport": "Football"
     },
     {
@@ -2119,9 +2026,9 @@
       "match_key": "racing w vs river plate w",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.71,
-      "draw": 3.35,
-      "away": 4.4,
+      "home": 1.81,
+      "draw": 3.1,
+      "away": 4.25,
       "sport": "Football"
     },
     {
@@ -2155,9 +2062,9 @@
       "match_key": "central norte vs godoy cruz",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.3,
-      "draw": 2.74,
-      "away": 2.52,
+      "home": 3.25,
+      "draw": 2.7,
+      "away": 2.58,
       "sport": "Football"
     },
     {
@@ -2191,9 +2098,9 @@
       "match_key": "almirante brown vs ca mitre",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.19,
-      "draw": 2.72,
-      "away": 4.15,
+      "home": 1.96,
+      "draw": 2.94,
+      "away": 4.65,
       "sport": "Football"
     },
     {
@@ -2203,9 +2110,9 @@
       "match_key": "guemes vs gimnasia jujuy",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.15,
-      "draw": 2.82,
-      "away": 2.55,
+      "home": 3.2,
+      "draw": 2.86,
+      "away": 2.48,
       "sport": "Football"
     },
     {
@@ -2347,9 +2254,9 @@
       "match_key": "ohiggins vs u espanola",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.66,
+      "home": 1.67,
       "draw": 3.7,
-      "away": 4.65,
+      "away": 4.6,
       "sport": "Football"
     },
     {
@@ -2419,9 +2326,9 @@
       "match_key": "shamrock vs derry",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.35,
-      "away": 4.15,
+      "home": 1.81,
+      "draw": 3.5,
+      "away": 4.45,
       "sport": "Football"
     },
     {
@@ -2446,18 +2353,6 @@
       "home": 2.01,
       "draw": 3.0,
       "away": 3.55,
-      "sport": "Football"
-    },
-    {
-      "match": "Tammeka vs Narva",
-      "home_team": "Tammeka",
-      "away_team": "Narva",
-      "match_key": "tammeka vs narva",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.78,
-      "draw": 3.65,
-      "away": 3.95,
       "sport": "Football"
     },
     {
@@ -2563,9 +2458,9 @@
       "match_key": "suzhou vs yunnan yukun",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 11.0,
-      "draw": 6.0,
-      "away": 1.17,
+      "home": 13.0,
+      "draw": 7.5,
+      "away": 1.11,
       "sport": "Football"
     },
     {
@@ -2575,9 +2470,9 @@
       "match_key": "dziugas vs suduva",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.2,
+      "home": 3.0,
       "draw": 3.25,
-      "away": 2.14,
+      "away": 2.23,
       "sport": "Football"
     },
     {
@@ -2599,8 +2494,8 @@
       "match_key": "dainava alytus vs siauliai ii",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.25,
-      "draw": 5.5,
+      "home": 1.26,
+      "draw": 5.4,
       "away": 7.7,
       "sport": "Football"
     },
@@ -2611,9 +2506,9 @@
       "match_key": "super nova vs auda",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.4,
-      "draw": 3.55,
-      "away": 1.73,
+      "home": 5.8,
+      "draw": 4.35,
+      "away": 1.46,
       "sport": "Football"
     },
     {
@@ -2623,9 +2518,9 @@
       "match_key": "jelgava vs tukums 2000",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.29,
+      "home": 2.34,
       "draw": 3.3,
-      "away": 2.89,
+      "away": 2.81,
       "sport": "Football"
     },
     {
@@ -2647,9 +2542,9 @@
       "match_key": "vestur sorvagur vs ab argir",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.45,
+      "home": 3.25,
       "draw": 3.4,
-      "away": 1.99,
+      "away": 2.07,
       "sport": "Football"
     },
     {
@@ -2683,9 +2578,9 @@
       "match_key": "kyzylzhar vs k almaty",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.8,
-      "draw": 3.75,
-      "away": 1.57,
+      "home": 4.95,
+      "draw": 3.8,
+      "away": 1.55,
       "sport": "Football"
     },
     {
@@ -2695,9 +2590,9 @@
       "match_key": "okzhetpes vs tobol",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.5,
-      "draw": 3.15,
-      "away": 2.55,
+      "home": 2.57,
+      "draw": 3.1,
+      "away": 2.5,
       "sport": "Football"
     },
     {
@@ -2713,27 +2608,15 @@
       "sport": "Football"
     },
     {
-      "match": "Pocheon  vs Gangneung",
-      "home_team": "Pocheon ",
-      "away_team": "Gangneung",
-      "match_key": "pocheon vs gangneung",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.61,
-      "draw": 3.5,
-      "away": 4.9,
-      "sport": "Football"
-    },
-    {
       "match": "Maghreb Fez vs Berkane",
       "home_team": "Maghreb Fez",
       "away_team": "Berkane",
       "match_key": "maghreb fez vs berkane",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.2,
-      "draw": 2.9,
-      "away": 3.2,
+      "home": 2.5,
+      "draw": 2.7,
+      "away": 2.93,
       "sport": "Football"
     },
     {
@@ -2743,9 +2626,9 @@
       "match_key": "ol safi vs usym",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.51,
-      "draw": 3.15,
-      "away": 2.53,
+      "home": 2.15,
+      "draw": 3.2,
+      "away": 3.0,
       "sport": "Football"
     },
     {
@@ -2755,9 +2638,9 @@
       "match_key": "tanger vs r zemamra",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.74,
-      "draw": 3.3,
-      "away": 4.3,
+      "home": 2.2,
+      "draw": 2.9,
+      "away": 3.2,
       "sport": "Football"
     },
     {
@@ -2767,9 +2650,9 @@
       "match_key": "agadir vs union touarga",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.96,
-      "draw": 3.05,
-      "away": 3.65,
+      "home": 1.91,
+      "draw": 3.0,
+      "away": 3.95,
       "sport": "Football"
     },
     {
@@ -2779,9 +2662,9 @@
       "match_key": "el jadidi vs wydad",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.75,
+      "home": 5.0,
       "draw": 3.4,
-      "away": 1.65,
+      "away": 1.62,
       "sport": "Football"
     },
     {
@@ -2791,9 +2674,9 @@
       "match_key": "al tadamon vs al nassr",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.3,
-      "draw": 3.5,
-      "away": 1.92,
+      "home": 2.42,
+      "draw": 3.25,
+      "away": 2.56,
       "sport": "Football"
     },
     {
@@ -2803,9 +2686,9 @@
       "match_key": "al shabab vs al jahra",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.56,
-      "draw": 3.75,
-      "away": 4.9,
+      "home": 1.54,
+      "draw": 3.8,
+      "away": 5.0,
       "sport": "Football"
     },
     {
@@ -2833,30 +2716,6 @@
       "sport": "Football"
     },
     {
-      "match": "Nacka vs Eker Orebro",
-      "home_team": "Nacka",
-      "away_team": "Eker Orebro",
-      "match_key": "nacka vs eker orebro",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.96,
-      "draw": 3.6,
-      "away": 3.1,
-      "sport": "Football"
-    },
-    {
-      "match": "Levadia U21 vs FC Tallinn",
-      "home_team": "Levadia U21",
-      "away_team": "FC Tallinn",
-      "match_key": "levadia u21 vs tallinn",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 1.48,
-      "draw": 4.7,
-      "away": 4.5,
-      "sport": "Football"
-    },
-    {
       "match": "Tabasalu vs Tartu Kalev",
       "home_team": "Tabasalu",
       "away_team": "Tartu Kalev",
@@ -2875,9 +2734,9 @@
       "match_key": "fus rabat vs dcheira",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.55,
-      "draw": 3.5,
-      "away": 4.9,
+      "home": 1.5,
+      "draw": 3.4,
+      "away": 5.7,
       "sport": "Football"
     },
     {
@@ -2887,9 +2746,9 @@
       "match_key": "viking ii vs staal jorpeland",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.3,
-      "draw": 5.4,
-      "away": 6.4,
+      "home": 1.53,
+      "draw": 4.5,
+      "away": 4.25,
       "sport": "Football"
     },
     {
@@ -2899,9 +2758,9 @@
       "match_key": "korsnas vs sunnersta aif",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.6,
-      "draw": 4.1,
-      "away": 1.54,
+      "home": 5.3,
+      "draw": 4.4,
+      "away": 1.44,
       "sport": "Football"
     },
     {
@@ -2911,9 +2770,9 @@
       "match_key": "taby vs helges if",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.19,
-      "draw": 6.0,
-      "away": 9.6,
+      "home": 1.11,
+      "draw": 7.4,
+      "away": 13.0,
       "sport": "Football"
     },
     {
@@ -2935,9 +2794,9 @@
       "match_key": "forward vs fittja if",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.78,
-      "draw": 3.85,
-      "away": 3.45,
+      "home": 1.8,
+      "draw": 4.0,
+      "away": 3.25,
       "sport": "Football"
     },
     {
@@ -2947,9 +2806,9 @@
       "match_key": "orebro syr vs lindo ff",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.98,
-      "draw": 3.45,
-      "away": 3.15,
+      "home": 2.02,
+      "draw": 3.5,
+      "away": 3.05,
       "sport": "Football"
     },
     {
@@ -2959,9 +2818,9 @@
       "match_key": "gremio juventus vs tubarao",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.5,
-      "draw": 3.0,
-      "away": 2.03,
+      "home": 3.45,
+      "draw": 2.95,
+      "away": 2.07,
       "sport": "Football"
     },
     {
@@ -2971,9 +2830,9 @@
       "match_key": "hercilio luz vs metropolitano",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.86,
-      "draw": 3.0,
-      "away": 4.15,
+      "home": 1.89,
+      "draw": 2.85,
+      "away": 4.35,
       "sport": "Football"
     },
     {
@@ -2983,9 +2842,9 @@
       "match_key": "jacuipense vs treze",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.57,
-      "draw": 2.9,
-      "away": 2.66,
+      "home": 2.64,
+      "draw": 2.86,
+      "away": 2.62,
       "sport": "Football"
     },
     {
@@ -3055,33 +2914,285 @@
       "match_key": "tartu welco vs nomme u21",
       "bookmaker": "Fortebet",
       "competition": "",
+      "home": 1.27,
+      "draw": 5.8,
+      "away": 6.6,
+      "sport": "Football"
+    },
+    {
+      "match": "Cipolletti vs Deportivo Rincon",
+      "home_team": "Cipolletti",
+      "away_team": "Deportivo Rincon",
+      "match_key": "cipolletti vs deportivo rincon",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.85,
+      "draw": 2.92,
+      "away": 4.35,
+      "sport": "Football"
+    },
+    {
+      "match": "Gimnasia E.R. vs Las Parejas",
+      "home_team": "Gimnasia E.R.",
+      "away_team": "Las Parejas",
+      "match_key": "gimnasia er vs las parejas",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.23,
+      "draw": 2.6,
+      "away": 3.6,
+      "sport": "Football"
+    },
+    {
+      "match": "Guarani de Palhoca  vs Nacao ",
+      "home_team": "Guarani de Palhoca ",
+      "away_team": "Nacao ",
+      "match_key": "guarani de palhoca vs nacao",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.99,
+      "draw": 3.15,
+      "away": 3.45,
+      "sport": "Football"
+    },
+    {
+      "match": "Villa Nova vs Democrata SL",
+      "home_team": "Villa Nova",
+      "away_team": "Democrata SL",
+      "match_key": "villa nova vs democrata sl",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.21,
+      "draw": 2.84,
+      "away": 3.25,
+      "sport": "Football"
+    },
+    {
+      "match": "Tuna Luso vs Iguatu",
+      "home_team": "Tuna Luso",
+      "away_team": "Iguatu",
+      "match_key": "tuna luso vs iguatu",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.44,
+      "draw": 2.9,
+      "away": 2.81,
+      "sport": "Football"
+    },
+    {
+      "match": "Raja vs Meknes",
+      "home_team": "Raja",
+      "away_team": "Meknes",
+      "match_key": "raja vs meknes",
+      "bookmaker": "Fortebet",
+      "competition": "",
       "home": 1.36,
-      "draw": 5.2,
-      "away": 5.4,
+      "draw": 4.0,
+      "away": 7.9,
       "sport": "Football"
     },
     {
-      "match": "Tromso II vs Skedsmo",
-      "home_team": "Tromso II",
-      "away_team": "Skedsmo",
-      "match_key": "tromso ii vs skedsmo",
+      "match": "Akra vs Vindbjart",
+      "home_team": "Akra",
+      "away_team": "Vindbjart",
+      "match_key": "akra vs vindbjart",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.82,
-      "draw": 4.4,
-      "away": 1.89,
+      "home": 5.1,
+      "draw": 4.25,
+      "away": 1.47,
       "sport": "Football"
     },
     {
-      "match": "Harstad vs Kongsvinger II",
-      "home_team": "Harstad",
-      "away_team": "Kongsvinger II",
-      "match_key": "harstad vs kongsvinger ii",
+      "match": "Biblioteca Atenas vs Costa Brava ",
+      "home_team": "Biblioteca Atenas",
+      "away_team": "Costa Brava ",
+      "match_key": "biblioteca atenas vs costa brava",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.66,
-      "draw": 4.2,
-      "away": 3.7,
+      "home": 2.33,
+      "draw": 2.76,
+      "away": 3.15,
+      "sport": "Football"
+    },
+    {
+      "match": "Central PE vs Ferroviario",
+      "home_team": "Central PE",
+      "away_team": "Ferroviario",
+      "match_key": "central pe vs ferroviario",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.06,
+      "draw": 2.95,
+      "away": 3.5,
+      "sport": "Football"
+    },
+    {
+      "match": "Altos vs ABC",
+      "home_team": "Altos",
+      "away_team": "ABC",
+      "match_key": "altos vs abc",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 3.9,
+      "draw": 2.93,
+      "away": 1.95,
+      "sport": "Football"
+    },
+    {
+      "match": "Lagarto vs CSA",
+      "home_team": "Lagarto",
+      "away_team": "CSA",
+      "match_key": "lagarto vs csa",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 3.45,
+      "draw": 3.15,
+      "away": 1.99,
+      "sport": "Football"
+    },
+    {
+      "match": "Tammeka vs Narva",
+      "home_team": "Tammeka",
+      "away_team": "Narva",
+      "match_key": "tammeka vs narva",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.82,
+      "draw": 3.65,
+      "away": 3.8,
+      "sport": "Football"
+    },
+    {
+      "match": "Stabaek II vs Varhaug",
+      "home_team": "Stabaek II",
+      "away_team": "Varhaug",
+      "match_key": "stabaek ii vs varhaug",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 3.6,
+      "draw": 4.05,
+      "away": 1.71,
+      "sport": "Football"
+    },
+    {
+      "match": "Karlstad II vs Motala",
+      "home_team": "Karlstad II",
+      "away_team": "Motala",
+      "match_key": "karlstad ii vs motala",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.74,
+      "draw": 3.55,
+      "away": 2.15,
+      "sport": "Football"
+    },
+    {
+      "match": "Skellefteaa vs Umea FC Akad.",
+      "home_team": "Skellefteaa",
+      "away_team": "Umea FC Akad.",
+      "match_key": "skellefteaa vs umea akad",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.18,
+      "draw": 6.4,
+      "away": 9.3,
+      "sport": "Football"
+    },
+    {
+      "match": "Karlslunds vs Farsta",
+      "home_team": "Karlslunds",
+      "away_team": "Farsta",
+      "match_key": "karlslunds vs farsta",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 4.1,
+      "draw": 3.95,
+      "away": 1.63,
+      "sport": "Football"
+    },
+    {
+      "match": "Smedby vs Haninge",
+      "home_team": "Smedby",
+      "away_team": "Haninge",
+      "match_key": "smedby vs haninge",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 2.27,
+      "draw": 3.5,
+      "away": 2.59,
+      "sport": "Football"
+    },
+    {
+      "match": "Syrianska  vs Ragsveds",
+      "home_team": "Syrianska ",
+      "away_team": "Ragsveds",
+      "match_key": "syrianska vs ragsveds",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 3.35,
+      "draw": 3.55,
+      "away": 1.88,
+      "sport": "Football"
+    },
+    {
+      "match": "San Martin Formosa vs Sarmiento Resistencia",
+      "home_team": "San Martin Formosa",
+      "away_team": "Sarmiento Resistencia",
+      "match_key": "san martin formosa vs sarmiento resistencia",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.53,
+      "draw": 3.85,
+      "away": 5.1,
+      "sport": "Football"
+    },
+    {
+      "match": "KR Reykjavik W vs Haukar W",
+      "home_team": "KR Reykjavik W",
+      "away_team": "Haukar W",
+      "match_key": "kr reykjavik w vs haukar w",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.71,
+      "draw": 4.1,
+      "away": 3.55,
+      "sport": "Football"
+    },
+    {
+      "match": "Brasiliense vs Goiatuba ",
+      "home_team": "Brasiliense",
+      "away_team": "Goiatuba ",
+      "match_key": "brasiliense vs goiatuba",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.76,
+      "draw": 3.1,
+      "away": 4.55,
+      "sport": "Football"
+    },
+    {
+      "match": "ASA vs Sergipe ",
+      "home_team": "ASA",
+      "away_team": "Sergipe ",
+      "match_key": "asa vs sergipe",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.93,
+      "draw": 2.95,
+      "away": 3.95,
+      "sport": "Football"
+    },
+    {
+      "match": "FAR Rabat vs Kawkab",
+      "home_team": "FAR Rabat",
+      "away_team": "Kawkab",
+      "match_key": "far rabat vs kawkab",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.33,
+      "draw": 4.3,
+      "away": 7.9,
       "sport": "Football"
     }
   ]
