@@ -4,6 +4,8 @@ from playwright.sync_api import sync_playwright
 import re
 import urllib.request
 
+SPORTYBET_API = 'https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple'
+
 def normalize(name):
     name = name.lower().strip()
     name = re.sub(r'\b(fc|sc|cf|ac|united|city|sports|club|utd)\b', '', name)
@@ -156,68 +158,42 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_kagwirawo():
+def scrape_sportybet():
     odds = []
     try:
-        print("Fetching Kagwirawo API...")
-        # Try direct API endpoints
-        urls_to_try = [
-            'https://www.kagwirawo.ug/api/data/sports/football/matches?status=prematch&limit=100',
-            'https://www.kagwirawo.ug/api/data/events?sport=football&status=prematch&limit=100',
-            'https://www.kagwirawo.ug/api/data/matches?sport_id=1&limit=100',
-            'https://www.kagwirawo.ug/api/v1/events?sport=football&limit=100',
-            'https://www.kagwirawo.ug/api/data/prematch?sport=1&limit=100',
-        ]
-        for url in urls_to_try:
-            try:
-                req = urllib.request.Request(url, headers={
-                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
-                    'Accept': 'application/json',
-                    'Referer': 'https://www.kagwirawo.ug/sports/football'
-                })
-                with urllib.request.urlopen(req, timeout=15) as resp:
-                    raw = resp.read().decode()
-                data = json.loads(raw)
-                print(f"Kagwirawo success: {url[:80]}")
-                print(f"Kagwirawo keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
-                print(f"Kagwirawo sample: {raw[:300]}")
-                break
-            except Exception as e:
-                print(f"Kagwirawo URL failed: {e}")
-        print(f"Kagwirawo: {len(odds)} matches extracted")
+        print("Fetching SportyBet from Replit API...")
+        req = urllib.request.Request(SPORTYBET_API, headers={
+            'User-Agent': 'Mozilla/5.0',
+            'Accept': 'application/json'
+        })
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())
+        if isinstance(data, list):
+            for event in data:
+                try:
+                    home = event.get('home_team','')
+                    away = event.get('away_team','')
+                    h_odd = float(event.get('home', 0))
+                    d_odd = float(event.get('draw', 0))
+                    a_odd = float(event.get('away', 0))
+                    if home and away and h_odd and a_odd:
+                        odds.append({
+                            'match': f"{home} vs {away}",
+                            'home_team': home,
+                            'away_team': away,
+                            'match_key': f"{normalize(home)} vs {normalize(away)}",
+                            'bookmaker': 'SportyBet',
+                            'competition': '',
+                            'home': h_odd,
+                            'draw': d_odd,
+                            'away': a_odd,
+                            'sport': 'Football'
+                        })
+                except:
+                    continue
+        print(f"SportyBet: {len(odds)} matches extracted")
     except Exception as e:
-        print(f"Kagwirawo error: {e}")
-    return odds
-
-def scrape_gsb():
-    odds = []
-    try:
-        print("Fetching GSB API...")
-        urls_to_try = [
-            'https://gsb.ug/api/v1/events?sport=football&status=prematch&limit=100',
-            'https://gsb.ug/api/sports/football/prematch?limit=100',
-            'https://gsb.ug/api/v2/matches?sport_id=1&limit=100',
-            'https://api.gsb.ug/v1/events?sport=football&limit=100',
-        ]
-        for url in urls_to_try:
-            try:
-                req = urllib.request.Request(url, headers={
-                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
-                    'Accept': 'application/json',
-                    'Referer': 'https://gsb.ug/sportsbook/upcoming'
-                })
-                with urllib.request.urlopen(req, timeout=15) as resp:
-                    raw = resp.read().decode()
-                data = json.loads(raw)
-                print(f"GSB success: {url[:80]}")
-                print(f"GSB keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
-                print(f"GSB sample: {raw[:300]}")
-                break
-            except Exception as e:
-                print(f"GSB URL failed: {e}")
-        print(f"GSB: {len(odds)} matches extracted")
-    except Exception as e:
-        print(f"GSB error: {e}")
+        print(f"SportyBet error: {e}")
     return odds
 
 def find_arbitrage(all_odds):
@@ -279,14 +255,10 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping Kagwirawo...")
-    kw = scrape_kagwirawo()
-    all_odds.extend(kw)
-    if kw: scraped.append('Kagwirawo')
-    print("Scraping GSB...")
-    gsb = scrape_gsb()
-    all_odds.extend(gsb)
-    if gsb: scraped.append('GSB')
+    print("Scraping SportyBet...")
+    sb = scrape_sportybet()
+    all_odds.extend(sb)
+    if sb: scraped.append('SportyBet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {
