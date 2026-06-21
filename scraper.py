@@ -156,95 +156,68 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_with_api_intercept(name, url):
+def scrape_kagwirawo():
     odds = []
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
-            context = browser.new_context(
-                user_agent='Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
-                viewport={'width': 390, 'height': 844},
-                locale='en-UG'
-            )
-            page = context.new_page()
-            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-            api_data = []
-            def handle_response(response):
-                try:
-                    if response.status == 200:
-                        ct = response.headers.get('content-type','')
-                        if 'json' in ct:
-                            data = response.json()
-                            api_data.append({'url': response.url, 'data': data})
-                            print(f"{name} API: {response.url[:100]}")
-                except:
-                    pass
-            page.on('response', handle_response)
-            print(f"Opening {name}...")
-            page.goto(url, timeout=60000)
-            page.wait_for_timeout(10000)
-            html = page.content()
-            print(f"{name} loaded: {len(html)} bytes, API calls: {len(api_data)}")
-            for item in api_data:
-                try:
-                    d = item['data']
-                    events = []
-                    if isinstance(d, dict):
-                        for key in ['events','data','matches','items','fixtures','games','results']:
-                            if key in d and isinstance(d[key], list) and len(d[key]) > 0:
-                                events = d[key]
-                                print(f"{name}: {len(events)} items under '{key}'")
-                                break
-                    elif isinstance(d, list) and len(d) > 0:
-                        events = d
-                    for event in events:
-                        if not isinstance(event, dict):
-                            continue
-                        home = (event.get('home_team','') or event.get('homeName','') or
-                                event.get('HomeTeam','') or event.get('home','') or
-                                event.get('homeTeam',{}).get('name','') or
-                                event.get('team1','') or event.get('O1',''))
-                        away = (event.get('away_team','') or event.get('awayName','') or
-                                event.get('AwayTeam','') or event.get('away','') or
-                                event.get('awayTeam',{}).get('name','') or
-                                event.get('team2','') or event.get('O2',''))
-                        if not home or not away:
-                            continue
-                        h_odd = d_odd = a_odd = None
-                        # Try E array (1xBet style)
-                        for e in event.get('E', []):
-                            t = e.get('T')
-                            coef = e.get('C', 0)
-                            if t == 1: h_odd = float(coef)
-                            elif t == 2: d_odd = float(coef)
-                            elif t == 3: a_odd = float(coef)
-                        # Try markets/odds arrays
-                        if not h_odd:
-                            markets = event.get('markets', event.get('odds', event.get('picks', [])))
-                            for market in markets:
-                                if not isinstance(market, dict):
-                                    continue
-                                selections = market.get('selections', market.get('outcomes', market.get('picks', [])))
-                                if len(selections) >= 3:
-                                    h_odd = float(selections[0].get('price', selections[0].get('odds', selections[0].get('odd', 0))))
-                                    d_odd = float(selections[1].get('price', selections[1].get('odds', selections[1].get('odd', 0))))
-                                    a_odd = float(selections[2].get('price', selections[2].get('odds', selections[2].get('odd', 0))))
-                                    break
-                        if h_odd and a_odd:
-                            odds.append({
-                                'match': f"{home} vs {away}",
-                                'home_team': home, 'away_team': away,
-                                'match_key': f"{normalize(home)} vs {normalize(away)}",
-                                'bookmaker': name, 'competition': '',
-                                'home': h_odd, 'draw': d_odd, 'away': a_odd,
-                                'sport': 'Football'
-                            })
-                except:
-                    continue
-            browser.close()
-        print(f"{name}: {len(odds)} matches extracted")
+        print("Fetching Kagwirawo API...")
+        # Try direct API endpoints
+        urls_to_try = [
+            'https://www.kagwirawo.ug/api/data/sports/football/matches?status=prematch&limit=100',
+            'https://www.kagwirawo.ug/api/data/events?sport=football&status=prematch&limit=100',
+            'https://www.kagwirawo.ug/api/data/matches?sport_id=1&limit=100',
+            'https://www.kagwirawo.ug/api/v1/events?sport=football&limit=100',
+            'https://www.kagwirawo.ug/api/data/prematch?sport=1&limit=100',
+        ]
+        for url in urls_to_try:
+            try:
+                req = urllib.request.Request(url, headers={
+                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
+                    'Accept': 'application/json',
+                    'Referer': 'https://www.kagwirawo.ug/sports/football'
+                })
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    raw = resp.read().decode()
+                data = json.loads(raw)
+                print(f"Kagwirawo success: {url[:80]}")
+                print(f"Kagwirawo keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
+                print(f"Kagwirawo sample: {raw[:300]}")
+                break
+            except Exception as e:
+                print(f"Kagwirawo URL failed: {e}")
+        print(f"Kagwirawo: {len(odds)} matches extracted")
     except Exception as e:
-        print(f"{name} error: {e}")
+        print(f"Kagwirawo error: {e}")
+    return odds
+
+def scrape_gsb():
+    odds = []
+    try:
+        print("Fetching GSB API...")
+        urls_to_try = [
+            'https://gsb.ug/api/v1/events?sport=football&status=prematch&limit=100',
+            'https://gsb.ug/api/sports/football/prematch?limit=100',
+            'https://gsb.ug/api/v2/matches?sport_id=1&limit=100',
+            'https://api.gsb.ug/v1/events?sport=football&limit=100',
+        ]
+        for url in urls_to_try:
+            try:
+                req = urllib.request.Request(url, headers={
+                    'User-Agent': 'Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 Chrome/124.0.0.0 Mobile Safari/537.36',
+                    'Accept': 'application/json',
+                    'Referer': 'https://gsb.ug/sportsbook/upcoming'
+                })
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    raw = resp.read().decode()
+                data = json.loads(raw)
+                print(f"GSB success: {url[:80]}")
+                print(f"GSB keys: {list(data.keys()) if isinstance(data,dict) else type(data)}")
+                print(f"GSB sample: {raw[:300]}")
+                break
+            except Exception as e:
+                print(f"GSB URL failed: {e}")
+        print(f"GSB: {len(odds)} matches extracted")
+    except Exception as e:
+        print(f"GSB error: {e}")
     return odds
 
 def find_arbitrage(all_odds):
@@ -306,18 +279,14 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping GSB...")
-    gsb = scrape_with_api_intercept('GSB', 'https://gsb.ug/sportsbook/upcoming')
-    all_odds.extend(gsb)
-    if gsb: scraped.append('GSB')
-    print("Scraping Elitebet...")
-    eb = scrape_with_api_intercept('Elitebet', 'https://www.elitebet.ug/sports/football')
-    all_odds.extend(eb)
-    if eb: scraped.append('Elitebet')
     print("Scraping Kagwirawo...")
-    kw = scrape_with_api_intercept('Kagwirawo', 'https://www.kagwirawo.ug/sports/football')
+    kw = scrape_kagwirawo()
     all_odds.extend(kw)
     if kw: scraped.append('Kagwirawo')
+    print("Scraping GSB...")
+    gsb = scrape_gsb()
+    all_odds.extend(gsb)
+    if gsb: scraped.append('GSB')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {
