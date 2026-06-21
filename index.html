@@ -2,41 +2,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Uganda Odds Scraper</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇺🇬 Uganda Arbitrage Scanner</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a1a;color:#fff;font-family:Arial,sans-serif;padding:10px}
-h1{color:#00ff88;text-align:center;padding:15px 0;font-size:1.3em}
-.sub{text-align:center;color:#666;font-size:.75em;margin-bottom:15px}
-.bar{background:#111;border:1px solid #222;border-radius:8px;padding:10px;margin-bottom:10px;font-size:.8em;display:flex;justify-content:space-between}
-.stats{display:flex;gap:8px;margin-bottom:10px}
-.stat{flex:1;background:#111;border:1px solid #222;border-radius:8px;padding:10px;text-align:center}
-.num{font-size:1.5em;font-weight:bold;color:#00ff88}
-.lbl{font-size:.65em;color:#666;margin-top:3px}
-.sec{color:#666;font-size:.8em;margin:10px 0 8px;padding-bottom:5px;border-bottom:1px solid #222}
-table{width:100%;border-collapse:collapse;font-size:.75em;margin-bottom:15px}
-th{background:#111;padding:8px;text-align:left;color:#666;border-bottom:1px solid #222}
-td{padding:8px;border-bottom:1px solid #1a1a1a}
-tr:hover{background:#111}
+body{background:#0a0a0a;color:#eee;font-family:Arial,sans-serif;padding:10px}
+h1{color:#00ff88;text-align:center;font-size:1.4em;padding:15px 0 5px}
+.sub{text-align:center;color:#888;font-size:0.8em;margin-bottom:15px}
+.bar{background:#111;border:1px solid #222;border-radius:8px;padding:10px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:5px}
+#st{color:#00ff88;font-size:0.85em}
+#lu{color:#666;font-size:0.75em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px}
+.stat{background:#111;border:1px solid #222;border-radius:8px;padding:10px;text-align:center}
+.num{color:#00ff88;font-size:1.6em;font-weight:bold}
+.arb-num{color:#ff6b00;font-size:1.6em;font-weight:bold}
+.lbl{color:#888;font-size:0.7em;margin-top:3px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:15px}
+.tag{background:#1a2a1a;border:1px solid #00ff88;color:#00ff88;border-radius:20px;padding:4px 12px;font-size:0.8em}
+.sec{color:#aaa;font-size:0.9em;font-weight:bold;margin:15px 0 8px;padding-bottom:5px;border-bottom:1px solid #222}
+/* Arbitrage Cards */
+.arb-card{background:#111;border:2px solid #ff6b00;border-radius:10px;padding:12px;margin-bottom:12px}
+.arb-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.arb-match{color:#fff;font-weight:bold;font-size:0.9em;flex:1}
+.arb-profit{background:#ff6b00;color:#000;font-weight:bold;border-radius:20px;padding:3px 10px;font-size:0.85em;white-space:nowrap}
+.arb-type{color:#888;font-size:0.75em;margin-bottom:8px}
+.arb-bets{display:flex;flex-direction:column;gap:6px}
+.arb-bet{background:#1a1a1a;border-radius:6px;padding:8px;display:flex;justify-content:space-between;align-items:center}
+.bet-left{display:flex;flex-direction:column}
+.bet-book{color:#00ff88;font-size:0.8em;font-weight:bold}
+.bet-outcome{color:#aaa;font-size:0.75em}
+.bet-right{display:flex;flex-direction:column;align-items:flex-end}
+.bet-odd{color:#fff;font-weight:bold;font-size:0.9em}
+.bet-stake{color:#ff6b00;font-size:0.75em}
+.no-arb{background:#111;border:1px solid #333;border-radius:8px;padding:20px;text-align:center;color:#666}
+/* Odds Table */
+.tbl-wrap{overflow-x:auto;margin-bottom:20px}
+table{width:100%;border-collapse:collapse;font-size:0.8em;min-width:400px}
+th{background:#1a1a1a;color:#888;padding:8px 6px;text-align:left;border-bottom:1px solid #333}
+td{padding:7px 6px;border-bottom:1px solid #1a1a1a;color:#ddd}
 .g{color:#00ff88;font-weight:bold}
-.bk{color:#fff;font-weight:bold}
-.empty{text-align:center;color:#444;padding:30px;font-size:.85em}
-.tag{display:inline-block;background:#111;border:1px solid #333;border-radius:20px;padding:3px 10px;font-size:.7em;color:#888;margin:3px}
-.tag.on{border-color:#00ff88;color:#00ff88}
+.bk{color:#4af;font-weight:bold}
+tr:hover td{background:#141414}
+.empty{text-align:center;padding:30px;color:#666}
 </style>
 </head>
 <body>
-
-<h1>🇺🇬 Uganda Odds Scraper</h1>
-<p class="sub">Scraping 27 bookmakers every 5 minutes</p>
+<h1>🇺🇬 Uganda Arbitrage Scanner</h1>
+<p class="sub">Auto-scraping Ugandan bookmakers every 5 minutes</p>
 
 <div class="bar">
   <span id="st">⏳ Loading...</span>
-  <span id="lu" style="color:#666"></span>
+  <span id="lu"></span>
 </div>
 
 <div class="stats">
+  <div class="stat">
+    <div class="arb-num" id="ao">0</div>
+    <div class="lbl">🎯 Arb Opportunities</div>
+  </div>
   <div class="stat">
     <div class="num" id="tm">0</div>
     <div class="lbl">Total Matches</div>
@@ -45,17 +68,17 @@ tr:hover{background:#111}
     <div class="num" id="tb">0</div>
     <div class="lbl">Bookmakers</div>
   </div>
-  <div class="stat">
-    <div class="num" id="to">0</div>
-    <div class="lbl">Total Odds</div>
-  </div>
 </div>
 
-<p class="sec">📡 Bookmakers Scraped</p>
-<div id="tags"></div>
+<div class="tags" id="tags"></div>
+
+<p class="sec">🎯 Arbitrage Opportunities</p>
+<div id="arbs"><div class="empty">⏳ Loading opportunities...</div></div>
 
 <p class="sec">📊 All Scraped Odds</p>
-<div id="odds"><div class="empty">⏳ Waiting for scraper...</div></div>
+<div class="tbl-wrap">
+<div id="odds"><div class="empty">⏳ Loading odds...</div></div>
+</div>
 
 <script>
 async function load(){
@@ -63,22 +86,53 @@ async function load(){
     const r=await fetch('odds.json?t='+Date.now());
     const d=await r.json();
     const raw=d.raw_odds||[];
+    const opps=d.opportunities||[];
     const bookies=[...new Set(raw.map(x=>x.bookmaker))];
 
     document.getElementById('st').textContent='✅ Scraped '+raw.length+' odds entries';
-    document.getElementById('lu').textContent='🕐 '+(d.last_updated||'');
-    document.getElementById('tm').textContent=d.total_matches||0;
-    document.getElementById('tb').textContent=bookies.length;
-    document.getElementById('to').textContent=raw.length;
+    document.getElementById('lu').textContent='🕐 '+( d.last_updated||'');
+    document.getElementById('tm').textContent=d.total_matches||raw.length;
+    document.getElementById('tb').textContent=(d.bookmakers_scraped||bookies).length;
+    document.getElementById('ao').textContent=opps.length;
 
-    document.getElementById('tags').innerHTML=
-      d.bookmakers_scraped
-        ? d.bookmakers_scraped.map(b=>
-            `<span class="tag ${bookies.includes(b)?'on':''}">${b}</span>`
-          ).join('')
-        : bookies.map(b=>`<span class="tag on">${b}</span>`).join('');
+    // Bookmaker tags
+    const scraped=d.bookmakers_scraped||bookies;
+    document.getElementById('tags').innerHTML=scraped.map(b=>
+      `<span class="tag">${b}</span>`
+    ).join('');
 
-    document.getElementById('odds').innerHTML=raw.length?`
+    // Arbitrage opportunities
+    const arbDiv=document.getElementById('arbs');
+    if(opps.length===0){
+      arbDiv.innerHTML='<div class="no-arb">😔 No arbitrage opportunities found right now. Check back in 5 minutes.</div>';
+    } else {
+      arbDiv.innerHTML=opps.map(o=>`
+        <div class="arb-card">
+          <div class="arb-header">
+            <div class="arb-match">${o.match}</div>
+            <div class="arb-profit">+${o.profit_percent}% profit</div>
+          </div>
+          <div class="arb-type">${o.type==='3-way'?'3-way (1X2)':'2-way (Win/Win)'} • Stake: UGX 100,000</div>
+          <div class="arb-bets">
+            ${(o.bets||[]).map(b=>`
+              <div class="arb-bet">
+                <div class="bet-left">
+                  <span class="bet-book">${b.bookmaker}</span>
+                  <span class="bet-outcome">${b.outcome}</span>
+                </div>
+                <div class="bet-right">
+                  <span class="bet-odd">@ ${b.odd}</span>
+                  <span class="bet-stake">UGX ${b.stake.toLocaleString()}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Odds table
+    document.getElementById('odds').innerHTML=raw.length>0?`
       <table>
         <thead>
           <tr>
@@ -87,7 +141,6 @@ async function load(){
             <th>Home</th>
             <th>Draw</th>
             <th>Away</th>
-            <th>Sport</th>
           </tr>
         </thead>
         <tbody>
@@ -98,21 +151,19 @@ async function load(){
               <td class="bk">${o.home||'-'}</td>
               <td class="bk">${o.draw||'-'}</td>
               <td class="bk">${o.away||'-'}</td>
-              <td style="color:#666">${o.sport||'Football'}</td>
             </tr>
           `).join('')}
         </tbody>
-      </table>`
-    :'<div class="empty">⏳ No odds yet. Scraper runs every 5 min.</div>';
+      </table>
+    `:'<div class="empty">⏳ No odds yet.</div>';
 
   }catch(e){
-    document.getElementById('st').textContent='⚠️ No data yet';
-    document.getElementById('odds').innerHTML=
-      '<div class="empty">⏳ Scraper has not run yet.</div>';
+    document.getElementById('st').textContent='❌ Error loading data';
+    document.getElementById('arbs').innerHTML='<div class="empty">❌ Scraper has not run yet.</div>';
   }
 }
 load();
 setInterval(load,300000);
 </script>
 </body>
-  </html>
+</html>
