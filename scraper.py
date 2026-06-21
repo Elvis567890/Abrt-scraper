@@ -3,7 +3,6 @@ from datetime import datetime
 from playwright.sync_api import sync_playwright
 import re
 import urllib.request
-import ssl
 
 def normalize(name):
     name = name.lower().strip()
@@ -157,14 +156,15 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-def scrape_with_browser(name, url, referer):
+def scrape_with_api_intercept(name, url):
     odds = []
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
             context = browser.new_context(
-                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-                viewport={'width': 1280, 'height': 800}
+                user_agent='Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+                viewport={'width': 390, 'height': 844},
+                locale='en-UG'
             )
             page = context.new_page()
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
@@ -182,29 +182,54 @@ def scrape_with_browser(name, url, referer):
             page.on('response', handle_response)
             print(f"Opening {name}...")
             page.goto(url, timeout=60000)
-            page.wait_for_timeout(12000)
+            page.wait_for_timeout(10000)
             html = page.content()
             print(f"{name} loaded: {len(html)} bytes, API calls: {len(api_data)}")
             for item in api_data:
                 try:
                     d = item['data']
-                    events = d.get('Value', d.get('data', d.get('events', d.get('matches', []))))
-                    if not isinstance(events, list):
-                        continue
+                    events = []
+                    if isinstance(d, dict):
+                        for key in ['events','data','matches','items','fixtures','games','results']:
+                            if key in d and isinstance(d[key], list) and len(d[key]) > 0:
+                                events = d[key]
+                                print(f"{name}: {len(events)} items under '{key}'")
+                                break
+                    elif isinstance(d, list) and len(d) > 0:
+                        events = d
                     for event in events:
                         if not isinstance(event, dict):
                             continue
-                        home = event.get('O1', event.get('home_team', event.get('home','')))
-                        away = event.get('O2', event.get('away_team', event.get('away','')))
+                        home = (event.get('home_team','') or event.get('homeName','') or
+                                event.get('HomeTeam','') or event.get('home','') or
+                                event.get('homeTeam',{}).get('name','') or
+                                event.get('team1','') or event.get('O1',''))
+                        away = (event.get('away_team','') or event.get('awayName','') or
+                                event.get('AwayTeam','') or event.get('away','') or
+                                event.get('awayTeam',{}).get('name','') or
+                                event.get('team2','') or event.get('O2',''))
                         if not home or not away:
                             continue
                         h_odd = d_odd = a_odd = None
+                        # Try E array (1xBet style)
                         for e in event.get('E', []):
                             t = e.get('T')
                             coef = e.get('C', 0)
                             if t == 1: h_odd = float(coef)
                             elif t == 2: d_odd = float(coef)
                             elif t == 3: a_odd = float(coef)
+                        # Try markets/odds arrays
+                        if not h_odd:
+                            markets = event.get('markets', event.get('odds', event.get('picks', [])))
+                            for market in markets:
+                                if not isinstance(market, dict):
+                                    continue
+                                selections = market.get('selections', market.get('outcomes', market.get('picks', [])))
+                                if len(selections) >= 3:
+                                    h_odd = float(selections[0].get('price', selections[0].get('odds', selections[0].get('odd', 0))))
+                                    d_odd = float(selections[1].get('price', selections[1].get('odds', selections[1].get('odd', 0))))
+                                    a_odd = float(selections[2].get('price', selections[2].get('odds', selections[2].get('odd', 0))))
+                                    break
                         if h_odd and a_odd:
                             odds.append({
                                 'match': f"{home} vs {away}",
@@ -281,14 +306,18 @@ def main():
     fb = scrape_fortebet()
     all_odds.extend(fb)
     if fb: scraped.append('Fortebet')
-    print("Scraping 22Bet...")
-    tb = scrape_with_browser('22Bet', 'https://www.22bet.ug/line/football', 'https://www.22bet.ug/')
-    all_odds.extend(tb)
-    if tb: scraped.append('22Bet')
-    print("Scraping Melbet...")
-    mb = scrape_with_browser('Melbet', 'https://melbet.ug/line/football', 'https://melbet.ug/')
-    all_odds.extend(mb)
-    if mb: scraped.append('Melbet')
+    print("Scraping GSB...")
+    gsb = scrape_with_api_intercept('GSB', 'https://gsb.ug/sportsbook/upcoming')
+    all_odds.extend(gsb)
+    if gsb: scraped.append('GSB')
+    print("Scraping Elitebet...")
+    eb = scrape_with_api_intercept('Elitebet', 'https://www.elitebet.ug/sports/football')
+    all_odds.extend(eb)
+    if eb: scraped.append('Elitebet')
+    print("Scraping Kagwirawo...")
+    kw = scrape_with_api_intercept('Kagwirawo', 'https://www.kagwirawo.ug/sports/football')
+    all_odds.extend(kw)
+    if kw: scraped.append('Kagwirawo')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     output = {
