@@ -3,31 +3,24 @@ from datetime import datetime
 from playwright.sync_api import sync_playwright
 import re
 import urllib.request
-from itertools import permutations
 
 SPORTYBET_API = 'https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple'
 
 def normalize(name):
     name = name.lower().strip()
-    # Remove common suffixes
     name = re.sub(r'\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b', '', name)
-    # Remove punctuation
     name = re.sub(r'[^a-z0-9 ]', '', name)
-    # Remove extra spaces
     name = re.sub(r'\s+', ' ', name).strip()
     return name
 
 def teams_match(name1, name2):
-    """Check if two team names refer to the same team"""
     n1 = normalize(name1)
     n2 = normalize(name2)
     if n1 == n2:
         return True
-    # Check if one contains the other (e.g. "man utd" vs "manchester united")
     if len(n1) > 3 and len(n2) > 3:
         if n1 in n2 or n2 in n1:
             return True
-        # Check first word match
         w1 = n1.split()[0] if n1.split() else ''
         w2 = n2.split()[0] if n2.split() else ''
         if len(w1) > 4 and w1 == w2:
@@ -35,14 +28,11 @@ def teams_match(name1, name2):
     return False
 
 def match_key_similarity(key1, key2):
-    """Check if two match keys refer to same match"""
     parts1 = key1.split(' vs ')
     parts2 = key2.split(' vs ')
     if len(parts1) != 2 or len(parts2) != 2:
         return False
-    home_match = teams_match(parts1[0], parts2[0])
-    away_match = teams_match(parts1[1], parts2[1])
-    return home_match and away_match
+    return teams_match(parts1[0], parts2[0]) and teams_match(parts1[1], parts2[1])
 
 def scrape_betpawa():
     odds = []
@@ -200,14 +190,19 @@ def scrape_sportybet():
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         if isinstance(data, list):
+            sport_counts = {}
             for event in data:
                 try:
                     home = event.get('home_team','')
                     away = event.get('away_team','')
-                    h_odd = float(event.get('home', 0))
-                    d_odd = float(event.get('draw', 0))
-                    a_odd = float(event.get('away', 0))
+                    sport = event.get('sport','Football')
+                    h_odd = float(event.get('home', 0) or 0)
+                    d_odd = event.get('draw')
+                    a_odd = float(event.get('away', 0) or 0)
+                    if d_odd:
+                        d_odd = float(d_odd)
                     if home and away and h_odd and a_odd:
+                        sport_counts[sport] = sport_counts.get(sport, 0) + 1
                         odds.append({
                             'match': f"{home} vs {away}",
                             'home_team': home,
@@ -218,10 +213,11 @@ def scrape_sportybet():
                             'home': h_odd,
                             'draw': d_odd,
                             'away': a_odd,
-                            'sport': 'Football'
+                            'sport': sport
                         })
                 except:
                     continue
+            print(f"SportyBet sports breakdown: {sport_counts}")
         print(f"SportyBet: {len(odds)} matches extracted")
     except Exception as e:
         print(f"SportyBet error: {e}")
@@ -231,138 +227,141 @@ def find_arbitrage(all_odds):
     opportunities = []
     STAKE = 100000
 
-    # Group matches using fuzzy matching
-    # First group by exact match_key
-    exact_groups = {}
+    # Group by sport first
+    sports_odds = {}
     for odd in all_odds:
-        key = odd.get('match_key', '')
-        if key not in exact_groups:
-            exact_groups[key] = []
-        exact_groups[key].append(odd)
+        sport = odd.get('sport', 'Football')
+        if sport not in sports_odds:
+            sports_odds[sport] = []
+        sports_odds[sport].append(odd)
 
-    # Merge similar match keys (fuzzy matching)
-    merged_groups = {}
-    processed_keys = set()
-    all_keys = list(exact_groups.keys())
+    # 3-way sports (have draw)
+    three_way_sports = ['Football', 'Rugby', 'Futsal']
+    # 2-way sports (no draw)
+    two_way_sports = ['Tennis', 'Table Tennis', 'Basketball', 'American Football',
+                      'Cricket', 'Baseball', 'Darts', 'Boxing', 'Volleyball']
 
-    for i, key1 in enumerate(all_keys):
-        if key1 in processed_keys:
-            continue
-        group = list(exact_groups[key1])
-        processed_keys.add(key1)
-        for key2 in all_keys[i+1:]:
-            if key2 in processed_keys:
+    for sport, sport_odds in sports_odds.items():
+        # Group by normalized match key
+        exact_groups = {}
+        for odd in sport_odds:
+            key = odd.get('match_key', '')
+            if key not in exact_groups:
+                exact_groups[key] = []
+            exact_groups[key].append(odd)
+
+        # Merge similar match keys
+        merged_groups = {}
+        processed_keys = set()
+        all_keys = list(exact_groups.keys())
+        for i, key1 in enumerate(all_keys):
+            if key1 in processed_keys:
                 continue
-            if match_key_similarity(key1, key2):
-                group.extend(exact_groups[key2])
-                processed_keys.add(key2)
-        merged_groups[key1] = group
-
-    for match_name, bookmakers in merged_groups.items():
-        # Must have at least 2 different bookmakers
-        bookie_names = set(b['bookmaker'] for b in bookmakers)
-        if len(bookie_names) < 2:
-            continue
-
-        # Get best odd per outcome per bookmaker
-        bk_odds = {}
-        for b in bookmakers:
-            bk = b['bookmaker']
-            if bk not in bk_odds:
-                bk_odds[bk] = {'home': 0, 'draw': 0, 'away': 0}
-            if b.get('home', 0) > bk_odds[bk]['home']:
-                bk_odds[bk]['home'] = b['home']
-            if b.get('draw', 0) > bk_odds[bk]['draw']:
-                bk_odds[bk]['draw'] = b['draw']
-            if b.get('away', 0) > bk_odds[bk]['away']:
-                bk_odds[bk]['away'] = b['away']
-
-        bk_list = list(bk_odds.keys())
-
-        # ============================================
-        # 3-WAY ARBITRAGE
-        # Home from BK_A, Draw from BK_B, Away from BK_C
-        # At least 2 must be different bookmakers
-        # ============================================
-        best_3way = None
-        for bk_h in bk_list:
-            for bk_d in bk_list:
-                for bk_a in bk_list:
-                    # Must have at least 2 different bookmakers
-                    books_used = set([bk_h, bk_d, bk_a])
-                    if len(books_used) < 2:
-                        continue
-                    h = bk_odds[bk_h]['home']
-                    d = bk_odds[bk_d]['draw']
-                    a = bk_odds[bk_a]['away']
-                    if not h or not d or not a:
-                        continue
-                    # Only accept realistic odds (between 1.01 and 50)
-                    if not all(1.01 <= x <= 50 for x in [h, d, a]):
-                        continue
-                    arb = (1/h) + (1/d) + (1/a)
-                    if arb < 1:
-                        profit = round((1-arb)*100, 2)
-                        # Only accept realistic profit (0.1% to 8%)
-                        if 0.1 <= profit <= 8.0:
-                            stake_h = round(STAKE*(1/h)/arb)
-                            stake_d = round(STAKE*(1/d)/arb)
-                            stake_a = round(STAKE*(1/a)/arb)
-                            profit_ugx = round(STAKE*(1-arb))
-                            if best_3way is None or profit > best_3way['profit_percent']:
-                                best_3way = {
-                                    'match': match_name,
-                                    'type': '3-way',
-                                    'profit_percent': profit,
-                                    'profit_ugx': profit_ugx,
-                                    'total_stake': STAKE,
-                                    'arb_sum': round(arb, 4),
-                                    'bets': [
-                                        {'bookmaker': bk_h,'outcome':'Home','odd': h,'stake': stake_h,'win': round(stake_h*h)},
-                                        {'bookmaker': bk_d,'outcome':'Draw','odd': d,'stake': stake_d,'win': round(stake_d*d)},
-                                        {'bookmaker': bk_a,'outcome':'Away','odd': a,'stake': stake_a,'win': round(stake_a*a)}
-                                    ]
-                                }
-        if best_3way:
-            opportunities.append(best_3way)
-
-        # ============================================
-        # 2-WAY ARBITRAGE
-        # Home from BK_A, Away from BK_B (different bookmakers)
-        # ============================================
-        best_2way = None
-        for bk_h in bk_list:
-            for bk_a in bk_list:
-                if bk_h == bk_a:
-                    continue  # Must be different bookmakers
-                h = bk_odds[bk_h]['home']
-                a = bk_odds[bk_a]['away']
-                if not h or not a:
+            group = list(exact_groups[key1])
+            processed_keys.add(key1)
+            for key2 in all_keys[i+1:]:
+                if key2 in processed_keys:
                     continue
-                if not all(1.01 <= x <= 50 for x in [h, a]):
-                    continue
-                arb = (1/h) + (1/a)
-                if arb < 1:
-                    profit = round((1-arb)*100, 2)
-                    if 0.1 <= profit <= 8.0:
-                        stake_h = round(STAKE*(1/h)/arb)
-                        stake_a = round(STAKE*(1/a)/arb)
-                        profit_ugx = round(STAKE*(1-arb))
-                        if best_2way is None or profit > best_2way['profit_percent']:
-                            best_2way = {
-                                'match': match_name,
-                                'type': '2-way',
-                                'profit_percent': profit,
-                                'profit_ugx': profit_ugx,
-                                'total_stake': STAKE,
-                                'arb_sum': round(arb, 4),
-                                'bets': [
-                                    {'bookmaker': bk_h,'outcome':'Home','odd': h,'stake': stake_h,'win': round(stake_h*h)},
-                                    {'bookmaker': bk_a,'outcome':'Away','odd': a,'stake': stake_a,'win': round(stake_a*a)}
-                                ]
-                            }
-        if best_2way:
-            opportunities.append(best_2way)
+                if match_key_similarity(key1, key2):
+                    group.extend(exact_groups[key2])
+                    processed_keys.add(key2)
+            merged_groups[key1] = group
+
+        for match_name, bookmakers in merged_groups.items():
+            bookie_names = set(b['bookmaker'] for b in bookmakers)
+            if len(bookie_names) < 2:
+                continue
+
+            # Get best odds per bookmaker
+            bk_odds = {}
+            for b in bookmakers:
+                bk = b['bookmaker']
+                if bk not in bk_odds:
+                    bk_odds[bk] = {'home': 0, 'draw': 0, 'away': 0}
+                if b.get('home', 0) > bk_odds[bk]['home']:
+                    bk_odds[bk]['home'] = b['home']
+                if b.get('draw') and b['draw'] > bk_odds[bk]['draw']:
+                    bk_odds[bk]['draw'] = b['draw']
+                if b.get('away', 0) > bk_odds[bk]['away']:
+                    bk_odds[bk]['away'] = b['away']
+
+            bk_list = list(bk_odds.keys())
+
+            if sport in three_way_sports:
+                # 3-WAY: Home/Draw/Away from different bookmakers
+                best = None
+                for bk_h in bk_list:
+                    for bk_d in bk_list:
+                        for bk_a in bk_list:
+                            if bk_h == bk_d == bk_a:
+                                continue
+                            h = bk_odds[bk_h]['home']
+                            d = bk_odds[bk_d]['draw']
+                            a = bk_odds[bk_a]['away']
+                            if not h or not d or not a:
+                                continue
+                            if not all(1.01 <= x <= 50 for x in [h, d, a]):
+                                continue
+                            arb = (1/h)+(1/d)+(1/a)
+                            if arb < 1:
+                                profit = round((1-arb)*100, 2)
+                                if 0.1 <= profit <= 8.0:
+                                    if best is None or profit > best['profit_percent']:
+                                        stake_h = round(STAKE*(1/h)/arb)
+                                        stake_d = round(STAKE*(1/d)/arb)
+                                        stake_a = round(STAKE*(1/a)/arb)
+                                        best = {
+                                            'match': match_name,
+                                            'sport': sport,
+                                            'type': '3-way',
+                                            'profit_percent': profit,
+                                            'profit_ugx': round(STAKE*(1-arb)),
+                                            'total_stake': STAKE,
+                                            'arb_sum': round(arb, 4),
+                                            'bets': [
+                                                {'bookmaker': bk_h,'outcome':'Home','odd': h,'stake': stake_h,'win': round(stake_h*h)},
+                                                {'bookmaker': bk_d,'outcome':'Draw','odd': d,'stake': stake_d,'win': round(stake_d*d)},
+                                                {'bookmaker': bk_a,'outcome':'Away','odd': a,'stake': stake_a,'win': round(stake_a*a)}
+                                            ]
+                                        }
+                if best:
+                    opportunities.append(best)
+
+            else:
+                # 2-WAY: Home/Away from DIFFERENT bookmakers
+                best = None
+                for bk_h in bk_list:
+                    for bk_a in bk_list:
+                        if bk_h == bk_a:
+                            continue
+                        h = bk_odds[bk_h]['home']
+                        a = bk_odds[bk_a]['away']
+                        if not h or not a:
+                            continue
+                        if not all(1.01 <= x <= 50 for x in [h, a]):
+                            continue
+                        arb = (1/h)+(1/a)
+                        if arb < 1:
+                            profit = round((1-arb)*100, 2)
+                            if 0.1 <= profit <= 8.0:
+                                if best is None or profit > best['profit_percent']:
+                                    stake_h = round(STAKE*(1/h)/arb)
+                                    stake_a = round(STAKE*(1/a)/arb)
+                                    best = {
+                                        'match': match_name,
+                                        'sport': sport,
+                                        'type': '2-way',
+                                        'profit_percent': profit,
+                                        'profit_ugx': round(STAKE*(1-arb)),
+                                        'total_stake': STAKE,
+                                        'arb_sum': round(arb, 4),
+                                        'bets': [
+                                            {'bookmaker': bk_h,'outcome':'Home','odd': h,'stake': stake_h,'win': round(stake_h*h)},
+                                            {'bookmaker': bk_a,'outcome':'Away','odd': a,'stake': stake_a,'win': round(stake_a*a)}
+                                        ]
+                                    }
+                if best:
+                    opportunities.append(best)
 
     return sorted(opportunities, key=lambda x: x['profit_percent'], reverse=True)
 
@@ -385,10 +384,10 @@ def main():
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     for o in opportunities[:5]:
-        print(f"  MATCH: {o['match']}")
-        print(f"  TYPE: {o['type']} | PROFIT: {o['profit_percent']}% | ARB SUM: {o['arb_sum']}")
+        print(f"  [{o['sport']}] {o['match']}")
+        print(f"  {o['type']} | Profit: {o['profit_percent']}% | ARB: {o['arb_sum']} | UGX: {o['profit_ugx']:,}")
         for b in o['bets']:
-            print(f"    {b['bookmaker']}: {b['outcome']} @ {b['odd']} → stake UGX {b['stake']:,} → win UGX {b['win']:,}")
+            print(f"    {b['bookmaker']}: {b['outcome']} @ {b['odd']} → UGX {b['stake']:,} → win UGX {b['win']:,}")
         print()
     output = {
         'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
