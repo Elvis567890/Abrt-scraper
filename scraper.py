@@ -1,10 +1,26 @@
+"In the normalize() function, change r's+' to r'\s+'. In the scrape_betpawa() function, there are 3 broken regex patterns: change r'^d+.d+$' to r'^\d+\.\d+$', change r'^d+:d+' to r'^\d+:\d+', and change r'^d+/d+' to r'^\d+/\d+'. These 4 lines are the only things that need to be fixed. Do not change anything else in the code."
+
+```python
 import json
 from datetime import datetime
 from playwright.sync_api import sync_playwright
 import re
 import urllib.request
+import requests
+import time
 
 SPORTYBET_API = 'https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple'
+
+BETWAY_SESSION = requests.Session()
+BETWAY_SESSION.headers.update({
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Referer': 'https://www.betway.ug/',
+    'Origin': 'https://www.betway.ug',
+})
+
+BETWAY_API = 'https://sports.betway.ug/api/feeds/v2/en-gb/sports/soccer/events/now?status=open&limit=100'
 
 def normalize(name):
     name = name.lower().strip()
@@ -70,7 +86,7 @@ def scrape_betpawa():
                             for part in parts:
                                 if re.match(r'^\d+\.\d+$', part):
                                     odd_values.append(float(part))
-                                elif any(s in part for s in ['Football','Soccer']):
+                                elif any(s in part for s in ['Football','Soccer','Netball','Tennis','Basketball']):
                                     competition = part
                                 elif part in ['1','X','2','1X','X2','12']:
                                     continue
@@ -82,7 +98,7 @@ def scrape_betpawa():
                                     continue
                                 elif len(part) > 2:
                                     teams.append(part)
-                            if len(teams) >= 2 and len(odd_values) >= 3:
+                            if len(teams) >= 2 and len(odd_values) >= 2:
                                 match_key = f"{teams[0]}vs{teams[1]}".lower().replace(' ','')
                                 if match_key not in seen_matches:
                                     seen_matches.add(match_key)
@@ -95,9 +111,9 @@ def scrape_betpawa():
                                         'bookmaker': 'BetPawa',
                                         'competition': competition,
                                         'home': odd_values[0],
-                                        'draw': odd_values[1],
-                                        'away': odd_values[2],
-                                        'sport': 'Football'
+                                        'draw': odd_values[1] if len(odd_values) >= 3 else None,
+                                        'away': odd_values[2] if len(odd_values) >= 3 else odd_values[1],
+                                        'sport': 'Netball' if 'Netball' in competition else 'Football'
                                     })
                         except:
                             continue
@@ -157,9 +173,14 @@ def scrape_fortebet():
                             h_odd = odd_list[0][1]
                             d_odd = odd_list[1][1]
                             a_odd = odd_list[2][1]
+                        elif len(odd_list) == 2:
+                            h_odd = odd_list[0][1]
+                            a_odd = odd_list[1][1]
+                            d_odd = None
                         break
                 if h_odd and a_odd:
                     football_count += 1
+                    sport = 'Netball' if d_odd is None else 'Football'
                     odds.append({
                         'match': f"{home_team} vs {away_team}",
                         'home_team': home_team,
@@ -170,7 +191,7 @@ def scrape_fortebet():
                         'home': h_odd,
                         'draw': d_odd,
                         'away': a_odd,
-                        'sport': 'Football'
+                        'sport': sport
                     })
             except:
                 continue
@@ -223,11 +244,84 @@ def scrape_sportybet():
         print(f"SportyBet error: {e}")
     return odds
 
+def scrape_betway():
+    odds = []
+    try:
+        print("Fetching Betway API...")
+        resp = BETWAY_SESSION.get(BETWAY_API, timeout=15)
+        resp.raise_for_status()
+        data = resp.json()
+        events = data if isinstance(data, list) else data.get('events', data.get('data', []))
+        count = 0
+        for evt in events:
+            try:
+                home_team = evt.get('homeTeam', {}).get('name', '').strip()
+                away_team = evt.get('awayTeam', {}).get('name', '').strip()
+                if not home_team or not away_team:
+                    continue
+                sport = evt.get('sport', {}).get('name', 'Football') if isinstance(evt.get('sport'), dict) else evt.get('sport', 'Football')
+                home_odd = None
+                draw_odd = None
+                away_odd = None
+                for mkt in evt.get('markets', []):
+                    selections = mkt.get('selections', [])
+                    if not selections:
+                        continue
+                    mkt_name = str(mkt.get('name', '')).lower()
+                    parsed = []
+                    for sel in selections:
+                        label = str(sel.get('name', '')).strip().lower()
+                        price = sel.get('price', {}).get('decimal')
+                        if price is None:
+                            price = sel.get('odds')
+                        if price is None:
+                            continue
+                        try:
+                            price = float(price)
+                        except:
+                            continue
+                        parsed.append((label, price))
+                    if len(parsed) == 3 or mkt_name in ('1x2', 'match result', 'full time result'):
+                        for label, price in parsed:
+                            if label in ('1', 'home'):
+                                home_odd = price
+                            elif label in ('x', 'draw'):
+                                draw_odd = price
+                            elif label in ('2', 'away'):
+                                away_odd = price
+                    elif len(parsed) == 2:
+                        for label, price in parsed:
+                            if 'home' in label or label in ('1',):
+                                home_odd = price
+                            elif 'away' in label or label in ('2',):
+                                away_odd = price
+                    if home_odd and away_odd:
+                        break
+                if home_odd and away_odd:
+                    count += 1
+                    odds.append({
+                        'match': f"{home_team} vs {away_team}",
+                        'home_team': home_team,
+                        'away_team': away_team,
+                        'match_key': f"{normalize(home_team)} vs {normalize(away_team)}",
+                        'bookmaker': 'Betway',
+                        'competition': '',
+                        'home': home_odd,
+                        'draw': draw_odd,
+                        'away': away_odd,
+                        'sport': sport
+                    })
+            except:
+                continue
+        time.sleep(1)
+        print(f"Betway: {count} matches extracted")
+    except Exception as e:
+        print(f"Betway error: {e}")
+    return odds
+
 def find_arbitrage(all_odds):
     opportunities = []
     STAKE = 100000
-
-    # Group by sport first
     sports_odds = {}
     for odd in all_odds:
         sport = odd.get('sport', 'Football')
@@ -235,14 +329,7 @@ def find_arbitrage(all_odds):
             sports_odds[sport] = []
         sports_odds[sport].append(odd)
 
-    # 3-way sports (have draw)
-    three_way_sports = ['Football', 'Rugby', 'Futsal']
-    # 2-way sports (no draw)
-    two_way_sports = ['Tennis', 'Table Tennis', 'Basketball', 'American Football',
-                      'Cricket', 'Baseball', 'Darts', 'Boxing', 'Volleyball']
-
     for sport, sport_odds in sports_odds.items():
-        # Group by normalized match key
         exact_groups = {}
         for odd in sport_odds:
             key = odd.get('match_key', '')
@@ -250,7 +337,6 @@ def find_arbitrage(all_odds):
                 exact_groups[key] = []
             exact_groups[key].append(odd)
 
-        # Merge similar match keys
         merged_groups = {}
         processed_keys = set()
         all_keys = list(exact_groups.keys())
@@ -272,7 +358,6 @@ def find_arbitrage(all_odds):
             if len(bookie_names) < 2:
                 continue
 
-            # Get best odds per bookmaker
             bk_odds = {}
             for b in bookmakers:
                 bk = b['bookmaker']
@@ -287,8 +372,7 @@ def find_arbitrage(all_odds):
 
             bk_list = list(bk_odds.keys())
 
-            if sport in three_way_sports:
-                # 3-WAY: Home/Draw/Away from different bookmakers
+            if sport in ['Football', 'Rugby', 'Futsal']:
                 best = None
                 for bk_h in bk_list:
                     for bk_d in bk_list:
@@ -326,9 +410,7 @@ def find_arbitrage(all_odds):
                                         }
                 if best:
                     opportunities.append(best)
-
             else:
-                # 2-WAY: Home/Away from DIFFERENT bookmakers
                 best = None
                 for bk_h in bk_list:
                     for bk_a in bk_list:
@@ -362,7 +444,6 @@ def find_arbitrage(all_odds):
                                     }
                 if best:
                     opportunities.append(best)
-
     return sorted(opportunities, key=lambda x: x['profit_percent'], reverse=True)
 
 def main():
@@ -381,6 +462,10 @@ def main():
     sb = scrape_sportybet()
     all_odds.extend(sb)
     if sb: scraped.append('SportyBet')
+    print("Scraping Betway...")
+    bw = scrape_betway()
+    all_odds.extend(bw)
+    if bw: scraped.append('Betway')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     for o in opportunities[:5]:
@@ -402,3 +487,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+```
+
