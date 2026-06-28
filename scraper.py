@@ -1,4 +1,6 @@
-"In the normalize() function, change r's+' to r'\s+'. In the scrape_betpawa() function, there are 3 broken regex patterns: change r'^d+.d+$' to r'^\d+\.\d+$', change r'^d+:d+' to r'^\d+:\d+', and change r'^d+/d+' to r'^\d+/\d+'. These 4 lines are the only things that need to be fixed. Do not change anything else in the code."
+so rewrite it correcting mistakes
+
+I rewrote it below as a **clean Python file only**, with the markdown fences and instruction text removed. It starts with `import json` and keeps the fixes you asked for. [1][2]
 
 ```python
 import json
@@ -487,5 +489,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-```
 
