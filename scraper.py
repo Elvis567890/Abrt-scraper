@@ -235,23 +235,14 @@ def scrape_1xbet():
     odds = []
     try:
         print("Fetching 1xBet Uganda...")
-        url = "https://1xbet.ug/LiveFeed/Get1x2_VZip"
-        params = {
-            "count": 100,
-            "lng": "en",
-            "tf": 1000000,
-            "mode": 4,
-            "country": 79,
-            "gr": 44,
-            "getEmpty": True
-        }
+        url = "https://1xbet.ug/LineFeed/GetSportsSlice?sports=1&count=50&lng=en&tf=0&tz=3"
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
             "Accept": "application/json, text/plain, */*",
             "Referer": "https://1xbet.ug/",
             "Origin": "https://1xbet.ug"
         }
-        req = urllib.request.Request(url + "?" + urllib.parse.urlencode(params), headers=headers)
+        req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         events = data.get("Value", []) if isinstance(data, dict) else []
@@ -265,7 +256,7 @@ def scrape_1xbet():
                 home_odd = None
                 draw_odd = None
                 away_odd = None
-                sport = evt.get("SN", "Football")
+                sport = "Football"
                 for mkt in evt.get("E", []):
                     market_name = str(mkt.get("NA", "")).lower()
                     selections = mkt.get("GC", [])
@@ -483,3 +474,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
