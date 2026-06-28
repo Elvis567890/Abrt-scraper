@@ -1,6 +1,3 @@
-so rewrite it correcting mistakes
-
-I rewrote it below as a **clean Python file only**, with the markdown fences and instruction text removed. It starts with `import json` and keeps the fixes you asked for. [1][2]
 
 ```python
 import json
