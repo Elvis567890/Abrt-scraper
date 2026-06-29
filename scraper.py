@@ -231,6 +231,96 @@ def scrape_sportybet():
         print(f"SportyBet error: {e}")
     return odds
 
+def scrape_1xbet():
+    odds = []
+    try:
+        print("Fetching 1xBet Uganda...")
+        url = "https://1xbet.ug/service-api/LineFeed/GetSportsShortZip?lng=en&country=191&partner=135&virtualSports=true&gr=640&groupChamps=true"
+        headers = {
+            "content-type": "application/json",
+            "accept": "application/json, text/plain, */*",
+            "x-requested-with": "XMLHttpRequest",
+            "is-srv": "false",
+            "x-svc-source": "__BETTING_APP__",
+            "x-app-n": "__BETTING_APP__",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+            "Referer": "https://1xbet.ug/en/line/football"
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            try:
+                data = json.loads(raw.decode("utf-8"))
+            except:
+                data = json.loads(raw.decode("utf-8-sig"))
+        odds_data = data if isinstance(data, dict) else {}
+        events = odds_data.get("Value", []) if isinstance(odds_data, dict) else []
+        count = 0
+        for evt in events:
+            try:
+                home_team = evt.get("O1") or evt.get("O1E") or evt.get("HomeTeam")
+                away_team = evt.get("O2") or evt.get("O2E") or evt.get("AwayTeam")
+                if not home_team or not away_team:
+                    continue
+                home_odd = None
+                draw_odd = None
+                away_odd = None
+                sport = "Football"
+                for mkt in evt.get("E", []):
+                    market_name = str(mkt.get("NA", "")).lower()
+                    selections = mkt.get("GC", [])
+                    if market_name in ("1x2", "match result", "full time result", "winner"):
+                        for sel in selections:
+                            label = str(sel.get("T", "")).strip().lower()
+                            price = sel.get("C")
+                            if price is None:
+                                continue
+                            try:
+                                price = float(price)
+                            except:
+                                continue
+                            if label in ("1", "home"):
+                                home_odd = price
+                            elif label in ("x", "draw"):
+                                draw_odd = price
+                            elif label in ("2", "away"):
+                                away_odd = price
+                    elif len(selections) == 2:
+                        for sel in selections:
+                            label = str(sel.get("T", "")).strip().lower()
+                            price = sel.get("C")
+                            if price is None:
+                                continue
+                            try:
+                                price = float(price)
+                            except:
+                                continue
+                            if "home" in label or label == "1":
+                                home_odd = price
+                            elif "away" in label or label == "2":
+                                away_odd = price
+                    if home_odd and away_odd:
+                        break
+                if home_odd and away_odd:
+                    count += 1
+                    odds.append({
+                        "match": f"{home_team} vs {away_team}",
+                        "home_team": home_team,
+                        "away_team": away_team,
+                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                        "bookmaker": "1xBet",
+                        "home": home_odd,
+                        "draw": draw_odd,
+                        "away": away_odd,
+                        "sport": sport
+                    })
+            except:
+                continue
+        print(f"1xBet: {count} matches extracted")
+    except Exception as e:
+        print(f"1xBet error: {e}")
+    return odds
+
 def find_arbitrage(all_odds):
     opportunities = []
     STAKE = 100000
@@ -262,7 +352,6 @@ def find_arbitrage(all_odds):
                     group.extend(exact_groups[key2])
                     processed_keys.add(key2)
             merged_groups[key1] = group
-        print(f'[DEBUG] {sport}: {len([g for g in merged_groups.values() if len(set(b["bookmaker"] for b in g)) >= 2])} cross-bookmaker groups found')
         for match_name, bookmakers in merged_groups.items():
             bookie_names = set(b['bookmaker'] for b in bookmakers)
             if len(bookie_names) < 2:
@@ -369,6 +458,10 @@ def main():
     sb = scrape_sportybet()
     all_odds.extend(sb)
     if sb: scraped.append('SportyBet')
+    print("Scraping 1xBet...")
+    x1 = scrape_1xbet()
+    all_odds.extend(x1)
+    if x1: scraped.append('1xBet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     for o in opportunities[:5]:
