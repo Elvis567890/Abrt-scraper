@@ -208,13 +208,17 @@ def scrape_1xbet():
                 data = json.loads(raw.decode("utf-8"))
             except:
                 data = json.loads(raw.decode("utf-8-sig"))
-        leagues = []
         values = data.get("Value", []) if isinstance(data, dict) else []
+        leagues = []
         for item in values:
-            li = item.get("LI")
-            if li is not None:
-                leagues.append(li)
-        leagues = leagues[:20]
+            if isinstance(item, dict):
+                if "L" in item and isinstance(item["L"], list):
+                    for inner in item["L"]:
+                        if isinstance(inner, dict) and inner.get("LI") is not None:
+                            leagues.append(inner.get("LI"))
+                if item.get("LI") is not None:
+                    leagues.append(item.get("LI"))
+        leagues = list(dict.fromkeys(leagues))[:20]
         count = 0
         for li in leagues:
             try:
@@ -258,17 +262,7 @@ def scrape_1xbet():
                                     away_odd = price
                         if home_odd and away_odd:
                             count += 1
-                            odds.append({
-                                "match": f"{home_team} vs {away_team}",
-                                "home_team": home_team,
-                                "away_team": away_team,
-                                "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
-                                "bookmaker": "1xBet",
-                                "home": home_odd,
-                                "draw": draw_odd,
-                                "away": away_odd,
-                                "sport": "Football"
-                            })
+                            odds.append({"match": f"{home_team} vs {away_team}", "home_team": home_team, "away_team": away_team, "match_key": f"{normalize(home_team)} vs {normalize(away_team)}", "bookmaker": "1xBet", "home": home_odd, "draw": draw_odd, "away": away_odd, "sport": "Football"})
                     except:
                         continue
             except:
