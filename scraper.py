@@ -48,11 +48,7 @@ def scrape_betpawa():
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=['--no-sandbox','--disable-blink-features=AutomationControlled'])
-            context = browser.new_context(
-                user_agent='Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
-                viewport={'width': 390, 'height': 844},
-                locale='en-UG'
-            )
+            context = browser.new_context(user_agent='Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36', viewport={'width': 390, 'height': 844}, locale='en-UG')
             page = context.new_page()
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
             for url in urls:
@@ -90,18 +86,7 @@ def scrape_betpawa():
                                 if match_key not in seen_matches:
                                     seen_matches.add(match_key)
                                     page_odds += 1
-                                    odds.append({
-                                        'match': f"{teams[0]} vs {teams[1]}",
-                                        'home_team': teams[0],
-                                        'away_team': teams[1],
-                                        'match_key': f"{normalize(teams[0])} vs {normalize(teams[1])}",
-                                        'bookmaker': 'BetPawa',
-                                        'competition': competition,
-                                        'home': odd_values[0],
-                                        'draw': odd_values[1] if len(odd_values) >= 3 else None,
-                                        'away': odd_values[2] if len(odd_values) >= 3 else odd_values[1],
-                                        'sport': 'Netball' if 'Netball' in competition else 'Football'
-                                    })
+                                    odds.append({'match': f"{teams[0]} vs {teams[1]}", 'home_team': teams[0], 'away_team': teams[1], 'match_key': f"{normalize(teams[0])} vs {normalize(teams[1])}", 'bookmaker': 'BetPawa', 'competition': competition, 'home': odd_values[0], 'draw': odd_values[1] if len(odd_values) >= 3 else None, 'away': odd_values[2] if len(odd_values) >= 3 else odd_values[1], 'sport': 'Netball' if 'Netball' in competition else 'Football'})
                         except:
                             continue
                     print(f"  New matches: {page_odds}")
@@ -118,11 +103,7 @@ def scrape_fortebet():
     try:
         print("Fetching Fortebet API...")
         url = 'https://desktop.fortebet.ug/api/web/v1/offer/full-prematch-en'
-        req = urllib.request.Request(url, headers={
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept': 'application/json',
-            'Referer': 'https://desktop.fortebet.ug/prematch/landing'
-        })
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36', 'Accept': 'application/json', 'Referer': 'https://desktop.fortebet.ug/prematch/landing'})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         inner = data.get('data', {})
@@ -167,19 +148,7 @@ def scrape_fortebet():
                         break
                 if h_odd and a_odd:
                     football_count += 1
-                    sport = 'Netball' if d_odd is None else 'Football'
-                    odds.append({
-                        'match': f"{home_team} vs {away_team}",
-                        'home_team': home_team,
-                        'away_team': away_team,
-                        'match_key': f"{normalize(home_team)} vs {normalize(away_team)}",
-                        'bookmaker': 'Fortebet',
-                        'competition': '',
-                        'home': h_odd,
-                        'draw': d_odd,
-                        'away': a_odd,
-                        'sport': sport
-                    })
+                    odds.append({'match': f"{home_team} vs {away_team}", 'home_team': home_team, 'away_team': away_team, 'match_key': f"{normalize(home_team)} vs {normalize(away_team)}", 'bookmaker': 'Fortebet', 'competition': '', 'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': 'Netball' if d_odd is None else 'Football'})
             except:
                 continue
         print(f"Fortebet: {football_count} matches extracted")
@@ -191,10 +160,7 @@ def scrape_sportybet():
     odds = []
     try:
         print("Fetching SportyBet from Replit API...")
-        req = urllib.request.Request(SPORTYBET_API, headers={
-            'User-Agent': 'Mozilla/5.0',
-            'Accept': 'application/json'
-        })
+        req = urllib.request.Request(SPORTYBET_API, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         if isinstance(data, list):
@@ -211,18 +177,7 @@ def scrape_sportybet():
                         d_odd = float(d_odd)
                     if home and away and h_odd and a_odd:
                         sport_counts[sport] = sport_counts.get(sport, 0) + 1
-                        odds.append({
-                            'match': f"{home} vs {away}",
-                            'home_team': home,
-                            'away_team': away,
-                            'match_key': f"{normalize(home)} vs {normalize(away)}",
-                            'bookmaker': 'SportyBet',
-                            'competition': '',
-                            'home': h_odd,
-                            'draw': d_odd,
-                            'away': a_odd,
-                            'sport': sport
-                        })
+                        odds.append({'match': f"{home} vs {away}", 'home_team': home, 'away_team': away, 'match_key': f"{normalize(home)} vs {normalize(away)}", 'bookmaker': 'SportyBet', 'competition': '', 'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': sport})
                 except:
                     continue
             print(f"SportyBet sports breakdown: {sport_counts}")
@@ -235,7 +190,6 @@ def scrape_1xbet():
     odds = []
     try:
         print("Fetching 1xBet Uganda...")
-        url = "https://1xbet.ug/service-api/LineFeed/GetSportsShortZip?lng=en&country=191&partner=135&virtualSports=true&gr=640&groupChamps=true"
         headers = {
             "content-type": "application/json",
             "accept": "application/json, text/plain, */*",
@@ -246,74 +200,77 @@ def scrape_1xbet():
             "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
             "Referer": "https://1xbet.ug/en/line/football"
         }
-        req = urllib.request.Request(url, headers=headers)
+        short_url = "https://1xbet.ug/service-api/LineFeed/GetSportsShortZip?sports=1&lng=en&country=191&partner=135&virtualSports=true&gr=640&groupChamps=true"
+        req = urllib.request.Request(short_url, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             raw = resp.read()
             try:
                 data = json.loads(raw.decode("utf-8"))
             except:
                 data = json.loads(raw.decode("utf-8-sig"))
-        odds_data = data if isinstance(data, dict) else {}
-        events = odds_data.get("Value", []) if isinstance(odds_data, dict) else []
+        leagues = []
+        values = data.get("Value", []) if isinstance(data, dict) else []
+        for item in values:
+            li = item.get("LI")
+            if li is not None:
+                leagues.append(li)
+        leagues = leagues[:20]
         count = 0
-        for evt in events:
+        for li in leagues:
             try:
-                home_team = evt.get("O1") or evt.get("O1E") or evt.get("HomeTeam")
-                away_team = evt.get("O2") or evt.get("O2E") or evt.get("AwayTeam")
-                if not home_team or not away_team:
-                    continue
-                home_odd = None
-                draw_odd = None
-                away_odd = None
-                sport = "Football"
-                for mkt in evt.get("E", []):
-                    market_name = str(mkt.get("NA", "")).lower()
-                    selections = mkt.get("GC", [])
-                    if market_name in ("1x2", "match result", "full time result", "winner"):
-                        for sel in selections:
-                            label = str(sel.get("T", "")).strip().lower()
-                            price = sel.get("C")
-                            if price is None:
+                champ_url = f"https://1xbet.ug/service-api/LineFeed/GetChampZip?champId={li}&lng=en&country=191&partner=135"
+                req2 = urllib.request.Request(champ_url, headers=headers)
+                with urllib.request.urlopen(req2, timeout=30) as resp2:
+                    raw2 = resp2.read()
+                    try:
+                        champ_data = json.loads(raw2.decode("utf-8"))
+                    except:
+                        champ_data = json.loads(raw2.decode("utf-8-sig"))
+                champ_values = champ_data.get("Value", []) if isinstance(champ_data, dict) else []
+                for evt in champ_values:
+                    try:
+                        home_team = evt.get("O1") or evt.get("O1E") or evt.get("HomeTeam")
+                        away_team = evt.get("O2") or evt.get("O2E") or evt.get("AwayTeam")
+                        if not home_team or not away_team:
+                            continue
+                        home_odd = None
+                        draw_odd = None
+                        away_odd = None
+                        for mkt in evt.get("E", []):
+                            market_name = str(mkt.get("NA", "")).lower()
+                            if "1x2" not in market_name:
                                 continue
-                            try:
-                                price = float(price)
-                            except:
-                                continue
-                            if label in ("1", "home"):
-                                home_odd = price
-                            elif label in ("x", "draw"):
-                                draw_odd = price
-                            elif label in ("2", "away"):
-                                away_odd = price
-                    elif len(selections) == 2:
-                        for sel in selections:
-                            label = str(sel.get("T", "")).strip().lower()
-                            price = sel.get("C")
-                            if price is None:
-                                continue
-                            try:
-                                price = float(price)
-                            except:
-                                continue
-                            if "home" in label or label == "1":
-                                home_odd = price
-                            elif "away" in label or label == "2":
-                                away_odd = price
-                    if home_odd and away_odd:
-                        break
-                if home_odd and away_odd:
-                    count += 1
-                    odds.append({
-                        "match": f"{home_team} vs {away_team}",
-                        "home_team": home_team,
-                        "away_team": away_team,
-                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
-                        "bookmaker": "1xBet",
-                        "home": home_odd,
-                        "draw": draw_odd,
-                        "away": away_odd,
-                        "sport": sport
-                    })
+                            selections = mkt.get("GC", [])
+                            for sel in selections:
+                                label = str(sel.get("T", "")).strip().lower()
+                                price = sel.get("C")
+                                if price is None:
+                                    continue
+                                try:
+                                    price = float(price)
+                                except:
+                                    continue
+                                if label in ("1", "home"):
+                                    home_odd = price
+                                elif label in ("x", "draw"):
+                                    draw_odd = price
+                                elif label in ("2", "away"):
+                                    away_odd = price
+                        if home_odd and away_odd:
+                            count += 1
+                            odds.append({
+                                "match": f"{home_team} vs {away_team}",
+                                "home_team": home_team,
+                                "away_team": away_team,
+                                "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                                "bookmaker": "1xBet",
+                                "home": home_odd,
+                                "draw": draw_odd,
+                                "away": away_odd,
+                                "sport": "Football"
+                            })
+                    except:
+                        continue
             except:
                 continue
         print(f"1xBet: {count} matches extracted")
@@ -390,20 +347,7 @@ def find_arbitrage(all_odds):
                                         stake_h = round(STAKE*(1/h)/arb)
                                         stake_d = round(STAKE*(1/d)/arb)
                                         stake_a = round(STAKE*(1/a)/arb)
-                                        best = {
-                                            'match': match_name,
-                                            'sport': sport,
-                                            'type': '3-way',
-                                            'profit_percent': profit,
-                                            'profit_ugx': round(STAKE*(1-arb)),
-                                            'total_stake': STAKE,
-                                            'arb_sum': round(arb, 4),
-                                            'bets': [
-                                                {'bookmaker': bk_h,'outcome':'Home','odd': h,'stake': stake_h,'win': round(stake_h*h)},
-                                                {'bookmaker': bk_d,'outcome':'Draw','odd': d,'stake': stake_d,'win': round(stake_d*d)},
-                                                {'bookmaker': bk_a,'outcome':'Away','odd': a,'stake': stake_a,'win': round(stake_a*a)}
-                                            ]
-                                        }
+                                        best = {'match': match_name, 'sport': sport, 'type': '3-way', 'profit_percent': profit, 'profit_ugx': round(STAKE*(1-arb)), 'total_stake': STAKE, 'arb_sum': round(arb, 4), 'bets': [{'bookmaker': bk_h,'outcome':'Home','odd': h,'stake': stake_h,'win': round(stake_h*h)}, {'bookmaker': bk_d,'outcome':'Draw','odd': d,'stake': stake_d,'win': round(stake_d*d)}, {'bookmaker': bk_a,'outcome':'Away','odd': a,'stake': stake_a,'win': round(stake_a*a)}]}
                 if best:
                     opportunities.append(best)
             else:
@@ -425,19 +369,7 @@ def find_arbitrage(all_odds):
                                 if best is None or profit > best['profit_percent']:
                                     stake_h = round(STAKE*(1/h)/arb)
                                     stake_a = round(STAKE*(1/a)/arb)
-                                    best = {
-                                        'match': match_name,
-                                        'sport': sport,
-                                        'type': '2-way',
-                                        'profit_percent': profit,
-                                        'profit_ugx': round(STAKE*(1-arb)),
-                                        'total_stake': STAKE,
-                                        'arb_sum': round(arb, 4),
-                                        'bets': [
-                                            {'bookmaker': bk_h,'outcome':'Home','odd': h,'stake': stake_h,'win': round(stake_h*h)},
-                                            {'bookmaker': bk_a,'outcome':'Away','odd': a,'stake': stake_a,'win': round(stake_a*a)}
-                                        ]
-                                    }
+                                    best = {'match': match_name, 'sport': sport, 'type': '2-way', 'profit_percent': profit, 'profit_ugx': round(STAKE*(1-arb)), 'total_stake': STAKE, 'arb_sum': round(arb, 4), 'bets': [{'bookmaker': bk_h,'outcome':'Home','odd': h,'stake': stake_h,'win': round(stake_h*h)}, {'bookmaker': bk_a,'outcome':'Away','odd': a,'stake': stake_a,'win': round(stake_a*a)}]}
                 if best:
                     opportunities.append(best)
     return sorted(opportunities, key=lambda x: x['profit_percent'], reverse=True)
@@ -470,13 +402,7 @@ def main():
         for b in o['bets']:
             print(f"    {b['bookmaker']}: {b['outcome']} @ {b['odd']} → UGX {b['stake']:,} → win UGX {b['win']:,}")
         print()
-    output = {
-        'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
-        'total_matches': len(all_odds),
-        'bookmakers_scraped': scraped,
-        'opportunities': opportunities,
-        'raw_odds': all_odds
-    }
+    output = {'last_updated': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'), 'total_matches': len(all_odds), 'bookmakers_scraped': scraped, 'opportunities': opportunities, 'raw_odds': all_odds}
     with open('odds.json', 'w') as f:
         json.dump(output, f, indent=2)
     print(f"Done! {len(all_odds)} matches saved")
