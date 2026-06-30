@@ -254,6 +254,69 @@ def scrape_1xbet():
         print(f"1xBet error: {e}")
     return odds
 
+def scrape_22bet():
+    odds = []
+    try:
+        print("Fetching 22Bet Uganda...")
+        url = "https://22bet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=151&getEmpty=true&virtualSports=true"
+        headers = {
+            "Accept": "application/json, text/plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36"
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            try:
+                data = json.loads(raw.decode("utf-8"))
+            except:
+                data = json.loads(raw.decode("utf-8-sig"))
+        values = data.get("Value", []) if isinstance(data, dict) else []
+        count = 0
+        for match in values:
+            try:
+                home_team = match.get("O1")
+                away_team = match.get("O2")
+                if not home_team or not away_team:
+                    continue
+                home_odd = None
+                draw_odd = None
+                away_odd = None
+                for e in match.get("E", []):
+                    t = str(e.get("T", "")).strip()
+                    c = e.get("C")
+                    if c is None:
+                        continue
+                    try:
+                        c = float(c)
+                    except:
+                        continue
+                    if t == "1":
+                        home_odd = c
+                    elif t == "2":
+                        away_odd = c
+                    elif t == "3":
+                        draw_odd = c
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append({
+                        "match": f"{home_team} vs {away_team}",
+                        "home_team": home_team,
+                        "away_team": away_team,
+                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                        "bookmaker": "22Bet",
+                        "home": home_odd,
+                        "draw": draw_odd,
+                        "away": away_odd,
+                        "sport": "Football"
+                    })
+            except:
+                continue
+        print(f"22Bet: {count} matches extracted")
+    except Exception as e:
+        print(f"22Bet error: {e}")
+    return odds
+
 def find_arbitrage(all_odds):
     opportunities = []
     STAKE = 100000
@@ -370,6 +433,10 @@ def main():
     x1 = scrape_1xbet()
     all_odds.extend(x1)
     if x1: scraped.append('1xBet')
+    print("Scraping 22Bet...")
+    x22 = scrape_22bet()
+    all_odds.extend(x22)
+    if x22: scraped.append('22Bet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     for o in opportunities[:5]:
@@ -385,3 +452,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
