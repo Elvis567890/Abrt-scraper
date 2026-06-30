@@ -236,17 +236,7 @@ def scrape_1xbet():
                         draw_odd = c
                 if home_odd is not None and away_odd is not None:
                     count += 1
-                    odds.append({
-                        "match": f"{home_team} vs {away_team}",
-                        "home_team": home_team,
-                        "away_team": away_team,
-                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
-                        "bookmaker": "1xBet",
-                        "home": home_odd,
-                        "draw": draw_odd,
-                        "away": away_odd,
-                        "sport": "Football"
-                    })
+                    odds.append({"match": f"{home_team} vs {away_team}", "home_team": home_team, "away_team": away_team, "match_key": f"{normalize(home_team)} vs {normalize(away_team)}", "bookmaker": "1xBet", "home": home_odd, "draw": draw_odd, "away": away_odd, "sport": "Football"})
             except:
                 continue
         print(f"1xBet: {count} matches extracted")
@@ -299,22 +289,71 @@ def scrape_22bet():
                         draw_odd = c
                 if home_odd is not None and away_odd is not None:
                     count += 1
-                    odds.append({
-                        "match": f"{home_team} vs {away_team}",
-                        "home_team": home_team,
-                        "away_team": away_team,
-                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
-                        "bookmaker": "22Bet",
-                        "home": home_odd,
-                        "draw": draw_odd,
-                        "away": away_odd,
-                        "sport": "Football"
-                    })
+                    odds.append({"match": f"{home_team} vs {away_team}", "home_team": home_team, "away_team": away_team, "match_key": f"{normalize(home_team)} vs {normalize(away_team)}", "bookmaker": "22Bet", "home": home_odd, "draw": draw_odd, "away": away_odd, "sport": "Football"})
             except:
                 continue
         print(f"22Bet: {count} matches extracted")
     except Exception as e:
         print(f"22Bet error: {e}")
+    return odds
+
+def scrape_melbet():
+    odds = []
+    try:
+        print("Fetching Melbet...")
+        url = "https://melbet-046935.top/service-api/LineFeed/Get1x2_VZip?count=1000&lng=en&mode=4&country=191&partner=8&getEmpty=true"
+        headers = {
+            "content-type": "application/json",
+            "accept": "application/json, text/plain, */*",
+            "x-mobile-project-id": "0",
+            "x-requested-with": "XMLHttpRequest",
+            "is-srv": "false",
+            "x-svc-source": "__BETTING_APP__",
+            "x-app-n": "__BETTING_APP__",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+            "Referer": "https://1xbet.ug/en/line/football"
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            try:
+                data = json.loads(raw.decode("utf-8"))
+            except:
+                data = json.loads(raw.decode("utf-8-sig"))
+        values = data.get("Value", []) if isinstance(data, dict) else []
+        count = 0
+        for match in values:
+            try:
+                home_team = match.get("O1")
+                away_team = match.get("O2")
+                if not home_team or not away_team:
+                    continue
+                home_odd = None
+                draw_odd = None
+                away_odd = None
+                for e in match.get("E", []):
+                    t = str(e.get("T", "")).strip()
+                    c = e.get("C")
+                    if c is None:
+                        continue
+                    try:
+                        c = float(c)
+                    except:
+                        continue
+                    if t == "1":
+                        home_odd = c
+                    elif t == "2":
+                        away_odd = c
+                    elif t == "3":
+                        draw_odd = c
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append({"match": f"{home_team} vs {away_team}", "home_team": home_team, "away_team": away_team, "match_key": f"{normalize(home_team)} vs {normalize(away_team)}", "bookmaker": "Melbet", "home": home_odd, "draw": draw_odd, "away": away_odd, "sport": "Football"})
+            except:
+                continue
+        print(f"Melbet: {count} matches extracted")
+    except Exception as e:
+        print(f"Melbet error: {e}")
     return odds
 
 def find_arbitrage(all_odds):
@@ -437,6 +476,10 @@ def main():
     x22 = scrape_22bet()
     all_odds.extend(x22)
     if x22: scraped.append('22Bet')
+    print("Scraping Melbet...")
+    mb = scrape_melbet()
+    all_odds.extend(mb)
+    if mb: scraped.append('Melbet')
     opportunities = find_arbitrage(all_odds)
     print(f"Found {len(opportunities)} arbitrage opportunities")
     for o in opportunities[:5]:
