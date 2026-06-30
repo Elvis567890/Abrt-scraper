@@ -6,6 +6,7 @@ import urllib.request
 import urllib.parse
 import requests
 import time
+from bs4 import BeautifulSoup
 
 SPORTYBET_API = 'https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple'
 
@@ -36,6 +37,59 @@ def match_key_similarity(key1, key2):
     if len(parts1) != 2 or len(parts2) != 2:
         return False
     return teams_match(parts1[0], parts2[0]) and teams_match(parts1[1], parts2[1])
+
+def scrape_ababet():
+    odds = []
+    try:
+        print("Fetching AbaBet...")
+        url = "https://www.ababet.ug/soccer/match_result?mobile=1"
+        headers = {
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+        }
+        r = requests.get(url, headers=headers, timeout=30)
+        r.raise_for_status()
+
+        soup = BeautifulSoup(r.text, "html.parser")
+
+        for table in soup.find_all("table"):
+            first_row = table.find("tr")
+            if not first_row:
+                continue
+
+            table_headers = [c.get_text(" ", strip=True) for c in first_row.find_all(["th", "td"])]
+            if not table_headers or "Home" not in table_headers or "Away" not in table_headers:
+                continue
+
+            for tr in table.find_all("tr")[1:]:
+                cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
+                if len(cells) < 5:
+                    continue
+
+                row = dict(zip(table_headers, cells[:len(table_headers)]))
+                home_team = row.get("Home")
+                away_team = row.get("Away")
+                if not home_team or not away_team or home_team == "-" or away_team == "-":
+                    continue
+
+                if row.get("1") and row.get("2"):
+                    odds.append({
+                        "match": f"{home_team} vs {away_team}",
+                        "home_team": home_team,
+                        "away_team": away_team,
+                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                        "bookmaker": "AbaBet",
+                        "competition": row.get("League", ""),
+                        "home": row.get("1"),
+                        "draw": row.get("X"),
+                        "away": row.get("2"),
+                        "sport": "Football"
+                    })
+
+        print(f"AbaBet: {len(odds)} matches extracted")
+    except Exception as e:
+        print(f"AbaBet error: {e}")
+    return odds
 
 def scrape_betpawa():
     odds = []
@@ -498,6 +552,10 @@ def main():
     sb = scrape_sportybet()
     all_odds.extend(sb)
     if sb: scraped.append('SportyBet')
+    print("Scraping AbaBet...")
+    ab = scrape_ababet()
+    all_odds.extend(ab)
+    if ab: scraped.append('AbaBet')
     print("Scraping 1xBet...")
     x1 = scrape_1xbet()
     all_odds.extend(x1)
