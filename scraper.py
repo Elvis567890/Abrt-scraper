@@ -38,18 +38,16 @@ def match_key_similarity(key1, key2):
         return False
     return teams_match(parts1[0], parts2[0]) and teams_match(parts1[1], parts2[1])
 
-def to_float(v):
+def clean_odd(v):
     try:
         if v is None:
             return None
-        if isinstance(v, (int, float)):
-            return float(v)
-        v = str(v).strip()
-        if not v:
-            return None
-        return float(v)
+        v = float(v)
+        if 1.01 <= v <= 50:
+            return v
     except:
-        return None
+        pass
+    return None
 
 def scrape_ababet():
     odds = []
@@ -240,11 +238,9 @@ def scrape_sportybet():
                     home = event.get('home_team','')
                     away = event.get('away_team','')
                     sport = event.get('sport','Football')
-                    h_odd = to_float(event.get('home'))
-                    d_odd = to_float(event.get('draw'))
-                    a_odd = to_float(event.get('away'))
-                    if d_odd is not None:
-                        d_odd = float(d_odd)
+                    h_odd = clean_odd(event.get('home'))
+                    d_odd = clean_odd(event.get('draw'))
+                    a_odd = clean_odd(event.get('away'))
                     if home and away and h_odd and a_odd:
                         sport_counts[sport] = sport_counts.get(sport, 0) + 1
                         odds.append({'match': f"{home} vs {away}", 'home_team': home, 'away_team': away, 'match_key': f"{normalize(home)} vs {normalize(away)}", 'bookmaker': 'SportyBet', 'competition': '', 'home': h_odd, 'draw': d_odd, 'away': a_odd, 'sport': sport})
@@ -496,9 +492,9 @@ def find_arbitrage(all_odds):
                 bk = b['bookmaker']
                 if bk not in bk_odds:
                     bk_odds[bk] = {'home': 0.0, 'draw': 0.0, 'away': 0.0}
-                home = to_float(b.get('home'))
-                draw = to_float(b.get('draw'))
-                away = to_float(b.get('away'))
+                home = clean_odd(b.get('home'))
+                draw = clean_odd(b.get('draw'))
+                away = clean_odd(b.get('away'))
                 if home is not None and home > bk_odds[bk]['home']:
                     bk_odds[bk]['home'] = home
                 if draw is not None and draw > bk_odds[bk]['draw']:
@@ -517,8 +513,6 @@ def find_arbitrage(all_odds):
                             d = bk_odds[bk_d]['draw']
                             a = bk_odds[bk_a]['away']
                             if not h or not d or not a:
-                                continue
-                            if not all(1.01 <= x <= 50 for x in [h, d, a]):
                                 continue
                             arb = (1/h)+(1/d)+(1/a)
                             if arb < 1:
@@ -540,8 +534,6 @@ def find_arbitrage(all_odds):
                         h = bk_odds[bk_h]['home']
                         a = bk_odds[bk_a]['away']
                         if not h or not a:
-                            continue
-                        if not all(1.01 <= x <= 50 for x in [h, a]):
                             continue
                         arb = (1/h)+(1/a)
                         if arb < 1:
@@ -602,4 +594,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
