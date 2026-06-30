@@ -236,7 +236,17 @@ def scrape_1xbet():
                         draw_odd = c
                 if home_odd is not None and away_odd is not None:
                     count += 1
-                    odds.append({"match": f"{home_team} vs {away_team}", "home_team": home_team, "away_team": away_team, "match_key": f"{normalize(home_team)} vs {normalize(away_team)}", "bookmaker": "1xBet", "home": home_odd, "draw": draw_odd, "away": away_odd, "sport": "Football"})
+                    odds.append({
+                        "match": f"{home_team} vs {away_team}",
+                        "home_team": home_team,
+                        "away_team": away_team,
+                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                        "bookmaker": "1xBet",
+                        "home": home_odd,
+                        "draw": draw_odd,
+                        "away": away_odd,
+                        "sport": "Football"
+                    })
             except:
                 continue
         print(f"1xBet: {count} matches extracted")
@@ -289,7 +299,17 @@ def scrape_22bet():
                         draw_odd = c
                 if home_odd is not None and away_odd is not None:
                     count += 1
-                    odds.append({"match": f"{home_team} vs {away_team}", "home_team": home_team, "away_team": away_team, "match_key": f"{normalize(home_team)} vs {normalize(away_team)}", "bookmaker": "22Bet", "home": home_odd, "draw": draw_odd, "away": away_odd, "sport": "Football"})
+                    odds.append({
+                        "match": f"{home_team} vs {away_team}",
+                        "home_team": home_team,
+                        "away_team": away_team,
+                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                        "bookmaker": "22Bet",
+                        "home": home_odd,
+                        "draw": draw_odd,
+                        "away": away_odd,
+                        "sport": "Football"
+                    })
             except:
                 continue
         print(f"22Bet: {count} matches extracted")
@@ -348,7 +368,17 @@ def scrape_melbet():
                         draw_odd = c
                 if home_odd is not None and away_odd is not None:
                     count += 1
-                    odds.append({"match": f"{home_team} vs {away_team}", "home_team": home_team, "away_team": away_team, "match_key": f"{normalize(home_team)} vs {normalize(away_team)}", "bookmaker": "Melbet", "home": home_odd, "draw": draw_odd, "away": away_odd, "sport": "Football"})
+                    odds.append({
+                        "match": f"{home_team} vs {away_team}",
+                        "home_team": home_team,
+                        "away_team": away_team,
+                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                        "bookmaker": "Melbet",
+                        "home": home_odd,
+                        "draw": draw_odd,
+                        "away": away_odd,
+                        "sport": "Football"
+                    })
             except:
                 continue
         print(f"Melbet: {count} matches extracted")
@@ -408,7 +438,7 @@ def find_arbitrage(all_odds):
                 for bk_h in bk_list:
                     for bk_d in bk_list:
                         for bk_a in bk_list:
-                            if bk_h == bk_d == bk_a:
+                            if bk_h == bk_d or bk_h == bk_a or bk_d == bk_a:
                                 continue
                             h = bk_odds[bk_h]['home']
                             d = bk_odds[bk_d]['draw']
@@ -420,7 +450,7 @@ def find_arbitrage(all_odds):
                             arb = (1/h)+(1/d)+(1/a)
                             if arb < 1:
                                 profit = round((1-arb)*100, 2)
-                                if 0.1 <= profit <= 8.0:
+                                if 0.5 <= profit <= 20.0:
                                     if best is None or profit > best['profit_percent']:
                                         stake_h = round(STAKE*(1/h)/arb)
                                         stake_d = round(STAKE*(1/d)/arb)
@@ -443,7 +473,7 @@ def find_arbitrage(all_odds):
                         arb = (1/h)+(1/a)
                         if arb < 1:
                             profit = round((1-arb)*100, 2)
-                            if 0.1 <= profit <= 8.0:
+                            if 0.5 <= profit <= 20.0:
                                 if best is None or profit > best['profit_percent']:
                                     stake_h = round(STAKE*(1/h)/arb)
                                     stake_a = round(STAKE*(1/a)/arb)
