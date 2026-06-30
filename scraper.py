@@ -38,6 +38,19 @@ def match_key_similarity(key1, key2):
         return False
     return teams_match(parts1[0], parts2[0]) and teams_match(parts1[1], parts2[1])
 
+def to_float(v):
+    try:
+        if v is None:
+            return None
+        if isinstance(v, (int, float)):
+            return float(v)
+        v = str(v).strip()
+        if not v:
+            return None
+        return float(v)
+    except:
+        return None
+
 def scrape_ababet():
     odds = []
     try:
@@ -51,8 +64,12 @@ def scrape_ababet():
         r.raise_for_status()
 
         soup = BeautifulSoup(r.text, "html.parser")
+        tables = soup.find_all("table")
+        if not tables:
+            print("AbaBet: no tables found")
+            return odds
 
-        for table in soup.find_all("table"):
+        for table in tables:
             first_row = table.find("tr")
             if not first_row:
                 continue
@@ -72,19 +89,18 @@ def scrape_ababet():
                 if not home_team or not away_team or home_team == "-" or away_team == "-":
                     continue
 
-                if row.get("1") and row.get("2"):
-                    odds.append({
-                        "match": f"{home_team} vs {away_team}",
-                        "home_team": home_team,
-                        "away_team": away_team,
-                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
-                        "bookmaker": "AbaBet",
-                        "competition": row.get("League", ""),
-                        "home": row.get("1"),
-                        "draw": row.get("X"),
-                        "away": row.get("2"),
-                        "sport": "Football"
-                    })
+                odds.append({
+                    "match": f"{home_team} vs {away_team}",
+                    "home_team": home_team,
+                    "away_team": away_team,
+                    "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                    "bookmaker": "AbaBet",
+                    "competition": row.get("League", ""),
+                    "home": row.get("1"),
+                    "draw": row.get("X"),
+                    "away": row.get("2"),
+                    "sport": "Football"
+                })
 
         print(f"AbaBet: {len(odds)} matches extracted")
     except Exception as e:
@@ -224,10 +240,10 @@ def scrape_sportybet():
                     home = event.get('home_team','')
                     away = event.get('away_team','')
                     sport = event.get('sport','Football')
-                    h_odd = float(event.get('home', 0) or 0)
-                    d_odd = event.get('draw')
-                    a_odd = float(event.get('away', 0) or 0)
-                    if d_odd:
+                    h_odd = to_float(event.get('home'))
+                    d_odd = to_float(event.get('draw'))
+                    a_odd = to_float(event.get('away'))
+                    if d_odd is not None:
                         d_odd = float(d_odd)
                     if home and away and h_odd and a_odd:
                         sport_counts[sport] = sport_counts.get(sport, 0) + 1
@@ -479,13 +495,16 @@ def find_arbitrage(all_odds):
             for b in bookmakers:
                 bk = b['bookmaker']
                 if bk not in bk_odds:
-                    bk_odds[bk] = {'home': 0, 'draw': 0, 'away': 0}
-                if b.get('home', 0) > bk_odds[bk]['home']:
-                    bk_odds[bk]['home'] = b['home']
-                if b.get('draw') and b['draw'] > bk_odds[bk]['draw']:
-                    bk_odds[bk]['draw'] = b['draw']
-                if b.get('away', 0) > bk_odds[bk]['away']:
-                    bk_odds[bk]['away'] = b['away']
+                    bk_odds[bk] = {'home': 0.0, 'draw': 0.0, 'away': 0.0}
+                home = to_float(b.get('home'))
+                draw = to_float(b.get('draw'))
+                away = to_float(b.get('away'))
+                if home is not None and home > bk_odds[bk]['home']:
+                    bk_odds[bk]['home'] = home
+                if draw is not None and draw > bk_odds[bk]['draw']:
+                    bk_odds[bk]['draw'] = draw
+                if away is not None and away > bk_odds[bk]['away']:
+                    bk_odds[bk]['away'] = away
             bk_list = list(bk_odds.keys())
             if sport in ['Football', 'Rugby', 'Futsal']:
                 best = None
