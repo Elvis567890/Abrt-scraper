@@ -190,6 +190,7 @@ def scrape_1xbet():
     odds = []
     try:
         print("Fetching 1xBet Uganda...")
+        url = "https://1xbet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=135&getEmpty=true&virtualSports=true"
         headers = {
             "content-type": "application/json",
             "accept": "application/json, text/plain, */*",
@@ -200,8 +201,7 @@ def scrape_1xbet():
             "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
             "Referer": "https://1xbet.ug/en/line/football"
         }
-        short_url = "https://1xbet.ug/service-api/LineFeed/GetSportsShortZip?sports=1&lng=en&country=191&partner=135&virtualSports=true&gr=640&groupChamps=true"
-        req = urllib.request.Request(short_url, headers=headers)
+        req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             raw = resp.read()
             try:
@@ -209,62 +209,44 @@ def scrape_1xbet():
             except:
                 data = json.loads(raw.decode("utf-8-sig"))
         values = data.get("Value", []) if isinstance(data, dict) else []
-        leagues = []
-        for item in values:
-            if isinstance(item, dict):
-                if "L" in item and isinstance(item["L"], list):
-                    for inner in item["L"]:
-                        if isinstance(inner, dict) and inner.get("LI") is not None:
-                            leagues.append(inner.get("LI"))
-                if item.get("LI") is not None:
-                    leagues.append(item.get("LI"))
-        leagues = list(dict.fromkeys(leagues))[:20]
         count = 0
-        for li in leagues:
+        for match in values:
             try:
-                champ_url = f"https://1xbet.ug/service-api/LineFeed/GetChampZip?champId={li}&lng=en&country=191&partner=135"
-                req2 = urllib.request.Request(champ_url, headers=headers)
-                with urllib.request.urlopen(req2, timeout=30) as resp2:
-                    raw2 = resp2.read()
+                home_team = match.get("O1")
+                away_team = match.get("O2")
+                if not home_team or not away_team:
+                    continue
+                home_odd = None
+                draw_odd = None
+                away_odd = None
+                for e in match.get("E", []):
+                    t = str(e.get("T", "")).strip()
+                    c = e.get("C")
+                    if c is None:
+                        continue
                     try:
-                        champ_data = json.loads(raw2.decode("utf-8"))
-                    except:
-                        champ_data = json.loads(raw2.decode("utf-8-sig"))
-                champ_values = champ_data.get("Value", []) if isinstance(champ_data, dict) else []
-                for evt in champ_values:
-                    try:
-                        home_team = evt.get("O1") or evt.get("O1E") or evt.get("HomeTeam")
-                        away_team = evt.get("O2") or evt.get("O2E") or evt.get("AwayTeam")
-                        if not home_team or not away_team:
-                            continue
-                        home_odd = None
-                        draw_odd = None
-                        away_odd = None
-                        for mkt in evt.get("E", []):
-                            market_name = str(mkt.get("NA", "")).lower()
-                            if "1x2" not in market_name:
-                                continue
-                            selections = mkt.get("GC", [])
-                            for sel in selections:
-                                label = str(sel.get("T", "")).strip().lower()
-                                price = sel.get("C")
-                                if price is None:
-                                    continue
-                                try:
-                                    price = float(price)
-                                except:
-                                    continue
-                                if label in ("1", "home"):
-                                    home_odd = price
-                                elif label in ("x", "draw"):
-                                    draw_odd = price
-                                elif label in ("2", "away"):
-                                    away_odd = price
-                        if home_odd and away_odd:
-                            count += 1
-                            odds.append({"match": f"{home_team} vs {away_team}", "home_team": home_team, "away_team": away_team, "match_key": f"{normalize(home_team)} vs {normalize(away_team)}", "bookmaker": "1xBet", "home": home_odd, "draw": draw_odd, "away": away_odd, "sport": "Football"})
+                        c = float(c)
                     except:
                         continue
+                    if t == "1":
+                        home_odd = c
+                    elif t == "2":
+                        away_odd = c
+                    elif t == "3":
+                        draw_odd = c
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append({
+                        "match": f"{home_team} vs {away_team}",
+                        "home_team": home_team,
+                        "away_team": away_team,
+                        "match_key": f"{normalize(home_team)} vs {normalize(away_team)}",
+                        "bookmaker": "1xBet",
+                        "home": home_odd,
+                        "draw": draw_odd,
+                        "away": away_odd,
+                        "sport": "Football"
+                    })
             except:
                 continue
         print(f"1xBet: {count} matches extracted")
