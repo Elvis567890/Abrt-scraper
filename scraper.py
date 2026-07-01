@@ -778,8 +778,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-```python
 import json
 import re
 import urllib.request
