@@ -237,8 +237,7 @@ def scrape_betpawa():
                     for link in links[:60]:
                         try:
                             text = link.inner_text()
-                            parts = [p.strip() for p in text.split("
-") if p.strip()]
+                            parts = [p.strip() for p in text.split("\n")]
                             teams = []
                             odd_values = []
                             competition = ""
