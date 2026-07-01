@@ -10,6 +10,7 @@ from playwright.sync_api import sync_playwright
 
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
+BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
 
 STAKE = 100000
 
@@ -116,12 +117,12 @@ def scrape_championbet():
 
         for m in matches:
             try:
-                sport_token = str(m.get("sportToken", "") or m.get("sport", "") or m.get("sportName", ""))
+                sport_token = str(m.get("sportToken", "") or m.get("sport", "") or m.get("sportName", "") or m.get("sport_name", ""))
                 if "soccer" not in sport_token.lower() and "football" not in sport_token.lower():
                     continue
 
-                home_team = m.get("home") or m.get("homeTeam") or m.get("team1") or ""
-                away_team = m.get("away") or m.get("awayTeam") or m.get("team2") or ""
+                home_team = m.get("home") or m.get("homeTeam") or m.get("home_team") or m.get("team1") or ""
+                away_team = m.get("away") or m.get("awayTeam") or m.get("away_team") or m.get("team2") or ""
                 if not home_team or not away_team:
                     continue
 
@@ -136,7 +137,7 @@ def scrape_championbet():
                         draw=draw_odd,
                         away=away_odd,
                         sport="Football",
-                        competition=m.get("leagueName", "") or m.get("competition", "")
+                        competition=m.get("leagueName", "") or m.get("competition", "") or m.get("competition_name", "")
                     ))
             except:
                 continue
@@ -144,6 +145,48 @@ def scrape_championbet():
         print(f"ChampionBet: {count} matches extracted")
     except Exception as e:
         print(f"ChampionBet error: {e}")
+    return odds
+
+
+def scrape_betika():
+    odds = []
+    try:
+        print("Fetching Betika...")
+        req = urllib.request.Request(BETIKA_API, headers={"Accept": "application/json, text/plain, */*"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())
+
+        matches = data.get("data", []) if isinstance(data, dict) else []
+        count = 0
+        for m in matches:
+            try:
+                home_team = m.get("home_team", "")
+                away_team = m.get("away_team", "")
+                if not home_team or not away_team:
+                    continue
+
+                home_odd = clean_odd(m.get("home_odd"))
+                draw_odd = clean_odd(m.get("neutral_odd"))
+                away_odd = clean_odd(m.get("away_odd"))
+
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append(build_match_record(
+                        home_team=home_team,
+                        away_team=away_team,
+                        bookmaker="Betika",
+                        home=home_odd,
+                        draw=draw_odd,
+                        away=away_odd,
+                        sport=m.get("sport_name", "Football"),
+                        competition=m.get("competition_name", "")
+                    ))
+            except:
+                continue
+
+        print(f"Betika: {count} matches extracted")
+    except Exception as e:
+        print(f"Betika error: {e}")
     return odds
 
 
@@ -738,6 +781,7 @@ def main():
 
     scrapers = [
         ("ChampionBet", scrape_championbet),
+        ("Betika", scrape_betika),
         ("BetPawa", scrape_betpawa),
         ("Fortebet", scrape_fortebet),
         ("SportyBet", scrape_sportybet),
