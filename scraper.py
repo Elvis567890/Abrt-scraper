@@ -23,7 +23,7 @@ def normalize(name):
         name,
     )
     name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"s+", " ", name).strip()
+    name = re.sub(r"\s+", " ", name).strip()
     return name
 
 
@@ -279,12 +279,11 @@ def scrape_betpawa():
                         try:
                             text = link.inner_text()
                             parts = [
-                                p.strip() for p in text.split("
-") if p.strip()
+                                p.strip() for p in text.split("\n") if p.strip()
                             ]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
-                                if re.match(r"^d+.d+$", part):
+                                if re.match(r"^\d+\.\d+$", part):
                                     odd_values.append(float(part))
                                 elif len(part) > 2 and not any(
                                     x in part
@@ -885,3 +884,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
