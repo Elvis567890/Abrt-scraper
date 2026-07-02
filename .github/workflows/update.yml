@@ -25,7 +25,7 @@ jobs:
 
       - name: Run scraper
         run: |
-          python arb_scanner.py   # change this if your main file has a different name
+          python main.py
 
       - name: Commit and push changes
         run: |
