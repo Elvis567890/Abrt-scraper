@@ -1,3 +1,20 @@
+# --- dependency bootstrap (to avoid ModuleNotFoundError in bare environments) ---
+def _ensure_dependencies():
+    import importlib
+    missing = []
+    for mod in ["requests", "bs4", "playwright"]:
+        try:
+            importlib.import_module(mod)
+        except ImportError:
+            missing.append(mod)
+    if missing:
+        import subprocess, sys
+        # Install missing modules; errors will still surface if install fails.
+        subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
+
+_ensure_dependencies()
+# ------------------------------------------------------------------------------
+
 import json
 import os
 import re
@@ -665,10 +682,6 @@ def save_history(history):
 
 
 def refresh_opportunities(current_opps):
-    """
-    Keep previous opportunities, mark still-present ones as valid,
-    disappeared ones as invalid, and detect when bookmakers change.
-    """
     previous = load_history()
     next_history = {}
     current_ids = set()
@@ -752,7 +765,6 @@ def main():
         ("1xBet", scrape_1xbet),
         ("22Bet", scrape_22bet),
         ("Melbet", scrape_melbet),
-        # ("PMBet", scrape_pmbet),  # add later when ready
     ]:
         print(f"Scraping {name}...")
         rows = func()
@@ -782,6 +794,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
