@@ -277,7 +277,7 @@ def scrape_betpawa():
                     for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
                         try:
                             text = link.inner_text()
-                            parts = [p.strip() for p in text.split("
+                            parts = [p.strip() for p in text.split(")
 ") if p.strip()]
                             teams, odd_values, competition = [], [], ""
 
