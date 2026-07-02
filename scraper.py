@@ -3,27 +3,20 @@ import os
 import re
 import urllib.request
 from datetime import datetime
-
 import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
-
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
-
 HISTORY_FILE = "arbitrage_history.json"
 STAKE = 100000
-
-
 def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
     name = re.sub(r"\s+", " ", name).strip()
     return name
-
-
 def teams_match(name1, name2):
     n1 = normalize(name1)
     n2 = normalize(name2)
@@ -39,16 +32,12 @@ def teams_match(name1, name2):
         if len(w1) > 4 and w1 == w2:
             return True
     return False
-
-
-def match_key_similarity(key1, key2):
+    def match_key_similarity(key1, key2):
     p1 = key1.split(" vs ")
     p2 = key2.split(" vs ")
     if len(p1) != 2 or len(p2) != 2:
         return False
     return teams_match(p1[0], p2[0]) and teams_match(p1[1], p2[1])
-
-
 def clean_odd(v, min_odd=1.01, max_odd=50.0):
     try:
         if v is None:
@@ -59,8 +48,6 @@ def clean_odd(v, min_odd=1.01, max_odd=50.0):
     except:
         pass
     return None
-
-
 def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport="Football", competition=""):
     return {
         "match": f"{home_team} vs {away_team}",
@@ -74,12 +61,9 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
         "away": away,
         "sport": sport,
     }
-
-
-def championbet_extract_1x2(match):
+    def championbet_extract_1x2(match):
     bet_map = match.get("betMap", {}) or {}
-
-    def pick_odd(market_keys):
+def pick_odd(market_keys):
         for k in market_keys:
             market = bet_map.get(str(k), {}) or {}
             if not isinstance(market, dict):
@@ -89,7 +73,7 @@ def championbet_extract_1x2(match):
                     odd = clean_odd(item.get("ov"))
                     if odd is not None:
                         return odd
-        return None
+  return None
 
     return pick_odd([1, 4, 7]), pick_odd([2, 5, 8]), pick_odd([3, 6, 9])
 
@@ -711,26 +695,22 @@ def refresh_opportunities(current_opps):
             opp["note"] = "New opportunity"
             opp["checked_at"] = now_str
 
-            next_history[oid] = opp
-
-    for oid, old in previous.items():
+    next_history[oid] = opp
+for oid, old in previous.items():
         if oid not in current_ids:
             old["status"] = "invalid"
             old["changed"] = False
             old["note"] = "No longer present"
             old["invalid_at"] = now_str
             next_history[oid] = old
-
-    save_history(next_history)
+save_history(next_history)
     all_opps = list(next_history.values())
     return {
         "all_opportunities": all_opps,
         "valid_opportunities": [o for o in all_opps if o.get("status") == "valid"],
         "invalid_opportunities": [o for o in all_opps if o.get("status") == "invalid"],
     }
-
-
-def main():
+    def main():
     all_odds = []
     scraped = []
 
@@ -746,16 +726,14 @@ def main():
         ("Melbet", scrape_melbet),
         # ("PMBet", scrape_pmbet),  # add later when ready
     ]:
-        print(f"Scraping {name}...")
+     print(f"Scraping {name}...")
         rows = func()
         all_odds.extend(rows)
         if rows:
             scraped.append(name)
-
-    fresh_opps = find_arbitrage(all_odds)
+fresh_opps = find_arbitrage(all_odds)
     opps_result = refresh_opportunities(fresh_opps)
-
-    output = {
+output = {
         "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
         "total_matches": len(all_odds),
         "bookmakers_scraped": scraped,
@@ -764,17 +742,13 @@ def main():
         "valid_opportunities": opps_result["valid_opportunities"],
         "invalid_opportunities": opps_result["invalid_opportunities"],
     }
-
     with open("odds.json", "w") as f:
         json.dump(output, f, indent=2)
-
-    print(
+        print(
         f"Done. Matches: {len(all_odds)}, "
         f"new run opportunities: {len(fresh_opps)}, "
         f"total kept in history: {len(opps_result['all_opportunities'])}"
     )
-
-
 if __name__ == "__main__":
     main()
 
