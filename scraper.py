@@ -17,11 +17,7 @@ STAKE = 100000
 
 def normalize(name):
     name = (name or "").lower().strip()
-    name = re.sub(
-        r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b",
-        "",
-        name,
-    )
+    name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
     name = re.sub(r"\s+", " ", name).strip()
     return name
@@ -64,9 +60,7 @@ def clean_odd(v, min_odd=1.01, max_odd=50.0):
     return None
 
 
-def build_match_record(
-    home_team, away_team, bookmaker, home, draw, away, sport="Football", competition=""
-):
+def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport="Football", competition=""):
     return {
         "match": f"{home_team} vs {away_team}",
         "home_team": home_team,
@@ -104,11 +98,7 @@ def scrape_championbet():
     try:
         headers = {
             "Accept": "application/json, text/plain, */*",
-            "User-Agent": (
-                "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 "
-                "Chrome/149.0.7827.159 Mobile Safari/537.36"
-            ),
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
             "Referer": "https://www.championbet.ug/mob/",
         }
         req = urllib.request.Request(CHAMPIONBET_API, headers=headers)
@@ -126,20 +116,8 @@ def scrape_championbet():
                 )
                 if "soccer" not in sport_token.lower() and "football" not in sport_token.lower():
                     continue
-                home_team = (
-                    m.get("home")
-                    or m.get("homeTeam")
-                    or m.get("home_team")
-                    or m.get("team1")
-                    or ""
-                )
-                away_team = (
-                    m.get("away")
-                    or m.get("awayTeam")
-                    or m.get("away_team")
-                    or m.get("team2")
-                    or ""
-                )
+                home_team = m.get("home") or m.get("homeTeam") or m.get("home_team") or m.get("team1") or ""
+                away_team = m.get("away") or m.get("awayTeam") or m.get("away_team") or m.get("team2") or ""
                 if not home_team or not away_team:
                     continue
                 h, d, a = championbet_extract_1x2(m)
@@ -166,9 +144,7 @@ def scrape_championbet():
 def scrape_betika():
     odds = []
     try:
-        req = urllib.request.Request(
-            BETIKA_API, headers={"Accept": "application/json, text/plain, */*"}
-        )
+        req = urllib.request.Request(BETIKA_API, headers={"Accept": "application/json, text/plain, */*"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
 
@@ -216,9 +192,7 @@ def scrape_ababet():
             first_row = table.find("tr")
             if not first_row:
                 continue
-            headers = [
-                c.get_text(" ", strip=True) for c in first_row.find_all(["th", "td"])
-            ]
+            headers = [c.get_text(" ", strip=True) for c in first_row.find_all(["th", "td"])]
             if "Home" not in headers or "Away" not in headers:
                 continue
             for tr in table.find_all("tr")[1:]:
@@ -257,55 +231,29 @@ def scrape_betpawa():
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
             context = browser.new_context(
-                user_agent=(
-                    "Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 "
-                    "Mobile Safari/537.36"
-                ),
+                user_agent="Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
                 viewport={"width": 390, "height": 844},
                 locale="en-UG",
             )
             page = context.new_page()
-            page.add_init_script(
-                "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-            )
+            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
             for url in urls:
                 try:
                     page.goto(url, timeout=60000)
                     page.wait_for_timeout(6000)
-                    for link in page.query_selector_all(
-                        'a[href*="/event/"], a[href*="/match/"]'
-                    )[:60]:
+                    for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
                         try:
                             text = link.inner_text()
-                            parts = [
-                                p.strip() for p in text.split("\n") if p.strip()
-                            ]
+                            parts = [p.strip() for p in text.split("\n") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
                                 if re.match(r"^\d+\.\d+$", part):
                                     odd_values.append(float(part))
                                 elif len(part) > 2 and not any(
-                                    x in part
-                                    for x in [
-                                        "Football",
-                                        "Soccer",
-                                        "Netball",
-                                        "Tennis",
-                                        "Basketball",
-                                    ]
+                                    x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
                                 ):
                                     teams.append(part)
-                                elif any(
-                                    x in part
-                                    for x in [
-                                        "Football",
-                                        "Soccer",
-                                        "Netball",
-                                        "Tennis",
-                                        "Basketball",
-                                    ]
-                                ):
+                                elif any(x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]):
                                     competition = part
                             if len(teams) >= 2 and len(odd_values) >= 2:
                                 mk = f"{teams[0]}vs{teams[1]}".lower().replace(" ", "")
@@ -317,12 +265,8 @@ def scrape_betpawa():
                                             teams[1],
                                             "BetPawa",
                                             odd_values[0],
-                                            odd_values[1]
-                                            if len(odd_values) >= 3
-                                            else None,
-                                            odd_values[2]
-                                            if len(odd_values) >= 3
-                                            else odd_values[1],
+                                            odd_values[1] if len(odd_values) >= 3 else None,
+                                            odd_values[2] if len(odd_values) >= 3 else odd_values[1],
                                             "Football",
                                             competition,
                                         )
@@ -375,26 +319,16 @@ def scrape_fortebet():
                         odd_list = []
                         for _, v in odds_map.items():
                             if isinstance(v, dict) and "odds" in v:
-                                odd_list.append(
-                                    (v.get("outcomeId", 0), clean_odd(v["odds"]))
-                                )
+                                odd_list.append((v.get("outcomeId", 0), clean_odd(v["odds"])))
                         odd_list = [(i, o) for i, o in odd_list if o is not None]
                         odd_list.sort(key=lambda x: x[0])
                         if len(odd_list) >= 3:
-                            h, d, a = (
-                                odd_list[0][1],
-                                odd_list[1][1],
-                                odd_list[2][1],
-                            )
+                            h, d, a = odd_list[0][1], odd_list[1][1], odd_list[2][1]
                         elif len(odd_list) == 2:
                             h, a = odd_list[0][1], odd_list[1][1]
                         break
                 if h is not None and a is not None:
-                    odds.append(
-                        build_match_record(
-                            home_team, away_team, "Fortebet", h, d, a, "Football"
-                        )
-                    )
+                    odds.append(build_match_record(home_team, away_team, "Fortebet", h, d, a, "Football"))
             except Exception:
                 continue
     except Exception as e:
@@ -405,10 +339,7 @@ def scrape_fortebet():
 def scrape_sportybet():
     odds = []
     try:
-        req = urllib.request.Request(
-            SPORTYBET_API,
-            headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
-        )
+        req = urllib.request.Request(SPORTYBET_API, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         if isinstance(data, list):
@@ -442,19 +373,12 @@ def scrape_sportybet():
 def scrape_1xbet():
     odds = []
     try:
-        url = (
-            "https://1xbet.ug/service-api/LineFeed/Get1x2_VZip?"
-            "sports=1&count=1000&lng=en&mode=4&country=191&partner=135&getEmpty=true&virtualSports=true"
-        )
+        url = "https://1xbet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=135&getEmpty=true&virtualSports=true"
         headers = {
             "content-type": "application/json",
             "accept": "application/json, text/plain, */*",
             "x-requested-with": "XMLHttpRequest",
-            "User-Agent": (
-                "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 "
-                "Chrome/149.0.7827.91 Mobile Safari/537.36"
-            ),
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
             "Referer": "https://1xbet.ug/en/line/football",
         }
         req = urllib.request.Request(url, headers=headers)
@@ -483,9 +407,7 @@ def scrape_1xbet():
                     elif t == "3":
                         d = c
                 if h is not None and a is not None:
-                    odds.append(
-                        build_match_record(home_team, away_team, "1xBet", h, d, a, "Football")
-                    )
+                    odds.append(build_match_record(home_team, away_team, "1xBet", h, d, a, "Football"))
             except Exception:
                 continue
     except Exception as e:
@@ -496,10 +418,7 @@ def scrape_1xbet():
 def scrape_22bet():
     odds = []
     try:
-        url = (
-            "https://22bet.ug/service-api/LineFeed/Get1x2_VZip?"
-            "sports=1&count=1000&lng=en&mode=4&country=191&partner=151&getEmpty=true&virtualSports=true"
-        )
+        url = "https://22bet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=151&getEmpty=true&virtualSports=true"
         req = urllib.request.Request(
             url,
             headers={
@@ -529,9 +448,7 @@ def scrape_22bet():
                     elif t == "3":
                         d = c
                 if h is not None and a is not None:
-                    odds.append(
-                        build_match_record(home_team, away_team, "22Bet", h, d, a, "Football")
-                    )
+                    odds.append(build_match_record(home_team, away_team, "22Bet", h, d, a, "Football"))
             except Exception:
                 continue
     except Exception as e:
@@ -542,20 +459,13 @@ def scrape_22bet():
 def scrape_melbet():
     odds = []
     try:
-        url = (
-            "https://melbet-046935.top/service-api/LineFeed/Get1x2_VZip?"
-            "count=1000&lng=en&mode=4&country=191&partner=8&getEmpty=true"
-        )
+        url = "https://melbet-046935.top/service-api/LineFeed/Get1x2_VZip?count=1000&lng=en&mode=4&country=191&partner=8&getEmpty=true"
         headers = {
             "content-type": "application/json",
             "accept": "application/json, text/plain, */*",
             "x-mobile-project-id": "0",
             "x-requested-with": "XMLHttpRequest",
-            "User-Agent": (
-                "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 "
-                "Chrome/149.0.7827.91 Mobile Safari/537.36"
-            ),
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
             "Referer": "https://1xbet.ug/en/line/football",
         }
         req = urllib.request.Request(url, headers=headers)
@@ -580,9 +490,7 @@ def scrape_melbet():
                     elif t == "3":
                         d = c
                 if h is not None and a is not None:
-                    odds.append(
-                        build_match_record(home_team, away_team, "Melbet", h, d, a, "Football")
-                    )
+                    odds.append(build_match_record(home_team, away_team, "Melbet", h, d, a, "Football"))
             except Exception:
                 continue
     except Exception as e:
@@ -645,19 +553,13 @@ def find_arbitrage(all_odds):
                         for bk_a in bk_list:
                             if len({bk_h, bk_d, bk_a}) < 3:
                                 continue
-                            h, d, a = (
-                                bk_odds[bk_h]["home"],
-                                bk_odds[bk_d]["draw"],
-                                bk_odds[bk_a]["away"],
-                            )
+                            h, d, a = bk_odds[bk_h]["home"], bk_odds[bk_d]["draw"], bk_odds[bk_a]["away"]
                             if not h or not d or not a:
                                 continue
                             arb = (1 / h) + (1 / d) + (1 / a)
                             if arb < 1:
                                 profit = round((1 - arb) * 100, 2)
-                                if 1.0 <= profit <= 50.0 and (
-                                    best is None or profit > best["profit_percent"]
-                                ):
+                                if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
                                     stake_h = round(STAKE * (1 / h) / arb)
                                     stake_d = round(STAKE * (1 / d) / arb)
                                     stake_a = round(STAKE * (1 / a) / arb)
@@ -707,9 +609,7 @@ def find_arbitrage(all_odds):
                         arb = (1 / h) + (1 / a)
                         if arb < 1:
                             profit = round((1 - arb) * 100, 2)
-                            if 1.0 <= profit <= 50.0 and (
-                                best is None or profit > best["profit_percent"]
-                            ):
+                            if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
                                 stake_h = round(STAKE * (1 / h) / arb)
                                 stake_a = round(STAKE * (1 / a) / arb)
                                 best = {
@@ -745,10 +645,8 @@ def find_arbitrage(all_odds):
 
 def opportunity_id(o):
     bets = o.get("bets", []) or []
-    bet_key = "|".join(
-        f"{b.get('bookmaker')}:{b.get('outcome')}:{b.get('odd')}" for b in bets
-    )
-    return f"{o.get('match', '')}|{o.get('type', '')}|{bet_key}"
+    bet_key = "|".join(f"{b.get('bookmaker')}:{b.get('outcome')}:{b.get('odd')}" for b in bets)
+    return f"{o.get('match','')}|{o.get('type','')}|{bet_key}"
 
 
 def load_history():
@@ -782,13 +680,13 @@ def refresh_opportunities(current_opps):
         return pairs
 
     for opp in current_opps:
-        base_key = f"{opp.get('match', '')}|{opp.get('type', '')}"
+        base_key = f"{opp.get('match','')}|{opp.get('type','')}"
         bets_sig = bookmaker_signature(opp)
 
         prev_candidate_id = None
         prev_candidate = None
         for oid, old in previous.items():
-            if f"{old.get('match', '')}|{old.get('type', '')}" == base_key:
+            if f"{old.get('match','')}|{old.get('type','')}" == base_key:
                 prev_candidate_id = oid
                 prev_candidate = old
                 break
