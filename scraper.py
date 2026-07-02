@@ -33,6 +33,7 @@ def teams_match(name1, name2):
             return True
     return False
     def match_key_similarity(key1, key2):
+    
     p1 = key1.split(" vs ")
     p2 = key2.split(" vs ")
     if len(p1) != 2 or len(p2) != 2:
