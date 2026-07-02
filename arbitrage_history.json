@@ -31,47 +31,47 @@
       }
     ],
     "status": "valid",
-    "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": false,
+    "note": "Still valid (same bookmakers)"
   },
-  "rochester vs chicago dutch lions|3-way|1xBet:Home:3.33|AbaBet:Draw:4.1|22Bet:Away:4.2": {
+  "rochester vs chicago dutch lions|3-way|1xBet:Home:3.29|SportyBet:Draw:4.0|22Bet:Away:4.2": {
     "match": "rochester vs chicago dutch lions",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 21.77,
-    "profit_ugx": 21770,
+    "profit_percent": 20.8,
+    "profit_ugx": 20795,
     "total_stake": 100000,
-    "arb_sum": 0.7823,
+    "arb_sum": 0.792,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 3.33,
-        "stake": 38387,
-        "win": 127829
+        "odd": 3.29,
+        "stake": 38375,
+        "win": 126254
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "SportyBet",
         "outcome": "Draw",
-        "odd": 4.1,
-        "stake": 31178,
-        "win": 127830
+        "odd": 4.0,
+        "stake": 31564,
+        "win": 126256
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 4.2,
-        "stake": 30435,
-        "win": 127827
+        "stake": 30061,
+        "win": 126256
       }
     ],
     "status": "valid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
     "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "note": "Valid (bookmakers changed)"
   },
   "brunswick juventus vs brunswick|3-way|AbaBet:Home:3.0|Fortebet:Draw:4.15|SportyBet:Away:4.25": {
     "match": "brunswick juventus vs brunswick",
@@ -105,10 +105,10 @@
       }
     ],
     "status": "valid",
-    "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": false,
+    "note": "Still valid (same bookmakers)"
   },
   "prospect vs hakoah sydney east|3-way|SportyBet:Home:2.95|AbaBet:Draw:3.8|1xBet:Away:3.62": {
     "match": "prospect vs hakoah sydney east",
@@ -142,158 +142,195 @@
       }
     ],
     "status": "valid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": false,
+    "note": "Still valid (same bookmakers)"
+  },
+  "hurstville vs canterbury bankstown berries|3-way|SportyBet:Home:2.6|AbaBet:Draw:4.0|1xBet:Away:4.05": {
+    "match": "hurstville vs canterbury bankstown berries",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 11.85,
+    "profit_ugx": 11847,
+    "total_stake": 100000,
+    "arb_sum": 0.8815,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 2.6,
+        "stake": 43630,
+        "win": 113438
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 28360,
+        "win": 113440
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.05,
+        "stake": 28010,
+        "win": 113440
+      }
+    ],
+    "status": "valid",
     "changed": true,
     "prev_status": "new",
     "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "checked_at": "2026-07-02 20:11 UTC"
   },
-  "switzerland vs algeria|3-way|SportyBet:Home:2.01|22Bet:Draw:4.435|1xBet:Away:4.67": {
+  "portugal vs croatia|3-way|1xBet:Home:1.717|22Bet:Draw:5.8|Fortebet:Away:5.6": {
+    "match": "portugal vs croatia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.66,
+    "profit_ugx": 6660,
+    "total_stake": 100000,
+    "arb_sum": 0.9334,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.717,
+        "stake": 62397,
+        "win": 107136
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.8,
+        "stake": 18472,
+        "win": 107138
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.6,
+        "stake": 19131,
+        "win": 107134
+      }
+    ],
+    "status": "valid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": true,
+    "note": "Valid (bookmakers changed)"
+  },
+  "switzerland vs algeria|3-way|SportyBet:Home:2.01|22Bet:Draw:4.45|1xBet:Away:4.67": {
     "match": "switzerland vs algeria",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.29,
-    "profit_ugx": 6288,
+    "profit_percent": 6.36,
+    "profit_ugx": 6364,
     "total_stake": 100000,
-    "arb_sum": 0.9371,
+    "arb_sum": 0.9364,
     "bets": [
       {
         "bookmaker": "SportyBet",
         "outcome": "Home",
         "odd": 2.01,
-        "stake": 53089,
-        "win": 106709
+        "stake": 53132,
+        "win": 106795
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 4.435,
-        "stake": 24061,
-        "win": 106711
+        "odd": 4.45,
+        "stake": 23999,
+        "win": 106796
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.67,
-        "stake": 22850,
-        "win": 106710
+        "stake": 22869,
+        "win": 106798
       }
     ],
     "status": "valid",
-    "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": false,
+    "note": "Still valid (same bookmakers)"
   },
-  "portugal vs croatia|3-way|SportyBet:Home:1.71|1xBet:Draw:5.6|Fortebet:Away:5.6": {
-    "match": "portugal vs croatia",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.81,
-    "profit_ugx": 5806,
-    "total_stake": 100000,
-    "arb_sum": 0.9419,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 1.71,
-        "stake": 62084,
-        "win": 106164
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.6,
-        "stake": 18958,
-        "win": 106165
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.6,
-        "stake": 18958,
-        "win": 106165
-      }
-    ],
-    "status": "valid",
-    "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
-  },
-  "cuiaba vs america mg|3-way|SportyBet:Home:1.85|1xBet:Draw:4.69|AbaBet:Away:5.0": {
-    "match": "cuiaba vs america mg",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.62,
-    "profit_ugx": 4624,
-    "total_stake": 100000,
-    "arb_sum": 0.9538,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 1.85,
-        "stake": 56675,
-        "win": 104849
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 4.69,
-        "stake": 22356,
-        "win": 104850
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 5.0,
-        "stake": 20970,
-        "win": 104850
-      }
-    ],
-    "status": "valid",
-    "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
-  },
-  "fortaleza vs ponte preta|3-way|SportyBet:Home:1.31|1xBet:Draw:9.45|Fortebet:Away:11.0": {
+  "fortaleza vs ponte preta|3-way|SportyBet:Home:1.31|1xBet:Draw:9.55|Fortebet:Away:11.0": {
     "match": "fortaleza vs ponte preta",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.99,
-    "profit_ugx": 3991,
+    "profit_percent": 4.1,
+    "profit_ugx": 4102,
     "total_stake": 100000,
-    "arb_sum": 0.9601,
+    "arb_sum": 0.959,
     "bets": [
       {
         "bookmaker": "SportyBet",
         "outcome": "Home",
         "odd": 1.31,
-        "stake": 79509,
-        "win": 104157
+        "stake": 79601,
+        "win": 104277
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 9.45,
-        "stake": 11022,
-        "win": 104158
+        "odd": 9.55,
+        "stake": 10919,
+        "win": 104276
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 11.0,
-        "stake": 9469,
-        "win": 104159
+        "stake": 9480,
+        "win": 104280
       }
     ],
     "status": "valid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": false,
+    "note": "Still valid (same bookmakers)"
+  },
+  "cuiaba vs america mg|3-way|SportyBet:Home:1.85|1xBet:Draw:4.69|Fortebet:Away:4.85": {
+    "match": "cuiaba vs america mg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.01,
+    "profit_ugx": 4005,
+    "total_stake": 100000,
+    "arb_sum": 0.9599,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.85,
+        "stake": 56309,
+        "win": 104172
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.69,
+        "stake": 22212,
+        "win": 104174
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.85,
+        "stake": 21479,
+        "win": 104173
+      }
+    ],
+    "status": "valid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
     "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "note": "Valid (bookmakers changed)"
   },
   "caboolture vs wanderers|3-way|SportyBet:Home:3.33|AbaBet:Draw:4.2|Fortebet:Away:2.37": {
     "match": "caboolture vs wanderers",
@@ -327,10 +364,10 @@
       }
     ],
     "status": "valid",
-    "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": false,
+    "note": "Still valid (same bookmakers)"
   },
   "northcote vs melbourne srbija|3-way|Fortebet:Home:1.65|AbaBet:Draw:5.5|SportyBet:Away:5.8": {
     "match": "northcote vs melbourne srbija",
@@ -364,10 +401,10 @@
       }
     ],
     "status": "valid",
-    "changed": true,
-    "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": false,
+    "note": "Still valid (same bookmakers)"
   },
   "australia vs egypt|3-way|1xBet:Home:3.41|Fortebet:Draw:2.93|22Bet:Away:3.045": {
     "match": "australia vs egypt",
@@ -401,10 +438,237 @@
       }
     ],
     "status": "valid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
+    "changed": false,
+    "note": "Still valid (same bookmakers)"
+  },
+  "cumbaya vs 22 de julio|3-way|SportyBet:Home:1.42|1xBet:Draw:7.95|AbaBet:Away:6.25": {
+    "match": "cumbaya vs 22 de julio",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.0,
+    "profit_ugx": 999,
+    "total_stake": 100000,
+    "arb_sum": 0.99,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.42,
+        "stake": 71133,
+        "win": 101009
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.95,
+        "stake": 12706,
+        "win": 101013
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.25,
+        "stake": 16161,
+        "win": 101006
+      }
+    ],
+    "status": "valid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-02 20:11 UTC",
     "changed": true,
+    "note": "Valid (bookmakers changed)"
+  },
+  "rochester vs chicago dutch lions|3-way|1xBet:Home:3.33|AbaBet:Draw:4.1|22Bet:Away:4.2": {
+    "match": "rochester vs chicago dutch lions",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 21.77,
+    "profit_ugx": 21770,
+    "total_stake": 100000,
+    "arb_sum": 0.7823,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 3.33,
+        "stake": 38387,
+        "win": 127829
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.1,
+        "stake": 31178,
+        "win": 127830
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.2,
+        "stake": 30435,
+        "win": 127827
+      }
+    ],
+    "status": "invalid",
+    "changed": false,
     "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "note": "No longer present",
+    "checked_at": "2026-07-02 19:36 UTC",
+    "invalid_at": "2026-07-02 20:11 UTC"
+  },
+  "switzerland vs algeria|3-way|SportyBet:Home:2.01|22Bet:Draw:4.435|1xBet:Away:4.67": {
+    "match": "switzerland vs algeria",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.29,
+    "profit_ugx": 6288,
+    "total_stake": 100000,
+    "arb_sum": 0.9371,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 2.01,
+        "stake": 53089,
+        "win": 106709
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.435,
+        "stake": 24061,
+        "win": 106711
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.67,
+        "stake": 22850,
+        "win": 106710
+      }
+    ],
+    "status": "invalid",
+    "changed": false,
+    "prev_status": "new",
+    "note": "No longer present",
+    "checked_at": "2026-07-02 19:36 UTC",
+    "invalid_at": "2026-07-02 20:11 UTC"
+  },
+  "portugal vs croatia|3-way|SportyBet:Home:1.71|1xBet:Draw:5.6|Fortebet:Away:5.6": {
+    "match": "portugal vs croatia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.81,
+    "profit_ugx": 5806,
+    "total_stake": 100000,
+    "arb_sum": 0.9419,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.71,
+        "stake": 62084,
+        "win": 106164
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.6,
+        "stake": 18958,
+        "win": 106165
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.6,
+        "stake": 18958,
+        "win": 106165
+      }
+    ],
+    "status": "invalid",
+    "changed": false,
+    "prev_status": "new",
+    "note": "No longer present",
+    "checked_at": "2026-07-02 19:36 UTC",
+    "invalid_at": "2026-07-02 20:11 UTC"
+  },
+  "cuiaba vs america mg|3-way|SportyBet:Home:1.85|1xBet:Draw:4.69|AbaBet:Away:5.0": {
+    "match": "cuiaba vs america mg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.62,
+    "profit_ugx": 4624,
+    "total_stake": 100000,
+    "arb_sum": 0.9538,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.85,
+        "stake": 56675,
+        "win": 104849
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.69,
+        "stake": 22356,
+        "win": 104850
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.0,
+        "stake": 20970,
+        "win": 104850
+      }
+    ],
+    "status": "invalid",
+    "changed": false,
+    "prev_status": "new",
+    "note": "No longer present",
+    "checked_at": "2026-07-02 19:36 UTC",
+    "invalid_at": "2026-07-02 20:11 UTC"
+  },
+  "fortaleza vs ponte preta|3-way|SportyBet:Home:1.31|1xBet:Draw:9.45|Fortebet:Away:11.0": {
+    "match": "fortaleza vs ponte preta",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.99,
+    "profit_ugx": 3991,
+    "total_stake": 100000,
+    "arb_sum": 0.9601,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.31,
+        "stake": 79509,
+        "win": 104157
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 9.45,
+        "stake": 11022,
+        "win": 104158
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 11.0,
+        "stake": 9469,
+        "win": 104159
+      }
+    ],
+    "status": "invalid",
+    "changed": false,
+    "prev_status": "new",
+    "note": "No longer present",
+    "checked_at": "2026-07-02 19:36 UTC",
+    "invalid_at": "2026-07-02 20:11 UTC"
   },
   "birmingham vs detroit|3-way|SportyBet:Home:2.7|Fortebet:Draw:3.3|1xBet:Away:3.25": {
     "match": "birmingham vs detroit",
@@ -437,11 +701,12 @@
         "win": 101926
       }
     ],
-    "status": "valid",
-    "changed": true,
+    "status": "invalid",
+    "changed": false,
     "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "note": "No longer present",
+    "checked_at": "2026-07-02 19:36 UTC",
+    "invalid_at": "2026-07-02 20:11 UTC"
   },
   "cumbaya vs 22 de julio|3-way|1xBet:Home:1.42|22Bet:Draw:7.44|SportyBet:Away:6.8": {
     "match": "cumbaya vs 22 de julio",
@@ -474,10 +739,11 @@
         "win": 101449
       }
     ],
-    "status": "valid",
-    "changed": true,
+    "status": "invalid",
+    "changed": false,
     "prev_status": "new",
-    "note": "New opportunity",
-    "checked_at": "2026-07-02 19:36 UTC"
+    "note": "No longer present",
+    "checked_at": "2026-07-02 19:36 UTC",
+    "invalid_at": "2026-07-02 20:11 UTC"
   }
 }
