@@ -32,81 +32,81 @@
     ],
     "status": "valid",
     "prev_status": "valid",
-    "checked_at": "2026-07-04 14:35 UTC",
+    "checked_at": "2026-07-04 14:37 UTC",
     "changed": false,
     "note": "Still valid (same bookmakers)"
   },
-  "nafta vs honved|3-way|1xBet:Home:4.015|AbaBet:Draw:4.2|22Bet:Away:4.05": {
+  "nafta vs honved|3-way|1xBet:Home:4.02|AbaBet:Draw:4.2|22Bet:Away:4.05": {
     "match": "nafta vs honved",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 26.59,
-    "profit_ugx": 26593,
+    "profit_percent": 26.62,
+    "profit_ugx": 26623,
     "total_stake": 100000,
-    "arb_sum": 0.7341,
+    "arb_sum": 0.7338,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 4.015,
-        "stake": 33929,
-        "win": 136225
+        "odd": 4.02,
+        "stake": 33901,
+        "win": 136282
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.2,
-        "stake": 32435,
-        "win": 136227
+        "stake": 32448,
+        "win": 136282
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 4.05,
-        "stake": 33636,
-        "win": 136226
+        "stake": 33650,
+        "win": 136282
       }
     ],
     "status": "valid",
     "prev_status": "valid",
-    "checked_at": "2026-07-04 14:35 UTC",
+    "checked_at": "2026-07-04 14:37 UTC",
     "changed": false,
     "note": "Still valid (same bookmakers)"
   },
-  "canada vs morocco|3-way|Fortebet:Home:5.7|SportyBet:Draw:3.58|1xBet:Away:3.56": {
+  "canada vs morocco|3-way|Fortebet:Home:5.7|SportyBet:Draw:3.58|1xBet:Away:3.535": {
     "match": "canada vs morocco",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 26.43,
-    "profit_ugx": 26433,
+    "profit_percent": 26.23,
+    "profit_ugx": 26235,
     "total_stake": 100000,
-    "arb_sum": 0.7357,
+    "arb_sum": 0.7377,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 5.7,
-        "stake": 23848,
-        "win": 135934
+        "stake": 23783,
+        "win": 135563
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Draw",
         "odd": 3.58,
-        "stake": 37970,
-        "win": 135933
+        "stake": 37867,
+        "win": 135564
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.56,
-        "stake": 38183,
-        "win": 135931
+        "odd": 3.535,
+        "stake": 38349,
+        "win": 135564
       }
     ],
     "status": "valid",
     "prev_status": "valid",
-    "checked_at": "2026-07-04 14:35 UTC",
+    "checked_at": "2026-07-04 14:37 UTC",
     "changed": false,
     "note": "Still valid (same bookmakers)"
   },
@@ -143,7 +143,7 @@
     ],
     "status": "valid",
     "prev_status": "valid",
-    "checked_at": "2026-07-04 14:35 UTC",
+    "checked_at": "2026-07-04 14:37 UTC",
     "changed": false,
     "note": "Still valid (same bookmakers)"
   },
@@ -180,7 +180,7 @@
     ],
     "status": "valid",
     "prev_status": "valid",
-    "checked_at": "2026-07-04 14:35 UTC",
+    "checked_at": "2026-07-04 14:37 UTC",
     "changed": false,
     "note": "Still valid (same bookmakers)"
   },
@@ -217,9 +217,85 @@
     ],
     "status": "valid",
     "prev_status": "valid",
-    "checked_at": "2026-07-04 14:35 UTC",
+    "checked_at": "2026-07-04 14:37 UTC",
     "changed": false,
     "note": "Still valid (same bookmakers)"
+  },
+  "nafta vs honved|3-way|1xBet:Home:4.015|AbaBet:Draw:4.2|22Bet:Away:4.05": {
+    "match": "nafta vs honved",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 26.59,
+    "profit_ugx": 26593,
+    "total_stake": 100000,
+    "arb_sum": 0.7341,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 4.015,
+        "stake": 33929,
+        "win": 136225
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 32435,
+        "win": 136227
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.05,
+        "stake": 33636,
+        "win": 136226
+      }
+    ],
+    "status": "invalid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-04 14:35 UTC",
+    "changed": false,
+    "note": "No longer present",
+    "invalid_at": "2026-07-04 14:37 UTC"
+  },
+  "canada vs morocco|3-way|Fortebet:Home:5.7|SportyBet:Draw:3.58|1xBet:Away:3.56": {
+    "match": "canada vs morocco",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 26.43,
+    "profit_ugx": 26433,
+    "total_stake": 100000,
+    "arb_sum": 0.7357,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.7,
+        "stake": 23848,
+        "win": 135934
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.58,
+        "stake": 37970,
+        "win": 135933
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.56,
+        "stake": 38183,
+        "win": 135931
+      }
+    ],
+    "status": "invalid",
+    "prev_status": "valid",
+    "checked_at": "2026-07-04 14:35 UTC",
+    "changed": false,
+    "note": "No longer present",
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   " neman grodno vs fk arsenal dzerzhinsk|3-way|1xBet:Home:1.67|22Bet:Draw:5.18|SportyBet:Away:5.2": {
     "match": " neman grodno vs fk arsenal dzerzhinsk",
@@ -252,11 +328,12 @@
         "win": 101608
       }
     ],
-    "status": "valid",
+    "status": "invalid",
     "prev_status": "valid",
     "checked_at": "2026-07-04 14:35 UTC",
     "changed": false,
-    "note": "Still valid (same bookmakers)"
+    "note": "No longer present",
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   " neman grodno vs fk arsenal dzerzhinsk|3-way|1xBet:Home:1.66|22Bet:Draw:5.27|SportyBet:Away:5.2": {
     "match": " neman grodno vs fk arsenal dzerzhinsk",
@@ -294,7 +371,7 @@
     "checked_at": "2026-07-04 14:31 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   " neman grodno vs fk arsenal dzerzhinsk|3-way|1xBet:Home:1.64|22Bet:Draw:5.56|SportyBet:Away:5.2": {
     "match": " neman grodno vs fk arsenal dzerzhinsk",
@@ -332,7 +409,7 @@
     "checked_at": "2026-07-04 14:29 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   " neman grodno vs fk arsenal dzerzhinsk|3-way|1xBet:Home:1.635|22Bet:Draw:5.56|SportyBet:Away:5.2": {
     "match": " neman grodno vs fk arsenal dzerzhinsk",
@@ -370,7 +447,7 @@
     "checked_at": "2026-07-04 14:26 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.74|ChampionBet:Draw:3.66|22Bet:Away:3.58": {
     "match": "canada vs morocco",
@@ -408,7 +485,7 @@
     "checked_at": "2026-07-04 14:23 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "emden vs st pauli|3-way|1xBet:Home:8.3|Fortebet:Draw:4.9|22Bet:Away:5.6": {
     "match": "emden vs st pauli",
@@ -446,7 +523,7 @@
     "checked_at": "2026-07-04 14:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   " neman grodno vs fk arsenal dzerzhinsk|3-way|1xBet:Home:1.635|22Bet:Draw:5.56|SportyBet:Away:5.6": {
     "match": " neman grodno vs fk arsenal dzerzhinsk",
@@ -484,7 +561,7 @@
     "checked_at": "2026-07-04 14:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.74|ChampionBet:Draw:3.66|22Bet:Away:3.555": {
     "match": "canada vs morocco",
@@ -522,7 +599,7 @@
     "checked_at": "2026-07-04 14:17 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   " neman grodno vs fk arsenal dzerzhinsk|3-way|1xBet:Home:1.61|22Bet:Draw:5.7|SportyBet:Away:5.6": {
     "match": " neman grodno vs fk arsenal dzerzhinsk",
@@ -560,7 +637,7 @@
     "checked_at": "2026-07-04 14:17 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "nk osijek vs paksi |3-way|AbaBet:Home:2.45|SportyBet:Draw:3.75|1xBet:Away:4.15": {
     "match": "nk osijek vs paksi ",
@@ -598,7 +675,7 @@
     "checked_at": "2026-07-04 14:13 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   " neman grodno vs fk arsenal dzerzhinsk|3-way|1xBet:Home:1.61|22Bet:Draw:5.84|SportyBet:Away:5.8": {
     "match": " neman grodno vs fk arsenal dzerzhinsk",
@@ -636,7 +713,7 @@
     "checked_at": "2026-07-04 14:13 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "emden vs st pauli|3-way|1xBet:Home:7.16|AbaBet:Draw:5.25|22Bet:Away:5.2": {
     "match": "emden vs st pauli",
@@ -674,7 +751,7 @@
     "checked_at": "2026-07-04 14:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "nafta vs honved|3-way|1xBet:Home:4.02|AbaBet:Draw:4.2|22Bet:Away:3.98": {
     "match": "nafta vs honved",
@@ -712,7 +789,7 @@
     "checked_at": "2026-07-04 14:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   " neman grodno vs fk arsenal dzerzhinsk|3-way|1xBet:Home:1.59|22Bet:Draw:5.84|SportyBet:Away:5.8": {
     "match": " neman grodno vs fk arsenal dzerzhinsk",
@@ -750,7 +827,7 @@
     "checked_at": "2026-07-04 14:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "emden vs st pauli|3-way|1xBet:Home:7.16|SportyBet:Draw:5.0|22Bet:Away:5.2": {
     "match": "emden vs st pauli",
@@ -788,7 +865,7 @@
     "checked_at": "2026-07-04 14:09 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "nafta vs honved|3-way|1xBet:Home:4.02|AbaBet:Draw:3.9|22Bet:Away:3.98": {
     "match": "nafta vs honved",
@@ -826,7 +903,7 @@
     "checked_at": "2026-07-04 14:09 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "nk osijek vs paksi |3-way|AbaBet:Home:3.0|SportyBet:Draw:3.75|1xBet:Away:4.15": {
     "match": "nk osijek vs paksi ",
@@ -864,7 +941,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 14:09 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "emden vs st pauli|3-way|1xBet:Home:7.26|AbaBet:Draw:5.0|22Bet:Away:5.15": {
     "match": "emden vs st pauli",
@@ -902,7 +979,7 @@
     "checked_at": "2026-07-04 14:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "puskas academy vs slovan bratislava|3-way|1xBet:Home:4.975|AbaBet:Draw:4.2|22Bet:Away:3.8": {
     "match": "puskas academy vs slovan bratislava",
@@ -940,7 +1017,7 @@
     "checked_at": "2026-07-04 14:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.69|ChampionBet:Draw:3.66|22Bet:Away:3.57": {
     "match": "canada vs morocco",
@@ -978,7 +1055,7 @@
     "checked_at": "2026-07-04 14:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "emden vs st pauli|3-way|1xBet:Home:6.24|AbaBet:Draw:5.0|22Bet:Away:5.05": {
     "match": "emden vs st pauli",
@@ -1016,7 +1093,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 14:01 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "alfreton vs notts county|3-way|Fortebet:Home:7.5|AbaBet:Draw:5.0|1xBet:Away:5.57": {
     "match": "alfreton vs notts county",
@@ -1054,7 +1131,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 13:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "lichfield  vs tamworth|3-way|1xBet:Home:7.79|AbaBet:Draw:4.75|22Bet:Away:5.28": {
     "match": "lichfield  vs tamworth",
@@ -1092,7 +1169,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 13:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "ashford town vs farnham|3-way|AbaBet:Home:6.5|SportyBet:Draw:5.0|1xBet:Away:5.13": {
     "match": "ashford town vs farnham",
@@ -1130,7 +1207,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 13:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halifax vs sheffield |3-way|SportyBet:Home:6.0|AbaBet:Draw:4.75|1xBet:Away:5.23": {
     "match": "halifax vs sheffield ",
@@ -1168,7 +1245,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 13:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "helmond sport vs aek larnaca|3-way|SportyBet:Home:6.1|AbaBet:Draw:4.5|1xBet:Away:4.85": {
     "match": "helmond sport vs aek larnaca",
@@ -1206,7 +1283,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 13:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "carshalton athletic vs bromley|3-way|1xBet:Home:5.27|AbaBet:Draw:4.5|22Bet:Away:4.74": {
     "match": "carshalton athletic vs bromley",
@@ -1244,7 +1321,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 13:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|Fortebet:Home:5.5|AbaBet:Draw:4.2|1xBet:Away:4.37": {
     "match": "kelty vs dunfermline",
@@ -1282,7 +1359,7 @@
     "checked_at": "2026-07-04 13:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "haringey vs enfield|3-way|SportyBet:Home:4.2|AbaBet:Draw:4.1|1xBet:Away:4.29": {
     "match": "haringey vs enfield",
@@ -1320,7 +1397,7 @@
     "checked_at": "2026-07-04 13:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "altach vs heidenheim|3-way|1xBet:Home:4.23|SportyBet:Draw:3.6|22Bet:Away:3.76": {
     "match": "altach vs heidenheim",
@@ -1358,7 +1435,7 @@
     "checked_at": "2026-07-04 13:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akranes vs breidablik|3-way|1xBet:Home:2.6|SportyBet:Draw:3.9|22Bet:Away:3.74": {
     "match": "akranes vs breidablik",
@@ -1396,7 +1473,7 @@
     "checked_at": "2026-07-04 13:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "alfreton vs nott  county|3-way|1xBet:Home:8.35|AbaBet:Draw:5.0|22Bet:Away:4.95": {
     "match": "alfreton vs nott  county",
@@ -1434,7 +1511,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "lichfield vs tamworth|3-way|1xBet:Home:8.0|AbaBet:Draw:5.0|22Bet:Away:4.95": {
     "match": "lichfield vs tamworth",
@@ -1472,7 +1549,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "a hford town vs farnham|3-way|AbaBet:Home:6.5|SportyBet:Draw:5.0|1xBet:Away:4.8": {
     "match": "a hford town vs farnham",
@@ -1510,7 +1587,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halifax vs heffield|3-way|SportyBet:Home:6.0|AbaBet:Draw:4.5|1xBet:Away:4.8": {
     "match": "halifax vs heffield",
@@ -1548,7 +1625,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "car halton athletic vs bromley|3-way|1xBet:Home:6.45|AbaBet:Draw:4.5|22Bet:Away:4.4": {
     "match": "car halton athletic vs bromley",
@@ -1586,7 +1663,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "helmond vs aek larnaca|3-way|SportyBet:Home:6.1|AbaBet:Draw:4.5|1xBet:Away:4.25": {
     "match": "helmond vs aek larnaca",
@@ -1624,7 +1701,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:6.19|Fortebet:Draw:4.25|22Bet:Away:4.15": {
     "match": "kelty vs dunfermline",
@@ -1662,7 +1739,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "haringey vs enfield|3-way|SportyBet:Home:4.2|AbaBet:Draw:4.1|1xBet:Away:4.25": {
     "match": "haringey vs enfield",
@@ -1700,7 +1777,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "altach vs heidenheim|3-way|1xBet:Home:4.41|AbaBet:Draw:3.7|22Bet:Away:3.82": {
     "match": "altach vs heidenheim",
@@ -1738,7 +1815,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akrane vs breidablik|3-way|1xBet:Home:2.56|SportyBet:Draw:3.9|22Bet:Away:3.82": {
     "match": "akrane vs breidablik",
@@ -1776,7 +1853,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "maccle field vs hyde|3-way|AbaBet:Home:1.65|1xBet:Draw:5.76|Fortebet:Away:5.8": {
     "match": "maccle field vs hyde",
@@ -1814,7 +1891,7 @@
     "checked_at": "2026-07-04 13:55 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "lichfield vs tamworth|3-way|1xBet:Home:8.2|AbaBet:Draw:5.0|22Bet:Away:5.05": {
     "match": "lichfield vs tamworth",
@@ -1852,7 +1929,7 @@
     "checked_at": "2026-07-04 13:53 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halifax vs heffield|3-way|SportyBet:Home:5.8|AbaBet:Draw:4.5|1xBet:Away:4.8": {
     "match": "halifax vs heffield",
@@ -1890,7 +1967,7 @@
     "checked_at": "2026-07-04 13:53 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:6.19|SportyBet:Draw:4.0|22Bet:Away:4.15": {
     "match": "kelty vs dunfermline",
@@ -1928,7 +2005,7 @@
     "checked_at": "2026-07-04 13:51 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halifax vs heffield|3-way|SportyBet:Home:5.8|AbaBet:Draw:4.5|1xBet:Away:4.7": {
     "match": "halifax vs heffield",
@@ -1966,7 +2043,7 @@
     "checked_at": "2026-07-04 13:49 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:5.6|SportyBet:Draw:4.0|22Bet:Away:3.98": {
     "match": "kelty vs dunfermline",
@@ -2004,7 +2081,7 @@
     "checked_at": "2026-07-04 13:49 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|Fortebet:Home:5.6|SportyBet:Draw:3.58|1xBet:Away:3.56": {
     "match": "canada vs morocco",
@@ -2042,7 +2119,7 @@
     "checked_at": "2026-07-04 13:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halifax vs heffield|3-way|SportyBet:Home:5.8|AbaBet:Draw:4.5|1xBet:Away:4.65": {
     "match": "halifax vs heffield",
@@ -2080,7 +2157,7 @@
     "checked_at": "2026-07-04 13:43 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:5.55|SportyBet:Draw:4.0|22Bet:Away:4.0": {
     "match": "kelty vs dunfermline",
@@ -2118,7 +2195,7 @@
     "checked_at": "2026-07-04 13:43 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.58|SportyBet:Draw:3.58|22Bet:Away:3.56": {
     "match": "canada vs morocco",
@@ -2156,7 +2233,7 @@
     "checked_at": "2026-07-04 13:43 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "maccle field vs hyde|3-way|AbaBet:Home:1.65|1xBet:Draw:5.81|Fortebet:Away:5.8": {
     "match": "maccle field vs hyde",
@@ -2194,7 +2271,7 @@
     "checked_at": "2026-07-04 13:43 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.79|SportyBet:Draw:3.58|22Bet:Away:3.565": {
     "match": "canada vs morocco",
@@ -2232,7 +2309,7 @@
     "checked_at": "2026-07-04 13:41 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "altach vs heidenheim|3-way|1xBet:Home:4.36|AbaBet:Draw:3.7|22Bet:Away:3.8": {
     "match": "altach vs heidenheim",
@@ -2270,7 +2347,7 @@
     "checked_at": "2026-07-04 13:41 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akrane vs breidablik|3-way|1xBet:Home:2.55|SportyBet:Draw:3.9|22Bet:Away:3.85": {
     "match": "akrane vs breidablik",
@@ -2308,7 +2385,7 @@
     "checked_at": "2026-07-04 13:41 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akrane vs breidablik|3-way|1xBet:Home:2.55|SportyBet:Draw:4.1|22Bet:Away:3.85": {
     "match": "akrane vs breidablik",
@@ -2346,7 +2423,7 @@
     "checked_at": "2026-07-04 13:39 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "helmond vs aek larnaca|3-way|SportyBet:Home:6.1|AbaBet:Draw:4.5|1xBet:Away:4.2": {
     "match": "helmond vs aek larnaca",
@@ -2384,7 +2461,7 @@
     "checked_at": "2026-07-04 13:31 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akrane vs breidablik|3-way|Fortebet:Home:2.43|SportyBet:Draw:4.1|1xBet:Away:4.1": {
     "match": "akrane vs breidablik",
@@ -2422,7 +2499,7 @@
     "checked_at": "2026-07-04 13:31 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "maccle field vs hyde|3-way|AbaBet:Home:1.65|1xBet:Draw:5.86|Fortebet:Away:5.8": {
     "match": "maccle field vs hyde",
@@ -2460,7 +2537,7 @@
     "checked_at": "2026-07-04 13:31 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "oberhau en vs bochum|3-way|1xBet:Home:5.24|AbaBet:Draw:4.33|22Bet:Away:4.54": {
     "match": "oberhau en vs bochum",
@@ -2498,7 +2575,7 @@
     "checked_at": "2026-07-04 13:29 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akrane vs breidablik|3-way|Fortebet:Home:2.43|SportyBet:Draw:4.1|1xBet:Away:4.15": {
     "match": "akrane vs breidablik",
@@ -2536,7 +2613,7 @@
     "checked_at": "2026-07-04 13:29 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "maccle field vs hyde|3-way|AbaBet:Home:1.65|1xBet:Draw:6.18|Fortebet:Away:5.8": {
     "match": "maccle field vs hyde",
@@ -2574,7 +2651,7 @@
     "checked_at": "2026-07-04 13:29 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "lichfield vs tamworth|3-way|1xBet:Home:8.3|AbaBet:Draw:5.0|22Bet:Away:5.0": {
     "match": "lichfield vs tamworth",
@@ -2612,7 +2689,7 @@
     "checked_at": "2026-07-04 13:25 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halifax vs heffield|3-way|SportyBet:Home:5.75|AbaBet:Draw:4.5|1xBet:Away:4.65": {
     "match": "halifax vs heffield",
@@ -2650,7 +2727,7 @@
     "checked_at": "2026-07-04 13:25 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "oberhau en vs bochum|3-way|1xBet:Home:5.3|SportyBet:Draw:4.3|22Bet:Away:4.25": {
     "match": "oberhau en vs bochum",
@@ -2688,7 +2765,7 @@
     "checked_at": "2026-07-04 13:25 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:5.55|SportyBet:Draw:4.0|22Bet:Away:3.92": {
     "match": "kelty vs dunfermline",
@@ -2726,7 +2803,7 @@
     "checked_at": "2026-07-04 13:23 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akrane vs breidablik|3-way|Fortebet:Home:2.43|SportyBet:Draw:4.1|1xBet:Away:4.2": {
     "match": "akrane vs breidablik",
@@ -2764,7 +2841,7 @@
     "checked_at": "2026-07-04 13:23 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halifax vs heffield|3-way|SportyBet:Home:5.75|AbaBet:Draw:4.5|1xBet:Away:4.45": {
     "match": "halifax vs heffield",
@@ -2802,7 +2879,7 @@
     "checked_at": "2026-07-04 13:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:5.5|SportyBet:Draw:4.0|22Bet:Away:3.88": {
     "match": "kelty vs dunfermline",
@@ -2840,7 +2917,7 @@
     "checked_at": "2026-07-04 13:17 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.74|SportyBet:Draw:3.58|22Bet:Away:3.555": {
     "match": "canada vs morocco",
@@ -2878,7 +2955,7 @@
     "checked_at": "2026-07-04 13:17 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:5.55|SportyBet:Draw:4.1|22Bet:Away:3.92": {
     "match": "kelty vs dunfermline",
@@ -2916,7 +2993,7 @@
     "checked_at": "2026-07-04 13:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akrane vs breidablik|3-way|Fortebet:Home:2.43|SportyBet:Draw:4.1|1xBet:Away:4.25": {
     "match": "akrane vs breidablik",
@@ -2954,7 +3031,7 @@
     "checked_at": "2026-07-04 13:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "oberhau en vs bochum|3-way|1xBet:Home:5.3|AbaBet:Draw:4.33|22Bet:Away:4.25": {
     "match": "oberhau en vs bochum",
@@ -2992,7 +3069,7 @@
     "checked_at": "2026-07-04 13:09 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "oberhau en vs bochum|3-way|1xBet:Home:5.3|AbaBet:Draw:4.33|22Bet:Away:4.2": {
     "match": "oberhau en vs bochum",
@@ -3030,7 +3107,7 @@
     "checked_at": "2026-07-04 13:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:5.61|SportyBet:Draw:4.1|22Bet:Away:3.84": {
     "match": "kelty vs dunfermline",
@@ -3068,7 +3145,7 @@
     "checked_at": "2026-07-04 13:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "maccle field vs hyde|3-way|AbaBet:Home:1.65|1xBet:Draw:6.24|Fortebet:Away:5.8": {
     "match": "maccle field vs hyde",
@@ -3106,7 +3183,7 @@
     "checked_at": "2026-07-04 13:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|1xBet:Home:5.42|SportyBet:Draw:4.1|22Bet:Away:3.8": {
     "match": "kelty vs dunfermline",
@@ -3144,7 +3221,7 @@
     "checked_at": "2026-07-04 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akrane vs breidablik|3-way|AbaBet:Home:2.38|Fortebet:Draw:3.95|1xBet:Away:4.25": {
     "match": "akrane vs breidablik",
@@ -3182,7 +3259,7 @@
     "checked_at": "2026-07-04 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kelty vs dunfermline|3-way|SportyBet:Home:5.0|Fortebet:Draw:4.0|1xBet:Away:3.8": {
     "match": "kelty vs dunfermline",
@@ -3220,7 +3297,7 @@
     "checked_at": "2026-07-04 12:59 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|1xBet:Home:2.603|22Bet:Draw:3.83|Melbet:Away:13.0": {
     "match": "home vs away",
@@ -3258,7 +3335,7 @@
     "checked_at": "2026-07-04 12:59 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "tranent junior vs tirling albion|3-way|1xBet:Home:2.595|AbaBet:Draw:3.75|22Bet:Away:3.9": {
     "match": "tranent junior vs tirling albion",
@@ -3296,7 +3373,7 @@
     "checked_at": "2026-07-04 12:59 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "haverfordwe t vs hamilton|3-way|SportyBet:Home:3.0|AbaBet:Draw:3.4|1xBet:Away:3.52": {
     "match": "haverfordwe t vs hamilton",
@@ -3334,7 +3411,7 @@
     "checked_at": "2026-07-04 12:59 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "zaglebie vs pogon  zczecin|3-way|1xBet:Home:2.925|AbaBet:Draw:3.4|22Bet:Away:3.55": {
     "match": "zaglebie vs pogon  zczecin",
@@ -3372,7 +3449,7 @@
     "checked_at": "2026-07-04 12:59 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "degerfor vs malmo ff|3-way|Fortebet:Home:2.99|SportyBet:Draw:3.3|1xBet:Away:3.264": {
     "match": "degerfor vs malmo ff",
@@ -3410,7 +3487,7 @@
     "checked_at": "2026-07-04 12:59 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "alfreton vs nott  county|3-way|Fortebet:Home:7.5|AbaBet:Draw:5.0|1xBet:Away:5.05": {
     "match": "alfreton vs nott  county",
@@ -3448,7 +3525,7 @@
     "checked_at": "2026-07-04 12:51 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "oberhau en vs bochum|3-way|1xBet:Home:6.35|AbaBet:Draw:4.33|22Bet:Away:4.5": {
     "match": "oberhau en vs bochum",
@@ -3486,7 +3563,7 @@
     "checked_at": "2026-07-04 12:51 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "altach vs heidenheim|3-way|Fortebet:Home:3.8|AbaBet:Draw:3.7|1xBet:Away:3.82": {
     "match": "altach vs heidenheim",
@@ -3524,7 +3601,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 12:51 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "degerfor vs malmo ff|3-way|AbaBet:Home:3.4|SportyBet:Draw:3.3|1xBet:Away:3.2": {
     "match": "degerfor vs malmo ff",
@@ -3562,7 +3639,7 @@
     "checked_at": "2026-07-04 12:51 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "maccle field vs hyde|3-way|AbaBet:Home:1.65|1xBet:Draw:6.08|Fortebet:Away:5.8": {
     "match": "maccle field vs hyde",
@@ -3600,7 +3677,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 12:51 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "zaglebie vs pogon  zczecin|3-way|1xBet:Home:2.6|AbaBet:Draw:3.4|22Bet:Away:3.44": {
     "match": "zaglebie vs pogon  zczecin",
@@ -3638,7 +3715,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 12:51 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "tranent junior vs tirling albion|3-way|1xBet:Home:2.3|AbaBet:Draw:3.75|22Bet:Away:3.66": {
     "match": "tranent junior vs tirling albion",
@@ -3676,7 +3753,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 12:51 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "dordrecht vs feyenoord|3-way|AbaBet:Home:7.5|SportyBet:Draw:5.0|1xBet:Away:4.95": {
     "match": "dordrecht vs feyenoord",
@@ -3714,7 +3791,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canvey vs ebb fleet|3-way|1xBet:Home:7.5|SportyBet:Draw:4.7|22Bet:Away:4.5": {
     "match": "canvey vs ebb fleet",
@@ -3752,7 +3829,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "alfreton vs nott  county|3-way|Fortebet:Home:6.5|AbaBet:Draw:4.75|1xBet:Away:4.7": {
     "match": "alfreton vs nott  county",
@@ -3790,7 +3867,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "bognor vs dorking|3-way|1xBet:Home:6.05|Fortebet:Draw:4.6|22Bet:Away:4.4": {
     "match": "bognor vs dorking",
@@ -3828,7 +3905,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "oberhau en vs bochum|3-way|Fortebet:Home:5.2|AbaBet:Draw:4.33|1xBet:Away:4.55": {
     "match": "oberhau en vs bochum",
@@ -3866,7 +3943,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|1xBet:Home:2.816|22Bet:Draw:4.17|Melbet:Away:13.0": {
     "match": "home vs away",
@@ -3904,7 +3981,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.52|SportyBet:Draw:3.58|22Bet:Away:3.51": {
     "match": "canada vs morocco",
@@ -3942,7 +4019,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "vend y el vs kfum|3-way|1xBet:Home:4.375|AbaBet:Draw:3.9|22Bet:Away:3.74": {
     "match": "vend y el vs kfum",
@@ -3980,7 +4057,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "linfield vs kilmarnock|3-way|Fortebet:Home:3.95|AbaBet:Draw:3.9|1xBet:Away:3.52": {
     "match": "linfield vs kilmarnock",
@@ -4018,7 +4095,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "degerfor vs malmo ff|3-way|Fortebet:Home:3.45|SportyBet:Draw:3.5|1xBet:Away:3.4": {
     "match": "degerfor vs malmo ff",
@@ -4056,7 +4133,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "haverfordwe t vs hamilton|3-way|SportyBet:Home:3.0|Fortebet:Draw:3.5|1xBet:Away:3.54": {
     "match": "haverfordwe t vs hamilton",
@@ -4094,7 +4171,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "inverne vs ro  county|3-way|1xBet:Home:2.52|AbaBet:Draw:3.6|22Bet:Away:3.76": {
     "match": "inverne vs ro  county",
@@ -4132,7 +4209,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "anderlecht vs boulogne|3-way|1xBet:Home:1.51|22Bet:Draw:6.21|AbaBet:Away:6.25": {
     "match": "anderlecht vs boulogne",
@@ -4170,7 +4247,7 @@
     "checked_at": "2026-07-04 11:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "ayr vs airdrieonian|3-way|AbaBet:Home:1.67|1xBet:Draw:5.61|Fortebet:Away:4.75": {
     "match": "ayr vs airdrieonian",
@@ -4208,7 +4285,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 11:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "dordrecht vs feyenoord|3-way|AbaBet:Home:7.5|SportyBet:Draw:4.9|1xBet:Away:4.95": {
     "match": "dordrecht vs feyenoord",
@@ -4246,7 +4323,7 @@
     "checked_at": "2026-07-04 11:41 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "linfield vs kilmarnock|3-way|Fortebet:Home:3.95|AbaBet:Draw:3.9|1xBet:Away:3.54": {
     "match": "linfield vs kilmarnock",
@@ -4284,7 +4361,7 @@
     "checked_at": "2026-07-04 11:41 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "dordrecht vs feyenoord|3-way|AbaBet:Home:7.5|SportyBet:Draw:5.1|1xBet:Away:4.95": {
     "match": "dordrecht vs feyenoord",
@@ -4322,7 +4399,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 10:11 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canvey vs ebbsfleet|3-way|AbaBet:Home:6.5|Fortebet:Draw:4.4|1xBet:Away:4.55": {
     "match": "canvey vs ebbsfleet",
@@ -4360,7 +4437,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 10:11 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "bognor vs dorking|3-way|AbaBet:Home:6.0|Fortebet:Draw:4.6|1xBet:Away:4.4": {
     "match": "bognor vs dorking",
@@ -4398,7 +4475,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 10:11 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|1xBet:Home:2.791|22Bet:Draw:4.145|Melbet:Away:13.0": {
     "match": "home vs away",
@@ -4436,7 +4513,7 @@
     "checked_at": "2026-07-04 10:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.37|SportyBet:Draw:3.55|22Bet:Away:3.495": {
     "match": "canada vs morocco",
@@ -4474,7 +4551,7 @@
     "checked_at": "2026-07-04 10:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "linfield vs kilmarnock|3-way|Fortebet:Home:3.95|AbaBet:Draw:3.9|1xBet:Away:3.64": {
     "match": "linfield vs kilmarnock",
@@ -4512,7 +4589,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 10:11 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "degerfors vs malmo ff|3-way|1xBet:Home:3.34|SportyBet:Draw:3.5|22Bet:Away:3.38": {
     "match": "degerfors vs malmo ff",
@@ -4550,7 +4627,7 @@
     "checked_at": "2026-07-04 10:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akranes vs breidablik|3-way|AbaBet:Home:2.38|Fortebet:Draw:3.95|1xBet:Away:4.25": {
     "match": "akranes vs breidablik",
@@ -4588,7 +4665,7 @@
     "checked_at": "2026-07-04 10:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halmstads vs vasteras|3-way|1xBet:Home:2.91|AbaBet:Draw:3.3|22Bet:Away:3.3": {
     "match": "halmstads vs vasteras",
@@ -4626,7 +4703,7 @@
     "checked_at": "2026-07-04 10:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "inverness vs ross county|3-way|Fortebet:Home:2.45|AbaBet:Draw:3.6|1xBet:Away:3.64": {
     "match": "inverness vs ross county",
@@ -4664,7 +4741,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 10:11 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "criciuma vs sport recife|3-way|Fortebet:Home:2.01|1xBet:Draw:4.255|AbaBet:Away:4.1": {
     "match": "criciuma vs sport recife",
@@ -4702,7 +4779,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 10:11 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|1xBet:Home:2.78|22Bet:Draw:4.34|Melbet:Away:13.0": {
     "match": "home vs away",
@@ -4740,7 +4817,7 @@
     "checked_at": "2026-07-04 07:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "zaglebie sosnowiec vs podbeskidzie bielskobiaa|3-way|1xBet:Home:4.41|SportyBet:Draw:3.7|22Bet:Away:3.9": {
     "match": "zaglebie sosnowiec vs podbeskidzie bielskobiaa",
@@ -4778,7 +4855,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 07:07 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.22|SportyBet:Draw:3.55|22Bet:Away:3.515": {
     "match": "canada vs morocco",
@@ -4816,7 +4893,7 @@
     "checked_at": "2026-07-04 07:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "north star vs redlands|3-way|Fortebet:Home:2.83|SportyBet:Draw:3.9|AbaBet:Away:5.5": {
     "match": "north star vs redlands",
@@ -4854,7 +4931,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 07:07 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "degerfors vs malmo ff|3-way|1xBet:Home:3.345|SportyBet:Draw:3.5|22Bet:Away:3.34": {
     "match": "degerfors vs malmo ff",
@@ -4892,7 +4969,7 @@
     "checked_at": "2026-07-04 07:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "akranes vs breidablik|3-way|AbaBet:Home:2.38|Fortebet:Draw:4.0|1xBet:Away:4.25": {
     "match": "akranes vs breidablik",
@@ -4930,7 +5007,7 @@
     "checked_at": "2026-07-04 07:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "eastern suburbs vs peninsula|3-way|SportyBet:Home:3.1|Fortebet:Draw:3.95|AbaBet:Away:3.0": {
     "match": "eastern suburbs vs peninsula",
@@ -4968,7 +5045,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 07:07 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "aschaffenburg vs worms|3-way|Fortebet:Home:2.29|SportyBet:Draw:4.0|1xBet:Away:3.92": {
     "match": "aschaffenburg vs worms",
@@ -5006,7 +5083,7 @@
     "checked_at": "2026-07-04 07:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halmstads vs vasteras|3-way|1xBet:Home:2.921|AbaBet:Draw:3.3|22Bet:Away:3.3": {
     "match": "halmstads vs vasteras",
@@ -5044,7 +5121,7 @@
     "checked_at": "2026-07-04 07:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "szombathelyi haladas vs ajkai|3-way|1xBet:Home:2.59|AbaBet:Draw:3.3|22Bet:Away:3.5": {
     "match": "szombathelyi haladas vs ajkai",
@@ -5082,7 +5159,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 07:07 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "skierniewice vs grodzisk m|3-way|SportyBet:Home:2.3|AbaBet:Draw:3.7|1xBet:Away:3.68": {
     "match": "skierniewice vs grodzisk m",
@@ -5120,7 +5197,7 @@
     "checked_at": "2026-07-04 07:07 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hradec kralove vs sparta prague ii|3-way|AbaBet:Home:1.27|1xBet:Draw:10.0|SportyBet:Away:10.5": {
     "match": "hradec kralove vs sparta prague ii",
@@ -5158,7 +5235,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 07:07 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "fk beograd vs west adelaide|3-way|SportyBet:Home:3.7|AbaBet:Draw:4.33|Fortebet:Away:3.75": {
     "match": "fk beograd vs west adelaide",
@@ -5196,7 +5273,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 04:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "armadale vs olympic kingsway|3-way|SportyBet:Home:8.6|AbaBet:Draw:7.0|Fortebet:Away:1.94": {
     "match": "armadale vs olympic kingsway",
@@ -5234,7 +5311,7 @@
     "checked_at": "2026-07-04 04:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "dalian yingbo vs wuhan three towns|3-way|SportyBet:Home:3.32|Fortebet:Draw:3.8|AbaBet:Away:4.75": {
     "match": "dalian yingbo vs wuhan three towns",
@@ -5272,7 +5349,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 04:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:4.855|SportyBet:Draw:3.52|22Bet:Away:3.49": {
     "match": "canada vs morocco",
@@ -5310,7 +5387,7 @@
     "checked_at": "2026-07-04 04:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "zaglebie sosnowiec vs podbeskidzie|3-way|1xBet:Home:4.025|AbaBet:Draw:3.5|22Bet:Away:3.76": {
     "match": "zaglebie sosnowiec vs podbeskidzie",
@@ -5348,7 +5425,7 @@
     "checked_at": "2026-07-04 04:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "western knights vs sorrento|3-way|SportyBet:Home:2.5|Fortebet:Draw:4.8|AbaBet:Away:5.0": {
     "match": "western knights vs sorrento",
@@ -5386,7 +5463,7 @@
     "checked_at": "2026-07-04 04:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "qingdao west coast vs shanghai port|3-way|SportyBet:Home:6.31|AbaBet:Draw:3.6|Fortebet:Away:2.24": {
     "match": "qingdao west coast vs shanghai port",
@@ -5424,7 +5501,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 04:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "degerfors vs malmo ff|3-way|Fortebet:Home:3.4|AbaBet:Draw:3.4|1xBet:Away:3.34": {
     "match": "degerfors vs malmo ff",
@@ -5462,7 +5539,7 @@
     "checked_at": "2026-07-04 04:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "fremantle vs bayswater|3-way|Fortebet:Home:3.3|SportyBet:Draw:3.6|AbaBet:Away:3.2": {
     "match": "fremantle vs bayswater",
@@ -5500,7 +5577,7 @@
     "checked_at": "2026-07-04 04:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "aschaffenburg vs worms|3-way|Fortebet:Home:2.29|AbaBet:Draw:3.9|1xBet:Away:3.92": {
     "match": "aschaffenburg vs worms",
@@ -5538,7 +5615,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 04:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "the cove vs adelaide victory|3-way|Fortebet:Home:2.48|AbaBet:Draw:4.0|SportyBet:Away:3.2": {
     "match": "the cove vs adelaide victory",
@@ -5576,7 +5653,7 @@
     "checked_at": "2026-07-04 04:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "skierniewice vs grodzisk m|3-way|Fortebet:Home:2.29|AbaBet:Draw:3.7|1xBet:Away:3.64": {
     "match": "skierniewice vs grodzisk m",
@@ -5614,7 +5691,7 @@
     "checked_at": "2026-07-04 04:58 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "beijing guoan vs shandong|3-way|SportyBet:Home:1.98|Fortebet:Draw:4.1|AbaBet:Away:4.2": {
     "match": "beijing guoan vs shandong",
@@ -5652,7 +5729,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 04:58 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "metrostars vs west torrens|3-way|AbaBet:Home:5.25|Fortebet:Draw:4.15|SportyBet:Away:6.9": {
     "match": "metrostars vs west torrens",
@@ -5690,7 +5767,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sturt lions vs playford|3-way|Fortebet:Home:2.6|AbaBet:Draw:3.8|SportyBet:Away:17.5": {
     "match": "sturt lions vs playford",
@@ -5728,7 +5805,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:4.81|SportyBet:Draw:3.51|22Bet:Away:3.475": {
     "match": "canada vs morocco",
@@ -5766,7 +5843,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "robina vs broadbeach|3-way|Fortebet:Home:3.15|AbaBet:Draw:4.5|SportyBet:Away:3.6": {
     "match": "robina vs broadbeach",
@@ -5804,7 +5881,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cobras vs fulham|3-way|Fortebet:Home:3.75|SportyBet:Draw:4.2|AbaBet:Away:3.1": {
     "match": "cobras vs fulham",
@@ -5842,7 +5919,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hume vs dandenong|3-way|AbaBet:Home:3.1|SportyBet:Draw:3.8|Fortebet:Away:3.75": {
     "match": "hume vs dandenong",
@@ -5880,7 +5957,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "brisbane strikers vs logan lightning|3-way|SportyBet:Home:2.3|AbaBet:Draw:4.75|Fortebet:Away:4.5": {
     "match": "brisbane strikers vs logan lightning",
@@ -5918,7 +5995,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "daejeon vs bucheon|3-way|SportyBet:Home:2.66|AbaBet:Draw:3.4|Fortebet:Away:4.9": {
     "match": "daejeon vs bucheon",
@@ -5956,7 +6033,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "blue eagles vs south adelaide|3-way|SportyBet:Home:1.63|Fortebet:Draw:6.9|AbaBet:Away:8.0": {
     "match": "blue eagles vs south adelaide",
@@ -5994,7 +6071,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "degerfors vs malmo ff|3-way|Fortebet:Home:3.4|AbaBet:Draw:3.4|1xBet:Away:3.36": {
     "match": "degerfors vs malmo ff",
@@ -6032,7 +6109,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 01:20 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|1xBet:Home:1.475|22Bet:Draw:8.58|AbaBet:Away:9.5": {
     "match": "colombia vs ghana",
@@ -6070,7 +6147,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "halmstads vs vasteras|3-way|1xBet:Home:2.832|AbaBet:Draw:3.3|22Bet:Away:3.28": {
     "match": "halmstads vs vasteras",
@@ -6108,7 +6185,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 01:20 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "olomouc vs banska bystrica|3-way|AbaBet:Home:1.62|1xBet:Draw:6.4|Fortebet:Away:5.3": {
     "match": "olomouc vs banska bystrica",
@@ -6146,7 +6223,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "anyang vs pohang|3-way|SportyBet:Home:3.98|AbaBet:Draw:3.0|Fortebet:Away:2.6": {
     "match": "anyang vs pohang",
@@ -6184,7 +6261,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-04 01:20 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "skierniewice vs grodzisk m|3-way|Fortebet:Home:2.29|AbaBet:Draw:3.7|1xBet:Away:3.62": {
     "match": "skierniewice vs grodzisk m",
@@ -6222,7 +6299,7 @@
     "checked_at": "2026-07-04 01:20 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "metrostars vs west torrens|3-way|AbaBet:Home:4.0|Fortebet:Draw:4.15|SportyBet:Away:6.9": {
     "match": "metrostars vs west torrens",
@@ -6260,7 +6337,7 @@
     "checked_at": "2026-07-03 23:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:4.81|ChampionBet:Draw:3.41|22Bet:Away:3.475": {
     "match": "canada vs morocco",
@@ -6298,7 +6375,7 @@
     "checked_at": "2026-07-03 23:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "armadale vs olympic kingsway|3-way|SportyBet:Home:8.6|AbaBet:Draw:7.0|Fortebet:Away:1.8": {
     "match": "armadale vs olympic kingsway",
@@ -6336,7 +6413,7 @@
     "checked_at": "2026-07-03 23:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "blue eagles vs south adelaide|3-way|SportyBet:Home:1.67|Fortebet:Draw:6.9|AbaBet:Away:8.0": {
     "match": "blue eagles vs south adelaide",
@@ -6374,7 +6451,7 @@
     "checked_at": "2026-07-03 23:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "fremantle vs bayswater|3-way|Fortebet:Home:3.3|AbaBet:Draw:4.0|SportyBet:Away:2.8": {
     "match": "fremantle vs bayswater",
@@ -6412,7 +6489,7 @@
     "checked_at": "2026-07-03 23:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|1xBet:Home:1.47|22Bet:Draw:8.45|SportyBet:Away:8.9": {
     "match": "colombia vs ghana",
@@ -6450,7 +6527,7 @@
     "checked_at": "2026-07-03 23:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "olomouc vs banska bystrica|3-way|AbaBet:Home:1.62|1xBet:Draw:6.06|Fortebet:Away:5.3": {
     "match": "olomouc vs banska bystrica",
@@ -6488,7 +6565,7 @@
     "checked_at": "2026-07-03 23:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canberra white eagles vs tigers|3-way|SportyBet:Home:16.5|Fortebet:Draw:9.2|AbaBet:Away:1.22": {
     "match": "canberra white eagles vs tigers",
@@ -6526,7 +6603,7 @@
     "checked_at": "2026-07-03 23:47 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:4.7|ChampionBet:Draw:3.4|22Bet:Away:3.51": {
     "match": "canada vs morocco",
@@ -6564,7 +6641,7 @@
     "checked_at": "2026-07-03 22:46 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "jincheon vs siheung citizen|3-way|Fortebet:Home:4.05|AbaBet:Draw:3.5|1xBet:Away:3.35": {
     "match": "jincheon vs siheung citizen",
@@ -6602,7 +6679,7 @@
     "checked_at": "2026-07-03 22:46 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "armadale vs olympic kingsway|3-way|SportyBet:Home:8.6|AbaBet:Draw:7.0|Fortebet:Away:1.73": {
     "match": "armadale vs olympic kingsway",
@@ -6640,7 +6717,7 @@
     "checked_at": "2026-07-03 22:46 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "blue eagles vs south adelaide|3-way|SportyBet:Home:1.76|Fortebet:Draw:6.9|AbaBet:Away:8.0": {
     "match": "blue eagles vs south adelaide",
@@ -6678,7 +6755,7 @@
     "checked_at": "2026-07-03 22:46 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hume vs dandenong|3-way|AbaBet:Home:3.1|SportyBet:Draw:3.75|Fortebet:Away:3.75": {
     "match": "hume vs dandenong",
@@ -6716,7 +6793,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 22:46 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|1xBet:Home:1.479|22Bet:Draw:8.35|Fortebet:Away:8.6": {
     "match": "colombia vs ghana",
@@ -6754,7 +6831,7 @@
     "checked_at": "2026-07-03 22:46 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "olomouc vs banska bystrica|3-way|AbaBet:Home:1.62|1xBet:Draw:6.15|Fortebet:Away:5.3": {
     "match": "olomouc vs banska bystrica",
@@ -6792,7 +6869,7 @@
     "checked_at": "2026-07-03 22:46 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "daejeon vs bucheon|3-way|AbaBet:Home:1.73|1xBet:Draw:4.905|Fortebet:Away:4.9": {
     "match": "daejeon vs bucheon",
@@ -6830,7 +6907,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 22:46 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "changwon vs geumsan insam|3-way|AbaBet:Home:1.7|1xBet:Draw:4.94|Fortebet:Away:5.1": {
     "match": "changwon vs geumsan insam",
@@ -6868,7 +6945,7 @@
     "checked_at": "2026-07-03 22:46 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cancun vs toluca|3-way|1xBet:Home:8.6|AbaBet:Draw:4.75|22Bet:Away:5.3": {
     "match": "cancun vs toluca",
@@ -6906,7 +6983,7 @@
     "checked_at": "2026-07-03 21:48 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sturt lions vs playford|3-way|Fortebet:Home:2.6|AbaBet:Draw:3.9|SportyBet:Away:17.5": {
     "match": "sturt lions vs playford",
@@ -6944,7 +7021,7 @@
     "checked_at": "2026-07-03 21:48 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|Fortebet:Home:4.75|ChampionBet:Draw:3.38|1xBet:Away:3.51": {
     "match": "canada vs morocco",
@@ -6982,7 +7059,7 @@
     "checked_at": "2026-07-03 21:48 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "armadale vs olympic kingsway|3-way|SportyBet:Home:8.6|AbaBet:Draw:7.0|Fortebet:Away:1.71": {
     "match": "armadale vs olympic kingsway",
@@ -7020,7 +7097,7 @@
     "checked_at": "2026-07-03 21:48 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|SportyBet:Home:1.16|1xBet:Draw:22.0|ChampionBet:Away:28.25": {
     "match": "argentina vs cape verde",
@@ -7058,7 +7135,7 @@
     "checked_at": "2026-07-03 21:48 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "skierniewice vs grodzisk m|3-way|AbaBet:Home:2.5|Fortebet:Draw:3.5|1xBet:Away:3.62": {
     "match": "skierniewice vs grodzisk m",
@@ -7096,7 +7173,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 21:48 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canberra white eagles vs tigers|3-way|SportyBet:Home:10.0|Fortebet:Draw:9.2|AbaBet:Away:1.3": {
     "match": "canberra white eagles vs tigers",
@@ -7134,7 +7211,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 21:48 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cancun vs toluca|3-way|1xBet:Home:7.37|AbaBet:Draw:4.75|22Bet:Away:4.95": {
     "match": "cancun vs toluca",
@@ -7172,7 +7249,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 20:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "metrostars vs west torrens|3-way|AbaBet:Home:5.0|Fortebet:Draw:4.15|SportyBet:Away:4.5": {
     "match": "metrostars vs west torrens",
@@ -7210,7 +7287,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 20:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sturt lions vs playford|3-way|AbaBet:Home:2.6|Fortebet:Draw:4.0|SportyBet:Away:17.5": {
     "match": "sturt lions vs playford",
@@ -7248,7 +7325,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 20:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:4.965|Fortebet:Draw:3.4|22Bet:Away:3.57": {
     "match": "canada vs morocco",
@@ -7286,7 +7363,7 @@
     "checked_at": "2026-07-03 20:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "jincheon vs siheung citizen|3-way|1xBet:Home:4.44|Fortebet:Draw:3.5|22Bet:Away:3.35": {
     "match": "jincheon vs siheung citizen",
@@ -7324,7 +7401,7 @@
     "checked_at": "2026-07-03 20:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "robina vs broadbeach|3-way|Fortebet:Home:3.1|AbaBet:Draw:4.5|SportyBet:Away:3.6": {
     "match": "robina vs broadbeach",
@@ -7362,7 +7439,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 20:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "milwaukee torrent vs michigan rangers|3-way|SportyBet:Home:2.75|AbaBet:Draw:3.75|1xBet:Away:4.05": {
     "match": "milwaukee torrent vs michigan rangers",
@@ -7400,7 +7477,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 20:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|1xBet:Home:1.479|22Bet:Draw:8.35|SportyBet:Away:9.02": {
     "match": "colombia vs ghana",
@@ -7438,7 +7515,7 @@
     "checked_at": "2026-07-03 20:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|Fortebet:Home:1.16|1xBet:Draw:24.0|ChampionBet:Away:26.25": {
     "match": "argentina vs cape verde",
@@ -7476,7 +7553,7 @@
     "checked_at": "2026-07-03 20:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "the cove vs adelaide victory|3-way|Fortebet:Home:2.5|AbaBet:Draw:4.0|SportyBet:Away:3.2": {
     "match": "the cove vs adelaide victory",
@@ -7514,7 +7591,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 20:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "richmond vs sarasota paradise|3-way|SportyBet:Home:2.7|AbaBet:Draw:3.5|1xBet:Away:3.24": {
     "match": "richmond vs sarasota paradise",
@@ -7552,7 +7629,7 @@
     "checked_at": "2026-07-03 20:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|1xBet:Home:5.01|Fortebet:Draw:3.4|22Bet:Away:3.555": {
     "match": "canada vs morocco",
@@ -7590,7 +7667,7 @@
     "checked_at": "2026-07-03 19:44 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|1xBet:Home:1.83|22Bet:Draw:8.35|Fortebet:Away:8.6": {
     "match": "colombia vs ghana",
@@ -7628,7 +7705,7 @@
     "checked_at": "2026-07-03 19:44 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|Fortebet:Home:1.17|1xBet:Draw:23.0|ChampionBet:Away:24.25": {
     "match": "argentina vs cape verde",
@@ -7666,7 +7743,7 @@
     "checked_at": "2026-07-03 19:44 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "denver summit w vs kansas w|3-way|SportyBet:Home:2.55|Fortebet:Draw:3.75|1xBet:Away:3.38": {
     "match": "denver summit w vs kansas w",
@@ -7704,7 +7781,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 19:44 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "richmond vs sarasota paradise|3-way|1xBet:Home:2.767|SportyBet:Draw:3.25|22Bet:Away:3.24": {
     "match": "richmond vs sarasota paradise",
@@ -7742,7 +7819,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 19:44 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "aegir vs fylkir|3-way|AbaBet:Home:6.5|Fortebet:Draw:5.3|1xBet:Away:4.95": {
     "match": "aegir vs fylkir",
@@ -7780,7 +7857,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 18:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|1xBet:Home:4.9|22Bet:Draw:2.936|Melbet:Away:13.0": {
     "match": "home vs away",
@@ -7818,7 +7895,7 @@
     "checked_at": "2026-07-03 18:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "carmarthen vs trefelin|3-way|1xBet:Home:5.38|Fortebet:Draw:4.9|22Bet:Away:4.25": {
     "match": "carmarthen vs trefelin",
@@ -7856,7 +7933,7 @@
     "checked_at": "2026-07-03 18:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kfg gardabaer vs selfoss|3-way|SportyBet:Home:4.4|Fortebet:Draw:4.55|1xBet:Away:4.7": {
     "match": "kfg gardabaer vs selfoss",
@@ -7894,7 +7971,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 18:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sligo rovers vs shamrock|3-way|1xBet:Home:5.35|Fortebet:Draw:4.15|22Bet:Away:4.1": {
     "match": "sligo rovers vs shamrock",
@@ -7932,7 +8009,7 @@
     "checked_at": "2026-07-03 18:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cobh ramblers vs cork|3-way|1xBet:Home:4.87|SportyBet:Draw:3.75|22Bet:Away:3.72": {
     "match": "cobh ramblers vs cork",
@@ -7970,7 +8047,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 18:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "grotta vs kopavogur|3-way|Fortebet:Home:3.6|SportyBet:Draw:4.25|1xBet:Away:4.1": {
     "match": "grotta vs kopavogur",
@@ -8008,7 +8085,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 18:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "canada vs morocco|3-way|Fortebet:Home:5.2|ChampionBet:Draw:3.38|1xBet:Away:3.555": {
     "match": "canada vs morocco",
@@ -8046,7 +8123,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 18:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "finn harps vs wexford|3-way|1xBet:Home:3.805|SportyBet:Draw:3.6|22Bet:Away:3.64": {
     "match": "finn harps vs wexford",
@@ -8084,7 +8161,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 18:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "river plate vs flamengo|3-way|1xBet:Home:4.085|SportyBet:Draw:3.6|22Bet:Away:3.4": {
     "match": "river plate vs flamengo",
@@ -8122,7 +8199,7 @@
     "checked_at": "2026-07-03 18:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hafnarfjordur vs stjarnan|3-way|1xBet:Home:2.681|SportyBet:Draw:4.0|22Bet:Away:4.05": {
     "match": "hafnarfjordur vs stjarnan",
@@ -8160,7 +8237,7 @@
     "checked_at": "2026-07-03 18:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|Fortebet:Home:1.47|1xBet:Draw:9.1|SportyBet:Away:8.88": {
     "match": "colombia vs ghana",
@@ -8198,7 +8275,7 @@
     "checked_at": "2026-07-03 18:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|Fortebet:Home:1.17|1xBet:Draw:22.0|SportyBet:Away:23.95": {
     "match": "argentina vs cape verde",
@@ -8236,7 +8313,7 @@
     "checked_at": "2026-07-03 18:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "derry ladies vs crusaders strikers|3-way|1xBet:Home:2.44|SportyBet:Draw:3.6|22Bet:Away:3.86": {
     "match": "derry ladies vs crusaders strikers",
@@ -8274,7 +8351,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 18:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "derry vs waterford|3-way|1xBet:Home:1.45|22Bet:Draw:6.35|AbaBet:Away:7.0": {
     "match": "derry vs waterford",
@@ -8312,7 +8389,7 @@
     "checked_at": "2026-07-03 18:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "dartford vs charlton|3-way|SportyBet:Home:8.9|Fortebet:Draw:5.2|1xBet:Away:5.1": {
     "match": "dartford vs charlton",
@@ -8350,7 +8427,7 @@
     "checked_at": "2026-07-03 16:50 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sligo rovers vs shamrock|3-way|1xBet:Home:5.35|Fortebet:Draw:4.15|22Bet:Away:4.05": {
     "match": "sligo rovers vs shamrock",
@@ -8388,7 +8465,7 @@
     "checked_at": "2026-07-03 16:50 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "dudingen vs prishtina bern|3-way|1xBet:Home:4.005|AbaBet:Draw:4.2|22Bet:Away:4.33": {
     "match": "dudingen vs prishtina bern",
@@ -8426,7 +8503,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 16:50 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "river plate vs flamengo|3-way|1xBet:Home:3.94|SportyBet:Draw:3.5|22Bet:Away:3.35": {
     "match": "river plate vs flamengo",
@@ -8464,7 +8541,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 16:50 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "kalsdorf vs mannsdorf|3-way|1xBet:Home:2.615|AbaBet:Draw:4.2|22Bet:Away:4.2": {
     "match": "kalsdorf vs mannsdorf",
@@ -8502,7 +8579,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 16:50 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hafnarfjordur vs stjarnan|3-way|1xBet:Home:2.662|SportyBet:Draw:4.0|22Bet:Away:4.05": {
     "match": "hafnarfjordur vs stjarnan",
@@ -8540,7 +8617,7 @@
     "checked_at": "2026-07-03 16:50 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "ranheim vs stabaek|3-way|AbaBet:Home:2.6|SportyBet:Draw:4.1|1xBet:Away:3.82": {
     "match": "ranheim vs stabaek",
@@ -8578,7 +8655,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 16:50 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|1xBet:Home:1.48|22Bet:Draw:8.65|Fortebet:Away:8.7": {
     "match": "colombia vs ghana",
@@ -8616,7 +8693,7 @@
     "checked_at": "2026-07-03 16:50 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "jedinstvo ub vs javor|3-way|1xBet:Home:3.145|AbaBet:Draw:3.7|22Bet:Away:3.1": {
     "match": "jedinstvo ub vs javor",
@@ -8654,7 +8731,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 16:50 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.76|ChampionBet:Draw:2.95|22Bet:Away:2.958": {
     "match": "australia vs egypt",
@@ -8692,7 +8769,7 @@
     "checked_at": "2026-07-03 16:50 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|Fortebet:Home:1.16|1xBet:Draw:21.0|SportyBet:Away:26.83": {
     "match": "argentina vs cape verde",
@@ -8730,7 +8807,7 @@
     "checked_at": "2026-07-03 16:50 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|Melbet:Home:1.95|1xBet:Draw:2.92|22Bet:Away:8.45": {
     "match": "home vs away",
@@ -8768,7 +8845,7 @@
     "checked_at": "2026-07-03 16:50 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "dartford vs charlton|3-way|AbaBet:Home:8.5|Fortebet:Draw:5.2|1xBet:Away:5.1": {
     "match": "dartford vs charlton",
@@ -8806,7 +8883,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 15:22 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "wiener vs floridsdorfer|3-way|AbaBet:Home:6.25|Fortebet:Draw:5.5|1xBet:Away:5.45": {
     "match": "wiener vs floridsdorfer",
@@ -8844,7 +8921,7 @@
     "checked_at": "2026-07-03 15:22 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "groene ster vs as eupen|3-way|1xBet:Home:4.745|AbaBet:Draw:4.5|22Bet:Away:4.4": {
     "match": "groene ster vs as eupen",
@@ -8882,7 +8959,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 15:22 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "carmarthen vs trefelin|3-way|AbaBet:Home:4.5|Fortebet:Draw:4.9|1xBet:Away:4.25": {
     "match": "carmarthen vs trefelin",
@@ -8920,7 +8997,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 15:22 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "deutschlandsberger vs kapfenberg|3-way|1xBet:Home:4.11|AbaBet:Draw:4.5|22Bet:Away:4.15": {
     "match": "deutschlandsberger vs kapfenberg",
@@ -8958,7 +9035,7 @@
     "checked_at": "2026-07-03 15:22 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hafnarfjordur vs stjarnan|3-way|1xBet:Home:2.61|Fortebet:Draw:3.85|22Bet:Away:4.05": {
     "match": "hafnarfjordur vs stjarnan",
@@ -8996,7 +9073,7 @@
     "checked_at": "2026-07-03 15:22 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|1xBet:Home:1.48|22Bet:Draw:8.9|Fortebet:Away:9.0": {
     "match": "colombia vs ghana",
@@ -9034,7 +9111,7 @@
     "checked_at": "2026-07-03 15:22 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|Fortebet:Home:1.17|1xBet:Draw:21.0|ChampionBet:Away:24.25": {
     "match": "argentina vs cape verde",
@@ -9072,7 +9149,7 @@
     "checked_at": "2026-07-03 15:22 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.74|ChampionBet:Draw:2.95|22Bet:Away:2.957": {
     "match": "australia vs egypt",
@@ -9110,7 +9187,7 @@
     "checked_at": "2026-07-03 15:22 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|Melbet:Home:2.0|1xBet:Draw:2.921|22Bet:Away:8.45": {
     "match": "home vs away",
@@ -9148,7 +9225,7 @@
     "checked_at": "2026-07-03 15:22 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "wiener vs floridsdorfer|3-way|AbaBet:Home:6.0|Fortebet:Draw:5.6|1xBet:Away:5.5": {
     "match": "wiener vs floridsdorfer",
@@ -9186,7 +9263,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sturm graz ii vs honved|3-way|AbaBet:Home:6.5|Fortebet:Draw:4.95|1xBet:Away:5.1": {
     "match": "sturm graz ii vs honved",
@@ -9224,7 +9301,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "deutschlandsberger vs kapfenberg|3-way|Fortebet:Home:3.85|AbaBet:Draw:4.5|1xBet:Away:4.15": {
     "match": "deutschlandsberger vs kapfenberg",
@@ -9262,7 +9339,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "biel vs yverdon|3-way|1xBet:Home:3.645|SportyBet:Draw:3.9|22Bet:Away:3.64": {
     "match": "biel vs yverdon",
@@ -9300,7 +9377,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|Fortebet:Home:1.46|1xBet:Draw:9.7|SportyBet:Away:9.18": {
     "match": "colombia vs ghana",
@@ -9338,7 +9415,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hafnarfjordur vs stjarnan|3-way|1xBet:Home:2.54|Fortebet:Draw:3.85|22Bet:Away:3.98": {
     "match": "hafnarfjordur vs stjarnan",
@@ -9376,7 +9453,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|Fortebet:Home:1.16|1xBet:Draw:26.0|SportyBet:Away:25.0": {
     "match": "argentina vs cape verde",
@@ -9414,7 +9491,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.76|ChampionBet:Draw:2.94|22Bet:Away:2.952": {
     "match": "australia vs egypt",
@@ -9452,7 +9529,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|Melbet:Home:2.05|1xBet:Draw:2.936|22Bet:Away:8.45": {
     "match": "home vs away",
@@ -9490,7 +9567,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cracovia vs ae pafos|3-way|1xBet:Home:2.787|AbaBet:Draw:3.4|22Bet:Away:3.35": {
     "match": "cracovia vs ae pafos",
@@ -9528,7 +9605,7 @@
     "checked_at": "2026-07-03 13:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "derry vs waterford|3-way|SportyBet:Home:1.45|1xBet:Draw:6.35|AbaBet:Away:7.0": {
     "match": "derry vs waterford",
@@ -9566,7 +9643,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 13:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "wiener vs floridsdorfer|3-way|AbaBet:Home:6.0|Fortebet:Draw:5.6|1xBet:Away:5.4": {
     "match": "wiener vs floridsdorfer",
@@ -9604,7 +9681,7 @@
     "checked_at": "2026-07-03 11:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sk sturm graz ii vs budapest honved|3-way|1xBet:Home:6.28|SportyBet:Draw:4.75|22Bet:Away:5.3": {
     "match": "sk sturm graz ii vs budapest honved",
@@ -9642,7 +9719,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 11:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "naftan novopolotsk vs brest|3-way|1xBet:Home:7.75|SportyBet:Draw:4.5|22Bet:Away:4.55": {
     "match": "naftan novopolotsk vs brest",
@@ -9680,7 +9757,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 11:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sligo rovers vs shamrock|3-way|1xBet:Home:5.3|Fortebet:Draw:4.15|22Bet:Away:4.0": {
     "match": "sligo rovers vs shamrock",
@@ -9718,7 +9795,7 @@
     "checked_at": "2026-07-03 11:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "deutschlandsberger vs kapfenberg|3-way|Fortebet:Home:4.05|AbaBet:Draw:4.5|1xBet:Away:4.3": {
     "match": "deutschlandsberger vs kapfenberg",
@@ -9756,7 +9833,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 11:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "biel vs yverdon|3-way|1xBet:Home:3.665|SportyBet:Draw:3.9|22Bet:Away:3.74": {
     "match": "biel vs yverdon",
@@ -9794,7 +9871,7 @@
     "checked_at": "2026-07-03 11:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sonderjyske vs viking fk|3-way|1xBet:Home:3.305|SportyBet:Draw:3.8|22Bet:Away:4.0": {
     "match": "sonderjyske vs viking fk",
@@ -9832,7 +9909,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 11:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hafnarfjordur vs stjarnan|3-way|1xBet:Home:2.53|Fortebet:Draw:3.9|22Bet:Away:4.05": {
     "match": "hafnarfjordur vs stjarnan",
@@ -9870,7 +9947,7 @@
     "checked_at": "2026-07-03 11:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|1xBet:Home:1.465|22Bet:Draw:9.55|Fortebet:Away:8.8": {
     "match": "colombia vs ghana",
@@ -9908,7 +9985,7 @@
     "checked_at": "2026-07-03 11:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cracovia vs ae pafos|3-way|1xBet:Home:2.754|AbaBet:Draw:3.5|22Bet:Away:3.48": {
     "match": "cracovia vs ae pafos",
@@ -9946,7 +10023,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 11:05 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|Fortebet:Home:1.16|1xBet:Draw:26.0|ChampionBet:Away:24.25": {
     "match": "argentina vs cape verde",
@@ -9984,7 +10061,7 @@
     "checked_at": "2026-07-03 11:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.715|SportyBet:Draw:2.93|22Bet:Away:3.01": {
     "match": "australia vs egypt",
@@ -10022,7 +10099,7 @@
     "checked_at": "2026-07-03 11:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|Melbet:Home:2.03|1xBet:Draw:2.781|22Bet:Away:8.3": {
     "match": "home vs away",
@@ -10060,7 +10137,7 @@
     "checked_at": "2026-07-03 11:05 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sturm graz ii vs honved|3-way|1xBet:Home:6.52|Fortebet:Draw:5.4|22Bet:Away:5.75": {
     "match": "sturm graz ii vs honved",
@@ -10098,7 +10175,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "wiener vs floridsdorfer|3-way|Fortebet:Home:4.7|AbaBet:Draw:5.25|1xBet:Away:5.5": {
     "match": "wiener vs floridsdorfer",
@@ -10136,7 +10213,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 08:21 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "brunswick juventus vs brunswick|3-way|SportyBet:Home:3.0|AbaBet:Draw:4.33|Fortebet:Away:4.25": {
     "match": "brunswick juventus vs brunswick",
@@ -10174,7 +10251,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|SportyBet:Home:1.67|1xBet:Draw:9.5|Fortebet:Away:8.8": {
     "match": "colombia vs ghana",
@@ -10212,7 +10289,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "biel vs yverdon|3-way|AbaBet:Home:3.4|Fortebet:Draw:3.85|1xBet:Away:3.74": {
     "match": "biel vs yverdon",
@@ -10250,7 +10327,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 08:21 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sonderjyske vs viking|3-way|1xBet:Home:3.275|AbaBet:Draw:3.6|22Bet:Away:3.95": {
     "match": "sonderjyske vs viking",
@@ -10288,7 +10365,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "vejle vs randers|3-way|1xBet:Home:3.26|AbaBet:Draw:3.75|22Bet:Away:3.52": {
     "match": "vejle vs randers",
@@ -10326,7 +10403,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.715|SportyBet:Draw:3.36|22Bet:Away:3.01": {
     "match": "australia vs egypt",
@@ -10364,7 +10441,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|SportyBet:Home:1.21|1xBet:Draw:26.0|Fortebet:Away:21.0": {
     "match": "argentina vs cape verde",
@@ -10402,7 +10479,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hafnarfjordur vs stjarnan|3-way|1xBet:Home:2.31|Fortebet:Draw:3.85|22Bet:Away:3.95": {
     "match": "hafnarfjordur vs stjarnan",
@@ -10440,7 +10517,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 08:21 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "trencin vs zlin|3-way|1xBet:Home:2.49|Fortebet:Draw:3.7|22Bet:Away:3.58": {
     "match": "trencin vs zlin",
@@ -10478,7 +10555,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "wolfsberger vs admira|3-way|AbaBet:Home:1.42|1xBet:Draw:8.35|Fortebet:Away:6.9": {
     "match": "wolfsberger vs admira",
@@ -10516,7 +10593,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 08:21 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "caboolture vs wanderers|3-way|SportyBet:Home:3.33|AbaBet:Draw:4.2|Fortebet:Away:2.31": {
     "match": "caboolture vs wanderers",
@@ -10554,7 +10631,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "home vs away|3-way|Melbet:Home:2.0|1xBet:Draw:2.785|22Bet:Away:8.3": {
     "match": "home vs away",
@@ -10592,7 +10669,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 08:21 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "northcote vs melbourne srbija|3-way|Fortebet:Home:1.6|AbaBet:Draw:6.0|SportyBet:Away:5.3": {
     "match": "northcote vs melbourne srbija",
@@ -10630,7 +10707,7 @@
     "checked_at": "2026-07-03 08:21 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sturm graz ii vs honved|3-way|1xBet:Home:5.4|AbaBet:Draw:4.1|22Bet:Away:4.85": {
     "match": "sturm graz ii vs honved",
@@ -10668,7 +10745,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 05:03 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "brunswick juventus vs brunswick|3-way|AbaBet:Home:3.0|Fortebet:Draw:4.15|SportyBet:Away:4.25": {
     "match": "brunswick juventus vs brunswick",
@@ -10706,7 +10783,7 @@
     "checked_at": "2026-07-03 05:03 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|SportyBet:Home:1.67|1xBet:Draw:9.7|Fortebet:Away:8.6": {
     "match": "colombia vs ghana",
@@ -10744,7 +10821,7 @@
     "checked_at": "2026-07-03 05:03 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sonderjyske vs viking|3-way|1xBet:Home:3.275|AbaBet:Draw:3.7|22Bet:Away:3.95": {
     "match": "sonderjyske vs viking",
@@ -10782,7 +10859,7 @@
     "checked_at": "2026-07-03 05:03 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.635|SportyBet:Draw:3.36|22Bet:Away:3.05": {
     "match": "australia vs egypt",
@@ -10820,7 +10897,7 @@
     "checked_at": "2026-07-03 05:03 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|SportyBet:Home:1.21|1xBet:Draw:25.0|Fortebet:Away:21.0": {
     "match": "argentina vs cape verde",
@@ -10858,7 +10935,7 @@
     "checked_at": "2026-07-03 05:03 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "trencin vs zlin|3-way|1xBet:Home:2.66|Fortebet:Draw:3.75|22Bet:Away:3.64": {
     "match": "trencin vs zlin",
@@ -10896,7 +10973,7 @@
     "checked_at": "2026-07-03 05:03 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "yunnan yukun vs henan|3-way|SportyBet:Home:3.14|Fortebet:Draw:3.6|AbaBet:Away:2.7": {
     "match": "yunnan yukun vs henan",
@@ -10934,7 +11011,7 @@
     "checked_at": "2026-07-03 05:03 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "northcote vs melbourne srbija|3-way|Fortebet:Home:1.6|AbaBet:Draw:5.5|SportyBet:Away:5.6": {
     "match": "northcote vs melbourne srbija",
@@ -10972,7 +11049,7 @@
     "checked_at": "2026-07-03 05:03 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "brunswick juventus vs brunswick|3-way|1xBet:Home:3.23|AbaBet:Draw:4.33|SportyBet:Away:4.25": {
     "match": "brunswick juventus vs brunswick",
@@ -11010,7 +11087,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "shijiazhuang u20 vs lanzhou longyuan athletic u20|3-way|1xBet:Home:3.36|AbaBet:Draw:4.0|22Bet:Away:3.68": {
     "match": "shijiazhuang u20 vs lanzhou longyuan athletic u20",
@@ -11048,7 +11125,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sonderjyske vs viking|3-way|1xBet:Home:3.295|AbaBet:Draw:3.7|22Bet:Away:3.98": {
     "match": "sonderjyske vs viking",
@@ -11086,7 +11163,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 01:19 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "vejle bk vs randers|3-way|1xBet:Home:3.26|AbaBet:Draw:3.75|22Bet:Away:3.52": {
     "match": "vejle bk vs randers",
@@ -11124,7 +11201,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 01:19 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "prospect vs hakoah sydney east|3-way|SportyBet:Home:2.95|AbaBet:Draw:3.8|1xBet:Away:3.62": {
     "match": "prospect vs hakoah sydney east",
@@ -11162,7 +11239,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hurstville vs canterbury bankstown berries|3-way|SportyBet:Home:2.55|AbaBet:Draw:4.0|1xBet:Away:4.05": {
     "match": "hurstville vs canterbury bankstown berries",
@@ -11200,7 +11277,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "ipswich vs holland park|3-way|AbaBet:Home:1.73|1xBet:Draw:7.55|SportyBet:Away:5.5": {
     "match": "ipswich vs holland park",
@@ -11238,7 +11315,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|SportyBet:Home:1.21|1xBet:Draw:25.0|ChampionBet:Away:22.0": {
     "match": "argentina vs cape verde",
@@ -11276,7 +11353,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.44|SportyBet:Draw:3.36|22Bet:Away:3.04": {
     "match": "australia vs egypt",
@@ -11314,7 +11391,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "switzerland vs algeria|3-way|SportyBet:Home:2.05|1xBet:Draw:4.38|22Bet:Away:4.67": {
     "match": "switzerland vs algeria",
@@ -11352,7 +11429,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "northcote vs melbourne srbija|3-way|Fortebet:Home:1.6|1xBet:Draw:7.38|SportyBet:Away:5.6": {
     "match": "northcote vs melbourne srbija",
@@ -11390,7 +11467,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "colombia vs ghana|3-way|SportyBet:Home:1.67|Fortebet:Draw:4.2|ChampionBet:Away:8.95": {
     "match": "colombia vs ghana",
@@ -11428,7 +11505,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-03 01:19 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cooks hill vs valentine|3-way|Fortebet:Home:2.15|AbaBet:Draw:4.0|1xBet:Away:3.84": {
     "match": "cooks hill vs valentine",
@@ -11466,7 +11543,7 @@
     "checked_at": "2026-07-03 01:19 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "brunswick juventus vs brunswick|3-way|1xBet:Home:3.25|AbaBet:Draw:4.33|SportyBet:Away:4.25": {
     "match": "brunswick juventus vs brunswick",
@@ -11504,7 +11581,7 @@
     "checked_at": "2026-07-02 23:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "shijiazhuang u20 vs lanzhou longyuan athletic u20|3-way|1xBet:Home:3.325|AbaBet:Draw:4.0|22Bet:Away:3.48": {
     "match": "shijiazhuang u20 vs lanzhou longyuan athletic u20",
@@ -11542,7 +11619,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 23:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "vejle vs randers|3-way|1xBet:Home:3.315|AbaBet:Draw:3.7|22Bet:Away:3.42": {
     "match": "vejle vs randers",
@@ -11580,7 +11657,7 @@
     "checked_at": "2026-07-02 23:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "hurstville vs canterbury bankstown berries|3-way|SportyBet:Home:2.6|AbaBet:Draw:4.0|1xBet:Away:4.05": {
     "match": "hurstville vs canterbury bankstown berries",
@@ -11618,7 +11695,7 @@
     "checked_at": "2026-07-02 23:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "trencin vs zlin|3-way|1xBet:Home:2.69|Fortebet:Draw:3.75|22Bet:Away:3.64": {
     "match": "trencin vs zlin",
@@ -11656,7 +11733,7 @@
     "checked_at": "2026-07-02 23:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "switzerland vs algeria|3-way|SportyBet:Home:2.05|22Bet:Draw:4.375|1xBet:Away:4.67": {
     "match": "switzerland vs algeria",
@@ -11694,7 +11771,7 @@
     "checked_at": "2026-07-02 23:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "argentina vs cape verde|3-way|1xBet:Home:1.173|22Bet:Draw:23.0|Fortebet:Away:21.0": {
     "match": "argentina vs cape verde",
@@ -11732,7 +11809,7 @@
     "checked_at": "2026-07-02 23:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cd ohiggins vs colocolo|3-way|1xBet:Home:2.712|SportyBet:Draw:3.5|22Bet:Away:3.44": {
     "match": "cd ohiggins vs colocolo",
@@ -11770,7 +11847,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 23:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "fortaleza vs ponte preta|3-way|AbaBet:Home:1.3|1xBet:Draw:10.6|Fortebet:Away:11.0": {
     "match": "fortaleza vs ponte preta",
@@ -11808,7 +11885,7 @@
     "checked_at": "2026-07-02 23:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cooks hill vs valentine|3-way|Fortebet:Home:2.24|AbaBet:Draw:4.0|1xBet:Away:3.84": {
     "match": "cooks hill vs valentine",
@@ -11846,7 +11923,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 23:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.41|SportyBet:Draw:2.96|22Bet:Away:3.045": {
     "match": "australia vs egypt",
@@ -11884,7 +11961,7 @@
     "checked_at": "2026-07-02 23:45 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "sporting connecticut w vs connecticut rush w|3-way|1xBet:Home:2.27|AbaBet:Draw:3.6|22Bet:Away:3.76": {
     "match": "sporting connecticut w vs connecticut rush w",
@@ -11922,7 +11999,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 23:45 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "vejle vs randers|3-way|1xBet:Home:3.315|AbaBet:Draw:3.8|22Bet:Away:3.42": {
     "match": "vejle vs randers",
@@ -11960,7 +12037,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 22:42 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "trencin vs zlin|3-way|1xBet:Home:2.7|Fortebet:Draw:3.75|22Bet:Away:3.64": {
     "match": "trencin vs zlin",
@@ -11998,7 +12075,7 @@
     "checked_at": "2026-07-02 22:42 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "portugal vs croatia|3-way|1xBet:Home:1.747|22Bet:Draw:5.65|Fortebet:Away:5.5": {
     "match": "portugal vs croatia",
@@ -12036,7 +12113,7 @@
     "checked_at": "2026-07-02 22:42 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "switzerland vs algeria|3-way|1xBet:Home:2.049|22Bet:Draw:4.34|Fortebet:Away:4.4": {
     "match": "switzerland vs algeria",
@@ -12074,7 +12151,7 @@
     "checked_at": "2026-07-02 22:42 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cuiaba vs america mg|3-way|1xBet:Home:1.81|22Bet:Draw:4.94|AbaBet:Away:5.0": {
     "match": "cuiaba vs america mg",
@@ -12112,7 +12189,7 @@
     "checked_at": "2026-07-02 22:42 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "fortaleza vs ponte preta|3-way|AbaBet:Home:1.3|1xBet:Draw:9.85|Fortebet:Away:11.0": {
     "match": "fortaleza vs ponte preta",
@@ -12150,7 +12227,7 @@
     "checked_at": "2026-07-02 22:42 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "australia vs egypt|3-way|1xBet:Home:3.41|Fortebet:Draw:2.93|22Bet:Away:3.045": {
     "match": "australia vs egypt",
@@ -12188,7 +12265,7 @@
     "checked_at": "2026-07-02 22:42 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cedar stars usl 2 vs long island rough riders|3-way|1xBet:Home:4.91|AbaBet:Draw:4.2|22Bet:Away:4.1": {
     "match": "cedar stars usl 2 vs long island rough riders",
@@ -12226,7 +12303,7 @@
     "checked_at": "2026-07-02 21:32 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "rochester vs chicago dutch lions|3-way|1xBet:Home:3.29|SportyBet:Draw:4.0|22Bet:Away:4.3": {
     "match": "rochester vs chicago dutch lions",
@@ -12264,7 +12341,7 @@
     "checked_at": "2026-07-02 21:32 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "trencin vs zlin|3-way|AbaBet:Home:3.2|Fortebet:Draw:3.45|1xBet:Away:3.66": {
     "match": "trencin vs zlin",
@@ -12302,7 +12379,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 21:32 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "portugal vs croatia|3-way|1xBet:Home:1.746|22Bet:Draw:5.66|SportyBet:Away:5.45": {
     "match": "portugal vs croatia",
@@ -12340,7 +12417,7 @@
     "checked_at": "2026-07-02 21:32 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "switzerland vs algeria|3-way|SportyBet:Home:2.01|22Bet:Draw:4.395|1xBet:Away:4.67": {
     "match": "switzerland vs algeria",
@@ -12378,7 +12455,7 @@
     "checked_at": "2026-07-02 21:32 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "fortaleza vs ponte preta|3-way|SportyBet:Home:1.31|1xBet:Draw:9.55|Fortebet:Away:11.0": {
     "match": "fortaleza vs ponte preta",
@@ -12416,7 +12493,7 @@
     "checked_at": "2026-07-02 21:32 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "caboolture vs wanderers|3-way|SportyBet:Home:3.33|AbaBet:Draw:4.2|Fortebet:Away:2.37": {
     "match": "caboolture vs wanderers",
@@ -12454,7 +12531,7 @@
     "checked_at": "2026-07-02 21:32 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cuiaba vs america mg|3-way|SportyBet:Home:1.85|1xBet:Draw:4.645|Fortebet:Away:4.85": {
     "match": "cuiaba vs america mg",
@@ -12492,7 +12569,7 @@
     "checked_at": "2026-07-02 21:32 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "rochester vs chicago dutch lions|3-way|1xBet:Home:3.29|SportyBet:Draw:4.0|22Bet:Away:4.2": {
     "match": "rochester vs chicago dutch lions",
@@ -12530,7 +12607,7 @@
     "checked_at": "2026-07-02 20:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "portugal vs croatia|3-way|1xBet:Home:1.717|22Bet:Draw:5.8|Fortebet:Away:5.6": {
     "match": "portugal vs croatia",
@@ -12568,7 +12645,7 @@
     "checked_at": "2026-07-02 20:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "switzerland vs algeria|3-way|SportyBet:Home:2.01|22Bet:Draw:4.45|1xBet:Away:4.67": {
     "match": "switzerland vs algeria",
@@ -12606,7 +12683,7 @@
     "checked_at": "2026-07-02 20:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cuiaba vs america mg|3-way|SportyBet:Home:1.85|1xBet:Draw:4.69|Fortebet:Away:4.85": {
     "match": "cuiaba vs america mg",
@@ -12644,7 +12721,7 @@
     "checked_at": "2026-07-02 20:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "northcote vs melbourne srbija|3-way|Fortebet:Home:1.65|AbaBet:Draw:5.5|SportyBet:Away:5.8": {
     "match": "northcote vs melbourne srbija",
@@ -12682,7 +12759,7 @@
     "checked_at": "2026-07-02 20:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cumbaya vs 22 de julio|3-way|SportyBet:Home:1.42|1xBet:Draw:7.95|AbaBet:Away:6.25": {
     "match": "cumbaya vs 22 de julio",
@@ -12720,7 +12797,7 @@
     "checked_at": "2026-07-02 20:11 UTC",
     "changed": false,
     "note": "No longer present",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "rochester vs chicago dutch lions|3-way|1xBet:Home:3.33|AbaBet:Draw:4.1|22Bet:Away:4.2": {
     "match": "rochester vs chicago dutch lions",
@@ -12758,7 +12835,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 19:36 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "switzerland vs algeria|3-way|SportyBet:Home:2.01|22Bet:Draw:4.435|1xBet:Away:4.67": {
     "match": "switzerland vs algeria",
@@ -12796,7 +12873,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 19:36 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "portugal vs croatia|3-way|SportyBet:Home:1.71|1xBet:Draw:5.6|Fortebet:Away:5.6": {
     "match": "portugal vs croatia",
@@ -12834,7 +12911,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 19:36 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cuiaba vs america mg|3-way|SportyBet:Home:1.85|1xBet:Draw:4.69|AbaBet:Away:5.0": {
     "match": "cuiaba vs america mg",
@@ -12872,7 +12949,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 19:36 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "fortaleza vs ponte preta|3-way|SportyBet:Home:1.31|1xBet:Draw:9.45|Fortebet:Away:11.0": {
     "match": "fortaleza vs ponte preta",
@@ -12910,7 +12987,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 19:36 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "birmingham vs detroit|3-way|SportyBet:Home:2.7|Fortebet:Draw:3.3|1xBet:Away:3.25": {
     "match": "birmingham vs detroit",
@@ -12948,7 +13025,7 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 19:36 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   },
   "cumbaya vs 22 de julio|3-way|1xBet:Home:1.42|22Bet:Draw:7.44|SportyBet:Away:6.8": {
     "match": "cumbaya vs 22 de julio",
@@ -12986,6 +13063,6 @@
     "prev_status": "new",
     "note": "No longer present",
     "checked_at": "2026-07-02 19:36 UTC",
-    "invalid_at": "2026-07-04 14:35 UTC"
+    "invalid_at": "2026-07-04 14:37 UTC"
   }
 }
