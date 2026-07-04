@@ -18,7 +18,7 @@ import json
 import os
 import re
 import urllib.request
-from datetime import datetime, timezone  # timezone kept
+from datetime import datetime, timezone
 
 import requests
 from bs4 import BeautifulSoup
@@ -35,7 +35,7 @@ def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"s+", " ", name).strip()
+    name = re.sub(r"\s+", " ", name)  # FIXED: proper whitespace collapse
     return name
 
 
@@ -351,14 +351,15 @@ def scrape_betpawa():
                         try:
                             text = link.inner_text()
 
-                            # skip anything that looks live (status text or elapsed-time clock)
-                            if "LIVE" in text.upper() or re.search(r"\bd{1,3}:d{2}\b", text):
+                            # FIXED: proper live time regex
+                            if "LIVE" in text.upper() or re.search(r"\b\d{1,3}:\d{2}\b", text):
                                 continue
 
                             parts = [p.strip() for p in text.split("\n") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
-                                if re.match(r"^d+.d+$", part):
+                                # FIXED: proper decimal odd regex
+                                if re.match(r"^\d+\.\d+$", part):
                                     odd_values.append(float(part))
                                 elif len(part) > 2 and not any(
                                     x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
@@ -408,6 +409,9 @@ def scrape_fortebet():
             data = json.loads(resp.read().decode())
         inner = data.get("data", {})
         events = inner.get("event", {})
+        # DEBUG: sample event structure
+        first_event = next(iter(events.values()), None)
+        print(f"FORTEBET SAMPLE: {first_event}")
         markets = inner.get("markets", {})
         competitors = inner.get("competitors", {})
         event_markets = {}
@@ -458,6 +462,8 @@ def scrape_sportybet():
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         if isinstance(data, list):
+            # DEBUG: sample record
+            print(f"SPORTYBET SAMPLE: {data[0] if data else 'none'}")
             for event in data:
                 try:
                     status = (event.get("status") or event.get("state") or "").upper()
@@ -507,7 +513,9 @@ def scrape_1xbet():
                 data = json.loads(raw.decode("utf-8"))
             except Exception:
                 data = json.loads(raw.decode("utf-8-sig"))
-        for match in data.get("Value", []) if isinstance(data, dict) else []:
+        vals = data.get("Value", []) if isinstance(data, dict) else []
+        print(f"1XBET SAMPLE: {vals[0] if vals else 'none'}")
+        for match in vals:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
@@ -552,7 +560,9 @@ def scrape_22bet():
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode("utf-8-sig"))
-        for match in data.get("Value", []) if isinstance(data, dict) else []:
+        vals = data.get("Value", []) if isinstance(data, dict) else []
+        print(f"22BET SAMPLE: {vals[0] if vals else 'none'}")
+        for match in vals:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
@@ -908,3 +918,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
