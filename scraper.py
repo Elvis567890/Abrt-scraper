@@ -9,7 +9,6 @@ def _ensure_dependencies():
             missing.append(mod)
     if missing:
         import subprocess, sys
-        # Install missing modules; errors will still surface if install fails.
         subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
 
 _ensure_dependencies()
@@ -19,7 +18,7 @@ import json
 import os
 import re
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone  # NEW: timezone
 
 import requests
 from bs4 import BeautifulSoup
@@ -92,6 +91,28 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
     }
 
 
+# ----------- NEW: generic helpers for status / date filtering -----------
+
+FINISHED_STATUSES = {"FINISHED", "FULL_TIME", "FT", "ENDED", "CANCELLED", "CANCELED", "POSTPONED", "SUSPENDED", "ABANDONED"}
+
+
+def is_finished_status(value):
+    if not value:
+        return False
+    v = str(value).upper()
+    return any(x in v for x in FINISHED_STATUSES)
+
+
+def is_today_utc(dt):
+    if not isinstance(dt, datetime):
+        return True  # if we don't know, don't filter it out
+    today = datetime.now(timezone.utc).date()
+    return dt.astimezone(timezone.utc).date() == today
+
+
+# ------------------------------------------------------------------------
+
+
 def championbet_extract_1x2(match):
     bet_map = match.get("betMap", {}) or {}
 
@@ -133,6 +154,22 @@ def scrape_championbet():
                 )
                 if "soccer" not in sport_token.lower() and "football" not in sport_token.lower():
                     continue
+
+                # NEW: basic status / date check (keys may need adjustment)
+                status = (m.get("status") or m.get("matchStatus") or "").upper()
+                if is_finished_status(status):
+                    continue
+
+                start_raw = m.get("startTime") or m.get("startDate")
+                if start_raw:
+                    try:
+                        # Try ISO-like format; adjust if ChampionBet uses something else
+                        dt = datetime.fromisoformat(str(start_raw).replace("Z", "+00:00"))
+                        if not is_today_utc(dt):
+                            continue
+                    except Exception:
+                        pass
+
                 home_team = m.get("home") or m.get("homeTeam") or m.get("home_team") or m.get("team1") or ""
                 away_team = m.get("away") or m.get("awayTeam") or m.get("away_team") or m.get("team2") or ""
                 if not home_team or not away_team:
@@ -168,6 +205,11 @@ def scrape_betika():
         matches = data.get("data", []) if isinstance(data, dict) else []
         for m in matches:
             try:
+                # NEW: generic status filter if Betika provides it
+                status = (m.get("match_status") or m.get("status") or "").upper()
+                if is_finished_status(status):
+                    continue
+
                 home_team = m.get("home_team", "")
                 away_team = m.get("away_team", "")
                 if not home_team or not away_team:
@@ -219,6 +261,12 @@ def scrape_ababet():
                 row = dict(zip(headers, cells[: len(headers)]))
                 home_team = row.get("Home")
                 away_team = row.get("Away")
+
+                # NEW: very basic guard for finished markers in the row
+                status_cell = (row.get("Status") or row.get("Score") or "").upper()
+                if is_finished_status(status_cell):
+                    continue
+
                 if home_team and away_team and home_team != "-" and away_team != "-":
                     odds.append(
                         build_match_record(
@@ -322,6 +370,11 @@ def scrape_fortebet():
             event_markets.setdefault(eid, []).append(market)
         for eid, event in events.items():
             try:
+                # NEW: generic status filter if present
+                status = (event.get("status") or event.get("eventStatus") or "").upper()
+                if is_finished_status(status):
+                    continue
+
                 comp_ids = event.get("competitors", [])
                 if len(comp_ids) < 2:
                     continue
@@ -362,6 +415,11 @@ def scrape_sportybet():
         if isinstance(data, list):
             for event in data:
                 try:
+                    # NEW: generic status filter if provided by your Replit API
+                    status = (event.get("status") or event.get("state") or "").upper()
+                    if is_finished_status(status):
+                        continue
+
                     home = event.get("home_team", "")
                     away = event.get("away_team", "")
                     h = clean_odd(event.get("home"))
@@ -407,6 +465,11 @@ def scrape_1xbet():
                 data = json.loads(raw.decode("utf-8-sig"))
         for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
+                # NEW: status/period filter if 1xBet exposes it (adapt keys as needed)
+                status = (match.get("SC") or match.get("STAT") or "").upper()
+                if is_finished_status(status):
+                    continue
+
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team:
@@ -448,6 +511,10 @@ def scrape_22bet():
             data = json.loads(resp.read().decode("utf-8-sig"))
         for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
+                status = (match.get("SC") or match.get("STAT") or "").upper()
+                if is_finished_status(status):
+                    continue
+
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team:
@@ -490,6 +557,10 @@ def scrape_melbet():
             data = json.loads(resp.read().decode("utf-8-sig"))
         for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
+                status = (match.get("SC") or match.get("STAT") or "").upper()
+                if is_finished_status(status):
+                    continue
+
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team:
@@ -534,7 +605,7 @@ def find_arbitrage(all_odds):
                 continue
             group = list(exact_groups[key1])
             processed.add(key1)
-            for key2 in keys[i + 1 :]:
+            for key2 in keys[i + 1:]:
                 if key2 in processed:
                     continue
                 if match_key_similarity(key1, key2):
@@ -794,5 +865,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
