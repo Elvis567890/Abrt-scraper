@@ -18,7 +18,7 @@ import json
 import os
 import re
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timezone  # timezone kept
 
 import requests
 from bs4 import BeautifulSoup
@@ -28,16 +28,14 @@ SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
 HISTORY_FILE = "arbitrage_history.json"
-FRESHNESS_FILE = "odds_freshness.json"
 STAKE = 100000
-STALE_ODDS_HOURS = 3
 
 
 def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"\s+", " ", name)
+    name = re.sub(r"s+", " ", name).strip()
     return name
 
 
@@ -93,6 +91,8 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
     }
 
 
+# ----------- generic helpers for status / date / live filtering -----------
+
 FINISHED_STATUSES = {
     "FINISHED",
     "FULL_TIME",
@@ -132,6 +132,7 @@ def is_live_status(value):
 
 
 def has_live_score_fields(m):
+    """Generic guard: if the raw record carries score-like fields, treat as live/in-play."""
     if not isinstance(m, dict):
         return False
     for key in ("SC", "S1", "S2", "CS", "score", "current_score", "live_score", "SetScore"):
@@ -143,86 +144,12 @@ def has_live_score_fields(m):
 
 def is_today_utc(dt):
     if not isinstance(dt, datetime):
-        return True
+        return True  # if we don't know, don't filter it out
     today = datetime.now(timezone.utc).date()
     return dt.astimezone(timezone.utc).date() == today
 
 
-def load_history():
-    if os.path.exists(HISTORY_FILE):
-        try:
-            with open(HISTORY_FILE, "r") as f:
-                return json.load(f)
-        except Exception:
-            return {}
-    return {}
-
-
-def save_history(history):
-    with open(HISTORY_FILE, "w") as f:
-        json.dump(history, f, indent=2)
-
-
-def load_freshness():
-    if os.path.exists(FRESHNESS_FILE):
-        try:
-            with open(FRESHNESS_FILE, "r") as f:
-                return json.load(f)
-        except Exception:
-            return {}
-    return {}
-
-
-def save_freshness(freshness):
-    with open(FRESHNESS_FILE, "w") as f:
-        json.dump(freshness, f, indent=2)
-
-
-def filter_stale_odds(all_odds):
-    previous = load_freshness()
-    new_freshness = {}
-    fresh_odds = []
-    now = datetime.now(timezone.utc)
-
-    for o in all_odds:
-        key = f"{o.get('bookmaker')}|{o.get('match_key')}"
-        snapshot = {
-            "home": o.get("home"),
-            "draw": o.get("draw"),
-            "away": o.get("away"),
-        }
-
-        old = previous.get(key)
-        if not old:
-            since_str = now.strftime("%Y-%m-%d %H:%M UTC")
-            o["since"] = since_str
-            new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds.append(o)
-            continue
-
-        old_snapshot = old.get("snapshot", {})
-        since_str = old.get("since")
-
-        if snapshot != old_snapshot:
-            since_str = now.strftime("%Y-%m-%d %H:%M UTC")
-            o["since"] = since_str
-            new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds.append(o)
-            continue
-
-        try:
-            since_dt = datetime.strptime(since_str, "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
-            hours = (now - since_dt).total_seconds() / 3600
-        except Exception:
-            hours = 0
-
-        if hours <= STALE_ODDS_HOURS:
-            o["since"] = since_str
-            new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds.append(o)
-
-    save_freshness(new_freshness)
-    return fresh_odds
+# ------------------------------------------------------------------------
 
 
 def championbet_extract_1x2(match):
@@ -423,13 +350,15 @@ def scrape_betpawa():
                     for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
                         try:
                             text = link.inner_text()
-                            if "LIVE" in text.upper() or re.search(r"\b\d{1,3}:\d{2}\b", text):
+
+                            # skip anything that looks live (status text or elapsed-time clock)
+                            if "LIVE" in text.upper() or re.search(r"\bd{1,3}:d{2}\b", text):
                                 continue
 
                             parts = [p.strip() for p in text.split("\n") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
-                                if re.match(r"^\d+\.\d+$", part):
+                                if re.match(r"^d+.d+$", part):
                                     odd_values.append(float(part))
                                 elif len(part) > 2 and not any(
                                     x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
@@ -529,7 +458,6 @@ def scrape_sportybet():
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         if isinstance(data, list):
-            print(f"SPORTYBET SAMPLE: {data[0] if data else 'none'}")
             for event in data:
                 try:
                     status = (event.get("status") or event.get("state") or "").upper()
@@ -579,9 +507,7 @@ def scrape_1xbet():
                 data = json.loads(raw.decode("utf-8"))
             except Exception:
                 data = json.loads(raw.decode("utf-8-sig"))
-        vals = data.get("Value", []) if isinstance(data, dict) else []
-        print(f"1XBET SAMPLE: {vals[0] if vals else 'none'}")
-        for match in vals:
+        for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
@@ -626,9 +552,7 @@ def scrape_22bet():
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode("utf-8-sig"))
-        vals = data.get("Value", []) if isinstance(data, dict) else []
-        print(f"22BET SAMPLE: {vals[0] if vals else 'none'}")
-        for match in vals:
+        for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
@@ -779,9 +703,27 @@ def find_arbitrage(all_odds):
                                         "total_stake": STAKE,
                                         "arb_sum": round(arb, 4),
                                         "bets": [
-                                            {"bookmaker": bk_h, "outcome": "Home", "odd": h, "stake": stake_h, "win": round(stake_h * h)},
-                                            {"bookmaker": bk_d, "outcome": "Draw", "odd": d, "stake": stake_d, "win": round(stake_d * d)},
-                                            {"bookmaker": bk_a, "outcome": "Away", "odd": a, "stake": stake_a, "win": round(stake_a * a)},
+                                            {
+                                                "bookmaker": bk_h,
+                                                "outcome": "Home",
+                                                "odd": h,
+                                                "stake": stake_h,
+                                                "win": round(stake_h * h),
+                                            },
+                                            {
+                                                "bookmaker": bk_d,
+                                                "outcome": "Draw",
+                                                "odd": d,
+                                                "stake": stake_d,
+                                                "win": round(stake_d * d),
+                                            },
+                                            {
+                                                "bookmaker": bk_a,
+                                                "outcome": "Away",
+                                                "odd": a,
+                                                "stake": stake_a,
+                                                "win": round(stake_a * a),
+                                            },
                                         ],
                                     }
                 if best:
@@ -810,8 +752,20 @@ def find_arbitrage(all_odds):
                                     "total_stake": STAKE,
                                     "arb_sum": round(arb, 4),
                                     "bets": [
-                                        {"bookmaker": bk_h, "outcome": "Home", "odd": h, "stake": stake_h, "win": round(stake_h * h)},
-                                        {"bookmaker": bk_a, "outcome": "Away", "odd": a, "stake": stake_a, "win": round(stake_a * a)},
+                                        {
+                                            "bookmaker": bk_h,
+                                            "outcome": "Home",
+                                            "odd": h,
+                                            "stake": stake_h,
+                                            "win": round(stake_h * h),
+                                        },
+                                        {
+                                            "bookmaker": bk_a,
+                                            "outcome": "Away",
+                                            "odd": a,
+                                            "stake": stake_a,
+                                            "win": round(stake_a * a),
+                                        },
                                     ],
                                 }
                 if best:
@@ -824,6 +778,21 @@ def opportunity_id(o):
     bets = o.get("bets", []) or []
     bet_key = "|".join(f"{b.get('bookmaker')}:{b.get('outcome')}:{b.get('odd')}" for b in bets)
     return f"{o.get('match','')}|{o.get('type','')}|{bet_key}"
+
+
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        try:
+            with open(HISTORY_FILE, "r") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+
+def save_history(history):
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history, f, indent=2)
 
 
 def refresh_opportunities(current_opps):
@@ -841,34 +810,42 @@ def refresh_opportunities(current_opps):
         base_key = f"{opp.get('match','')}|{opp.get('type','')}"
         bets_sig = bookmaker_signature(opp)
 
+        prev_candidate_id = None
         prev_candidate = None
         for oid, old in previous.items():
             if f"{old.get('match','')}|{old.get('type','')}" == base_key:
+                prev_candidate_id = oid
                 prev_candidate = old
                 break
 
         if prev_candidate is not None:
             oid = opportunity_id(opp)
             current_ids.add(oid)
+
             old_sig = bookmaker_signature(prev_candidate)
+
             opp["status"] = "valid"
             opp["prev_status"] = prev_candidate.get("status", "valid")
             opp["checked_at"] = now_str
+
             if bets_sig == old_sig:
                 opp["changed"] = False
                 opp["note"] = "Still valid (same bookmakers)"
             else:
                 opp["changed"] = True
                 opp["note"] = "Valid (bookmakers changed)"
+
             next_history[oid] = opp
         else:
             oid = opportunity_id(opp)
             current_ids.add(oid)
+
             opp["status"] = "valid"
             opp["changed"] = True
             opp["prev_status"] = "new"
             opp["note"] = "New opportunity"
             opp["checked_at"] = now_str
+
             next_history[oid] = opp
 
     for oid, old in previous.items():
@@ -909,7 +886,7 @@ def main():
         if rows:
             scraped.append(name)
 
-    fresh_opps = find_arbitrage(filter_stale_odds(all_odds))
+    fresh_opps = find_arbitrage(all_odds)
     opps_result = refresh_opportunities(fresh_opps)
     output = {
         "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
