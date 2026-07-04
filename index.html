@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -61,6 +62,7 @@ td{color:#ddd}
 .profit-ugx{color:var(--orange);font-size:.75em;text-align:right}
 .arb-meta{display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap}
 .arb-type{color:#888;font-size:.75em}
+.arb-kickoff{color:#9ad;font-size:.78em;margin-top:4px}
 .arb-bets{display:flex;flex-direction:column;gap:6px}
 .arb-bet{background:#1a1a1a;border-radius:6px;padding:8px;display:flex;justify-content:space-between;align-items:center}
 .bet-left{display:flex;flex-direction:column}
@@ -76,6 +78,8 @@ td{color:#ddd}
 .log .down{color:var(--red)}
 .log .same{color:var(--blue)}
 .hidden{display:none}
+.kgroup{margin-bottom:16px}
+.kgroup-title{color:#ddd;font-size:.95rem;font-weight:bold;margin:0 0 8px 0;padding:6px 0;border-bottom:1px dashed #333}
 @media (max-width:900px){
   .layout{flex-direction:column}
   .sidebar{width:100%;height:auto;position:relative}
@@ -212,7 +216,6 @@ let allOpps = [];
 let rawOdds = [];
 let historyMap = {};
 let currentFilter = 'all';
-let previousSnapshot = {};
 
 function showPage(page, el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -231,6 +234,44 @@ function showPage(page, el){
   document.getElementById('pageSubtitle').textContent = map[page][1];
 }
 
+function parseKickoff(kickoff){
+  if(!kickoff) return null;
+  const s = String(kickoff).replace(' UTC','Z');
+  const d = new Date(s);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function kickoffKey(kickoff){
+  const d = parseKickoff(kickoff);
+  return d ? d.toISOString().slice(0,10) : 'unknown';
+}
+
+function kickoffLabel(kickoff){
+  const d = parseKickoff(kickoff);
+  if(!d) return 'Unknown';
+  const today = new Date();
+  const todayKey = today.toISOString().slice(0,10);
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const tomorrowKey = tomorrow.toISOString().slice(0,10);
+  const key = d.toISOString().slice(0,10);
+  if(key === todayKey) return 'Today';
+  if(key === tomorrowKey) return 'Tomorrow';
+  return 'Other';
+}
+
+function formatKickoff(kickoff){
+  const d = parseKickoff(kickoff);
+  if(!d) return '';
+  return new Intl.DateTimeFormat(undefined, {
+    weekday:'short',
+    month:'short',
+    day:'numeric',
+    hour:'2-digit',
+    minute:'2-digit'
+  }).format(d);
+}
+
 function opportunityId(o){
   const bets = (o.bets || []).map(b => `${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
   return `${o.match}|${o.type}|${bets}`;
@@ -242,7 +283,6 @@ function classifyChanges(newOpps){
 
   const oldMap = historyMap;
   const nextHistory = {};
-
   const updated = [];
   const seen = new Set();
 
@@ -302,64 +342,86 @@ function renderArbs(){
   }
 
   document.getElementById('arbInfo').textContent = opps.length + ' found';
-  const validCount = allOpps.filter(o => o.status === 'valid').length;
-  const invalidCount = allOpps.filter(o => o.status === 'invalid').length;
-  document.getElementById('validCount').textContent = validCount;
-  document.getElementById('invalidCount').textContent = invalidCount;
+  document.getElementById('validCount').textContent = allOpps.filter(o => o.status === 'valid').length;
+  document.getElementById('invalidCount').textContent = allOpps.filter(o => o.status === 'invalid').length;
 
+  const groups = {};
+  opps.forEach(o => {
+    const g = kickoffLabel(o.kickoff);
+    if(!groups[g]) groups[g] = [];
+    groups[g].push(o);
+  });
+
+  const order = ['Today', 'Tomorrow', 'Other', 'Unknown'];
+  const keys = [...order.filter(k => groups[k]), ...Object.keys(groups).filter(k => !order.includes(k)).sort()];
   const arbDiv = document.getElementById('arbs');
+
   if(!opps.length){
     arbDiv.innerHTML = '<div class="no-arb">😔 No arbitrage opportunities match this filter right now.</div>';
     return;
   }
 
-  arbDiv.innerHTML = opps.map(o => {
-    const bets = o.bets || [];
-    const arb = bets.reduce((s,b)=>s + (1/Number(b.odd || 1)), 0);
-    const profitUGX = Math.round(stake * (1 - arb));
-    const books = new Set(bets.map(b=>b.bookmaker));
-    const isCross = books.size >= 2;
+  arbDiv.innerHTML = keys.map(groupName => {
+    const items = groups[groupName] || [];
+    const cards = items.map(o => {
+      const bets = o.bets || [];
+      const arb = bets.reduce((s,b)=>s + (1/Number(b.odd || 1)), 0);
+      const profitUGX = Math.round(stake * (1 - arb));
+      const books = new Set(bets.map(b=>b.bookmaker));
+      const isCross = books.size >= 2;
+      const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : 'No kickoff';
 
-    const betsHtml = bets.map(b => {
-      const userStake = Math.round(stake * (1/Number(b.odd || 1)) / arb);
+      const betsHtml = bets.map(b => {
+        const userStake = Math.round(stake * (1/Number(b.odd || 1)) / arb);
+        return `
+          <div class="arb-bet">
+            <div class="bet-left">
+              <span class="bet-book">${b.bookmaker}</span>
+              <span class="bet-outcome">${b.outcome} @ ${b.odd}</span>
+            </div>
+            <div class="bet-right">
+              <span class="bet-odd">UGX ${userStake.toLocaleString()}</span>
+              <span class="bet-stake">Win: UGX ${Math.round(userStake * Number(b.odd || 0)).toLocaleString()}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const statusBadge = o.status === 'valid'
+        ? '<span class="badge green">VALID</span>'
+        : '<span class="badge red">INVALID</span>';
+
+      const noteBadge = o.changed && o.status === 'valid'
+        ? '<span class="badge blue">NEW</span>'
+        : (o.status === 'invalid' ? '<span class="badge gray">PAST</span>' : '');
+
       return `
-        <div class="arb-bet">
-          <div class="bet-left">
-            <span class="bet-book">${b.bookmaker}</span>
-            <span class="bet-outcome">${b.outcome} @ ${b.odd}</span>
+        <div class="arb-card ${o.status}">
+          <div class="arb-header">
+            <div class="arb-match">
+              ${o.match}
+              <div class="arb-kickoff">🕒 ${kickoffText}</div>
+            </div>
+            <div class="arb-profit">
+              <span class="profit-pct">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</span>
+              <span class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</span>
+            </div>
           </div>
-          <div class="bet-right">
-            <span class="bet-odd">UGX ${userStake.toLocaleString()}</span>
-            <span class="bet-stake">Win: UGX ${Math.round(userStake * Number(b.odd || 0)).toLocaleString()}</span>
+          <div class="arb-meta">
+            <span class="arb-type">${o.type === '3-way' ? '🔺 3-way (1X2)' : '🔷 2-way'}</span>
+            ${isCross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
+            ${noteBadge}
+            <span class="badge ${o.status === 'valid' ? 'green' : 'red'}">${o.note || ''}</span>
           </div>
+          <div class="arb-bets">${betsHtml}</div>
         </div>
       `;
     }).join('');
 
-    const statusBadge = o.status === 'valid'
-      ? '<span class="badge green">VALID</span>'
-      : '<span class="badge red">INVALID</span>';
-
-    const noteBadge = o.changed && o.status === 'valid'
-      ? '<span class="badge blue">NEW</span>'
-      : (o.status === 'invalid' ? '<span class="badge gray">PAST</span>' : '');
-
     return `
-      <div class="arb-card ${o.status}">
-        <div class="arb-header">
-          <div class="arb-match">${o.match}</div>
-          <div class="arb-profit">
-            <span class="profit-pct">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</span>
-            <span class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</span>
-          </div>
-        </div>
-        <div class="arb-meta">
-          <span class="arb-type">${o.type === '3-way' ? '🔺 3-way (1X2)' : '🔷 2-way'}</span>
-          ${isCross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
-          ${noteBadge}
-          <span class="badge ' + (o.status === 'valid' ? 'green' : 'red') + '">${o.note || ''}</span>
-        </div>
-        <div class="arb-bets">${betsHtml}</div>
+      <div class="kgroup">
+        <div class="kgroup-title">${groupName}</div>
+        ${cards}
       </div>
     `;
   }).join('');
@@ -382,6 +444,7 @@ function renderOdds(){
           <th>Draw</th>
           <th>Away</th>
           <th>Sport</th>
+          <th>Kickoff</th>
         </tr>
       </thead>
       <tbody>
@@ -393,6 +456,7 @@ function renderOdds(){
             <td>${o.draw ?? '-'}</td>
             <td>${o.away ?? '-'}</td>
             <td>${o.sport ?? '-'}</td>
+            <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
           </tr>
         `).join('')}
       </tbody>
