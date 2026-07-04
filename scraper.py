@@ -30,7 +30,7 @@ BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_t
 HISTORY_FILE = "arbitrage_history.json"
 FRESHNESS_FILE = "odds_freshness.json"
 STAKE = 100000
-STALE_ODDS_HOURS = 3INVALID_RETENTION_HOURS = 6
+STALE_ODDS_HOURS = 3
 
 
 def normalize(name):
