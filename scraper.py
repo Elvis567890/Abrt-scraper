@@ -18,7 +18,7 @@ import json
 import os
 import re
 import urllib.request
-from datetime import datetime, timezone  # NEW: timezone
+from datetime import datetime, timezone  # timezone kept
 
 import requests
 from bs4 import BeautifulSoup
@@ -35,7 +35,7 @@ def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"\s+", " ", name).strip()
+    name = re.sub(r"s+", " ", name).strip()
     return name
 
 
@@ -91,9 +91,30 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
     }
 
 
-# ----------- NEW: generic helpers for status / date filtering -----------
+# ----------- generic helpers for status / date / live filtering -----------
 
-FINISHED_STATUSES = {"FINISHED", "FULL_TIME", "FT", "ENDED", "CANCELLED", "CANCELED", "POSTPONED", "SUSPENDED", "ABANDONED"}
+FINISHED_STATUSES = {
+    "FINISHED",
+    "FULL_TIME",
+    "FT",
+    "ENDED",
+    "CANCELLED",
+    "CANCELED",
+    "POSTPONED",
+    "SUSPENDED",
+    "ABANDONED",
+}
+
+LIVE_INDICATORS = {
+    "LIVE",
+    "IN_PLAY",
+    "IN-PLAY",
+    "PLAYING",
+    "1ST HALF",
+    "2ND HALF",
+    "HT",
+    "HALF TIME",
+}
 
 
 def is_finished_status(value):
@@ -101,6 +122,24 @@ def is_finished_status(value):
         return False
     v = str(value).upper()
     return any(x in v for x in FINISHED_STATUSES)
+
+
+def is_live_status(value):
+    if not value:
+        return False
+    v = str(value).upper()
+    return any(x in v for x in LIVE_INDICATORS)
+
+
+def has_live_score_fields(m):
+    """Generic guard: if the raw record carries score-like fields, treat as live/in-play."""
+    if not isinstance(m, dict):
+        return False
+    for key in ("SC", "S1", "S2", "CS", "score", "current_score", "live_score", "SetScore"):
+        val = m.get(key)
+        if val not in (None, "", 0, "0", "0-0", "0:0"):
+            return True
+    return False
 
 
 def is_today_utc(dt):
@@ -155,15 +194,13 @@ def scrape_championbet():
                 if "soccer" not in sport_token.lower() and "football" not in sport_token.lower():
                     continue
 
-                # NEW: basic status / date check (keys may need adjustment)
                 status = (m.get("status") or m.get("matchStatus") or "").upper()
-                if is_finished_status(status):
+                if is_finished_status(status) or is_live_status(status) or has_live_score_fields(m):
                     continue
 
                 start_raw = m.get("startTime") or m.get("startDate")
                 if start_raw:
                     try:
-                        # Try ISO-like format; adjust if ChampionBet uses something else
                         dt = datetime.fromisoformat(str(start_raw).replace("Z", "+00:00"))
                         if not is_today_utc(dt):
                             continue
@@ -198,16 +235,21 @@ def scrape_championbet():
 def scrape_betika():
     odds = []
     try:
-        req = urllib.request.Request(BETIKA_API, headers={"Accept": "application/json, text/plain, */*"})
+        headers = {
+            "Accept": "application/json, text/plain, */*",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
+            "Referer": "https://www.betika.com/",
+            "Origin": "https://www.betika.com",
+        }
+        req = urllib.request.Request(BETIKA_API, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
 
         matches = data.get("data", []) if isinstance(data, dict) else []
         for m in matches:
             try:
-                # NEW: generic status filter if Betika provides it
                 status = (m.get("match_status") or m.get("status") or "").upper()
-                if is_finished_status(status):
+                if is_finished_status(status) or is_live_status(status) or has_live_score_fields(m):
                     continue
 
                 home_team = m.get("home_team", "")
@@ -262,9 +304,8 @@ def scrape_ababet():
                 home_team = row.get("Home")
                 away_team = row.get("Away")
 
-                # NEW: very basic guard for finished markers in the row
                 status_cell = (row.get("Status") or row.get("Score") or "").upper()
-                if is_finished_status(status_cell):
+                if is_finished_status(status_cell) or is_live_status(status_cell):
                     continue
 
                 if home_team and away_team and home_team != "-" and away_team != "-":
@@ -309,10 +350,16 @@ def scrape_betpawa():
                     for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
                         try:
                             text = link.inner_text()
-                            parts = [p.strip() for p in text.split("\n") if p.strip()]
+
+                            # skip anything that looks live (status text or elapsed-time clock)
+                            if "LIVE" in text.upper() or re.search(r"\bd{1,3}:d{2}\b", text):
+                                continue
+
+                            parts = [p.strip() for p in text.split("
+") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
-                                if re.match(r"^\d+\.\d+$", part):
+                                if re.match(r"^d+.d+$", part):
                                     odd_values.append(float(part))
                                 elif len(part) > 2 and not any(
                                     x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
@@ -370,9 +417,8 @@ def scrape_fortebet():
             event_markets.setdefault(eid, []).append(market)
         for eid, event in events.items():
             try:
-                # NEW: generic status filter if present
                 status = (event.get("status") or event.get("eventStatus") or "").upper()
-                if is_finished_status(status):
+                if is_finished_status(status) or is_live_status(status) or has_live_score_fields(event):
                     continue
 
                 comp_ids = event.get("competitors", [])
@@ -415,9 +461,8 @@ def scrape_sportybet():
         if isinstance(data, list):
             for event in data:
                 try:
-                    # NEW: generic status filter if provided by your Replit API
                     status = (event.get("status") or event.get("state") or "").upper()
-                    if is_finished_status(status):
+                    if is_finished_status(status) or is_live_status(status) or has_live_score_fields(event):
                         continue
 
                     home = event.get("home_team", "")
@@ -465,9 +510,8 @@ def scrape_1xbet():
                 data = json.loads(raw.decode("utf-8-sig"))
         for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
-                # NEW: status/period filter if 1xBet exposes it (adapt keys as needed)
                 status = (match.get("SC") or match.get("STAT") or "").upper()
-                if is_finished_status(status):
+                if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
                     continue
 
                 home_team = match.get("O1")
@@ -512,7 +556,7 @@ def scrape_22bet():
         for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
-                if is_finished_status(status):
+                if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
                     continue
 
                 home_team = match.get("O1")
@@ -558,7 +602,7 @@ def scrape_melbet():
         for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
-                if is_finished_status(status):
+                if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
                     continue
 
                 home_team = match.get("O1")
