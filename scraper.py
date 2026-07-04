@@ -31,6 +31,7 @@ HISTORY_FILE = "arbitrage_history.json"
 FRESHNESS_FILE = "odds_freshness.json"
 STAKE = 100000
 STALE_ODDS_HOURS = 3
+INVALID_RETENTION_HOURS = 6
 
 
 def normalize(name):
@@ -830,7 +831,8 @@ def refresh_opportunities(current_opps):
     previous = load_history()
     next_history = {}
     current_ids = set()
-    now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+    now = datetime.now(timezone.utc)
+    now_str = now.strftime("%Y-%m-%d %H:%M UTC")
 
     def bookmaker_signature(opp):
         bets = opp.get("bets", []) or []
@@ -873,10 +875,20 @@ def refresh_opportunities(current_opps):
 
     for oid, old in previous.items():
         if oid not in current_ids:
+            if old.get("status") == "invalid" and old.get("invalid_at"):
+                try:
+                    invalid_dt = datetime.strptime(old["invalid_at"], "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
+                    hours_since_invalid = (now - invalid_dt).total_seconds() / 3600
+                    if hours_since_invalid > INVALID_RETENTION_HOURS:
+                        continue
+                except Exception:
+                    pass
+
             old["status"] = "invalid"
             old["changed"] = False
             old["note"] = "No longer present"
-            old["invalid_at"] = now_str
+            if not old.get("invalid_at"):
+                old["invalid_at"] = now_str
             next_history[oid] = old
 
     save_history(next_history)
