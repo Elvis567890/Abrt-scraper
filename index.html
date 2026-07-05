@@ -556,7 +556,7 @@ nav.bottom-nav div.active{
   </section>
 </div>
 
-<!-- BOTTOM NAV (visual only, not wired to JS pages) -->
+<!-- BOTTOM NAV (visual only) -->
 <nav class="bottom-nav">
   <div class="active">Home</div>
   <div>Arbs</div>
@@ -590,30 +590,49 @@ function showPage(page, el){
   document.getElementById('pageSubtitle').textContent = map[page][1];
 }
 
-function parseKickoff(kickoff){
-  if(!kickoff) return null;
-  const s = String(kickoff).replace(' UTC','Z');
-  const d = new Date(s);
-  return isNaN(d.getTime()) ? null : d;
+// --- NEW: resolve date from kickoff or since/checked_at ---
+function resolveOpportunityDate(o){
+  // Prefer kickoff if present
+  if (o.kickoff) {
+    const d = new Date(String(o.kickoff).replace(' UTC','Z'));
+    if (!isNaN(d.getTime())) return d;
+  }
+  // Fallback to 'since' if present (first seen)
+  if (o.since) {
+    const d = new Date(o.since);
+    if (!isNaN(d.getTime())) return d;
+  }
+  // Fallback to 'checked_at' if present
+  if (o.checked_at) {
+    const d = new Date(o.checked_at);
+    if (!isNaN(d.getTime())) return d;
+  }
+  return null;
 }
 
-function kickoffLabel(kickoff){
-  const d = parseKickoff(kickoff);
-  if(!d) return 'Unknown';
+// UPDATED grouping label: Yesterday / Today / Tomorrow / Later / Older / Unscheduled
+function kickoffLabel(o){
+  const d = resolveOpportunityDate(o);
+  if (!d) return 'Unscheduled';
+
+  // Normalize to local date (midnight)
   const today = new Date();
-  const todayKey = today.toISOString().slice(0,10);
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  const tomorrowKey = tomorrow.toISOString().slice(0,10);
-  const key = d.toISOString().slice(0,10);
-  if(key === todayKey) return 'Today';
-  if(key === tomorrowKey) return 'Tomorrow';
-  return 'Other';
+  const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const thatMid = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+  const diffDays = Math.round((thatMid - todayMid) / (1000*60*60*24));
+
+  if (diffDays === 0) return 'Today';
+  if (diffDays === 1) return 'Tomorrow';
+  if (diffDays === -1) return 'Yesterday';
+  if (diffDays > 1) return 'Later';
+  if (diffDays < -1) return 'Older';
+  return 'Unscheduled';
 }
 
 function formatKickoff(kickoff){
-  const d = parseKickoff(kickoff);
-  if(!d) return '';
+  const d = kickoff ? new Date(String(kickoff).replace(' UTC','Z')) : null;
+  if(!d || isNaN(d.getTime())) return '';
   return new Intl.DateTimeFormat(undefined, {
     weekday:'short',
     month:'short',
@@ -707,15 +726,18 @@ function renderArbs(){
     document.getElementById('heroSub').textContent = 'Waiting for first refresh...';
   }
 
+  // Group by new labels
   const groups = {};
   opps.forEach(o => {
-    const g = kickoffLabel(o.kickoff);
+    const g = kickoffLabel(o);
     if(!groups[g]) groups[g] = [];
     groups[g].push(o);
   });
 
-  const order = ['Today', 'Tomorrow', 'Other', 'Unknown'];
-  const keys = [...order.filter(k => groups[k]), ...Object.keys(groups).filter(k => !order.includes(k)).sort()];
+  // Fixed order: Today, Tomorrow, Yesterday, Later, Older, Unscheduled
+  const order = ['Today', 'Tomorrow', 'Yesterday', 'Later', 'Older', 'Unscheduled'];
+  const keys = order.filter(k => groups[k]);
+
   const arbDiv = document.getElementById('arbs');
 
   if(!opps.length){
@@ -731,7 +753,7 @@ function renderArbs(){
       const profitUGX = Math.round(stake * (1 - arb));
       const books = new Set(bets.map(b=>b.bookmaker));
       const isCross = books.size >= 2;
-      const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : 'No kickoff';
+      const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : '';
 
       const betsHtml = bets.map(b => {
         const userStake = Math.round(stake * (1/Number(b.odd || 1)) / arb);
@@ -762,7 +784,7 @@ function renderArbs(){
           <div class="arb-header">
             <div>
               <div class="arb-match">${o.match}</div>
-              <div class="arb-kickoff">🕒 ${kickoffText}</div>
+              <div class="arb-kickoff">${kickoffText ? '🕒 ' + kickoffText : ''}</div>
             </div>
             <div class="arb-profit">
               <div class="profit-pct">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</div>
@@ -875,10 +897,8 @@ async function load(){
 }
 
 // run immediately, then every 30s
-load(); // immediate load on page open [web:559][web:564]
+load();
 setInterval(load,30000);
 </script>
 </body>
 </html>
-
-
