@@ -4,7 +4,538 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🇺🇬 Uganda Arbitrage Scanner</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<style>
+:root{
+  --bg:#0a0a0a;--panel:#111;--panel2:#1a1a1a;--border:#222;--text:#eee;--muted:#888;--green:#00ff88;--orange:#ff6b00;--blue:#4af;--red:#ff4d4d;--gray:#555
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:260px;background:#0f0f0f;border-right:1px solid var(--border);padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{color:var(--green);font-size:1.2rem;font-weight:bold;margin-bottom:20px}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav a{padding:10px 12px;border-radius:10px;color:#bbb;background:transparent;border:1px solid transparent;cursor:pointer}
+.nav a.active,.nav a:hover{background:#1a2a1a;color:var(--green);border-color:#234}
+.main{flex:1;padding:18px}
+.topbar{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.page{display:none}
+.page.active{display:block}
+.page-title{font-size:1.2rem;font-weight:bold}
+.page-subtitle{color:var(--muted);font-size:.85rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px}
+.card h3{font-size:.9rem;color:#bbb;margin-bottom:8px}
+.card .big{font-size:1.6rem;font-weight:bold;color:var(--green)}
+.section{margin-top:18px;margin-bottom:10px;color:#aaa;font-size:.95rem;font-weight:bold;display:flex;justify-content:space-between;align-items:center;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:860px;background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+th,td{padding:10px 8px;text-align:left;border-bottom:1px solid #1c1c1c;font-size:.85rem}
+th{color:#999;background:#151515}
+td{color:#ddd}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.75rem;font-weight:bold}
+.badge.green{background:#103322;color:var(--green)}
+.badge.orange{background:#332010;color:var(--orange)}
+.badge.blue{background:#102233;color:var(--blue)}
+.badge.red{background:#331010;color:var(--red)}
+.badge.gray{background:#222;color:#bbb}
+.form-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.input,select{width:100%;background:#1a1a1a;color:#eee;border:1px solid #333;border-radius:10px;padding:10px 12px;outline:none}
+.btn{background:var(--orange);color:#000;border:none;padding:10px 14px;border-radius:10px;font-weight:bold;cursor:pointer}
+.btn.green{background:var(--green)}
+.btn.dark{background:#222;color:#ddd}
+.notice{background:#101820;border:1px solid #203040;color:#9ad;padding:12px;border-radius:12px}
+.filter-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.filter-btn{background:#1a1a1a;border:1px solid #333;color:#aaa;border-radius:20px;padding:6px 14px;font-size:.8em;cursor:pointer}
+.filter-btn.active{background:var(--orange);border-color:var(--orange);color:#000;font-weight:bold}
+.stake-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+.stake-row label{color:var(--muted);font-size:.8em;white-space:nowrap}
+.stake-input{background:#1a1a1a;border:1px solid #333;color:var(--green);border-radius:6px;padding:5px 8px;font-size:.85em;width:120px}
+.arb-card{background:#111;border:2px solid var(--orange);border-radius:10px;padding:12px;margin-bottom:12px}
+.arb-card.valid{border-color:var(--green)}
+.arb-card.invalid{border-color:var(--red);opacity:.75}
+.arb-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:8px}
+.arb-match{color:#fff;font-weight:bold;font-size:.9em;flex:1}
+.arb-profit{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.profit-pct{background:var(--orange);color:#000;font-weight:bold;border-radius:20px;padding:3px 10px;font-size:.85em;white-space:nowrap}
+.profit-ugx{color:var(--orange);font-size:.75em;text-align:right}
+.arb-meta{display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.arb-type{color:#888;font-size:.75em}
+.arb-kickoff{color:#9ad;font-size:.78em;margin-top:4px}
+.arb-bets{display:flex;flex-direction:column;gap:6px}
+.arb-bet{background:#1a1a1a;border-radius:6px;padding:8px;display:flex;justify-content:space-between;align-items:center}
+.bet-left{display:flex;flex-direction:column}
+.bet-book{color:var(--green);font-size:.8em;font-weight:bold}
+.bet-outcome{color:#aaa;font-size:.75em}
+.bet-right{display:flex;flex-direction:column;align-items:flex-end}
+.bet-odd{color:#fff;font-weight:bold;font-size:.9em}
+.bet-stake{color:var(--orange);font-size:.75em}
+.no-arb,.empty{background:#111;border:1px solid #333;border-radius:8px;padding:20px;text-align:center;color:#666}
+.count{color:var(--orange);font-size:.85em}
+.log{font-size:.82rem;line-height:1.5;color:#ddd}
+.log .up{color:var(--green)}
+.log .down{color:var(--red)}
+.log .same{color:var(--blue)}
+.hidden{display:none}
+.kgroup{margin-bottom:16px}
+.kgroup-title{color:#ddd;font-size:.95rem;font-weight:bold;margin:0 0 8px 0;padding:6px 0;border-bottom:1px dashed #333}
+@media (max-width:900px){
+  .layout{flex-direction:column}
+  .sidebar{width:100%;height:auto;position:relative}
+  .grid-3,.grid-2,.form-row{grid-template-columns:1fr}
+  table{min-width:560px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">🇺🇬 Arb Scanner</div>
+    <nav class="nav">
+      <a data-page="dashboard" class="active" onclick="showPage('dashboard',this)">Dashboard</a>
+      <a data-page="arbitrage" onclick="showPage('arbitrage',this)">Arbitrage Opportunities</a>
+      <a data-page="odds" onclick="showPage('odds',this)">All Odds</a>
+      <a data-page="billing" onclick="showPage('billing',this)">Billing</a>
+      <a data-page="settings" onclick="showPage('settings',this)">Settings</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="page-title" id="pageTitle">Dashboard</div>
+        <div class="page-subtitle" id="pageSubtitle">Overview of scraper status and opportunity summary</div>
+      </div>
+      <div id="lastUpdated">Loading...</div>
+    </div>
+
+    <section class="page active" id="dashboard">
+      <div class="grid-3">
+        <div class="card"><h3>Valid Opportunities</h3><div class="big" id="validCount">0</div></div>
+        <div class="card"><h3>Invalid Opportunities</h3><div class="big" id="invalidCount">0</div></div>
+        <div class="card"><h3>Total Matches</h3><div class="big" id="matchCount">0</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Bookmakers</h3>
+          <div class="big" id="bookmakerCount">0</div>
+        </div>
+        <div class="card">
+          <h3>Change Summary</h3>
+          <div id="changeSummary" class="notice">Waiting for first refresh...</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Quick Status</h3>
+        <div id="status" class="notice">Loading data...</div>
+      </div>
+    </section>
+
+    <section class="page" id="arbitrage">
+      <div class="section"><span>🎯 Live Arbitrage Opportunities</span><span id="arbInfo" class="count"></span></div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+        <button class="filter-btn" onclick="setFilter('valid',this)">Valid Only</button>
+        <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid Only</button>
+        <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Bookmaker Only</button>
+        <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
+        <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
+      </div>
+
+      <div class="stake-row">
+        <label>💰 Your Stake (UGX):</label>
+        <input class="stake-input" type="number" id="stake" value="100000" min="1000" step="1000" oninput="renderArbs()">
+      </div>
+
+      <div id="arbs"><div class="empty">⏳ Loading opportunities...</div></div>
+    </section>
+
+    <section class="page" id="odds">
+      <div class="section"><span>📊 All Scraped Odds</span><span id="oddsCount" class="count"></span></div>
+      <div class="table-wrap">
+        <div id="oddsTable"><div class="empty">⏳ Loading odds...</div></div>
+      </div>
+    </section>
+
+    <section class="page" id="billing">
+      <div class="section"><span>💳 Billing</span><span>Subscriptions and invoices</span></div>
+      <div class="grid-3">
+        <div class="card"><h3>Free Plan</h3><div class="big">UGX 0</div><p style="margin-top:8px;color:#aaa">Basic access and limited views.</p></div>
+        <div class="card"><h3>Pro Plan</h3><div class="big">UGX 50,000</div><p style="margin-top:8px;color:#aaa">Full odds, opportunities, and billing tools.</p></div>
+        <div class="card"><h3>Enterprise</h3><div class="big">Custom</div><p style="margin-top:8px;color:#aaa">Multiple users, integrations, and branding.</p></div>
+      </div>
+      <div class="card">
+        <h3>Create Invoice</h3>
+        <div class="form-row">
+          <input class="input" placeholder="Customer name">
+          <input class="input" placeholder="Amount (UGX)" type="number">
+        </div>
+        <div class="form-row" style="margin-top:12px">
+          <select><option>Invoice type</option><option>Monthly</option><option>Yearly</option></select>
+          <select><option>Status</option><option>Pending</option><option>Paid</option><option>Overdue</option></select>
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn green">Save Invoice</button>
+          <button class="btn dark">View History</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="settings">
+      <div class="section"><span>⚙ Settings</span><span>Control scraping and display behavior</span></div>
+      <div class="card">
+        <h3>Scanner Settings</h3>
+        <div class="form-row">
+          <select><option>Auto-refresh</option><option>5 minutes</option><option>10 minutes</option><option>30 minutes</option></select>
+          <select><option>Stake currency</option><option>UGX</option><option>USD</option></select>
+        </div>
+        <div class="form-row" style="margin-top:12px">
+          <input class="input" placeholder="Min profit %" type="number" value="0.5">
+          <input class="input" placeholder="Max profit %" type="number" value="20">
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn green">Save Settings</button>
+          <button class="btn dark">Reset</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3>Refresh Behavior</h3>
+        <div class="notice">
+          This dashboard remembers the previous run, compares it to the latest run, and keeps a history of invalid opportunities.
+          When an opportunity disappears, it is marked invalid and stays visible in the past section.
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+let allOpps = [];
+let rawOdds = [];
+let historyMap = {};
+let currentFilter = 'all';
+
+function showPage(page, el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(page).classList.add('active');
+  document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
+
+  const map = {
+    dashboard:['Dashboard','Overview of scraper status and opportunity summary'],
+    arbitrage:['Arbitrage Opportunities','Best live opportunities from your scraper'],
+    odds:['All Odds','Full list from all bookmakers'],
+    billing:['Billing','Subscription plans, invoices, and payments'],
+    settings:['Settings','Control scraping and display behavior']
+  };
+  document.getElementById('pageTitle').textContent = map[page][0];
+  document.getElementById('pageSubtitle').textContent = map[page][1];
+}
+
+function parseKickoff(kickoff){
+  if(!kickoff) return null;
+  const s = String(kickoff).replace(' UTC','Z');
+  const d = new Date(s);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function kickoffKey(kickoff){
+  const d = parseKickoff(kickoff);
+  return d ? d.toISOString().slice(0,10) : 'unknown';
+}
+
+function kickoffLabel(kickoff){
+  const d = parseKickoff(kickoff);
+  if(!d) return 'Unknown';
+  const today = new Date();
+  const todayKey = today.toISOString().slice(0,10);
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const tomorrowKey = tomorrow.toISOString().slice(0,10);
+  const key = d.toISOString().slice(0,10);
+  if(key === todayKey) return 'Today';
+  if(key === tomorrowKey) return 'Tomorrow';
+  return 'Other';
+}
+
+function formatKickoff(kickoff){
+  const d = parseKickoff(kickoff);
+  if(!d) return '';
+  return new Intl.DateTimeFormat(undefined, {
+    weekday:'short',
+    month:'short',
+    day:'numeric',
+    hour:'2-digit',
+    minute:'2-digit'
+  }).format(d);
+}
+
+function opportunityId(o){
+  const bets = (o.bets || []).map(b => `${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
+  return `${o.match}|${o.type}|${bets}`;
+}
+
+function classifyChanges(newOpps){
+  const newMap = {};
+  newOpps.forEach(o => newMap[opportunityId(o)] = o);
+
+  const oldMap = historyMap;
+  const nextHistory = {};
+  const updated = [];
+  const seen = new Set();
+
+  Object.keys(newMap).forEach(id => {
+    const o = newMap[id];
+    o.status = 'valid';
+    if (oldMap[id]) {
+      o.changed = false;
+      o.prevStatus = oldMap[id].status || 'valid';
+      o.note = 'Still valid';
+    } else {
+      o.changed = true;
+      o.prevStatus = 'new';
+      o.note = 'New opportunity';
+    }
+    nextHistory[id] = o;
+    updated.push(o);
+    seen.add(id);
+  });
+
+  Object.keys(oldMap).forEach(id => {
+    if (!seen.has(id)) {
+      const old = oldMap[id];
+      old.status = 'invalid';
+      old.invalidAt = new Date().toISOString();
+      old.note = 'No longer present';
+      nextHistory[id] = old;
+      updated.push(old);
+    }
+  });
+
+  historyMap = nextHistory;
+  allOpps = updated;
+}
+
+function setFilter(f, btn){
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderArbs();
+}
+
+function renderArbs(){
+  const stake = parseInt(document.getElementById('stake').value) || 100000;
+  let opps = allOpps.slice();
+
+  if(currentFilter === 'valid'){
+    opps = opps.filter(o => o.status === 'valid');
+  } else if(currentFilter === 'invalid'){
+    opps = opps.filter(o => o.status === 'invalid');
+  } else if(currentFilter === 'cross'){
+    opps = opps.filter(o => new Set((o.bets || []).map(b=>b.bookmaker)).size >= 2);
+  } else if(currentFilter === '2way'){
+    opps = opps.filter(o => o.type === '2-way');
+  } else if(currentFilter === '3way'){
+    opps = opps.filter(o => o.type === '3-way');
+  }
+
+  document.getElementById('arbInfo').textContent = opps.length + ' found';
+  document.getElementById('validCount').textContent = allOpps.filter(o => o.status === 'valid').length;
+  document.getElementById('invalidCount').textContent = allOpps.filter(o => o.status === 'invalid').length;
+
+  const groups = {};
+  opps.forEach(o => {
+    const g = kickoffLabel(o.kickoff);
+    if(!groups[g]) groups[g] = [];
+    groups[g].push(o);
+  });
+
+  const order = ['Today', 'Tomorrow', 'Other', 'Unknown'];
+  const keys = [...order.filter(k => groups[k]), ...Object.keys(groups).filter(k => !order.includes(k)).sort()];
+  const arbDiv = document.getElementById('arbs');
+
+  if(!opps.length){
+    arbDiv.innerHTML = '<div class="no-arb">😔 No arbitrage opportunities match this filter right now.</div>';
+    return;
+  }
+
+  arbDiv.innerHTML = keys.map(groupName => {
+    const items = groups[groupName] || [];
+    const cards = items.map(o => {
+      const bets = o.bets || [];
+      const arb = bets.reduce((s,b)=>s + (1/Number(b.odd || 1)), 0);
+      const profitUGX = Math.round(stake * (1 - arb));
+      const books = new Set(bets.map(b=>b.bookmaker));
+      const isCross = books.size >= 2;
+      const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : 'No kickoff';
+
+      const betsHtml = bets.map(b => {
+        const userStake = Math.round(stake * (1/Number(b.odd || 1)) / arb);
+        return `
+          <div class="arb-bet">
+            <div class="bet-left">
+              <span class="bet-book">${b.bookmaker}</span>
+              <span class="bet-outcome">${b.outcome} @ ${b.odd}</span>
+            </div>
+            <div class="bet-right">
+              <span class="bet-odd">UGX ${userStake.toLocaleString()}</span>
+              <span class="bet-stake">Win: UGX ${Math.round(userStake * Number(b.odd || 0)).toLocaleString()}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const statusBadge = o.status === 'valid'
+        ? '<span class="badge green">VALID</span>'
+        : '<span class="badge red">INVALID</span>';
+
+      const noteBadge = o.changed && o.status === 'valid'
+        ? '<span class="badge blue">NEW</span>'
+        : (o.status === 'invalid' ? '<span class="badge gray">PAST</span>' : '');
+
+      return `
+        <div class="arb-card ${o.status}">
+          <div class="arb-header">
+            <div class="arb-match">
+              ${o.match}
+              <div class="arb-kickoff">🕒 ${kickoffText}</div>
+            </div>
+            <div class="arb-profit">
+              <span class="profit-pct">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</span>
+              <span class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</span>
+            </div>
+          </div>
+          <div class="arb-meta">
+            <span class="arb-type">${o.type === '3-way' ? '🔺 3-way (1X2)' : '🔷 2-way'}</span>
+            ${isCross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
+            ${noteBadge}
+            <span class="badge ${o.status === 'valid' ? 'green' : 'red'}">${o.note || ''}</span>
+          </div>
+          <div class="arb-bets">${betsHtml}</div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="kgroup">
+        <div class="kgroup-title">${groupName}</div>
+        ${cards}
+      </div>
+    `;
+  }).join('');
+}
+
+function renderOdds(){
+  document.getElementById('oddsCount').textContent = rawOdds.length + ' rows';
+  const wrap = document.getElementById('oddsTable');
+  if(!rawOdds.length){
+    wrap.innerHTML = '<div class="empty">⏳ No odds yet.</div>';
+    return;
+  }
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Match</th>
+          <th>Bookmaker</th>
+          <th>Home</th>
+          <th>Draw</th>
+          <th>Away</th>
+          <th>Sport</th>
+          <th>Kickoff</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rawOdds.map(o => `
+          <tr>
+            <td>${o.match}</td>
+            <td><span class="badge blue">${o.bookmaker}</span></td>
+            <td>${o.home ?? '-'}</td>
+            <td>${o.draw ?? '-'}</td>
+            <td>${o.away ?? '-'}</td>
+            <td>${o.sport ?? '-'}</td>
+            <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderChangeLog(newOpps){
+  const changed = [];
+  newOpps.forEach(o => {
+    if (o.status === 'new') changed.push(`+ ${o.match} became valid now.`);
+    if (o.status === 'valid' && o.prevStatus === 'invalid') changed.push(`↻ ${o.match} changed from invalid to valid.`);
+    if (o.status === 'invalid') changed.push(`- ${o.match} is now invalid but kept in history.`);
+  });
+
+  const summary = document.getElementById('changeSummary');
+  if (!changed.length) {
+    summary.innerHTML = '<span class="same">No changes detected in this run.</span>';
+    return;
+  }
+
+  summary.innerHTML = changed.slice(0, 6).map(x => {
+    if (x.startsWith('+')) return `<div class="up">${x}</div>`;
+    if (x.startsWith('↻')) return `<div class="same">${x}</div>`;
+    return `<div class="down">${x}</div>`;
+  }).join('');
+}
+
+async function load(){
+  try{
+    const r = await fetch('odds.json?t=' + Date.now());
+    const d = await r.json();
+    rawOdds = d.raw_odds || [];
+    const freshOpps = d.opportunities || [];
+    const scraped = d.bookmakers_scraped || [...new Set(rawOdds.map(x=>x.bookmaker))];
+
+    classifyChanges(freshOpps);
+
+    document.getElementById('lastUpdated').textContent = '🕐 ' + (d.last_updated || '');
+    document.getElementById('matchCount').textContent = d.total_matches || rawOdds.length;
+    document.getElementById('bookmakerCount').textContent = scraped.length;
+    document.getElementById('status').textContent =
+      `Loaded ${rawOdds.length} odds entries from ${scraped.length} bookmakers. ` +
+      `${allOpps.filter(o=>o.status==='valid').length} valid and ${allOpps.filter(o=>o.status==='invalid').length} invalid opportunities kept in history.`;
+
+    renderChangeLog(allOpps);
+    renderArbs();
+    renderOdds();
+  }catch(e){
+    document.getElementById('status').textContent = 'Could not load odds.json';
+    document.getElementById('arbs').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
+    document.getElementById('oddsTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
+  }
+}
+load();
+setInterval(load,30000);
+</script>
+</body>
+</html>
+
+I can make those exact HTML changes, but I can’t write the updated file directly here because code execution isn’t available in this session. I can still give you the full updated HTML with all four edits applied, ready to paste.
+
+## What was changed
+
+- Added the Supabase CDN script in the `<head>` before `<style>`.
+- Added a full-screen `authScreen` login overlay right after `<body>`.
+- Added `SUPABASE_URL`, `SUPABASE_KEY`, `sb`, `handleSignup()`, `handleLogin()`, and `checkSession()` at the top of the script, and called `checkSession()` immediately.
+- Removed the standalone `load();` call at the bottom and kept `setInterval(load,30000);`.
+
+## Updated file
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇺🇬 Uganda Arbitrage Scanner</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --bg:#0a0a0a;--panel:#111;--panel2:#1a1a1a;--border:#222;--text:#eee;--muted:#888;--green:#00ff88;--orange:#ff6b00;--blue:#4af;--red:#ff4d4d;--gray:#555
@@ -14,20 +545,14 @@ body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
 a{text-decoration:none;color:inherit}
 #authScreen{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:20px}
 #authScreen.hidden{display:none}
-.auth-card{width:100%;max-width:380px;background:#111;border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.6)}
-.auth-title{font-size:1.1rem;color:var(--green);margin-bottom:4px;text-align:center}
-.auth-subtitle{font-size:.8rem;color:var(--muted);margin-bottom:18px;text-align:center}
+.auth-card{width:100%;max-width:360px;background:#111;border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.auth-card h2{font-size:1.2rem;color:var(--green);margin-bottom:16px;text-align:center}
 .auth-error{display:none;color:var(--red);background:#2a1010;border:1px solid #4a1a1a;padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:.85rem}
 .auth-input{width:100%;background:#1a1a1a;color:#eee;border:1px solid #333;border-radius:10px;padding:11px 12px;outline:none;margin-bottom:10px}
 .auth-actions{display:flex;gap:10px;margin-top:8px}
-.auth-btn{flex:1;border:none;border-radius:10px;padding:10px 14px;font-weight:bold;cursor:pointer;font-size:.9rem}
-.auth-btn.primary{background:var(--green);color:#000}
-.auth-link-row{margin-top:14px;font-size:.8rem;color:var(--muted);text-align:center}
-.auth-link-row button{background:none;border:none;color:var(--green);cursor:pointer;font-size:.8rem;padding:0 3px}
-.auth-forgot{margin-top:4px;font-size:.78rem;text-align:right}
-.auth-forgot button{background:none;border:none;color:var(--blue);cursor:pointer;font-size:.78rem;padding:0}
-.auth-view{display:none}
-.auth-view.active{display:block}
+.auth-btn{flex:1;border:none;border-radius:10px;padding:10px 14px;font-weight:bold;cursor:pointer}
+.auth-btn.login{background:var(--green);color:#000}
+.auth-btn.signup{background:#222;color:#ddd;border:1px solid #333}
 .layout{display:flex;min-height:100vh}
 .sidebar{width:260px;background:#0f0f0f;border-right:1px solid var(--border);padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}
 .brand{color:var(--green);font-size:1.2rem;font-weight:bold;margin-bottom:20px}
@@ -108,41 +633,16 @@ td{color:#ddd}
 <body>
 <div id="authScreen">
   <div class="auth-card">
-    <div class="auth-view active" id="loginView">
-      <div class="auth-title">🇺🇬 Arb Scanner</div>
-      <div class="auth-subtitle">Welcome back. Log in to view live opportunities.</div>
-      <div id="authError" class="auth-error"></div>
-      <input id="loginEmail" class="auth-input" type="email" placeholder="Email">
-      <input id="loginPassword" class="auth-input" type="password" placeholder="Password">
-      <div class="auth-forgot">
-        <button type="button" onclick="alert('Forgot password flow is not implemented yet. Please contact support.')">Forgot password?</button>
-      </div>
-      <div class="auth-actions" style="margin-top:10px">
-        <button class="auth-btn primary" onclick="handleLogin()">Log In</button>
-      </div>
-      <div class="auth-link-row">
-        <span>Don't have an account?</span>
-        <button type="button" onclick="switchAuthView('signup')">Sign Up</button>
-      </div>
-    </div>
-
-    <div class="auth-view" id="signupView">
-      <div class="auth-title">🇺🇬 Arb Scanner</div>
-      <div class="auth-subtitle">Create a free account to get started.</div>
-      <div id="authErrorSignup" class="auth-error"></div>
-      <input id="signupEmail" class="auth-input" type="email" placeholder="Email">
-      <input id="signupPassword" class="auth-input" type="password" placeholder="Password">
-      <div class="auth-actions" style="margin-top:10px">
-        <button class="auth-btn primary" onclick="handleSignup()">Sign Up</button>
-      </div>
-      <div class="auth-link-row">
-        <span>Already have an account?</span>
-        <button type="button" onclick="switchAuthView('login')">Log In</button>
-      </div>
+    <h2>🇺🇬 Arb Scanner</h2>
+    <div id="authError" class="auth-error"></div>
+    <input id="authEmail" class="auth-input" type="email" placeholder="Email">
+    <input id="authPassword" class="auth-input" type="password" placeholder="Password">
+    <div class="auth-actions">
+      <button class="auth-btn login" onclick="handleLogin()">Log In</button>
+      <button class="auth-btn signup" onclick="handleSignup()">Sign Up</button>
     </div>
   </div>
 </div>
-
 <div class="layout">
   <aside class="sidebar">
     <div class="brand">🇺🇬 Arb Scanner</div>
@@ -217,7 +717,7 @@ td{color:#ddd}
       <div class="section"><span>💳 Billing</span><span>Subscriptions and invoices</span></div>
       <div class="grid-3">
         <div class="card"><h3>Free Plan</h3><div class="big">UGX 0</div><p style="margin-top:8px;color:#aaa">Basic access and limited views.</p></div>
-        <div class="card"><h3>Pro Plan</h3><div class="big">UGX 15,000</div><p style="margin-top:8px;color:#aaa">Full odds, opportunities, and billing tools.</p></div>
+        <div class="card"><h3>Pro Plan</h3><div class="big">UGX 50,000</div><p style="margin-top:8px;color:#aaa">Full odds, opportunities, and billing tools.</p></div>
         <div class="card"><h3>Enterprise</h3><div class="big">Custom</div><p style="margin-top:8px;color:#aaa">Multiple users, integrations, and branding.</p></div>
       </div>
       <div class="card">
@@ -266,117 +766,50 @@ td{color:#ddd}
 </div>
 
 <script>
-let sb = null;
-(function initSupabase(){
-  const errBox = document.getElementById('authError') || document.getElementById('authErrorSignup');
-  try {
-    const SUPABASE_URL = "https://qbxvylcjfhsntdfbjlmu.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_-vqICWyWOIvoz93xnKGl1g_fwyXwKoE";
-    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  } catch (e) {
-    if (errBox) {
-      errBox.textContent = "Failed to initialize Supabase client. Please refresh or contact support.";
-      errBox.style.display = "block";
-    } else {
-      alert("Failed to initialize Supabase client. Please refresh or contact support.");
-    }
-  }
-})();
-
-function switchAuthView(view){
-  const loginView = document.getElementById('loginView');
-  const signupView = document.getElementById('signupView');
-  if(view === 'signup'){
-    loginView.classList.remove('active');
-    signupView.classList.add('active');
-  } else {
-    signupView.classList.remove('active');
-    loginView.classList.add('active');
-  }
-  const err1 = document.getElementById('authError');
-  const err2 = document.getElementById('authErrorSignup');
-  if (err1){ err1.style.display = 'none'; }
-  if (err2){ err2.style.display = 'none'; }
-}
+const SUPABASE_URL = "https://qbxvylcjfhsntdfbjlmu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_-vqICWyWOIvoz93xnKGl1g_fwyXwKoE";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 async function handleSignup(){
-  const err = document.getElementById('authErrorSignup');
-  if (!sb) {
-    if (err){
-      err.textContent = "Supabase is not initialized.";
-      err.style.display = "block";
-    }
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+  const err = document.getElementById('authError');
+  err.style.display = 'none';
+  const { data, error } = await sb.auth.signUp({ email, password });
+  if (error) {
+    err.textContent = error.message;
+    err.style.display = 'block';
     return;
   }
-  const email = document.getElementById('signupEmail').value.trim();
-  const password = document.getElementById('signupPassword').value;
-  err.style.display = 'none';
-  try {
-    const { data, error } = await sb.auth.signUp({ email, password });
-    if (error) {
-      err.textContent = error.message;
-      err.style.display = 'block';
-      return;
-    }
-    if (data && data.user && data.user.id) {
-      const { error: insertError } = await sb.from('subscriptions').insert({ user_id: data.user.id, plan: 'free', status: 'active' });
-      if (insertError) {
-        console.warn('Subscription row insert failed:', insertError.message);
-      }
-    }
-    if (data && data.session) {
-      document.getElementById('authScreen').classList.add('hidden');
-      load();
-    } else {
-      err.style.color = '#00ff88';
-      err.textContent = 'Signed up! Please check your email to confirm your account, then log in.';
-      err.style.display = 'block';
-    }
-  } catch (e) {
-    err.textContent = 'Unexpected error: ' + (e && e.message ? e.message : e);
-    err.style.display = 'block';
+  if (data?.user?.id) {
+    await sb.from('subscriptions').insert({ user_id: data.user.id, plan: 'free', status: 'active' });
   }
+  document.getElementById('authScreen').classList.add('hidden');
+  load();
 }
 
 async function handleLogin(){
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
   const err = document.getElementById('authError');
-  if (!sb) {
-    if (err){
-      err.textContent = "Supabase is not initialized.";
-      err.style.display = "block";
-    }
+  err.style.display = 'none';
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) {
+    err.textContent = error.message;
+    err.style.display = 'block';
     return;
   }
-  const email = document.getElementById('loginEmail').value.trim();
-  const password = document.getElementById('loginPassword').value;
-  err.style.display = 'none';
-  try {
-    const { data, error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) {
-      err.textContent = error.message;
-      err.style.display = 'block';
-      return;
-    }
-    if (data && data.session) {
-      document.getElementById('authScreen').classList.add('hidden');
-      load();
-    }
-  } catch (e) {
-    err.textContent = 'Unexpected error: ' + (e && e.message ? e.message : e);
-    err.style.display = 'block';
+  if (data?.session) {
+    document.getElementById('authScreen').classList.add('hidden');
+    load();
   }
 }
 
 async function checkSession(){
-  if (!sb) return;
-  try {
-    const { data } = await sb.auth.getSession();
-    if (data && data.session) {
-      document.getElementById('authScreen').classList.add('hidden');
-      load();
-    }
-  } catch (e) {
-    console.warn('checkSession error:', e);
+  const { data } = await sb.auth.getSession();
+  if (data?.session) {
+    document.getElementById('authScreen').classList.add('hidden');
+    load();
   }
 }
 checkSession();
