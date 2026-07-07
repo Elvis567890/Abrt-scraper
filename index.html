@@ -21,7 +21,7 @@
   --danger:#ff4d4d;
 }
 
-/* Light mode variables */
+/* Light mode */
 body.light {
   --bg:#f5f7fb;
   --bg-alt:#eef1f8;
@@ -464,6 +464,7 @@ td{color:var(--text);}
       <div class="nav-item" onclick="showPage('arbitrage', this)">
         <span>Arbs</span><span class="icon">⟡</span>
       </div>
+      <!-- Matches tab wired to #matches -->
       <div class="nav-item" onclick="showPage('matches', this)">
         <span>Matches</span><span class="icon">☰</span>
       </div>
@@ -583,7 +584,7 @@ td{color:var(--text);}
     </div>
   </section>
 
-  <!-- MATCHES (valid / invalid list) -->
+  <!-- MATCHES (Valid / Invalid lists) -->
   <section class="page" id="matches">
     <div class="section-header">
       <div class="section-header-title">📋 Matches (Valid & Invalid)</div>
@@ -593,6 +594,7 @@ td{color:var(--text);}
     <div class="stat-card">
       <div class="control-row" style="margin-bottom:6px;">
         <div class="filter-group">
+          <!-- Visible buttons for valid/invalid lists -->
           <button class="filter-btn active" id="btnMatchesValid" onclick="showMatchesList('valid')">
             Valid matches
           </button>
@@ -604,7 +606,7 @@ td{color:var(--text);}
 
       <div class="table-wrap">
         <div id="matchesTable">
-          <div class="empty">Choose “Valid matches” or “Invalid matches” above to see the list.</div>
+          <div class="empty">Click “Valid matches” or “Invalid matches” to load the list.</div>
         </div>
       </div>
     </div>
@@ -688,6 +690,7 @@ function toggleTheme(){
   document.body.classList.toggle('light');
 }
 
+/* Page switching: Dashboard / Arbs / Matches / Odds / Billing / Settings */
 function showPage(pageId, el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
@@ -794,6 +797,7 @@ function isRecentEnough(o){
   return diffDays <= maxAgeDays;
 }
 
+/* Render cards in Arbs page */
 function renderArbs(){
   const stake = parseInt(document.getElementById('stake').value) || 100000;
   let opps = allOpps.slice();
@@ -909,6 +913,7 @@ function renderArbs(){
   }).join('');
 }
 
+/* Render full odds table */
 function renderOdds(){
   document.getElementById('oddsCount').textContent = `${rawOdds.length} rows`;
   const wrap = document.getElementById('oddsTable');
@@ -946,25 +951,9 @@ function renderOdds(){
   `;
 }
 
-function renderChangeSummary(){
-  const summary = document.getElementById('changeSummary');
-  const lines = [];
-  allOpps.forEach(o=>{
-    if(o.changed && o.status==='valid') lines.push(`+ ${o.match} became valid now.`);
-    if(o.status==='invalid') lines.push(`- ${o.match} is now invalid but kept in history.`);
-  });
-  if(!lines.length){
-    summary.textContent = 'No changes detected in this run.';
-    return;
-  }
-  summary.innerHTML = lines.slice(0,6).map(x=>{
-    if(x.startsWith('+')) return `<div style="color:#22c55e;">${x}</div>`;
-    return `<div style="color:#ef4444;">${x}</div>`;
-  }).join('');
-}
-
-/* NEW: Matches list (valid / invalid) */
+/* Matches list: filter by status and render table */
 function showMatchesList(kind){
+  // Button styles
   document.getElementById('btnMatchesValid').classList.remove('active');
   document.getElementById('btnMatchesInvalid').classList.remove('active');
   if (kind === 'valid') {
@@ -973,6 +962,7 @@ function showMatchesList(kind){
     document.getElementById('btnMatchesInvalid').classList.add('active');
   }
 
+  // Filter opportunities by status
   let items = allOpps.filter(o => o.status === kind);
   if (kind === 'valid') {
     items = items.filter(isRecentEnough);
@@ -984,6 +974,7 @@ function showMatchesList(kind){
     return;
   }
 
+  // Render table into #matchesTable
   wrap.innerHTML = `
     <table>
       <thead>
@@ -1004,7 +995,7 @@ function showMatchesList(kind){
           const ko = o.kickoff ? formatKickoff(o.kickoff) : '-';
           return `
             <tr>
-              <td>${o.status.toUpperCase()}</td>
+              <td>${(o.status || '').toUpperCase()}</td>
               <td>${o.match}</td>
               <td>${o.type}</td>
               <td>${o.sport || '-'}</td>
@@ -1020,6 +1011,24 @@ function showMatchesList(kind){
   `;
 }
 
+function renderChangeSummary(){
+  const summary = document.getElementById('changeSummary');
+  const lines = [];
+  allOpps.forEach(o=>{
+    if(o.changed && o.status==='valid') lines.push(`+ ${o.match} became valid now.`);
+    if(o.status==='invalid') lines.push(`- ${o.match} is now invalid but kept in history.`);
+  });
+  if(!lines.length){
+    summary.textContent = 'No changes detected in this run.';
+    return;
+  }
+  summary.innerHTML = lines.slice(0,6).map(x=>{
+    if(x.startsWith('+')) return `<div style="color:#22c55e;">${x}</div>`;
+    return `<div style="color:#ef4444;">${x}</div>`;
+  }).join('');
+}
+
+/* Load data from odds.json and initialize views */
 async function load(){
   try{
     const r = await fetch('odds.json?t='+Date.now());
@@ -1040,7 +1049,8 @@ async function load(){
     renderChangeSummary();
     renderArbs();
     renderOdds();
-    // Default matches view: valid list
+
+    // Default: show valid matches list once data is loaded
     showMatchesList('valid');
   }catch(e){
     document.getElementById('status').textContent = 'Could not load odds.json';
@@ -1055,4 +1065,5 @@ setInterval(load,30000);
 </script>
 </body>
 </html>
+
 
