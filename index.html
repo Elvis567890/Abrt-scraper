@@ -21,7 +21,7 @@
   --danger:#ff4d4d;
 }
 
-/* Light mode variables (toggled via class) */
+/* Light mode variables */
 body.light {
   --bg:#f5f7fb;
   --bg-alt:#eef1f8;
@@ -112,7 +112,7 @@ body{
   color:var(--muted);
 }
 
-/* Top bar + main content */
+/* Main */
 .main{
   flex:1;
   padding:16px 20px;
@@ -149,7 +149,7 @@ body{
   background:rgba(15,23,42,0.7);
 }
 
-/* Toggle */
+/* Theme toggle */
 .theme-toggle{
   position:relative;
   width:46px;
@@ -207,7 +207,7 @@ body.light .theme-thumb{
   color:var(--muted);
 }
 
-/* Stat strip */
+/* Stats grid */
 .stats-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
@@ -252,7 +252,7 @@ body.light .theme-thumb{
   color:var(--muted);
 }
 
-/* Filters + stake */
+/* Controls */
 .control-row{
   display:flex;
   flex-wrap:wrap;
@@ -289,12 +289,14 @@ body.light .theme-thumb{
   width:120px;
 }
 
-/* Cards: Arbs */
+/* Card list */
 .card-list{
   display:flex;
   flex-direction:column;
   gap:10px;
 }
+
+/* Arbs cards */
 .arb-card{
   background:var(--card);
   border-radius:14px;
@@ -408,7 +410,7 @@ body.light .theme-thumb{
   text-align:center;
 }
 
-/* Odds table */
+/* Table */
 .table-wrap{margin-top:6px;overflow-x:auto;}
 table{
   width:100%;
@@ -461,6 +463,9 @@ td{color:var(--text);}
       </div>
       <div class="nav-item" onclick="showPage('arbitrage', this)">
         <span>Arbs</span><span class="icon">⟡</span>
+      </div>
+      <div class="nav-item" onclick="showPage('matches', this)">
+        <span>Matches</span><span class="icon">☰</span>
       </div>
       <div class="nav-item" onclick="showPage('odds', this)">
         <span>Odds</span><span class="icon">▤</span>
@@ -578,6 +583,33 @@ td{color:var(--text);}
     </div>
   </section>
 
+  <!-- MATCHES (valid / invalid list) -->
+  <section class="page" id="matches">
+    <div class="section-header">
+      <div class="section-header-title">📋 Matches (Valid & Invalid)</div>
+      <div class="section-header-sub">Tap a button to see detailed lists.</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="control-row" style="margin-bottom:6px;">
+        <div class="filter-group">
+          <button class="filter-btn active" id="btnMatchesValid" onclick="showMatchesList('valid')">
+            Valid matches
+          </button>
+          <button class="filter-btn" id="btnMatchesInvalid" onclick="showMatchesList('invalid')">
+            Invalid matches
+          </button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <div id="matchesTable">
+          <div class="empty">Choose “Valid matches” or “Invalid matches” above to see the list.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ODDS -->
   <section class="page" id="odds">
     <div class="section-header">
@@ -646,12 +678,11 @@ td{color:var(--text);}
 </div>
 
 <script>
-// Core state (same logic as your previous HTML)
 let allOpps = [];
 let rawOdds = [];
 let historyMap = {};
-let currentFilter = 'valid';    // default
-let maxAgeDays = 2;            // front-end age filter
+let currentFilter = 'valid';
+let maxAgeDays = 2;
 
 function toggleTheme(){
   document.body.classList.toggle('light');
@@ -667,6 +698,7 @@ function showPage(pageId, el){
   const map = {
     dashboard:'Overview of scraper status and opportunity summary',
     arbitrage:'Best live opportunities from your scraper',
+    matches:'List of valid and invalid matches',
     odds:'Full list from all bookmakers',
     billing:'Subscription plans and invoices (mock)',
     settings:'Control scraping and display behaviour (mock)'
@@ -784,7 +816,6 @@ function renderArbs(){
   document.getElementById('invalidCount').textContent =
     allOpps.filter(o=>o.status==='invalid').length;
 
-  // hero
   if(allOpps.length){
     const bestValid = allOpps.filter(o=>o.status==='valid' && isRecentEnough(o))
                              .sort((a,b)=>(b.profit_percent||0)-(a.profit_percent||0))[0];
@@ -927,9 +958,66 @@ function renderChangeSummary(){
     return;
   }
   summary.innerHTML = lines.slice(0,6).map(x=>{
-    if(x.startsWith('+')) return `<div style="color:${'#22c55e'};">${x}</div>`;
-    return `<div style="color:${'#ef4444'};">${x}</div>`;
+    if(x.startsWith('+')) return `<div style="color:#22c55e;">${x}</div>`;
+    return `<div style="color:#ef4444;">${x}</div>`;
   }).join('');
+}
+
+/* NEW: Matches list (valid / invalid) */
+function showMatchesList(kind){
+  document.getElementById('btnMatchesValid').classList.remove('active');
+  document.getElementById('btnMatchesInvalid').classList.remove('active');
+  if (kind === 'valid') {
+    document.getElementById('btnMatchesValid').classList.add('active');
+  } else {
+    document.getElementById('btnMatchesInvalid').classList.add('active');
+  }
+
+  let items = allOpps.filter(o => o.status === kind);
+  if (kind === 'valid') {
+    items = items.filter(isRecentEnough);
+  }
+
+  const wrap = document.getElementById('matchesTable');
+  if (!items.length) {
+    wrap.innerHTML = `<div class="empty">No ${kind} matches to show right now.</div>`;
+    return;
+  }
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Match</th>
+          <th>Type</th>
+          <th>Sport</th>
+          <th>Profit %</th>
+          <th>Profit UGX</th>
+          <th>Bookmakers</th>
+          <th>Kickoff</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${items.map(o => {
+          const books = (o.bets || []).map(b => b.bookmaker).join(', ');
+          const ko = o.kickoff ? formatKickoff(o.kickoff) : '-';
+          return `
+            <tr>
+              <td>${o.status.toUpperCase()}</td>
+              <td>${o.match}</td>
+              <td>${o.type}</td>
+              <td>${o.sport || '-'}</td>
+              <td>${Number(o.profit_percent || 0).toFixed(2)}</td>
+              <td>${o.profit_ugx != null ? o.profit_ugx.toLocaleString() : '-'}</td>
+              <td>${books}</td>
+              <td>${ko}</td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
 }
 
 async function load(){
@@ -952,16 +1040,19 @@ async function load(){
     renderChangeSummary();
     renderArbs();
     renderOdds();
+    // Default matches view: valid list
+    showMatchesList('valid');
   }catch(e){
     document.getElementById('status').textContent = 'Could not load odds.json';
     document.getElementById('arbs').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
     document.getElementById('oddsTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
+    document.getElementById('matchesTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
   }
 }
 
-// initial load + refresh
 load();
 setInterval(load,30000);
 </script>
 </body>
 </html>
+
