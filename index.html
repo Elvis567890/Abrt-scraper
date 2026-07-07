@@ -3,348 +3,237 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>🇺🇬 Uganda Arbitrage Scanner</title>
+<title>🇺🇬 Arb Studio • Luxury Dashboard</title>
 
 <style>
 :root{
-  --bg:#0b0f14;
-  --panel:#121826;
-  --card:#151c2b;
-  --text:#e6edf3;
-  --muted:#8b98a5;
-  --green:#00ff88;
-  --orange:#ff7a18;
-  --red:#ff4d4d;
-  --blue:#4da3ff;
-  --border:rgba(255,255,255,0.06);
+  --bg:#050710;
+  --bg-alt:#0b1020;
+  --card:#11172a;
+  --glass:rgba(17,23,42,0.85);
+  --accent:#00f5a0;
+  --accent-soft:rgba(0,245,160,0.12);
+  --accent2:#ff7a18;
+  --accent2-soft:rgba(255,122,24,0.12);
+  --text:#e9edf5;
+  --muted:#8f9bb5;
+  --border:rgba(255,255,255,0.08);
+  --danger:#ff4d4d;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
-body{background:var(--bg);color:var(--text);}
-a{text-decoration:none;color:inherit}
+/* Light mode variables (toggled via class) */
+body.light {
+  --bg:#f5f7fb;
+  --bg-alt:#eef1f8;
+  --card:#ffffff;
+  --glass:rgba(255,255,255,0.92);
+  --accent:#00c48c;
+  --accent-soft:rgba(0,196,140,0.08);
+  --accent2:#f97316;
+  --accent2-soft:rgba(249,115,22,0.12);
+  --text:#111827;
+  --muted:#6b7280;
+  --border:rgba(15,23,42,0.08);
+  --danger:#ef4444;
+}
 
-/* TOP BAR (from Design F) */
-header{
-  position:sticky;top:0;
-  background:rgba(11,15,20,0.9);
-  backdrop-filter: blur(10px);
-  padding:14px;
-  border-bottom:1px solid var(--border);
-  z-index:10;
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI";}
+body{
+  background:radial-gradient(circle at top,#1e293b,#050710);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+}
+
+/* Sidebar */
+.sidebar{
+  width:230px;
+  background:linear-gradient(180deg,#050710,#050710);
+  border-right:1px solid var(--border);
+  padding:18px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand-logo{
+  width:32px;height:32px;
+  border-radius:12px;
+  background:radial-gradient(circle at 0 0,#00f5a0,#0ea5e9);
+  box-shadow:0 0 30px rgba(14,165,233,0.4);
+}
+.brand-text h1{
+  font-size:15px;
+}
+.brand-text span{
+  font-size:11px;
+  color:var(--muted);
+}
+.nav-section{
+  margin-top:8px;
+}
+.nav-label{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.nav-list{display:flex;flex-direction:column;gap:4px;}
+.nav-item{
+  border-radius:999px;
+  padding:8px 11px;
+  font-size:12px;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  border:1px solid transparent;
+}
+.nav-item span.icon{
+  font-size:13px;
+  opacity:.9;
+}
+.nav-item.active{
+  color:var(--accent);
+  border-color:var(--accent-soft);
+  background:rgba(15,23,42,0.8);
+}
+.nav-item:hover{background:rgba(255,255,255,0.04);}
+
+.sidebar-footer{
+  margin-top:auto;
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* Top bar + main content */
+.main{
+  flex:1;
+  padding:16px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+/* Top bar */
+.topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-header .title-block h1{font-size:16px;}
-header .title-block p{font-size:12px;color:var(--muted);}
-header .status-pill{
+.top-left{
+  display:flex;
+  flex-direction:column;
+}
+.top-title{
+  font-size:16px;
+  font-weight:600;
+}
+.top-sub{font-size:12px;color:var(--muted);}
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.pill{
   font-size:11px;
-  padding:4px 10px;
+  padding:5px 12px;
   border-radius:999px;
   border:1px solid var(--border);
-  color:var(--muted);
+  background:rgba(15,23,42,0.7);
 }
 
-/* HERO (Design F) */
-.hero{
-  margin:14px;
-  padding:16px;
-  background:linear-gradient(135deg,#1a2a1f,#0f1724);
+/* Toggle */
+.theme-toggle{
+  position:relative;
+  width:46px;
+  height:22px;
+  border-radius:999px;
+  background:#0b1020;
   border:1px solid var(--border);
-  border-radius:16px;
+  cursor:pointer;
 }
-.hero h2{font-size:14px;color:var(--muted);}
-.hero .big{
-  font-size:28px;
-  font-weight:bold;
-  color:var(--green);
-  margin-top:6px;
+.theme-thumb{
+  position:absolute;
+  top:2px;
+  left:2px;
+  width:18px;height:18px;
+  border-radius:999px;
+  background:var(--accent);
+  transition:transform .25s;
 }
-.hero .sub{
-  margin-top:6px;
+body.light .theme-thumb{
+  transform:translateX(22px);
+}
+
+/* Hero */
+.hero{
+  background:var(--glass);
+  border-radius:18px;
+  border:1px solid var(--border);
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(18px);
+}
+.hero-main{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.hero-main h2{
+  font-size:14px;
+  color:var(--muted);
+}
+.hero-main .big{
+  font-size:26px;
+  font-weight:700;
+  color:var(--accent);
+}
+.hero-main .sub{
   font-size:12px;
   color:var(--muted);
 }
-
-/* MAIN CONTAINER */
-.container{padding:0 14px 80px;}
-
-/* DASHBOARD SUMMARY STRIP */
-.summary-strip{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin-bottom:12px;
-}
-.summary-card{
-  min-width:120px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:10px;
-}
-.summary-label{
+.hero-side{
+  text-align:right;
   font-size:11px;
   color:var(--muted);
 }
-.summary-value{
-  margin-top:4px;
+
+/* Stat strip */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;
+}
+.stat-card{
+  background:var(--glass);
+  border-radius:14px;
+  border:1px solid var(--border);
+  padding:10px 11px;
+}
+.stat-label{
+  font-size:11px;color:var(--muted);
+}
+.stat-value{
   font-size:18px;
   font-weight:600;
+  margin-top:3px;
 }
-
-/* SECTION SWITCHER (tabs for Dashboard / Arbs / Odds / Billing / Settings) */
-.section-tabs{
-  display:flex;
-  gap:8px;
-  margin:10px 0 14px;
-}
-.section-tab{
-  flex:1;
-  text-align:center;
-  font-size:11px;
-  padding:6px 0;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:#0f1624;
-  color:var(--muted);
-  cursor:pointer;
-}
-.section-tab.active{
-  border-color:var(--green);
-  color:var(--green);
-  background:rgba(0,255,136,0.08);
-}
-
-/* GENERIC CARD (for all pages, reusing Design F look) */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:12px;
-}
-
-/* ARB CARDS (mapped from existing renderArbs into Design F look) */
-.arb-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:12px;
-}
-.arb-card.valid{
-  border-color:var(--green);
-  box-shadow:0 0 18px rgba(0,255,136,0.12);
-}
-.arb-card.invalid{
-  border-color:var(--red);
-  opacity:0.8;
-}
-.arb-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  margin-bottom:8px;
-  gap:8px;
-}
-.arb-match{
-  font-weight:600;
-  font-size:14px;
-}
-.arb-kickoff{
-  font-size:11px;
-  color:var(--muted);
+.stat-tag{
+  font-size:10px;
   margin-top:4px;
-}
-.arb-profit{
-  text-align:right;
-}
-.profit-pct{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:rgba(255,122,24,0.12);
-  padding:4px 10px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:600;
-  color:var(--orange);
-}
-.profit-ugx{
-  margin-top:4px;
-  font-size:11px;
-  color:var(--muted);
-}
-.arb-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:6px;
-  font-size:11px;
-  color:var(--muted);
-}
-.badge{
-  font-size:11px;
-  padding:3px 8px;
-  border-radius:999px;
-}
-.badge.green{background:rgba(0,255,136,0.1);color:var(--green);}
-.badge.orange{background:rgba(255,122,24,0.1);color:var(--orange);}
-.badge.blue{background:rgba(77,163,255,0.1);color:var(--blue);}
-.badge.red{background:rgba(255,77,77,0.1);color:var(--red);}
-.badge.gray{background:rgba(255,255,255,0.04);color:var(--muted);}
-
-.arb-bets{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
-.arb-bet{
-  display:flex;
-  justify-content:space-between;
-  padding:8px;
-  background:rgba(255,255,255,0.03);
-  border-radius:10px;
-}
-.bet-left{display:flex;flex-direction:column;}
-.bet-book{color:var(--green);font-size:12px;font-weight:600;}
-.bet-outcome{color:var(--muted);font-size:11px;}
-.bet-right{display:flex;flex-direction:column;align-items:flex-end;}
-.bet-odd{font-weight:600;font-size:12px;}
-.bet-stake{color:var(--orange);font-size:11px;}
-
-.no-arb,.empty{
-  background:rgba(255,255,255,0.02);
-  border-radius:8px;
-  padding:16px;
-  text-align:center;
-  color:var(--muted);
-  border:1px dashed var(--border);
+  color:var(--accent2);
 }
 
-/* STAKE ROW + FILTERS (for arbitrage page) */
-.stake-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-bottom:10px;
-  padding:10px;
-  background:var(--panel);
-  border-radius:10px;
-}
-.stake-row label{
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.stake-input{
-  background:#0f1624;
-  border:1px solid var(--border);
-  color:var(--green);
-  border-radius:6px;
-  padding:5px 8px;
-  font-size:.8rem;
-  width:120px;
-}
-.filter-bar{
-  display:flex;
-  gap:6px;
-  margin-bottom:10px;
-  overflow-x:auto;
-}
-.filter-btn{
-  background:#0f1624;
-  border:1px solid var(--border);
-  color:var(--muted);
-  border-radius:999px;
-  padding:5px 10px;
-  font-size:.75rem;
-  cursor:pointer;
-  white-space:nowrap;
-}
-.filter-btn.active{
-  background:rgba(0,255,136,0.1);
-  border-color:var(--green);
-  color:var(--green);
-}
-
-/* ODDS TABLE */
-.table-wrap{overflow-x:auto;}
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:600px;
-  background:var(--panel);
-  border-radius:12px;
-  overflow:hidden;
-}
-th,td{
-  padding:8px 10px;
-  text-align:left;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  font-size:.8rem;
-}
-th{
-  color:var(--muted);
-  background:#111827;
-}
-td{color:var(--text);}
-
-/* FORM INPUTS REUSED (billing/settings) */
-.auth-input{
-  width:100%;
-  background:#0f1624;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:11px 12px;
-  outline:none;
-  margin-bottom:10px;
-  font-size:13px;
-}
-.auth-input:focus{
-  border-color:var(--green);
-  box-shadow:0 0 0 1px rgba(0,255,136,0.3);
-}
-
-/* BILLING & SETTINGS SIMPLE BUTTONS */
-.btn{
-  background:var(--orange);
-  border:none;
-  padding:10px;
-  border-radius:10px;
-  color:black;
-  font-weight:bold;
-  width:100%;
-  margin-top:10px;
-  font-size:.9rem;
-}
-.btn.secondary{
-  background:#0f1624;
-  color:var(--text);
-  border:1px solid var(--border);
-}
-
-/* BOTTOM NAV (visual only) */
-nav.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  display:flex;
-  justify-content:space-around;
-  background:#0e141d;
-  border-top:1px solid var(--border);
-  padding:10px 0;
-  z-index:5;
-}
-nav.bottom-nav div{
-  font-size:11px;
-  color:var(--muted);
-  text-align:center;
-}
-nav.bottom-nav div.active{
-  color:var(--green);
-}
-
-/* PAGES */
+/* Pages */
 .page{display:none;}
 .page.active{display:block;}
 
@@ -352,279 +241,468 @@ nav.bottom-nav div.active{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:8px;
-  font-size:13px;
+  margin:10px 0;
 }
-.section-header span.muted{font-size:11px;color:var(--muted);}
-.count{color:var(--orange);font-size:.8rem;}
+.section-header-title{
+  font-size:13px;
+  font-weight:600;
+}
+.section-header-sub{
+  font-size:11px;
+  color:var(--muted);
+}
 
-@media (min-width:900px){
-  .container{max-width:960px;margin:0 auto 80px;}
+/* Filters + stake */
+.control-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  margin-bottom:10px;
+}
+.filter-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.filter-btn{
+  border-radius:999px;
+  padding:5px 10px;
+  font-size:11px;
+  border:1px solid var(--border);
+  background:rgba(15,23,42,0.8);
+  color:var(--muted);
+  cursor:pointer;
+}
+.filter-btn.active{
+  border-color:var(--accent);
+  background:var(--accent-soft);
+  color:var(--accent);
+}
+.stake-input{
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(15,23,42,0.9);
+  color:var(--accent);
+  padding:5px 10px;
+  font-size:11px;
+  width:120px;
+}
+
+/* Cards: Arbs */
+.card-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.arb-card{
+  background:var(--card);
+  border-radius:14px;
+  border:1px solid var(--border);
+  padding:10px 12px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.arb-card.valid{
+  border-color:var(--accent-soft);
+  box-shadow:0 0 24px rgba(0,245,160,0.18);
+}
+.arb-card.invalid{
+  border-color:rgba(239,68,68,0.4);
+  opacity:0.85;
+}
+.arb-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+}
+.arb-match{
+  font-size:14px;
+  font-weight:600;
+}
+.arb-kickoff{
+  font-size:11px;
+  color:var(--muted);
+}
+.arb-profit{
+  text-align:right;
+}
+.profit-pct{
+  font-size:11px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:var(--accent2-soft);
+  color:var(--accent2);
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+.profit-ugx{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+}
+.arb-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  font-size:10px;
+  color:var(--muted);
+}
+.badge{
+  padding:3px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+}
+.badge.green{color:var(--accent);border-color:var(--accent-soft);}
+.badge.red{color:var(--danger);border-color:rgba(239,68,68,0.3);}
+.badge.blue{color:var(--accent2);border-color:var(--accent2-soft);}
+.badge.gray{color:var(--muted);}
+
+/* Bets */
+.arb-bets{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.arb-bet{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:7px 9px;
+  border-radius:10px;
+  background:rgba(15,23,42,0.8);
+}
+.bet-left{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.bet-book{
+  font-size:12px;
+  font-weight:600;
+  color:var(--accent);
+}
+.bet-outcome{
+  font-size:11px;
+  color:var(--muted);
+}
+.bet-right{
+  text-align:right;
+  font-size:11px;
+}
+.bet-stake{
+  color:var(--accent2);
+}
+
+/* Empty */
+.empty{
+  background:rgba(15,23,42,0.6);
+  border-radius:12px;
+  border:1px dashed var(--border);
+  padding:12px;
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* Odds table */
+.table-wrap{margin-top:6px;overflow-x:auto;}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:640px;
+}
+th,td{
+  font-size:11px;
+  padding:7px 8px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+th{
+  color:var(--muted);
+  background:rgba(15,23,42,0.9);
+}
+td{color:var(--text);}
+
+/* Responsive */
+@media(max-width:900px){
+  body{flex-direction:column;}
+  .sidebar{
+    width:100%;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-section{display:none;}
+  .sidebar-footer{display:none;}
 }
 </style>
 </head>
 
 <body>
-
-<!-- TOP BAR -->
-<header>
-  <div class="title-block">
-    <h1>Arb Scanner • Design F</h1>
-    <p id="pageSubtitle">Overview of scraper status and opportunity summary</p>
+<div class="sidebar">
+  <div class="brand">
+    <div class="brand-logo"></div>
+    <div class="brand-text">
+      <h1>Arb Studio</h1>
+      <span>Uganda Arbitrage Scanner</span>
+    </div>
   </div>
-  <div class="status-pill" id="lastUpdated">Loading...</div>
-</header>
 
-<!-- HERO (best opportunity summary) -->
-<div class="hero">
-  <h2>🔥 Best Opportunity</h2>
-  <div class="big" id="heroProfit">0.00% Profit</div>
-  <div class="sub" id="heroSub">Waiting for first refresh...</div>
+  <div class="nav-section">
+    <div class="nav-label">Navigation</div>
+    <div class="nav-list">
+      <div class="nav-item active" onclick="showPage('dashboard', this)">
+        <span>Dashboard</span><span class="icon">◎</span>
+      </div>
+      <div class="nav-item" onclick="showPage('arbitrage', this)">
+        <span>Arbs</span><span class="icon">⟡</span>
+      </div>
+      <div class="nav-item" onclick="showPage('odds', this)">
+        <span>Odds</span><span class="icon">▤</span>
+      </div>
+      <div class="nav-item" onclick="showPage('billing', this)">
+        <span>Billing</span><span class="icon">₵</span>
+      </div>
+      <div class="nav-item" onclick="showPage('settings', this)">
+        <span>Settings</span><span class="icon">⚙</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    Powered by your Python scraper<br/>
+    Odds from local Ugandan bookmakers.
+  </div>
 </div>
 
-<div class="container">
-  <!-- DASHBOARD SUMMARY STRIP -->
-  <div class="summary-strip">
-    <div class="summary-card">
-      <div class="summary-label">Valid Opportunities</div>
-      <div class="summary-value" id="validCount">0</div>
+<div class="main">
+  <div class="topbar">
+    <div class="top-left">
+      <div class="top-title">Live Arbitrage Monitor</div>
+      <div class="top-sub" id="pageSubtitle">Overview of scraper status and opportunity summary</div>
     </div>
-    <div class="summary-card">
-      <div class="summary-label">Invalid Opportunities</div>
-      <div class="summary-value" id="invalidCount">0</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">Total Matches</div>
-      <div class="summary-value" id="matchCount">0</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">Bookmakers</div>
-      <div class="summary-value" id="bookmakerCount">0</div>
+    <div class="top-right">
+      <div class="pill" id="lastUpdated">Last updated: —</div>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="theme-thumb"></div>
+      </div>
     </div>
   </div>
 
-  <!-- SECTION TABS -->
-  <div class="section-tabs">
-    <button class="section-tab active" data-page="dashboard" onclick="showPage('dashboard', this)">Dashboard</button>
-    <button class="section-tab" data-page="arbitrage" onclick="showPage('arbitrage', this)">Arbs</button>
-    <button class="section-tab" data-page="odds" onclick="showPage('odds', this)">Odds</button>
-    <button class="section-tab" data-page="billing" onclick="showPage('billing', this)">Billing</button>
-    <button class="section-tab" data-page="settings" onclick="showPage('settings', this)">Settings</button>
+  <div class="hero">
+    <div class="hero-main">
+      <h2>🔥 Best Opportunity</h2>
+      <div class="big" id="heroProfit">0.00% Profit</div>
+      <div class="sub" id="heroSub">Waiting for first refresh...</div>
+    </div>
+    <div class="hero-side">
+      <div>Stake preview uses your configured stake.</div>
+      <div>Valid opportunities only by default.</div>
+    </div>
   </div>
 
-  <!-- DASHBOARD PAGE -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Valid Opportunities</div>
+      <div class="stat-value" id="validCount">0</div>
+      <div class="stat-tag">Currently profitable and recent.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Invalid Opportunities</div>
+      <div class="stat-value" id="invalidCount">0</div>
+      <div class="stat-tag">Past opportunities kept in history.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Matches</div>
+      <div class="stat-value" id="matchCount">0</div>
+      <div class="stat-tag">All scraped odds entries.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Bookmakers</div>
+      <div class="stat-value" id="bookmakerCount">0</div>
+      <div class="stat-tag">Unique bookmakers in this run.</div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
   <section class="page active" id="dashboard">
-    <div class="card">
-      <div class="section-header">
-        <span>Quick Status</span>
-      </div>
-      <div id="status" class="small">Loading data...</div>
+    <div class="section-header">
+      <div class="section-header-title">Quick Status</div>
     </div>
-
-    <div class="card">
-      <div class="section-header">
-        <span>Change Summary</span>
+    <div class="card-list">
+      <div class="stat-card">
+        <div id="status">Loading data...</div>
       </div>
-      <div id="changeSummary" class="small">Waiting for first refresh...</div>
+      <div class="stat-card">
+        <div class="section-header-title">Change Summary</div>
+        <div id="changeSummary" style="margin-top:6px;font-size:12px;color:var(--muted);">
+          Waiting for first refresh...
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ARBITRAGE PAGE -->
+  <!-- ARBITRAGE -->
   <section class="page" id="arbitrage">
-    <div class="card">
-      <div class="section-header">
-        <span>🎯 Live Arbitrage Opportunities</span>
-        <span id="arbInfo" class="count"></span>
+    <div class="section-header">
+      <div class="section-header-title">🎯 Arbitrage Opportunities</div>
+      <div class="section-header-sub" id="arbInfo"></div>
+    </div>
+
+    <div class="card-list">
+      <div class="stat-card">
+        <div class="control-row">
+          <div class="filter-group">
+            <button class="filter-btn" onclick="setFilter('all',this)">All</button>
+            <button class="filter-btn active" onclick="setFilter('valid',this)">Valid Only</button>
+            <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid Only</button>
+            <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Bookmaker</button>
+            <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
+            <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
+          </div>
+          <div>
+            <input class="stake-input" type="number" id="stake" value="100000"
+                   min="1000" step="1000" oninput="renderArbs()" />
+          </div>
+        </div>
       </div>
 
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
-        <button class="filter-btn" onclick="setFilter('valid',this)">Valid Only</button>
-        <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid Only</button>
-        <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Bookmaker Only</button>
-        <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
-        <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
+      <div id="arbs">
+        <div class="empty">⏳ Loading opportunities...</div>
       </div>
-
-      <div class="stake-row">
-        <label>💰 Your Stake (UGX):</label>
-        <input class="stake-input" type="number" id="stake" value="100000" min="1000" step="1000" oninput="renderArbs()">
-      </div>
-
-      <div id="arbs"><div class="empty">⏳ Loading opportunities...</div></div>
     </div>
   </section>
 
-  <!-- ODDS PAGE -->
+  <!-- ODDS -->
   <section class="page" id="odds">
-    <div class="card">
-      <div class="section-header">
-        <span>📊 All Scraped Odds</span>
-        <span id="oddsCount" class="count"></span>
-      </div>
+    <div class="section-header">
+      <div class="section-header-title">📊 All Scraped Odds</div>
+      <div class="section-header-sub" id="oddsCount"></div>
+    </div>
+    <div class="stat-card">
       <div class="table-wrap">
         <div id="oddsTable"><div class="empty">⏳ Loading odds...</div></div>
       </div>
     </div>
   </section>
 
-  <!-- BILLING PAGE -->
+  <!-- BILLING -->
   <section class="page" id="billing">
-    <div class="card">
-      <div class="section-header">
-        <span>💳 Billing</span>
-        <span class="muted">Subscriptions and invoices</span>
-      </div>
-      <div class="small" style="margin-bottom:10px;color:var(--muted);">
-        Choose a plan that suits your trading volume.
-      </div>
-      <div class="summary-strip" style="margin-bottom:0;overflow-x:visible;flex-wrap:wrap;">
-        <div class="summary-card" style="min-width:45%;">
-          <div class="summary-label">Free Plan</div>
-          <div class="summary-value">UGX 0</div>
-          <div class="small" style="margin-top:4px;">Basic access and limited views.</div>
-        </div>
-        <div class="summary-card" style="min-width:45%;">
-          <div class="summary-label">Pro Plan</div>
-          <div class="summary-value">UGX 50,000</div>
-          <div class="small" style="margin-top:4px;">Full odds, opportunities, and billing tools.</div>
-        </div>
-        <div class="summary-card" style="min-width:45%;">
-          <div class="summary-label">Enterprise</div>
-          <div class="summary-value">Custom</div>
-          <div class="small" style="margin-top:4px;">Multiple users, integrations, and branding.</div>
-        </div>
-      </div>
+    <div class="section-header">
+      <div class="section-header-title">💳 Billing</div>
+      <div class="section-header-sub">Plans and simple invoice mock‑up</div>
     </div>
-
-    <div class="card">
-      <div class="section-header">
-        <span>Create Invoice</span>
+    <div class="stat-card">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">
+        Choose a plan that matches your trading volume. This is a UI mock; you can wire it later.
       </div>
-      <input class="auth-input" placeholder="Customer name">
-      <input class="auth-input" placeholder="Amount (UGX)" type="number">
-      <select class="auth-input">
-        <option>Invoice type</option>
-        <option>Monthly</option>
-        <option>Yearly</option>
-      </select>
-      <select class="auth-input">
-        <option>Status</option>
-        <option>Pending</option>
-        <option>Paid</option>
-        <option>Overdue</option>
-      </select>
-      <button class="btn">Save Invoice</button>
-      <button class="btn secondary" style="margin-top:8px;">View History</button>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Free Plan</div>
+          <div class="stat-value">UGX 0</div>
+          <div class="stat-tag">Basic access and limited views.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Pro Plan</div>
+          <div class="stat-value">UGX 50,000</div>
+          <div class="stat-tag">Full odds + arbs dashboard.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Enterprise</div>
+          <div class="stat-value">Custom</div>
+          <div class="stat-tag">Teams, integrations, branding.</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- SETTINGS PAGE -->
+  <!-- SETTINGS -->
   <section class="page" id="settings">
-    <div class="card">
-      <div class="section-header">
-        <span>⚙ Settings</span>
-        <span class="muted">Control scraping and display behavior</span>
+    <div class="section-header">
+      <div class="section-header-title">⚙ Settings</div>
+      <div class="section-header-sub">Control behavior of the UI</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">
+        These settings are visual; you can connect them to your Python config later.
       </div>
-      <select class="auth-input">
-        <option>Auto-refresh</option>
+      <select class="stake-input" style="width:180px;">
+        <option>Auto-refresh: 30 seconds</option>
         <option>5 minutes</option>
         <option>10 minutes</option>
-        <option>30 minutes</option>
       </select>
-      <select class="auth-input">
-        <option>Stake currency</option>
-        <option>UGX</option>
+      <br/><br/>
+      <select class="stake-input" style="width:180px;">
+        <option>Stake currency: UGX</option>
         <option>USD</option>
       </select>
-      <input class="auth-input" placeholder="Min profit %" type="number" value="0.5">
-      <input class="auth-input" placeholder="Max profit %" type="number" value="20">
-      <button class="btn">Save Settings</button>
-      <button class="btn secondary" style="margin-top:8px;">Reset</button>
-    </div>
-
-    <div class="card">
-      <div class="section-header">
-        <span>Refresh Behavior</span>
-      </div>
-      <div class="small">
-        This dashboard remembers the previous run, compares it to the latest run,
-        and keeps a history of invalid opportunities. When an opportunity disappears,
-        it is marked invalid and stays visible in the past section.
-      </div>
     </div>
   </section>
 </div>
 
-<!-- BOTTOM NAV (visual only, not wired to JS pages) -->
-<nav class="bottom-nav">
-  <div class="active">Home</div>
-  <div>Arbs</div>
-  <div>Odds</div>
-  <div>History</div>
-  <div>Settings</div>
-</nav>
-
 <script>
-// ---- Dashboard logic (no Supabase) ----
+// Core state (same logic as your previous HTML)
 let allOpps = [];
 let rawOdds = [];
 let historyMap = {};
-let currentFilter = 'all';
+let currentFilter = 'valid';    // default
+let maxAgeDays = 2;            // front-end age filter
 
-function showPage(page, el){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(page).classList.add('active');
-
-  // Highlight tab
-  document.querySelectorAll('.section-tab').forEach(t=>t.classList.remove('active'));
-  if (el) el.classList.add('active');
-
-  const map = {
-    dashboard:['Dashboard','Overview of scraper status and opportunity summary'],
-    arbitrage:['Arbitrage','Best live opportunities from your scraper'],
-    odds:['All Odds','Full list from all bookmakers'],
-    billing:['Billing','Subscription plans, invoices, and payments'],
-    settings:['Settings','Control scraping and display behavior']
-  };
-  document.getElementById('pageSubtitle').textContent = map[page][1];
+function toggleTheme(){
+  document.body.classList.toggle('light');
 }
 
-function parseKickoff(kickoff){
-  if(!kickoff) return null;
-  const s = String(kickoff).replace(' UTC','Z');
+function showPage(pageId, el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+
+  const map = {
+    dashboard:'Overview of scraper status and opportunity summary',
+    arbitrage:'Best live opportunities from your scraper',
+    odds:'Full list from all bookmakers',
+    billing:'Subscription plans and invoices (mock)',
+    settings:'Control scraping and display behaviour (mock)'
+  };
+  document.getElementById('pageSubtitle').textContent = map[pageId];
+}
+
+function parseKickoff(k){
+  if(!k) return null;
+  const s = String(k).replace(' UTC','Z');
   const d = new Date(s);
   return isNaN(d.getTime()) ? null : d;
 }
-
-function kickoffLabel(kickoff){
-  const d = parseKickoff(kickoff);
+function formatKickoff(k){
+  const d = parseKickoff(k);
+  if(!d) return '';
+  return new Intl.DateTimeFormat(undefined,{
+    weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'
+  }).format(d);
+}
+function kickoffLabel(k){
+  const d = parseKickoff(k);
   if(!d) return 'Unknown';
   const today = new Date();
   const todayKey = today.toISOString().slice(0,10);
   const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
+  tomorrow.setDate(today.getDate()+1);
   const tomorrowKey = tomorrow.toISOString().slice(0,10);
   const key = d.toISOString().slice(0,10);
-  if(key === todayKey) return 'Today';
-  if(key === tomorrowKey) return 'Tomorrow';
+  if(key===todayKey) return 'Today';
+  if(key===tomorrowKey) return 'Tomorrow';
   return 'Other';
 }
 
-function formatKickoff(kickoff){
-  const d = parseKickoff(kickoff);
-  if(!d) return '';
-  return new Intl.DateTimeFormat(undefined, {
-    weekday:'short',
-    month:'short',
-    day:'numeric',
-    hour:'2-digit',
-    minute:'2-digit'
-  }).format(d);
-}
-
 function opportunityId(o){
-  const bets = (o.bets || []).map(b => `${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
+  const bets = (o.bets||[]).map(b=>`${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
   return `${o.match}|${o.type}|${bets}`;
 }
 
@@ -639,15 +717,15 @@ function classifyChanges(newOpps){
 
   Object.keys(newMap).forEach(id => {
     const o = newMap[id];
-    o.status = 'valid';
-    if (oldMap[id]) {
+    o.status = o.status || 'valid';
+    if(oldMap[id]){
       o.changed = false;
       o.prevStatus = oldMap[id].status || 'valid';
-      o.note = 'Still valid';
-    } else {
+      o.note = o.note || 'Still valid';
+    }else{
       o.changed = true;
       o.prevStatus = 'new';
-      o.note = 'New opportunity';
+      o.note = o.note || 'New opportunity';
     }
     nextHistory[id] = o;
     updated.push(o);
@@ -655,11 +733,11 @@ function classifyChanges(newOpps){
   });
 
   Object.keys(oldMap).forEach(id => {
-    if (!seen.has(id)) {
+    if(!seen.has(id)){
       const old = oldMap[id];
       old.status = 'invalid';
       old.invalidAt = new Date().toISOString();
-      old.note = 'No longer present';
+      old.note = old.note || 'No longer present';
       nextHistory[id] = old;
       updated.push(old);
     }
@@ -676,1026 +754,115 @@ function setFilter(f, btn){
   renderArbs();
 }
 
-function renderArbs(){
-  const stake = parseInt(document.getElementById('stake').value) || 100000;
-  let opps = allOpps.slice();
-
-  if(currentFilter === 'valid'){
-    opps = opps.filter(o => o.status === 'valid');
-  } else if(currentFilter === 'invalid'){
-    opps = opps.filter(o => o.status === 'invalid');
-  } else if(currentFilter === 'cross'){
-    opps = opps.filter(o => new Set((o.bets || []).map(b=>b.bookmaker)).size >= 2);
-  } else if(currentFilter === '2way'){
-    opps = opps.filter(o => o.type === '2-way');
-  } else if(currentFilter === '3way'){
-    opps = opps.filter(o => o.type === '3-way');
-  }
-
-  document.getElementById('arbInfo').textContent = opps.length + ' found';
-  document.getElementById('validCount').textContent = allOpps.filter(o => o.status === 'valid').length;
-  document.getElementById('invalidCount').textContent = allOpps.filter(o => o.status === 'invalid').length;
-
-  // Update hero with best opportunity if any
-  if (allOpps.length){
-    const best = allOpps.filter(o=>o.status==='valid').sort((a,b)=>(b.profit_percent||0)-(a.profit_percent||0))[0] || allOpps[0];
-    const pct = Number(best.profit_percent || 0).toFixed(2);
-    document.getElementById('heroProfit').textContent = `${pct}% Profit`;
-    document.getElementById('heroSub').textContent = `${best.match || 'Unknown match'} • ${best.type || ''}`;
-  } else {
-    document.getElementById('heroProfit').textContent = '0.00% Profit';
-    document.getElementById('heroSub').textContent = 'Waiting for first refresh...';
-  }
-
-  const groups = {};
-  opps.forEach(o => {
-    const g = kickoffLabel(o.kickoff);
-    if(!groups[g]) groups[g] = [];
-    groups[g].push(o);
-  });
-
-  const order = ['Today', 'Tomorrow', 'Other', 'Unknown'];
-  const keys = [...order.filter(k => groups[k]), ...Object.keys(groups).filter(k => !order.includes(k)).sort()];
-  const arbDiv = document.getElementById('arbs');
-
-  if(!opps.length){
-    arbDiv.innerHTML = '<div class="no-arb">😔 No arbitrage opportunities match this filter right now.</div>';
-    return;
-  }
-
-  arbDiv.innerHTML = keys.map(groupName => {
-    const items = groups[groupName] || [];
-    const cards = items.map(o => {
-      const bets = o.bets || [];
-      const arb = bets.reduce((s,b)=>s + (1/Number(b.odd || 1)), 0);
-      const profitUGX = Math.round(stake * (1 - arb));
-      const books = new Set(bets.map(b=>b.bookmaker));
-      const isCross = books.size >= 2;
-      const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : 'No kickoff';
-
-      const betsHtml = bets.map(b => {
-        const userStake = Math.round(stake * (1/Number(b.odd || 1)) / arb);
-        return `
-          <div class="arb-bet">
-            <div class="bet-left">
-              <span class="bet-book">${b.bookmaker}</span>
-              <span class="bet-outcome">${b.outcome} @ ${b.odd}</span>
-            </div>
-            <div class="bet-right">
-              <span class="bet-odd">UGX ${userStake.toLocaleString()}</span>
-              <span class="bet-stake">Win: UGX ${Math.round(userStake * Number(b.odd || 0)).toLocaleString()}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      const statusBadge = o.status === 'valid'
-        ? '<span class="badge green">VALID</span>'
-        : '<span class="badge red">INVALID</span>';
-
-      const noteBadge = o.changed && o.status === 'valid'
-        ? '<span class="badge blue">NEW</span>'
-        : (o.status === 'invalid' ? '<span class="badge gray">PAST</span>' : '');
-
-      return `
-        <div class="arb-card ${o.status}">
-          <div class="arb-header">
-            <div>
-              <div class="arb-match">${o.match}</div>
-              <div class="arb-kickoff">🕒 ${kickoffText}</div>
-            </div>
-            <div class="arb-profit">
-              <div class="profit-pct">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</div>
-              <div class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</div>
-            </div>
-          </div>
-          <div class="arb-meta">
-            <span class="arb-type">${o.type === '3-way' ? '🔺 3-way (1X2)' : '🔷 2-way'}</span>
-            ${isCross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
-            ${noteBadge}
-            <span class="badge ${o.status === 'valid' ? 'green' : 'red'}">${o.note || ''}</span>
-          </div>
-          <div class="arb-bets">${betsHtml}</div>
-        </div>
-      `;
-    }).join('');
-
-    return `
-      <div class="kgroup">
-        <div class="kgroup-title">${groupName}</div>
-        ${cards}
-      </div>
-    `;
-  }).join('');
-}
-
-function renderOdds(){
-  document.getElementById('oddsCount').textContent = rawOdds.length + ' rows';
-  const wrap = document.getElementById('oddsTable');
-  if(!rawOdds.length){
-    wrap.innerHTML = '<div class="empty">⏳ No odds yet.</div>';
-    return;
-  }
-  wrap.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Match</th>
-          <th>Bookmaker</th>
-          <th>Home</th>
-          <th>Draw</th>
-          <th>Away</th>
-          <th>Sport</th>
-          <th>Kickoff</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${rawOdds.map(o => `
-          <tr>
-            <td>${o.match}</td>
-            <td><span class="badge blue">${o.bookmaker}</span></td>
-            <td>${o.home ?? '-'}</td>
-            <td>${o.draw ?? '-'}</td>
-            <td>${o.away ?? '-'}</td>
-            <td>${o.sport ?? '-'}</td>
-            <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
-}
-
-function renderChangeLog(newOpps){
-  const changed = [];
-  newOpps.forEach(o => {
-    if (o.status === 'new') changed.push(`+ ${o.match} became valid now.`);
-    if (o.status === 'valid' && o.prevStatus === 'invalid') changed.push(`↻ ${o.match} changed from invalid to valid.`);
-    if (o.status === 'invalid') changed.push(`- ${o.match} is now invalid but kept in history.`);
-  });
-
-  const summary = document.getElementById('changeSummary');
-  if (!changed.length) {
-    summary.innerHTML = '<span class="same">No changes detected in this run.</span>';
-    return;
-  }
-
-  summary.innerHTML = changed.slice(0, 6).map(x => {
-    if (x.startsWith('+')) return `<div class="up">${x}</div>`;
-    if (x.startsWith('↻')) return `<div class="same">${x}</div>`;
-    return `<div class="down">${x}</div>`;
-  }).join('');
-}
-
-async function load(){
-  try{
-    const r = await fetch('odds.json?t=' + Date.now());
-    const d = await r.json();
-    rawOdds = d.raw_odds || [];
-    const freshOpps = d.opportunities || [];
-    const scraped = d.bookmakers_scraped || [...new Set(rawOdds.map(x=>x.bookmaker))];
-
-    classifyChanges(freshOpps);
-
-    document.getElementById('lastUpdated').textContent = '🕐 ' + (d.last_updated || '');
-    document.getElementById('matchCount').textContent = d.total_matches || rawOdds.length;
-    document.getElementById('bookmakerCount').textContent = scraped.length;
-    document.getElementById('status').textContent =
-      `Loaded ${rawOdds.length} odds entries from ${scraped.length} bookmakers. ` +
-      `${allOpps.filter(o=>o.status==='valid').length} valid and ${allOpps.filter(o=>o.status==='invalid').length} invalid opportunities kept in history.`;
-
-    renderChangeLog(allOpps);
-    renderArbs();
-    renderOdds();
-  }catch(e){
-    document.getElementById('status').textContent = 'Could not load odds.json';
-    document.getElementById('arbs').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
-    document.getElementById('oddsTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
-  }
-}
-
-// run immediately, then every 30s
-load(); // immediate load on page open [web:559][web:564]
-setInterval(load,30000);
-</script>
-</body>
-</html>
-
-Here’s your HTML updated so:
-
-- The default view is **Valid Only** (not All).
-- Old matches are **filtered out of the valid list** using a simple age rule (you can configure how many days).
-- The rest of your code is untouched. [1][2]
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>🇺🇬 Uganda Arbitrage Scanner</title>
-
-<style>
-:root{
-  --bg:#0b0f14;
-  --panel:#121826;
-  --card:#151c2b;
-  --text:#e6edf3;
-  --muted:#8b98a5;
-  --green:#00ff88;
-  --orange:#ff7a18;
-  --red:#ff4d4d;
-  --blue:#4da3ff;
-  --border:rgba(255,255,255,0.06);
-}
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
-body{background:var(--bg);color:var(--text);}
-a{text-decoration:none;color:inherit}
-
-/* TOP BAR (from Design F) */
-header{
-  position:sticky;top:0;
-  background:rgba(11,15,20,0.9);
-  backdrop-filter: blur(10px);
-  padding:14px;
-  border-bottom:1px solid var(--border);
-  z-index:10;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-header .title-block h1{font-size:16px;}
-header .title-block p{font-size:12px;color:var(--muted);}
-header .status-pill{
-  font-size:11px;
-  padding:4px 10px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  color:var(--muted);
-}
-
-/* HERO (Design F) */
-.hero{
-  margin:14px;
-  padding:16px;
-  background:linear-gradient(135deg,#1a2a1f,#0f1724);
-  border:1px solid var(--border);
-  border-radius:16px;
-}
-.hero h2{font-size:14px;color:var(--muted);}
-.hero .big{
-  font-size:28px;
-  font-weight:bold;
-  color:var(--green);
-  margin-top:6px;
-}
-.hero .sub{
-  margin-top:6px;
-  font-size:12px;
-  color:var(--muted);
-}
-
-/* MAIN CONTAINER */
-.container{padding:0 14px 80px;}
-
-/* DASHBOARD SUMMARY STRIP */
-.summary-strip{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin-bottom:12px;
-}
-.summary-card{
-  min-width:120px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:10px;
-}
-.summary-label{
-  font-size:11px;
-  color:var(--muted);
-}
-.summary-value{
-  margin-top:4px;
-  font-size:18px;
-  font-weight:600;
-}
-
-/* SECTION SWITCHER (tabs for Dashboard / Arbs / Odds / Billing / Settings) */
-.section-tabs{
-  display:flex;
-  gap:8px;
-  margin:10px 0 14px;
-}
-.section-tab{
-  flex:1;
-  text-align:center;
-  font-size:11px;
-  padding:6px 0;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:#0f1624;
-  color:var(--muted);
-  cursor:pointer;
-}
-.section-tab.active{
-  border-color:var(--green);
-  color:var(--green);
-  background:rgba(0,255,136,0.08);
-}
-
-/* GENERIC CARD (for all pages, reusing Design F look) */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:12px;
-}
-
-/* ARB CARDS (mapped from existing renderArbs into Design F look) */
-.arb-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:12px;
-}
-.arb-card.valid{
-  border-color:var(--green);
-  box-shadow:0 0 18px rgba(0,255,136,0.12);
-}
-.arb-card.invalid{
-  border-color:var(--red);
-  opacity:0.8;
-}
-.arb-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  margin-bottom:8px;
-  gap:8px;
-}
-.arb-match{
-  font-weight:600;
-  font-size:14px;
-}
-.arb-kickoff{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:4px;
-}
-.arb-profit{
-  text-align:right;
-}
-.profit-pct{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:rgba(255,122,24,0.12);
-  padding:4px 10px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:600;
-  color:var(--orange);
-}
-.profit-ugx{
-  margin-top:4px;
-  font-size:11px;
-  color:var(--muted);
-}
-.arb-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:6px;
-  font-size:11px;
-  color:var(--muted);
-}
-.badge{
-  font-size:11px;
-  padding:3px 8px;
-  border-radius:999px;
-}
-.badge.green{background:rgba(0,255,136,0.1);color:var(--green);}
-.badge.orange{background:rgba(255,122,24,0.1);color:var(--orange);}
-.badge.blue{background:rgba(77,163,255,0.1);color:var(--blue);}
-.badge.red{background:rgba(255,77,77,0.1);color:var(--red);}
-.badge.gray{background:rgba(255,255,255,0.04);color:var(--muted);}
-
-.arb-bets{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
-.arb-bet{
-  display:flex;
-  justify-content:space-between;
-  padding:8px;
-  background:rgba(255,255,255,0.03);
-  border-radius:10px;
-}
-.bet-left{display:flex;flex-direction:column;}
-.bet-book{color:var(--green);font-size:12px;font-weight:600;}
-.bet-outcome{color:var(--muted);font-size:11px;}
-.bet-right{display:flex;flex-direction:column;align-items:flex-end;}
-.bet-odd{font-weight:600;font-size:12px;}
-.bet-stake{color:var(--orange);font-size:11px;}
-
-.no-arb,.empty{
-  background:rgba(255,255,255,0.02);
-  border-radius:8px;
-  padding:16px;
-  text-align:center;
-  color:var(--muted);
-  border:1px dashed var(--border);
-}
-
-/* STAKE ROW + FILTERS (for arbitrage page) */
-.stake-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-bottom:10px;
-  padding:10px;
-  background:var(--panel);
-  border-radius:10px;
-}
-.stake-row label{
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.stake-input{
-  background:#0f1624;
-  border:1px solid var(--border);
-  color:var(--green);
-  border-radius:6px;
-  padding:5px 8px;
-  font-size:.8rem;
-  width:120px;
-}
-.filter-bar{
-  display:flex;
-  gap:6px;
-  margin-bottom:10px;
-  overflow-x:auto;
-}
-.filter-btn{
-  background:#0f1624;
-  border:1px solid var(--border);
-  color:var(--muted);
-  border-radius:999px;
-  padding:5px 10px;
-  font-size:.75rem;
-  cursor:pointer;
-  white-space:nowrap;
-}
-.filter-btn.active{
-  background:rgba(0,255,136,0.1);
-  border-color:var(--green);
-  color:var(--green);
-}
-
-/* ODDS TABLE */
-.table-wrap{overflow-x:auto;}
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:600px;
-  background:var(--panel);
-  border-radius:12px;
-  overflow:hidden;
-}
-th,td{
-  padding:8px 10px;
-  text-align:left;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  font-size:.8rem;
-}
-th{
-  color:var(--muted);
-  background:#111827;
-}
-td{color:var(--text);}
-
-/* FORM INPUTS REUSED (billing/settings) */
-.auth-input{
-  width:100%;
-  background:#0f1624;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:11px 12px;
-  outline:none;
-  margin-bottom:10px;
-  font-size:13px;
-}
-.auth-input:focus{
-  border-color:var(--green);
-  box-shadow:0 0 0 1px rgba(0,255,136,0.3);
-}
-
-/* BILLING & SETTINGS SIMPLE BUTTONS */
-.btn{
-  background:var(--orange);
-  border:none;
-  padding:10px;
-  border-radius:10px;
-  color:black;
-  font-weight:bold;
-  width:100%;
-  margin-top:10px;
-  font-size:.9rem;
-}
-.btn.secondary{
-  background:#0f1624;
-  color:var(--text);
-  border:1px solid var(--border);
-}
-
-/* BOTTOM NAV (visual only) */
-nav.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  display:flex;
-  justify-content:space-around;
-  background:#0e141d;
-  border-top:1px solid var(--border);
-  padding:10px 0;
-  z-index:5;
-}
-nav.bottom-nav div{
-  font-size:11px;
-  color:var(--muted);
-  text-align:center;
-}
-nav.bottom-nav div.active{
-  color:var(--green);
-}
-
-/* PAGES */
-.page{display:none;}
-.page.active{display:block;}
-
-.section-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:8px;
-  font-size:13px;
-}
-.section-header span.muted{font-size:11px;color:var(--muted);}
-.count{color:var(--orange);font-size:.8rem;}
-
-@media (min-width:900px){
-  .container{max-width:960px;margin:0 auto 80px;}
-}
-</style>
-</head>
-
-<body>
-
-<!-- TOP BAR -->
-<header>
-  <div class="title-block">
-    <h1>Arb Scanner • Design F</h1>
-    <p id="pageSubtitle">Overview of scraper status and opportunity summary</p>
-  </div>
-  <div class="status-pill" id="lastUpdated">Loading...</div>
-</header>
-
-<!-- HERO (best opportunity summary) -->
-<div class="hero">
-  <h2>🔥 Best Opportunity</h2>
-  <div class="big" id="heroProfit">0.00% Profit</div>
-  <div class="sub" id="heroSub">Waiting for first refresh...</div>
-</div>
-
-<div class="container">
-  <!-- DASHBOARD SUMMARY STRIP -->
-  <div class="summary-strip">
-    <div class="summary-card">
-      <div class="summary-label">Valid Opportunities</div>
-      <div class="summary-value" id="validCount">0</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">Invalid Opportunities</div>
-      <div class="summary-value" id="invalidCount">0</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">Total Matches</div>
-      <div class="summary-value" id="matchCount">0</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">Bookmakers</div>
-      <div class="summary-value" id="bookmakerCount">0</div>
-    </div>
-  </div>
-
-  <!-- SECTION TABS -->
-  <div class="section-tabs">
-    <button class="section-tab active" data-page="dashboard" onclick="showPage('dashboard', this)">Dashboard</button>
-    <button class="section-tab" data-page="arbitrage" onclick="showPage('arbitrage', this)">Arbs</button>
-    <button class="section-tab" data-page="odds" onclick="showPage('odds', this)">Odds</button>
-    <button class="section-tab" data-page="billing" onclick="showPage('billing', this)">Billing</button>
-    <button class="section-tab" data-page="settings" onclick="showPage('settings', this)">Settings</button>
-  </div>
-
-  <!-- DASHBOARD PAGE -->
-  <section class="page active" id="dashboard">
-    <div class="card">
-      <div class="section-header">
-        <span>Quick Status</span>
-      </div>
-      <div id="status" class="small">Loading data...</div>
-    </div>
-
-    <div class="card">
-      <div class="section-header">
-        <span>Change Summary</span>
-      </div>
-      <div id="changeSummary" class="small">Waiting for first refresh...</div>
-    </div>
-  </section>
-
-  <!-- ARBITRAGE PAGE -->
-  <section class="page" id="arbitrage">
-    <div class="card">
-      <div class="section-header">
-        <span>🎯 Live Arbitrage Opportunities</span>
-        <span id="arbInfo" class="count"></span>
-      </div>
-
-      <div class="filter-bar">
-        <button class="filter-btn" onclick="setFilter('all',this)">All</button>
-        <button class="filter-btn active" onclick="setFilter('valid',this)">Valid Only</button>
-        <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid Only</button>
-        <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Bookmaker Only</button>
-        <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
-        <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
-      </div>
-
-      <div class="stake-row">
-        <label>💰 Your Stake (UGX):</label>
-        <input class="stake-input" type="number" id="stake" value="100000" min="1000" step="1000" oninput="renderArbs()">
-      </div>
-
-      <div id="arbs"><div class="empty">⏳ Loading opportunities...</div></div>
-    </div>
-  </section>
-
-  <!-- ODDS PAGE -->
-  <section class="page" id="odds">
-    <div class="card">
-      <div class="section-header">
-        <span>📊 All Scraped Odds</span>
-        <span id="oddsCount" class="count"></span>
-      </div>
-      <div class="table-wrap">
-        <div id="oddsTable"><div class="empty">⏳ Loading odds...</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BILLING PAGE -->
-  <section class="page" id="billing">
-    <div class="card">
-      <div class="section-header">
-        <span>💳 Billing</span>
-        <span class="muted">Subscriptions and invoices</span>
-      </div>
-      <div class="small" style="margin-bottom:10px;color:var(--muted);">
-        Choose a plan that suits your trading volume.
-      </div>
-      <div class="summary-strip" style="margin-bottom:0;overflow-x:visible;flex-wrap:wrap;">
-        <div class="summary-card" style="min-width:45%;">
-          <div class="summary-label">Free Plan</div>
-          <div class="summary-value">UGX 0</div>
-          <div class="small" style="margin-top:4px;">Basic access and limited views.</div>
-        </div>
-        <div class="summary-card" style="min-width:45%;">
-          <div class="summary-label">Pro Plan</div>
-          <div class="summary-value">UGX 50,000</div>
-          <div class="small" style="margin-top:4px;">Full odds, opportunities, and billing tools.</div>
-        </div>
-        <div class="summary-card" style="min-width:45%;">
-          <div class="summary-label">Enterprise</div>
-          <div class="summary-value">Custom</div>
-          <div class="small" style="margin-top:4px;">Multiple users, integrations, and branding.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-header">
-        <span>Create Invoice</span>
-      </div>
-      <input class="auth-input" placeholder="Customer name">
-      <input class="auth-input" placeholder="Amount (UGX)" type="number">
-      <select class="auth-input">
-        <option>Invoice type</option>
-        <option>Monthly</option>
-        <option>Yearly</option>
-      </select>
-      <select class="auth-input">
-        <option>Status</option>
-        <option>Pending</option>
-        <option>Paid</option>
-        <option>Overdue</option>
-      </select>
-      <button class="btn">Save Invoice</button>
-      <button class="btn secondary" style="margin-top:8px;">View History</button>
-    </div>
-  </section>
-
-  <!-- SETTINGS PAGE -->
-  <section class="page" id="settings">
-    <div class="card">
-      <div class="section-header">
-        <span>⚙ Settings</span>
-        <span class="muted">Control scraping and display behavior</span>
-      </div>
-      <select class="auth-input">
-        <option>Auto-refresh</option>
-        <option>5 minutes</option>
-        <option>10 minutes</option>
-        <option>30 minutes</option>
-      </select>
-      <select class="auth-input">
-        <option>Stake currency</option>
-        <option>UGX</option>
-        <option>USD</option>
-      </select>
-      <input class="auth-input" placeholder="Min profit %" type="number" value="0.5">
-      <input class="auth-input" placeholder="Max profit %" type="number" value="20">
-      <button class="btn">Save Settings</button>
-      <button class="btn secondary" style="margin-top:8px;">Reset</button>
-    </div>
-
-    <div class="card">
-      <div class="section-header">
-        <span>Refresh Behavior</span>
-      </div>
-      <div class="small">
-        This dashboard remembers the previous run, compares it to the latest run,
-        and keeps a history of invalid opportunities. When an opportunity disappears,
-        it is marked invalid and stays visible in the past section.
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- BOTTOM NAV (visual only, not wired to JS pages) -->
-<nav class="bottom-nav">
-  <div class="active">Home</div>
-  <div>Arbs</div>
-  <div>Odds</div>
-  <div>History</div>
-  <div>Settings</div>
-</nav>
-
-<script>
-// ---- Dashboard logic (no Supabase) ----
-let allOpps = [];
-let rawOdds = [];
-let historyMap = {};
-let currentFilter = 'valid'; // default to Valid Only
-
-// Opportunities older than this (in days) are NOT treated as valid in the UI
-const MAX_VALID_AGE_DAYS = 1; // change to 2, 3, 7 if you want
-
-function showPage(page, el){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(page).classList.add('active');
-
-  // Highlight tab
-  document.querySelectorAll('.section-tab').forEach(t=>t.classList.remove('active'));
-  if (el) el.classList.add('active');
-
-  const map = {
-    dashboard:['Dashboard','Overview of scraper status and opportunity summary'],
-    arbitrage:['Arbitrage','Best live opportunities from your scraper'],
-    odds:['All Odds','Full list from all bookmakers'],
-    billing:['Billing','Subscription plans, invoices, and payments'],
-    settings:['Settings','Control scraping and display behavior']
-  };
-  document.getElementById('pageSubtitle').textContent = map[page][1];
-}
-
-function parseKickoff(kickoff){
-  if(!kickoff) return null;
-  const s = String(kickoff).replace(' UTC','Z');
-  const d = new Date(s);
-  return isNaN(d.getTime()) ? null : d;
-}
-
-function kickoffLabel(kickoff){
-  const d = parseKickoff(kickoff);
-  if(!d) return 'Unknown';
-  const today = new Date();
-  const todayKey = today.toISOString().slice(0,10);
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  const tomorrowKey = tomorrow.toISOString().slice(0,10);
-  const key = d.toISOString().slice(0,10);
-  if(key === todayKey) return 'Today';
-  if(key === tomorrowKey) return 'Tomorrow';
-  return 'Other';
-}
-
-function formatKickoff(kickoff){
-  const d = parseKickoff(kickoff);
-  if(!d) return '';
-  return new Intl.DateTimeFormat(undefined, {
-    weekday:'short',
-    month:'short',
-    day:'numeric',
-    hour:'2-digit',
-    minute:'2-digit'
-  }).format(d);
-}
-
-// Resolve a date for validity checks: kickoff -> since -> checked_at
-function resolveOpportunityDate(o){
-  if (o.kickoff) {
-    const d = new Date(String(o.kickoff).replace(' UTC','Z'));
-    if (!isNaN(d.getTime())) return d;
-  }
-  if (o.since) {
-    const d = new Date(o.since);
-    if (!isNaN(d.getTime())) return d;
-  }
-  if (o.checked_at) {
-    const d = new Date(o.checked_at);
-    if (!isNaN(d.getTime())) return d;
-  }
-  return null;
-}
-
-function isTooOldForValid(o){
-  const d = resolveOpportunityDate(o);
-  if (!d) return false;
+function isRecentEnough(o){
+  const d = parseKickoff(o.kickoff);
+  if(!d) return true;
   const now = new Date();
-  const ageDays = (now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24);
-  return ageDays > MAX_VALID_AGE_DAYS;
-}
-
-function opportunityId(o){
-  const bets = (o.bets || []).map(b => `${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
-  return `${o.match}|${o.type}|${bets}`;
-}
-
-function classifyChanges(newOpps){
-  const newMap = {};
-  newOpps.forEach(o => newMap[opportunityId(o)] = o);
-
-  const oldMap = historyMap;
-  const nextHistory = {};
-  const updated = [];
-  const seen = new Set();
-
-  Object.keys(newMap).forEach(id => {
-    const o = newMap[id];
-    o.status = 'valid';
-    if (oldMap[id]) {
-      o.changed = false;
-      o.prevStatus = oldMap[id].status || 'valid';
-      o.note = 'Still valid';
-    } else {
-      o.changed = true;
-      o.prevStatus = 'new';
-      o.note = 'New opportunity';
-    }
-    nextHistory[id] = o;
-    updated.push(o);
-    seen.add(id);
-  });
-
-  Object.keys(oldMap).forEach(id => {
-    if (!seen.has(id)) {
-      const old = oldMap[id];
-      old.status = 'invalid';
-      old.invalidAt = new Date().toISOString();
-      old.note = 'No longer present';
-      nextHistory[id] = old;
-      updated.push(old);
-    }
-  });
-
-  historyMap = nextHistory;
-  allOpps = updated;
-}
-
-function setFilter(f, btn){
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderArbs();
+  const diffDays = (now - d)/(1000*60*60*24);
+  return diffDays <= maxAgeDays;
 }
 
 function renderArbs(){
   const stake = parseInt(document.getElementById('stake').value) || 100000;
   let opps = allOpps.slice();
 
-  if(currentFilter === 'valid'){
-    opps = opps
-      .filter(o => o.status === 'valid')
-      .filter(o => !isTooOldForValid(o)); // drop old matches from valid list
-  } else if(currentFilter === 'invalid'){
-    opps = opps.filter(o => o.status === 'invalid');
-  } else if(currentFilter === 'cross'){
-    opps = opps.filter(o => new Set((o.bets || []).map(b=>b.bookmaker)).size >= 2);
-  } else if(currentFilter === '2way'){
-    opps = opps.filter(o => o.type === '2-way');
-  } else if(currentFilter === '3way'){
-    opps = opps.filter(o => o.type === '3-way');
+  if(currentFilter==='valid'){
+    opps = opps.filter(o=>o.status==='valid' && isRecentEnough(o));
+  }else if(currentFilter==='invalid'){
+    opps = opps.filter(o=>o.status==='invalid');
+  }else if(currentFilter==='cross'){
+    opps = opps.filter(o=>new Set((o.bets||[]).map(b=>b.bookmaker)).size>=2);
+  }else if(currentFilter==='2way'){
+    opps = opps.filter(o=>o.type==='2-way');
+  }else if(currentFilter==='3way'){
+    opps = opps.filter(o=>o.type==='3-way');
   }
 
-  document.getElementById('arbInfo').textContent = opps.length + ' found';
-  document.getElementById('validCount').textContent = allOpps.filter(o => o.status === 'valid' && !isTooOldForValid(o)).length;
-  document.getElementById('invalidCount').textContent = allOpps.filter(o => o.status === 'invalid').length;
+  document.getElementById('arbInfo').textContent = opps.length + ' opportunities';
+  document.getElementById('validCount').textContent =
+    allOpps.filter(o=>o.status==='valid' && isRecentEnough(o)).length;
+  document.getElementById('invalidCount').textContent =
+    allOpps.filter(o=>o.status==='invalid').length;
 
-  // Update hero with best opportunity if any
-  if (allOpps.length){
-    const best = allOpps
-      .filter(o=>o.status==='valid' && !isTooOldForValid(o))
-      .sort((a,b)=>(b.profit_percent||0)-(a.profit_percent||0))[0] || allOpps[0];
-    const pct = Number(best.profit_percent || 0).toFixed(2);
+  // hero
+  if(allOpps.length){
+    const bestValid = allOpps.filter(o=>o.status==='valid' && isRecentEnough(o))
+                             .sort((a,b)=>(b.profit_percent||0)-(a.profit_percent||0))[0];
+    const best = bestValid || allOpps[0];
+    const pct = Number(best.profit_percent||0).toFixed(2);
     document.getElementById('heroProfit').textContent = `${pct}% Profit`;
-    document.getElementById('heroSub').textContent = `${best.match || 'Unknown match'} • ${best.type || ''}`;
-  } else {
-    document.getElementById('heroProfit').textContent = '0.00% Profit';
-    document.getElementById('heroSub').textContent = 'Waiting for first refresh...';
+    document.getElementById('heroSub').textContent =
+      `${best.match||'Unknown match'} • ${best.type||''}`;
   }
 
   const groups = {};
-  opps.forEach(o => {
+  opps.forEach(o=>{
     const g = kickoffLabel(o.kickoff);
     if(!groups[g]) groups[g] = [];
     groups[g].push(o);
   });
 
-  const order = ['Today', 'Tomorrow', 'Other', 'Unknown'];
-  const keys = [...order.filter(k => groups[k]), ...Object.keys(groups).filter(k => !order.includes(k)).sort()];
-  const arbDiv = document.getElementById('arbs');
+  const order = ['Today','Tomorrow','Other','Unknown'];
+  const keys = [...order.filter(k=>groups[k]),
+                ...Object.keys(groups).filter(k=>!order.includes(k)).sort()];
 
+  const container = document.getElementById('arbs');
   if(!opps.length){
-    arbDiv.innerHTML = '<div class="no-arb">😔 No arbitrage opportunities match this filter right now.</div>';
+    container.innerHTML = '<div class="empty">😔 No arbitrage opportunities match this filter right now.</div>';
     return;
   }
 
-  arbDiv.innerHTML = keys.map(groupName => {
-    const items = groups[groupName] || [];
-    const cards = items.map(o => {
-      const bets = o.bets || [];
-      const arb = bets.reduce((s,b)=>s + (1/Number(b.odd || 1)), 0);
-      const profitUGX = Math.round(stake * (1 - arb));
+  container.innerHTML = keys.map(group=>{
+    const items = groups[group]||[];
+    const cards = items.map(o=>{
+      const bets = o.bets||[];
+      const arb = bets.reduce((s,b)=>s + (1/Number(b.odd||1)),0);
+      const profitUGX = Math.round(stake*(1-arb));
       const books = new Set(bets.map(b=>b.bookmaker));
-      const isCross = books.size >= 2;
+      const cross = books.size>=2;
       const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : 'No kickoff';
 
-      const betsHtml = bets.map(b => {
-        const userStake = Math.round(stake * (1/Number(b.odd || 1)) / arb);
+      const betsHtml = bets.map(b=>{
+        const userStake = Math.round(stake*(1/Number(b.odd||1))/arb);
         return `
           <div class="arb-bet">
             <div class="bet-left">
-              <span class="bet-book">${b.bookmaker}</span>
-              <span class="bet-outcome">${b.outcome} @ ${b.odd}</span>
+              <div class="bet-book">${b.bookmaker}</div>
+              <div class="bet-outcome">${b.outcome} @ ${b.odd}</div>
             </div>
             <div class="bet-right">
-              <span class="bet-odd">UGX ${userStake.toLocaleString()}</span>
-              <span class="bet-stake">Win: UGX ${Math.round(userStake * Number(b.odd || 0)).toLocaleString()}</span>
+              <div>Stake: UGX ${userStake.toLocaleString()}</div>
+              <div class="bet-stake">Win: UGX ${Math.round(userStake*Number(b.odd||0)).toLocaleString()}</div>
             </div>
           </div>
         `;
       }).join('');
 
-      const statusBadge = o.status === 'valid'
+      const statusBadge = o.status==='valid'
         ? '<span class="badge green">VALID</span>'
         : '<span class="badge red">INVALID</span>';
 
-      const noteBadge = o.changed && o.status === 'valid'
+      const noteBadge = o.changed && o.status==='valid'
         ? '<span class="badge blue">NEW</span>'
-        : (o.status === 'invalid' ? '<span class="badge gray">PAST</span>' : '');
+        : (o.status==='invalid' ? '<span class="badge gray">PAST</span>' : '');
 
       return `
         <div class="arb-card ${o.status}">
-          <div class="arb-header">
+          <div class="arb-top">
             <div>
               <div class="arb-match">${o.match}</div>
               <div class="arb-kickoff">🕒 ${kickoffText}</div>
             </div>
             <div class="arb-profit">
-              <div class="profit-pct">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</div>
+              <div class="profit-pct">${statusBadge} +${Number(o.profit_percent||0).toFixed(2)}%</div>
               <div class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</div>
             </div>
           </div>
           <div class="arb-meta">
-            <span class="arb-type">${o.type === '3-way' ? '🔺 3-way (1X2)' : '🔷 2-way'}</span>
-            ${isCross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
+            <span>${o.type==='3-way' ? '🔺 3‑way (1X2)' : '🔷 2‑way'}</span>
+            ${cross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
             ${noteBadge}
-            <span class="badge ${o.status === 'valid' ? 'green' : 'red'}">${o.note || ''}</span>
+            <span class="badge ${o.status==='valid'?'green':'red'}">${o.note||''}</span>
           </div>
           <div class="arb-bets">${betsHtml}</div>
         </div>
@@ -1703,8 +870,8 @@ function renderArbs(){
     }).join('');
 
     return `
-      <div class="kgroup">
-        <div class="kgroup-title">${groupName}</div>
+      <div style="margin-top:6px;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">${group}</div>
         ${cards}
       </div>
     `;
@@ -1712,7 +879,7 @@ function renderArbs(){
 }
 
 function renderOdds(){
-  document.getElementById('oddsCount').textContent = rawOdds.length + ' rows';
+  document.getElementById('oddsCount').textContent = `${rawOdds.length} rows`;
   const wrap = document.getElementById('oddsTable');
   if(!rawOdds.length){
     wrap.innerHTML = '<div class="empty">⏳ No odds yet.</div>';
@@ -1732,10 +899,10 @@ function renderOdds(){
         </tr>
       </thead>
       <tbody>
-        ${rawOdds.map(o => `
+        ${rawOdds.map(o=>`
           <tr>
             <td>${o.match}</td>
-            <td><span class="badge blue">${o.bookmaker}</span></td>
+            <td>${o.bookmaker}</td>
             <td>${o.home ?? '-'}</td>
             <td>${o.draw ?? '-'}</td>
             <td>${o.away ?? '-'}</td>
@@ -1748,30 +915,26 @@ function renderOdds(){
   `;
 }
 
-function renderChangeLog(newOpps){
-  const changed = [];
-  newOpps.forEach(o => {
-    if (o.status === 'new') changed.push(`+ ${o.match} became valid now.`);
-    if (o.status === 'valid' && o.prevStatus === 'invalid') changed.push(`↻ ${o.match} changed from invalid to valid.`);
-    if (o.status === 'invalid') changed.push(`- ${o.match} is now invalid but kept in history.`);
-  });
-
+function renderChangeSummary(){
   const summary = document.getElementById('changeSummary');
-  if (!changed.length) {
-    summary.innerHTML = '<span class="same">No changes detected in this run.</span>';
+  const lines = [];
+  allOpps.forEach(o=>{
+    if(o.changed && o.status==='valid') lines.push(`+ ${o.match} became valid now.`);
+    if(o.status==='invalid') lines.push(`- ${o.match} is now invalid but kept in history.`);
+  });
+  if(!lines.length){
+    summary.textContent = 'No changes detected in this run.';
     return;
   }
-
-  summary.innerHTML = changed.slice(0, 6).map(x => {
-    if (x.startsWith('+')) return `<div class="up">${x}</div>`;
-    if (x.startsWith('↻')) return `<div class="same">${x}</div>`;
-    return `<div class="down">${x}</div>`;
+  summary.innerHTML = lines.slice(0,6).map(x=>{
+    if(x.startsWith('+')) return `<div style="color:${'#22c55e'};">${x}</div>`;
+    return `<div style="color:${'#ef4444'};">${x}</div>`;
   }).join('');
 }
 
 async function load(){
   try{
-    const r = await fetch('odds.json?t=' + Date.now());
+    const r = await fetch('odds.json?t='+Date.now());
     const d = await r.json();
     rawOdds = d.raw_odds || [];
     const freshOpps = d.opportunities || [];
@@ -1779,15 +942,14 @@ async function load(){
 
     classifyChanges(freshOpps);
 
-    document.getElementById('lastUpdated').textContent = '🕐 ' + (d.last_updated || '');
+    document.getElementById('lastUpdated').textContent = 'Last updated: ' + (d.last_updated || '');
     document.getElementById('matchCount').textContent = d.total_matches || rawOdds.length;
     document.getElementById('bookmakerCount').textContent = scraped.length;
     document.getElementById('status').textContent =
-      `Loaded ${rawOdds.length} odds entries from ${scraped.length} bookmakers. ` +
-      `${allOpps.filter(o=>o.status==='valid' && !isTooOldForValid(o)).length} valid and ` +
-      `${allOpps.filter(o=>o.status==='invalid').length} invalid opportunities kept in history.`;
+      `Loaded ${rawOdds.length} odds from ${scraped.length} bookmakers. `+
+      `${allOpps.filter(o=>o.status==='valid').length} valid and ${allOpps.filter(o=>o.status==='invalid').length} invalid opportunities in history.`;
 
-    renderChangeLog(allOpps);
+    renderChangeSummary();
     renderArbs();
     renderOdds();
   }catch(e){
@@ -1797,10 +959,9 @@ async function load(){
   }
 }
 
-// run immediately, then every 30s
+// initial load + refresh
 load();
 setInterval(load,30000);
 </script>
 </body>
 </html>
-
