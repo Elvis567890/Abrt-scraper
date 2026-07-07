@@ -1,3 +1,4 @@
+
 # --- dependency bootstrap (to avoid ModuleNotFoundError in bare environments) ---
 def _ensure_dependencies():
     import importlib
@@ -18,7 +19,7 @@ import json
 import os
 import re
 import urllib.request
-from datetime import datetime, timezone, timedelta  # timedelta added
+from datetime import datetime, timezone, timedelta
 
 import requests
 from bs4 import BeautifulSoup
@@ -30,9 +31,11 @@ BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_t
 HISTORY_FILE = "arbitrage_history.json"
 FRESHNESS_FILE = "odds_freshness.json"
 STAKE = 100000
-STALE_ODDS_HOURS = 3
 
-# Football-Data.org config (new)
+# Tighter stale odds window
+STALE_ODDS_HOURS = 1
+
+# Football-Data.org config
 FOOTBALL_API_KEY = os.environ.get("FOOTBALL_API_KEY")
 FOOTBALL_API_BASE = "https://api.football-data.org/v4"
 MAX_MATCH_AGE_HOURS = 24
@@ -230,12 +233,9 @@ def filter_stale_odds(all_odds):
     return fresh_odds
 
 
-# === Football-Data.org helpers (new) ===
+# === Football-Data.org helpers ===
 
 def get_match_status_and_kickoff_football_data(home_team, away_team, date_hint=None):
-    """
-    Use Football-Data.org to get match status and kickoff (utcDate) for a given pair of teams.
-    """
     if not FOOTBALL_API_KEY:
         return None
 
@@ -292,9 +292,6 @@ def get_match_status_and_kickoff_football_data(home_team, away_team, date_hint=N
 
 
 def filter_opportunities_with_football_data(opps_list):
-    """
-    Filter arbitrage opportunities using Football-Data.org match status and kickoff time.
-    """
     if not FOOTBALL_API_KEY:
         return opps_list
 
@@ -867,7 +864,7 @@ def find_arbitrage(all_odds):
                             arb = (1 / h) + (1 / d) + (1 / a)
                             if arb < 1:
                                 profit = round((1 - arb) * 100, 2)
-                                if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
+                                if 1.5 <= profit <= 20.0 and (best is None or profit > best["profit_percent"]):
                                     stake_h = round(STAKE * (1 / h) / arb)
                                     stake_d = round(STAKE * (1 / d) / arb)
                                     stake_a = round(STAKE * (1 / a) / arb)
@@ -899,7 +896,7 @@ def find_arbitrage(all_odds):
                         arb = (1 / h) + (1 / a)
                         if arb < 1:
                             profit = round((1 - arb) * 100, 2)
-                            if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
+                            if 1.5 <= profit <= 20.0 and (best is None or profit > best["profit_percent"]):
                                 stake_h = round(STAKE * (1 / h) / arb)
                                 stake_a = round(STAKE * (1 / a) / arb)
                                 best = {
@@ -918,7 +915,6 @@ def find_arbitrage(all_odds):
                 if best:
                     opportunities.append(best)
 
-    # NEW: apply Football-Data.org filter
     opportunities = filter_opportunities_with_football_data(opportunities)
 
     return sorted(opportunities, key=lambda x: x["profit_percent"], reverse=True)
@@ -1035,3 +1031,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
