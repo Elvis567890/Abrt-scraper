@@ -1,3 +1,4 @@
+
 # --- dependency bootstrap (to avoid ModuleNotFoundError in bare environments) ---
 def _ensure_dependencies():
     import importlib
@@ -802,79 +803,6 @@ def scrape_melbet():
     return odds
 
 
-def scrape_sba():
-    odds = []
-    try:
-        url = (
-            "https://sports-api.sba.co.ug/v1/events/highlights"
-            "?country=UG&group=g1&platform=mobile&locale=en&sportId=1&limit=50"
-        )
-        headers = {
-            "Accept": "application/json",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) "
-                          "AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 "
-                          "Chrome/149.0.7827.159 Mobile Safari/537.36",
-        }
-        resp = requests.get(url, headers=headers, timeout=20)
-        resp.raise_for_status()
-        data = resp.json()
-
-        root = data.get("data", {}) or {}
-        categories = root.get("categories", []) or []
-
-        for cat in categories:
-            competitions = cat.get("competitions", []) or []
-            for comp in competitions:
-                competition_name = comp.get("name", "") or ""
-                events = comp.get("events", []) or []
-                for ev in events:
-                    try:
-                        names = ev.get("eventNames", []) or []
-                        if len(names) < 2:
-                            continue
-                        home_team = names[0]
-                        away_team = names[1]
-                        if not home_team or not away_team:
-                            continue
-
-                        home_odd = draw_odd = away_odd = None
-                        for mkt in ev.get("markets", []) or []:
-                            mid = str(mkt.get("id", "")).strip()
-                            mname = str(mkt.get("name", "")).strip().upper()
-                            if mid == "3" or mname == "1X2":
-                                for out in mkt.get("outcomes", []) or []:
-                                    oname = str(out.get("name", "")).upper()
-                                    val = clean_odd(out.get("value"))
-                                    if val is None:
-                                        continue
-                                    if oname == "1":
-                                        home_odd = val
-                                    elif oname == "X":
-                                        draw_odd = val
-                                    elif oname == "2":
-                                        away_odd = val
-                                break
-
-                        if home_odd is not None and away_odd is not None:
-                            odds.append(
-                                build_match_record(
-                                    home_team,
-                                    away_team,
-                                    "SBA",
-                                    home_odd,
-                                    draw_odd,
-                                    away_odd,
-                                    "Football",
-                                    competition_name,
-                                )
-                            )
-                    except Exception:
-                        continue
-    except Exception as e:
-        print(f"SBA error: {e}")
-    return odds
-
-
 def find_arbitrage(all_odds):
     opportunities = []
     sports_odds = {}
@@ -1074,7 +1002,6 @@ def main():
         ("1xBet", scrape_1xbet),
         ("22Bet", scrape_22bet),
         ("Melbet", scrape_melbet),
-        ("SBA", scrape_sba),
     ]:
         print(f"Scraping {name}...")
         rows = func()
@@ -1104,5 +1031,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
