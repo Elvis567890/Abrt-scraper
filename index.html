@@ -21,7 +21,7 @@
   --danger:#ff4d4d;
 }
 
-/* Light mode variables */
+/* Light mode */
 body.light {
   --bg:#f5f7fb;
   --bg-alt:#eef1f8;
@@ -37,12 +37,23 @@ body.light {
   --danger:#ef4444;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI";}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* Safety net: prevent any element from exceeding viewport width */
+*{
+  max-width:100%;
+}
+
 body{
   background:radial-gradient(circle at top,#1e293b,#050710);
   color:var(--text);
   min-height:100vh;
   display:flex;
+  overflow-x:hidden;
 }
 
 /* Sidebar */
@@ -119,6 +130,7 @@ body{
   display:flex;
   flex-direction:column;
   gap:16px;
+  overflow-x:hidden;
 }
 
 /* Top bar */
@@ -411,7 +423,11 @@ body.light .theme-thumb{
 }
 
 /* Table */
-.table-wrap{margin-top:6px;overflow-x:auto;}
+.table-wrap{
+  margin-top:6px;
+  overflow-x:auto;
+  width:100%;
+}
 table{
   width:100%;
   border-collapse:collapse;
@@ -583,7 +599,7 @@ td{color:var(--text);}
     </div>
   </section>
 
-  <!-- MATCHES (valid / invalid list) -->
+  <!-- MATCHES (Valid / Invalid lists) -->
   <section class="page" id="matches">
     <div class="section-header">
       <div class="section-header-title">📋 Matches (Valid & Invalid)</div>
@@ -604,7 +620,7 @@ td{color:var(--text);}
 
       <div class="table-wrap">
         <div id="matchesTable">
-          <div class="empty">Choose “Valid matches” or “Invalid matches” above to see the list.</div>
+          <div class="empty">Click “Valid matches” or “Invalid matches” to load the list.</div>
         </div>
       </div>
     </div>
@@ -688,6 +704,7 @@ function toggleTheme(){
   document.body.classList.toggle('light');
 }
 
+/* Page switching */
 function showPage(pageId, el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
@@ -794,6 +811,7 @@ function isRecentEnough(o){
   return diffDays <= maxAgeDays;
 }
 
+/* Render cards in Arbs page */
 function renderArbs(){
   const stake = parseInt(document.getElementById('stake').value) || 100000;
   let opps = allOpps.slice();
@@ -909,6 +927,7 @@ function renderArbs(){
   }).join('');
 }
 
+/* Render full odds table */
 function renderOdds(){
   document.getElementById('oddsCount').textContent = `${rawOdds.length} rows`;
   const wrap = document.getElementById('oddsTable');
@@ -946,24 +965,7 @@ function renderOdds(){
   `;
 }
 
-function renderChangeSummary(){
-  const summary = document.getElementById('changeSummary');
-  const lines = [];
-  allOpps.forEach(o=>{
-    if(o.changed && o.status==='valid') lines.push(`+ ${o.match} became valid now.`);
-    if(o.status==='invalid') lines.push(`- ${o.match} is now invalid but kept in history.`);
-  });
-  if(!lines.length){
-    summary.textContent = 'No changes detected in this run.';
-    return;
-  }
-  summary.innerHTML = lines.slice(0,6).map(x=>{
-    if(x.startsWith('+')) return `<div style="color:#22c55e;">${x}</div>`;
-    return `<div style="color:#ef4444;">${x}</div>`;
-  }).join('');
-}
-
-/* NEW: Matches list (valid / invalid) */
+/* Matches list: filter by status and render table */
 function showMatchesList(kind){
   document.getElementById('btnMatchesValid').classList.remove('active');
   document.getElementById('btnMatchesInvalid').classList.remove('active');
@@ -1004,7 +1006,7 @@ function showMatchesList(kind){
           const ko = o.kickoff ? formatKickoff(o.kickoff) : '-';
           return `
             <tr>
-              <td>${o.status.toUpperCase()}</td>
+              <td>${(o.status || '').toUpperCase()}</td>
               <td>${o.match}</td>
               <td>${o.type}</td>
               <td>${o.sport || '-'}</td>
@@ -1020,6 +1022,24 @@ function showMatchesList(kind){
   `;
 }
 
+function renderChangeSummary(){
+  const summary = document.getElementById('changeSummary');
+  const lines = [];
+  allOpps.forEach(o=>{
+    if(o.changed && o.status==='valid') lines.push(`+ ${o.match} became valid now.`);
+    if(o.status==='invalid') lines.push(`- ${o.match} is now invalid but kept in history.`);
+  });
+  if(!lines.length){
+    summary.textContent = 'No changes detected in this run.';
+    return;
+  }
+  summary.innerHTML = lines.slice(0,6).map(x=>{
+    if(x.startswith('+')) return `<div style="color:#22c55e;">${x}</div>`;
+    return `<div style="color:#ef4444;">${x}</div>`;
+  }).join('');
+}
+
+/* Load data */
 async function load(){
   try{
     const r = await fetch('odds.json?t='+Date.now());
@@ -1040,7 +1060,6 @@ async function load(){
     renderChangeSummary();
     renderArbs();
     renderOdds();
-    // Default matches view: valid list
     showMatchesList('valid');
   }catch(e){
     document.getElementById('status').textContent = 'Could not load odds.json';
@@ -1055,4 +1074,3 @@ setInterval(load,30000);
 </script>
 </body>
 </html>
-
