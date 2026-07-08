@@ -37,17 +37,15 @@ body.light {
   --danger:#ef4444;
 }
 
-/* Global reset + width guard */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  max-width:100%;
 }
 
-/* Prevent global horizontal scroll on mobile */
-html, body{
-  overflow-x:hidden;
+/* Safety net: prevent any element from exceeding viewport width */
+*{
+  max-width:100%;
 }
 
 body{
@@ -55,6 +53,7 @@ body{
   color:var(--text);
   min-height:100vh;
   display:flex;
+  overflow-x:hidden;
 }
 
 /* Sidebar */
@@ -432,7 +431,7 @@ body.light .theme-thumb{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:320px; /* smaller so phones don't zoom out */
+  min-width:640px;
 }
 th,td{
   font-size:11px;
@@ -1035,7 +1034,7 @@ function renderChangeSummary(){
     return;
   }
   summary.innerHTML = lines.slice(0,6).map(x=>{
-    if(x.startsWith('+')) return `<div style="color:#22c55e;">${x}</div>`;
+    if(x.startswith('+')) return `<div style="color:#22c55e;">${x}</div>`;
     return `<div style="color:#ef4444;">${x}</div>`;
   }).join('');
 }
@@ -1063,7 +1062,6 @@ async function load(){
     renderOdds();
     showMatchesList('valid');
   }catch(e){
-    console.error(e);
     document.getElementById('status').textContent = 'Could not load odds.json';
     document.getElementById('arbs').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
     document.getElementById('oddsTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
@@ -1076,5 +1074,3 @@ setInterval(load,30000);
 </script>
 </body>
 </html>
-
-
