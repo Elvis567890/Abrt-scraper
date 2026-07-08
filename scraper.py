@@ -1,4 +1,3 @@
-
 # --- dependency bootstrap (to avoid ModuleNotFoundError in bare environments) ---
 def _ensure_dependencies():
     import importlib
@@ -34,6 +33,7 @@ STAKE = 100000
 
 # Tighter stale odds window
 STALE_ODDS_HOURS = 1
+INVALID_RETENTION_HOURS = 1
 
 # Football-Data.org config
 FOOTBALL_API_KEY = os.environ.get("FOOTBALL_API_KEY")
@@ -99,6 +99,41 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
         "away": away,
         "sport": sport,
     }
+
+
+# --- team-name validation helper (generic-name rejection) ---
+def is_bad_team_name(name: str) -> bool:
+    """
+    Return True if the scraped team name is obviously invalid / generic.
+    Used to reject BetPawa/AbaBet parsing failures (home/away/draw/vs/too short).
+    """
+    if not name:
+        return True
+
+    n = str(name).strip().lower()
+
+    # Suspiciously short names (e.g. "v", "x", etc.)
+    if len(n) < 3:
+        return True
+
+    # Generic placeholder tokens
+    generic_tokens = [
+        "home",
+        "away",
+        "draw",
+        "vs",
+        "v",
+        "team",
+        "teams",
+        "home team",
+        "away team",
+    ]
+    for token in generic_tokens:
+        if n == token or token in n:
+            return True
+
+    return False
+# -----------------------------------------------------------------
 
 
 FINISHED_STATUSES = {
@@ -479,6 +514,12 @@ def scrape_ababet():
                 if is_finished_status(status_cell) or is_live_status(status_cell):
                     continue
 
+                # --- team-name validation for AbaBet ---
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    # Parsing likely failed or produced generic placeholders – skip
+                    continue
+                # --- END validation ---
+
                 if home_team and away_team and home_team != "-" and away_team != "-":
                     odds.append(
                         build_match_record(
@@ -535,14 +576,31 @@ def scrape_betpawa():
                                     teams.append(part)
                                 elif any(x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]):
                                     competition = part
+
+                            # --- Bad team names filter (BetPawa) ---
+                            BAD_TEAM_NAMES = {"home", "away", "draw", "vs", "1", "2", "x"}
+
                             if len(teams) >= 2 and len(odd_values) >= 2:
+                                home_team = teams[0]
+                                away_team = teams[1]
+                                home_norm = str(home_team).strip().lower()
+                                away_norm = str(away_team).strip().lower()
+
+                                if (
+                                    home_norm in BAD_TEAM_NAMES
+                                    or away_norm in BAD_TEAM_NAMES
+                                    or len(home_norm) < 3
+                                    or len(away_norm) < 3
+                                ):
+                                    continue
+
                                 mk = f"{teams[0]}vs{teams[1]}".lower().replace(" ", "")
                                 if mk not in seen_matches:
                                     seen_matches.add(mk)
                                     odds.append(
                                         build_match_record(
-                                            teams[0],
-                                            teams[1],
+                                            home_team,
+                                            away_team,
                                             "BetPawa",
                                             odd_values[0],
                                             odd_values[1] if len(odd_values) >= 3 else None,
@@ -864,7 +922,7 @@ def find_arbitrage(all_odds):
                             arb = (1 / h) + (1 / d) + (1 / a)
                             if arb < 1:
                                 profit = round((1 - arb) * 100, 2)
-                                if 1.5 <= profit <= 20.0 and (best is None or profit > best["profit_percent"]):
+                                if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
                                     stake_h = round(STAKE * (1 / h) / arb)
                                     stake_d = round(STAKE * (1 / d) / arb)
                                     stake_a = round(STAKE * (1 / a) / arb)
@@ -896,7 +954,7 @@ def find_arbitrage(all_odds):
                         arb = (1 / h) + (1 / a)
                         if arb < 1:
                             profit = round((1 - arb) * 100, 2)
-                            if 1.5 <= profit <= 20.0 and (best is None or profit > best["profit_percent"]):
+                            if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
                                 stake_h = round(STAKE * (1 / h) / arb)
                                 stake_a = round(STAKE * (1 / a) / arb)
                                 best = {
@@ -930,7 +988,8 @@ def refresh_opportunities(current_opps):
     previous = load_history()
     next_history = {}
     current_ids = set()
-    now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+    now_dt = datetime.now(timezone.utc)
+    now_str = now_dt.strftime("%Y-%m-%d %H:%M UTC")
 
     def bookmaker_signature(opp):
         bets = opp.get("bets", []) or []
@@ -971,12 +1030,27 @@ def refresh_opportunities(current_opps):
             opp["checked_at"] = now_str
             next_history[oid] = opp
 
+    # Purge old invalid entries (older than INVALID_RETENTION_HOURS)
     for oid, old in previous.items():
         if oid not in current_ids:
+            # Decide whether to keep or purge this invalid entry
+            if old.get("status") == "invalid" and old.get("invalid_at"):
+                try:
+                    invalid_dt = datetime.strptime(old["invalid_at"], "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
+                    hours_invalid = (now_dt - invalid_dt).total_seconds() / 3600
+                except Exception:
+                    hours_invalid = 0
+
+                if hours_invalid > INVALID_RETENTION_HOURS:
+                    # Purge: do not add to next_history
+                    continue
+
+            # Keep existing invalid behavior (or mark new invalid if not set)
             old["status"] = "invalid"
             old["changed"] = False
             old["note"] = "No longer present"
-            old["invalid_at"] = now_str
+            if "invalid_at" not in old:
+                old["invalid_at"] = now_str
             next_history[oid] = old
 
     save_history(next_history)
@@ -1031,4 +1105,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
