@@ -1,1076 +1,1082 @@
+Rewrite a full code that fits the default screen. That fits my phone's screen. Because we're making an application, and sort of, the issue of the HTML not loading the matches and the odds. Rewrite it solving those problems. Sole everything. Solve everything but don't touch anything. That watching this, this, this, but solve the problems in my in that code.
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>🇺🇬 Arb Studio • Luxury Dashboard</title>
+  <meta charset="UTF-8" />
+  <!-- Proper responsive viewport so phones don’t zoom out or shrink weirdly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🇺🇬 Arb Studio • Luxury Dashboard</title>
 
-<style>
-:root{
-  --bg:#050710;
-  --bg-alt:#0b1020;
-  --card:#11172a;
-  --glass:rgba(17,23,42,0.85);
-  --accent:#00f5a0;
-  --accent-soft:rgba(0,245,160,0.12);
-  --accent2:#ff7a18;
-  --accent2-soft:rgba(255,122,24,0.12);
-  --text:#e9edf5;
-  --muted:#8f9bb5;
-  --border:rgba(255,255,255,0.08);
-  --danger:#ff4d4d;
-}
+  <style>
+    :root{
+      --bg:#050710;
+      --bg-alt:#0b1020;
+      --card:#11172a;
+      --glass:rgba(17,23,42,0.85);
+      --accent:#00f5a0;
+      --accent-soft:rgba(0,245,160,0.12);
+      --accent2:#ff7a18;
+      --accent2-soft:rgba(255,122,24,0.12);
+      --text:#e9edf5;
+      --muted:#8f9bb5;
+      --border:rgba(255,255,255,0.08);
+      --danger:#ff4d4d;
+    }
 
-/* Light mode */
-body.light {
-  --bg:#f5f7fb;
-  --bg-alt:#eef1f8;
-  --card:#ffffff;
-  --glass:rgba(255,255,255,0.92);
-  --accent:#00c48c;
-  --accent-soft:rgba(0,196,140,0.08);
-  --accent2:#f97316;
-  --accent2-soft:rgba(249,115,22,0.12);
-  --text:#111827;
-  --muted:#6b7280;
-  --border:rgba(15,23,42,0.08);
-  --danger:#ef4444;
-}
+    /* Light mode */
+    body.light {
+      --bg:#f5f7fb;
+      --bg-alt:#eef1f8;
+      --card:#ffffff;
+      --glass:rgba(255,255,255,0.92);
+      --accent:#00c48c;
+      --accent-soft:rgba(0,196,140,0.08);
+      --accent2:#f97316;
+      --accent2-soft:rgba(249,115,22,0.12);
+      --text:#111827;
+      --muted:#6b7280;
+      --border:rgba(15,23,42,0.08);
+      --danger:#ef4444;
+    }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    /* Global reset + width guard */
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      max-width:100%; /* safety net so nothing can grow wider than its container */
+    }
 
-/* Safety net: prevent any element from exceeding viewport width */
-*{
-  max-width:100%;
-}
+    /* Constrain scrolling at the root (mobile browsers respect html+body better) */
+    html, body{
+      width:100%;
+      height:100%;
+      overflow-x:hidden;
+    }
 
-body{
-  background:radial-gradient(circle at top,#1e293b,#050710);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  overflow-x:hidden;
-}
+    body{
+      background:radial-gradient(circle at top,#1e293b,#050710);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+    }
 
-/* Sidebar */
-.sidebar{
-  width:230px;
-  background:linear-gradient(180deg,#050710,#050710);
-  border-right:1px solid var(--border);
-  padding:18px 16px;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.brand-logo{
-  width:32px;height:32px;
-  border-radius:12px;
-  background:radial-gradient(circle at 0 0,#00f5a0,#0ea5e9);
-  box-shadow:0 0 30px rgba(14,165,233,0.4);
-}
-.brand-text h1{
-  font-size:15px;
-}
-.brand-text span{
-  font-size:11px;
-  color:var(--muted);
-}
-.nav-section{
-  margin-top:8px;
-}
-.nav-label{
-  font-size:11px;
-  color:var(--muted);
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  margin-bottom:6px;
-}
-.nav-list{display:flex;flex-direction:column;gap:4px;}
-.nav-item{
-  border-radius:999px;
-  padding:8px 11px;
-  font-size:12px;
-  color:var(--muted);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  cursor:pointer;
-  border:1px solid transparent;
-}
-.nav-item span.icon{
-  font-size:13px;
-  opacity:.9;
-}
-.nav-item.active{
-  color:var(--accent);
-  border-color:var(--accent-soft);
-  background:rgba(15,23,42,0.8);
-}
-.nav-item:hover{background:rgba(255,255,255,0.04);}
+    /* Sidebar */
+    .sidebar{
+      width:230px;
+      background:linear-gradient(180deg,#050710,#050710);
+      border-right:1px solid var(--border);
+      padding:18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .brand-logo{
+      width:32px;height:32px;
+      border-radius:12px;
+      background:radial-gradient(circle at 0 0,#00f5a0,#0ea5e9);
+      box-shadow:0 0 30px rgba(14,165,233,0.4);
+    }
+    .brand-text h1{
+      font-size:15px;
+    }
+    .brand-text span{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .nav-section{
+      margin-top:8px;
+    }
+    .nav-label{
+      font-size:11px;
+      color:var(--muted);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    .nav-list{display:flex;flex-direction:column;gap:4px;}
+    .nav-item{
+      border-radius:999px;
+      padding:8px 11px;
+      font-size:12px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      cursor:pointer;
+      border:1px solid transparent;
+    }
+    .nav-item span.icon{
+      font-size:13px;
+      opacity:.9;
+    }
+    .nav-item.active{
+      color:var(--accent);
+      border-color:var(--accent-soft);
+      background:rgba(15,23,42,0.8);
+    }
+    .nav-item:hover{background:rgba(255,255,255,0.04);}
 
-.sidebar-footer{
-  margin-top:auto;
-  font-size:11px;
-  color:var(--muted);
-}
+    .sidebar-footer{
+      margin-top:auto;
+      font-size:11px;
+      color:var(--muted);
+    }
 
-/* Main */
-.main{
-  flex:1;
-  padding:16px 20px;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  overflow-x:hidden;
-}
+    /* Main content wrapper */
+    .main{
+      flex:1;
+      padding:16px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      overflow-x:hidden; /* prevent main from creating horizontal scroll */
+    }
 
-/* Top bar */
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.top-left{
-  display:flex;
-  flex-direction:column;
-}
-.top-title{
-  font-size:16px;
-  font-weight:600;
-}
-.top-sub{font-size:12px;color:var(--muted);}
-.top-right{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.pill{
-  font-size:11px;
-  padding:5px 12px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:rgba(15,23,42,0.7);
-}
+    /* Top bar */
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .top-left{
+      display:flex;
+      flex-direction:column;
+    }
+    .top-title{
+      font-size:16px;
+      font-weight:600;
+    }
+    .top-sub{font-size:12px;color:var(--muted);}
+    .top-right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .pill{
+      font-size:11px;
+      padding:5px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(15,23,42,0.7);
+    }
 
-/* Theme toggle */
-.theme-toggle{
-  position:relative;
-  width:46px;
-  height:22px;
-  border-radius:999px;
-  background:#0b1020;
-  border:1px solid var(--border);
-  cursor:pointer;
-}
-.theme-thumb{
-  position:absolute;
-  top:2px;
-  left:2px;
-  width:18px;height:18px;
-  border-radius:999px;
-  background:var(--accent);
-  transition:transform .25s;
-}
-body.light .theme-thumb{
-  transform:translateX(22px);
-}
+    /* Theme toggle */
+    .theme-toggle{
+      position:relative;
+      width:46px;
+      height:22px;
+      border-radius:999px;
+      background:#0b1020;
+      border:1px solid var(--border);
+      cursor:pointer;
+    }
+    .theme-thumb{
+      position:absolute;
+      top:2px;
+      left:2px;
+      width:18px;height:18px;
+      border-radius:999px;
+      background:var(--accent);
+      transition:transform .25s;
+    }
+    body.light .theme-thumb{
+      transform:translateX(22px);
+    }
 
-/* Hero */
-.hero{
-  background:var(--glass);
-  border-radius:18px;
-  border:1px solid var(--border);
-  padding:14px 16px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  backdrop-filter:blur(18px);
-}
-.hero-main{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.hero-main h2{
-  font-size:14px;
-  color:var(--muted);
-}
-.hero-main .big{
-  font-size:26px;
-  font-weight:700;
-  color:var(--accent);
-}
-.hero-main .sub{
-  font-size:12px;
-  color:var(--muted);
-}
-.hero-side{
-  text-align:right;
-  font-size:11px;
-  color:var(--muted);
-}
+    /* Hero */
+    .hero{
+      background:var(--glass);
+      border-radius:18px;
+      border:1px solid var(--border);
+      padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      backdrop-filter:blur(18px);
+    }
+    .hero-main{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .hero-main h2{
+      font-size:14px;
+      color:var(--muted);
+    }
+    .hero-main .big{
+      font-size:26px;
+      font-weight:700;
+      color:var(--accent);
+    }
+    .hero-main .sub{
+      font-size:12px;
+      color:var(--muted);
+    }
+    .hero-side{
+      text-align:right;
+      font-size:11px;
+      color:var(--muted);
+    }
 
-/* Stats grid */
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:10px;
-}
-.stat-card{
-  background:var(--glass);
-  border-radius:14px;
-  border:1px solid var(--border);
-  padding:10px 11px;
-}
-.stat-label{
-  font-size:11px;color:var(--muted);
-}
-.stat-value{
-  font-size:18px;
-  font-weight:600;
-  margin-top:3px;
-}
-.stat-tag{
-  font-size:10px;
-  margin-top:4px;
-  color:var(--accent2);
-}
+    /* Stats grid */
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:10px;
+    }
+    .stat-card{
+      background:var(--glass);
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:10px 11px;
+    }
+    .stat-label{
+      font-size:11px;color:var(--muted);
+    }
+    .stat-value{
+      font-size:18px;
+      font-weight:600;
+      margin-top:3px;
+    }
+    .stat-tag{
+      font-size:10px;
+      margin-top:4px;
+      color:var(--accent2);
+    }
 
-/* Pages */
-.page{display:none;}
-.page.active{display:block;}
+    /* Pages */
+    .page{display:none;}
+    .page.active{display:block;}
 
-.section-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:10px 0;
-}
-.section-header-title{
-  font-size:13px;
-  font-weight:600;
-}
-.section-header-sub{
-  font-size:11px;
-  color:var(--muted);
-}
+    .section-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin:10px 0;
+    }
+    .section-header-title{
+      font-size:13px;
+      font-weight:600;
+    }
+    .section-header-sub{
+      font-size:11px;
+      color:var(--muted);
+    }
 
-/* Controls */
-.control-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-  margin-bottom:10px;
-}
-.filter-group{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-}
-.filter-btn{
-  border-radius:999px;
-  padding:5px 10px;
-  font-size:11px;
-  border:1px solid var(--border);
-  background:rgba(15,23,42,0.8);
-  color:var(--muted);
-  cursor:pointer;
-}
-.filter-btn.active{
-  border-color:var(--accent);
-  background:var(--accent-soft);
-  color:var(--accent);
-}
-.stake-input{
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:rgba(15,23,42,0.9);
-  color:var(--accent);
-  padding:5px 10px;
-  font-size:11px;
-  width:120px;
-}
+    /* Controls */
+    .control-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .filter-group{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .filter-btn{
+      border-radius:999px;
+      padding:5px 10px;
+      font-size:11px;
+      border:1px solid var(--border);
+      background:rgba(15,23,42,0.8);
+      color:var(--muted);
+      cursor:pointer;
+    }
+    .filter-btn.active{
+      border-color:var(--accent);
+      background:var(--accent-soft);
+      color:var(--accent);
+    }
+    .stake-input{
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(15,23,42,0.9);
+      color:var(--accent);
+      padding:5px 10px;
+      font-size:11px;
+      width:120px;
+    }
 
-/* Card list */
-.card-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
+    /* Card list */
+    .card-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
 
-/* Arbs cards */
-.arb-card{
-  background:var(--card);
-  border-radius:14px;
-  border:1px solid var(--border);
-  padding:10px 12px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.arb-card.valid{
-  border-color:var(--accent-soft);
-  box-shadow:0 0 24px rgba(0,245,160,0.18);
-}
-.arb-card.invalid{
-  border-color:rgba(239,68,68,0.4);
-  opacity:0.85;
-}
-.arb-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:10px;
-}
-.arb-match{
-  font-size:14px;
-  font-weight:600;
-}
-.arb-kickoff{
-  font-size:11px;
-  color:var(--muted);
-}
-.arb-profit{
-  text-align:right;
-}
-.profit-pct{
-  font-size:11px;
-  padding:4px 8px;
-  border-radius:999px;
-  background:var(--accent2-soft);
-  color:var(--accent2);
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-}
-.profit-ugx{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:4px;
-}
-.arb-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  font-size:10px;
-  color:var(--muted);
-}
-.badge{
-  padding:3px 8px;
-  border-radius:999px;
-  border:1px solid var(--border);
-}
-.badge.green{color:var(--accent);border-color:var(--accent-soft);}
-.badge.red{color:var(--danger);border-color:rgba(239,68,68,0.3);}
-.badge.blue{color:var(--accent2);border-color:var(--accent2-soft);}
-.badge.gray{color:var(--muted);}
+    /* Arbs cards */
+    .arb-card{
+      background:var(--card);
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:10px 12px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .arb-card.valid{
+      border-color:var(--accent-soft);
+      box-shadow:0 0 24px rgba(0,245,160,0.18);
+    }
+    .arb-card.invalid{
+      border-color:rgba(239,68,68,0.4);
+      opacity:0.85;
+    }
+    .arb-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .arb-match{
+      font-size:14px;
+      font-weight:600;
+    }
+    .arb-kickoff{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .arb-profit{
+      text-align:right;
+    }
+    .profit-pct{
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:var(--accent2-soft);
+      color:var(--accent2);
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+    }
+    .profit-ugx{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+    .arb-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      font-size:10px;
+      color:var(--muted);
+    }
+    .badge{
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid var(--border);
+    }
+    .badge.green{color:var(--accent);border-color:var(--accent-soft);}
+    .badge.red{color:var(--danger);border-color:rgba(239,68,68,0.3);}
+    .badge.blue{color:var(--accent2);border-color:var(--accent2-soft);}
+    .badge.gray{color:var(--muted);}
 
-/* Bets */
-.arb-bets{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.arb-bet{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:7px 9px;
-  border-radius:10px;
-  background:rgba(15,23,42,0.8);
-}
-.bet-left{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-}
-.bet-book{
-  font-size:12px;
-  font-weight:600;
-  color:var(--accent);
-}
-.bet-outcome{
-  font-size:11px;
-  color:var(--muted);
-}
-.bet-right{
-  text-align:right;
-  font-size:11px;
-}
-.bet-stake{
-  color:var(--accent2);
-}
+    /* Bets */
+    .arb-bets{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .arb-bet{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:7px 9px;
+      border-radius:10px;
+      background:rgba(15,23,42,0.8);
+    }
+    .bet-left{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .bet-book{
+      font-size:12px;
+      font-weight:600;
+      color:var(--accent);
+    }
+    .bet-outcome{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .bet-right{
+      text-align:right;
+      font-size:11px;
+    }
+    .bet-stake{
+      color:var(--accent2);
+    }
 
-/* Empty */
-.empty{
-  background:rgba(15,23,42,0.6);
-  border-radius:12px;
-  border:1px dashed var(--border);
-  padding:12px;
-  font-size:12px;
-  color:var(--muted);
-  text-align:center;
-}
+    /* Empty state */
+    .empty{
+      background:rgba(15,23,42,0.6);
+      border-radius:12px;
+      border:1px dashed var(--border);
+      padding:12px;
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+    }
 
-/* Table */
-.table-wrap{
-  margin-top:6px;
-  overflow-x:auto;
-  width:100%;
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:640px;
-}
-th,td{
-  font-size:11px;
-  padding:7px 8px;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-}
-th{
-  color:var(--muted);
-  background:rgba(15,23,42,0.9);
-}
-td{color:var(--text);}
+    /* Tables: contained horizontal scroll, narrower min-width for phones */
+    .table-wrap{
+      margin-top:6px;
+      overflow-x:auto;
+      width:100%;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:320px; /* not 640px, so small screens don’t zoom out */
+    }
+    th,td{
+      font-size:11px;
+      padding:7px 8px;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+    th{
+      color:var(--muted);
+      background:rgba(15,23,42,0.9);
+    }
+    td{color:var(--text);}
 
-/* Responsive */
-@media(max-width:900px){
-  body{flex-direction:column;}
-  .sidebar{
-    width:100%;
-    flex-direction:row;
-    align-items:center;
-    justify-content:space-between;
-    border-right:none;
-    border-bottom:1px solid var(--border);
-  }
-  .nav-section{display:none;}
-  .sidebar-footer{display:none;}
-}
-</style>
+    /* Responsive layout: sidebar becomes top bar */
+    @media(max-width:900px){
+      body{flex-direction:column;}
+      .sidebar{
+        width:100%;
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+        border-right:none;
+        border-bottom:1px solid var(--border);
+      }
+      .nav-section{display:none;}
+      .sidebar-footer{display:none;}
+    }
+  </style>
 </head>
 
 <body>
-<div class="sidebar">
-  <div class="brand">
-    <div class="brand-logo"></div>
-    <div class="brand-text">
-      <h1>Arb Studio</h1>
-      <span>Uganda Arbitrage Scanner</span>
+  <div class="sidebar">
+    <div class="brand">
+      <div class="brand-logo"></div>
+      <div class="brand-text">
+        <h1>Arb Studio</h1>
+        <span>Uganda Arbitrage Scanner</span>
+      </div>
     </div>
-  </div>
 
-  <div class="nav-section">
-    <div class="nav-label">Navigation</div>
-    <div class="nav-list">
-      <div class="nav-item active" onclick="showPage('dashboard', this)">
-        <span>Dashboard</span><span class="icon">◎</span>
-      </div>
-      <div class="nav-item" onclick="showPage('arbitrage', this)">
-        <span>Arbs</span><span class="icon">⟡</span>
-      </div>
-      <div class="nav-item" onclick="showPage('matches', this)">
-        <span>Matches</span><span class="icon">☰</span>
-      </div>
-      <div class="nav-item" onclick="showPage('odds', this)">
-        <span>Odds</span><span class="icon">▤</span>
-      </div>
-      <div class="nav-item" onclick="showPage('billing', this)">
-        <span>Billing</span><span class="icon">₵</span>
-      </div>
-      <div class="nav-item" onclick="showPage('settings', this)">
-        <span>Settings</span><span class="icon">⚙</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="sidebar-footer">
-    Powered by your Python scraper<br/>
-    Odds from local Ugandan bookmakers.
-  </div>
-</div>
-
-<div class="main">
-  <div class="topbar">
-    <div class="top-left">
-      <div class="top-title">Live Arbitrage Monitor</div>
-      <div class="top-sub" id="pageSubtitle">Overview of scraper status and opportunity summary</div>
-    </div>
-    <div class="top-right">
-      <div class="pill" id="lastUpdated">Last updated: —</div>
-      <div class="theme-toggle" onclick="toggleTheme()">
-        <div class="theme-thumb"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero">
-    <div class="hero-main">
-      <h2>🔥 Best Opportunity</h2>
-      <div class="big" id="heroProfit">0.00% Profit</div>
-      <div class="sub" id="heroSub">Waiting for first refresh...</div>
-    </div>
-    <div class="hero-side">
-      <div>Stake preview uses your configured stake.</div>
-      <div>Valid opportunities only by default.</div>
-    </div>
-  </div>
-
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-label">Valid Opportunities</div>
-      <div class="stat-value" id="validCount">0</div>
-      <div class="stat-tag">Currently profitable and recent.</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Invalid Opportunities</div>
-      <div class="stat-value" id="invalidCount">0</div>
-      <div class="stat-tag">Past opportunities kept in history.</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Total Matches</div>
-      <div class="stat-value" id="matchCount">0</div>
-      <div class="stat-tag">All scraped odds entries.</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Bookmakers</div>
-      <div class="stat-value" id="bookmakerCount">0</div>
-      <div class="stat-tag">Unique bookmakers in this run.</div>
-    </div>
-  </div>
-
-  <!-- DASHBOARD -->
-  <section class="page active" id="dashboard">
-    <div class="section-header">
-      <div class="section-header-title">Quick Status</div>
-    </div>
-    <div class="card-list">
-      <div class="stat-card">
-        <div id="status">Loading data...</div>
-      </div>
-      <div class="stat-card">
-        <div class="section-header-title">Change Summary</div>
-        <div id="changeSummary" style="margin-top:6px;font-size:12px;color:var(--muted);">
-          Waiting for first refresh...
+    <div class="nav-section">
+      <div class="nav-label">Navigation</div>
+      <div class="nav-list">
+        <div class="nav-item active" onclick="showPage('dashboard', this)">
+          <span>Dashboard</span><span class="icon">◎</span>
+        </div>
+        <div class="nav-item" onclick="showPage('arbitrage', this)">
+          <span>Arbs</span><span class="icon">⟡</span>
+        </div>
+        <div class="nav-item" onclick="showPage('matches', this)">
+          <span>Matches</span><span class="icon">☰</span>
+        </div>
+        <div class="nav-item" onclick="showPage('odds', this)">
+          <span>Odds</span><span class="icon">▤</span>
+        </div>
+        <div class="nav-item" onclick="showPage('billing', this)">
+          <span>Billing</span><span class="icon">₵</span>
+        </div>
+        <div class="nav-item" onclick="showPage('settings', this)">
+          <span>Settings</span><span class="icon">⚙</span>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ARBITRAGE -->
-  <section class="page" id="arbitrage">
-    <div class="section-header">
-      <div class="section-header-title">🎯 Arbitrage Opportunities</div>
-      <div class="section-header-sub" id="arbInfo"></div>
+    <div class="sidebar-footer">
+      Powered by your Python scraper<br/>
+      Odds from local Ugandan bookmakers.
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="top-left">
+        <div class="top-title">Live Arbitrage Monitor</div>
+        <div class="top-sub" id="pageSubtitle">Overview of scraper status and opportunity summary</div>
+      </div>
+      <div class="top-right">
+        <div class="pill" id="lastUpdated">Last updated: —</div>
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <div class="theme-thumb"></div>
+        </div>
+      </div>
     </div>
 
-    <div class="card-list">
+    <div class="hero">
+      <div class="hero-main">
+        <h2>🔥 Best Opportunity</h2>
+        <div class="big" id="heroProfit">0.00% Profit</div>
+        <div class="sub" id="heroSub">Waiting for first refresh...</div>
+      </div>
+      <div class="hero-side">
+        <div>Stake preview uses your configured stake.</div>
+        <div>Valid opportunities only by default.</div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
       <div class="stat-card">
-        <div class="control-row">
+        <div class="stat-label">Valid Opportunities</div>
+        <div class="stat-value" id="validCount">0</div>
+        <div class="stat-tag">Currently profitable and recent.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Invalid Opportunities</div>
+        <div class="stat-value" id="invalidCount">0</div>
+        <div class="stat-tag">Past opportunities kept in history.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Matches</div>
+        <div class="stat-value" id="matchCount">0</div>
+        <div class="stat-tag">All scraped odds entries.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bookmakers</div>
+        <div class="stat-value" id="bookmakerCount">0</div>
+        <div class="stat-tag">Unique bookmakers in this run.</div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section class="page active" id="dashboard">
+      <div class="section-header">
+        <div class="section-header-title">Quick Status</div>
+      </div>
+      <div class="card-list">
+        <div class="stat-card">
+          <div id="status">Loading data...</div>
+        </div>
+        <div class="stat-card">
+          <div class="section-header-title">Change Summary</div>
+          <div id="changeSummary" style="margin-top:6px;font-size:12px;color:var(--muted);">
+            Waiting for first refresh...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARBITRAGE -->
+    <section class="page" id="arbitrage">
+      <div class="section-header">
+        <div class="section-header-title">🎯 Arbitrage Opportunities</div>
+        <div class="section-header-sub" id="arbInfo"></div>
+      </div>
+
+      <div class="card-list">
+        <div class="stat-card">
+          <div class="control-row">
+            <div class="filter-group">
+              <button class="filter-btn" onclick="setFilter('all',this)">All</button>
+              <button class="filter-btn active" onclick="setFilter('valid',this)">Valid Only</button>
+              <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid Only</button>
+              <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Bookmaker</button>
+              <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
+              <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
+            </div>
+            <div>
+              <input class="stake-input" type="number" id="stake" value="100000"
+                     min="1000" step="1000" oninput="renderArbs()" />
+            </div>
+          </div>
+        </div>
+
+        <div id="arbs">
+          <div class="empty">⏳ Loading opportunities...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATCHES (Valid / Invalid lists) -->
+    <section class="page" id="matches">
+      <div class="section-header">
+        <div class="section-header-title">📋 Matches (Valid & Invalid)</div>
+        <div class="section-header-sub">Tap a button to see detailed lists.</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="control-row" style="margin-bottom:6px;">
           <div class="filter-group">
-            <button class="filter-btn" onclick="setFilter('all',this)">All</button>
-            <button class="filter-btn active" onclick="setFilter('valid',this)">Valid Only</button>
-            <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid Only</button>
-            <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Bookmaker</button>
-            <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
-            <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
-          </div>
-          <div>
-            <input class="stake-input" type="number" id="stake" value="100000"
-                   min="1000" step="1000" oninput="renderArbs()" />
+            <button class="filter-btn active" id="btnMatchesValid" onclick="showMatchesList('valid')">
+              Valid matches
+            </button>
+            <button class="filter-btn" id="btnMatchesInvalid" onclick="showMatchesList('invalid')">
+              Invalid matches
+            </button>
           </div>
         </div>
-      </div>
 
-      <div id="arbs">
-        <div class="empty">⏳ Loading opportunities...</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MATCHES (Valid / Invalid lists) -->
-  <section class="page" id="matches">
-    <div class="section-header">
-      <div class="section-header-title">📋 Matches (Valid & Invalid)</div>
-      <div class="section-header-sub">Tap a button to see detailed lists.</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="control-row" style="margin-bottom:6px;">
-        <div class="filter-group">
-          <button class="filter-btn active" id="btnMatchesValid" onclick="showMatchesList('valid')">
-            Valid matches
-          </button>
-          <button class="filter-btn" id="btnMatchesInvalid" onclick="showMatchesList('invalid')">
-            Invalid matches
-          </button>
+        <div class="table-wrap">
+          <div id="matchesTable">
+            <div class="empty">Click “Valid matches” or “Invalid matches” to load the list.</div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="table-wrap">
-        <div id="matchesTable">
-          <div class="empty">Click “Valid matches” or “Invalid matches” to load the list.</div>
+    <!-- ODDS -->
+    <section class="page" id="odds">
+      <div class="section-header">
+        <div class="section-header-title">📊 All Scraped Odds</div>
+        <div class="section-header-sub" id="oddsCount"></div>
+      </div>
+      <div class="stat-card">
+        <div class="table-wrap">
+          <div id="oddsTable"><div class="empty">⏳ Loading odds...</div></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ODDS -->
-  <section class="page" id="odds">
-    <div class="section-header">
-      <div class="section-header-title">📊 All Scraped Odds</div>
-      <div class="section-header-sub" id="oddsCount"></div>
-    </div>
-    <div class="stat-card">
-      <div class="table-wrap">
-        <div id="oddsTable"><div class="empty">⏳ Loading odds...</div></div>
+    <!-- BILLING -->
+    <section class="page" id="billing">
+      <div class="section-header">
+        <div class="section-header-title">💳 Billing</div>
+        <div class="section-header-sub">Plans and simple invoice mock‑up</div>
       </div>
-    </div>
-  </section>
-
-  <!-- BILLING -->
-  <section class="page" id="billing">
-    <div class="section-header">
-      <div class="section-header-title">💳 Billing</div>
-      <div class="section-header-sub">Plans and simple invoice mock‑up</div>
-    </div>
-    <div class="stat-card">
-      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">
-        Choose a plan that matches your trading volume. This is a UI mock; you can wire it later.
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Free Plan</div>
-          <div class="stat-value">UGX 0</div>
-          <div class="stat-tag">Basic access and limited views.</div>
+      <div class="stat-card">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">
+          Choose a plan that matches your trading volume. This is a UI mock; you can wire it later.
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Pro Plan</div>
-          <div class="stat-value">UGX 50,000</div>
-          <div class="stat-tag">Full odds + arbs dashboard.</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Enterprise</div>
-          <div class="stat-value">Custom</div>
-          <div class="stat-tag">Teams, integrations, branding.</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Free Plan</div>
+            <div class="stat-value">UGX 0</div>
+            <div class="stat-tag">Basic access and limited views.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pro Plan</div>
+            <div class="stat-value">UGX 50,000</div>
+            <div class="stat-tag">Full odds + arbs dashboard.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Enterprise</div>
+            <div class="stat-value">Custom</div>
+            <div class="stat-tag">Teams, integrations, branding.</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SETTINGS -->
-  <section class="page" id="settings">
-    <div class="section-header">
-      <div class="section-header-title">⚙ Settings</div>
-      <div class="section-header-sub">Control behavior of the UI</div>
-    </div>
-    <div class="stat-card">
-      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">
-        These settings are visual; you can connect them to your Python config later.
+    <!-- SETTINGS -->
+    <section class="page" id="settings">
+      <div class="section-header">
+        <div class="section-header-title">⚙ Settings</div>
+        <div class="section-header-sub">Control behavior of the UI</div>
       </div>
-      <select class="stake-input" style="width:180px;">
-        <option>Auto-refresh: 30 seconds</option>
-        <option>5 minutes</option>
-        <option>10 minutes</option>
-      </select>
-      <br/><br/>
-      <select class="stake-input" style="width:180px;">
-        <option>Stake currency: UGX</option>
-        <option>USD</option>
-      </select>
-    </div>
-  </section>
-</div>
+      <div class="stat-card">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">
+          These settings are visual; you can connect them to your Python config later.
+        </div>
+        <select class="stake-input" style="width:180px;">
+          <option>Auto-refresh: 30 seconds</option>
+          <option>5 minutes</option>
+          <option>10 minutes</option>
+        </select>
+        <br/><br/>
+        <select class="stake-input" style="width:180px;">
+          <option>Stake currency: UGX</option>
+          <option>USD</option>
+        </select>
+      </div>
+    </section>
+  </div>
 
-<script>
-let allOpps = [];
-let rawOdds = [];
-let historyMap = {};
-let currentFilter = 'valid';
-let maxAgeDays = 2;
+  <script>
+    let allOpps = [];
+    let rawOdds = [];
+    let historyMap = {};
+    let currentFilter = 'valid';
+    let maxAgeDays = 2;
 
-function toggleTheme(){
-  document.body.classList.toggle('light');
-}
-
-/* Page switching */
-function showPage(pageId, el){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-
-  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
-  el.classList.add('active');
-
-  const map = {
-    dashboard:'Overview of scraper status and opportunity summary',
-    arbitrage:'Best live opportunities from your scraper',
-    matches:'List of valid and invalid matches',
-    odds:'Full list from all bookmakers',
-    billing:'Subscription plans and invoices (mock)',
-    settings:'Control scraping and display behaviour (mock)'
-  };
-  document.getElementById('pageSubtitle').textContent = map[pageId];
-}
-
-function parseKickoff(k){
-  if(!k) return null;
-  const s = String(k).replace(' UTC','Z');
-  const d = new Date(s);
-  return isNaN(d.getTime()) ? null : d;
-}
-function formatKickoff(k){
-  const d = parseKickoff(k);
-  if(!d) return '';
-  return new Intl.DateTimeFormat(undefined,{
-    weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'
-  }).format(d);
-}
-function kickoffLabel(k){
-  const d = parseKickoff(k);
-  if(!d) return 'Unknown';
-  const today = new Date();
-  const todayKey = today.toISOString().slice(0,10);
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate()+1);
-  const tomorrowKey = tomorrow.toISOString().slice(0,10);
-  const key = d.toISOString().slice(0,10);
-  if(key===todayKey) return 'Today';
-  if(key===tomorrowKey) return 'Tomorrow';
-  return 'Other';
-}
-
-function opportunityId(o){
-  const bets = (o.bets||[]).map(b=>`${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
-  return `${o.match}|${o.type}|${bets}`;
-}
-
-function classifyChanges(newOpps){
-  const newMap = {};
-  newOpps.forEach(o => newMap[opportunityId(o)] = o);
-
-  const oldMap = historyMap;
-  const nextHistory = {};
-  const updated = [];
-  const seen = new Set();
-
-  Object.keys(newMap).forEach(id => {
-    const o = newMap[id];
-    o.status = o.status || 'valid';
-    if(oldMap[id]){
-      o.changed = false;
-      o.prevStatus = oldMap[id].status || 'valid';
-      o.note = o.note || 'Still valid';
-    }else{
-      o.changed = true;
-      o.prevStatus = 'new';
-      o.note = o.note || 'New opportunity';
+    function toggleTheme(){
+      document.body.classList.toggle('light');
     }
-    nextHistory[id] = o;
-    updated.push(o);
-    seen.add(id);
-  });
 
-  Object.keys(oldMap).forEach(id => {
-    if(!seen.has(id)){
-      const old = oldMap[id];
-      old.status = 'invalid';
-      old.invalidAt = new Date().toISOString();
-      old.note = old.note || 'No longer present';
-      nextHistory[id] = old;
-      updated.push(old);
+    /* Page switching */
+    function showPage(pageId, el){
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+
+      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+      el.classList.add('active');
+
+      const map = {
+        dashboard:'Overview of scraper status and opportunity summary',
+        arbitrage:'Best live opportunities from your scraper',
+        matches:'List of valid and invalid matches',
+        odds:'Full list from all bookmakers',
+        billing:'Subscription plans and invoices (mock)',
+        settings:'Control scraping and display behaviour (mock)'
+      };
+      document.getElementById('pageSubtitle').textContent = map[pageId];
     }
-  });
 
-  historyMap = nextHistory;
-  allOpps = updated;
-}
+    function parseKickoff(k){
+      if(!k) return null;
+      const s = String(k).replace(' UTC','Z');
+      const d = new Date(s);
+      return isNaN(d.getTime()) ? null : d;
+    }
+    function formatKickoff(k){
+      const d = parseKickoff(k);
+      if(!d) return '';
+      return new Intl.DateTimeFormat(undefined,{
+        weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'
+      }).format(d);
+    }
+    function kickoffLabel(k){
+      const d = parseKickoff(k);
+      if(!d) return 'Unknown';
+      const today = new Date();
+      const todayKey = today.toISOString().slice(0,10);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate()+1);
+      const tomorrowKey = tomorrow.toISOString().slice(0,10);
+      const key = d.toISOString().slice(0,10);
+      if(key===todayKey) return 'Today';
+      if(key===tomorrowKey) return 'Tomorrow';
+      return 'Other';
+    }
 
-function setFilter(f, btn){
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderArbs();
-}
+    function opportunityId(o){
+      const bets = (o.bets||[]).map(b=>`${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
+      return `${o.match}|${o.type}|${bets}`;
+    }
 
-function isRecentEnough(o){
-  const d = parseKickoff(o.kickoff);
-  if(!d) return true;
-  const now = new Date();
-  const diffDays = (now - d)/(1000*60*60*24);
-  return diffDays <= maxAgeDays;
-}
+    function classifyChanges(newOpps){
+      const newMap = {};
+      newOpps.forEach(o => newMap[opportunityId(o)] = o);
 
-/* Render cards in Arbs page */
-function renderArbs(){
-  const stake = parseInt(document.getElementById('stake').value) || 100000;
-  let opps = allOpps.slice();
+      const oldMap = historyMap;
+      const nextHistory = {};
+      const updated = [];
+      const seen = new Set();
 
-  if(currentFilter==='valid'){
-    opps = opps.filter(o=>o.status==='valid' && isRecentEnough(o));
-  }else if(currentFilter==='invalid'){
-    opps = opps.filter(o=>o.status==='invalid');
-  }else if(currentFilter==='cross'){
-    opps = opps.filter(o=>new Set((o.bets||[]).map(b=>b.bookmaker)).size>=2);
-  }else if(currentFilter==='2way'){
-    opps = opps.filter(o=>o.type==='2-way');
-  }else if(currentFilter==='3way'){
-    opps = opps.filter(o=>o.type==='3-way');
-  }
+      Object.keys(newMap).forEach(id => {
+        const o = newMap[id];
+        o.status = o.status || 'valid';
+        if(oldMap[id]){
+          o.changed = false;
+          o.prevStatus = oldMap[id].status || 'valid';
+          o.note = o.note || 'Still valid';
+        }else{
+          o.changed = true;
+          o.prevStatus = 'new';
+          o.note = o.note || 'New opportunity';
+        }
+        nextHistory[id] = o;
+        updated.push(o);
+        seen.add(id);
+      });
 
-  document.getElementById('arbInfo').textContent = opps.length + ' opportunities';
-  document.getElementById('validCount').textContent =
-    allOpps.filter(o=>o.status==='valid' && isRecentEnough(o)).length;
-  document.getElementById('invalidCount').textContent =
-    allOpps.filter(o=>o.status==='invalid').length;
+      Object.keys(oldMap).forEach(id => {
+        if(!seen.has(id)){
+          const old = oldMap[id];
+          old.status = 'invalid';
+          old.invalidAt = new Date().toISOString();
+          old.note = old.note || 'No longer present';
+          nextHistory[id] = old;
+          updated.push(old);
+        }
+      });
 
-  if(allOpps.length){
-    const bestValid = allOpps.filter(o=>o.status==='valid' && isRecentEnough(o))
-                             .sort((a,b)=>(b.profit_percent||0)-(a.profit_percent||0))[0];
-    const best = bestValid || allOpps[0];
-    const pct = Number(best.profit_percent||0).toFixed(2);
-    document.getElementById('heroProfit').textContent = `${pct}% Profit`;
-    document.getElementById('heroSub').textContent =
-      `${best.match||'Unknown match'} • ${best.type||''}`;
-  }
+      historyMap = nextHistory;
+      allOpps = updated;
+    }
 
-  const groups = {};
-  opps.forEach(o=>{
-    const g = kickoffLabel(o.kickoff);
-    if(!groups[g]) groups[g] = [];
-    groups[g].push(o);
-  });
+    function setFilter(f, btn){
+      currentFilter = f;
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderArbs();
+    }
 
-  const order = ['Today','Tomorrow','Other','Unknown'];
-  const keys = [...order.filter(k=>groups[k]),
-                ...Object.keys(groups).filter(k=>!order.includes(k)).sort()];
+    function isRecentEnough(o){
+      const d = parseKickoff(o.kickoff);
+      if(!d) return true;
+      const now = new Date();
+      const diffDays = (now - d)/(1000*60*60*24);
+      return diffDays <= maxAgeDays;
+    }
 
-  const container = document.getElementById('arbs');
-  if(!opps.length){
-    container.innerHTML = '<div class="empty">😔 No arbitrage opportunities match this filter right now.</div>';
-    return;
-  }
+    /* Render cards in Arbs page */
+    function renderArbs(){
+      const stake = parseInt(document.getElementById('stake').value) || 100000;
+      let opps = allOpps.slice();
 
-  container.innerHTML = keys.map(group=>{
-    const items = groups[group]||[];
-    const cards = items.map(o=>{
-      const bets = o.bets||[];
-      const arb = bets.reduce((s,b)=>s + (1/Number(b.odd||1)),0);
-      const profitUGX = Math.round(stake*(1-arb));
-      const books = new Set(bets.map(b=>b.bookmaker));
-      const cross = books.size>=2;
-      const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : 'No kickoff';
+      if(currentFilter==='valid'){
+        opps = opps.filter(o=>o.status==='valid' && isRecentEnough(o));
+      }else if(currentFilter==='invalid'){
+        opps = opps.filter(o=>o.status==='invalid');
+      }else if(currentFilter==='cross'){
+        opps = opps.filter(o=>new Set((o.bets||[]).map(b=>b.bookmaker)).size>=2);
+      }else if(currentFilter==='2way'){
+        opps = opps.filter(o=>o.type==='2-way');
+      }else if(currentFilter==='3way'){
+        opps = opps.filter(o=>o.type==='3-way');
+      }
 
-      const betsHtml = bets.map(b=>{
-        const userStake = Math.round(stake*(1/Number(b.odd||1))/arb);
+      document.getElementById('arbInfo').textContent = opps.length + ' opportunities';
+      document.getElementById('validCount').textContent =
+        allOpps.filter(o=>o.status==='valid' && isRecentEnough(o)).length;
+      document.getElementById('invalidCount').textContent =
+        allOpps.filter(o=>o.status==='invalid').length;
+
+      if(allOpps.length){
+        const bestValid = allOpps.filter(o=>o.status==='valid' && isRecentEnough(o))
+                                 .sort((a,b)=>(b.profit_percent||0)-(a.profit_percent||0))[0];
+        const best = bestValid || allOpps[0];
+        const pct = Number(best.profit_percent||0).toFixed(2);
+        document.getElementById('heroProfit').textContent = `${pct}% Profit`;
+        document.getElementById('heroSub').textContent =
+          `${best.match||'Unknown match'} • ${best.type||''}`;
+      }
+
+      const groups = {};
+      opps.forEach(o=>{
+        const g = kickoffLabel(o.kickoff);
+        if(!groups[g]) groups[g] = [];
+        groups[g].push(o);
+      });
+
+      const order = ['Today','Tomorrow','Other','Unknown'];
+      const keys = [...order.filter(k=>groups[k]),
+                    ...Object.keys(groups).filter(k=>!order.includes(k)).sort()];
+
+      const container = document.getElementById('arbs');
+      if(!opps.length){
+        container.innerHTML = '<div class="empty">😔 No arbitrage opportunities match this filter right now.</div>';
+        return;
+      }
+
+      container.innerHTML = keys.map(group=>{
+        const items = groups[group]||[];
+        const cards = items.map(o=>{
+          const bets = o.bets||[];
+          const arb = bets.reduce((s,b)=>s + (1/Number(b.odd||1)),0);
+          const profitUGX = Math.round(stake*(1-arb));
+          const books = new Set(bets.map(b=>b.bookmaker));
+          const cross = books.size>=2;
+          const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : 'No kickoff';
+
+          const betsHtml = bets.map(b=>{
+            const userStake = Math.round(stake*(1/Number(b.odd||1))/arb);
+            return `
+              <div class="arb-bet">
+                <div class="bet-left">
+                  <div class="bet-book">${b.bookmaker}</div>
+                  <div class="bet-outcome">${b.outcome} @ ${b.odd}</div>
+                </div>
+                <div class="bet-right">
+                  <div>Stake: UGX ${userStake.toLocaleString()}</div>
+                  <div class="bet-stake">Win: UGX ${Math.round(userStake*Number(b.odd||0)).toLocaleString()}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          const statusBadge = o.status==='valid'
+            ? '<span class="badge green">VALID</span>'
+            : '<span class="badge red">INVALID</span>';
+
+          const noteBadge = o.changed && o.status==='valid'
+            ? '<span class="badge blue">NEW</span>'
+            : (o.status==='invalid' ? '<span class="badge gray">PAST</span>' : '');
+
+          return `
+            <div class="arb-card ${o.status}">
+              <div class="arb-top">
+                <div>
+                  <div class="arb-match">${o.match}</div>
+                  <div class="arb-kickoff">🕒 ${kickoffText}</div>
+                </div>
+                <div class="arb-profit">
+                  <div class="profit-pct">${statusBadge} +${Number(o.profit_percent||0).toFixed(2)}%</div>
+                  <div class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</div>
+                </div>
+              </div>
+              <div class="arb-meta">
+                <span>${o.type==='3-way' ? '🔺 3‑way (1X2)' : '🔷 2‑way'}</span>
+                ${cross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
+                ${noteBadge}
+                <span class="badge ${o.status==='valid'?'green':'red'}">${o.note||''}</span>
+              </div>
+              <div class="arb-bets">${betsHtml}</div>
+            </div>
+          `;
+        }).join('');
+
         return `
-          <div class="arb-bet">
-            <div class="bet-left">
-              <div class="bet-book">${b.bookmaker}</div>
-              <div class="bet-outcome">${b.outcome} @ ${b.odd}</div>
-            </div>
-            <div class="bet-right">
-              <div>Stake: UGX ${userStake.toLocaleString()}</div>
-              <div class="bet-stake">Win: UGX ${Math.round(userStake*Number(b.odd||0)).toLocaleString()}</div>
-            </div>
+          <div style="margin-top:6px;">
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">${group}</div>
+            ${cards}
           </div>
         `;
       }).join('');
+    }
 
-      const statusBadge = o.status==='valid'
-        ? '<span class="badge green">VALID</span>'
-        : '<span class="badge red">INVALID</span>';
-
-      const noteBadge = o.changed && o.status==='valid'
-        ? '<span class="badge blue">NEW</span>'
-        : (o.status==='invalid' ? '<span class="badge gray">PAST</span>' : '');
-
-      return `
-        <div class="arb-card ${o.status}">
-          <div class="arb-top">
-            <div>
-              <div class="arb-match">${o.match}</div>
-              <div class="arb-kickoff">🕒 ${kickoffText}</div>
-            </div>
-            <div class="arb-profit">
-              <div class="profit-pct">${statusBadge} +${Number(o.profit_percent||0).toFixed(2)}%</div>
-              <div class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</div>
-            </div>
-          </div>
-          <div class="arb-meta">
-            <span>${o.type==='3-way' ? '🔺 3‑way (1X2)' : '🔷 2‑way'}</span>
-            ${cross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
-            ${noteBadge}
-            <span class="badge ${o.status==='valid'?'green':'red'}">${o.note||''}</span>
-          </div>
-          <div class="arb-bets">${betsHtml}</div>
-        </div>
-      `;
-    }).join('');
-
-    return `
-      <div style="margin-top:6px;">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">${group}</div>
-        ${cards}
-      </div>
-    `;
-  }).join('');
-}
-
-/* Render full odds table */
-function renderOdds(){
-  document.getElementById('oddsCount').textContent = `${rawOdds.length} rows`;
-  const wrap = document.getElementById('oddsTable');
-  if(!rawOdds.length){
-    wrap.innerHTML = '<div class="empty">⏳ No odds yet.</div>';
-    return;
-  }
-  wrap.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Match</th>
-          <th>Bookmaker</th>
-          <th>Home</th>
-          <th>Draw</th>
-          <th>Away</th>
-          <th>Sport</th>
-          <th>Kickoff</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${rawOdds.map(o=>`
-          <tr>
-            <td>${o.match}</td>
-            <td>${o.bookmaker}</td>
-            <td>${o.home ?? '-'}</td>
-            <td>${o.draw ?? '-'}</td>
-            <td>${o.away ?? '-'}</td>
-            <td>${o.sport ?? '-'}</td>
-            <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
-}
-
-/* Matches list: filter by status and render table */
-function showMatchesList(kind){
-  document.getElementById('btnMatchesValid').classList.remove('active');
-  document.getElementById('btnMatchesInvalid').classList.remove('active');
-  if (kind === 'valid') {
-    document.getElementById('btnMatchesValid').classList.add('active');
-  } else {
-    document.getElementById('btnMatchesInvalid').classList.add('active');
-  }
-
-  let items = allOpps.filter(o => o.status === kind);
-  if (kind === 'valid') {
-    items = items.filter(isRecentEnough);
-  }
-
-  const wrap = document.getElementById('matchesTable');
-  if (!items.length) {
-    wrap.innerHTML = `<div class="empty">No ${kind} matches to show right now.</div>`;
-    return;
-  }
-
-  wrap.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Status</th>
-          <th>Match</th>
-          <th>Type</th>
-          <th>Sport</th>
-          <th>Profit %</th>
-          <th>Profit UGX</th>
-          <th>Bookmakers</th>
-          <th>Kickoff</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${items.map(o => {
-          const books = (o.bets || []).map(b => b.bookmaker).join(', ');
-          const ko = o.kickoff ? formatKickoff(o.kickoff) : '-';
-          return `
+    /* Render full odds table */
+    function renderOdds(){
+      document.getElementById('oddsCount').textContent = `${rawOdds.length} rows`;
+      const wrap = document.getElementById('oddsTable');
+      if(!rawOdds.length){
+        wrap.innerHTML = '<div class="empty">⏳ No odds yet.</div>';
+        return;
+      }
+      wrap.innerHTML = `
+        <table>
+          <thead>
             <tr>
-              <td>${(o.status || '').toUpperCase()}</td>
-              <td>${o.match}</td>
-              <td>${o.type}</td>
-              <td>${o.sport || '-'}</td>
-              <td>${Number(o.profit_percent || 0).toFixed(2)}</td>
-              <td>${o.profit_ugx != null ? o.profit_ugx.toLocaleString() : '-'}</td>
-              <td>${books}</td>
-              <td>${ko}</td>
+              <th>Match</th>
+              <th>Bookmaker</th>
+              <th>Home</th>
+              <th>Draw</th>
+              <th>Away</th>
+              <th>Sport</th>
+              <th>Kickoff</th>
             </tr>
-          `;
-        }).join('')}
-      </tbody>
-    </table>
-  `;
-}
+          </thead>
+          <tbody>
+            ${rawOdds.map(o=>`
+              <tr>
+                <td>${o.match}</td>
+                <td>${o.bookmaker}</td>
+                <td>${o.home ?? '-'}</td>
+                <td>${o.draw ?? '-'}</td>
+                <td>${o.away ?? '-'}</td>
+                <td>${o.sport ?? '-'}</td>
+                <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
 
-function renderChangeSummary(){
-  const summary = document.getElementById('changeSummary');
-  const lines = [];
-  allOpps.forEach(o=>{
-    if(o.changed && o.status==='valid') lines.push(`+ ${o.match} became valid now.`);
-    if(o.status==='invalid') lines.push(`- ${o.match} is now invalid but kept in history.`);
-  });
-  if(!lines.length){
-    summary.textContent = 'No changes detected in this run.';
-    return;
-  }
-  summary.innerHTML = lines.slice(0,6).map(x=>{
-    if(x.startswith('+')) return `<div style="color:#22c55e;">${x}</div>`;
-    return `<div style="color:#ef4444;">${x}</div>`;
-  }).join('');
-}
+    /* Matches list: filter by status and render table */
+    function showMatchesList(kind){
+      document.getElementById('btnMatchesValid').classList.remove('active');
+      document.getElementById('btnMatchesInvalid').classList.remove('active');
+      if (kind === 'valid') {
+        document.getElementById('btnMatchesValid').classList.add('active');
+      } else {
+        document.getElementById('btnMatchesInvalid').classList.add('active');
+      }
 
-/* Load data */
-async function load(){
-  try{
-    const r = await fetch('odds.json?t='+Date.now());
-    const d = await r.json();
-    rawOdds = d.raw_odds || [];
-    const freshOpps = d.opportunities || [];
-    const scraped = d.bookmakers_scraped || [...new Set(rawOdds.map(x=>x.bookmaker))];
+      let items = allOpps.filter(o => o.status === kind);
+      if (kind === 'valid') {
+        items = items.filter(isRecentEnough);
+      }
 
-    classifyChanges(freshOpps);
+      const wrap = document.getElementById('matchesTable');
+      if (!items.length) {
+        wrap.innerHTML = `<div class="empty">No ${kind} matches to show right now.</div>`;
+        return;
+      }
 
-    document.getElementById('lastUpdated').textContent = 'Last updated: ' + (d.last_updated || '');
-    document.getElementById('matchCount').textContent = d.total_matches || rawOdds.length;
-    document.getElementById('bookmakerCount').textContent = scraped.length;
-    document.getElementById('status').textContent =
-      `Loaded ${rawOdds.length} odds from ${scraped.length} bookmakers. `+
-      `${allOpps.filter(o=>o.status==='valid').length} valid and ${allOpps.filter(o=>o.status==='invalid').length} invalid opportunities in history.`;
+      wrap.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Match</th>
+              <th>Type</th>
+              <th>Sport</th>
+              <th>Profit %</th>
+              <th>Profit UGX</th>
+              <th>Bookmakers</th>
+              <th>Kickoff</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${items.map(o => {
+              const books = (o.bets || []).map(b => b.bookmaker).join(', ');
+              const ko = o.kickoff ? formatKickoff(o.kickoff) : '-';
+              return `
+                <tr>
+                  <td>${(o.status || '').toUpperCase()}</td>
+                  <td>${o.match}</td>
+                  <td>${o.type}</td>
+                  <td>${o.sport || '-'}</td>
+                  <td>${Number(o.profit_percent || 0).toFixed(2)}</td>
+                  <td>${o.profit_ugx != null ? o.profit_ugx.toLocaleString() : '-'}</td>
+                  <td>${books}</td>
+                  <td>${ko}</td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+    }
 
-    renderChangeSummary();
-    renderArbs();
-    renderOdds();
-    showMatchesList('valid');
-  }catch(e){
-    document.getElementById('status').textContent = 'Could not load odds.json';
-    document.getElementById('arbs').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
-    document.getElementById('oddsTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
-    document.getElementById('matchesTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
-  }
-}
+    function renderChangeSummary(){
+      const summary = document.getElementById('changeSummary');
+      const lines = [];
+      allOpps.forEach(o=>{
+        if(o.changed && o.status==='valid') lines.push(`+ ${o.match} became valid now.`);
+        if(o.status==='invalid') lines.push(`- ${o.match} is now invalid but kept in history.`);
+      });
+      if(!lines.length){
+        summary.textContent = 'No changes detected in this run.';
+        return;
+      }
+      summary.innerHTML = lines.slice(0,6).map(x=>{
+        if(x.startsWith('+')) return `<div style="color:#22c55e;">${x}</div>`;
+        return `<div style="color:#ef4444;">${x}</div>`;
+      }).join('');
+    }
 
-load();
-setInterval(load,30000);
-</script>
+    /* Load data from odds.json */
+    async function load(){
+      try{
+        const r = await fetch('odds.json?t='+Date.now());
+        const d = await r.json();
+        rawOdds = d.raw_odds || [];
+        const freshOpps = d.opportunities || [];
+        const scraped = d.bookmakers_scraped || [...new Set(rawOdds.map(x=>x.bookmaker))];
+
+        classifyChanges(freshOpps);
+
+        document.getElementById('lastUpdated').textContent = 'Last updated: ' + (d.last_updated || '');
+        document.getElementById('matchCount').textContent = d.total_matches || rawOdds.length;
+        document.getElementById('bookmakerCount').textContent = scraped.length;
+        document.getElementById('status').textContent =
+          `Loaded ${rawOdds.length} odds from ${scraped.length} bookmakers. `+
+          `${allOpps.filter(o=>o.status==='valid').length} valid and ${allOpps.filter(o=>o.status==='invalid').length} invalid opportunities in history.`;
+
+        renderChangeSummary();
+        renderArbs();
+        renderOdds();
+        showMatchesList('valid');
+      }catch(e){
+        console.error(e); // helps you debug if odds.json is missing or invalid
+        document.getElementById('status').textContent = 'Could not load odds.json';
+        document.getElementById('arbs').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
+        document.getElementById('oddsTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
+        document.getElementById('matchesTable').innerHTML = '<div class="empty">❌ Scraper has not run yet.</div>';
+      }
+    }
+
+    load();
+    setInterval(load,30000);
+  </script>
 </body>
 </html>
