@@ -431,7 +431,7 @@ body.light .theme-thumb{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:320px; /* lowered from 640px so it fits phone width better */
+  min-width:640px;
 }
 th,td{
   font-size:11px;
@@ -1034,7 +1034,7 @@ function renderChangeSummary(){
     return;
   }
   summary.innerHTML = lines.slice(0,6).map(x=>{
-    if(x.startsWith('+')) return `<div style="color:#22c55e;">${x}</div>`;
+    if(x.startswith('+')) return `<div style="color:#22c55e;">${x}</div>`;
     return `<div style="color:#ef4444;">${x}</div>`;
   }).join('');
 }
