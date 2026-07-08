@@ -2,7 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Make it fit phone screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#050710" />
+
+  <!-- PWA manifest (Option 3) -->
+  <link rel="manifest" href="manifest.json" />
+
   <title>🇺🇬 Arb Studio • Luxury Dashboard</title>
 
   <style>
@@ -55,18 +61,32 @@
       color:var(--text);
       min-height:100vh;
       display:flex;
+      flex-direction:row;
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     }
 
+    /* Layout containers */
     .sidebar{
       width:230px;
+      max-width:100%;
       background:#050710;
       border-right:1px solid var(--border);
       padding:18px 16px;
       display:flex;
       flex-direction:column;
       gap:18px;
+      flex-shrink:0;
     }
+    .main{
+      flex:1;
+      min-width:0;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      overflow-x:hidden;
+    }
+
     .brand{
       display:flex;
       align-items:center;
@@ -77,6 +97,7 @@
       border-radius:12px;
       background:radial-gradient(circle at 0 0,#00f5a0,#0ea5e9);
       box-shadow:0 0 30px rgba(14,165,233,0.4);
+      flex-shrink:0;
     }
     .brand-text h1{font-size:15px;}
     .brand-text span{font-size:11px;color:var(--muted);}
@@ -112,19 +133,12 @@
       color:var(--muted);
     }
 
-    .main{
-      flex:1;
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      overflow-x:hidden;
-    }
-
     .topbar{
       display:flex;
       justify-content:space-between;
       align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
     }
     .top-title{font-size:16px;font-weight:600;}
     .top-sub{font-size:12px;color:var(--muted);}
@@ -134,6 +148,7 @@
       border-radius:999px;
       border:1px solid var(--border);
       background:rgba(15,23,42,0.7);
+      white-space:nowrap;
     }
 
     .theme-toggle{
@@ -144,6 +159,7 @@
       background:#0b1020;
       border:1px solid var(--border);
       cursor:pointer;
+      flex-shrink:0;
     }
     .theme-thumb{
       position:absolute;
@@ -167,16 +183,20 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
+      gap:12px;
       backdrop-filter:blur(18px);
+      flex-wrap:wrap;
     }
     .hero-main h2{font-size:14px;color:var(--muted);}
-    .hero-main .big{font-size:26px;font-weight:700;color:var(--accent);}
+    .hero-main .big{font-size:24px;font-weight:700;color:var(--accent);}
     .hero-main .sub{font-size:12px;color:var(--muted);}
+    .hero-side{font-size:12px;color:var(--muted);max-width:260px;}
 
     .stats-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
       gap:10px;
+      width:100%;
     }
     .stat-card{
       background:var(--glass);
@@ -195,6 +215,8 @@
       justify-content:space-between;
       align-items:center;
       margin:10px 0;
+      gap:8px;
+      flex-wrap:wrap;
     }
     .section-header-title{
       font-size:13px;
@@ -245,6 +267,7 @@
       display:flex;
       flex-direction:column;
       gap:10px;
+      width:100%;
     }
 
     .arb-card{
@@ -269,6 +292,7 @@
       justify-content:space-between;
       align-items:flex-start;
       gap:10px;
+      flex-wrap:wrap;
     }
     .arb-match{font-size:14px;font-weight:600;}
     .arb-kickoff{font-size:11px;color:var(--muted);}
@@ -278,6 +302,7 @@
       border-radius:999px;
       background:var(--accent2-soft);
       color:var(--accent2);
+      white-space:nowrap;
     }
     .arb-bets{
       display:flex;
@@ -291,6 +316,8 @@
       padding:7px 9px;
       border-radius:10px;
       background:rgba(15,23,42,0.8);
+      gap:8px;
+      flex-wrap:wrap;
     }
     .bet-book{
       font-size:12px;
@@ -330,10 +357,14 @@
       background:rgba(15,23,42,0.9);
     }
 
+    /* Phone responsiveness: stack sidebar on top, full-width main */
     @media(max-width:900px){
-      body{flex-direction:column;}
+      body{
+        flex-direction:column;
+      }
       .sidebar{
         width:100%;
+        max-width:100%;
         flex-direction:row;
         align-items:center;
         justify-content:space-between;
@@ -342,6 +373,13 @@
       }
       .nav-section{display:none;}
       .sidebar-footer{display:none;}
+      .main{
+        width:100%;
+        padding:12px;
+      }
+      .hero-main .big{
+        font-size:22px;
+      }
     }
   </style>
 </head>
@@ -375,7 +413,7 @@
         <div class="top-title">Live Arbitrage Monitor</div>
         <div class="top-sub" id="pageSubtitle">Overview</div>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;">
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
         <div class="pill" id="lastUpdated">Last: —</div>
         <div class="theme-toggle" onclick="toggleTheme()">
           <div class="theme-thumb"></div>
@@ -903,6 +941,13 @@
 
     load();
     setInterval(load,30000);
+
+    // PWA: register service worker (Option 3)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .catch(err => console.error('SW registration failed', err));
+    }
   </script>
 </body>
 </html>
+ 
