@@ -1,10 +1,10 @@
+# .github/workflows/scraper.yml
 name: Auto Scraper #5204
 
 on:
   schedule:
-    # Run every 5 minutes
-    - cron: '*/5 * * * *'
-  workflow_dispatch:  # Allow manual trigger
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   scrape:
@@ -12,43 +12,50 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-      
+        uses: actions/checkout@v4
+        
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      
+          cache: 'pip'  # Built-in caching
+        
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 playwright google-genai python-dotenv
           playwright install chromium
-      
+        
       - name: Run scraper
-        run: python main.py  # Make sure your file is named main.py
+        run: python main.py
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           STAKE_UGX: 100000
+          STALE_ODDS_MINUTES: 5
           MIN_PROFIT_PERCENT: 0.5
           MAX_PROFIT_PERCENT: 20.0
-          STALE_ODDS_MINUTES: 5  # Important: Match your scan interval
-      
+        
       - name: Upload results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: arbitrage-results
           path: |
             arbitrage_history.json
             latest_report.json
-            arbitrage.db
+            *.db
             *.log
+            scan_summary.json
+          retention-days: 7
+          if-no-files-found: ignore
       
-      - name: Commit and push changes
+      - name: Commit and push results
+        if: success()
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add arbitrage_history.json latest_report.json arbitrage.db 2>/dev/null || true
+          git add arbitrage_history.json latest_report.json *.db scan_summary.json 2>/dev/null || true
           git diff --staged --quiet || git commit -m "Update arbitrage results [skip ci]"
           git push
