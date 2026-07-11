@@ -47,7 +47,7 @@ def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"s+", " ", name)
+    name = re.sub(r"\s+", " ", name)
     return name
 
 def is_bad_team_name(name):
@@ -160,7 +160,7 @@ def save_freshness(freshness):
 
 def filter_stale_odds(all_odds):
     previous = load_freshness()
-    new_freshness, fresh_odds = {}, []
+    new_freshness, fresh_odds = {}, {}
     now = datetime.now(timezone.utc)
     for o in all_odds:
         key = f"{o.get('bookmaker')}|{o.get('match_key')}"
@@ -170,7 +170,7 @@ def filter_stale_odds(all_odds):
             since_str = now.strftime("%Y-%m-%d %H:%M UTC")
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds.append(o)
+            fresh_odds[o.get('match_key')] = o
             continue
         old_snapshot = old.get("snapshot", {})
         since_str = old.get("since")
@@ -178,7 +178,7 @@ def filter_stale_odds(all_odds):
             since_str = now.strftime("%Y-%m-%d %H:%M UTC")
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds.append(o)
+            fresh_odds[o.get('match_key')] = o
             continue
         try:
             since_dt = datetime.strptime(since_str, "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
@@ -188,9 +188,9 @@ def filter_stale_odds(all_odds):
         if hours <= STALE_ODDS_HOURS:
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds.append(o)
+            fresh_odds[o.get('match_key')] = o
     save_freshness(new_freshness)
-    return fresh_odds
+    return list(fresh_odds.values())
 
 def get_match_status_and_kickoff_football_data(home_team, away_team, date_hint=None):
     if not FOOTBALL_API_KEY:
@@ -505,13 +505,12 @@ def scrape_betpawa():
                     for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
                         try:
                             text = link.inner_text()
-                            if "LIVE" in text.upper() or re.search(r"\bd{1,3}:d{2}\b", text):
+                            if "LIVE" in text.upper() or re.search(r"\b\d{1,3}:\d{2}\b", text):
                                 continue
-                            parts = [p.strip() for p in text.split("
-") if p.strip()]
+                            parts = [p.strip() for p in text.split("\n") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
-                                if re.match(r"^d+.d+$", part):
+                                if re.match(r"^\d+\.\d+$", part):
                                     try:
                                         odd_values.append(float(part))
                                     except Exception:
@@ -630,9 +629,9 @@ def scrape_sportybet():
                         continue
                     if is_bad_team_name(home) or is_bad_team_name(away):
                         continue
-                    h = clean_odd(event.get("home"))
-                    d = clean_odd(event.get("draw"))
-                    a = clean_odd(event.get("away"))
+                    h = clean_odd(event.get("home_odd"))
+                    d = clean_odd(event.get("draw_odd"))
+                    a = clean_odd(event.get("away_odd"))
                     if h is not None and a is not None:
                         odds.append(
                             build_match_record(
