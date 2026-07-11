@@ -1,11 +1,11 @@
-
 # --- dependency bootstrap (to avoid ModuleNotFoundError in bare environments) ---
 def _ensure_dependencies():
     import importlib
     missing = []
-    for mod in ["requests", "bs4", "playwright"]:
+    # check by package name for Gemini; others by module
+    for mod in ["requests", "bs4", "playwright", "google-generativeai"]:
         try:
-            importlib.import_module(mod)
+            importlib.import_module(mod if mod != "google-generativeai" else "google.generativeai")
         except ImportError:
             missing.append(mod)
     if missing:
@@ -25,6 +25,13 @@ import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
+# Gemini import + config
+import google.generativeai as genai  # pip package: google-generativeai
+
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
+
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
@@ -40,13 +47,35 @@ FOOTBALL_API_KEY = os.environ.get("FOOTBALL_API_KEY")
 FOOTBALL_API_BASE = "https://api.football-data.org/v4"
 MAX_MATCH_AGE_HOURS = 24
 
+# How long to keep invalid opportunities in history before purging (hours)
+INVALID_RETENTION_HOURS = 24
+
+# Bad/placeholder team names that we should ignore
+BAD_TEAM_NAMES = {
+    "home",
+    "away",
+    "team a",
+    "team b",
+    "tbd",
+    "unknown",
+    "—",
+    "-",
+}
+
 
 def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"\s+", " ", name)
+    name = re.sub(r"s+", " ", name)  # FIXED: proper s+
     return name
+
+
+def is_bad_team_name(name):
+    if not name:
+        return True
+    n = normalize(name)
+    return n in BAD_TEAM_NAMES or len(n) <= 1
 
 
 def teams_match(name1, name2):
@@ -323,6 +352,97 @@ def filter_opportunities_with_football_data(opps_list):
     return cleaned
 
 
+# === Gemini-based generic scraper helper ===
+
+def scrape_with_gemini(url, bookmaker_name, sport="Football"):
+    """
+    Fetches a page, asks Gemini to extract matches and 1X2 odds,
+    and returns a list of records using build_match_record().
+    """
+    odds = []
+
+    if not GEMINI_API_KEY:
+        print("Gemini API key not configured, skipping Gemini scrape.")
+        return odds
+
+    try:
+        resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
+        resp.raise_for_status()
+        html = resp.text
+
+        prompt = f"""
+You are helping extract {sport} betting odds for {bookmaker_name} in Uganda.
+
+From the HTML below, find all {sport} matches and return ONLY valid JSON, no explanations.
+Format exactly like this:
+
+{{
+  "matches": [
+    {{
+      "home_team": "Team A",
+      "away_team": "Team B",
+      "home_odd": 2.10,
+      "draw_odd": 3.00,
+      "away_odd": 2.50,
+      "competition": "League or competition name (if available)"
+    }}
+  ]
+}}
+
+Include only pre-match odds, not live matches. Ignore other sports.
+HTML:
+{html}
+"""
+
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+        text = response.text or ""
+
+        json_start = text.find("{")
+        if json_start > 0:
+            text = text[json_start:]
+
+        data = json.loads(text)
+        matches = data.get("matches", []) if isinstance(data, dict) else []
+
+        for m in matches:
+            try:
+                home_team = m.get("home_team")
+                away_team = m.get("away_team")
+                if not home_team or not away_team:
+                    continue
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    continue
+
+                h = clean_odd(m.get("home_odd"))
+                d = clean_odd(m.get("draw_odd"))
+                a = clean_odd(m.get("away_odd"))
+
+                if h is None or a is None:
+                    continue
+
+                competition = m.get("competition", "") or ""
+                odds.append(
+                    build_match_record(
+                        home_team,
+                        away_team,
+                        bookmaker_name,
+                        h,
+                        d,
+                        a,
+                        sport,
+                        competition,
+                    )
+                )
+            except Exception:
+                continue
+
+    except Exception as e:
+        print(f"Gemini scrape error for {bookmaker_name}: {e}")
+
+    return odds
+
+
 def championbet_extract_1x2(match):
     bet_map = match.get("betMap", {}) or {}
 
@@ -382,6 +502,9 @@ def scrape_championbet():
                 away_team = m.get("away") or m.get("awayTeam") or m.get("away_team") or m.get("team2") or ""
                 if not home_team or not away_team:
                     continue
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    continue
+
                 h, d, a = championbet_extract_1x2(m)
                 if h is not None and a is not None:
                     odds.append(
@@ -427,6 +550,9 @@ def scrape_betika():
                 away_team = m.get("away_team", "")
                 if not home_team or not away_team:
                     continue
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    continue
+
                 h = clean_odd(m.get("home_odd"))
                 d = clean_odd(m.get("neutral_odd"))
                 a = clean_odd(m.get("away_odd"))
@@ -479,22 +605,31 @@ def scrape_ababet():
                 if is_finished_status(status_cell) or is_live_status(status_cell):
                     continue
 
-                if home_team and away_team and home_team != "-" and away_team != "-":
-                    odds.append(
-                        build_match_record(
-                            home_team,
-                            away_team,
-                            "AbaBet",
-                            row.get("1"),
-                            row.get("X"),
-                            row.get("2"),
-                            "Football",
-                            row.get("League", ""),
-                        )
+                if not home_team or not away_team:
+                    continue
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    continue
+
+                odds.append(
+                    build_match_record(
+                        home_team,
+                        away_team,
+                        "AbaBet",
+                        row.get("1"),
+                        row.get("X"),
+                        row.get("2"),
+                        "Football",
+                        row.get("League", ""),
                     )
+                )
     except Exception as e:
         print(f"AbaBet error: {e}")
     return odds
+
+
+# Gemini-powered AbaBet (main site) as an extra source
+def scrape_ababet_gemini():
+    return scrape_with_gemini("https://www.ababet.ug/", "AbaBet-Gemini", sport="Football")
 
 
 def scrape_betpawa():
@@ -521,28 +656,40 @@ def scrape_betpawa():
                     for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
                         try:
                             text = link.inner_text()
-                            if "LIVE" in text.upper() or re.search(r"\b\d{1,3}:\d{2}\b", text):
+                            if "LIVE" in text.upper() or re.search(r"\bd{1,3}:d{2}\b", text):
                                 continue
 
-                            parts = [p.strip() for p in text.split("\n") if p.strip()]
+                            parts = [p.strip() for p in text.split("
+") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
-                                if re.match(r"^\d+\.\d+$", part):
-                                    odd_values.append(float(part))
+                                if re.match(r"^d+.d+$", part):
+                                    try:
+                                        odd_values.append(float(part))
+                                    except Exception:
+                                        continue
                                 elif len(part) > 2 and not any(
-                                    x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
+                                    x in part
+                                    for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
                                 ):
                                     teams.append(part)
-                                elif any(x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]):
+                                elif any(
+                                    x in part
+                                    for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
+                                ):
                                     competition = part
                             if len(teams) >= 2 and len(odd_values) >= 2:
-                                mk = f"{teams[0]}vs{teams[1]}".lower().replace(" ", "")
+                                home_team = teams[0]
+                                away_team = teams[1]
+                                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                                    continue
+                                mk = f"{home_team}vs{away_team}".lower().replace(" ", "")
                                 if mk not in seen_matches:
                                     seen_matches.add(mk)
                                     odds.append(
                                         build_match_record(
-                                            teams[0],
-                                            teams[1],
+                                            home_team,
+                                            away_team,
                                             "BetPawa",
                                             odd_values[0],
                                             odd_values[1] if len(odd_values) >= 3 else None,
@@ -596,6 +743,9 @@ def scrape_fortebet():
                 away_team = competitors.get(str(comp_ids[1]), {}).get("name", "")
                 if not home_team or not away_team:
                     continue
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    continue
+
                 h = d = a = None
                 for market in event_markets.get(eid, []):
                     if market.get("marketId") == 1:
@@ -623,7 +773,10 @@ def scrape_fortebet():
 def scrape_sportybet():
     odds = []
     try:
-        req = urllib.request.Request(SPORTYBET_API, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
+        req = urllib.request.Request(
+            SPORTYBET_API,
+            headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
+        )
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
         if isinstance(data, list):
@@ -636,10 +789,15 @@ def scrape_sportybet():
 
                     home = event.get("home_team", "")
                     away = event.get("away_team", "")
+                    if not home or not away:
+                        continue
+                    if is_bad_team_name(home) or is_bad_team_name(away):
+                        continue
+
                     h = clean_odd(event.get("home"))
                     d = clean_odd(event.get("draw"))
                     a = clean_odd(event.get("away"))
-                    if home and away and h is not None and a is not None:
+                    if h is not None and a is not None:
                         odds.append(
                             build_match_record(
                                 home,
@@ -689,6 +847,9 @@ def scrape_1xbet():
                 away_team = match.get("O2")
                 if not home_team or not away_team:
                     continue
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    continue
+
                 h = d = a = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -736,6 +897,9 @@ def scrape_22bet():
                 away_team = match.get("O2")
                 if not home_team or not away_team:
                     continue
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    continue
+
                 h = d = a = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -782,6 +946,9 @@ def scrape_melbet():
                 away_team = match.get("O2")
                 if not home_team or not away_team:
                     continue
+                if is_bad_team_name(home_team) or is_bad_team_name(away_team):
+                    continue
+
                 h = d = a = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -864,7 +1031,7 @@ def find_arbitrage(all_odds):
                             arb = (1 / h) + (1 / d) + (1 / a)
                             if arb < 1:
                                 profit = round((1 - arb) * 100, 2)
-                                if 1.5 <= profit <= 20.0 and (best is None or profit > best["profit_percent"]):
+                                if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
                                     stake_h = round(STAKE * (1 / h) / arb)
                                     stake_d = round(STAKE * (1 / d) / arb)
                                     stake_a = round(STAKE * (1 / a) / arb)
@@ -877,9 +1044,27 @@ def find_arbitrage(all_odds):
                                         "total_stake": STAKE,
                                         "arb_sum": round(arb, 4),
                                         "bets": [
-                                            {"bookmaker": bk_h, "outcome": "Home", "odd": h, "stake": stake_h, "win": round(stake_h * h)},
-                                            {"bookmaker": bk_d, "outcome": "Draw", "odd": d, "stake": stake_d, "win": round(stake_d * d)},
-                                            {"bookmaker": bk_a, "outcome": "Away", "odd": a, "stake": stake_a, "win": round(stake_a * a)},
+                                            {
+                                                "bookmaker": bk_h,
+                                                "outcome": "Home",
+                                                "odd": h,
+                                                "stake": stake_h,
+                                                "win": round(stake_h * h),
+                                            },
+                                            {
+                                                "bookmaker": bk_d,
+                                                "outcome": "Draw",
+                                                "odd": d,
+                                                "stake": stake_d,
+                                                "win": round(stake_d * d),
+                                            },
+                                            {
+                                                "bookmaker": bk_a,
+                                                "outcome": "Away",
+                                                "odd": a,
+                                                "stake": stake_a,
+                                                "win": round(stake_a * a),
+                                            },
                                         ],
                                     }
                 if best:
@@ -896,7 +1081,7 @@ def find_arbitrage(all_odds):
                         arb = (1 / h) + (1 / a)
                         if arb < 1:
                             profit = round((1 - arb) * 100, 2)
-                            if 1.5 <= profit <= 20.0 and (best is None or profit > best["profit_percent"]):
+                            if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
                                 stake_h = round(STAKE * (1 / h) / arb)
                                 stake_a = round(STAKE * (1 / a) / arb)
                                 best = {
@@ -908,8 +1093,20 @@ def find_arbitrage(all_odds):
                                     "total_stake": STAKE,
                                     "arb_sum": round(arb, 4),
                                     "bets": [
-                                        {"bookmaker": bk_h, "outcome": "Home", "odd": h, "stake": stake_h, "win": round(stake_h * h)},
-                                        {"bookmaker": bk_a, "outcome": "Away", "odd": a, "stake": stake_a, "win": round(stake_a * a)},
+                                        {
+                                            "bookmaker": bk_h,
+                                            "outcome": "Home",
+                                            "odd": h,
+                                            "stake": stake_h,
+                                            "win": round(stake_h * h),
+                                        },
+                                        {
+                                            "bookmaker": bk_a,
+                                            "outcome": "Away",
+                                            "odd": a,
+                                            "stake": stake_a,
+                                            "win": round(stake_a * a),
+                                        },
                                     ],
                                 }
                 if best:
@@ -930,7 +1127,8 @@ def refresh_opportunities(current_opps):
     previous = load_history()
     next_history = {}
     current_ids = set()
-    now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+    now = datetime.utcnow().replace(tzinfo=timezone.utc)
+    now_str = now.strftime("%Y-%m-%d %H:%M UTC")
 
     def bookmaker_signature(opp):
         bets = opp.get("bets", []) or []
@@ -971,16 +1169,31 @@ def refresh_opportunities(current_opps):
             opp["checked_at"] = now_str
             next_history[oid] = opp
 
+    # Mark old ones as invalid and purge those older than INVALID_RETENTION_HOURS
     for oid, old in previous.items():
         if oid not in current_ids:
             old["status"] = "invalid"
             old["changed"] = False
             old["note"] = "No longer present"
-            old["invalid_at"] = now_str
+            old["invalid_at"] = old.get("invalid_at", now_str)
             next_history[oid] = old
 
-    save_history(next_history)
-    all_opps = list(next_history.values())
+    # Purge very old invalids
+    pruned_history = {}
+    for oid, opp in next_history.items():
+        if opp.get("status") == "invalid":
+            invalid_at_str = opp.get("invalid_at", now_str)
+            try:
+                invalid_at = datetime.strptime(invalid_at_str, "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
+            except Exception:
+                invalid_at = now
+            age_hours = (now - invalid_at).total_seconds() / 3600.0
+            if age_hours > INVALID_RETENTION_HOURS:
+                continue  # skip (purge)
+        pruned_history[oid] = opp
+
+    save_history(pruned_history)
+    all_opps = list(pruned_history.values())
     return {
         "all_opportunities": all_opps,
         "valid_opportunities": [o for o in all_opps if o.get("status") == "valid"],
@@ -999,6 +1212,7 @@ def main():
         ("Fortebet", scrape_fortebet),
         ("SportyBet", scrape_sportybet),
         ("AbaBet", scrape_ababet),
+        ("AbaBet-Gemini", scrape_ababet_gemini),
         ("1xBet", scrape_1xbet),
         ("22Bet", scrape_22bet),
         ("Melbet", scrape_melbet),
@@ -1031,4 +1245,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
