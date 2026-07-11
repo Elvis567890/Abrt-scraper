@@ -67,7 +67,7 @@ def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"s+", " ", name)  # FIXED: proper s+
+    name = re.sub(r"\s+", " ", name)  # FIXED: proper \s+
     return name
 
 
@@ -656,15 +656,13 @@ def scrape_betpawa():
                     for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
                         try:
                             text = link.inner_text()
-                            if "LIVE" in text.upper() or re.search(r"\bd{1,3}:d{2}\b", text):
+                            if "LIVE" in text.upper() or re.search(r"\b\d{1,3}:\d{2}\b", text):
                                 continue
 
-            parts = [p.strip() for p in text.split("") if p.strip()]
-                           
-
+                            parts = [p.strip() for p in text.split("\n") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
-                                if re.match(r"^d+.d+$", part):
+                                if re.match(r"^\d+\.\d+$", part):
                                     try:
                                         odd_values.append(float(part))
                                     except Exception:
@@ -1246,3 +1244,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
