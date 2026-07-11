@@ -506,8 +506,8 @@ def scrape_betpawa():
                         try:
                             text = link.inner_text()
                             if "LIVE" in text.upper() or re.search(r"\bd{1,3}:d{2}\b", text):
-                                continue
-                            parts = [p.strip() for p in text.split("
+    continue
+parts = [p.strip() for p in text.split("
 ") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
