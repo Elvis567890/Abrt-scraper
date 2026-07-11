@@ -1,4 +1,4 @@
-# --- dependency bootstrap (to to avoid ModuleNotFoundError in bare environments) ---
+# --- dependency bootstrap (to avoid ModuleNotFoundError in bare environments) ---
 def _ensure_dependencies():
     import importlib
     missing = []
@@ -335,7 +335,7 @@ def scrape_championbet():
     try:
         headers = {
             "Accept": "application/json, text/plain, */*",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECНО BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
             "Referer": "https://www.championbet.ug/mob/",
         }
         req = urllib.request.Request(CHAMPIONBET_API, headers=headers)
@@ -394,7 +394,7 @@ def scrape_betika():
     try:
         headers = {
             "Accept": "application/json, text/plain, */*",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECНО BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
             "Referer": "https://www.betika.com/",
             "Origin": "https://www.betika.com",
         }
@@ -506,8 +506,8 @@ def scrape_betpawa():
                         try:
                             text = link.inner_text()
                             if "LIVE" in text.upper() or re.search(r"\bd{1,3}:d{2}\b", text):
-    continue
-parts = [p.strip() for p in text.split("
+                                continue
+                            parts = [p.strip() for p in text.split("
 ") if p.strip()]
                             teams, odd_values, competition = [], [], ""
                             for part in parts:
@@ -660,7 +660,7 @@ def scrape_1xbet():
             "content-type": "application/json",
             "accept": "application/json, text/plain, */*",
             "x-requested-with": "XMLHttpRequest",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECНО BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
             "Referer": "https://1xbet.ug/en/line/football",
         }
         req = urllib.request.Request(url, headers=headers)
@@ -757,7 +757,7 @@ def scrape_melbet():
             "accept": "application/json, text/plain, */*",
             "x-mobile-project-id": "0",
             "x-requested-with": "XMLHttpRequest",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECНО BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
             "Referer": "https://1xbet.ug/en/line/football",
         }
         req = urllib.request.Request(url, headers=headers)
