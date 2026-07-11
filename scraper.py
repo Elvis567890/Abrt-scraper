@@ -3,18 +3,14 @@ def _ensure_dependencies():
     import importlib
     missing = []
     # check by package name for Gemini; others by module
-    for mod in ["requests", "bs4", "playwright", "google-genai"]:
+    for mod in ["requests", "bs4", "playwright", "google-generativeai"]:
         try:
-            if mod == "google-genai":
-                importlib.import_module("google.genai")
-            else:
-                importlib.import_module(mod)
+            importlib.import_module(mod if mod != "google-generativeai" else "google.generativeai")
         except ImportError:
             missing.append(mod)
     if missing:
         import subprocess, sys
         subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
-
 
 _ensure_dependencies()
 # ------------------------------------------------------------------------------
@@ -29,15 +25,12 @@ import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
-# Gemini import + config (using google-genai SDK)
-from google import genai  # pip package: google-genai
+# Gemini import + config
+import google.generativeai as genai  # pip package: google-generativeai
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_GENAI_API_KEY")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if GEMINI_API_KEY:
-    # As per Google GenAI docs, use a Client object.[web:50][web:47]
-    gemini_client = genai.Client(api_key=GEMINI_API_KEY)
-else:
-    gemini_client = None
+    genai.configure(api_key=GEMINI_API_KEY)
 
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
@@ -368,7 +361,7 @@ def scrape_with_gemini(url, bookmaker_name, sport="Football"):
     """
     odds = []
 
-    if not gemini_client:
+    if not GEMINI_API_KEY:
         print("Gemini API key not configured, skipping Gemini scrape.")
         return odds
 
@@ -401,12 +394,9 @@ HTML:
 {html}
 """
 
-        # Call Gemini via GenAI SDK client.[web:50][web:47]
-        response = gemini_client.models.generate_content(
-            model="gemini-1.5-flash",
-            contents=prompt,
-        )
-        text = getattr(response, "text", None) or ""
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+        text = response.text or ""
 
         json_start = text.find("{")
         if json_start > 0:
@@ -451,11 +441,6 @@ HTML:
         print(f"Gemini scrape error for {bookmaker_name}: {e}")
 
     return odds
-
-
-# Gemini-powered AbaBet (main site) as an extra source
-def scrape_ababet_gemini():
-    return scrape_with_gemini("https://www.ababet.ug/", "AbaBet-Gemini", sport="Football")
 
 
 def championbet_extract_1x2(match):
@@ -1097,4 +1082,166 @@ def find_arbitrage(all_odds):
                             profit = round((1 - arb) * 100, 2)
                             if 1.0 <= profit <= 50.0 and (best is None or profit > best["profit_percent"]):
                                 stake_h = round(STAKE * (1 / h) / arb)
-                                # ... your original code continues ...
+                                stake_a = round(STAKE * (1 / a) / arb)
+                                best = {
+                                    "match": match_name,
+                                    "sport": sport,
+                                    "type": "2-way",
+                                    "profit_percent": profit,
+                                    "profit_ugx": round(STAKE * (1 - arb)),
+                                    "total_stake": STAKE,
+                                    "arb_sum": round(arb, 4),
+                                    "bets": [
+                                        {
+                                            "bookmaker": bk_h,
+                                            "outcome": "Home",
+                                            "odd": h,
+                                            "stake": stake_h,
+                                            "win": round(stake_h * h),
+                                        },
+                                        {
+                                            "bookmaker": bk_a,
+                                            "outcome": "Away",
+                                            "odd": a,
+                                            "stake": stake_a,
+                                            "win": round(stake_a * a),
+                                        },
+                                    ],
+                                }
+                if best:
+                    opportunities.append(best)
+
+    opportunities = filter_opportunities_with_football_data(opportunities)
+
+    return sorted(opportunities, key=lambda x: x["profit_percent"], reverse=True)
+
+
+def opportunity_id(o):
+    bets = o.get("bets", []) or []
+    bet_key = "|".join(f"{b.get('bookmaker')}:{b.get('outcome')}:{b.get('odd')}" for b in bets)
+    return f"{o.get('match','')}|{o.get('type','')}|{bet_key}"
+
+
+def refresh_opportunities(current_opps):
+    previous = load_history()
+    next_history = {}
+    current_ids = set()
+    now = datetime.utcnow().replace(tzinfo=timezone.utc)
+    now_str = now.strftime("%Y-%m-%d %H:%M UTC")
+
+    def bookmaker_signature(opp):
+        bets = opp.get("bets", []) or []
+        pairs = sorted((b.get("bookmaker"), b.get("outcome")) for b in bets)
+        return pairs
+
+    for opp in current_opps:
+        base_key = f"{opp.get('match','')}|{opp.get('type','')}"
+        bets_sig = bookmaker_signature(opp)
+
+        prev_candidate = None
+        for oid, old in previous.items():
+            if f"{old.get('match','')}|{old.get('type','')}" == base_key:
+                prev_candidate = old
+                break
+
+        if prev_candidate is not None:
+            oid = opportunity_id(opp)
+            current_ids.add(oid)
+            old_sig = bookmaker_signature(prev_candidate)
+            opp["status"] = "valid"
+            opp["prev_status"] = prev_candidate.get("status", "valid")
+            opp["checked_at"] = now_str
+            if bets_sig == old_sig:
+                opp["changed"] = False
+                opp["note"] = "Still valid (same bookmakers)"
+            else:
+                opp["changed"] = True
+                opp["note"] = "Valid (bookmakers changed)"
+            next_history[oid] = opp
+        else:
+            oid = opportunity_id(opp)
+            current_ids.add(oid)
+            opp["status"] = "valid"
+            opp["changed"] = True
+            opp["prev_status"] = "new"
+            opp["note"] = "New opportunity"
+            opp["checked_at"] = now_str
+            next_history[oid] = opp
+
+    # Mark old ones as invalid and purge those older than INVALID_RETENTION_HOURS
+    for oid, old in previous.items():
+        if oid not in current_ids:
+            old["status"] = "invalid"
+            old["changed"] = False
+            old["note"] = "No longer present"
+            old["invalid_at"] = old.get("invalid_at", now_str)
+            next_history[oid] = old
+
+    # Purge very old invalids
+    pruned_history = {}
+    for oid, opp in next_history.items():
+        if opp.get("status") == "invalid":
+            invalid_at_str = opp.get("invalid_at", now_str)
+            try:
+                invalid_at = datetime.strptime(invalid_at_str, "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
+            except Exception:
+                invalid_at = now
+            age_hours = (now - invalid_at).total_seconds() / 3600.0
+            if age_hours > INVALID_RETENTION_HOURS:
+                continue  # skip (purge)
+        pruned_history[oid] = opp
+
+    save_history(pruned_history)
+    all_opps = list(pruned_history.values())
+    return {
+        "all_opportunities": all_opps,
+        "valid_opportunities": [o for o in all_opps if o.get("status") == "valid"],
+        "invalid_opportunities": [o for o in all_opps if o.get("status") == "invalid"],
+    }
+
+
+def main():
+    all_odds = []
+    scraped = []
+
+    for name, func in [
+        ("ChampionBet", scrape_championbet),
+        ("Betika", scrape_betika),
+        ("BetPawa", scrape_betpawa),
+        ("Fortebet", scrape_fortebet),
+        ("SportyBet", scrape_sportybet),
+        ("AbaBet", scrape_ababet),
+        ("AbaBet-Gemini", scrape_ababet_gemini),
+        ("1xBet", scrape_1xbet),
+        ("22Bet", scrape_22bet),
+        ("Melbet", scrape_melbet),
+    ]:
+        print(f"Scraping {name}...")
+        rows = func()
+        all_odds.extend(rows)
+        if rows:
+            scraped.append(name)
+
+    fresh_opps = find_arbitrage(filter_stale_odds(all_odds))
+    opps_result = refresh_opportunities(fresh_opps)
+    output = {
+        "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
+        "total_matches": len(all_odds),
+        "bookmakers_scraped": scraped,
+        "raw_odds": all_odds,
+        "opportunities": opps_result["all_opportunities"],
+        "valid_opportunities": opps_result["valid_opportunities"],
+        "invalid_opportunities": opps_result["invalid_opportunities"],
+    }
+    with open("odds.json", "w") as f:
+        json.dump(output, f, indent=2)
+    print(
+        f"Done. Matches: {len(all_odds)}, "
+        f"new run opportunities: {len(fresh_opps)}, "
+        f"total kept in history: {len(opps_result['all_opportunities'])}"
+    )
+
+
+if __name__ == "__main__":
+    main()
+
