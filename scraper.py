@@ -1,11 +1,15 @@
 # --- dependency bootstrap (to avoid ModuleNotFoundError in bare environments) ---
+# If this causes long hangs in CI, you can safely comment it out and install deps via requirements.txt.
 def _ensure_dependencies():
     import importlib
     missing = []
     # check by package name for Gemini; others by module
-    for mod in ["requests", "bs4", "playwright", "google-generativeai"]:
+    for mod in ["requests", "bs4", "playwright", "google-genai"]:
         try:
-            importlib.import_module(mod if mod != "google-generativeai" else "google.generativeai")
+            # google-genai installs module `google.genai`
+            importlib.import_module(
+                "google.genai" if mod == "google-genai" else mod
+            )
         except ImportError:
             missing.append(mod)
     if missing:
@@ -25,12 +29,13 @@ import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
-# Gemini import + config
-import google.generativeai as genai  # pip package: google-generativeai
+# Gemini: new Google Gen AI SDK
+import google.genai as genai
+from google.genai import types as genai_types  # optional, but useful in future configs[web:1209][web:1270]
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
+    genai.configure(api_key=GEMINI_API_KEY)[web:1255][web:1256]
 
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
@@ -67,7 +72,7 @@ def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"\s+", " ", name)  # FIXED: proper \s+
+    name = re.sub(r"\s+", " ", name)  # correct: \s+ not s+
     return name
 
 
@@ -352,11 +357,11 @@ def filter_opportunities_with_football_data(opps_list):
     return cleaned
 
 
-# === Gemini-based generic scraper helper ===
+# === Gemini-based generic scraper helper using google.genai ===
 
 def scrape_with_gemini(url, bookmaker_name, sport="Football"):
     """
-    Fetches a page, asks Gemini to extract matches and 1X2 odds,
+    Fetches a page, asks Gemini via google.genai to extract matches and 1X2 odds,
     and returns a list of records using build_match_record().
     """
     odds = []
@@ -394,9 +399,16 @@ HTML:
 {html}
 """
 
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(prompt)
-        text = response.text or ""
+        # google.genai client: uses the api_key configured above[web:1270][web:1211]
+        client = genai.Client()
+
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=prompt,
+        )
+
+        # Depending on SDK version, text may be under .text or .output_text
+        text = getattr(response, "text", None) or getattr(response, "output_text", None) or ""
 
         json_start = text.find("{")
         if json_start > 0:
@@ -438,7 +450,7 @@ HTML:
                 continue
 
     except Exception as e:
-        print(f"Gemini scrape error for {bookmaker_name}: {e}")
+        print(f"Gemini (google.genai) scrape error for {bookmaker_name}: {e}")
 
     return odds
 
