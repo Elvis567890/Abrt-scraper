@@ -1,9 +1,8 @@
-# .github/workflows/scraper.yml
 name: Auto Scraper #5204
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'  # Every 5 minutes
   workflow_dispatch:
 
 jobs:
@@ -22,14 +21,18 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 playwright google-genai python-dotenv
+          pip install -r requirements.txt
           playwright install chromium
       
       - name: Run scraper
-        run: python YOUR_ACTUAL_FILENAME.py  # ← CHANGE THIS to your filename!
+        run: python scraper.py  # ← YOUR ACTUAL FILENAME!
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          STAKE_UGX: 100000
+          STALE_ODDS_MINUTES: 5
       
       - name: Upload results
         uses: actions/upload-artifact@v4
@@ -37,6 +40,15 @@ jobs:
           name: arbitrage-results
           path: |
             arbitrage_history.json
-            latest_report.json
+            odds.json
             *.db
             *.log
+          retention-days: 7
+      
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add arbitrage_history.json odds.json *.db 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "Update arbitrage results [skip ci]"
+          git push
