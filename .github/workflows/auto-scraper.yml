@@ -2,58 +2,26 @@ name: Auto Scraper
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # adjust to your actual interval
+    - cron: "*/5 * * * *"   # every 5 minutes
   workflow_dispatch:
-
-concurrency:
-  group: scrape-cron
-  cancel-in-progress: false
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          playwright install --with-deps
+          pip install requests bs4 playwright google-genai
+          playwright install chromium
 
       - name: Run scraper
-        run: python scraper.py   # replace with your actual script name/path
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add odds.json arbitrage_history.json
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-          git commit -m "Auto update $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
-          for i in 1 2 3 4 5; do
-            git fetch origin main
-            git reset --soft origin/main
-            git add odds.json arbitrage_history.json
-            if git diff --cached --quiet; then
-              echo "No changes after reset."
-              exit 0
-            fi
-            git commit -m "Auto update $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
-            if git push origin main; then
-              echo "Push succeeded."
-              exit 0
-            fi
-            echo "Push failed, retrying ($i)..."
-            sleep 5
-          done
-          echo "Push failed after 5 attempts."
-          exit 1
+        run: python main.py    # or your actual filename
