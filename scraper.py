@@ -26,8 +26,13 @@ from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
 # Gemini import + config
-import google.generativeai as genai  # pip package: google-generativeai
+from google import genai
 
+client = genai.Client(api_key=os.environ["GOOGLE_GENAI_API_KEY"])
+resp = client.models.generate_content(
+    model="gemini-1.5-flash",
+    contents="hello",
+)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
