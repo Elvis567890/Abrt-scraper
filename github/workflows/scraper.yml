@@ -1,8 +1,7 @@
 name: Run odds scraper
 
 on:
-  # Runs automatically when you push to main,
-  # and you can also run it manually from the Actions tab.
+  # You can change these triggers later if you want
   push:
     branches: [ "main" ]
   workflow_dispatch:
@@ -11,8 +10,10 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
 
-    # Make secrets and environment available to Python code
+    # Map secrets to environment variables for Python
     env:
+      # LEFT: name in Python (os.environ)
+      # RIGHT: name of your GitHub secret
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
     steps:
