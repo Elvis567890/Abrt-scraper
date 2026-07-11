@@ -1,27 +1,54 @@
-name: Auto Scraper
+name: Auto Scraper #5204
 
 on:
   schedule:
-    - cron: "*/5 * * * *"   # every 5 minutes
-  workflow_dispatch:
+    # Run every 5 minutes
+    - cron: '*/5 * * * *'
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v3
+      
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-
+          python-version: '3.10'
+      
       - name: Install dependencies
         run: |
-          pip install requests bs4 playwright google-genai
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 playwright google-genai python-dotenv
           playwright install chromium
-
+      
       - name: Run scraper
-        run: python main.py    # or your actual filename
+        run: python main.py  # Make sure your file is named main.py
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+          STAKE_UGX: 100000
+          MIN_PROFIT_PERCENT: 0.5
+          MAX_PROFIT_PERCENT: 20.0
+          STALE_ODDS_MINUTES: 5  # Important: Match your scan interval
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: arbitrage-results
+          path: |
+            arbitrage_history.json
+            latest_report.json
+            arbitrage.db
+            *.log
+      
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add arbitrage_history.json latest_report.json arbitrage.db 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "Update arbitrage results [skip ci]"
+          git push
