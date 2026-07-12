@@ -1,914 +1,417 @@
-"""
-ArbiScan – Complete Backend + Frontend (with AI scraper support)
-Run this file: python app.py
-"""
-
-import os
-import json
-import subprocess
-import sys
-import threading
-import time
-from datetime import datetime
-from flask import Flask, jsonify, request, send_from_directory
-
-app = Flask(__name__)
-
-# ============================================================
-# EMBEDDED HTML (your exact dashboard – with minor tweaks)
-# ============================================================
-HTML = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <meta name="theme-color" content="#050710" />
-  <link rel="manifest" href="manifest.json" />
-  <title>🇺🇬 Arb Studio • Luxury Dashboard</title>
-  <style>
-    :root{
-      --bg:#050710;
-      --bg-alt:#0b1020;
-      --card:#11172a;
-      --glass:rgba(17,23,42,0.85);
-      --accent:#00f5a0;
-      --accent-soft:rgba(0,245,160,0.12);
-      --accent2:#ff7a18;
-      --accent2-soft:rgba(255,122,24,0.12);
-      --text:#e9edf5;
-      --muted:#8f9bb5;
-      --border:rgba(255,255,255,0.08);
-      --danger:#ff4d4d;
-    }
-    body.light{
-      --bg:#f5f7fb;
-      --bg-alt:#eef1f8;
-      --card:#ffffff;
-      --glass:rgba(255,255,255,0.92);
-      --accent:#00c48c;
-      --accent-soft:rgba(0,196,140,0.08);
-      --accent2:#f97316;
-      --accent2-soft:rgba(249,115,22,0.12);
-      --text:#111827;
-      --muted:#6b7280;
-      --border:rgba(15,23,42,0.08);
-      --danger:#ef4444;
-    }
-    *{ margin:0; padding:0; box-sizing:border-box; max-width:100%; }
-    html, body{ width:100%; height:100%; overflow-x:hidden; -webkit-text-size-adjust:100%; }
-    body{
-      background:radial-gradient(circle at top,#1e293b,#050710);
-      color:var(--text);
-      min-height:100vh;
-      display:flex;
-      flex-direction:row;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    }
-    .sidebar{
-      width:230px;
-      max-width:100%;
-      background:#050710;
-      border-right:1px solid var(--border);
-      padding:18px 16px;
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      flex-shrink:0;
-    }
-    .main{ flex:1; min-width:0; padding:16px; display:flex; flex-direction:column; gap:16px; overflow-x:hidden; }
-    .brand{ display:flex; align-items:center; gap:10px; }
-    .brand-logo{ width:32px;height:32px; border-radius:12px; background:radial-gradient(circle at 0 0,#00f5a0,#0ea5e9); box-shadow:0 0 30px rgba(14,165,233,0.4); flex-shrink:0; }
-    .brand-text h1{ font-size:15px; }
-    .brand-text span{ font-size:11px; color:var(--muted); }
-    .nav-section{ margin-top:8px; }
-    .nav-label{ font-size:11px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px; }
-    .nav-list{ display:flex; flex-direction:column; gap:4px; }
-    .nav-item{
-      border-radius:999px;
-      padding:8px 11px;
-      font-size:12px;
-      color:var(--muted);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      cursor:pointer;
-      border:1px solid transparent;
-    }
-    .nav-item.active{ color:var(--accent); border-color:var(--accent-soft); background:rgba(15,23,42,0.8); }
-    .nav-item:hover{ background:rgba(255,255,255,0.04); }
-    .sidebar-footer{ margin-top:auto; font-size:11px; color:var(--muted); }
-    .topbar{ display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
-    .top-title{ font-size:16px; font-weight:600; }
-    .top-sub{ font-size:12px; color:var(--muted); }
-    .pill{ font-size:11px; padding:5px 12px; border-radius:999px; border:1px solid var(--border); background:rgba(15,23,42,0.7); white-space:nowrap; }
-    .theme-toggle{ position:relative; width:46px; height:22px; border-radius:999px; background:#0b1020; border:1px solid var(--border); cursor:pointer; flex-shrink:0; }
-    .theme-thumb{ position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:999px; background:var(--accent); transition:transform .25s; }
-    body.light .theme-thumb{ transform:translateX(22px); }
-    .hero{ background:var(--glass); border-radius:18px; border:1px solid var(--border); padding:14px 16px; display:flex; justify-content:space-between; align-items:center; gap:12px; backdrop-filter:blur(18px); flex-wrap:wrap; }
-    .hero-main h2{ font-size:14px; color:var(--muted); }
-    .hero-main .big{ font-size:24px; font-weight:700; color:var(--accent); }
-    .hero-main .sub{ font-size:12px; color:var(--muted); }
-    .hero-side{ font-size:12px; color:var(--muted); max-width:260px; }
-    .stats-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; width:100%; }
-    .stat-card{ background:var(--glass); border-radius:14px; border:1px solid var(--border); padding:10px 11px; }
-    .stat-label{ font-size:11px; color:var(--muted); }
-    .stat-value{ font-size:18px; font-weight:600; margin-top:3px; }
-    .page{ display:none; }
-    .page.active{ display:block; }
-    .section-header{ display:flex; justify-content:space-between; align-items:center; margin:10px 0; gap:8px; flex-wrap:wrap; }
-    .section-header-title{ font-size:13px; font-weight:600; }
-    .section-header-sub{ font-size:11px; color:var(--muted); }
-    .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:10px; }
-    .filter-group{ display:flex; flex-wrap:wrap; gap:6px; }
-    .filter-btn{ border-radius:999px; padding:5px 10px; font-size:11px; border:1px solid var(--border); background:rgba(15,23,42,0.8); color:var(--muted); cursor:pointer; }
-    .filter-btn.active{ border-color:var(--accent); background:var(--accent-soft); color:var(--accent); }
-    .stake-input{ border-radius:999px; border:1px solid var(--border); background:rgba(15,23,42,0.9); color:var(--accent); padding:5px 10px; font-size:11px; width:120px; }
-    .card-list{ display:flex; flex-direction:column; gap:10px; width:100%; }
-    .arb-card{ background:var(--card); border-radius:14px; border:1px solid var(--border); padding:10px 12px; display:flex; flex-direction:column; gap:8px; }
-    .arb-card.valid{ border-color:var(--accent-soft); box-shadow:0 0 24px rgba(0,245,160,0.18); }
-    .arb-card.invalid{ border-color:rgba(239,68,68,0.4); opacity:0.85; }
-    .arb-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap; }
-    .arb-match{ font-size:14px; font-weight:600; }
-    .arb-kickoff{ font-size:11px; color:var(--muted); }
-    .profit-pct{ font-size:11px; padding:4px 8px; border-radius:999px; background:var(--accent2-soft); color:var(--accent2); white-space:nowrap; }
-    .arb-bets{ display:flex; flex-direction:column; gap:6px; }
-    .arb-bet{ display:flex; justify-content:space-between; align-items:center; padding:7px 9px; border-radius:10px; background:rgba(15,23,42,0.8); gap:8px; flex-wrap:wrap; }
-    .bet-book{ font-size:12px; font-weight:600; color:var(--accent); }
-    .empty{ background:rgba(15,23,42,0.6); border-radius:12px; border:1px dashed var(--border); padding:12px; font-size:12px; color:var(--muted); text-align:center; }
-    .table-wrap{ margin-top:6px; overflow-x:auto; width:100%; -webkit-overflow-scrolling:touch; }
-    table{ width:100%; border-collapse:collapse; min-width:320px; }
-    th,td{ font-size:11px; padding:7px 8px; border-bottom:1px solid rgba(255,255,255,0.04); white-space:nowrap; }
-    th{ color:var(--muted); background:rgba(15,23,42,0.9); }
-    @media(max-width:900px){
-      body{ flex-direction:column; }
-      .sidebar{ width:100%; max-width:100%; flex-direction:row; align-items:center; justify-content:space-between; border-right:none; border-bottom:1px solid var(--border); }
-      .nav-section{ display:none; }
-      .sidebar-footer{ display:none; }
-      .main{ width:100%; padding:12px; }
-      .hero-main .big{ font-size:22px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Arbitrage Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0b1120;
+    color:white;
+}
+
+.header{
+    padding:20px;
+    background:#111827;
+    border-bottom:1px solid #1f2937;
+}
+
+.header h1{
+    font-size:28px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:#111827;
+    padding:20px;
+    border-radius:15px;
+}
+
+.card h2{
+    font-size:15px;
+    color:#9ca3af;
+}
+
+.card h1{
+    margin-top:10px;
+    font-size:30px;
+}
+
+.matches{
+    padding:20px;
+}
+
+.match{
+    background:#111827;
+    margin-bottom:15px;
+    border-radius:15px;
+    padding:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.match:hover{
+    transform:scale(1.02);
+}
+
+.match-header{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+
+.profit{
+    color:#22c55e;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.small{
+    color:#9ca3af;
+    margin-top:8px;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modal-box{
+    background:#111827;
+    width:95%;
+    max-width:800px;
+    padding:25px;
+    border-radius:20px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.close{
+    float:right;
+    font-size:30px;
+    cursor:pointer;
+}
+
+.bet{
+    background:#1f2937;
+    margin-top:10px;
+    padding:12px;
+    border-radius:10px;
+}
+
+.history{
+    margin-top:20px;
+}
+
+.history-item{
+    background:#1f2937;
+    margin-top:8px;
+    padding:10px;
+    border-radius:10px;
+}
+</style>
 </head>
 <body>
-  <div class="sidebar">
-    <div class="brand">
-      <div class="brand-logo"></div>
-      <div class="brand-text">
-        <h1>Arb Studio</h1>
-        <span>Uganda Arbitrage Scanner</span>
-      </div>
-    </div>
-    <div class="nav-section">
-      <div class="nav-label">Navigation</div>
-      <div class="nav-list">
-        <div class="nav-item active" onclick="showPage('dashboard', this)"><span>Dashboard</span><span>◎</span></div>
-        <div class="nav-item" onclick="showPage('arbitrage', this)"><span>Arbs</span><span>⟡</span></div>
-        <div class="nav-item" onclick="showPage('matches', this)"><span>Matches</span><span>☰</span></div>
-        <div class="nav-item" onclick="showPage('odds', this)"><span>Odds</span><span>▤</span></div>
-        <div class="nav-item" onclick="showPage('billing', this)"><span>Billing</span><span>₵</span></div>
-        <div class="nav-item" onclick="showPage('settings', this)"><span>Settings</span><span>⚙</span></div>
-      </div>
-    </div>
-    <div class="sidebar-footer">Powered by your Python scraper</div>
-  </div>
 
-  <div class="main">
-    <div class="topbar">
-      <div>
-        <div class="top-title">Live Arbitrage Monitor</div>
-        <div class="top-sub" id="pageSubtitle">Overview</div>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-        <div class="pill" id="lastUpdated">Last: —</div>
-        <div class="theme-toggle" onclick="toggleTheme()">
-          <div class="theme-thumb"></div>
-        </div>
-      </div>
+<div class="header">
+    <h1>⚡ Arbitrage Television Dashboard</h1>
+</div>
+
+<div class="stats">
+
+    <div class="card">
+        <h2>Total Opportunities</h2>
+        <h1 id="total">0</h1>
     </div>
 
-    <div class="hero">
-      <div class="hero-main">
-        <h2>🔥 Best Opportunity</h2>
-        <div class="big" id="heroProfit">0.00% Profit</div>
-        <div class="sub" id="heroSub">Waiting...</div>
-      </div>
-      <div class="hero-side">
-        <div>Stake preview uses your configured stake.</div>
-        <div>Valid opportunities only by default.</div>
-      </div>
+    <div class="card">
+        <h2>Highest Profit</h2>
+        <h1 id="highest">0%</h1>
     </div>
 
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-label">Valid Opportunities</div><div class="stat-value" id="validCount">0</div></div>
-      <div class="stat-card"><div class="stat-label">Invalid Opportunities</div><div class="stat-value" id="invalidCount">0</div></div>
-      <div class="stat-card"><div class="stat-label">Total Matches</div><div class="stat-value" id="matchCount">0</div></div>
-      <div class="stat-card"><div class="stat-label">Bookmakers</div><div class="stat-value" id="bookmakerCount">0</div></div>
+    <div class="card">
+        <h2>Estimated Profit</h2>
+        <h1 id="ugx">UGX 0</h1>
     </div>
 
-    <!-- DASHBOARD -->
-    <section class="page active" id="dashboard">
-      <div class="card-list">
-        <div class="stat-card">
-          <div id="status">Loading data...</div>
-        </div>
-        <div class="stat-card">
-          <div class="section-header-title">Change Summary</div>
-          <div id="changeSummary" style="margin-top:6px;font-size:12px;color:var(--muted);">
-            Waiting for first refresh...
-          </div>
-        </div>
-      </div>
-    </section>
+    <div class="card">
+        <h2>Last Update</h2>
+        <h1 id="time">--</h1>
+    </div>
 
-    <!-- ARBITRAGE -->
-    <section class="page" id="arbitrage">
-      <div class="section-header">
-        <div class="section-header-title">🎯 Arbitrage Opportunities</div>
-        <div class="section-header-sub" id="arbInfo"></div>
-      </div>
+</div>
 
-      <div class="card-list">
-        <div class="stat-card">
-          <div class="control-row">
-            <div class="filter-group">
-              <button class="filter-btn" onclick="setFilter('all',this)">All</button>
-              <button class="filter-btn active" onclick="setFilter('valid',this)">Valid Only</button>
-              <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid Only</button>
-              <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Bookmaker</button>
-              <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
-              <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
+<div class="matches" id="matches"></div>
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <span class="close" onclick="closeModal()">
+            ×
+        </span>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+const API = "http://YOUR_SERVER_IP:5000";
+
+async function loadStats(){
+
+    try{
+
+        const res = await fetch(API+"/api/stats");
+        const data = await res.json();
+
+        document.getElementById("total").innerText =
+            data.total_opportunities;
+
+        document.getElementById("highest").innerText =
+            data.highest_profit + "%";
+
+        document.getElementById("ugx").innerText =
+            "UGX " +
+            Number(data.estimated_profit_ugx)
+            .toLocaleString();
+
+        document.getElementById("time").innerText =
+            new Date(data.server_time)
+            .toLocaleTimeString();
+
+    }catch(err){
+        console.log(err);
+    }
+
+}
+
+async function loadMatches(){
+
+    try{
+
+        const res =
+            await fetch(API+"/api/opportunities");
+
+        const data = await res.json();
+
+        let html = "";
+
+        data.forEach(item=>{
+
+            html += `
+            <div class="match"
+                 onclick='showMatch(${JSON.stringify(item)})'>
+
+                <div class="match-header">
+
+                    <div>
+
+                        <h2>${item.match}</h2>
+
+                        <div class="small">
+                            ${item.sport}
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <div class="profit">
+                            ${item.profit_percent}%
+                        </div>
+
+                        <div class="small">
+                            First:
+                            ${item.initial_profit}%
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="small">
+                    Updates:
+                    ${item.update_count}
+                </div>
+
+                <div class="small">
+                    First Seen:
+                    ${format(item.first_seen)}
+                </div>
+
+                <div class="small">
+                    Last Updated:
+                    ${format(item.last_seen)}
+                </div>
+
             </div>
-            <div>
-              <input class="stake-input" type="number" id="stake" value="100000"
-                     min="1000" step="1000" oninput="renderArbs()" />
+            `;
+        });
+
+        document.getElementById("matches").innerHTML =
+            html;
+
+    }catch(err){
+        console.log(err);
+    }
+
+}
+
+function showMatch(item){
+
+    let bets = "";
+
+    item.bets.forEach(b=>{
+
+        bets += `
+        <div class="bet">
+
+            <b>${b.outcome}</b><br>
+
+            Bookmaker:
+            ${b.bookmaker}<br>
+
+            Odd:
+            ${b.odd}<br>
+
+            Stake:
+            UGX ${Number(b.stake)
+            .toLocaleString()}<br>
+
+            Return:
+            UGX ${Number(b.win)
+            .toLocaleString()}
+
+        </div>
+        `;
+    });
+
+    let history = "";
+
+    if(item.history){
+
+        item.history.reverse().forEach(h=>{
+
+            history += `
+            <div class="history-item">
+
+                ${format(h.time)}
+                —
+                ${h.profit}%
+
             </div>
-          </div>
+            `;
+
+        });
+
+    }
+
+    document.getElementById("modalContent")
+    .innerHTML = `
+
+        <h1>${item.match}</h1>
+
+        <br>
+
+        <h2>
+            Current Profit:
+            ${item.profit_percent}%
+        </h2>
+
+        <br>
+
+        <h3>
+            First Profit:
+            ${item.initial_profit}%
+        </h3>
+
+        <br>
+
+        <h3>
+            Updates:
+            ${item.update_count}
+        </h3>
+
+        <br>
+
+        <h3>
+            Profit:
+            UGX ${Number(item.profit_ugx)
+            .toLocaleString()}
+        </h3>
+
+        <br>
+
+        <h2>Bet Instructions</h2>
+
+        ${bets}
+
+        <div class="history">
+
+            <br>
+
+            <h2>Profit History</h2>
+
+            ${history}
+
         </div>
 
-        <div id="arbs">
-          <div class="empty">⏳ Loading opportunities...</div>
-        </div>
-      </div>
-    </section>
+    `;
 
-    <!-- MATCHES -->
-    <section class="page" id="matches">
-      <div class="section-header">
-        <div class="section-header-title">📋 Matches</div>
-        <div class="section-header-sub">Valid & Invalid lists</div>
-      </div>
-      <div class="stat-card">
-        <div class="control-row">
-          <button class="filter-btn active" id="btnMatchesValid" onclick="showMatchesList('valid')">Valid</button>
-          <button class="filter-btn" id="btnMatchesInvalid" onclick="showMatchesList('invalid')">Invalid</button>
-        </div>
-        <div class="table-wrap">
-          <div id="matchesTable"><div class="empty">Click to load</div></div>
-        </div>
-      </div>
-    </section>
+    document.getElementById("modal")
+    .style.display = "flex";
+}
 
-    <!-- ODDS -->
-    <section class="page" id="odds">
-      <div class="section-header">
-        <div class="section-header-title">📊 All Scraped Odds</div>
-        <div class="section-header-sub" id="oddsCount"></div>
-      </div>
-      <div class="stat-card">
-        <div class="table-wrap">
-          <div id="oddsTable"><div class="empty">⏳ Loading odds...</div></div>
-        </div>
-      </div>
-    </section>
+function closeModal(){
 
-    <!-- BILLING -->
-    <section class="page" id="billing">
-      <div class="section-header">
-        <div class="section-header-title">💳 Billing</div>
-        <div class="section-header-sub">Plans and simple invoice mock‑up</div>
-      </div>
-      <div class="stat-card">
-        <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">
-          Choose a plan that matches your trading volume.
-        </div>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label">Free Plan</div>
-            <div class="stat-value">UGX 0</div>
-            <div class="stat-tag">Basic access and limited views.</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Pro Plan</div>
-            <div class="stat-value">UGX 50,000</div>
-            <div class="stat-tag">Full odds + arbs dashboard.</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Enterprise</div>
-            <div class="stat-value">Custom</div>
-            <div class="stat-tag">Teams, integrations, branding.</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    document.getElementById("modal")
+    .style.display = "none";
 
-    <!-- SETTINGS -->
-    <section class="page" id="settings">
-      <div class="section-header">
-        <div class="section-header-title">⚙ Settings</div>
-        <div class="section-header-sub">Control behavior of the UI</div>
-      </div>
-      <div class="stat-card">
-        <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">
-          These settings are visual; wire them to your Python config later.
-        </div>
-        <select class="stake-input" style="width:180px;">
-          <option>Auto-refresh: 30 seconds</option>
-          <option>5 minutes</option>
-          <option>10 minutes</option>
-        </select>
-        <br/><br/>
-        <select class="stake-input" style="width:180px;">
-          <option>Stake currency: UGX</option>
-          <option>USD</option>
-        </select>
-      </div>
-    </section>
-  </div>
+}
 
-  <script>
-    let allOpps = [];
-    let rawOdds = [];
-    let historyMap = {};
-    let currentFilter = 'valid';
-    let maxAgeDays = 2;
+function format(date){
 
-    function toggleTheme(){
-      document.body.classList.toggle('light');
-    }
+    if(!date) return "--";
 
-    function showPage(pageId, el){
-      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
-      el.classList.add('active');
+    return new Date(date)
+        .toLocaleString();
 
-      const map = {
-        dashboard:'Overview',
-        arbitrage:'Best live opportunities',
-        matches:'List of valid and invalid matches',
-        odds:'Full list from all bookmakers',
-        billing:'Subscription plans and invoices (mock)',
-        settings:'Control scraping and display behaviour (mock)'
-      };
-      document.getElementById('pageSubtitle').textContent = map[pageId];
-    }
+}
 
-    function parseKickoff(k){
-      if(!k) return null;
-      const s = String(k).replace(' UTC','Z');
-      const d = new Date(s);
-      return isNaN(d.getTime()) ? null : d;
-    }
-    function formatKickoff(k){
-      const d = parseKickoff(k);
-      if(!d) return '';
-      return new Intl.DateTimeFormat(undefined,{
-        weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'
-      }).format(d);
-    }
-    function kickoffLabel(k){
-      const d = parseKickoff(k);
-      if(!d) return 'Unknown';
-      const today = new Date();
-      const todayKey = today.toISOString().slice(0,10);
-      const tomorrow = new Date(today);
-      tomorrow.setDate(today.getDate()+1);
-      const tomorrowKey = tomorrow.toISOString().slice(0,10);
-      const key = d.toISOString().slice(0,10);
-      if(key===todayKey) return 'Today';
-      if(key===tomorrowKey) return 'Tomorrow';
-      return 'Other';
-    }
+loadStats();
+loadMatches();
 
-    function opportunityId(o){
-      const bets = (o.bets||[]).map(b=>`${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
-      return `${o.match}|${o.type}|${bets}`;
-    }
+setInterval(()=>{
 
-    function classifyChanges(newOpps){
-      const newMap = {};
-      newOpps.forEach(o => newMap[opportunityId(o)] = o);
+    loadStats();
+    loadMatches();
 
-      const oldMap = historyMap;
-      const nextHistory = {};
-      const updated = [];
-      const seen = new Set();
+},10000);
 
-      Object.keys(newMap).forEach(id => {
-        const o = newMap[id];
-        o.status = o.status || 'valid';
-        if(oldMap[id]){
-          o.changed = false;
-          o.prevStatus = oldMap[id].status || 'valid';
-          o.note = o.note || 'Still valid';
-        }else{
-          o.changed = true;
-          o.prevStatus = 'new';
-          o.note = o.note || 'New opportunity';
-        }
-        nextHistory[id] = o;
-        updated.push(o);
-        seen.add(id);
-      });
+</script>
 
-      Object.keys(oldMap).forEach(id => {
-        if(!seen.has(id)){
-          const old = oldMap[id];
-          old.status = 'invalid';
-          old.invalidAt = new Date().toISOString();
-          old.note = old.note || 'No longer present';
-          nextHistory[id] = old;
-          updated.push(old);
-        }
-      });
-
-      historyMap = nextHistory;
-      allOpps = updated;
-    }
-
-    function setFilter(f, btn){
-      currentFilter = f;
-      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      renderArbs();
-    }
-
-    function isRecentEnough(o){
-      const d = parseKickoff(o.kickoff);
-      if(!d) return true;
-      const now = new Date();
-      const diffDays = (now - d)/(1000*60*60*24);
-      return diffDays <= maxAgeDays;
-    }
-
-    function renderArbs(){
-      const stake = parseInt(document.getElementById('stake').value) || 100000;
-      let opps = allOpps.slice();
-
-      if(currentFilter==='valid'){
-        opps = opps.filter(o=>o.status==='valid' && isRecentEnough(o));
-      }else if(currentFilter==='invalid'){
-        opps = opps.filter(o=>o.status==='invalid');
-      }else if(currentFilter==='cross'){
-        opps = opps.filter(o=>new Set((o.bets||[]).map(b=>b.bookmaker)).size>=2);
-      }else if(currentFilter==='2way'){
-        opps = opps.filter(o=>o.type==='2-way');
-      }else if(currentFilter==='3way'){
-        opps = opps.filter(o=>o.type==='3-way');
-      }
-
-      document.getElementById('arbInfo').textContent = opps.length + ' opportunities';
-      document.getElementById('validCount').textContent =
-        allOpps.filter(o=>o.status==='valid' && isRecentEnough(o)).length;
-      document.getElementById('invalidCount').textContent =
-        allOpps.filter(o=>o.status==='invalid').length;
-
-      if(allOpps.length){
-        const bestValid = allOpps.filter(o=>o.status==='valid' && isRecentEnough(o))
-                                 .sort((a,b)=>(b.profit_percent||0)-(a.profit_percent||0))[0];
-        const best = bestValid || allOpps[0];
-        const pct = Number(best.profit_percent||0).toFixed(2);
-        document.getElementById('heroProfit').textContent = `${pct}% Profit`;
-        document.getElementById('heroSub').textContent =
-          `${best.match||'Unknown match'} • ${best.type||''}`;
-      }
-
-      const groups = {};
-      opps.forEach(o=>{
-        const g = kickoffLabel(o.kickoff);
-        if(!groups[g]) groups[g] = [];
-        groups[g].push(o);
-      });
-
-      const order = ['Today','Tomorrow','Other','Unknown'];
-      const keys = [...order.filter(k=>groups[k]),
-                    ...Object.keys(groups).filter(k=>!order.includes(k)).sort()];
-
-      const container = document.getElementById('arbs');
-      if(!opps.length){
-        container.innerHTML = '<div class="empty">😔 No arbitrage opportunities match this filter right now.</div>';
-        return;
-      }
-
-      container.innerHTML = keys.map(group=>{
-        const items = groups[group]||[];
-        const cards = items.map(o=>{
-          const bets = o.bets||[];
-          const arb = bets.reduce((s,b)=>s + (1/Number(b.odd||1)),0);
-          const profitUGX = Math.round(stake*(1-arb));
-          const books = new Set(bets.map(b=>b.bookmaker));
-          const cross = books.size>=2;
-          const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : 'No kickoff';
-
-          const betsHtml = bets.map(b=>{
-            const userStake = Math.round(stake*(1/Number(b.odd||1))/arb);
-            return `
-              <div class="arb-bet">
-                <div>
-                  <div class="bet-book">${b.bookmaker}</div>
-                  <div style="font-size:11px">${b.outcome} @ ${b.odd}</div>
-                </div>
-                <div style="text-align:right;font-size:11px">
-                  Stake: UGX ${userStake.toLocaleString()}
-                </div>
-              </div>`;
-          }).join('');
-
-          const statusBadge = o.status==='valid'
-            ? '<span class="badge green">VALID</span>'
-            : '<span class="badge red">INVALID</span>';
-
-          const noteBadge = o.changed && o.status==='valid'
-            ? '<span class="badge blue">NEW</span>'
-            : (o.status==='invalid' ? '<span class="badge gray">PAST</span>' : '');
-
-          return `
-            <div class="arb-card ${o.status}">
-              <div class="arb-top">
-                <div>
-                  <div class="arb-match">${o.match}</div>
-                  <div class="arb-kickoff">🕒 ${kickoffText}</div>
-                </div>
-                <div>
-                  <div class="profit-pct">${statusBadge} +${Number(o.profit_percent||0).toFixed(2)}%</div>
-                  <div class="profit-ugx">+UGX ${profitUGX.toLocaleString()} profit</div>
-                </div>
-              </div>
-              <div class="arb-meta">
-                <span>${o.type==='3-way' ? '🔺 3‑way (1X2)' : '🔷 2‑way'}</span>
-                ${cross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
-                ${noteBadge}
-                <span class="badge ${o.status==='valid'?'green':'red'}">${o.note||''}</span>
-              </div>
-              <div class="arb-bets">${betsHtml}</div>
-            </div>`;
-        }).join('');
-
-        return `
-          <div style="margin-top:6px;">
-            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">${group}</div>
-            ${cards}
-          </div>`;
-      }).join('');
-    }
-
-    function renderOdds(){
-      document.getElementById('oddsCount').textContent = `${rawOdds.length} rows`;
-      const wrap = document.getElementById('oddsTable');
-      if(!rawOdds.length){
-        wrap.innerHTML = '<div class="empty">No odds</div>';
-        return;
-      }
-      wrap.innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>Match</th>
-              <th>Bookmaker</th>
-              <th>Home</th>
-              <th>Draw</th>
-              <th>Away</th>
-              <th>Sport</th>
-              <th>Kickoff</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rawOdds.map(o=>`
-              <tr>
-                <td>${o.match}</td>
-                <td>${o.bookmaker}</td>
-                <td>${o.home ?? '-'}</td>
-                <td>${o.draw ?? '-'}</td>
-                <td>${o.away ?? '-'}</td>
-                <td>${o.sport ?? '-'}</td>
-                <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
-              </tr>`).join('')}
-          </tbody>
-        </table>`;
-    }
-
-    function showMatchesList(kind){
-      document.getElementById('btnMatchesValid').classList.remove('active');
-      document.getElementById('btnMatchesInvalid').classList.remove('active');
-      if(kind==='valid'){
-        document.getElementById('btnMatchesValid').classList.add('active');
-      }else{
-        document.getElementById('btnMatchesInvalid').classList.add('active');
-      }
-
-      let items = allOpps.filter(o => o.status === kind);
-      if(kind==='valid'){
-        items = items.filter(isRecentEnough);
-      }
-
-      const wrap = document.getElementById('matchesTable');
-      if (!items.length) {
-        wrap.innerHTML = `<div class="empty">No ${kind} matches</div>`;
-        return;
-      }
-      wrap.innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Match</th>
-              <th>Type</th>
-              <th>Sport</th>
-              <th>Profit %</th>
-              <th>Profit UGX</th>
-              <th>Bookmakers</th>
-              <th>Kickoff</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${items.map(o => {
-              const books = (o.bets || []).map(b => b.bookmaker).join(', ');
-              const ko = o.kickoff ? formatKickoff(o.kickoff) : '-';
-              return `
-                <tr>
-                  <td>${(o.status || '').toUpperCase()}</td>
-                  <td>${o.match}</td>
-                  <td>${o.type}</td>
-                  <td>${o.sport || '-'}</td>
-                  <td>${Number(o.profit_percent || 0).toFixed(2)}</td>
-                  <td>${o.profit_ugx != null ? o.profit_ugx.toLocaleString() : '-'}</td>
-                  <td>${books}</td>
-                  <td>${ko}</td>
-                </tr>`;
-            }).join('')}
-          </tbody>
-        </table>`;
-    }
-
-    function renderChangeSummary(){
-      const summary = document.getElementById('changeSummary');
-      const lines = [];
-      allOpps.forEach(o=>{
-        if(o.changed && o.status==='valid') lines.push(`+ ${o.match} became valid now.`);
-        if(o.status==='invalid') lines.push(`- ${o.match} is now invalid but kept in history.`);
-      });
-      if(!lines.length){
-        summary.textContent = 'No changes detected in this run.';
-        return;
-      }
-      summary.innerHTML = lines.slice(0,6).map(x=>{
-        if(x.startsWith('+')) return `<div style="color:#22c55e;">${x}</div>`;
-        return `<div style="color:#ef4444;">${x}</div>`;
-      }).join('');
-    }
-
-    async function load(){
-      try{
-        const r = await fetch('api/odds?t='+Date.now());
-        const d = await r.json();
-        rawOdds = d.raw_odds || [];
-        const freshOpps = d.opportunities || [];
-        const scraped = d.bookmakers_scraped || [...new Set(rawOdds.map(x=>x.bookmaker))];
-
-        classifyChanges(freshOpps);
-
-        document.getElementById('lastUpdated').textContent =
-          'Last: ' + (d.last_updated || '');
-        document.getElementById('matchCount').textContent =
-          d.total_matches || rawOdds.length;
-        document.getElementById('bookmakerCount').textContent = scraped.length;
-        document.getElementById('status').textContent =
-          `Loaded ${rawOdds.length} odds from ${scraped.length} bookmakers. `+
-          `${allOpps.filter(o=>o.status==='valid').length} valid and `+
-          `${allOpps.filter(o=>o.status==='invalid').length} invalid opportunities in history.`;
-
-        renderChangeSummary();
-        renderArbs();
-        renderOdds();
-        showMatchesList('valid');
-      }catch(e){
-        console.error('LOAD ERROR:', e);
-        document.getElementById('status').textContent =
-          '❌ Error: ' + (e && e.message ? e.message : e);
-        document.getElementById('arbs').innerHTML =
-          '<div class="empty">❌ Scraper or UI error, see status above.</div>';
-        document.getElementById('oddsTable').innerHTML =
-          '<div class="empty">❌ Scraper or UI error, see status above.</div>';
-        document.getElementById('matchesTable').innerHTML =
-          '<div class="empty">❌ Scraper or UI error, see status above.</div>';
-      }
-    }
-
-    load();
-    setInterval(load,30000);
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .catch(err => console.error('SW registration failed', err));
-    }
-  </script>
 </body>
-</html>'''
-
-# ============================================================
-# API ENDPOINTS – CONNECT TO YOUR REAL FILES AND SCRAPERS
-# ============================================================
-
-def file_exists(f):
-    return os.path.exists(f)
-
-def load_json(f):
-    if file_exists(f):
-        try:
-            with open(f, 'r') as fp:
-                return json.load(fp)
-        except:
-            return {}
-    return {}
-
-def save_json(f, data):
-    with open(f, 'w') as fp:
-        json.dump(data, fp, indent=2)
-
-@app.route('/')
-def index():
-    return HTML
-
-@app.route('/api/odds')
-def api_odds():
-    """Return combined odds and opportunities in the format expected by the frontend."""
-    # Load raw odds from odds.json (if exists)
-    odds = load_json('odds.json')
-    if not odds or not isinstance(odds, list):
-        odds = []
-
-    # Load opportunities from opportunities.json (if exists)
-    opps = load_json('opportunities.json')
-    if not opps or not isinstance(opps, list):
-        opps = []
-
-    # Load bookmakers from bookmakers.json
-    bm_data = load_json('bookmakers.json')
-    if bm_data and bm_data.get('bookmakers'):
-        bookmakers = [b['name'] for b in bm_data['bookmakers'] if b.get('enabled', True)]
-    else:
-        bookmakers = list({o.get('bookmaker') for o in odds if o.get('bookmaker')})
-
-    response = {
-        'raw_odds': odds,
-        'opportunities': opps,
-        'bookmakers_scraped': bookmakers,
-        'total_matches': len(odds),
-        'last_updated': datetime.now().isoformat()
-    }
-    return jsonify(response)
-
-@app.route('/api/opportunities')
-def api_opportunities():
-    opps = load_json('opportunities.json')
-    if not opps or not isinstance(opps, list):
-        opps = []
-    return jsonify(opps)
-
-@app.route('/api/opportunities/history')
-def api_history():
-    history = load_json('arbitrage_history.json')
-    if history:
-        items = []
-        for key, value in history.items():
-            items.append({'key': key, **value})
-        items = sorted(items, key=lambda x: x.get('last_seen', ''), reverse=True)[:100]
-        return jsonify(items)
-    return jsonify([])
-
-@app.route('/api/bookmakers')
-def api_bookmakers():
-    data = load_json('bookmakers.json')
-    if not data or not data.get('bookmakers'):
-        data = {"bookmakers": [
-            {"name":"Bet365","url":"https://www.bet365.ug","enabled":True},
-            {"name":"Betway","url":"https://www.betway.ug","enabled":True},
-            {"name":"Betika","url":"https://www.betika.ug","enabled":True},
-            {"name":"ChampionBet","url":"https://www.championbet.ug","enabled":True},
-            {"name":"AbaBet","url":"https://www.ababet.ug","enabled":True},
-            {"name":"BetPawa","url":"https://www.betpawa.ug","enabled":True},
-            {"name":"Fortebet","url":"https://www.fortebet.ug","enabled":True},
-            {"name":"SportyBet","url":"https://www.sportybet.ug","enabled":True},
-            {"name":"1xBet","url":"https://1xbet.ug","enabled":True},
-            {"name":"22Bet","url":"https://22bet.ug","enabled":True},
-            {"name":"Melbet","url":"https://melbet.ug","enabled":True}
-        ]}
-    return jsonify(data)
-
-@app.route('/api/stats')
-def api_stats():
-    stats = load_json('stats.json')
-    if not stats:
-        history = load_json('arbitrage_history.json')
-        if history:
-            active = [v for v in history.values() if not v.get('invalid_since')]
-            stats = {
-                "total_matches": 0,
-                "total_opportunities": len(active),
-                "bookmakers": [],
-                "last_update": datetime.now().isoformat(),
-                "best_profit": max([o.get('profit_percent', 0) for o in active], default=0),
-                "avg_profit": round(sum([o.get('profit_percent', 0) for o in active]) / len(active), 2) if active else 0
-            }
-        else:
-            stats = {"total_matches":0,"total_opportunities":0,"bookmakers":[],"last_update":datetime.now().isoformat(),"best_profit":0,"avg_profit":0}
-    return jsonify(stats)
-
-# ============================================================
-# ACTIONS – RUN SCANNER & GENERATE AI SCRAPERS
-# ============================================================
-
-@app.route('/api/scan', methods=['POST'])
-def run_scan():
-    """Run the REAL scraper.py in the background."""
-    try:
-        print("🔄 Running scraper.py...")
-        # Run in background to avoid timeout
-        def scan_thread():
-            try:
-                result = subprocess.run([sys.executable, 'scraper.py'], capture_output=True, text=True, timeout=120)
-                print("Scraper output:", result.stdout)
-                if result.stderr:
-                    print("Scraper errors:", result.stderr)
-            except Exception as e:
-                print("Scan error:", e)
-        threading.Thread(target=scan_thread).start()
-        return jsonify({'success': True, 'message': 'Scan started in background.'})
-    except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
-
-@app.route('/api/generate/<name>', methods=['POST'])
-def generate_scraper(name):
-    """Generate AI scraper for a specific bookmaker."""
-    try:
-        print(f"🤖 Generating AI scraper for {name}...")
-        # Run ai_scraper_manager.py with the --generate argument
-        # We assume it supports that; if not, we can call a function directly.
-        def gen_thread():
-            try:
-                result = subprocess.run(
-                    [sys.executable, 'ai_scraper_manager.py', '--generate', name],
-                    capture_output=True,
-                    text=True,
-                    timeout=60
-                )
-                if result.returncode == 0:
-                    print(f"✅ Scraper generated for {name}")
-                else:
-                    print(f"❌ Failed to generate scraper for {name}: {result.stderr}")
-            except Exception as e:
-                print(f"Generation error: {e}")
-        threading.Thread(target=gen_thread).start()
-        return jsonify({'success': True, 'message': f'Generation started for {name}.'})
-    except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
-
-@app.route('/api/generate-all', methods=['POST'])
-def generate_all_scrapers():
-    """Generate AI scrapers for all bookmakers."""
-    try:
-        print("🤖 Generating all AI scrapers...")
-        def gen_all_thread():
-            try:
-                result = subprocess.run(
-                    [sys.executable, 'ai_scraper_manager.py', '--generate-all'],
-                    capture_output=True,
-                    text=True,
-                    timeout=120
-                )
-                if result.returncode == 0:
-                    print("✅ All scrapers generated.")
-                else:
-                    print(f"❌ Failed to generate all scrapers: {result.stderr}")
-            except Exception as e:
-                print(f"Generation error: {e}")
-        threading.Thread(target=gen_all_thread).start()
-        return jsonify({'success': True, 'message': 'Generation of all scrapers started.'})
-    except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
-
-# ============================================================
-# RUN THE SERVER
-# ============================================================
-if __name__ == '__main__':
-    print("="*60)
-    print("🚀 ArbiScan – Full Backend + Dashboard")
-    print("="*60)
-    print(f"📁 scraper.py: {'✅' if file_exists('scraper.py') else '❌'}")
-    print(f"📁 ai_scraper_manager.py: {'✅' if file_exists('ai_scraper_manager.py') else '❌'}")
-    print(f"📁 bookmakers.json: {'✅' if file_exists('bookmakers.json') else '❌'}")
-    print(f"📁 odds.json: {'✅' if file_exists('odds.json') else '❌'}")
-    print(f"📁 opportunities.json: {'✅' if file_exists('opportunities.json') else '❌'}")
-    print("\n🌐 Server running at: http://localhost:5000")
-    print("="*60)
-    app.run(debug=True, host='0.0.0.0', port=5000)
+</html>
