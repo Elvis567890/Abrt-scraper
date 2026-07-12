@@ -1,54 +1,63 @@
-name: Auto Scraper #5204
+name: Auto Scraper
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
   workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"  # every 5 minutes; adjust as you like
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
-      
+        with:
+          fetch-depth: 0  # need full history for pull/rebase
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-      
+          python-version: "3.10"
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          playwright install chromium
-      
+          pip install -r requirements.txt || true
+
       - name: Run scraper
-        run: python scraper.py  # ← YOUR ACTUAL FILENAME!
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_GENAI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          STAKE_UGX: 100000
-          STALE_ODDS_MINUTES: 5
-      
-      - name: Upload results
+        run: |
+          python scraper.py
+
+      - name: Upload arbitrage results artifact
         uses: actions/upload-artifact@v4
         with:
           name: arbitrage-results
           path: |
-            arbitrage_history.json
             odds.json
-            *.db
-            *.log
-          retention-days: 7
-      
-      - name: Commit and push changes
+            arbitrage_history.json
+            odds_freshness.json
+
+      - name: Commit and push updated odds.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add arbitrage_history.json odds.json *.db 2>/dev/null || true
-          git diff --staged --quiet || git commit -m "Update arbitrage results [skip ci]"
-          git push
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Make sure we are on main and up to date
+          git fetch origin
+          git checkout main
+          git pull origin main --rebase
+
+          git add odds.json arbitrage_history.json odds_freshness.json || true
+
+          # If there are no changes, git commit will fail, so ignore that
+          git commit -m "Update arbitrage results (CI)" || echo "No changes to commit"
+
+          # Push changes back to main
+          git push origin main
