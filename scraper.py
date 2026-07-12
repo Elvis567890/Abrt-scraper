@@ -309,10 +309,18 @@ def scrape_with_gemini(url, bookmaker_name, sport="Football"):
         html = resp.text
 
         prompt = f"""
-You are helping extract {sport} betting odds for {bookmaker_name} in Uganda.
+You are helping extract pre-match betting odds for {bookmaker_name} in Uganda.
 
-From the HTML below, find all {sport} matches and return ONLY valid JSON, no explanations.
-Format exactly like this:
+SUPPORTED SPORTS:
+- Football (soccer) 1X2 market (home / draw / away)
+- Rugby main match winner market (home / away; usually 2-way, no draw)
+- Basketball main match winner market (home / away; 2-way)
+- Other sports: if clearly shown with home/draw/away or home/away odds, you may include them and set "sport" accordingly.
+
+TASK:
+From the HTML below, find all pre-match events and return ONLY valid JSON, no explanations.
+
+Return this exact format:
 
 {{
   "matches": [
@@ -320,23 +328,36 @@ Format exactly like this:
       "home_team": "Team A",
       "away_team": "Team B",
       "home_odd": 2.10,
-      "draw_odd": 3.00,
+      "draw_odd": 3.00,        // null if not offered (e.g., rugby, basketball)
       "away_odd": 2.50,
-      "competition": "League or competition name (if available)"
+      "competition": "League or competition name (if available)",
+      "sport": "Football"      // or "Rugby", "Basketball", "Tennis", etc.
     }}
   ]
 }}
 
-Include only pre-match odds, not live matches. Ignore other sports.
+RULES:
+- Include only PRE-MATCH odds, not live matches.
+- Ignore virtuals and casino games.
+- If the market is clearly 2-way (no draw), set "draw_odd": null.
+- If sport is not obvious, skip that event.
+
 HTML:
 {html}
 """
 
         response = gemini_client.models.generate_content(
-            model="gemini-1.5-flash",
-            contents=prompt,
+            model="gemini-1.5-flash-latest",
+            contents=[{"role": "user", "parts": [{"text": prompt}]}],
         )
-        text = getattr(response, "text", None) or ""
+
+        text = ""
+        if getattr(response, "candidates", None):
+            parts = response.candidates[0].content.parts or []
+            text = "".join(getattr(p, "text", "") or "" for p in parts)
+        else:
+            text = getattr(response, "text", "") or ""
+
         json_start = text.find("{")
         if json_start > 0:
             text = text[json_start:]
@@ -359,6 +380,7 @@ HTML:
                     continue
 
                 competition = m.get("competition", "") or ""
+                sport_name = m.get("sport", sport) or sport
 
                 odds.append(
                     build_match_record(
@@ -368,7 +390,7 @@ HTML:
                         h,
                         d,
                         a,
-                        sport,
+                        sport_name,
                         competition,
                     )
                 )
@@ -383,6 +405,99 @@ HTML:
 
 def scrape_ababet_gemini():
     return scrape_with_gemini("https://www.ababet.ug/", "AbaBet-Gemini", sport="Football")
+
+
+# --- AI-assisted scrapers for additional Ugandan bookmakers (you can comment out any you don't want) ---
+
+def scrape_betpawa_gemini():
+    return scrape_with_gemini("https://www.betpawa.ug/", "BetPawa-Gemini", sport="Football")
+
+
+def scrape_fortebet_gemini():
+    return scrape_with_gemini("https://www.fortebet.ug/", "ForteBet-Gemini", sport="Football")
+
+
+def scrape_gsb_gemini():
+    return scrape_with_gemini("https://www.gsbu.ug/", "GSB-Gemini", sport="Football")
+
+
+def scrape_betway_gemini():
+    return scrape_with_gemini("https://www.betway.ug/", "Betway-Gemini", sport="Football")
+
+
+def scrape_betwinner_gemini():
+    return scrape_with_gemini("https://www.betwinner.co.ug/", "BetWinner-Gemini", sport="Football")
+
+
+def scrape_premierbet_gemini():
+    return scrape_with_gemini("https://www.premierbetuganda.com/", "PremierBet-Gemini", sport="Football")
+
+
+def scrape_bungabet_gemini():
+    return scrape_with_gemini("https://www.bungabet.ug/", "BungaBet-Gemini", sport="Football")
+
+
+def scrape_bongobongo_gemini():
+    return scrape_with_gemini("https://www.bongobongo.ug/", "BongoBongo-Gemini", sport="Football")
+
+
+def scrape_mozzartbet_gemini():
+    return scrape_with_gemini("https://www.mozzartbet.ug/", "MozzartBet-Gemini", sport="Football")
+
+
+def scrape_betin_gemini():
+    return scrape_with_gemini("https://www.betin.co.ug/", "Betin-Gemini", sport="Football")
+
+
+def scrape_kagwirawo_gemini():
+    return scrape_with_gemini("https://www.kagwirawo.ug/", "Kagwirawo-Gemini", sport="Football")
+
+
+def scrape_sportpesa_gemini():
+    return scrape_with_gemini("https://www.sportpesa.co.ug/", "SportPesa-Gemini", sport="Football")
+
+
+def scrape_jackpotbet_gemini():
+    return scrape_with_gemini("https://www.jackpotbet.ug/", "JackpotBet-Gemini", sport="Football")
+
+
+def scrape_betlion_gemini():
+    return scrape_with_gemini("https://www.betlion.ug/", "BetLion-Gemini", sport="Football")
+
+
+def scrape_mbet_gemini():
+    return scrape_with_gemini("https://www.mbet.ug/", "Mbet-Gemini", sport="Football")
+
+
+def scrape_paripesa_gemini():
+    return scrape_with_gemini("https://www.paripesa.ug/", "Paripesa-Gemini", sport="Football")
+
+
+def scrape_linebet_gemini():
+    return scrape_with_gemini("https://www.linebet.ug/", "LineBet-Gemini", sport="Football")
+
+
+def scrape_betsofa_gemini():
+    return scrape_with_gemini("https://www.betsofa.ug/", "Betsofa-Gemini", sport="Football")
+
+
+def scrape_betwinner360_gemini():
+    return scrape_with_gemini("https://www.betwinner360.ug/", "Betwinner360-Gemini", sport="Football")
+
+
+def scrape_odibets_gemini():
+    return scrape_with_gemini("https://www.odibets.ug/", "OdiBets-Gemini", sport="Football")
+
+
+def scrape_thunderbet_gemini():
+    return scrape_with_gemini("https://www.thunderbet.ug/", "ThunderBet-Gemini", sport="Football")
+
+
+def scrape_topbet_gemini():
+    return scrape_with_gemini("https://www.topbet.ug/", "TopBet-Gemini", sport="Football")
+
+
+# ----------------------------------------------------------------------
 
 
 def championbet_extract_1x2(match):
@@ -990,7 +1105,8 @@ def find_arbitrage(all_odds):
 
             bk_list = list(bk_odds.keys())
 
-            if sport in ["Football", "Rugby", "Futsal"]:
+            # Football / futsal: 3-way (home/draw/away). Others: 2-way (home/away).
+            if sport in ["Football", "Futsal"]:
                 best = None
                 for bk_h in bk_list:
                     for bk_d in bk_list:
@@ -1144,16 +1260,41 @@ def write_dashboard_feed(opportunities, all_odds):
 
 def main():
     scrapers = [
+        # Existing direct/API scrapers
         scrape_championbet,
         scrape_betika,
         scrape_ababet,
-        scrape_ababet_gemini,
         scrape_betpawa,
         scrape_fortebet,
         scrape_sportybet,
         scrape_1xbet,
         scrape_22bet,
         scrape_melbet,
+
+        # AI-assisted scrapers (Gemini)
+        scrape_ababet_gemini,
+        scrape_betpawa_gemini,
+        scrape_fortebet_gemini,
+        scrape_gsb_gemini,
+        scrape_betway_gemini,
+        scrape_betwinner_gemini,
+        scrape_premierbet_gemini,
+        scrape_bungabet_gemini,
+        scrape_bongobongo_gemini,
+        scrape_mozzartbet_gemini,
+        scrape_betin_gemini,
+        scrape_kagwirawo_gemini,
+        scrape_sportpesa_gemini,
+        scrape_jackpotbet_gemini,
+        scrape_betlion_gemini,
+        scrape_mbet_gemini,
+        scrape_paripesa_gemini,
+        scrape_linebet_gemini,
+        scrape_betsofa_gemini,
+        scrape_betwinner360_gemini,
+        scrape_odibets_gemini,
+        scrape_thunderbet_gemini,
+        scrape_topbet_gemini,
     ]
 
     all_odds = []
