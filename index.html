@@ -95,6 +95,7 @@
         .page { display: none; }
         .page.active { display: block; }
 
+        /* NO FALLBACK, PURE DATA RENDERING */
         .table-wrap { overflow-x: auto; }
         .table-wrap table {
             width: 100%;
@@ -151,7 +152,7 @@
         </div>
     </div>
 
-    <!-- STATS -->
+    <!-- STATS (STRICTLY LIVE NUMBERS) -->
     <div class="px-4 mb-4">
         <div class="flex gap-3 overflow-x-auto pb-2">
             <div class="glass rounded-2xl p-3 min-w-[90px]">
@@ -200,7 +201,6 @@
                     <span id="arbInfo" class="text-xs text-orange-400 font-semibold"></span>
                 </div>
 
-                <!-- FIX 3: Passing event parameter explicitly -->
                 <div class="flex gap-2 overflow-x-auto pb-2 mb-3">
                     <button class="bg-blue-600 px-4 py-2 rounded-full text-sm" onclick="filterBySport(event, 'all')">All</button>
                     <button class="glass px-4 py-2 rounded-full text-sm" onclick="filterBySport(event, 'football')">Football</button>
@@ -244,7 +244,7 @@
         </div>
     </div>
 
-    <!-- ═══ CORRECTED BACKEND LOGIC ═══ -->
+    <!-- ═══ PURE, UN-SIMULATED BACKEND LOGIC ═══ -->
     <script>
         let liveOpps = [];
         let rawOdds = [];
@@ -257,41 +257,50 @@
             if (el) el.classList.add('active');
         }
 
+        function formatKickoff(kickoff){
+            if(!kickoff) return '';
+            const d = new Date(String(kickoff).replace(' UTC','Z'));
+            if(isNaN(d.getTime())) return '';
+            return new Intl.DateTimeFormat(undefined, {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'}).format(d);
+        }
+
         // ─── STRICTLY READS THE JSON, NO SIMULATION ───
         async function load(){
             try{
                 const r = await fetch('odds.json?t=' + Date.now());
                 const d = await r.json();
                 
+                // Extract exact data from JSON
                 liveOpps = d.opportunities || [];
                 rawOdds = d.raw_odds || [];
                 const historyData = d.history || [];
                 const bookmakers = d.bookmakers_scraped || [...new Set(rawOdds.map(x=>x.bookmaker))];
 
-                const validCount = liveOpps.length;
-                const totalHistory = historyData.length;
-                const invalidCount = totalHistory - validCount;
-                const matchCount = d.total_matches || rawOdds.length;
+                // DIRECT MATH - NO COMPLICATED HISTORY LOOPING
+                const validCount = liveOpps.length;           // Should be 2
+                const totalHistory = historyData.length;      // Should be 5459
+                const invalidCount = totalHistory - validCount; // Should be 5457
+                const matchCount = d.total_matches || rawOdds.length; // Should be 1296
 
-                document.getElementById('lastUpdated').textContent =
-                    d.last_updated ? new Date(d.last_updated).toLocaleTimeString() : '-';
+                // Update DOM
+                document.getElementById('lastUpdated').textContent = d.last_updated ? new Date(d.last_updated).toLocaleTimeString() : '-';
                 document.getElementById('validCount').textContent = validCount;
                 document.getElementById('invalidCount').textContent = invalidCount;
                 document.getElementById('matchCount').textContent = matchCount;
-
+                // BUG 1 FIXED: removed opportunitiesCount line
                 document.getElementById('status').textContent = 
                     `Loaded ${rawOdds.length} odds entries from ${bookmakers.length} bookmakers. ` +
                     `${validCount} valid & ${invalidCount} invalid (history: ${totalHistory}).`;
 
+                // Render Data
                 renderArbs(liveOpps);
                 renderOdds(rawOdds);
 
             }catch(e){
+                // NO FALLBACK DUMMY DATA - JUST SHOW THE ERROR
                 document.getElementById('status').textContent = '⚠️ Error: ' + e.message;
-                document.getElementById('arbs').innerHTML =
-                    '<div class="text-center text-red-400 py-4">❌ Failed to load odds.json</div>';
-                document.getElementById('oddsTable').innerHTML =
-                    '<div class="text-center text-red-400 py-4">❌ Failed to load odds.json</div>';
+                document.getElementById('arbs').innerHTML = '<div class="text-center text-red-400 py-4">❌ Failed to load odds.json</div>';
+                document.getElementById('oddsTable').innerHTML = '<div class="text-center text-red-400 py-4">❌ Failed to load odds.json</div>';
             }
         }
 
@@ -301,35 +310,25 @@
             document.getElementById('arbInfo').textContent = opps.length + ' live';
 
             if(opps.length === 0){
-                container.innerHTML =
-                    '<div class="text-center text-gray-400 py-4">📭 No live opportunities right now.</div>';
-                document.getElementById('heroProfit').textContent = '0.00%';
-                document.getElementById('heroSub').textContent = 'Waiting for data...';
+                container.innerHTML = '<div class="text-center text-gray-400 py-4">📭 No live opportunities right now.</div>';
                 return;
             }
 
-            const best = opps.reduce((a,b) =>
-                (Number(b.profit_percent)||0) > (Number(a.profit_percent)||0) ? b : a
-            );
-            document.getElementById('heroProfit').textContent =
-                `${Number(best.profit_percent || 0).toFixed(2)}%`;
-            document.getElementById('heroSub').textContent =
-                `${best.match || 'Unknown'} • ${best.type || ''}`;
+            // Find best for Hero card
+            const best = opps.reduce((a,b) => (Number(b.profit_percent)||0) > (Number(a.profit_percent)||0) ? b : a);
+            document.getElementById('heroProfit').textContent = `${Number(best.profit_percent || 0).toFixed(2)}%`;
+            document.getElementById('heroSub').textContent = `${best.match || 'Unknown'} • ${best.type || ''}`;
 
             let html = '';
             opps.forEach(o => {
                 const bets = o.bets || [];
                 const arb = bets.reduce((s,b) => s + (1/Number(b.odd || 1)), 0);
-                const stake = 100000;
+                const stake = parseInt(document.getElementById('stake')?.value) || 100000;
                 const profitUGX = Math.round(stake * (1 - arb));
 
-                // FIX 2: changed b.outcome to b.selection to match Python JSON
                 const betsHtml = bets.map(b => `
                     <div class="arb-bet">
-                        <div>
-                            <span class="text-green-400 font-bold">${b.bookmaker}</span>
-                            <span class="text-gray-400 ml-1">${b.selection || ''}</span>
-                        </div>
+                        <div><span class="text-green-400 font-bold">${b.bookmaker}</span> <span class="text-gray-400">${b.selection || ''}</span></div>
                         <div><span class="text-white font-semibold">@ ${b.odd}</span></div>
                     </div>
                 `).join('');
@@ -339,17 +338,11 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <div class="font-semibold">${o.match}</div>
-                                <div class="text-xs text-gray-400">
-                                    ${o.sport || ''} ${o.competition || ''}
-                                </div>
+                                <div class="text-xs text-gray-400">${o.sport || ''} ${o.competition || ''}</div>
                             </div>
-                            <div class="profit-pct">
-                                +${Number(o.profit_percent || 0).toFixed(2)}%
-                            </div>
+                            <div class="profit-pct">+${Number(o.profit_percent || 0).toFixed(2)}%</div>
                         </div>
-                        <div class="mt-3 text-xs text-gray-500">
-                            Profit: UGX ${profitUGX.toLocaleString()}
-                        </div>
+                        <div class="mt-3 text-xs text-gray-500">Profit: UGX ${profitUGX.toLocaleString()}</div>
                         <div class="mt-3">${betsHtml}</div>
                     </div>
                 `;
@@ -362,21 +355,12 @@
             document.getElementById('oddsCount').textContent = odds.length + ' rows';
             const wrap = document.getElementById('oddsTable');
             if(!odds.length){
-                wrap.innerHTML =
-                    '<div class="text-center text-gray-400 py-4">⏳ No odds entries yet.</div>';
+                wrap.innerHTML = '<div class="text-center text-gray-400 py-4">⏳ No odds entries yet.</div>';
                 return;
             }
             wrap.innerHTML = `
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Match</th>
-                            <th>Bookmaker</th>
-                            <th>Home</th>
-                            <th>Draw</th>
-                            <th>Away</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Match</th><th>Bookmaker</th><th>Home</th><th>Draw</th><th>Away</th></tr></thead>
                     <tbody>
                         ${odds.map(o => `
                             <tr>
@@ -392,26 +376,20 @@
             `;
         }
 
-        // FIX 3: Added event parameter and used evt.target
         function filterBySport(evt, sport){
             currentSport = sport;
-            document.querySelectorAll('.section-tabs button').forEach(b =>
-                b.className = 'section-tab'
-            );
+            document.querySelectorAll('.section-tabs button').forEach(b=>b.className = 'section-tab');
             evt.target.className = 'section-tab active';
             
             let filtered = liveOpps;
-            if(sport !== 'all'){
-                filtered = liveOpps.filter(o =>
-                    o.sport && o.sport.toLowerCase() === sport
-                );
-            }
+            if(sport !== 'all') filtered = liveOpps.filter(o => o.sport && o.sport.toLowerCase() === sport);
             renderArbs(filtered);
         }
 
-        // INIT
+        // INIT - no simulation, strictly live
         load();
         setInterval(load, 30000);
     </script>
 </body>
-                        </html>
+</html>
+
