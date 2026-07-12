@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ArbiScan – Live Arbitrage Opportunities</title>
+  <title>ArbiScan – Live Arbitrage Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,18 +11,20 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: #020617; /* slate-950 */
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 100%);
       color: #e5e7eb;
-      padding-bottom: 80px;
+      padding-bottom: 84px;
     }
     .glass {
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      border-radius: 18px;
-      backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.94);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: 20px;
+      backdrop-filter: blur(14px);
     }
     .glow {
-      box-shadow: 0 0 25px rgba(34, 197, 94, 0.35);
+      box-shadow:
+        0 0 25px rgba(34, 197, 94, 0.35),
+        0 0 80px rgba(15, 118, 110, 0.35);
     }
     .badge {
       font-size: 11px;
@@ -35,6 +37,7 @@
     }
     .badge-green { background: rgba(34, 197, 94, 0.18); color: #4ade80; }
     .badge-blue { background: rgba(59, 130, 246, 0.18); color: #60a5fa; }
+    .badge-amber { background: rgba(251, 191, 36, 0.18); color: #fbbf24; }
     .badge-gray { background: rgba(148, 163, 184, 0.18); color: #cbd5f5; }
 
     .nav-tab {
@@ -46,6 +49,7 @@
       color: #9ca3af;
       cursor: pointer;
       white-space: nowrap;
+      transition: all 0.18s ease;
     }
     .nav-tab.active {
       background: rgba(34, 197, 94, 0.16);
@@ -58,8 +62,10 @@
 
     .arb-card {
       border-radius: 18px;
-      border: 1px solid rgba(55, 65, 81, 0.6);
-      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.12), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background:
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), transparent 55%),
+        linear-gradient(to bottom right, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.94));
       padding: 14px;
     }
 
@@ -67,16 +73,14 @@
       display: flex;
       justify-content: space-between;
       padding: 6px 10px;
-      border-radius: 10px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(55, 65, 81, 0.8);
+      border-radius: 11px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(51, 65, 85, 0.95);
       font-size: 12px;
       margin-top: 6px;
     }
 
-    .table-wrap {
-      overflow-x: auto;
-    }
+    .table-wrap { overflow-x: auto; }
     table {
       border-collapse: collapse;
       width: 100%;
@@ -86,7 +90,7 @@
     th, td {
       text-align: left;
       padding: 8px 10px;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+      border-bottom: 1px solid rgba(30, 41, 59, 0.95);
     }
     th {
       color: #9ca3af;
@@ -99,8 +103,8 @@
       left: 0;
       right: 0;
       padding: 8px 0 10px;
-      background: rgba(15, 23, 42, 0.96);
-      border-top: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+      border-top: 1px solid rgba(55, 65, 81, 0.95);
       display: flex;
       justify-content: space-around;
       z-index: 40;
@@ -127,7 +131,7 @@
   <section class="p-4">
     <div class="glass glow px-4 py-3 flex flex-col gap-1">
       <div class="flex items-center justify-between">
-        <span class="text-xs text-slate-400">Best Opportunity</span>
+        <span class="text-xs text-slate-400">Best opportunity</span>
         <span id="heroMatch" class="text-[11px] text-slate-400"></span>
       </div>
       <div class="flex items-baseline gap-2">
@@ -142,20 +146,24 @@
   <section class="px-4 mb-3">
     <div class="flex gap-3 overflow-x-auto pb-1">
       <div class="glass px-3 py-2 min-w-[95px]">
-        <p class="text-[10px] uppercase text-slate-400">Live Arbs</p>
-        <p id="statLive" class="text-xl font-semibold text-emerald-400">0</p>
+        <p class="text-[10px] uppercase text-slate-400">Valid (live)</p>
+        <p id="statValid" class="text-xl font-semibold text-emerald-400">0</p>
+        <p class="text-[10px] text-slate-500">Current arbs</p>
       </div>
       <div class="glass px-3 py-2 min-w-[95px]">
-        <p class="text-[10px] uppercase text-slate-400">History</p>
-        <p id="statHistory" class="text-xl font-semibold text-orange-400">0</p>
+        <p class="text-[10px] uppercase text-slate-400">Invalid (hist)</p>
+        <p id="statInvalid" class="text-xl font-semibold text-amber-400">0</p>
+        <p class="text-[10px] text-slate-500">Expired / bad</p>
       </div>
       <div class="glass px-3 py-2 min-w-[95px]">
         <p class="text-[10px] uppercase text-slate-400">Matches</p>
         <p id="statMatches" class="text-xl font-semibold text-sky-400">0</p>
+        <p class="text-[10px] text-slate-500">Distinct events</p>
       </div>
       <div class="glass px-3 py-2 min-w-[95px]">
         <p class="text-[10px] uppercase text-slate-400">Books</p>
         <p id="statBooks" class="text-xl font-semibold text-fuchsia-400">0</p>
+        <p class="text-[10px] text-slate-500">Active books</p>
       </div>
     </div>
   </section>
@@ -164,7 +172,7 @@
   <section class="px-4">
     <div class="flex gap-2 mb-3 overflow-x-auto">
       <button class="nav-tab active" data-page="page-arbs" onclick="showPage('page-arbs', this)">Arbs</button>
-      <button class="nav-tab" data-page="page-odds" onclick="showPage('page-odds', this)">Raw Odds</button>
+      <button class="nav-tab" data-page="page-odds" onclick="showPage('page-odds', this)">Raw odds</button>
     </div>
   </section>
 
@@ -181,8 +189,8 @@
   <section id="page-odds" class="page px-4 pb-20">
     <div class="glass px-3 py-3">
       <div class="flex items-center justify-between mb-2">
-        <h2 class="text-sm font-medium text-white">Raw Odds</h2>
-        <span id="oddsCount" class="text-xs text-orange-400">0 rows</span>
+        <h2 class="text-sm font-medium text-white">Raw odds</h2>
+        <span id="oddsCount" class="text-xs text-amber-400">0 rows</span>
       </div>
       <div class="table-wrap">
         <div id="oddsTable" class="text-center text-slate-400 text-sm py-4">
@@ -210,11 +218,11 @@
     let state = {
       opportunities: [],
       raw_odds: [],
+      history: [],
       last_updated: null,
       stake: 100000,
-      history_count: 0,
-      bookmakers: [],
-      total_matches: 0
+      total_matches: 0,
+      bookmakers: []
     };
 
     function showPage(pageId, el) {
@@ -232,11 +240,11 @@
 
         state.opportunities = data.opportunities || [];
         state.raw_odds = data.raw_odds || [];
+        state.history = data.history || [];
         state.last_updated = data.last_updated || null;
         state.stake = Number(data.stake || 100000);
-        state.history_count = Number(data.history_count || 0);
+        state.total_matches = Number(data.total_matches || (state.raw_odds.length || 0));
         state.bookmakers = data.bookmakers || [];
-        state.total_matches = Number(data.total_matches || state.raw_odds.length || 0);
 
         updateHeader();
         renderStats();
@@ -256,7 +264,7 @@
       if (state.last_updated) {
         const d = new Date(state.last_updated);
         lastUpdatedEl.textContent = d.toLocaleTimeString();
-        statusText.textContent = 'Showing live opportunities from odds.json';
+        statusText.textContent = 'Live opportunities + history from odds.json';
       } else {
         lastUpdatedEl.textContent = '--:--:--';
         statusText.textContent = 'Waiting for odds.json';
@@ -264,8 +272,12 @@
     }
 
     function renderStats() {
-      document.getElementById('statLive').textContent = state.opportunities.length;
-      document.getElementById('statHistory').textContent = state.history_count;
+      const valid = state.opportunities.length;
+      const totalHistory = state.history.length;
+      const invalid = Math.max(totalHistory - valid, 0);
+
+      document.getElementById('statValid').textContent = valid;
+      document.getElementById('statInvalid').textContent = invalid;
       document.getElementById('statMatches').textContent = state.total_matches;
       document.getElementById('statBooks').textContent = state.bookmakers.length;
     }
@@ -386,7 +398,7 @@
       `;
     }
 
-    // Initial load and polling (display only; does not start/stop the scraper)
+    // Display-only polling; backend just needs to keep odds.json fresh
     loadOdds();
     setInterval(loadOdds, 30000);
   </script>
