@@ -1,58 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ArbiScan • Uganda Arbitrage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArbiScan Mobile</title>
 
-    <script src="https://cdn.tailwindcss.com">
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* ── base ── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
             background: #0b1020;
             color: #e6edf3;
             padding-bottom: 80px;
         }
-
         .glass {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .profitGlow {
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 20px rgba(16, 185, 129, .4);
         }
 
-        /* ── scrollbar ── */
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 99px;
-        }
-
-        /* ── cards ── */
+        /* ARB CARDS - STYLED FOR ARBISCAN MOBILE */
         .arb-card {
-            transition: border-color 0.2s;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .arb-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(16, 185, 129, 0.3);
         }
         .arb-card.valid {
-            border-color: rgba(16, 185, 129, 0.5);
+            border-color: rgba(16, 185, 129, 0.4);
             box-shadow: 0 0 18px rgba(16, 185, 129, 0.08);
         }
         .arb-card.invalid {
@@ -60,7 +48,7 @@
             opacity: 0.75;
         }
 
-        /* ── badges ── */
+        /* BADGES & PILLS */
         .badge {
             font-size: 10px;
             padding: 2px 10px;
@@ -69,65 +57,70 @@
             letter-spacing: 0.3px;
             display: inline-block;
         }
-        .badge.green {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-        }
-        .badge.red {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-        }
-        .badge.blue {
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-        }
-        .badge.orange {
-            background: rgba(251, 146, 60, 0.15);
+        .badge.green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .badge.red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+        .badge.blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .badge.gray { background: rgba(255, 255, 255, 0.04); color: #8b98a5; }
+
+        .profit-pct {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(251, 146, 60, 0.1);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
             color: #fb923c;
         }
-        .badge.gray {
-            background: rgba(255, 255, 255, 0.04);
-            color: #8b98a5;
-        }
 
-        /* ── page sections ── */
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-
-        /* ── filter bar ── */
-        .filter-bar {
+        /* BETS INSIDE CARD */
+        .arb-bet {
             display: flex;
-            gap: 6px;
-            overflow-x: auto;
-            padding-bottom: 6px;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            margin-top: 4px;
+            font-size: 12px;
         }
-        .filter-bar::-webkit-scrollbar {
-            height: 2px;
-        }
+        .arb-bet .bet-book { color: #34d399; font-weight: 600; }
+        .arb-bet .bet-outcome { color: #8b98a5; }
+        .arb-bet .bet-odd { font-weight: 600; }
+        .arb-bet .bet-stake { color: #fb923c; font-size: 11px; }
 
-        .filter-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+        /* TABS (Styled like ArbiScan Mobile filters) */
+        .section-tabs {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0 16px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .section-tab {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: #8b98a5;
             border-radius: 999px;
-            padding: 4px 14px;
-            font-size: 11px;
+            padding: 6px 16px;
+            font-size: 12px;
             font-weight: 500;
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.2s;
         }
-        .filter-btn.active {
-            background: rgba(16, 185, 129, 0.12);
+        .section-tab.active {
+            background: rgba(16, 185, 129, 0.15);
             border-color: #10b981;
             color: #34d399;
         }
 
-        /* ── stake row ── */
+        /* PAGE CONTAINERS */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* STAKE INPUT */
         .stake-row {
             display: flex;
             align-items: center;
@@ -136,11 +129,7 @@
             background: rgba(255, 255, 255, 0.03);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .stake-row label {
-            font-size: 12px;
-            color: #8b98a5;
-            white-space: nowrap;
+            margin-bottom: 1rem;
         }
         .stake-input {
             background: rgba(255, 255, 255, 0.05);
@@ -153,14 +142,10 @@
             outline: none;
             font-weight: 600;
         }
-        .stake-input:focus {
-            border-color: #10b981;
-        }
+        .stake-input:focus { border-color: #10b981; }
 
-        /* ── odds table ── */
-        .table-wrap {
-            overflow-x: auto;
-        }
+        /* TABLE FOR ODDS */
+        .table-wrap { overflow-x: auto; }
         .table-wrap table {
             width: 100%;
             border-collapse: collapse;
@@ -177,291 +162,110 @@
         .table-wrap td {
             padding: 8px 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            color: #e6edf3;
         }
 
-        /* ── form inputs ── */
-        .auth-input {
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: #121826;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            max-width: 480px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.04);
-            color: #e6edf3;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            padding: 10px 12px;
-            outline: none;
-            margin-bottom: 8px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 24px;
+        }
+        .modal-content .close {
+            float: right;
+            background: none;
+            border: none;
+            color: #8b98a5;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-content .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 13px;
         }
-        .auth-input:focus {
-            border-color: #10b981;
-        }
+        .status-badge.valid { background: rgba(0,255,136,0.15); color: #00ff88; }
+        .status-badge.invalid { background: rgba(255,77,77,0.15); color: #ff4d4d; }
 
-        .btn {
-            background: #10b981;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            color: #0b1020;
-            font-weight: 700;
-            width: 100%;
-            margin-top: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn:hover {
-            background: #059669;
-        }
-        .btn.secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #e6edf3;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        /* ── bottom nav ── */
-        nav.bottom-nav {
+        /* BOTTOM NAV */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            display: flex;
-            justify-content: space-around;
             background: rgba(11, 16, 32, 0.92);
             backdrop-filter: blur(14px);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 8px 0 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 8px 0 12px;
             z-index: 50;
-        }
-        nav.bottom-nav div {
-            font-size: 10px;
-            color: #8b98a5;
-            text-align: center;
-            cursor: pointer;
-            padding: 2px 8px;
-            border-radius: 8px;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-        nav.bottom-nav div.active {
-            color: #34d399;
-        }
-        nav.bottom-nav div .nav-icon {
-            display: block;
-            font-size: 18px;
-            margin-bottom: 2px;
-        }
-
-        /* ── group titles ── */
-        .kgroup-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #8b98a5;
-            padding: 12px 0 6px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 12px;
-        }
-
-        /* ── hero ── */
-        .hero-card {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(59, 130, 246, 0.05));
-            border: 1px solid rgba(16, 185, 129, 0.15);
-        }
-
-        /* ── summary strip ── */
-        .summary-strip {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-        .summary-strip::-webkit-scrollbar {
-            height: 2px;
-        }
-        .summary-card {
-            min-width: 100px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 10px 12px;
-            flex-shrink: 0;
-        }
-        .summary-card .label {
-            font-size: 10px;
-            color: #8b98a5;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .summary-card .value {
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 2px;
-        }
-
-        /* ── section tabs ── */
-        .section-tabs {
-            display: flex;
-            gap: 6px;
-            margin: 12px 0 16px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-        .section-tabs::-webkit-scrollbar {
-            height: 2px;
-        }
-        .section-tab {
-            flex: 1;
-            min-width: 70px;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 500;
-            padding: 6px 0;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(255, 255, 255, 0.02);
-            color: #8b98a5;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .section-tab.active {
-            border-color: #10b981;
-            color: #34d399;
-            background: rgba(16, 185, 129, 0.08);
-        }
-
-        /* ── change log ── */
-        .change-item {
-            padding: 4px 0;
-            font-size: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .change-item.up {
-            color: #34d399;
-        }
-        .change-item.down {
-            color: #f87171;
-        }
-        .change-item.same {
-            color: #fb923c;
-        }
-
-        /* ── responsive ── */
-        @media (min-width: 900px) {
-            .container {
-                max-width: 960px;
-                margin: 0 auto;
-            }
-        }
-
-        /* ── empty state ── */
-        .empty-state {
-            padding: 24px 16px;
-            text-align: center;
-            color: #8b98a5;
-            border: 1px dashed rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            font-size: 13px;
-        }
-
-        /* ── bet row inside arb card ── */
-        .arb-bet {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            margin-top: 4px;
-            font-size: 12px;
-        }
-        .arb-bet .book {
-            color: #34d399;
-            font-weight: 600;
-        }
-        .arb-bet .outcome {
-            color: #8b98a5;
-        }
-        .arb-bet .odd {
-            font-weight: 600;
-        }
-        .arb-bet .stake {
-            color: #fb923c;
-            font-size: 11px;
-        }
-
-        /* ── status pill ── */
-        .status-pill {
-            font-size: 11px;
-            padding: 4px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: #8b98a5;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        /* ── profit badge in arb header ── */
-        .profit-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(251, 146, 60, 0.1);
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #fb923c;
         }
     </style>
 </head>
 <body>
 
-    <!-- ═══ HEADER ═══ -->
-    <header class="sticky top-0 z-50 glass px-4 py-3 flex items-center justify-between">
+    <!-- HEADER -->
+    <div class="sticky top-0 z-50 glass p-4 flex items-center justify-between">
         <div>
-            <h1 class="text-lg font-bold tracking-tight">ArbiScan</h1>
-            <p class="text-xs text-gray-400">Live Sports Arbitrage • Uganda</p>
+            <h1 class="text-xl font-bold">ArbiScan</h1>
+            <p class="text-xs text-gray-400" id="pageSubtitle">Live Sports Arbitrage</p>
         </div>
         <div class="flex items-center gap-3">
-            <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-[10px] font-semibold">● LIVE</span>
-            <span class="status-pill" id="lastUpdated">Loading…</span>
-        </div>
-    </header>
-
-    <!-- ═══ HERO ═══ -->
-    <div class="px-4 pt-4">
-        <div class="hero-card glass rounded-2xl p-4">
-            <p class="text-gray-400 text-xs font-medium uppercase tracking-wider">🔥 Best Opportunity</p>
-            <div class="text-2xl font-bold text-green-400 mt-1" id="heroProfit">0.00%</div>
-            <div class="text-xs text-gray-400 mt-1" id="heroSub">Waiting for first refresh…</div>
+            <div class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs">● LIVE</div>
+            <span class="text-xs text-gray-400" id="lastUpdated">-</span>
         </div>
     </div>
 
-    <!-- ═══ CONTAINER ═══ -->
-    <div class="container px-4">
+    <!-- HERO SECTION -->
+    <div class="p-4">
+        <div class="glass rounded-3xl p-4 profitGlow">
+            <p class="text-gray-400 text-sm">🔥 Best Opportunity</p>
+            <div class="text-3xl font-bold mt-1 text-green-400" id="heroProfit">0.00% Profit</div>
+            <div class="text-xs text-gray-400 mt-1" id="heroSub">Waiting for first refresh...</div>
+        </div>
+    </div>
 
-        <!-- ── SUMMARY STRIP ── -->
-        <div class="summary-strip mt-4">
-            <div class="summary-card">
-                <div class="label">Valid</div>
-                <div class="value text-green-400" id="validCount">0</div>
+    <!-- STATS ROW -->
+    <div class="px-4 mb-4">
+        <div class="flex gap-3 overflow-x-auto pb-2">
+            <div class="glass rounded-2xl p-3 min-w-[90px]">
+                <p class="text-gray-400 text-[10px] uppercase tracking-wider">Valid</p>
+                <h3 class="text-xl font-bold mt-1 text-green-400" id="validCount">0</h3>
             </div>
-            <div class="summary-card">
-                <div class="label">Invalid</div>
-                <div class="value text-red-400" id="invalidCount">0</div>
+            <div class="glass rounded-2xl p-3 min-w-[90px]">
+                <p class="text-gray-400 text-[10px] uppercase tracking-wider">Invalid</p>
+                <h3 class="text-xl font-bold mt-1 text-red-400" id="invalidCount">0</h3>
             </div>
-            <div class="summary-card">
-                <div class="label">Matches</div>
-                <div class="value text-blue-400" id="matchCount">0</div>
+            <div class="glass rounded-2xl p-3 min-w-[90px]">
+                <p class="text-gray-400 text-[10px] uppercase tracking-wider">Matches</p>
+                <h3 class="text-xl font-bold mt-1 text-blue-400" id="matchCount">0</h3>
             </div>
-            <div class="summary-card">
-                <div class="label">Bookmakers</div>
-                <div class="value text-orange-400" id="bookmakerCount">0</div>
+            <div class="glass rounded-2xl p-3 min-w-[90px]">
+                <p class="text-gray-400 text-[10px] uppercase tracking-wider">Bookmakers</p>
+                <h3 class="text-xl font-bold mt-1 text-orange-400" id="bookmakerCount">0</h3>
             </div>
         </div>
+    </div>
 
-        <!-- ── SECTION TABS ── -->
+    <!-- SECTION TABS -->
+    <div class="px-4">
         <div class="section-tabs">
             <button class="section-tab active" data-page="dashboard" onclick="showPage('dashboard', this)">Dashboard</button>
             <button class="section-tab" data-page="arbitrage" onclick="showPage('arbitrage', this)">Arbs</button>
@@ -469,220 +273,214 @@
             <button class="section-tab" data-page="billing" onclick="showPage('billing', this)">Billing</button>
             <button class="section-tab" data-page="settings" onclick="showPage('settings', this)">Settings</button>
         </div>
+    </div>
 
-        <!-- ── DASHBOARD ── -->
-        <section class="page active" id="dashboard">
-            <div class="glass rounded-2xl p-4">
+    <!-- DASHBOARD PAGE -->
+    <section class="page active" id="dashboard">
+        <div class="px-4 space-y-4">
+            <div class="glass rounded-3xl p-4">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-300">Quick Status</span>
+                    <span class="text-sm font-medium">Quick Status</span>
                     <span class="text-xs text-gray-400">Live</span>
                 </div>
-                <div id="status" class="text-sm text-gray-400">Loading data…</div>
+                <div id="status" class="text-sm text-gray-400">Loading data...</div>
             </div>
-
-            <div class="glass rounded-2xl p-4 mt-4">
+            <div class="glass rounded-3xl p-4">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-300">Change Log</span>
+                    <span class="text-sm font-medium">Change Log</span>
                     <span class="text-xs text-gray-400">last run</span>
                 </div>
-                <div id="changeSummary" class="text-sm text-gray-400">Waiting for first refresh…</div>
+                <div id="changeSummary" class="text-sm text-gray-400">Waiting for first refresh...</div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ── ARBITRAGE ── -->
-        <section class="page" id="arbitrage">
-            <div class="glass rounded-2xl p-4">
+    <!-- ARBITRAGE PAGE -->
+    <section class="page" id="arbitrage">
+        <div class="px-4">
+            <div class="glass rounded-3xl p-4">
                 <div class="flex justify-between items-center mb-3">
-                    <span class="text-sm font-medium text-gray-300">🎯 Live Arbitrage</span>
+                    <span class="text-sm font-medium">🎯 Live Arbitrage Opportunities</span>
                     <span id="arbInfo" class="text-xs text-orange-400 font-semibold"></span>
                 </div>
 
-                <!-- filter bar -->
-                <div class="filter-bar mb-3">
-                    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
-                    <button class="filter-btn" onclick="setFilter('valid',this)">Valid</button>
-                    <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid</button>
-                    <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Book</button>
-                    <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
-                    <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
+                <div class="filter-bar flex gap-2 overflow-x-auto pb-2">
+                    <button class="bg-blue-600 px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="setFilter('all',this)">All</button>
+                    <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="setFilter('valid',this)">Valid Only</button>
+                    <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="setFilter('invalid',this)">Invalid Only</button>
+                    <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="setFilter('cross',this)">Cross-Bookmaker</button>
+                    <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="setFilter('2way',this)">2-Way</button>
+                    <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="setFilter('3way',this)">3-Way</button>
                 </div>
 
-                <!-- stake -->
-                <div class="stake-row mb-4">
-                    <label>💰 Stake (UGX)</label>
-                    <input class="stake-input" type="number" id="stake" value="100000" min="1000" step="1000" oninput="renderArbs()" />
-                    <span class="text-xs text-gray-400">profit shown</span>
+                <div class="stake-row">
+                    <label>💰 Stake (UGX):</label>
+                    <input class="stake-input" type="number" id="stake" value="100000" min="1000" step="1000" oninput="renderArbs()">
                 </div>
 
                 <div id="arbs">
-                    <div class="empty-state">⏳ Loading opportunities…</div>
+                    <div class="text-center text-gray-400 py-4">⏳ Loading opportunities...</div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ── ODDS ── -->
-        <section class="page" id="odds">
-            <div class="glass rounded-2xl p-4">
+    <!-- ODDS PAGE -->
+    <section class="page" id="odds">
+        <div class="px-4">
+            <div class="glass rounded-3xl p-4">
                 <div class="flex justify-between items-center mb-3">
-                    <span class="text-sm font-medium text-gray-300">📊 All Scraped Odds</span>
+                    <span class="text-sm font-medium">📊 All Scraped Odds</span>
                     <span id="oddsCount" class="text-xs text-orange-400 font-semibold"></span>
                 </div>
                 <div class="table-wrap">
                     <div id="oddsTable">
-                        <div class="empty-state">⏳ Loading odds…</div>
+                        <div class="text-center text-gray-400 py-4">⏳ Loading odds...</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ── BILLING ── -->
-        <section class="page" id="billing">
-            <div class="glass rounded-2xl p-4">
+    <!-- BILLING PAGE -->
+    <section class="page" id="billing">
+        <div class="px-4">
+            <div class="glass rounded-3xl p-4">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-300">💳 Billing</span>
-                    <span class="text-xs text-gray-400">plans &amp; invoices</span>
+                    <span class="text-sm font-medium">💳 Billing</span>
+                    <span class="text-xs text-gray-400">Subscriptions</span>
                 </div>
                 <div class="text-xs text-gray-400 mb-3">Choose a plan that suits your trading volume.</div>
-
-                <div class="summary-strip">
-                    <div class="summary-card" style="min-width:40%;">
-                        <div class="label">Free</div>
-                        <div class="value text-gray-400">UGX 0</div>
-                        <div class="text-[10px] text-gray-500 mt-1">Basic access</div>
+                <div class="flex gap-3 overflow-x-auto pb-2">
+                    <div class="glass rounded-2xl p-3 min-w-[100px]">
+                        <div class="text-xs text-gray-400">Free</div>
+                        <div class="text-lg font-bold mt-1">UGX 0</div>
                     </div>
-                    <div class="summary-card" style="min-width:40%;">
-                        <div class="label">Pro</div>
-                        <div class="value text-green-400">UGX 50k</div>
-                        <div class="text-[10px] text-gray-500 mt-1">Full odds + arbs</div>
+                    <div class="glass rounded-2xl p-3 min-w-[100px] profitGlow">
+                        <div class="text-xs text-gray-400">Pro</div>
+                        <div class="text-lg font-bold mt-1 text-green-400">UGX 50k</div>
                     </div>
-                    <div class="summary-card" style="min-width:40%;">
-                        <div class="label">Enterprise</div>
-                        <div class="value text-blue-400">Custom</div>
-                        <div class="text-[10px] text-gray-500 mt-1">Multi-user</div>
+                    <div class="glass rounded-2xl p-3 min-w-[100px]">
+                        <div class="text-xs text-gray-400">Enterprise</div>
+                        <div class="text-lg font-bold mt-1 text-blue-400">Custom</div>
                     </div>
                 </div>
             </div>
-
-            <div class="glass rounded-2xl p-4 mt-4">
-                <div class="flex justify-between items-center mb-3">
-                    <span class="text-sm font-medium text-gray-300">Create Invoice</span>
-                </div>
-                <input class="auth-input" placeholder="Customer name" />
-                <input class="auth-input" placeholder="Amount (UGX)" type="number" />
-                <select class="auth-input">
-                    <option>Invoice type</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
-                </select>
-                <select class="auth-input">
-                    <option>Status</option>
-                    <option>Pending</option>
-                    <option>Paid</option>
-                    <option>Overdue</option>
-                </select>
-                <button class="btn">Save Invoice</button>
-                <button class="btn secondary">View History</button>
+            <div class="glass rounded-3xl p-4 mt-4">
+                <div class="text-sm font-medium mb-3">Create Invoice</div>
+                <input class="w-full bg-transparent border border-gray-700 rounded-lg px-3 py-2 mb-2 text-sm" placeholder="Customer name">
+                <input class="w-full bg-transparent border border-gray-700 rounded-lg px-3 py-2 mb-2 text-sm" placeholder="Amount (UGX)" type="number">
+                <button class="w-full bg-green-500 rounded-2xl py-2 font-semibold text-black">Save Invoice</button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ── SETTINGS ── -->
-        <section class="page" id="settings">
-            <div class="glass rounded-2xl p-4">
+    <!-- SETTINGS PAGE -->
+    <section class="page" id="settings">
+        <div class="px-4">
+            <div class="glass rounded-3xl p-4">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-300">⚙ Settings</span>
-                    <span class="text-xs text-gray-400">scraping &amp; display</span>
+                    <span class="text-sm font-medium">⚙ Settings</span>
                 </div>
-                <select class="auth-input">
-                    <option>Auto-refresh</option>
-                    <option>5 minutes</option>
-                    <option>10 minutes</option>
-                    <option>30 minutes</option>
-                </select>
-                <select class="auth-input">
-                    <option>Stake currency</option>
-                    <option>UGX</option>
-                    <option>USD</option>
-                </select>
-                <input class="auth-input" placeholder="Min profit %" type="number" value="0.5" />
-                <input class="auth-input" placeholder="Max profit %" type="number" value="20" />
-                <button class="btn">Save Settings</button>
-                <button class="btn secondary">Reset</button>
-            </div>
-
-            <div class="glass rounded-2xl p-4 mt-4">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-300">Refresh Behavior</span>
-                </div>
-                <div class="text-xs text-gray-400 leading-relaxed">
-                    This dashboard remembers the previous run, compares it to the latest run,
-                    and keeps a history of invalid opportunities. When an opportunity disappears,
-                    it is marked invalid and stays visible in the past section.
+                <div class="space-y-3">
+                    <select class="w-full bg-transparent border border-gray-700 rounded-lg px-3 py-2 text-sm">
+                        <option>Auto-refresh interval</option>
+                        <option>5 minutes</option>
+                        <option>10 minutes</option>
+                        <option>30 minutes</option>
+                    </select>
+                    <input class="w-full bg-transparent border border-gray-700 rounded-lg px-3 py-2 text-sm" placeholder="Min profit %" type="number" value="0.5">
+                    <button class="w-full bg-green-500 rounded-2xl py-2 font-semibold text-black">Save Settings</button>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
+    <!-- HISTORY MODAL -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal()">&times;</button>
+            <h2 id="modalMatch">Match Name</h2>
+            <div id="modalDetails" class="space-y-2 text-sm mt-2">
+                <p><span class="text-gray-400">Type:</span> <span id="modalType">-</span></p>
+                <p><span class="text-gray-400">Sport:</span> <span id="modalSport">-</span></p>
+                <p><span class="text-gray-400">Profit %:</span> <span id="modalProfit">-</span></p>
+                <p><span class="text-gray-400">First seen:</span> <span id="modalFirstSeen">-</span></p>
+                <p><span class="text-gray-400">Last seen:</span> <span id="modalLastSeen">-</span></p>
+                <p><span class="text-gray-400">Times valid:</span> <span id="modalValidCount">0</span></p>
+                <p><span class="text-gray-400">Times invalid:</span> <span id="modalInvalidCount">0</span></p>
+            </div>
+            <hr class="border-gray-700 my-3">
+            <div class="font-semibold text-sm mb-2">History Timeline</div>
+            <div id="modalHistoryList"></div>
+        </div>
     </div>
 
-    <!-- ═══ BOTTOM NAV ═══ -->
-    <nav class="bottom-nav">
-        <div class="active" onclick="showPage('dashboard', document.querySelector('[data-page=dashboard]'))">
-            <span class="nav-icon">🏠</span> Home
+    <!-- BOTTOM NAV -->
+    <div class="bottom-nav flex justify-around px-2">
+        <div onclick="showPage('dashboard', document.querySelector('[data-page=dashboard]'))" class="text-green-400 p-2 text-center cursor-pointer">
+            <span class="block text-lg">🏠</span>
+            <span class="text-xs">Home</span>
         </div>
-        <div onclick="showPage('arbitrage', document.querySelector('[data-page=arbitrage]'))">
-            <span class="nav-icon">⚡</span> Arbs
+        <div onclick="showPage('arbitrage', document.querySelector('[data-page=arbitrage]'))" class="text-gray-400 p-2 text-center cursor-pointer">
+            <span class="block text-lg">⚡</span>
+            <span class="text-xs">Arbs</span>
         </div>
-        <div onclick="showPage('odds', document.querySelector('[data-page=odds]'))">
-            <span class="nav-icon">📊</span> Odds
+        <div onclick="showPage('odds', document.querySelector('[data-page=odds]'))" class="text-gray-400 p-2 text-center cursor-pointer">
+            <span class="block text-lg">📊</span>
+            <span class="text-xs">Odds</span>
         </div>
-        <div onclick="showPage('billing', document.querySelector('[data-page=billing]'))">
-            <span class="nav-icon">💳</span> Billing
+        <div onclick="showPage('billing', document.querySelector('[data-page=billing]'))" class="text-gray-400 p-2 text-center cursor-pointer">
+            <span class="block text-lg">💳</span>
+            <span class="text-xs">Billing</span>
         </div>
-        <div onclick="showPage('settings', document.querySelector('[data-page=settings]'))">
-            <span class="nav-icon">⚙</span> Settings
+        <div onclick="showPage('settings', document.querySelector('[data-page=settings]'))" class="text-gray-400 p-2 text-center cursor-pointer">
+            <span class="block text-lg">⚙</span>
+            <span class="text-xs">Settings</span>
         </div>
-    </nav>
+    </div>
 
-    <!-- ═══ JAVASCRIPT ═══ -->
+    <!-- ========================================================= -->
+    <!-- BACKEND LOGIC EXACTLY COPIED FROM UGANDA ARBITRAGE SCANNER -->
+    <!-- ========================================================= -->
     <script>
-        // ─── state ──────────────────────────────────────────────
+        // ---- Dashboard logic (no Supabase) ----
         let allOpps = [];
         let rawOdds = [];
         let historyMap = {};
         let currentFilter = 'all';
 
-        // ─── page switching ────────────────────────────────────
-        function showPage(page, el) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        function showPage(page, el){
+            document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
             document.getElementById(page).classList.add('active');
 
-            document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+            // Highlight tab
+            document.querySelectorAll('.section-tab').forEach(t=>t.classList.remove('active'));
             if (el) el.classList.add('active');
 
-            // sync bottom nav
-            document.querySelectorAll('.bottom-nav div').forEach(d => d.classList.remove('active'));
             const map = {
-                dashboard: 0,
-                arbitrage: 1,
-                odds: 2,
-                billing: 3,
-                settings: 4
+                dashboard:['Dashboard','Overview of scraper status and opportunity summary'],
+                arbitrage:['Arbitrage','Best live opportunities from your scraper'],
+                odds:['All Odds','Full list from all bookmakers'],
+                billing:['Billing','Subscription plans, invoices, and payments'],
+                settings:['Settings','Control scraping and display behavior']
             };
-            const idx = map[page];
-            if (idx !== undefined) {
-                document.querySelectorAll('.bottom-nav div')[idx]?.classList.add('active');
-            }
+            document.getElementById('pageSubtitle').textContent = map[page][1];
         }
 
-        // ─── date helpers ──────────────────────────────────────
-        function resolveOpportunityDate(o) {
+        // --- NEW: resolve date from kickoff or since/checked_at ---
+        function resolveOpportunityDate(o){
+            // Prefer kickoff if present
             if (o.kickoff) {
-                const d = new Date(String(o.kickoff).replace(' UTC', 'Z'));
+                const d = new Date(String(o.kickoff).replace(' UTC','Z'));
                 if (!isNaN(d.getTime())) return d;
             }
+            // Fallback to 'since' if present (first seen)
             if (o.since) {
                 const d = new Date(o.since);
                 if (!isNaN(d.getTime())) return d;
             }
+            // Fallback to 'checked_at' if present
             if (o.checked_at) {
                 const d = new Date(o.checked_at);
                 if (!isNaN(d.getTime())) return d;
@@ -690,40 +488,44 @@
             return null;
         }
 
-        function kickoffLabel(o) {
+        // UPDATED grouping label: Yesterday / Today / Tomorrow / Later / Older / Unscheduled
+        function kickoffLabel(o){
             const d = resolveOpportunityDate(o);
             if (!d) return 'Unscheduled';
+
+            // Normalize to local date (midnight)
             const today = new Date();
             const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             const thatMid = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-            const diff = Math.round((thatMid - todayMid) / (1000 * 60 * 60 * 24));
-            if (diff === 0) return 'Today';
-            if (diff === 1) return 'Tomorrow';
-            if (diff === -1) return 'Yesterday';
-            if (diff > 1) return 'Later';
-            if (diff < -1) return 'Older';
+
+            const diffDays = Math.round((thatMid - todayMid) / (1000*60*60*24));
+
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Tomorrow';
+            if (diffDays === -1) return 'Yesterday';
+            if (diffDays > 1) return 'Later';
+            if (diffDays < -1) return 'Older';
             return 'Unscheduled';
         }
 
-        function formatKickoff(kickoff) {
-            const d = kickoff ? new Date(String(kickoff).replace(' UTC', 'Z')) : null;
-            if (!d || isNaN(d.getTime())) return '';
+        function formatKickoff(kickoff){
+            const d = kickoff ? new Date(String(kickoff).replace(' UTC','Z')) : null;
+            if(!d || isNaN(d.getTime())) return '';
             return new Intl.DateTimeFormat(undefined, {
-                weekday: 'short',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+                weekday:'short',
+                month:'short',
+                day:'numeric',
+                hour:'2-digit',
+                minute:'2-digit'
             }).format(d);
         }
 
-        function opportunityId(o) {
+        function opportunityId(o){
             const bets = (o.bets || []).map(b => `${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
             return `${o.match}|${o.type}|${bets}`;
         }
 
-        // ─── classify changes ──────────────────────────────────
-        function classifyChanges(newOpps) {
+        function classifyChanges(newOpps){
             const newMap = {};
             newOpps.forEach(o => newMap[opportunityId(o)] = o);
 
@@ -764,54 +566,60 @@
             allOpps = updated;
         }
 
-        // ─── filter ─────────────────────────────────────────────
-        function setFilter(f, btn) {
+        function setFilter(f, btn){
             currentFilter = f;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
             renderArbs();
         }
 
-        // ─── render arbs ───────────────────────────────────────
-        function renderArbs() {
+        function renderArbs(){
             const stake = parseInt(document.getElementById('stake').value) || 100000;
             let opps = allOpps.slice();
 
-            if (currentFilter === 'valid') opps = opps.filter(o => o.status === 'valid');
-            else if (currentFilter === 'invalid') opps = opps.filter(o => o.status === 'invalid');
-            else if (currentFilter === 'cross') opps = opps.filter(o => new Set((o.bets || []).map(b => b.bookmaker)).size >= 2);
-            else if (currentFilter === '2way') opps = opps.filter(o => o.type === '2-way');
-            else if (currentFilter === '3way') opps = opps.filter(o => o.type === '3-way');
+            if(currentFilter === 'valid'){
+                opps = opps.filter(o => o.status === 'valid');
+            } else if(currentFilter === 'invalid'){
+                opps = opps.filter(o => o.status === 'invalid');
+            } else if(currentFilter === 'cross'){
+                opps = opps.filter(o => new Set((o.bets || []).map(b=>b.bookmaker)).size >= 2);
+            } else if(currentFilter === '2way'){
+                opps = opps.filter(o => o.type === '2-way');
+            } else if(currentFilter === '3way'){
+                opps = opps.filter(o => o.type === '3-way');
+            }
 
             document.getElementById('arbInfo').textContent = opps.length + ' found';
             document.getElementById('validCount').textContent = allOpps.filter(o => o.status === 'valid').length;
             document.getElementById('invalidCount').textContent = allOpps.filter(o => o.status === 'invalid').length;
 
-            // hero
-            if (allOpps.length) {
-                const best = allOpps.filter(o => o.status === 'valid').sort((a, b) => (b.profit_percent || 0) - (a.profit_percent ||
-                    0))[0] || allOpps[0];
+            // Update hero with best opportunity if any
+            if (allOpps.length){
+                const best = allOpps.filter(o=>o.status==='valid').sort((a,b)=>(b.profit_percent||0)-(a.profit_percent||0))[0] || allOpps[0];
                 const pct = Number(best.profit_percent || 0).toFixed(2);
-                document.getElementById('heroProfit').textContent = pct + '%';
-                document.getElementById('heroSub').textContent = (best.match || 'Unknown') + ' • ' + (best.type || '');
+                document.getElementById('heroProfit').textContent = `${pct}% Profit`;
+                document.getElementById('heroSub').textContent = `${best.match || 'Unknown match'} • ${best.type || ''}`;
             } else {
-                document.getElementById('heroProfit').textContent = '0.00%';
-                document.getElementById('heroSub').textContent = 'Waiting for first refresh…';
+                document.getElementById('heroProfit').textContent = '0.00% Profit';
+                document.getElementById('heroSub').textContent = 'Waiting for first refresh...';
             }
 
-            // group
+            // Group by new labels
             const groups = {};
             opps.forEach(o => {
                 const g = kickoffLabel(o);
-                if (!groups[g]) groups[g] = [];
+                if(!groups[g]) groups[g] = [];
                 groups[g].push(o);
             });
+
+            // Fixed order: Today, Tomorrow, Yesterday, Later, Older, Unscheduled
             const order = ['Today', 'Tomorrow', 'Yesterday', 'Later', 'Older', 'Unscheduled'];
             const keys = order.filter(k => groups[k]);
 
             const arbDiv = document.getElementById('arbs');
-            if (!opps.length) {
-                arbDiv.innerHTML = '<div class="empty-state">😔 No arbitrage opportunities match this filter.</div>';
+
+            if(!opps.length){
+                arbDiv.innerHTML = '<div class="text-center text-gray-400 py-4">😔 No arbitrage opportunities match this filter right now.</div>';
                 return;
             }
 
@@ -819,108 +627,106 @@
                 const items = groups[groupName] || [];
                 const cards = items.map(o => {
                     const bets = o.bets || [];
-                    const arb = bets.reduce((s, b) => s + (1 / Number(b.odd || 1)), 0);
+                    const arb = bets.reduce((s,b)=>s + (1/Number(b.odd || 1)), 0);
                     const profitUGX = Math.round(stake * (1 - arb));
-                    const books = new Set(bets.map(b => b.bookmaker));
+                    const books = new Set(bets.map(b=>b.bookmaker));
                     const isCross = books.size >= 2;
                     const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : '';
 
                     const betsHtml = bets.map(b => {
-                        const userStake = Math.round(stake * (1 / Number(b.odd || 1)) / arb);
+                        const userStake = Math.round(stake * (1/Number(b.odd || 1)) / arb);
                         return `
-                        <div class="arb-bet">
-                          <div>
-                            <span class="book">${b.bookmaker}</span>
-                            <span class="outcome"> ${b.outcome} @ <span class="odd">${b.odd}</span></span>
-                          </div>
-                          <div style="text-align:right;">
-                            <div>UGX ${userStake.toLocaleString()}</div>
-                            <div class="stake">→ UGX ${Math.round(userStake * Number(b.odd || 0)).toLocaleString()}</div>
-                          </div>
-                        </div>
-                      `;
+                            <div class="arb-bet">
+                                <div class="bet-left">
+                                    <span class="bet-book">${b.bookmaker}</span>
+                                    <span class="bet-outcome">${b.outcome} @ ${b.odd}</span>
+                                </div>
+                                <div class="bet-right">
+                                    <span class="bet-odd">UGX ${userStake.toLocaleString()}</span>
+                                    <span class="bet-stake">Win: UGX ${Math.round(userStake * Number(b.odd || 0)).toLocaleString()}</span>
+                                </div>
+                            </div>
+                        `;
                     }).join('');
 
-                    const statusBadge = o.status === 'valid' ?
-                        '<span class="badge green">VALID</span>' :
-                        '<span class="badge red">INVALID</span>';
+                    const statusBadge = o.status === 'valid'
+                        ? '<span class="badge green">VALID</span>'
+                        : '<span class="badge red">INVALID</span>';
 
-                    const noteBadge = o.changed && o.status === 'valid' ?
-                        '<span class="badge blue">NEW</span>' :
-                        (o.status === 'invalid' ? '<span class="badge gray">PAST</span>' : '');
+                    const noteBadge = o.changed && o.status === 'valid'
+                        ? '<span class="badge blue">NEW</span>'
+                        : (o.status === 'invalid' ? '<span class="badge gray">PAST</span>' : '');
 
                     return `
-                      <div class="arb-card glass rounded-2xl p-4 ${o.status}">
-                        <div class="flex justify-between items-start">
-                          <div>
-                            <div class="font-semibold text-sm">${o.match}</div>
-                            <div class="text-xs text-gray-400">${kickoffText ? '🕒 ' + kickoffText : ''}</div>
-                          </div>
-                          <div style="text-align:right;">
-                            <div class="profit-badge">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</div>
-                            <div class="text-[11px] text-orange-400 mt-1">+UGX ${profitUGX.toLocaleString()}</div>
-                          </div>
+                        <div class="arb-card ${o.status}">
+                            <div class="arb-header flex justify-between items-start">
+                                <div>
+                                    <div class="arb-match font-semibold">${o.match}</div>
+                                    <div class="arb-kickoff text-xs text-gray-400">${kickoffText ? '🕒 ' + kickoffText : ''}</div>
+                                </div>
+                                <div class="arb-profit text-right">
+                                    <div class="profit-pct">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</div>
+                                    <div class="profit-ugx text-xs text-orange-400 mt-1">+UGX ${profitUGX.toLocaleString()} profit</div>
+                                </div>
+                            </div>
+                            <div class="arb-meta flex flex-wrap gap-2 mt-2 text-xs text-gray-400">
+                                <span class="arb-type">${o.type === '3-way' ? '🔺 3-way (1X2)' : '🔷 2-way'}</span>
+                                ${isCross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
+                                ${noteBadge}
+                                <span class="badge ${o.status === 'valid' ? 'green' : 'red'}">${o.note || ''}</span>
+                            </div>
+                            <div class="arb-bets mt-3">${betsHtml}</div>
                         </div>
-                        <div class="flex flex-wrap gap-2 mt-2 text-[11px] text-gray-400">
-                          <span>${o.type === '3-way' ? '🔺 3-way' : '🔷 2-way'}</span>
-                          ${isCross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
-                          ${noteBadge}
-                          <span class="badge ${o.status === 'valid' ? 'green' : 'red'}">${o.note || ''}</span>
-                        </div>
-                        <div class="mt-3">${betsHtml}</div>
-                      </div>
                     `;
                 }).join('');
 
                 return `
-                  <div class="kgroup">
-                    <div class="kgroup-title">${groupName}</div>
-                    ${cards}
-                  </div>
+                    <div class="kgroup">
+                        <div class="kgroup-title font-medium text-gray-400 mt-4 mb-2 text-sm">${groupName}</div>
+                        ${cards}
+                    </div>
                 `;
             }).join('');
         }
 
-        // ─── render odds ───────────────────────────────────────
-        function renderOdds() {
+        function renderOdds(){
             document.getElementById('oddsCount').textContent = rawOdds.length + ' rows';
             const wrap = document.getElementById('oddsTable');
-            if (!rawOdds.length) {
-                wrap.innerHTML = '<div class="empty-state">⏳ No odds yet.</div>';
+            if(!rawOdds.length){
+                wrap.innerHTML = '<div class="text-center text-gray-400 py-4">⏳ No odds yet.</div>';
                 return;
             }
             wrap.innerHTML = `
-              <table>
-                <thead>
-                  <tr>
-                    <th>Match</th>
-                    <th>Bookmaker</th>
-                    <th>Home</th>
-                    <th>Draw</th>
-                    <th>Away</th>
-                    <th>Sport</th>
-                    <th>Kickoff</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${rawOdds.map(o => `
-                    <tr>
-                      <td>${o.match}</td>
-                      <td><span class="badge blue">${o.bookmaker}</span></td>
-                      <td>${o.home ?? '-'}</td>
-                      <td>${o.draw ?? '-'}</td>
-                      <td>${o.away ?? '-'}</td>
-                      <td>${o.sport ?? '-'}</td>
-                      <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Match</th>
+                            <th>Bookmaker</th>
+                            <th>Home</th>
+                            <th>Draw</th>
+                            <th>Away</th>
+                            <th>Sport</th>
+                            <th>Kickoff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rawOdds.map(o => `
+                            <tr>
+                                <td>${o.match}</td>
+                                <td><span class="badge blue">${o.bookmaker}</span></td>
+                                <td>${o.home ?? '-'}</td>
+                                <td>${o.draw ?? '-'}</td>
+                                <td>${o.away ?? '-'}</td>
+                                <td>${o.sport ?? '-'}</td>
+                                <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
             `;
         }
 
-        // ─── change log ────────────────────────────────────────
-        function renderChangeLog(newOpps) {
+        function renderChangeLog(newOpps){
             const changed = [];
             newOpps.forEach(o => {
                 if (o.status === 'new') changed.push(`+ ${o.match} became valid now.`);
@@ -933,21 +739,21 @@
                 summary.innerHTML = '<span class="text-gray-400">No changes detected in this run.</span>';
                 return;
             }
-            summary.innerHTML = changed.slice(0, 8).map(x => {
-                if (x.startsWith('+')) return `<div class="change-item up">${x}</div>`;
-                if (x.startsWith('↻')) return `<div class="change-item same">${x}</div>`;
-                return `<div class="change-item down">${x}</div>`;
+
+            summary.innerHTML = changed.slice(0, 6).map(x => {
+                if (x.startsWith('+')) return `<div class="text-green-400">${x}</div>`;
+                if (x.startsWith('↻')) return `<div class="text-orange-400">${x}</div>`;
+                return `<div class="text-red-400">${x}</div>`;
             }).join('');
         }
 
-        // ─── load ──────────────────────────────────────────────
-        async function load() {
-            try {
+        async function load(){
+            try{
                 const r = await fetch('odds.json?t=' + Date.now());
                 const d = await r.json();
                 rawOdds = d.raw_odds || [];
                 const freshOpps = d.opportunities || [];
-                const scraped = d.bookmakers_scraped || [...new Set(rawOdds.map(x => x.bookmaker))];
+                const scraped = d.bookmakers_scraped || [...new Set(rawOdds.map(x=>x.bookmaker))];
 
                 classifyChanges(freshOpps);
 
@@ -956,22 +762,25 @@
                 document.getElementById('bookmakerCount').textContent = scraped.length;
                 document.getElementById('status').textContent =
                     `Loaded ${rawOdds.length} odds entries from ${scraped.length} bookmakers. ` +
-                    `${allOpps.filter(o => o.status === 'valid').length} valid, ${allOpps.filter(o => o.status === 'invalid').length} invalid.`;
+                    `${allOpps.filter(o=>o.status==='valid').length} valid and ${allOpps.filter(o=>o.status==='invalid').length} invalid opportunities kept in history.`;
 
                 renderChangeLog(allOpps);
                 renderArbs();
                 renderOdds();
-            } catch (e) {
+            }catch(e){
                 document.getElementById('status').textContent = 'Could not load odds.json';
-                document.getElementById('arbs').innerHTML = '<div class="empty-state">❌ Scraper has not run yet.</div>';
-                document.getElementById('oddsTable').innerHTML = '<div class="empty-state">❌ Scraper has not run yet.</div>';
+                document.getElementById('arbs').innerHTML = '<div class="text-center text-gray-400 py-4">❌ Scraper has not run yet.</div>';
+                document.getElementById('oddsTable').innerHTML = '<div class="text-center text-gray-400 py-4">❌ Scraper has not run yet.</div>';
             }
         }
 
-        // ─── start ─────────────────────────────────────────────
-        load();
-        setInterval(load, 30000);
-    </script>
+        function closeModal() {
+            document.getElementById('historyModal').classList.remove('active');
+        }
 
+        // run immediately, then every 30s
+        load();
+        setInterval(load,30000);
+    </script>
 </body>
-    </html>
+                    </html>
