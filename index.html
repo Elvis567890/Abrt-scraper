@@ -1,97 +1,57 @@
-<!DOCTYPE html>
+"""
+ArbiScan – Complete Backend + Dashboard
+One file to rule them all.
+Serves the HTML and all API endpoints.
+"""
+
+import os
+import json
+import subprocess
+import sys
+from datetime import datetime
+from flask import Flask, jsonify, request, send_from_directory
+
+app = Flask(__name__)
+
+# ============================================================
+# EMBEDDED HTML (your beautiful dashboard)
+# ============================================================
+HTML = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ArbiScan Mobile</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0b1020;
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .profitGlow {
-            box-shadow: 0 0 20px rgba(16, 185, 129, .4);
-        }
-        .slide-up {
-            animation: slideUp 0.4s ease forwards;
-        }
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            right: 20px;
-            padding: 16px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: white;
-            text-align: center;
-            z-index: 999;
-            animation: slideUp 0.4s ease;
-        }
+        body { font-family: 'Inter', sans-serif; background: #0b1020; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+        .profitGlow { box-shadow: 0 0 20px rgba(16,185,129,.4); }
+        .slide-up { animation: slideUp 0.4s ease forwards; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .toast { position: fixed; bottom: 80px; left: 20px; right: 20px; padding: 16px; border-radius: 16px; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); color: white; text-align: center; z-index: 999; animation: slideUp 0.4s ease; }
         .toast.success { border-color: #22c55e; }
         .toast.error { border-color: #ef4444; }
         .toast.info { border-color: #eab308; }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-        }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
         .status-dot.online { background: #22c55e; }
         .status-dot.scanning { background: #eab308; animation: pulse 0.8s infinite; }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        /* Hide scrollbar */
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
         ::-webkit-scrollbar { display: none; }
-        .bottom-nav {
-            background: rgba(11, 16, 32, 0.95);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
+        .bottom-nav { background: rgba(11,16,32,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
-
-<!-- ============================================================ -->
-<!-- HEADER -->
-<!-- ============================================================ -->
 <div class="sticky top-0 z-50 glass p-4 flex items-center justify-between">
-    <div>
-        <h1 class="text-xl font-bold">ArbiScan</h1>
-        <p class="text-xs text-gray-400" id="statusText">Live Sports Arbitrage</p>
-    </div>
+    <div><h1 class="text-xl font-bold">ArbiScan</h1><p class="text-xs text-gray-400" id="statusText">Live Sports Arbitrage</p></div>
     <div class="flex items-center gap-3">
         <span class="status-dot online" id="statusDot"></span>
         <span class="text-xs text-gray-400" id="lastUpdate">-</span>
-        <button onclick="runScan()" class="bg-green-500/20 hover:bg-green-500/30 text-green-400 px-3 py-1 rounded-full text-xs transition-all">
-            🔄 Scan
-        </button>
+        <button onclick="runScan()" class="bg-green-500/20 hover:bg-green-500/30 text-green-400 px-3 py-1 rounded-full text-xs transition-all">🔄 Scan</button>
     </div>
 </div>
-
-<!-- ============================================================ -->
-<!-- CONTENT -->
-<!-- ============================================================ -->
 <div class="pb-24">
-
-    <!-- STATS -->
     <div class="p-4 space-y-3">
         <div class="glass rounded-3xl p-4 profitGlow">
             <p class="text-gray-400 text-sm">Opportunities Today</p>
@@ -99,18 +59,10 @@
             <p class="text-green-400 mt-1" id="bestProfit">Loading...</p>
         </div>
         <div class="grid grid-cols-2 gap-3">
-            <div class="glass rounded-2xl p-4">
-                <p class="text-gray-400 text-xs">Avg Profit</p>
-                <h3 class="text-2xl font-bold mt-2" id="avgProfit">0%</h3>
-            </div>
-            <div class="glass rounded-2xl p-4">
-                <p class="text-gray-400 text-xs">Bookmakers</p>
-                <h3 class="text-2xl font-bold mt-2" id="bookmakersCount">0</h3>
-            </div>
+            <div class="glass rounded-2xl p-4"><p class="text-gray-400 text-xs">Avg Profit</p><h3 class="text-2xl font-bold mt-2" id="avgProfit">0%</h3></div>
+            <div class="glass rounded-2xl p-4"><p class="text-gray-400 text-xs">Bookmakers</p><h3 class="text-2xl font-bold mt-2" id="bookmakersCount">0</h3></div>
         </div>
     </div>
-
-    <!-- FILTERS -->
     <div class="px-4">
         <div class="flex gap-2 overflow-x-auto pb-2" id="filterContainer">
             <button class="bg-blue-600 px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="filterBySport('all')">📊 All</button>
@@ -120,96 +72,44 @@
             <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="filterBySport('esports')">🎮 eSports</button>
         </div>
     </div>
-
-    <!-- OPPORTUNITIES -->
-    <div class="p-4 space-y-4" id="opportunitiesContainer">
-        <div class="text-center text-gray-400 py-8">Loading opportunities...</div>
-    </div>
-
+    <div class="p-4 space-y-4" id="opportunitiesContainer"><div class="text-center text-gray-400 py-8">Loading opportunities...</div></div>
 </div>
-
-<!-- ============================================================ -->
-<!-- BOTTOM NAV -->
-<!-- ============================================================ -->
 <div class="fixed bottom-0 left-0 right-0 bottom-nav p-2 flex justify-around">
-    <button onclick="loadPage('home')" class="text-green-400 p-2" id="navHome">
-        <span class="block text-lg">🏠</span>
-        <span class="text-xs">Home</span>
-    </button>
-    <button onclick="loadPage('bookmakers')" class="text-gray-400 p-2" id="navBookmakers">
-        <span class="block text-lg">📚</span>
-        <span class="text-xs">Bookmakers</span>
-    </button>
-    <button onclick="runScan()" class="text-gray-400 p-2">
-        <span class="block text-lg">🔄</span>
-        <span class="text-xs">Scan</span>
-    </button>
-    <button onclick="loadPage('history')" class="text-gray-400 p-2" id="navHistory">
-        <span class="block text-lg">📊</span>
-        <span class="text-xs">History</span>
-    </button>
-    <button onclick="loadPage('settings')" class="text-gray-400 p-2" id="navSettings">
-        <span class="block text-lg">⚙️</span>
-        <span class="text-xs">Settings</span>
-    </button>
+    <button onclick="loadPage('home')" class="text-green-400 p-2" id="navHome"><span class="block text-lg">🏠</span><span class="text-xs">Home</span></button>
+    <button onclick="loadPage('bookmakers')" class="text-gray-400 p-2" id="navBookmakers"><span class="block text-lg">📚</span><span class="text-xs">Bookmakers</span></button>
+    <button onclick="runScan()" class="text-gray-400 p-2"><span class="block text-lg">🔄</span><span class="text-xs">Scan</span></button>
+    <button onclick="loadPage('history')" class="text-gray-400 p-2" id="navHistory"><span class="block text-lg">📊</span><span class="text-xs">History</span></button>
+    <button onclick="loadPage('settings')" class="text-gray-400 p-2" id="navSettings"><span class="block text-lg">⚙️</span><span class="text-xs">Settings</span></button>
 </div>
-
-<!-- ============================================================ -->
-<!-- JAVASCRIPT - ALL FUNCTIONS + BACKEND API CALLS -->
-<!-- ============================================================ -->
 <script>
-    // ============================================================
-    // CONFIGURATION
-    // ============================================================
     const API_BASE = window.location.origin;
-    let allOpportunities = [];
-    let currentSport = 'all';
+    let allOpportunities = [], currentSport = 'all';
 
-    // ============================================================
-    // TOAST NOTIFICATIONS
-    // ============================================================
-    function showToast(message, type = 'info') {
+    function showToast(message, type='info') {
         const existing = document.querySelector('.toast');
         if (existing) existing.remove();
-
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
         toast.textContent = message;
         document.body.appendChild(toast);
-
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.5s';
-            setTimeout(() => toast.remove(), 500);
-        }, 3000);
+        setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.5s'; setTimeout(() => toast.remove(), 500); }, 3000);
     }
 
-    // ============================================================
-    // API CALLS
-    // ============================================================
     async function fetchAPI(endpoint) {
         try {
-            const response = await fetch(`${API_BASE}/api/${endpoint}`);
-            if (!response.ok) throw new Error('API error');
-            return await response.json();
-        } catch (e) {
-            console.error('API Error:', e);
-            return null;
-        }
+            const res = await fetch(`${API_BASE}/api/${endpoint}`);
+            if (!res.ok) throw new Error('API error');
+            return await res.json();
+        } catch (e) { return null; }
     }
 
-    // ============================================================
-    // LOAD DATA
-    // ============================================================
     async function loadStats() {
         const stats = await fetchAPI('stats');
         if (stats) {
             document.getElementById('opportunitiesCount').textContent = stats.total_opportunities || 0;
             document.getElementById('avgProfit').textContent = (stats.avg_profit || 0) + '%';
-            document.getElementById('bestProfit').textContent = stats.total_opportunities > 0 ? 
-                `Best: ${stats.best_profit || 0}%` : 'No data yet';
-            document.getElementById('lastUpdate').textContent = stats.last_update ? 
-                new Date(stats.last_update).toLocaleTimeString() : '-';
+            document.getElementById('bestProfit').textContent = stats.total_opportunities > 0 ? `Best: ${stats.best_profit||0}%` : 'No data yet';
+            document.getElementById('lastUpdate').textContent = stats.last_update ? new Date(stats.last_update).toLocaleTimeString() : '-';
         }
     }
 
@@ -223,110 +123,53 @@
     async function loadOpportunities(sport = 'all') {
         const container = document.getElementById('opportunitiesContainer');
         let data = await fetchAPI('opportunities');
-        
         if (data && data.length > 0) {
             allOpportunities = data;
-            
-            // Filter by sport
-            let filtered = data;
-            if (sport !== 'all') {
-                filtered = data.filter(o => 
-                    o.sport && o.sport.toLowerCase() === sport
-                );
-            }
-            
+            let filtered = sport === 'all' ? data : data.filter(o => o.sport && o.sport.toLowerCase() === sport);
             if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center text-gray-400 py-8">
-                        <div class="text-4xl mb-4">🔍</div>
-                        <p>No ${sport !== 'all' ? sport : ''} opportunities found</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="text-center text-gray-400 py-8"><div class="text-4xl mb-4">🔍</div><p>No ${sport!=='all'?sport:''} opportunities found</p></div>`;
                 return;
             }
-
             let html = '';
             filtered.forEach(opp => {
-                html += `
-                    <div class="glass rounded-3xl p-4 slide-up">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="font-semibold">${opp.match || 'Unknown Match'}</h3>
-                                <p class="text-gray-400 text-sm">${opp.sport || 'Football'} ${opp.competition ? '• ' + opp.competition : ''}</p>
-                            </div>
-                            <div class="bg-green-500/20 text-green-400 px-3 py-2 rounded-xl font-bold">
-                                +${opp.profit_percent || 0}%
-                            </div>
-                        </div>
-                        <div class="mt-4 space-y-3">
-                            ${(opp.bets || []).map(bet => `
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-400">${bet.outcome || '?'}</span>
-                                    <span><span class="text-gray-400">${bet.bookmaker || '?'}</span> @ <span class="text-green-400 font-bold">${bet.odd || '?'}</span></span>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="mt-3 pt-3 border-t border-gray-800/50 flex justify-between text-xs text-gray-500">
-                            <span>${opp.type || '3-way'} Arbitrage</span>
-                            <span>Stake: ${opp.total_stake || 0} UGX</span>
-                        </div>
-                        <div class="mt-2 flex gap-2 flex-wrap">
-                            ${(opp.bets || []).map(bet => `
-                                <span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full">${bet.bookmaker}</span>
-                            `).join('')}
-                        </div>
+                html += `<div class="glass rounded-3xl p-4 slide-up">
+                    <div class="flex justify-between items-center">
+                        <div><h3 class="font-semibold">${opp.match||'Unknown'}</h3><p class="text-gray-400 text-sm">${opp.sport||'Football'} ${opp.competition?'• '+opp.competition:''}</p></div>
+                        <div class="bg-green-500/20 text-green-400 px-3 py-2 rounded-xl font-bold">+${opp.profit_percent||0}%</div>
                     </div>
-                `;
+                    <div class="mt-4 space-y-3">${(opp.bets||[]).map(bet => `<div class="flex justify-between items-center"><span class="text-gray-400">${bet.outcome||'?'}</span><span><span class="text-gray-400">${bet.bookmaker||'?'}</span> @ <span class="text-green-400 font-bold">${bet.odd||'?'}</span></span></div>`).join('')}</div>
+                    <div class="mt-3 pt-3 border-t border-gray-800/50 flex justify-between text-xs text-gray-500">
+                        <span>${opp.type||'3-way'} Arbitrage</span>
+                        <span>Stake: ${opp.total_stake||0} UGX</span>
+                    </div>
+                    <div class="mt-2 flex gap-2 flex-wrap">${(opp.bets||[]).map(bet => `<span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full">${bet.bookmaker}</span>`).join('')}</div>
+                </div>`;
             });
-            
             container.innerHTML = html;
         } else {
-            container.innerHTML = `
-                <div class="text-center text-gray-400 py-8">
-                    <div class="text-4xl mb-4">📊</div>
-                    <p>No arbitrage opportunities found</p>
-                    <p class="text-xs mt-2">Run a scan to find opportunities</p>
-                    <button onclick="runScan()" class="mt-4 bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm">🔄 Run Scan</button>
-                </div>
-            `;
+            container.innerHTML = `<div class="text-center text-gray-400 py-8"><div class="text-4xl mb-4">📊</div><p>No arbitrage opportunities found</p><p class="text-xs mt-2">Run a scan to find opportunities</p><button onclick="runScan()" class="mt-4 bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm">🔄 Run Scan</button></div>`;
         }
     }
 
-    // ============================================================
-    // FILTERS
-    // ============================================================
     function filterBySport(sport) {
         currentSport = sport;
-        // Update button styles
-        document.querySelectorAll('#filterContainer button').forEach(btn => {
-            btn.className = btn.className.replace('bg-blue-600', 'glass');
-        });
+        document.querySelectorAll('#filterContainer button').forEach(b => b.className = b.className.replace('bg-blue-600', 'glass'));
         event.target.className = 'bg-blue-600 px-4 py-2 rounded-full text-sm whitespace-nowrap';
         loadOpportunities(sport);
     }
 
-    // ============================================================
-    // RUN SCAN - Trigger scraper.py
-    // ============================================================
     async function runScan() {
         showToast('🔄 Running scan...', 'info');
         document.getElementById('statusDot').className = 'status-dot scanning';
         document.getElementById('statusText').textContent = '🔄 Scanning...';
-        
         try {
-            const response = await fetch(`${API_BASE}/api/scan`, {
-                method: 'POST'
-            });
-            const data = await response.json();
-            
+            const res = await fetch(`${API_BASE}/api/scan`, { method: 'POST' });
+            const data = await res.json();
             if (data.success) {
-                showToast('✅ Scan complete! Found new data.', 'success');
+                showToast('✅ Scan complete!', 'success');
                 document.getElementById('statusDot').className = 'status-dot online';
                 document.getElementById('statusText').textContent = '✅ Scan complete';
-                // Reload all data
-                await loadStats();
-                await loadOpportunities(currentSport);
-                await loadBookmakers();
+                await loadStats(); await loadOpportunities(currentSport); await loadBookmakers();
             } else {
                 showToast('❌ Scan failed: ' + data.error, 'error');
                 document.getElementById('statusDot').className = 'status-dot online';
@@ -339,58 +182,20 @@
         }
     }
 
-    // ============================================================
-    // NAVIGATION
-    // ============================================================
     function loadPage(page) {
-        // Update nav buttons
-        document.querySelectorAll('[id^="nav"]').forEach(el => {
-            el.className = 'text-gray-400 p-2';
-        });
+        document.querySelectorAll('[id^="nav"]').forEach(el => el.className = 'text-gray-400 p-2');
         document.getElementById('nav' + page.charAt(0).toUpperCase() + page.slice(1)).className = 'text-green-400 p-2';
-        
         if (page === 'home') {
             document.getElementById('opportunitiesContainer').style.display = 'block';
             loadOpportunities(currentSport);
         } else if (page === 'bookmakers') {
-            document.getElementById('opportunitiesContainer').innerHTML = `
-                <div class="glass rounded-3xl p-4">
-                    <h3 class="font-semibold text-lg mb-4">📚 Bookmakers</h3>
-                    <div id="bookmakerList">Loading...</div>
-                </div>
-            `;
+            document.getElementById('opportunitiesContainer').innerHTML = `<div class="glass rounded-3xl p-4"><h3 class="font-semibold text-lg mb-4">📚 Bookmakers</h3><div id="bookmakerList">Loading...</div></div>`;
             loadBookmakerList();
         } else if (page === 'history') {
-            document.getElementById('opportunitiesContainer').innerHTML = `
-                <div class="glass rounded-3xl p-4">
-                    <h3 class="font-semibold text-lg mb-4">📊 History</h3>
-                    <div id="historyList">Loading...</div>
-                </div>
-            `;
+            document.getElementById('opportunitiesContainer').innerHTML = `<div class="glass rounded-3xl p-4"><h3 class="font-semibold text-lg mb-4">📊 History</h3><div id="historyList">Loading...</div></div>`;
             loadHistory();
         } else if (page === 'settings') {
-            document.getElementById('opportunitiesContainer').innerHTML = `
-                <div class="glass rounded-3xl p-4">
-                    <h3 class="font-semibold text-lg mb-4">⚙️ Settings</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-400">Scan Interval</span>
-                            <select id="scanInterval" class="bg-transparent border border-gray-700 rounded-lg px-3 py-1">
-                                <option value="5">5 min</option>
-                                <option value="15" selected>15 min</option>
-                                <option value="30">30 min</option>
-                                <option value="60">60 min</option>
-                            </select>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-400">Min Profit %</span>
-                            <input type="number" id="minProfit" value="0.5" step="0.1" class="bg-transparent border border-gray-700 rounded-lg px-3 py-1 w-20 text-right">
-                        </div>
-                        <button onclick="saveSettings()" class="w-full bg-green-500/20 text-green-400 py-2 rounded-full">💾 Save Settings</button>
-                        <button onclick="generateAllScrapers()" class="w-full bg-blue-500/20 text-blue-400 py-2 rounded-full">🤖 Generate All AI Scrapers</button>
-                    </div>
-                </div>
-            `;
+            document.getElementById('opportunitiesContainer').innerHTML = `<div class="glass rounded-3xl p-4"><h3 class="font-semibold text-lg mb-4">⚙️ Settings</h3><div class="space-y-4"><div class="flex justify-between items-center"><span class="text-gray-400">Scan Interval</span><select id="scanInterval" class="bg-transparent border border-gray-700 rounded-lg px-3 py-1"><option value="5">5 min</option><option value="15" selected>15 min</option><option value="30">30 min</option><option value="60">60 min</option></select></div><div class="flex justify-between items-center"><span class="text-gray-400">Min Profit %</span><input type="number" id="minProfit" value="0.5" step="0.1" class="bg-transparent border border-gray-700 rounded-lg px-3 py-1 w-20 text-right"></div><button onclick="saveSettings()" class="w-full bg-green-500/20 text-green-400 py-2 rounded-full">💾 Save Settings</button><button onclick="generateAllScrapers()" class="w-full bg-blue-500/20 text-blue-400 py-2 rounded-full">🤖 Generate All AI Scrapers</button></div></div>`;
         }
     }
 
@@ -400,18 +205,10 @@
         if (data && data.bookmakers) {
             let html = '';
             data.bookmakers.forEach(bm => {
-                html += `
-                    <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
-                        <div>
-                            <span class="font-medium">${bm.name}</span>
-                            <span class="text-xs text-gray-500 block">${bm.url}</span>
-                        </div>
-                        <div class="flex gap-2">
-                            <span class="text-xs ${bm.enabled ? 'text-green-400' : 'text-gray-500'}">${bm.enabled ? '● Active' : '○ Inactive'}</span>
-                            <button onclick="generateScraper('${bm.name}')" class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">🤖 AI</button>
-                        </div>
-                    </div>
-                `;
+                html += `<div class="flex justify-between items-center py-2 border-b border-gray-800/50">
+                    <div><span class="font-medium">${bm.name}</span><span class="text-xs text-gray-500 block">${bm.url}</span></div>
+                    <div class="flex gap-2"><span class="text-xs ${bm.enabled ? 'text-green-400' : 'text-gray-500'}">${bm.enabled ? '● Active' : '○ Inactive'}</span><button onclick="generateScraper('${bm.name}')" class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">🤖 AI</button></div>
+                </div>`;
             });
             container.innerHTML = html;
         }
@@ -422,16 +219,11 @@
         const container = document.getElementById('historyList');
         if (data && data.length > 0) {
             let html = '';
-            data.slice(0, 20).forEach(item => {
-                html += `
-                    <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
-                        <div>
-                            <span class="font-medium">${item.match || 'Unknown'}</span>
-                            <span class="text-xs text-gray-500 block">${new Date(item.last_seen).toLocaleString()}</span>
-                        </div>
-                        <span class="text-green-400 font-bold">+${item.profit_percent || 0}%</span>
-                    </div>
-                `;
+            data.slice(0,20).forEach(item => {
+                html += `<div class="flex justify-between items-center py-2 border-b border-gray-800/50">
+                    <div><span class="font-medium">${item.match||'Unknown'}</span><span class="text-xs text-gray-500 block">${new Date(item.last_seen).toLocaleString()}</span></div>
+                    <span class="text-green-400 font-bold">+${item.profit_percent||0}%</span>
+                </div>`;
             });
             container.innerHTML = html || '<p class="text-gray-400 text-center py-4">No history yet</p>';
         } else {
@@ -439,69 +231,170 @@
         }
     }
 
-    // ============================================================
-    // AI SCRAPER GENERATION
-    // ============================================================
     async function generateScraper(name) {
         showToast(`🤖 Generating AI scraper for ${name}...`, 'info');
         try {
-            const response = await fetch(`${API_BASE}/api/generate/${name}`, {
-                method: 'POST'
-            });
-            const data = await response.json();
-            if (data.success) {
-                showToast(`✅ Scraper generated for ${name}`, 'success');
-            } else {
-                showToast(`❌ Failed: ${data.error}`, 'error');
-            }
-        } catch (e) {
-            showToast('❌ Error: ' + e.message, 'error');
-        }
+            const res = await fetch(`${API_BASE}/api/generate/${name}`, { method: 'POST' });
+            const data = await res.json();
+            if (data.success) showToast(`✅ Scraper generated for ${name}`, 'success');
+            else showToast(`❌ Failed: ${data.error}`, 'error');
+        } catch (e) { showToast('❌ Error: ' + e.message, 'error'); }
     }
 
     async function generateAllScrapers() {
         showToast('🤖 Generating all AI scrapers...', 'info');
         try {
-            const response = await fetch(`${API_BASE}/api/generate-all`, {
-                method: 'POST'
-            });
-            const data = await response.json();
-            if (data.success) {
-                showToast('✅ All scrapers generated!', 'success');
-            } else {
-                showToast('❌ Failed: ' + data.error, 'error');
-            }
-        } catch (e) {
-            showToast('❌ Error: ' + e.message, 'error');
-        }
+            const res = await fetch(`${API_BASE}/api/generate-all`, { method: 'POST' });
+            const data = await res.json();
+            if (data.success) showToast('✅ All scrapers generated!', 'success');
+            else showToast('❌ Failed: ' + data.error, 'error');
+        } catch (e) { showToast('❌ Error: ' + e.message, 'error'); }
     }
 
-    function saveSettings() {
-        showToast('✅ Settings saved!', 'success');
-    }
+    function saveSettings() { showToast('✅ Settings saved!', 'success'); }
 
-    // ============================================================
-    // LOAD ALL DATA ON PAGE LOAD
-    // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
-        loadStats();
-        loadBookmakers();
-        loadOpportunities('all');
-        
-        // Auto-refresh every 30 seconds
-        setInterval(() => {
-            loadStats();
-            loadOpportunities(currentSport);
-        }, 30000);
+        loadStats(); loadBookmakers(); loadOpportunities('all');
+        setInterval(() => { loadStats(); loadOpportunities(currentSport); }, 30000);
     });
-
-    // Make functions globally available
-    window.runScan = runScan;
-    window.filterBySport = filterBySport;
-    window.loadPage = loadPage;
-    window.generateScraper = generateScraper;
-    window.generateAllScrapers = generateAllScrapers;
-    window.saveSettings = saveSettings;
+    window.runScan = runScan; window.filterBySport = filterBySport; window.loadPage = loadPage;
+    window.generateScraper = generateScraper; window.generateAllScrapers = generateAllScrapers; window.saveSettings = saveSettings;
 </script>
 </body>
-    </html>
+</html>'''
+
+# ============================================================
+# SERVE HTML
+# ============================================================
+@app.route('/')
+def index():
+    return HTML
+
+# ============================================================
+# API ENDPOINTS – CONNECT TO YOUR REAL FILES
+# ============================================================
+
+def file_exists(f):
+    return os.path.exists(f)
+
+def load_json(f):
+    if file_exists(f):
+        try:
+            with open(f, 'r') as fp:
+                return json.load(fp)
+        except:
+            return {}
+    return {}
+
+@app.route('/api/stats')
+def api_stats():
+    stats = load_json('stats.json')
+    if not stats:
+        history = load_json('arbitrage_history.json')
+        if history:
+            active = [v for v in history.values() if not v.get('invalid_since')]
+            stats = {
+                "total_matches": 0,
+                "total_opportunities": len(active),
+                "bookmakers": [],
+                "last_update": datetime.now().isoformat(),
+                "best_profit": max([o.get('profit_percent', 0) for o in active], default=0),
+                "avg_profit": round(sum([o.get('profit_percent', 0) for o in active]) / len(active), 2) if active else 0
+            }
+        else:
+            stats = {"total_matches":0,"total_opportunities":0,"bookmakers":[],"last_update":datetime.now().isoformat(),"best_profit":0,"avg_profit":0}
+    return jsonify(stats)
+
+@app.route('/api/bookmakers')
+def api_bookmakers():
+    data = load_json('bookmakers.json')
+    if not data or not data.get('bookmakers'):
+        data = {"bookmakers": [
+            {"name":"Bet365","url":"https://www.bet365.ug","enabled":True},
+            {"name":"Betway","url":"https://www.betway.ug","enabled":True},
+            {"name":"Betika","url":"https://www.betika.ug","enabled":True},
+            {"name":"ChampionBet","url":"https://www.championbet.ug","enabled":True},
+            {"name":"AbaBet","url":"https://www.ababet.ug","enabled":True},
+            {"name":"BetPawa","url":"https://www.betpawa.ug","enabled":True},
+            {"name":"Fortebet","url":"https://www.fortebet.ug","enabled":True},
+            {"name":"SportyBet","url":"https://www.sportybet.ug","enabled":True},
+            {"name":"1xBet","url":"https://1xbet.ug","enabled":True},
+            {"name":"22Bet","url":"https://22bet.ug","enabled":True},
+            {"name":"Melbet","url":"https://melbet.ug","enabled":True}
+        ]}
+    return jsonify(data)
+
+@app.route('/api/opportunities')
+def api_opportunities():
+    opps = load_json('opportunities.json')
+    if not opps:
+        history = load_json('arbitrage_history.json')
+        if history:
+            opps = [v for v in history.values() if not v.get('invalid_since')]
+    if isinstance(opps, list):
+        opps = sorted(opps, key=lambda x: x.get('profit_percent', 0), reverse=True)[:50]
+    return jsonify(opps)
+
+@app.route('/api/opportunities/history')
+def api_history():
+    history = load_json('arbitrage_history.json')
+    if history:
+        items = []
+        for key, value in history.items():
+            items.append({'key': key, **value})
+        items = sorted(items, key=lambda x: x.get('last_seen', ''), reverse=True)[:100]
+        return jsonify(items)
+    return jsonify([])
+
+@app.route('/api/scan', methods=['POST'])
+def api_scan():
+    """Run the REAL scraper.py"""
+    try:
+        print("🔄 Running scraper.py...")
+        result = subprocess.run([sys.executable, 'scraper.py'], capture_output=True, text=True, timeout=120)
+        print("Scraper output:", result.stdout)
+        if result.stderr:
+            print("Scraper errors:", result.stderr)
+        return jsonify({'success': True, 'message': 'Scan completed', 'output': result.stdout[:500]})
+    except subprocess.TimeoutExpired:
+        return jsonify({'success': False, 'error': 'Scan timed out'}), 500
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/generate/<name>', methods=['POST'])
+def api_generate(name):
+    """Generate AI scraper for a bookmaker"""
+    try:
+        print(f"🤖 Generating AI scraper for {name}...")
+        result = subprocess.run([sys.executable, 'ai_scraper_manager.py', '--generate', name], capture_output=True, text=True, timeout=60)
+        if result.returncode == 0:
+            return jsonify({'success': True, 'message': f'Scraper generated for {name}'})
+        else:
+            return jsonify({'success': False, 'error': result.stderr or 'Unknown error'}), 500
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/generate-all', methods=['POST'])
+def api_generate_all():
+    try:
+        print("🤖 Generating all AI scrapers...")
+        result = subprocess.run([sys.executable, 'ai_scraper_manager.py', '--generate-all'], capture_output=True, text=True, timeout=120)
+        return jsonify({'success': True, 'message': 'All scrapers generated'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+# ============================================================
+# RUN
+# ============================================================
+if __name__ == '__main__':
+    print("="*60)
+    print("🚀 ArbiScan – Full Backend + Dashboard")
+    print("="*60)
+    print(f"📁 scraper.py: {'✅' if file_exists('scraper.py') else '❌'}")
+    print(f"📁 ai_scraper_manager.py: {'✅' if file_exists('ai_scraper_manager.py') else '❌'}")
+    print(f"📁 bookmakers.json: {'✅' if file_exists('bookmakers.json') else '❌'}")
+    print(f"📁 odds.json: {'✅' if file_exists('odds.json') else '❌'}")
+    print(f"📁 opportunities.json: {'✅' if file_exists('opportunities.json') else '❌'}")
+    print("\n🌐 Server running at: http://localhost:5000")
+    print("="*60)
+    app.run(debug=True, host='0.0.0.0', port=5000)
