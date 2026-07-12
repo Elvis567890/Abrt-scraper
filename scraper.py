@@ -31,8 +31,10 @@ gemini_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
+
 HISTORY_FILE = "arbitrage_history.json"
 FRESHNESS_FILE = "odds_freshness.json"
+
 STAKE = 100000
 STALE_ODDS_HOURS = 1
 
@@ -43,6 +45,7 @@ INVALID_RETENTION_HOURS = 24
 
 BAD_TEAM_NAMES = {"home", "away", "team a", "team b", "tbd", "unknown", "—", "-"}
 
+
 def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
@@ -50,11 +53,13 @@ def normalize(name):
     name = re.sub(r"\s+", " ", name)
     return name
 
+
 def is_bad_team_name(name):
     if not name:
         return True
     n = normalize(name)
     return n in BAD_TEAM_NAMES or len(n) <= 1
+
 
 def teams_match(name1, name2):
     n1, n2 = normalize(name1), normalize(name2)
@@ -71,11 +76,13 @@ def teams_match(name1, name2):
             return True
     return False
 
+
 def match_key_similarity(key1, key2):
     p1, p2 = key1.split(" vs "), key2.split(" vs ")
     if len(p1) != 2 or len(p2) != 2:
         return False
     return teams_match(p1[0], p2[0]) and teams_match(p1[1], p2[1])
+
 
 def clean_odd(v, min_odd=1.01, max_odd=50.0):
     try:
@@ -87,6 +94,7 @@ def clean_odd(v, min_odd=1.01, max_odd=50.0):
     except Exception:
         pass
     return None
+
 
 def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport="Football", competition=""):
     return {
@@ -102,8 +110,10 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
         "sport": sport,
     }
 
+
 FINISHED_STATUSES = {"FINISHED", "FULL_TIME", "FT", "ENDED", "CANCELLED", "CANCELED", "POSTPONED", "SUSPENDED", "ABANDONED"}
 LIVE_INDICATORS = {"LIVE", "IN_PLAY", "IN-PLAY", "PLAYING", "1ST HALF", "2ND HALF", "HT", "HALF TIME"}
+
 
 def is_finished_status(value):
     if not value:
@@ -111,11 +121,13 @@ def is_finished_status(value):
     v = str(value).upper()
     return any(x in v for x in FINISHED_STATUSES)
 
+
 def is_live_status(value):
     if not value:
         return False
     v = str(value).upper()
     return any(x in v for x in LIVE_INDICATORS)
+
 
 def has_live_score_fields(m):
     if not isinstance(m, dict):
@@ -126,11 +138,13 @@ def has_live_score_fields(m):
             return True
     return False
 
+
 def is_today_utc(dt):
     if not isinstance(dt, datetime):
         return True
     today = datetime.now(timezone.utc).date()
     return dt.astimezone(timezone.utc).date() == today
+
 
 def load_history():
     if os.path.exists(HISTORY_FILE):
@@ -141,9 +155,11 @@ def load_history():
             return {}
     return {}
 
+
 def save_history(history):
     with open(HISTORY_FILE, "w") as f:
         json.dump(history, f, indent=2)
+
 
 def load_freshness():
     if os.path.exists(FRESHNESS_FILE):
@@ -154,55 +170,68 @@ def load_freshness():
             return {}
     return {}
 
+
 def save_freshness(freshness):
     with open(FRESHNESS_FILE, "w") as f:
         json.dump(freshness, f, indent=2)
+
 
 def filter_stale_odds(all_odds):
     previous = load_freshness()
     new_freshness, fresh_odds = {}, {}
     now = datetime.now(timezone.utc)
+
     for o in all_odds:
         key = f"{o.get('bookmaker')}|{o.get('match_key')}"
         snapshot = {"home": o.get("home"), "draw": o.get("draw"), "away": o.get("away")}
         old = previous.get(key)
+
         if not old:
             since_str = now.strftime("%Y-%m-%d %H:%M UTC")
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds[o.get('match_key')] = o
+            fresh_odds[o.get("match_key")] = o
             continue
+
         old_snapshot = old.get("snapshot", {})
         since_str = old.get("since")
+
         if snapshot != old_snapshot:
             since_str = now.strftime("%Y-%m-%d %H:%M UTC")
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds[o.get('match_key')] = o
+            fresh_odds[o.get("match_key")] = o
             continue
+
         try:
             since_dt = datetime.strptime(since_str, "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
             hours = (now - since_dt).total_seconds() / 3600
         except Exception:
             hours = 0
+
         if hours <= STALE_ODDS_HOURS:
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds[o.get('match_key')] = o
+            fresh_odds[o.get("match_key")] = o
+
     save_freshness(new_freshness)
     return list(fresh_odds.values())
+
 
 def get_match_status_and_kickoff_football_data(home_team, away_team, date_hint=None):
     if not FOOTBALL_API_KEY:
         return None
+
     if date_hint is None:
         today = datetime.now(timezone.utc).date()
         date_from = date_to = today.isoformat()
     else:
         date_from = date_to = date_hint
+
     url = f"{FOOTBALL_API_BASE}/matches"
     headers = {"X-Auth-Token": FOOTBALL_API_KEY}
     params = {"dateFrom": date_from, "dateTo": date_to}
+
     try:
         resp = requests.get(url, headers=headers, params=params, timeout=10)
         resp.raise_for_status()
@@ -210,11 +239,16 @@ def get_match_status_and_kickoff_football_data(home_team, away_team, date_hint=N
     except Exception as e:
         print("Football-Data.org error:", e)
         return None
+
     matches = data.get("matches", [])
     if not matches:
         return None
-    def _norm_team_obj(tobj): return normalize(tobj.get("name", ""))
+
+    def _norm_team_obj(tobj):
+        return normalize(tobj.get("name", ""))
+
     target_home, target_away = normalize(home_team), normalize(away_team)
+
     for m in matches:
         home = m.get("homeTeam", {}) or {}
         away = m.get("awayTeam", {}) or {}
@@ -228,39 +262,52 @@ def get_match_status_and_kickoff_football_data(home_team, away_team, date_hint=N
                 except Exception:
                     kickoff_dt = None
             return {"status": status, "kickoff": kickoff_dt}
+
     return None
+
 
 def filter_opportunities_with_football_data(opps_list):
     if not FOOTBALL_API_KEY:
         return opps_list
+
     cleaned = []
     now = datetime.now(timezone.utc)
+
     for opp in opps_list:
         match_name = opp.get("match", "")
         parts = match_name.split(" vs ")
         home_team = parts[0].strip() if len(parts) == 2 else match_name
         away_team = parts[1].strip() if len(parts) == 2 else ""
+
         info = get_match_status_and_kickoff_football_data(home_team, away_team)
         if not info:
             cleaned.append(opp)
             continue
+
         status, kickoff = info["status"], info["kickoff"]
+
         if status in {"FINISHED", "CANCELLED", "POSTPONED", "SUSPENDED", "AWARDED"}:
             continue
+
         if kickoff and (now - kickoff) > timedelta(hours=MAX_MATCH_AGE_HOURS):
             continue
+
         cleaned.append(opp)
+
     return cleaned
+
 
 def scrape_with_gemini(url, bookmaker_name, sport="Football"):
     odds = []
     if not gemini_client:
         print("Gemini API key not configured, skipping Gemini scrape.")
         return odds
+
     try:
         resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
         resp.raise_for_status()
         html = resp.text
+
         prompt = f"""
 You are helping extract {sport} betting odds for {bookmaker_name} in Uganda.
 
@@ -284,6 +331,7 @@ Include only pre-match odds, not live matches. Ignore other sports.
 HTML:
 {html}
 """
+
         response = gemini_client.models.generate_content(
             model="gemini-1.5-flash",
             contents=prompt,
@@ -292,8 +340,10 @@ HTML:
         json_start = text.find("{")
         if json_start > 0:
             text = text[json_start:]
+
         data = json.loads(text)
         matches = data.get("matches", []) if isinstance(data, dict) else []
+
         for m in matches:
             try:
                 home_team, away_team = m.get("home_team"), m.get("away_team")
@@ -301,22 +351,43 @@ HTML:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                     continue
-                h, d, a = clean_odd(m.get("home_odd")), clean_odd(m.get("draw_odd")), clean_odd(m.get("away_odd"))
+
+                h = clean_odd(m.get("home_odd"))
+                d = clean_odd(m.get("draw_odd"))
+                a = clean_odd(m.get("away_odd"))
                 if h is None or a is None:
                     continue
+
                 competition = m.get("competition", "") or ""
-                odds.append(build_match_record(home_team, away_team, bookmaker_name, h, d, a, sport, competition))
+
+                odds.append(
+                    build_match_record(
+                        home_team,
+                        away_team,
+                        bookmaker_name,
+                        h,
+                        d,
+                        a,
+                        sport,
+                        competition,
+                    )
+                )
             except Exception:
                 continue
+
     except Exception as e:
         print(f"Gemini scrape error for {bookmaker_name}: {e}")
+
     return odds
+
 
 def scrape_ababet_gemini():
     return scrape_with_gemini("https://www.ababet.ug/", "AbaBet-Gemini", sport="Football")
 
+
 def championbet_extract_1x2(match):
     bet_map = match.get("betMap", {}) or {}
+
     def pick_odd(market_keys):
         for k in market_keys:
             market = bet_map.get(str(k), {}) or {}
@@ -328,7 +399,9 @@ def championbet_extract_1x2(match):
                     if odd is not None:
                         return odd
         return None
+
     return pick_odd([1, 4, 7]), pick_odd([2, 5, 8]), pick_odd([3, 6, 9])
+
 
 def scrape_championbet():
     odds = []
@@ -341,7 +414,9 @@ def scrape_championbet():
         req = urllib.request.Request(CHAMPIONBET_API, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
+
         matches = data.get("esMatches", []) if isinstance(data, dict) else []
+
         for m in matches:
             try:
                 sport_token = str(
@@ -352,9 +427,11 @@ def scrape_championbet():
                 )
                 if "soccer" not in sport_token.lower() and "football" not in sport_token.lower():
                     continue
+
                 status = (m.get("status") or m.get("matchStatus") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(m):
                     continue
+
                 start_raw = m.get("startTime") or m.get("startDate")
                 if start_raw:
                     try:
@@ -363,12 +440,14 @@ def scrape_championbet():
                             continue
                     except Exception:
                         pass
+
                 home_team = m.get("home") or m.get("homeTeam") or m.get("home_team") or m.get("team1") or ""
                 away_team = m.get("away") or m.get("awayTeam") or m.get("away_team") or m.get("team2") or ""
                 if not home_team or not away_team:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                     continue
+
                 h, d, a = championbet_extract_1x2(m)
                 if h is not None and a is not None:
                     odds.append(
@@ -385,9 +464,12 @@ def scrape_championbet():
                     )
             except Exception:
                 continue
+
     except Exception as e:
         print(f"ChampionBet error: {e}")
+
     return odds
+
 
 def scrape_betika():
     odds = []
@@ -401,18 +483,22 @@ def scrape_betika():
         req = urllib.request.Request(BETIKA_API, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
+
         matches = data.get("data", []) if isinstance(data, dict) else []
+
         for m in matches:
             try:
                 status = (m.get("match_status") or m.get("status") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(m):
                     continue
+
                 home_team = m.get("home_team", "")
                 away_team = m.get("away_team", "")
                 if not home_team or not away_team:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                     continue
+
                 h = clean_odd(m.get("home_odd"))
                 d = clean_odd(m.get("neutral_odd"))
                 a = clean_odd(m.get("away_odd"))
@@ -431,9 +517,12 @@ def scrape_betika():
                     )
             except Exception:
                 continue
+
     except Exception as e:
         print(f"Betika error: {e}")
+
     return odds
+
 
 def scrape_ababet():
     odds = []
@@ -445,27 +534,32 @@ def scrape_ababet():
         )
         r.raise_for_status()
         soup = BeautifulSoup(r.text, "html.parser")
+
         for table in soup.find_all("table"):
             first_row = table.find("tr")
             if not first_row:
                 continue
-            headers = [c.get_text(" ", strip=True) for c in first_row.find_all(["th", "td"])]
-            if "Home" not in headers or "Away" not in headers:
+            headers_row = [c.get_text(" ", strip=True) for c in first_row.find_all(["th", "td"])]
+            if "Home" not in headers_row or "Away" not in headers_row:
                 continue
+
             for tr in table.find_all("tr")[1:]:
                 cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
                 if len(cells) < 5:
                     continue
-                row = dict(zip(headers, cells[: len(headers)]))
+
+                row = dict(zip(headers_row, cells[: len(headers_row)]))
                 home_team = row.get("Home")
                 away_team = row.get("Away")
                 status_cell = (row.get("Status") or row.get("Score") or "").upper()
+
                 if is_finished_status(status_cell) or is_live_status(status_cell):
                     continue
                 if not home_team or not away_team:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                     continue
+
                 odds.append(
                     build_match_record(
                         home_team,
@@ -478,9 +572,12 @@ def scrape_ababet():
                         row.get("League", ""),
                     )
                 )
+
     except Exception as e:
         print(f"AbaBet error: {e}")
+
     return odds
+
 
 def scrape_betpawa():
     odds, seen_matches = [], set()
@@ -488,6 +585,7 @@ def scrape_betpawa():
         "https://www.betpawa.ug/events?categoryId=2&marketId=1X2",
         "https://www.betpawa.ug/events/popular",
     ]
+
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
@@ -498,17 +596,21 @@ def scrape_betpawa():
             )
             page = context.new_page()
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+
             for url in urls:
                 try:
                     page.goto(url, timeout=60000)
                     page.wait_for_timeout(6000)
+
                     for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
                         try:
                             text = link.inner_text()
                             if "LIVE" in text.upper() or re.search(r"\b\d{1,3}:\d{2}\b", text):
                                 continue
+
                             parts = [p.strip() for p in text.split("\n") if p.strip()]
                             teams, odd_values, competition = [], [], ""
+
                             for part in parts:
                                 if re.match(r"^\d+\.\d+$", part):
                                     try:
@@ -523,10 +625,12 @@ def scrape_betpawa():
                                     x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
                                 ):
                                     competition = part
+
                             if len(teams) >= 2 and len(odd_values) >= 2:
                                 home_team, away_team = teams[0], teams[1]
                                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                                     continue
+
                                 mk = f"{home_team}vs{away_team}".lower().replace(" ", "")
                                 if mk not in seen_matches:
                                     seen_matches.add(mk)
@@ -546,10 +650,14 @@ def scrape_betpawa():
                             continue
                 except Exception:
                     continue
+
             browser.close()
+
     except Exception as e:
         print(f"BetPawa error: {e}")
+
     return odds
+
 
 def scrape_fortebet():
     odds = []
@@ -565,26 +673,32 @@ def scrape_fortebet():
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
+
         inner = data.get("data", {})
         events, markets, competitors = inner.get("event", {}), inner.get("markets", {}), inner.get("competitors", {})
+
         event_markets = {}
         for _, market in markets.items():
             eid = str(market.get("eventId", ""))
             event_markets.setdefault(eid, []).append(market)
+
         for eid, event in events.items():
             try:
                 status = (event.get("status") or event.get("eventStatus") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(event):
                     continue
+
                 comp_ids = event.get("competitors", [])
                 if len(comp_ids) < 2:
                     continue
+
                 home_team = competitors.get(str(comp_ids[0]), {}).get("name", "")
                 away_team = competitors.get(str(comp_ids[1]), {}).get("name", "")
                 if not home_team or not away_team:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                     continue
+
                 h = d = a = None
                 for market in event_markets.get(eid, []):
                     if market.get("marketId") == 1:
@@ -600,13 +714,18 @@ def scrape_fortebet():
                         elif len(odd_list) == 2:
                             h, a = odd_list[0][1], odd_list[1][1]
                         break
+
                 if h is not None and a is not None:
                     odds.append(build_match_record(home_team, away_team, "Fortebet", h, d, a, "Football"))
+
             except Exception:
                 continue
+
     except Exception as e:
         print(f"Fortebet error: {e}")
+
     return odds
+
 
 def scrape_sportybet():
     odds = []
@@ -617,18 +736,23 @@ def scrape_sportybet():
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
+
         if isinstance(data, list):
             print(f"SPORTYBET SAMPLE: {data[0] if data else 'none'}")
+
             for event in data:
                 try:
                     status = (event.get("status") or event.get("state") or "").upper()
                     if is_finished_status(status) or is_live_status(status) or has_live_score_fields(event):
                         continue
-                    home, away = event.get("home_team", ""), event.get("away_team", "")
+
+                    home = event.get("home_team", "")
+                    away = event.get("away_team", "")
                     if not home or not away:
                         continue
                     if is_bad_team_name(home) or is_bad_team_name(away):
                         continue
+
                     h = clean_odd(event.get("home_odd"))
                     d = clean_odd(event.get("draw_odd"))
                     a = clean_odd(event.get("away_odd"))
@@ -647,9 +771,12 @@ def scrape_sportybet():
                         )
                 except Exception:
                     continue
+
     except Exception as e:
         print(f"SportyBet error: {e}")
+
     return odds
+
 
 def scrape_1xbet():
     odds = []
@@ -669,18 +796,22 @@ def scrape_1xbet():
                 data = json.loads(raw.decode("utf-8"))
             except Exception:
                 data = json.loads(raw.decode("utf-8-sig"))
+
         vals = data.get("Value", []) if isinstance(data, dict) else []
         print(f"1XBET SAMPLE: {vals[0] if vals else 'none'}")
+
         for match in vals:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
                     continue
+
                 home_team, away_team = match.get("O1"), match.get("O2")
                 if not home_team or not away_team:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                     continue
+
                 h = d = a = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -693,13 +824,18 @@ def scrape_1xbet():
                         a = c
                     elif t == "3":
                         d = c
+
                 if h is not None and a is not None:
                     odds.append(build_match_record(home_team, away_team, "1xBet", h, d, a, "Football"))
+
             except Exception:
                 continue
+
     except Exception as e:
         print(f"1xBet error: {e}")
+
     return odds
+
 
 def scrape_22bet():
     odds = []
@@ -715,18 +851,22 @@ def scrape_22bet():
         )
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode("utf-8-sig"))
+
         vals = data.get("Value", []) if isinstance(data, dict) else []
         print(f"22BET SAMPLE: {vals[0] if vals else 'none'}")
+
         for match in vals:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
                     continue
+
                 home_team, away_team = match.get("O1"), match.get("O2")
                 if not home_team or not away_team:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                     continue
+
                 h = d = a = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -739,13 +879,18 @@ def scrape_22bet():
                         a = c
                     elif t == "3":
                         d = c
+
                 if h is not None and a is not None:
                     odds.append(build_match_record(home_team, away_team, "22Bet", h, d, a, "Football"))
+
             except Exception:
                 continue
+
     except Exception as e:
         print(f"22Bet error: {e}")
+
     return odds
+
 
 def scrape_melbet():
     odds = []
@@ -762,16 +907,19 @@ def scrape_melbet():
         req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode("utf-8-sig"))
+
         for match in data.get("Value", []) if isinstance(data, dict) else []:
             try:
                 status = (match.get("SC") or match.get("STAT") or "").upper()
                 if is_finished_status(status) or is_live_status(status) or has_live_score_fields(match):
                     continue
+
                 home_team, away_team = match.get("O1"), match.get("O2")
                 if not home_team or not away_team:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
                     continue
+
                 h = d = a = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -784,24 +932,32 @@ def scrape_melbet():
                         a = c
                     elif t == "3":
                         d = c
+
                 if h is not None and a is not None:
                     odds.append(build_match_record(home_team, away_team, "Melbet", h, d, a, "Football"))
+
             except Exception:
                 continue
+
     except Exception as e:
         print(f"Melbet error: {e}")
+
     return odds
+
 
 def find_arbitrage(all_odds):
     opportunities, sports_odds = [], {}
     for odd in all_odds:
         sports_odds.setdefault(odd.get("sport", "Football"), []).append(odd)
+
     for sport, sport_odds in sports_odds.items():
         exact_groups = {}
         for odd in sport_odds:
             exact_groups.setdefault(odd.get("match_key", ""), []).append(odd)
+
         merged_groups, processed = {}, set()
         keys = list(exact_groups.keys())
+
         for i, key1 in enumerate(keys):
             if key1 in processed:
                 continue
@@ -814,10 +970,12 @@ def find_arbitrage(all_odds):
                     group.extend(exact_groups[key2])
                     processed.add(key2)
             merged_groups[key1] = group
+
         for match_name, bookmakers in merged_groups.items():
             bookie_names = set(b["bookmaker"] for b in bookmakers)
             if len(bookie_names) < 2:
                 continue
+
             bk_odds = {}
             for b in bookmakers:
                 bk = b["bookmaker"]
@@ -829,7 +987,9 @@ def find_arbitrage(all_odds):
                     bk_odds[bk]["draw"] = d
                 if a is not None and a > bk_odds[bk]["away"]:
                     bk_odds[bk]["away"] = a
+
             bk_list = list(bk_odds.keys())
+
             if sport in ["Football", "Rugby", "Futsal"]:
                 best = None
                 for bk_h in bk_list:
@@ -859,6 +1019,7 @@ def find_arbitrage(all_odds):
                                             {
                                                 "bookmaker": bk_h,
                                                 "outcome": "Home",
+                                                "selection": "Home",
                                                 "odd": h,
                                                 "stake": stake_h,
                                                 "win": round(stake_h * h),
@@ -866,6 +1027,7 @@ def find_arbitrage(all_odds):
                                             {
                                                 "bookmaker": bk_d,
                                                 "outcome": "Draw",
+                                                "selection": "Draw",
                                                 "odd": d,
                                                 "stake": stake_d,
                                                 "win": round(stake_d * d),
@@ -873,6 +1035,7 @@ def find_arbitrage(all_odds):
                                             {
                                                 "bookmaker": bk_a,
                                                 "outcome": "Away",
+                                                "selection": "Away",
                                                 "odd": a,
                                                 "stake": stake_a,
                                                 "win": round(stake_a * a),
@@ -908,6 +1071,7 @@ def find_arbitrage(all_odds):
                                         {
                                             "bookmaker": bk_h,
                                             "outcome": "Home",
+                                            "selection": "Home",
                                             "odd": h,
                                             "stake": stake_h,
                                             "win": round(stake_h * h),
@@ -915,6 +1079,7 @@ def find_arbitrage(all_odds):
                                         {
                                             "bookmaker": bk_a,
                                             "outcome": "Away",
+                                            "selection": "Away",
                                             "odd": a,
                                             "stake": stake_a,
                                             "win": round(stake_a * a),
@@ -923,84 +1088,92 @@ def find_arbitrage(all_odds):
                                 }
                 if best:
                     opportunities.append(best)
+
     return opportunities
 
-def purge_old_invalid(history):
-    now = datetime.now(timezone.utc)
-    keep = {}
-    for key, value in history.items():
-        invalid_since = value.get("invalid_since")
-        if not invalid_since:
-            keep[key] = value
-            continue
+
+def load_arbitrage_history_list():
+    if os.path.exists(HISTORY_FILE):
         try:
-            dt = datetime.fromisoformat(invalid_since)
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                return data
+            if isinstance(data, dict):
+                return list(data.values())
         except Exception:
-            keep[key] = value
-            continue
-        if (now - dt).total_seconds() / 3600 <= INVALID_RETENTION_HOURS:
-            keep[key] = value
-    return keep
+            pass
+    return []
+
+
+def save_arbitrage_history_list(history_list):
+    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+        json.dump(history_list, f, indent=2)
+
+
+def write_dashboard_feed(opportunities, all_odds):
+    history = load_arbitrage_history_list()
+    now_iso = datetime.now(timezone.utc).isoformat()
+
+    for opp in opportunities:
+        entry = dict(opp)
+        entry["_seen_at"] = now_iso
+        history.append(entry)
+
+    MAX_HISTORY = 5000
+    if len(history) > MAX_HISTORY:
+        history = history[-MAX_HISTORY:]
+
+    save_arbitrage_history_list(history)
+
+    bookmakers = sorted({o.get("bookmaker") for o in all_odds if o.get("bookmaker")})
+
+    data = {
+        "last_updated": now_iso,
+        "stake": STAKE,
+        "opportunities": opportunities,
+        "raw_odds": all_odds,
+        "history": history,
+        "total_matches": len(all_odds),
+        "bookmakers": bookmakers,
+    }
+
+    with open("odds.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
 
 def main():
-    print("Scraping ChampionBet..."); championbet_odds = scrape_championbet()
-    print("Scraping Betika..."); betika_odds = scrape_betika()
-    print("Scraping AbaBet..."); ababet_odds = scrape_ababet()
-    print("Scraping AbaBet-Gemini..."); ababet_gemini_odds = scrape_ababet_gemini()
-    print("Scraping BetPawa..."); betpawa_odds = scrape_betpawa()
-    print("Scraping Fortebet..."); fortebet_odds = scrape_fortebet()
-    print("Scraping SportyBet..."); sportybet_odds = scrape_sportybet()
-    print("Scraping 1xBet..."); onexbet_odds = scrape_1xbet()
-    print("Scraping 22Bet..."); twentytwobet_odds = scrape_22bet()
-    print("Scraping Melbet..."); melbet_odds = scrape_melbet()
+    scrapers = [
+        scrape_championbet,
+        scrape_betika,
+        scrape_ababet,
+        scrape_ababet_gemini,
+        scrape_betpawa,
+        scrape_fortebet,
+        scrape_sportybet,
+        scrape_1xbet,
+        scrape_22bet,
+        scrape_melbet,
+    ]
 
-    all_odds = (
-        championbet_odds
-        + betika_odds
-        + ababet_odds
-        + ababet_gemini_odds
-        + betpawa_odds
-        + fortebet_odds
-        + sportybet_odds
-        + onexbet_odds
-        + twentytwobet_odds
-        + melbet_odds
-    )
+    all_odds = []
+    for scraper in scrapers:
+        try:
+            print("Running", scraper.__name__)
+            result = scraper()
+            print(scraper.__name__, "found", len(result), "matches")
+            all_odds.extend(result)
+        except Exception as e:
+            print(scraper.__name__, "failed:", e)
+
     all_odds = filter_stale_odds(all_odds)
+    opportunities = find_arbitrage(all_odds)
+    opportunities = filter_opportunities_with_football_data(opportunities)
 
-    opps = find_arbitrage(all_odds)
-    opps = filter_opportunities_with_football_data(opps)
+    print("Total fresh odds:", len(all_odds), "current arbs:", len(opportunities))
 
-    history = load_history()
-    now = datetime.now(timezone.utc).isoformat()
-    new_opps = []
-    for opp in opps:
-        key = f"{opp['match']}|{opp['sport']}|{opp['type']}"
-        prev = history.get(key)
-        if prev:
-            opp["first_seen"] = prev.get("first_seen", now)
-            opp["last_seen"] = now
-            opp["invalid_since"] = None
-        else:
-            opp["first_seen"] = now
-            opp["last_seen"] = now
-        history[key] = opp
-        new_opps.append(opp)
+    write_dashboard_feed(opportunities, all_odds)
 
-    current_keys = {f"{o['match']}|{o['sport']}|{o['type']}" for o in opps}
-    for key, value in list(history.items()):
-        if key not in current_keys and not value.get("invalid_since"):
-            value["invalid_since"] = now
-            history[key] = value
-
-    history = purge_old_invalid(history)
-    save_history(history)
-
-    print(
-        f"Done. Matches: {len(all_odds)}, "
-        f"new run opportunities: {len(new_opps)}, "
-        f"total kept in history: {len(history)}"
-    )
 
 if __name__ == "__main__":
     main()
