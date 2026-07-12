@@ -1,395 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArbiScan Mobile</title>
+  <meta charset="UTF-8">
+  <title>ArbiScan – Live Arbitrage Opportunities</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0b1020;
-            color: #e6edf3;
-            padding-bottom: 80px;
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .profitGlow {
-            box-shadow: 0 0 20px rgba(16, 185, 129, .4);
-        }
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #020617; /* slate-950 */
+      color: #e5e7eb;
+      padding-bottom: 80px;
+    }
+    .glass {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 18px;
+      backdrop-filter: blur(12px);
+    }
+    .glow {
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.35);
+    }
+    .badge {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-green { background: rgba(34, 197, 94, 0.18); color: #4ade80; }
+    .badge-blue { background: rgba(59, 130, 246, 0.18); color: #60a5fa; }
+    .badge-gray { background: rgba(148, 163, 184, 0.18); color: #cbd5f5; }
 
-        .arb-card {
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-        .arb-card:hover { border-color: rgba(16, 185, 129, 0.3); }
-        
-        .badge {
-            font-size: 10px;
-            padding: 2px 10px;
-            border-radius: 999px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .badge.green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-        .badge.blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-        .badge.gray { background: rgba(255, 255, 255, 0.04); color: #8b98a5; }
+    .nav-tab {
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 13px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.9);
+      color: #9ca3af;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .nav-tab.active {
+      background: rgba(34, 197, 94, 0.16);
+      border-color: #22c55e;
+      color: #bbf7d0;
+    }
 
-        .profit-pct {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(251, 146, 60, 0.1);
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #fb923c;
-        }
+    .page { display: none; }
+    .page.active { display: block; }
 
-        .arb-bet {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            margin-top: 4px;
-            font-size: 12px;
-        }
+    .arb-card {
+      border-radius: 18px;
+      border: 1px solid rgba(55, 65, 81, 0.6);
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.12), rgba(15, 23, 42, 0.95));
+      padding: 14px;
+    }
 
-        .section-tabs {
-            display: flex;
-            gap: 8px;
-            margin: 12px 0 16px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-        .section-tab {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #8b98a5;
-            border-radius: 999px;
-            padding: 6px 16px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        .section-tab.active {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: #10b981;
-            color: #34d399;
-        }
+    .arb-bet-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      font-size: 12px;
+      margin-top: 6px;
+    }
 
-        .page { display: none; }
-        .page.active { display: block; }
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 520px;
+      font-size: 12px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+    }
+    th {
+      color: #9ca3af;
+      font-weight: 500;
+    }
 
-        /* NO FALLBACK, PURE DATA RENDERING */
-        .table-wrap { overflow-x: auto; }
-        .table-wrap table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 500px;
-            font-size: 12px;
-        }
-        .table-wrap th {
-            color: #8b98a5;
-            text-align: left;
-            padding: 8px 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .table-wrap td {
-            padding: 8px 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(11, 16, 32, 0.92);
-            backdrop-filter: blur(14px);
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding: 8px 0 12px;
-            z-index: 50;
-            display: flex;
-            justify-content: space-around;
-        }
-    </style>
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 8px 0 10px;
+      background: rgba(15, 23, 42, 0.96);
+      border-top: 1px solid rgba(55, 65, 81, 0.9);
+      display: flex;
+      justify-content: space-around;
+      z-index: 40;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <div class="sticky top-0 z-50 glass p-4 flex items-center justify-between">
-        <div>
-            <h1 class="text-xl font-bold">ArbiScan</h1>
-            <p class="text-xs text-gray-400" id="statusText">Live Sports Arbitrage</p>
-        </div>
-        <div class="flex items-center gap-3">
-            <div class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs">● LIVE</div>
-            <span class="text-xs text-gray-400" id="lastUpdated">-</span>
-        </div>
+  <!-- Header -->
+  <header class="sticky top-0 z-30 glass px-4 py-3 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-semibold text-white">ArbiScan</h1>
+      <p id="statusText" class="text-xs text-slate-400">Waiting for odds.json...</p>
     </div>
-
-    <!-- HERO -->
-    <div class="p-4">
-        <div class="glass rounded-3xl p-4 profitGlow">
-            <p class="text-gray-400 text-sm">🔥 Best Opportunity</p>
-            <div class="text-3xl font-bold mt-1 text-green-400" id="heroProfit">0.00%</div>
-            <div class="text-xs text-gray-400 mt-1" id="heroSub">Waiting for data...</div>
-        </div>
+    <div class="flex items-center gap-3">
+      <span id="liveBadge" class="badge badge-green">
+        <span class="text-green-400">●</span> LIVE
+      </span>
+      <span id="lastUpdated" class="text-xs text-slate-400">--:--:--</span>
     </div>
+  </header>
 
-    <!-- STATS (STRICTLY LIVE NUMBERS) -->
-    <div class="px-4 mb-4">
-        <div class="flex gap-3 overflow-x-auto pb-2">
-            <div class="glass rounded-2xl p-3 min-w-[90px]">
-                <p class="text-gray-400 text-[10px] uppercase">Valid (Live)</p>
-                <h3 class="text-xl font-bold mt-1 text-green-400" id="validCount">0</h3>
-            </div>
-            <div class="glass rounded-2xl p-3 min-w-[90px]">
-                <p class="text-gray-400 text-[10px] uppercase">Invalid (Hist)</p>
-                <h3 class="text-xl font-bold mt-1 text-red-400" id="invalidCount">0</h3>
-            </div>
-            <div class="glass rounded-2xl p-3 min-w-[90px]">
-                <p class="text-gray-400 text-[10px] uppercase">Matches</p>
-                <h3 class="text-xl font-bold mt-1 text-blue-400" id="matchCount">0</h3>
-            </div>
-        </div>
+  <!-- Hero -->
+  <section class="p-4">
+    <div class="glass glow px-4 py-3 flex flex-col gap-1">
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-slate-400">Best Opportunity</span>
+        <span id="heroMatch" class="text-[11px] text-slate-400"></span>
+      </div>
+      <div class="flex items-baseline gap-2">
+        <span id="heroProfit" class="text-3xl font-bold text-emerald-400">0.00%</span>
+        <span id="heroProfitUgx" class="text-xs text-slate-400">UGX 0</span>
+      </div>
+      <p id="heroMeta" class="text-[11px] text-slate-400">No opportunities yet.</p>
     </div>
+  </section>
 
-    <!-- TABS -->
-    <div class="px-4">
-        <div class="section-tabs">
-            <button class="section-tab active" data-page="dashboard" onclick="showPage('dashboard', this)">Dashboard</button>
-            <button class="section-tab" data-page="arbitrage" onclick="showPage('arbitrage', this)">Arbs</button>
-            <button class="section-tab" data-page="odds" onclick="showPage('odds', this)">Odds</button>
-        </div>
+  <!-- Stats -->
+  <section class="px-4 mb-3">
+    <div class="flex gap-3 overflow-x-auto pb-1">
+      <div class="glass px-3 py-2 min-w-[95px]">
+        <p class="text-[10px] uppercase text-slate-400">Live Arbs</p>
+        <p id="statLive" class="text-xl font-semibold text-emerald-400">0</p>
+      </div>
+      <div class="glass px-3 py-2 min-w-[95px]">
+        <p class="text-[10px] uppercase text-slate-400">History</p>
+        <p id="statHistory" class="text-xl font-semibold text-orange-400">0</p>
+      </div>
+      <div class="glass px-3 py-2 min-w-[95px]">
+        <p class="text-[10px] uppercase text-slate-400">Matches</p>
+        <p id="statMatches" class="text-xl font-semibold text-sky-400">0</p>
+      </div>
+      <div class="glass px-3 py-2 min-w-[95px]">
+        <p class="text-[10px] uppercase text-slate-400">Books</p>
+        <p id="statBooks" class="text-xl font-semibold text-fuchsia-400">0</p>
+      </div>
     </div>
+  </section>
 
-    <!-- DASHBOARD -->
-    <section class="page active" id="dashboard">
-        <div class="px-4 space-y-4">
-            <div class="glass rounded-3xl p-4">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium">Scraper Status</span>
-                    <span class="text-xs text-gray-400">Live</span>
-                </div>
-                <div id="status" class="text-sm text-gray-400">Loading JSON...</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ARBITRAGE -->
-    <section class="page" id="arbitrage">
-        <div class="px-4">
-            <div class="glass rounded-3xl p-4">
-                <div class="flex justify-between items-center mb-3">
-                    <span class="text-sm font-medium">🎯 Live Opportunities</span>
-                    <span id="arbInfo" class="text-xs text-orange-400 font-semibold"></span>
-                </div>
-
-                <div class="flex gap-2 overflow-x-auto pb-2 mb-3">
-                    <button class="bg-blue-600 px-4 py-2 rounded-full text-sm" onclick="filterBySport(event, 'all')">All</button>
-                    <button class="glass px-4 py-2 rounded-full text-sm" onclick="filterBySport(event, 'football')">Football</button>
-                    <button class="glass px-4 py-2 rounded-full text-sm" onclick="filterBySport(event, 'tennis')">Tennis</button>
-                </div>
-
-                <div id="arbs">
-                    <div class="text-center text-gray-400 py-4">⏳ Loading live opportunities...</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ODDS -->
-    <section class="page" id="odds">
-        <div class="px-4">
-            <div class="glass rounded-3xl p-4">
-                <div class="flex justify-between items-center mb-3">
-                    <span class="text-sm font-medium">📊 Raw Odds Entries</span>
-                    <span id="oddsCount" class="text-xs text-orange-400 font-semibold"></span>
-                </div>
-                <div class="table-wrap">
-                    <div id="oddsTable">
-                        <div class="text-center text-gray-400 py-4">⏳ Loading odds...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BOTTOM NAV -->
-    <div class="bottom-nav">
-        <div onclick="showPage('dashboard', document.querySelector('[data-page=dashboard]'))" class="text-green-400 p-2 text-center cursor-pointer">
-            <span class="block text-lg">🏠</span><span class="text-xs">Home</span>
-        </div>
-        <div onclick="showPage('arbitrage', document.querySelector('[data-page=arbitrage]'))" class="text-gray-400 p-2 text-center cursor-pointer">
-            <span class="block text-lg">⚡</span><span class="text-xs">Arbs</span>
-        </div>
-        <div onclick="showPage('odds', document.querySelector('[data-page=odds]'))" class="text-gray-400 p-2 text-center cursor-pointer">
-            <span class="block text-lg">📊</span><span class="text-xs">Odds</span>
-        </div>
+  <!-- Tabs -->
+  <section class="px-4">
+    <div class="flex gap-2 mb-3 overflow-x-auto">
+      <button class="nav-tab active" data-page="page-arbs" onclick="showPage('page-arbs', this)">Arbs</button>
+      <button class="nav-tab" data-page="page-odds" onclick="showPage('page-odds', this)">Raw Odds</button>
     </div>
+  </section>
 
-    <!-- ═══ PURE, UN-SIMULATED BACKEND LOGIC ═══ -->
-    <script>
-        let liveOpps = [];
-        let rawOdds = [];
-        let currentSport = 'all';
+  <!-- Arbs Page -->
+  <section id="page-arbs" class="page active px-4 pb-20">
+    <div id="arbsContainer" class="space-y-3">
+      <div class="glass px-3 py-4 text-sm text-slate-400 text-center">
+        ⏳ Waiting for first odds.json load...
+      </div>
+    </div>
+  </section>
 
-        function showPage(page, el){
-            document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-            document.getElementById(page).classList.add('active');
-            document.querySelectorAll('.section-tab').forEach(t=>t.classList.remove('active'));
-            if (el) el.classList.add('active');
-        }
+  <!-- Odds Page -->
+  <section id="page-odds" class="page px-4 pb-20">
+    <div class="glass px-3 py-3">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-sm font-medium text-white">Raw Odds</h2>
+        <span id="oddsCount" class="text-xs text-orange-400">0 rows</span>
+      </div>
+      <div class="table-wrap">
+        <div id="oddsTable" class="text-center text-slate-400 text-sm py-4">
+          ⏳ Waiting for odds.json...
+        </div>
+      </div>
+    </div>
+  </section>
 
-        function formatKickoff(kickoff){
-            if(!kickoff) return '';
-            const d = new Date(String(kickoff).replace(' UTC','Z'));
-            if(isNaN(d.getTime())) return '';
-            return new Intl.DateTimeFormat(undefined, {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'}).format(d);
-        }
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button onclick="showPage('page-arbs', document.querySelector('[data-page=page-arbs]'))"
+            class="flex flex-col items-center text-emerald-400 text-xs">
+      <span class="text-lg">⚡</span>
+      <span>Arbs</span>
+    </button>
+    <button onclick="showPage('page-odds', document.querySelector('[data-page=page-odds]'))"
+            class="flex flex-col items-center text-slate-400 text-xs">
+      <span class="text-lg">📊</span>
+      <span>Odds</span>
+    </button>
+  </nav>
 
-        // ─── STRICTLY READS THE JSON, NO SIMULATION ───
-        async function load(){
-            try{
-                const r = await fetch('odds.json?t=' + Date.now());
-                const d = await r.json();
-                
-                // Extract exact data from JSON
-                liveOpps = d.opportunities || [];
-                rawOdds = d.raw_odds || [];
-                const historyData = d.history || [];
-                const bookmakers = d.bookmakers_scraped || [...new Set(rawOdds.map(x=>x.bookmaker))];
+  <script>
+    let state = {
+      opportunities: [],
+      raw_odds: [],
+      last_updated: null,
+      stake: 100000,
+      history_count: 0,
+      bookmakers: [],
+      total_matches: 0
+    };
 
-                // DIRECT MATH - NO COMPLICATED HISTORY LOOPING
-                const validCount = liveOpps.length;           // Should be 2
-                const totalHistory = historyData.length;      // Should be 5459
-                const invalidCount = totalHistory - validCount; // Should be 5457
-                const matchCount = d.total_matches || rawOdds.length; // Should be 1296
+    function showPage(pageId, el) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
 
-                // Update DOM
-                document.getElementById('lastUpdated').textContent = d.last_updated ? new Date(d.last_updated).toLocaleTimeString() : '-';
-                document.getElementById('validCount').textContent = validCount;
-                document.getElementById('invalidCount').textContent = invalidCount;
-                document.getElementById('matchCount').textContent = matchCount;
-                // BUG 1 FIXED: removed opportunitiesCount line
-                document.getElementById('status').textContent = 
-                    `Loaded ${rawOdds.length} odds entries from ${bookmakers.length} bookmakers. ` +
-                    `${validCount} valid & ${invalidCount} invalid (history: ${totalHistory}).`;
+    async function loadOdds() {
+      try {
+        const res = await fetch('odds.json?t=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
 
-                // Render Data
-                renderArbs(liveOpps);
-                renderOdds(rawOdds);
+        state.opportunities = data.opportunities || [];
+        state.raw_odds = data.raw_odds || [];
+        state.last_updated = data.last_updated || null;
+        state.stake = Number(data.stake || 100000);
+        state.history_count = Number(data.history_count || 0);
+        state.bookmakers = data.bookmakers || [];
+        state.total_matches = Number(data.total_matches || state.raw_odds.length || 0);
 
-            }catch(e){
-                // NO FALLBACK DUMMY DATA - JUST SHOW THE ERROR
-                document.getElementById('status').textContent = '⚠️ Error: ' + e.message;
-                document.getElementById('arbs').innerHTML = '<div class="text-center text-red-400 py-4">❌ Failed to load odds.json</div>';
-                document.getElementById('oddsTable').innerHTML = '<div class="text-center text-red-400 py-4">❌ Failed to load odds.json</div>';
-            }
-        }
+        updateHeader();
+        renderStats();
+        renderArbs();
+        renderOddsTable();
+      } catch (err) {
+        document.getElementById('statusText').textContent = 'Error reading odds.json: ' + err.message;
+        document.getElementById('liveBadge').classList.remove('badge-green');
+        document.getElementById('liveBadge').classList.add('badge-gray');
+      }
+    }
 
-        // ─── RENDER LIVE OPPORTUNITIES ───
-        function renderArbs(opps){
-            const container = document.getElementById('arbs');
-            document.getElementById('arbInfo').textContent = opps.length + ' live';
+    function updateHeader() {
+      const statusText = document.getElementById('statusText');
+      const lastUpdatedEl = document.getElementById('lastUpdated');
 
-            if(opps.length === 0){
-                container.innerHTML = '<div class="text-center text-gray-400 py-4">📭 No live opportunities right now.</div>';
-                return;
-            }
+      if (state.last_updated) {
+        const d = new Date(state.last_updated);
+        lastUpdatedEl.textContent = d.toLocaleTimeString();
+        statusText.textContent = 'Showing live opportunities from odds.json';
+      } else {
+        lastUpdatedEl.textContent = '--:--:--';
+        statusText.textContent = 'Waiting for odds.json';
+      }
+    }
 
-            // Find best for Hero card
-            const best = opps.reduce((a,b) => (Number(b.profit_percent)||0) > (Number(a.profit_percent)||0) ? b : a);
-            document.getElementById('heroProfit').textContent = `${Number(best.profit_percent || 0).toFixed(2)}%`;
-            document.getElementById('heroSub').textContent = `${best.match || 'Unknown'} • ${best.type || ''}`;
+    function renderStats() {
+      document.getElementById('statLive').textContent = state.opportunities.length;
+      document.getElementById('statHistory').textContent = state.history_count;
+      document.getElementById('statMatches').textContent = state.total_matches;
+      document.getElementById('statBooks').textContent = state.bookmakers.length;
+    }
 
-            let html = '';
-            opps.forEach(o => {
-                const bets = o.bets || [];
-                const arb = bets.reduce((s,b) => s + (1/Number(b.odd || 1)), 0);
-                const stake = parseInt(document.getElementById('stake')?.value) || 100000;
-                const profitUGX = Math.round(stake * (1 - arb));
+    function renderArbs() {
+      const container = document.getElementById('arbsContainer');
+      const opps = state.opportunities;
 
-                const betsHtml = bets.map(b => `
-                    <div class="arb-bet">
-                        <div><span class="text-green-400 font-bold">${b.bookmaker}</span> <span class="text-gray-400">${b.selection || ''}</span></div>
-                        <div><span class="text-white font-semibold">@ ${b.odd}</span></div>
-                    </div>
-                `).join('');
+      if (!opps.length) {
+        container.innerHTML = `
+          <div class="glass px-3 py-4 text-sm text-slate-400 text-center">
+            📭 No live arbitrage opportunities at the moment.
+          </div>
+        `;
+        document.getElementById('heroProfit').textContent = '0.00%';
+        document.getElementById('heroProfitUgx').textContent = 'UGX 0';
+        document.getElementById('heroMeta').textContent = 'No opportunities yet.';
+        document.getElementById('heroMatch').textContent = '';
+        return;
+      }
 
-                html += `
-                    <div class="arb-card">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <div class="font-semibold">${o.match}</div>
-                                <div class="text-xs text-gray-400">${o.sport || ''} ${o.competition || ''}</div>
-                            </div>
-                            <div class="profit-pct">+${Number(o.profit_percent || 0).toFixed(2)}%</div>
-                        </div>
-                        <div class="mt-3 text-xs text-gray-500">Profit: UGX ${profitUGX.toLocaleString()}</div>
-                        <div class="mt-3">${betsHtml}</div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
+      const best = opps.reduce((a, b) =>
+        (Number(b.profit_percent) || 0) > (Number(a.profit_percent) || 0) ? b : a
+      );
 
-        // ─── RENDER ODDS TABLE ───
-        function renderOdds(odds){
-            document.getElementById('oddsCount').textContent = odds.length + ' rows';
-            const wrap = document.getElementById('oddsTable');
-            if(!odds.length){
-                wrap.innerHTML = '<div class="text-center text-gray-400 py-4">⏳ No odds entries yet.</div>';
-                return;
-            }
-            wrap.innerHTML = `
-                <table>
-                    <thead><tr><th>Match</th><th>Bookmaker</th><th>Home</th><th>Draw</th><th>Away</th></tr></thead>
-                    <tbody>
-                        ${odds.map(o => `
-                            <tr>
-                                <td>${o.match}</td>
-                                <td><span class="badge blue">${o.bookmaker}</span></td>
-                                <td>${o.home ?? '-'}</td>
-                                <td>${o.draw ?? '-'}</td>
-                                <td>${o.away ?? '-'}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
-        }
+      document.getElementById('heroProfit').textContent =
+        (Number(best.profit_percent) || 0).toFixed(2) + '%';
+      document.getElementById('heroProfitUgx').textContent =
+        'UGX ' + (Number(best.profit_ugx) || 0).toLocaleString();
+      document.getElementById('heroMeta').textContent =
+        (best.sport || '') + (best.competition ? ' • ' + best.competition : '');
+      document.getElementById('heroMatch').textContent =
+        best.match || '';
 
-        function filterBySport(evt, sport){
-            currentSport = sport;
-            document.querySelectorAll('.section-tabs button').forEach(b=>b.className = 'section-tab');
-            evt.target.className = 'section-tab active';
-            
-            let filtered = liveOpps;
-            if(sport !== 'all') filtered = liveOpps.filter(o => o.sport && o.sport.toLowerCase() === sport);
-            renderArbs(filtered);
-        }
+      let html = '';
+      opps.forEach(o => {
+        const bets = o.bets || [];
+        const betsHtml = bets.map(b => `
+          <div class="arb-bet-row">
+            <div>
+              <div class="text-xs font-semibold text-emerald-400">${b.bookmaker}</div>
+              <div class="text-[11px] text-slate-300">${b.selection || b.outcome || ''}</div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs text-sky-300">@ ${b.odd}</div>
+              <div class="text-[11px] text-slate-400">UGX ${(b.stake || 0).toLocaleString()}</div>
+            </div>
+          </div>
+        `).join('');
 
-        // INIT - no simulation, strictly live
-        load();
-        setInterval(load, 30000);
-    </script>
+        html += `
+          <div class="arb-card">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="text-sm font-semibold text-white">${o.match}</div>
+                <div class="text-[11px] text-slate-400">
+                  ${(o.sport || '')}${o.competition ? ' • ' + o.competition : ''}
+                </div>
+              </div>
+              <div class="badge badge-green">
+                +${(Number(o.profit_percent) || 0).toFixed(2)}%
+              </div>
+            </div>
+            <div class="mt-2 text-[11px] text-slate-400">
+              Arb sum: ${(Number(o.arb_sum) || 0).toFixed(4)} • Profit: UGX ${(Number(o.profit_ugx) || 0).toLocaleString()}
+            </div>
+            <div class="mt-2">
+              ${betsHtml}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function renderOddsTable() {
+      const wrap = document.getElementById('oddsTable');
+      const odds = state.raw_odds;
+      document.getElementById('oddsCount').textContent = odds.length + ' rows';
+
+      if (!odds.length) {
+        wrap.innerHTML = `
+          <div class="text-center text-slate-400 text-sm py-4">
+            ⏳ No odds entries in odds.json yet.
+          </div>
+        `;
+        return;
+      }
+
+      wrap.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Match</th>
+              <th>Sport</th>
+              <th>Competition</th>
+              <th>Bookmaker</th>
+              <th>Home</th>
+              <th>Draw</th>
+              <th>Away</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${odds.map(o => `
+              <tr>
+                <td>${o.match}</td>
+                <td>${o.sport || ''}</td>
+                <td>${o.competition || ''}</td>
+                <td><span class="badge badge-blue">${o.bookmaker}</span></td>
+                <td>${o.home ?? '-'}</td>
+                <td>${o.draw ?? '-'}</td>
+                <td>${o.away ?? '-'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    // Initial load and polling (display only; does not start/stop the scraper)
+    loadOdds();
+    setInterval(loadOdds, 30000);
+  </script>
 </body>
 </html>
-
