@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arbitrage Dashboard</title>
 
 <style>
@@ -15,16 +15,17 @@
 
 body{
     background:#0b1120;
-    color:white;
+    color:#fff;
 }
 
-.header{
-    padding:20px;
+header{
     background:#111827;
+    padding:20px;
+    text-align:center;
     border-bottom:1px solid #1f2937;
 }
 
-.header h1{
+header h1{
     font-size:28px;
 }
 
@@ -37,52 +38,53 @@ body{
 
 .card{
     background:#111827;
-    padding:20px;
     border-radius:15px;
+    padding:20px;
 }
 
-.card h2{
-    font-size:15px;
+.card h3{
     color:#9ca3af;
+    font-size:15px;
 }
 
 .card h1{
     margin-top:10px;
-    font-size:30px;
+    font-size:32px;
 }
 
-.matches{
+.container{
     padding:20px;
 }
 
 .match{
     background:#111827;
-    margin-bottom:15px;
     border-radius:15px;
     padding:20px;
+    margin-bottom:15px;
     cursor:pointer;
-    transition:0.3s;
+    transition:.3s;
 }
 
 .match:hover{
-    transform:scale(1.02);
+    transform:translateY(-3px);
 }
 
-.match-header{
+.row{
     display:flex;
     justify-content:space-between;
     flex-wrap:wrap;
+    gap:10px;
 }
 
 .profit{
     color:#22c55e;
-    font-size:24px;
+    font-size:28px;
     font-weight:bold;
 }
 
 .small{
     color:#9ca3af;
-    margin-top:8px;
+    margin-top:5px;
 }
 
 .modal{
@@ -98,69 +100,65 @@ body{
 .modal-box{
     background:#111827;
     width:95%;
-    max-width:800px;
-    padding:25px;
-    border-radius:20px;
+    max-width:850px;
     max-height:90vh;
     overflow:auto;
+    border-radius:20px;
+    padding:25px;
 }
 
 .close{
     float:right;
-    font-size:30px;
+    font-size:35px;
     cursor:pointer;
 }
 
 .bet{
     background:#1f2937;
-    margin-top:10px;
-    padding:12px;
+    padding:15px;
     border-radius:10px;
+    margin-top:10px;
 }
 
 .history{
-    margin-top:20px;
-}
-
-.history-item{
     background:#1f2937;
-    margin-top:8px;
-    padding:10px;
+    padding:12px;
     border-radius:10px;
+    margin-top:10px;
 }
 </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>⚡ Arbitrage Television Dashboard</h1>
-</div>
+<header>
+    <h1>⚡ Arbitrage Live Dashboard</h1>
+</header>
 
 <div class="stats">
 
     <div class="card">
-        <h2>Total Opportunities</h2>
+        <h3>Total Opportunities</h3>
         <h1 id="total">0</h1>
     </div>
 
     <div class="card">
-        <h2>Highest Profit</h2>
+        <h3>Highest Profit</h3>
         <h1 id="highest">0%</h1>
     </div>
 
     <div class="card">
-        <h2>Estimated Profit</h2>
-        <h1 id="ugx">UGX 0</h1>
+        <h3>Estimated Profit</h3>
+        <h1 id="profit">UGX 0</h1>
     </div>
 
     <div class="card">
-        <h2>Last Update</h2>
+        <h3>Last Update</h3>
         <h1 id="time">--</h1>
     </div>
 
 </div>
 
-<div class="matches" id="matches"></div>
+<div class="container" id="matches"></div>
 
 <div class="modal" id="modal">
 
@@ -178,34 +176,38 @@ body{
 
 <script>
 
-const API = "http://YOUR_SERVER_IP:5000";
-
 async function loadStats(){
 
     try{
 
-        const res = await fetch(API+"/api/stats");
-        const data = await res.json();
+        const res =
+            await fetch("/api/stats");
 
-        document.getElementById("total").innerText =
+        const data =
+            await res.json();
+
+        document.getElementById("total")
+        .innerText =
             data.total_opportunities;
 
-        document.getElementById("highest").innerText =
+        document.getElementById("highest")
+        .innerText =
             data.highest_profit + "%";
 
-        document.getElementById("ugx").innerText =
+        document.getElementById("profit")
+        .innerText =
             "UGX " +
             Number(data.estimated_profit_ugx)
             .toLocaleString();
 
-        document.getElementById("time").innerText =
+        document.getElementById("time")
+        .innerText =
             new Date(data.server_time)
             .toLocaleTimeString();
 
-    }catch(err){
-        console.log(err);
+    }catch(e){
+        console.log(e);
     }
-
 }
 
 async function loadMatches(){
@@ -213,26 +215,27 @@ async function loadMatches(){
     try{
 
         const res =
-            await fetch(API+"/api/opportunities");
+            await fetch("/api/opportunities");
 
-        const data = await res.json();
+        const matches =
+            await res.json();
 
         let html = "";
 
-        data.forEach(item=>{
+        matches.forEach(m=>{
 
             html += `
             <div class="match"
-                 onclick='showMatch(${JSON.stringify(item)})'>
+                 onclick='showMatch(${JSON.stringify(m)})'>
 
-                <div class="match-header">
+                <div class="row">
 
                     <div>
 
-                        <h2>${item.match}</h2>
+                        <h2>${m.match}</h2>
 
                         <div class="small">
-                            ${item.sport}
+                            ${m.sport}
                         </div>
 
                     </div>
@@ -240,12 +243,12 @@ async function loadMatches(){
                     <div>
 
                         <div class="profit">
-                            ${item.profit_percent}%
+                            ${m.profit_percent}%
                         </div>
 
                         <div class="small">
                             First:
-                            ${item.initial_profit}%
+                            ${m.initial_profit}%
                         </div>
 
                     </div>
@@ -254,28 +257,28 @@ async function loadMatches(){
 
                 <div class="small">
                     Updates:
-                    ${item.update_count}
+                    ${m.update_count}
                 </div>
 
                 <div class="small">
                     First Seen:
-                    ${format(item.first_seen)}
+                    ${formatDate(m.first_seen)}
                 </div>
 
                 <div class="small">
                     Last Updated:
-                    ${format(item.last_seen)}
+                    ${formatDate(m.last_seen)}
                 </div>
 
             </div>
             `;
         });
 
-        document.getElementById("matches").innerHTML =
-            html;
+        document.getElementById("matches")
+        .innerHTML = html;
 
-    }catch(err){
-        console.log(err);
+    }catch(e){
+        console.log(e);
     }
 
 }
@@ -289,7 +292,7 @@ function showMatch(item){
         bets += `
         <div class="bet">
 
-            <b>${b.outcome}</b><br>
+            <b>${b.outcome}</b><br><br>
 
             Bookmaker:
             ${b.bookmaker}<br>
@@ -298,12 +301,10 @@ function showMatch(item){
             ${b.odd}<br>
 
             Stake:
-            UGX ${Number(b.stake)
-            .toLocaleString()}<br>
+            UGX ${Number(b.stake).toLocaleString()}<br>
 
-            Return:
-            UGX ${Number(b.win)
-            .toLocaleString()}
+            Possible Return:
+            UGX ${Number(b.win).toLocaleString()}
 
         </div>
         `;
@@ -313,20 +314,20 @@ function showMatch(item){
 
     if(item.history){
 
-        item.history.reverse().forEach(h=>{
+        item.history.forEach(h=>{
 
             history += `
-            <div class="history-item">
+            <div class="history">
 
-                ${format(h.time)}
-                —
+                ${formatDate(h.time)}
+                <br>
+
+                Profit:
                 ${h.profit}%
 
             </div>
             `;
-
         });
-
     }
 
     document.getElementById("modalContent")
@@ -344,7 +345,7 @@ function showMatch(item){
         <br>
 
         <h3>
-            First Profit:
+            Initial Profit:
             ${item.initial_profit}%
         </h3>
 
@@ -369,36 +370,32 @@ function showMatch(item){
 
         ${bets}
 
-        <div class="history">
+        <br>
 
-            <br>
+        <h2>Profit History</h2>
 
-            <h2>Profit History</h2>
-
-            ${history}
-
-        </div>
+        ${history}
 
     `;
 
     document.getElementById("modal")
-    .style.display = "flex";
+    .style.display =
+        "flex";
 }
 
 function closeModal(){
 
     document.getElementById("modal")
-    .style.display = "none";
-
+    .style.display =
+        "none";
 }
 
-function format(date){
+function formatDate(date){
 
     if(!date) return "--";
 
     return new Date(date)
-        .toLocaleString();
-
+    .toLocaleString();
 }
 
 loadStats();
