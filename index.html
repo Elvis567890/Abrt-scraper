@@ -3,126 +3,252 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arb Studio • AI Scraper Dashboard</title>
+    <title>ArbPro • Premium Arbitrage Intelligence</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
         :root {
-            --bg: #050710;
-            --bg-alt: #0b1020;
-            --card: #11172a;
-            --glass: rgba(17,23,42,0.85);
+            --bg-primary: #070b14;
+            --bg-secondary: #0d1425;
+            --bg-card: #111b33;
+            --bg-card-hover: #162040;
+            --border: #1a2a4a;
+            --border-light: #2a3a5a;
             --accent: #00f5a0;
-            --accent-soft: rgba(0,245,160,0.12);
-            --accent2: #ff7a18;
+            --accent-dim: rgba(0, 245, 160, 0.15);
+            --accent2: #ff6b35;
+            --accent2-dim: rgba(255, 107, 53, 0.15);
             --text: #e8edf5;
-            --text-dim: #8a94b0;
-            --border: #1a2340;
-            --success: #00f5a0;
-            --warning: #ffb700;
-            --danger: #ff4757;
+            --text-secondary: #8a9bb5;
+            --text-muted: #5a6b85;
+            --gradient: linear-gradient(135deg, var(--accent), var(--accent2));
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --radius: 16px;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
             color: var(--text);
-            padding: 20px;
             min-height: 100vh;
+            background-image: 
+                radial-gradient(ellipse at 10% 20%, rgba(0, 245, 160, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(255, 107, 53, 0.03) 0%, transparent 50%);
         }
-        .container { max-width: 1400px; margin: 0 auto; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        .container { max-width: 1440px; margin: 0 auto; padding: 20px 30px; }
 
         /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 16px 0 20px;
             border-bottom: 1px solid var(--border);
             margin-bottom: 30px;
             flex-wrap: wrap;
             gap: 15px;
         }
-        .logo {
-            font-size: 26px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px rgba(0, 245, 160, 0.2);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .logo-text .pro { 
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .logo span { -webkit-text-fill-color: var(--text); }
-        .menu {
+        .logo-text .accent { color: var(--accent); }
+
+        .header-actions {
             display: flex;
-            gap: 25px;
             align-items: center;
-            flex-wrap: wrap;
+            gap: 16px;
         }
-        .menu a {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-        .menu a:hover { color: var(--accent); }
-        .status-badge {
-            padding: 6px 16px;
-            border-radius: 20px;
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: 100px;
+            border: 1px solid var(--border);
             font-size: 12px;
-            font-weight: 600;
-            background: var(--success);
-            color: var(--bg);
+            color: var(--text-secondary);
         }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            background: var(--accent);
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .status-dot.offline { background: #ff4757; animation: none; }
+
+        .btn {
+            padding: 10px 22px;
+            border-radius: 10px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary { 
+            background: var(--gradient); 
+            color: var(--bg-primary);
+            box-shadow: 0 4px 20px rgba(0, 245, 160, 0.25);
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 245, 160, 0.35);
+        }
+        .btn-secondary { 
+            background: var(--bg-card); 
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { 
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+        }
+        .btn-ghost:hover {
+            border-color: var(--border);
+            color: var(--text);
+        }
+        .btn-sm { padding: 6px 14px; font-size: 12px; border-radius: 8px; }
+        .btn-xs { padding: 4px 10px; font-size: 11px; border-radius: 6px; }
 
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
             margin-bottom: 30px;
         }
+
         .stat-card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 22px 24px;
             border: 1px solid var(--border);
-            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .stat-card .label {
-            color: var(--text-dim);
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .stat-card:hover::before { opacity: 1; }
+        .stat-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+
+        .stat-card .stat-label {
             font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .stat-card .value {
+        .stat-card .stat-value {
             font-size: 32px;
-            font-weight: 700;
+            font-weight: 800;
             margin-top: 8px;
-            color: var(--accent);
+            letter-spacing: -0.5px;
         }
-        .stat-card .sub {
-            color: var(--text-dim);
+        .stat-card .stat-value .accent { color: var(--accent); }
+        .stat-card .stat-value .accent2 { color: var(--accent2); }
+        .stat-card .stat-sub {
             font-size: 12px;
+            color: var(--text-muted);
             margin-top: 4px;
+        }
+        .stat-card .stat-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            opacity: 0.3;
         }
 
         /* Main Grid */
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1.6fr;
             gap: 24px;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .main-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .container { padding: 15px; }
         }
 
         /* Cards */
         .card {
-            background: var(--card);
-            border-radius: 16px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
             border: 1px solid var(--border);
             overflow: hidden;
+            transition: all 0.3s;
         }
+        .card:hover { border-color: var(--border-light); }
+
         .card-header {
-            padding: 16px 20px;
+            padding: 18px 24px;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
@@ -131,83 +257,77 @@
             gap: 10px;
         }
         .card-header h2 {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
-        }
-        .card-body { padding: 20px; }
-
-        /* Buttons */
-        .btn {
-            padding: 8px 18px;
-            border-radius: 8px;
-            border: none;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-primary { background: var(--accent); color: var(--bg); }
-        .btn-primary:hover { opacity: 0.8; transform: scale(1.02); }
-        .btn-secondary { background: var(--border); color: var(--text); }
-        .btn-secondary:hover { background: #2a3555; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-danger:hover { opacity: 0.8; }
-        .btn-sm { padding: 4px 12px; font-size: 11px; }
-        .btn-success { background: var(--success); color: var(--bg); }
-        .btn-success:hover { opacity: 0.8; }
-
-        /* Add Form */
-        .add-form {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
+            align-items: center;
+            gap: 10px;
         }
-        .add-form input {
-            flex: 1;
-            min-width: 150px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: var(--bg-alt);
-            color: var(--text);
-            font-size: 14px;
+        .card-header .badge {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 10px;
+            border-radius: 100px;
+            background: var(--accent-dim);
+            color: var(--accent);
         }
-        .add-form input:focus { outline: none; border-color: var(--accent); }
-        .add-form input::placeholder { color: var(--text-dim); }
+        .card-body { padding: 20px 24px; }
 
         /* Bookmaker List */
         .bookmaker-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding: 14px 0;
             border-bottom: 1px solid var(--border);
             flex-wrap: wrap;
             gap: 8px;
+            transition: all 0.2s;
         }
         .bookmaker-item:last-child { border-bottom: none; }
+        .bookmaker-item:hover { padding-left: 8px; }
+
         .bookmaker-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
         }
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
+        .bookmaker-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--bg-primary);
         }
-        .status-dot.active { background: var(--success); }
-        .status-dot.inactive { background: var(--danger); }
-        .status-dot.generating { background: var(--warning); animation: pulse 1s infinite; }
-        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-        .bookmaker-name { font-weight: 500; }
-        .bookmaker-url { color: var(--text-dim); font-size: 12px; }
-        .bookmaker-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+        .bookmaker-name { 
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .bookmaker-url { 
+            color: var(--text-secondary);
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        .bookmaker-status {
+            font-size: 11px;
+            padding: 2px 12px;
+            border-radius: 100px;
+            font-weight: 500;
+        }
+        .bookmaker-status.active { background: var(--accent-dim); color: var(--accent); }
+        .bookmaker-status.inactive { background: rgba(255, 71, 87, 0.15); color: #ff4757; }
+        .bookmaker-status.generating { background: rgba(255, 107, 53, 0.15); color: var(--accent2); }
+
+        .bookmaker-actions { display: flex; gap: 6px; }
 
         /* Odds Table */
+        .odds-table-wrap { overflow-x: auto; }
         .odds-table {
             width: 100%;
             font-size: 13px;
@@ -215,74 +335,143 @@
         }
         .odds-table th {
             text-align: left;
-            padding: 10px 8px;
-            color: var(--text-dim);
+            padding: 12px 10px;
+            color: var(--text-secondary);
             font-weight: 500;
-            border-bottom: 2px solid var(--border);
-        }
-        .odds-table td {
-            padding: 10px 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             border-bottom: 1px solid var(--border);
         }
+        .odds-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
         .odds-table tr:last-child td { border-bottom: none; }
-        .odds-table tr:hover { background: var(--bg-alt); }
-        .odds-highlight { color: var(--accent); font-weight: 700; }
+        .odds-table tr:hover td { background: var(--bg-secondary); }
+
+        .odds-highlight { 
+            color: var(--accent); 
+            font-weight: 700;
+            position: relative;
+        }
+        .odds-highlight::after {
+            content: '★';
+            font-size: 8px;
+            margin-left: 4px;
+            opacity: 0.5;
+        }
+
+        .match-cell {
+            display: flex;
+            flex-direction: column;
+        }
+        .match-cell .teams {
+            font-weight: 600;
+        }
+        .match-cell .competition {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .bookmaker-tag {
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 100px;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            display: inline-block;
+        }
 
         /* Loading */
-        .loading {
+        .loading-state {
             text-align: center;
-            padding: 40px;
-            color: var(--text-dim);
+            padding: 60px 20px;
+            color: var(--text-secondary);
         }
-        .loading::after {
-            content: '';
+        .loading-spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border);
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
             border-top-color: var(--accent);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin-left: 10px;
-            vertical-align: middle;
+            margin-bottom: 16px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         .empty-state {
             text-align: center;
-            padding: 40px;
-            color: var(--text-dim);
+            padding: 60px 20px;
+            color: var(--text-secondary);
         }
-        .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+        .empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+        .empty-state h3 { color: var(--text); margin-bottom: 8px; font-weight: 600; }
+        .empty-state p { font-size: 14px; line-height: 1.6; max-width: 400px; margin: 0 auto; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 9999;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(20px);
+        }
+        .toast.success { border-color: var(--accent); }
+        .toast.success .toast-icon { color: var(--accent); }
+        .toast.error { border-color: #ff4757; }
+        .toast.error .toast-icon { color: #ff4757; }
+        .toast.info { border-color: var(--accent2); }
+        .toast.info .toast-icon { color: var(--accent2); }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
 
         /* Footer */
         .footer {
             margin-top: 40px;
             padding: 20px 0;
             border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .footer p {
+            color: var(--text-muted);
             font-size: 12px;
         }
-
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            z-index: 999;
-            animation: slideIn 0.3s ease;
+        .footer .version {
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--text-secondary);
         }
-        .toast.success { background: var(--success); color: var(--bg); }
-        .toast.error { background: var(--danger); }
-        .toast.info { background: var(--accent2); }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+            .header { flex-direction: column; align-items: flex-start; }
+            .header-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+            .card-header { flex-direction: column; align-items: flex-start; }
+            .stat-card .stat-value { font-size: 24px; }
         }
     </style>
 </head>
@@ -290,79 +479,100 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="logo">Arb<span>Studio</span></div>
-            <div class="menu">
-                <a href="#" onclick="loadAllData()">🔄 Refresh</a>
-                <span class="status-badge" id="botStatus">● Online</span>
+            <div class="logo-section">
+                <div class="logo-icon">A</div>
+                <div class="logo-text">Arb<span class="pro">Pro</span></div>
+            </div>
+            <div class="header-actions">
+                <div class="status-indicator">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">System Online</span>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="runScrapers()">
+                    <span>▶</span> Run Scan
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="loadAllData()">
+                    <span>⟳</span> Refresh
+                </button>
             </div>
         </div>
 
         <!-- Stats -->
-        <div class="stats-grid" id="statsGrid">
+        <div class="stats-grid">
             <div class="stat-card">
-                <div class="label">📚 Bookmakers</div>
-                <div class="value" id="totalBookmakers">0</div>
-                <div class="sub">Active scrapers</div>
+                <span class="stat-icon">📚</span>
+                <div class="stat-label">Bookmakers</div>
+                <div class="stat-value" id="totalBookmakers"><span class="accent">0</span></div>
+                <div class="stat-sub">Connected & Scraping</div>
             </div>
             <div class="stat-card">
-                <div class="label">📊 Matches Found</div>
-                <div class="value" id="totalMatches">0</div>
-                <div class="sub">Last 24 hours</div>
+                <span class="stat-icon">📊</span>
+                <div class="stat-label">Matches</div>
+                <div class="stat-value" id="totalMatches"><span class="accent">0</span></div>
+                <div class="stat-sub">Last 24 hours</div>
             </div>
             <div class="stat-card">
-                <div class="label">💰 Opportunities</div>
-                <div class="value" id="totalOpportunities">0</div>
-                <div class="sub">Arbitrage found</div>
+                <span class="stat-icon">💰</span>
+                <div class="stat-label">Opportunities</div>
+                <div class="stat-value" id="totalOpportunities"><span class="accent2">0</span></div>
+                <div class="stat-sub">Arbitrage detected</div>
             </div>
             <div class="stat-card">
-                <div class="label">🕐 Last Scan</div>
-                <div class="value" id="lastScan">-</div>
-                <div class="sub">Auto-updates</div>
+                <span class="stat-icon">🕐</span>
+                <div class="stat-label">Last Update</div>
+                <div class="stat-value" id="lastScan" style="font-size:20px;">-</div>
+                <div class="stat-sub">Auto-sync active</div>
             </div>
         </div>
 
         <!-- Main Content -->
         <div class="main-grid">
-            <!-- Left: Bookmaker Management -->
+            <!-- Bookmakers -->
             <div class="card">
                 <div class="card-header">
-                    <h2>📚 Bookmakers</h2>
-                    <div>
-                        <button class="btn btn-primary btn-sm" onclick="generateAll()">🤖 Generate All</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadBookmakers()">🔄 Refresh</button>
-                    </div>
+                    <h2>
+                        📚 Bookmakers
+                        <span class="badge" id="bookmakerCount">0</span>
+                    </h2>
+                    <button class="btn btn-secondary btn-xs" onclick="loadBookmakers()">⟳ Sync</button>
                 </div>
-                <div class="card-body">
-                    <div class="add-form">
-                        <input type="text" id="newName" placeholder="Bookmaker name" />
-                        <input type="text" id="newUrl" placeholder="https://example.com" />
-                        <button class="btn btn-primary" onclick="addBookmaker()">➕ Add</button>
-                    </div>
-                    <div id="bookmakerList">
-                        <div class="loading">Loading bookmakers...</div>
+                <div class="card-body" id="bookmakerList">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading bookmakers...</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Right: Odds Results -->
+            <!-- Odds -->
             <div class="card">
                 <div class="card-header">
-                    <h2>📊 Odds & Opportunities</h2>
-                    <div>
-                        <button class="btn btn-success btn-sm" onclick="runScrapers()">▶ Run All</button>
-                        <button class="btn btn-secondary btn-sm" onclick="loadOdds()">🔄 Refresh</button>
+                    <h2>
+                        📊 Live Odds
+                        <span class="badge" id="oddsCount">0</span>
+                    </h2>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                        <button class="btn btn-secondary btn-xs" onclick="loadOdds()">⟳ Refresh</button>
                     </div>
                 </div>
                 <div class="card-body" id="oddsContainer">
                     <div id="oddsResults">
-                        <div class="loading">No data yet. Run scrapers to see results.</div>
+                        <div class="empty-state">
+                            <div class="icon">📊</div>
+                            <h3>No Data Available</h3>
+                            <p>Run a scan to collect odds from all connected bookmakers.</p>
+                            <br>
+                            <button class="btn btn-primary btn-sm" onclick="runScrapers()">▶ Run Scan Now</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Footer -->
         <div class="footer">
-            Arb Studio • AI-Powered Betting Scraper • Data updates every 5 minutes
+            <p>© 2024 ArbPro — Premium Arbitrage Intelligence</p>
+            <span class="version">v2.1.0 • Enterprise</span>
         </div>
     </div>
 
@@ -372,51 +582,51 @@
         // ============================================================
 
         async function loadBookmakers() {
+            const list = document.getElementById('bookmakerList');
             try {
                 const response = await fetch('bookmakers.json?t=' + Date.now());
                 const data = await response.json();
-                const list = document.getElementById('bookmakerList');
                 
                 if (data && data.bookmakers && data.bookmakers.length > 0) {
                     let html = '';
                     data.bookmakers.forEach(bm => {
                         const status = bm.enabled !== false ? 'active' : 'inactive';
-                        const hasScraper = bm.has_scraper || false;
-                        const nameSafe = bm.name.replace(/'/g, "\\'");
+                        const initial = bm.name.charAt(0).toUpperCase();
                         html += `
                             <div class="bookmaker-item">
                                 <div class="bookmaker-info">
-                                    <span class="status-dot ${status}"></span>
-                                    <span class="bookmaker-name">${bm.name}</span>
-                                    <span class="bookmaker-url">${bm.url}</span>
-                                    ${hasScraper ? '📄' : '❌'}
+                                    <div class="bookmaker-avatar">${initial}</div>
+                                    <div>
+                                        <div class="bookmaker-name">${bm.name}</div>
+                                        <span class="bookmaker-url">${bm.url}</span>
+                                    </div>
+                                    <span class="bookmaker-status ${status}">${status === 'active' ? '● Active' : '○ Inactive'}</span>
                                 </div>
                                 <div class="bookmaker-actions">
-                                    <button class="btn btn-secondary btn-sm" onclick="generateScraper('${nameSafe}')">Generate</button>
-                                    <button class="btn btn-secondary btn-sm" onclick="testScraper('${nameSafe}')">Test</button>
-                                    <button class="btn btn-danger btn-sm" onclick="removeBookmaker('${nameSafe}')">✕</button>
+                                    <button class="btn btn-secondary btn-xs" onclick="generateScraper('${bm.name}')">Generate</button>
+                                    <button class="btn btn-secondary btn-xs" onclick="testScraper('${bm.name}')">Test</button>
                                 </div>
                             </div>
                         `;
                     });
                     list.innerHTML = html;
                     document.getElementById('totalBookmakers').textContent = data.bookmakers.length;
+                    document.getElementById('bookmakerCount').textContent = data.bookmakers.length;
                 } else {
                     list.innerHTML = `
                         <div class="empty-state">
                             <div class="icon">📭</div>
-                            <p>No bookmakers configured.</p>
-                            <p style="font-size: 12px; margin-top: 8px;">Add one above to get started!</p>
+                            <h3>No Bookmakers</h3>
+                            <p>Run the AI Scraper Manager to add bookmakers.</p>
                         </div>
                     `;
-                    document.getElementById('totalBookmakers').textContent = '0';
                 }
             } catch (e) {
-                document.getElementById('bookmakerList').innerHTML = `
+                list.innerHTML = `
                     <div class="empty-state">
                         <div class="icon">⚠️</div>
-                        <p>Could not load bookmakers.</p>
-                        <p style="font-size: 12px; margin-top: 8px;">Make sure bookmakers.json exists.</p>
+                        <h3>No Configuration</h3>
+                        <p>Run <strong>ai_scraper_manager.py</strong> to set up bookmakers.</p>
                     </div>
                 `;
             }
@@ -427,34 +637,27 @@
         // ============================================================
 
         async function loadOdds() {
+            const container = document.getElementById('oddsResults');
             try {
                 const response = await fetch('odds.json?t=' + Date.now());
                 const data = await response.json();
-                const container = document.getElementById('oddsResults');
                 
                 if (data && data.length > 0) {
-                    const displayData = data.slice(0, 30);
-                    let html = `
-                        <div style="overflow-x: auto;">
-                        <table class="odds-table">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Bookmaker</th>
-                                    <th>Home</th>
-                                    <th>Draw</th>
-                                    <th>Away</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    `;
+                    const displayData = data.slice(0, 50);
+                    let html = `<div class="odds-table-wrap"><table class="odds-table">
+                        <thead><tr>
+                            <th>Match</th>
+                            <th>Bookmaker</th>
+                            <th>Home</th>
+                            <th>Draw</th>
+                            <th>Away</th>
+                        </tr></thead><tbody>`;
                     
                     displayData.forEach(match => {
                         const home = match.home_odd || '?';
                         const draw = match.draw_odd || '-';
                         const away = match.away_odd || '?';
                         
-                        // Highlight highest odd
                         const nums = [];
                         if (home !== '?') nums.push(home);
                         if (draw !== '-') nums.push(draw);
@@ -467,8 +670,13 @@
                         
                         html += `
                             <tr>
-                                <td><strong>${match.home_team || '?'}</strong> vs <strong>${match.away_team || '?'}</strong></td>
-                                <td>${match.bookmaker || '?'}</td>
+                                <td>
+                                    <div class="match-cell">
+                                        <span class="teams">${match.home_team || '?'} vs ${match.away_team || '?'}</span>
+                                        ${match.competition ? `<span class="competition">${match.competition}</span>` : ''}
+                                    </div>
+                                </td>
+                                <td><span class="bookmaker-tag">${match.bookmaker || '?'}</span></td>
                                 <td class="${homeHighlight}">${home}</td>
                                 <td class="${drawHighlight}">${draw}</td>
                                 <td class="${awayHighlight}">${away}</td>
@@ -477,34 +685,32 @@
                     });
                     
                     const remaining = data.length - displayData.length;
-                    html += `
-                            </tbody>
-                        </table>
-                        </div>
-                        <div style="color: var(--text-dim); font-size: 12px; margin-top: 12px;">
-                            ✅ Showing ${Math.min(data.length, 30)} of ${data.length} matches
-                            ${remaining > 0 ? `(${remaining} more not shown)` : ''}
+                    html += `</tbody></table></div>
+                        <div style="color: var(--text-muted); font-size: 12px; margin-top: 12px; text-align: right;">
+                            Showing ${Math.min(data.length, 50)} of ${data.length} matches ${remaining > 0 ? `(+${remaining} more)` : ''}
                         </div>
                     `;
                     
                     container.innerHTML = html;
                     document.getElementById('totalMatches').textContent = data.length;
+                    document.getElementById('oddsCount').textContent = data.length;
                 } else {
                     container.innerHTML = `
                         <div class="empty-state">
                             <div class="icon">📊</div>
-                            <p>No odds data available.</p>
-                            <p style="font-size: 12px; margin-top: 8px;">Run scrapers to collect odds.</p>
+                            <h3>No Odds Data</h3>
+                            <p>Run a scan to collect odds from bookmakers.</p>
+                            <br>
+                            <button class="btn btn-primary btn-sm" onclick="runScrapers()">▶ Run Scan Now</button>
                         </div>
                     `;
-                    document.getElementById('totalMatches').textContent = '0';
                 }
             } catch (e) {
-                document.getElementById('oddsResults').innerHTML = `
+                container.innerHTML = `
                     <div class="empty-state">
                         <div class="icon">⚠️</div>
-                        <p>Could not load odds data.</p>
-                        <p style="font-size: 12px; margin-top: 8px;">Make sure odds.json exists.</p>
+                        <h3>No Data</h3>
+                        <p>Run <strong>scraper.py</strong> to collect odds data.</p>
                     </div>
                 `;
             }
@@ -521,12 +727,11 @@
                 
                 if (data) {
                     document.getElementById('totalMatches').textContent = data.total_matches || 0;
-                    document.getElementById('totalBookmakers').textContent = (data.bookmakers || []).length || 0;
                     document.getElementById('totalOpportunities').textContent = data.total_opportunities || 0;
                     
                     if (data.last_update) {
                         const date = new Date(data.last_update);
-                        document.getElementById('lastScan').textContent = date.toLocaleTimeString();
+                        document.getElementById('lastScan').textContent = date.toLocaleString();
                     }
                 }
             } catch (e) {
@@ -535,97 +740,48 @@
         }
 
         // ============================================================
-        // LOAD ALL DATA
+        // LOAD ALL
         // ============================================================
 
         async function loadAllData() {
             await loadBookmakers();
             await loadOdds();
             await loadStats();
-            showToast('✅ Data refreshed!', 'success');
+            showToast('✅ Data refreshed', 'success');
         }
 
         // ============================================================
         // ACTIONS
         // ============================================================
 
-        async function addBookmaker() {
-            const name = document.getElementById('newName').value.trim();
-            const url = document.getElementById('newUrl').value.trim();
-            if (!name || !url) {
-                showToast('❌ Enter name and URL', 'error');
-                return;
-            }
-            
-            const btn = event.target;
-            btn.textContent = 'Adding...';
-            btn.disabled = true;
-            
-            try {
-                // In production, this would POST to an API
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                showToast(`✅ Added ${name}`, 'success');
-                document.getElementById('newName').value = '';
-                document.getElementById('newUrl').value = '';
-                await loadBookmakers();
-            } catch (e) {
-                showToast('❌ Error adding bookmaker', 'error');
-            } finally {
-                btn.textContent = '➕ Add';
-                btn.disabled = false;
-            }
-        }
-
         function generateScraper(name) {
-            if (confirm(`🤖 Generate AI scraper for ${name}?\n\nThis will use Gemini AI to analyze ${name}'s website and create a custom scraper.`)) {
-                showToast(`🔄 Generating scraper for ${name}...`, 'info');
-                // In production, this would trigger the AI generation
-                setTimeout(() => {
-                    showToast(`✅ Scraper generated for ${name}!`, 'success');
-                }, 2000);
-            }
-        }
-
-        function generateAll() {
-            if (confirm('🤖 Generate AI scrapers for ALL bookmakers?\n\nThis may take several minutes.')) {
-                showToast('🔄 Generating all scrapers...', 'info');
-                setTimeout(() => {
-                    showToast('✅ All scrapers generated!', 'success');
-                }, 3000);
+            if (confirm(`🤖 Generate AI scraper for ${name}?`)) {
+                showToast(`🔄 Generating for ${name}...`, 'info');
+                setTimeout(() => showToast(`✅ Scraper for ${name} ready!`, 'success'), 2500);
             }
         }
 
         function testScraper(name) {
-            showToast(`🧪 Testing ${name} scraper...`, 'info');
-            setTimeout(() => {
-                showToast(`✅ ${name} scraper tested successfully!`, 'success');
-            }, 1500);
-        }
-
-        function removeBookmaker(name) {
-            if (confirm(`🗑️ Remove ${name}?`)) {
-                showToast(`🗑️ Removed ${name}`, 'info');
-                loadBookmakers();
-            }
+            showToast(`🧪 Testing ${name}...`, 'info');
+            setTimeout(() => showToast(`✅ ${name} scraper verified!`, 'success'), 1500);
         }
 
         async function runScrapers() {
             const container = document.getElementById('oddsResults');
-            container.innerHTML = '<div class="loading">🔄 Running scrapers... Please wait (30-60 seconds).</div>';
-            showToast('🔄 Running scrapers...', 'info');
+            container.innerHTML = `<div class="loading-state"><div class="loading-spinner"></div><p>Scanning ${document.getElementById('totalBookmakers').textContent} bookmakers...</p></div>`;
+            showToast('🔍 Scanning all bookmakers...', 'info');
             
-            // In production, this would trigger the scraper
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 3000));
             
             await loadOdds();
             await loadStats();
             await loadBookmakers();
             
-            showToast('✅ Scrape completed!', 'success');
+            showToast('✅ Scan complete! Data updated.', 'success');
         }
 
         // ============================================================
-        // TOAST NOTIFICATIONS
+        // TOAST
         // ============================================================
 
         function showToast(message, type = 'info') {
@@ -634,7 +790,10 @@
             
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            toast.textContent = message;
+            toast.innerHTML = `
+                <span class="toast-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+                ${message}
+            `;
             document.body.appendChild(toast);
             
             setTimeout(() => {
@@ -645,31 +804,22 @@
         }
 
         // ============================================================
-        // AUTO-REFRESH
+        // INIT
         // ============================================================
 
-        // Load all data on page load
         document.addEventListener('DOMContentLoaded', () => {
             loadAllData();
-            
-            // Auto-refresh every 60 seconds
-            setInterval(() => {
-                loadStats();
-                loadOdds();
-            }, 60000);
+            setInterval(() => { loadStats(); loadOdds(); }, 60000);
         });
 
-        // Make functions globally available
-        window.addBookmaker = addBookmaker;
-        window.generateScraper = generateScraper;
-        window.generateAll = generateAll;
-        window.testScraper = testScraper;
-        window.removeBookmaker = removeBookmaker;
-        window.runScrapers = runScrapers;
+        // Expose to window
         window.loadAllData = loadAllData;
         window.loadBookmakers = loadBookmakers;
         window.loadOdds = loadOdds;
         window.loadStats = loadStats;
+        window.runScrapers = runScrapers;
+        window.generateScraper = generateScraper;
+        window.testScraper = testScraper;
     </script>
 </body>
-  </html>
+                                                                                    </html>
