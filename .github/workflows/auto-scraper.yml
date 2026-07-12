@@ -3,7 +3,7 @@ name: Auto Scraper
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *"  # every 5 minutes; adjust as you like
+    - cron: "*/30 * * * *"  # every 30 minutes; adjust if needed
 
 jobs:
   scrape:
@@ -13,7 +13,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # need full history for pull/rebase
+          fetch-depth: 0  # full history so we can pull safely
+
+      - name: Ensure main is up to date BEFORE changes
+        run: |
+          git fetch origin
+          git checkout main
+          git pull origin main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -49,15 +55,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Make sure we are on main and up to date
-          git fetch origin
-          git checkout main
-          git pull origin main --rebase
-
           git add odds.json arbitrage_history.json odds_freshness.json || true
 
-          # If there are no changes, git commit will fail, so ignore that
           git commit -m "Update arbitrage results (CI)" || echo "No changes to commit"
 
-          # Push changes back to main
           git push origin main
