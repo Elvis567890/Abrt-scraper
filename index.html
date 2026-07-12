@@ -1,602 +1,977 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArbiScan Mobile</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArbiScan • Uganda Arbitrage</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-<style>
-body{
-    font-family: 'Inter', sans-serif;
-    background:#0b1020;
-}
-.glass{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(12px);
-    border:1px solid rgba(255,255,255,0.08);
-}
-.profitGlow{
-    box-shadow:0 0 20px rgba(16,185,129,.4);
-}
-.arb-card{
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-.arb-card:hover{
-    transform: translateY(-2px);
-    border-color: rgba(16,185,129,0.3);
-}
-.status-dot{
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 6px;
-}
-.status-dot.online { background: #22c55e; }
-.status-dot.updating { background: #eab308; animation: pulse 0.8s infinite; }
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(8px);
-    z-index: 999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-.modal-overlay.active {
-    display: flex;
-}
-.modal-content {
-    background: #121826;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 24px;
-    max-width: 480px;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
-    padding: 24px;
-    color: #e6edf3;
-}
-.modal-content h2 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
-.modal-content .close {
-    float: right;
-    background: none;
-    border: none;
-    color: #8b98a5;
-    font-size: 24px;
-    cursor: pointer;
-}
-.modal-content .history-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-size: 13px;
-}
-.modal-content .history-item .status-badge {
-    padding: 2px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-}
-.status-badge.valid { background: rgba(0,255,136,0.15); color: #00ff88; }
-.status-badge.invalid { background: rgba(255,77,77,0.15); color: #ff4d4d; }
-</style>
+    <style>
+        /* ── base ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b1020;
+            color: #e6edf3;
+            padding-bottom: 80px;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .profitGlow {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* ── scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 99px;
+        }
+
+        /* ── cards ── */
+        .arb-card {
+            transition: border-color 0.2s;
+        }
+        .arb-card.valid {
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.08);
+        }
+        .arb-card.invalid {
+            border-color: rgba(239, 68, 68, 0.4);
+            opacity: 0.75;
+        }
+
+        /* ── badges ── */
+        .badge {
+            font-size: 10px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            display: inline-block;
+        }
+        .badge.green {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+        .badge.red {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+        .badge.blue {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+        }
+        .badge.orange {
+            background: rgba(251, 146, 60, 0.15);
+            color: #fb923c;
+        }
+        .badge.gray {
+            background: rgba(255, 255, 255, 0.04);
+            color: #8b98a5;
+        }
+
+        /* ── page sections ── */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* ── filter bar ── */
+        .filter-bar {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+        .filter-bar::-webkit-scrollbar {
+            height: 2px;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #8b98a5;
+            border-radius: 999px;
+            padding: 4px 14px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .filter-btn.active {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: #10b981;
+            color: #34d399;
+        }
+
+        /* ── stake row ── */
+        .stake-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .stake-row label {
+            font-size: 12px;
+            color: #8b98a5;
+            white-space: nowrap;
+        }
+        .stake-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #34d399;
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 13px;
+            width: 110px;
+            outline: none;
+            font-weight: 600;
+        }
+        .stake-input:focus {
+            border-color: #10b981;
+        }
+
+        /* ── odds table ── */
+        .table-wrap {
+            overflow-x: auto;
+        }
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+            font-size: 12px;
+        }
+        .table-wrap th {
+            color: #8b98a5;
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-weight: 500;
+        }
+        .table-wrap td {
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: #e6edf3;
+        }
+
+        /* ── form inputs ── */
+        .auth-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            color: #e6edf3;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 10px 12px;
+            outline: none;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        .auth-input:focus {
+            border-color: #10b981;
+        }
+
+        .btn {
+            background: #10b981;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            color: #0b1020;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #059669;
+        }
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #e6edf3;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ── bottom nav ── */
+        nav.bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background: rgba(11, 16, 32, 0.92);
+            backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 8px 0 10px;
+            z-index: 50;
+        }
+        nav.bottom-nav div {
+            font-size: 10px;
+            color: #8b98a5;
+            text-align: center;
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        nav.bottom-nav div.active {
+            color: #34d399;
+        }
+        nav.bottom-nav div .nav-icon {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        /* ── group titles ── */
+        .kgroup-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #8b98a5;
+            padding: 12px 0 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 12px;
+        }
+
+        /* ── hero ── */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(59, 130, 246, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        /* ── summary strip ── */
+        .summary-strip {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .summary-strip::-webkit-scrollbar {
+            height: 2px;
+        }
+        .summary-card {
+            min-width: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 10px 12px;
+            flex-shrink: 0;
+        }
+        .summary-card .label {
+            font-size: 10px;
+            color: #8b98a5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .summary-card .value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* ── section tabs ── */
+        .section-tabs {
+            display: flex;
+            gap: 6px;
+            margin: 12px 0 16px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .section-tabs::-webkit-scrollbar {
+            height: 2px;
+        }
+        .section-tab {
+            flex: 1;
+            min-width: 70px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 6px 0;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
+            color: #8b98a5;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .section-tab.active {
+            border-color: #10b981;
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        /* ── change log ── */
+        .change-item {
+            padding: 4px 0;
+            font-size: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .change-item.up {
+            color: #34d399;
+        }
+        .change-item.down {
+            color: #f87171;
+        }
+        .change-item.same {
+            color: #fb923c;
+        }
+
+        /* ── responsive ── */
+        @media (min-width: 900px) {
+            .container {
+                max-width: 960px;
+                margin: 0 auto;
+            }
+        }
+
+        /* ── empty state ── */
+        .empty-state {
+            padding: 24px 16px;
+            text-align: center;
+            color: #8b98a5;
+            border: 1px dashed rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        /* ── bet row inside arb card ── */
+        .arb-bet {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            margin-top: 4px;
+            font-size: 12px;
+        }
+        .arb-bet .book {
+            color: #34d399;
+            font-weight: 600;
+        }
+        .arb-bet .outcome {
+            color: #8b98a5;
+        }
+        .arb-bet .odd {
+            font-weight: 600;
+        }
+        .arb-bet .stake {
+            color: #fb923c;
+            font-size: 11px;
+        }
+
+        /* ── status pill ── */
+        .status-pill {
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #8b98a5;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* ── profit badge in arb header ── */
+        .profit-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(251, 146, 60, 0.1);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fb923c;
+        }
+    </style>
 </head>
+<body>
 
-<body class="text-white">
-
-<!-- HEADER -->
-<div class="sticky top-0 z-50 glass p-4 flex items-center justify-between">
-    <div>
-        <h1 class="text-xl font-bold">ArbiScan</h1>
-        <p class="text-xs text-gray-400" id="statusText">Live Sports Arbitrage</p>
-    </div>
-    <div class="flex items-center gap-3">
-        <span class="status-dot online" id="statusDot"></span>
-        <span class="text-xs text-gray-400" id="lastUpdate">-</span>
-    </div>
-</div>
-
-<!-- STATS -->
-<div class="p-4 space-y-3">
-    <div class="glass rounded-3xl p-4 profitGlow">
-        <p class="text-gray-400 text-sm">Opportunities Today</p>
-        <h2 class="text-3xl font-bold mt-2" id="opportunitiesCount">0</h2>
-        <p class="text-green-400 mt-1" id="bestProfit">Loading...</p>
-    </div>
-    <div class="grid grid-cols-2 gap-3">
-        <div class="glass rounded-2xl p-4">
-            <p class="text-gray-400 text-xs">Avg Profit</p>
-            <h3 class="text-2xl font-bold mt-2" id="avgProfit">0%</h3>
+    <!-- ═══ HEADER ═══ -->
+    <header class="sticky top-0 z-50 glass px-4 py-3 flex items-center justify-between">
+        <div>
+            <h1 class="text-lg font-bold tracking-tight">ArbiScan</h1>
+            <p class="text-xs text-gray-400">Live Sports Arbitrage • Uganda</p>
         </div>
-        <div class="glass rounded-2xl p-4">
-            <p class="text-gray-400 text-xs">Bookmakers</p>
-            <h3 class="text-2xl font-bold mt-2" id="bookmakersCount">0</h3>
+        <div class="flex items-center gap-3">
+            <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-[10px] font-semibold">● LIVE</span>
+            <span class="status-pill" id="lastUpdated">Loading…</span>
+        </div>
+    </header>
+
+    <!-- ═══ HERO ═══ -->
+    <div class="px-4 pt-4">
+        <div class="hero-card glass rounded-2xl p-4">
+            <p class="text-gray-400 text-xs font-medium uppercase tracking-wider">🔥 Best Opportunity</p>
+            <div class="text-2xl font-bold text-green-400 mt-1" id="heroProfit">0.00%</div>
+            <div class="text-xs text-gray-400 mt-1" id="heroSub">Waiting for first refresh…</div>
         </div>
     </div>
-</div>
 
-<!-- FILTERS & STAKE -->
-<div class="px-4">
-    <div class="flex flex-wrap gap-2 items-center">
-        <div class="flex gap-2 overflow-x-auto pb-2 flex-1" id="filterContainer">
-            <button class="bg-blue-600 px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="filterBySport('all')">📊 All</button>
-            <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="filterBySport('football')">⚽ Football</button>
-            <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="filterBySport('tennis')">🎾 Tennis</button>
-            <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="filterBySport('basketball')">🏀 Basketball</button>
-            <button class="glass px-4 py-2 rounded-full text-sm whitespace-nowrap" onclick="filterBySport('esports')">🎮 eSports</button>
+    <!-- ═══ CONTAINER ═══ -->
+    <div class="container px-4">
+
+        <!-- ── SUMMARY STRIP ── -->
+        <div class="summary-strip mt-4">
+            <div class="summary-card">
+                <div class="label">Valid</div>
+                <div class="value text-green-400" id="validCount">0</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Invalid</div>
+                <div class="value text-red-400" id="invalidCount">0</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Matches</div>
+                <div class="value text-blue-400" id="matchCount">0</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Bookmakers</div>
+                <div class="value text-orange-400" id="bookmakerCount">0</div>
+            </div>
         </div>
-        <div class="flex items-center gap-2">
-            <span class="text-gray-400 text-xs">Stake:</span>
-            <input type="number" id="stake" value="100000" min="1000" step="1000" class="bg-transparent border border-gray-700 rounded-lg px-2 py-1 w-24 text-white text-sm" oninput="renderArbs()">
+
+        <!-- ── SECTION TABS ── -->
+        <div class="section-tabs">
+            <button class="section-tab active" data-page="dashboard" onclick="showPage('dashboard', this)">Dashboard</button>
+            <button class="section-tab" data-page="arbitrage" onclick="showPage('arbitrage', this)">Arbs</button>
+            <button class="section-tab" data-page="odds" onclick="showPage('odds', this)">Odds</button>
+            <button class="section-tab" data-page="billing" onclick="showPage('billing', this)">Billing</button>
+            <button class="section-tab" data-page="settings" onclick="showPage('settings', this)">Settings</button>
         </div>
+
+        <!-- ── DASHBOARD ── -->
+        <section class="page active" id="dashboard">
+            <div class="glass rounded-2xl p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-300">Quick Status</span>
+                    <span class="text-xs text-gray-400">Live</span>
+                </div>
+                <div id="status" class="text-sm text-gray-400">Loading data…</div>
+            </div>
+
+            <div class="glass rounded-2xl p-4 mt-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-300">Change Log</span>
+                    <span class="text-xs text-gray-400">last run</span>
+                </div>
+                <div id="changeSummary" class="text-sm text-gray-400">Waiting for first refresh…</div>
+            </div>
+        </section>
+
+        <!-- ── ARBITRAGE ── -->
+        <section class="page" id="arbitrage">
+            <div class="glass rounded-2xl p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm font-medium text-gray-300">🎯 Live Arbitrage</span>
+                    <span id="arbInfo" class="text-xs text-orange-400 font-semibold"></span>
+                </div>
+
+                <!-- filter bar -->
+                <div class="filter-bar mb-3">
+                    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+                    <button class="filter-btn" onclick="setFilter('valid',this)">Valid</button>
+                    <button class="filter-btn" onclick="setFilter('invalid',this)">Invalid</button>
+                    <button class="filter-btn" onclick="setFilter('cross',this)">Cross-Book</button>
+                    <button class="filter-btn" onclick="setFilter('2way',this)">2-Way</button>
+                    <button class="filter-btn" onclick="setFilter('3way',this)">3-Way</button>
+                </div>
+
+                <!-- stake -->
+                <div class="stake-row mb-4">
+                    <label>💰 Stake (UGX)</label>
+                    <input class="stake-input" type="number" id="stake" value="100000" min="1000" step="1000" oninput="renderArbs()" />
+                    <span class="text-xs text-gray-400">profit shown</span>
+                </div>
+
+                <div id="arbs">
+                    <div class="empty-state">⏳ Loading opportunities…</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── ODDS ── -->
+        <section class="page" id="odds">
+            <div class="glass rounded-2xl p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm font-medium text-gray-300">📊 All Scraped Odds</span>
+                    <span id="oddsCount" class="text-xs text-orange-400 font-semibold"></span>
+                </div>
+                <div class="table-wrap">
+                    <div id="oddsTable">
+                        <div class="empty-state">⏳ Loading odds…</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── BILLING ── -->
+        <section class="page" id="billing">
+            <div class="glass rounded-2xl p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-300">💳 Billing</span>
+                    <span class="text-xs text-gray-400">plans &amp; invoices</span>
+                </div>
+                <div class="text-xs text-gray-400 mb-3">Choose a plan that suits your trading volume.</div>
+
+                <div class="summary-strip">
+                    <div class="summary-card" style="min-width:40%;">
+                        <div class="label">Free</div>
+                        <div class="value text-gray-400">UGX 0</div>
+                        <div class="text-[10px] text-gray-500 mt-1">Basic access</div>
+                    </div>
+                    <div class="summary-card" style="min-width:40%;">
+                        <div class="label">Pro</div>
+                        <div class="value text-green-400">UGX 50k</div>
+                        <div class="text-[10px] text-gray-500 mt-1">Full odds + arbs</div>
+                    </div>
+                    <div class="summary-card" style="min-width:40%;">
+                        <div class="label">Enterprise</div>
+                        <div class="value text-blue-400">Custom</div>
+                        <div class="text-[10px] text-gray-500 mt-1">Multi-user</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass rounded-2xl p-4 mt-4">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm font-medium text-gray-300">Create Invoice</span>
+                </div>
+                <input class="auth-input" placeholder="Customer name" />
+                <input class="auth-input" placeholder="Amount (UGX)" type="number" />
+                <select class="auth-input">
+                    <option>Invoice type</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </select>
+                <select class="auth-input">
+                    <option>Status</option>
+                    <option>Pending</option>
+                    <option>Paid</option>
+                    <option>Overdue</option>
+                </select>
+                <button class="btn">Save Invoice</button>
+                <button class="btn secondary">View History</button>
+            </div>
+        </section>
+
+        <!-- ── SETTINGS ── -->
+        <section class="page" id="settings">
+            <div class="glass rounded-2xl p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-300">⚙ Settings</span>
+                    <span class="text-xs text-gray-400">scraping &amp; display</span>
+                </div>
+                <select class="auth-input">
+                    <option>Auto-refresh</option>
+                    <option>5 minutes</option>
+                    <option>10 minutes</option>
+                    <option>30 minutes</option>
+                </select>
+                <select class="auth-input">
+                    <option>Stake currency</option>
+                    <option>UGX</option>
+                    <option>USD</option>
+                </select>
+                <input class="auth-input" placeholder="Min profit %" type="number" value="0.5" />
+                <input class="auth-input" placeholder="Max profit %" type="number" value="20" />
+                <button class="btn">Save Settings</button>
+                <button class="btn secondary">Reset</button>
+            </div>
+
+            <div class="glass rounded-2xl p-4 mt-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-300">Refresh Behavior</span>
+                </div>
+                <div class="text-xs text-gray-400 leading-relaxed">
+                    This dashboard remembers the previous run, compares it to the latest run,
+                    and keeps a history of invalid opportunities. When an opportunity disappears,
+                    it is marked invalid and stays visible in the past section.
+                </div>
+            </div>
+        </section>
+
     </div>
-</div>
 
-<!-- OPPORTUNITIES -->
-<div class="p-4 space-y-4" id="opportunitiesContainer">
-    <div class="text-center text-gray-400 py-8">Loading opportunities...</div>
-</div>
-
-<!-- MODAL (history) -->
-<div class="modal-overlay" id="historyModal">
-    <div class="modal-content">
-        <button class="close" onclick="closeModal()">&times;</button>
-        <h2 id="modalMatch">Match Name</h2>
-        <div id="modalDetails" class="space-y-2 text-sm">
-            <p><span class="text-gray-400">Type:</span> <span id="modalType">-</span></p>
-            <p><span class="text-gray-400">Sport:</span> <span id="modalSport">-</span></p>
-            <p><span class="text-gray-400">Profit %:</span> <span id="modalProfit">-</span></p>
-            <p><span class="text-gray-400">First seen:</span> <span id="modalFirstSeen">-</span></p>
-            <p><span class="text-gray-400">Last seen:</span> <span id="modalLastSeen">-</span></p>
-            <p><span class="text-gray-400">Times valid:</span> <span id="modalValidCount">0</span></p>
-            <p><span class="text-gray-400">Times invalid:</span> <span id="modalInvalidCount">0</span></p>
+    <!-- ═══ BOTTOM NAV ═══ -->
+    <nav class="bottom-nav">
+        <div class="active" onclick="showPage('dashboard', document.querySelector('[data-page=dashboard]'))">
+            <span class="nav-icon">🏠</span> Home
         </div>
-        <hr class="border-gray-700 my-3">
-        <div class="font-semibold text-sm mb-2">History Timeline</div>
-        <div id="modalHistoryList"></div>
-    </div>
-</div>
+        <div onclick="showPage('arbitrage', document.querySelector('[data-page=arbitrage]'))">
+            <span class="nav-icon">⚡</span> Arbs
+        </div>
+        <div onclick="showPage('odds', document.querySelector('[data-page=odds]'))">
+            <span class="nav-icon">📊</span> Odds
+        </div>
+        <div onclick="showPage('billing', document.querySelector('[data-page=billing]'))">
+            <span class="nav-icon">💳</span> Billing
+        </div>
+        <div onclick="showPage('settings', document.querySelector('[data-page=settings]'))">
+            <span class="nav-icon">⚙</span> Settings
+        </div>
+    </nav>
 
-<!-- BOTTOM NAV -->
-<div class="fixed bottom-0 left-0 right-0 glass p-2 flex justify-around">
-    <button onclick="loadPage('home')" class="text-green-400 p-2" id="navHome">
-        <span class="block text-lg">🏠</span>
-        <span class="text-xs">Home</span>
-    </button>
-    <button onclick="loadPage('bookmakers')" class="text-gray-400 p-2" id="navBookmakers">
-        <span class="block text-lg">📚</span>
-        <span class="text-xs">Bookmakers</span>
-    </button>
-    <button onclick="loadPage('history')" class="text-gray-400 p-2" id="navHistory">
-        <span class="block text-lg">📊</span>
-        <span class="text-xs">History</span>
-    </button>
-    <button onclick="loadPage('settings')" class="text-gray-400 p-2" id="navSettings">
-        <span class="block text-lg">⚙️</span>
-        <span class="text-xs">Settings</span>
-    </button>
-</div>
+    <!-- ═══ JAVASCRIPT ═══ -->
+    <script>
+        // ─── state ──────────────────────────────────────────────
+        let allOpps = [];
+        let rawOdds = [];
+        let historyMap = {};
+        let currentFilter = 'all';
 
-<script>
-// ============================================================
-// BACKEND LOGIC – from the second HTML
-// ============================================================
-const API_BASE = '';
-let allOpportunities = [];
-let historyMap = {};
-let currentSport = 'all';
+        // ─── page switching ────────────────────────────────────
+        function showPage(page, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
 
-// ============================================================
-// API CALLS
-// ============================================================
-async function fetchAPI(endpoint) {
-    try {
-        const res = await fetch(`${API_BASE}/api/${endpoint}`);
-        if (!res.ok) throw new Error('API error');
-        return await res.json();
-    } catch (e) {
-        console.error('API Error:', e);
-        return null;
-    }
-}
+            document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+            if (el) el.classList.add('active');
 
-// ============================================================
-// OPPORTUNITY ID
-// ============================================================
-function opportunityId(o) {
-    const bets = (o.bets || []).map(b => `${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
-    return `${o.match}|${o.type}|${bets}`;
-}
-
-// ============================================================
-// HISTORY TRACKING
-// ============================================================
-function updateHistory(opps) {
-    const now = new Date().toISOString();
-    const seen = new Set();
-
-    opps.forEach(o => {
-        const id = opportunityId(o);
-        seen.add(id);
-        if (!historyMap[id]) {
-            historyMap[id] = {
-                firstSeen: now,
-                lastSeen: now,
-                validCount: 1,
-                invalidCount: 0,
-                history: [{ status: 'valid', timestamp: now }]
+            // sync bottom nav
+            document.querySelectorAll('.bottom-nav div').forEach(d => d.classList.remove('active'));
+            const map = {
+                dashboard: 0,
+                arbitrage: 1,
+                odds: 2,
+                billing: 3,
+                settings: 4
             };
-        } else {
-            const entry = historyMap[id];
-            entry.lastSeen = now;
-            entry.validCount += 1;
-            entry.history.push({ status: 'valid', timestamp: now });
-        }
-    });
-
-    Object.keys(historyMap).forEach(id => {
-        if (!seen.has(id)) {
-            const entry = historyMap[id];
-            entry.invalidCount += 1;
-            entry.history.push({ status: 'invalid', timestamp: new Date().toISOString() });
-        }
-    });
-}
-
-// ============================================================
-// LOAD DATA
-// ============================================================
-async function loadStats() {
-    const stats = await fetchAPI('stats');
-    if (stats) {
-        document.getElementById('opportunitiesCount').textContent = stats.total_opportunities || 0;
-        document.getElementById('avgProfit').textContent = (stats.avg_profit || 0) + '%';
-        document.getElementById('bestProfit').textContent = stats.total_opportunities > 0 ?
-            `Best: ${stats.best_profit || 0}%` : 'No data yet';
-        document.getElementById('lastUpdate').textContent = stats.last_update ?
-            new Date(stats.last_update).toLocaleTimeString() : '-';
-    }
-}
-
-async function loadBookmakers() {
-    const data = await fetchAPI('bookmakers');
-    if (data && data.bookmakers) {
-        document.getElementById('bookmakersCount').textContent = data.bookmakers.length;
-    }
-}
-
-async function loadOpportunities(sport = 'all') {
-    const container = document.getElementById('opportunitiesContainer');
-    let data = await fetchAPI('opportunities');
-
-    if (data && data.length > 0) {
-        updateHistory(data);
-        allOpportunities = data;
-
-        let filtered = data;
-        if (sport !== 'all') {
-            filtered = data.filter(o => o.sport && o.sport.toLowerCase() === sport);
+            const idx = map[page];
+            if (idx !== undefined) {
+                document.querySelectorAll('.bottom-nav div')[idx]?.classList.add('active');
+            }
         }
 
-        if (filtered.length === 0) {
-            container.innerHTML = `
-                <div class="text-center text-gray-400 py-8">
-                    <div class="text-4xl mb-4">🔍</div>
-                    <p>No ${sport !== 'all' ? sport : ''} opportunities found</p>
-                    <p class="text-xs mt-2">Data will auto‑update</p>
-                </div>
-            `;
-            return;
+        // ─── date helpers ──────────────────────────────────────
+        function resolveOpportunityDate(o) {
+            if (o.kickoff) {
+                const d = new Date(String(o.kickoff).replace(' UTC', 'Z'));
+                if (!isNaN(d.getTime())) return d;
+            }
+            if (o.since) {
+                const d = new Date(o.since);
+                if (!isNaN(d.getTime())) return d;
+            }
+            if (o.checked_at) {
+                const d = new Date(o.checked_at);
+                if (!isNaN(d.getTime())) return d;
+            }
+            return null;
         }
 
-        let html = '';
-        filtered.forEach(opp => {
-            const id = opportunityId(opp);
-            const hist = historyMap[id] || { validCount: 0, invalidCount: 0 };
-            html += `
-                <div class="glass rounded-3xl p-4 arb-card" onclick="showHistory('${id}')">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h3 class="font-semibold">${opp.match || 'Unknown Match'}</h3>
-                            <p class="text-gray-400 text-sm">${opp.sport || 'Football'} ${opp.competition ? '• ' + opp.competition : ''}</p>
+        function kickoffLabel(o) {
+            const d = resolveOpportunityDate(o);
+            if (!d) return 'Unscheduled';
+            const today = new Date();
+            const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const thatMid = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            const diff = Math.round((thatMid - todayMid) / (1000 * 60 * 60 * 24));
+            if (diff === 0) return 'Today';
+            if (diff === 1) return 'Tomorrow';
+            if (diff === -1) return 'Yesterday';
+            if (diff > 1) return 'Later';
+            if (diff < -1) return 'Older';
+            return 'Unscheduled';
+        }
+
+        function formatKickoff(kickoff) {
+            const d = kickoff ? new Date(String(kickoff).replace(' UTC', 'Z')) : null;
+            if (!d || isNaN(d.getTime())) return '';
+            return new Intl.DateTimeFormat(undefined, {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(d);
+        }
+
+        function opportunityId(o) {
+            const bets = (o.bets || []).map(b => `${b.bookmaker}:${b.outcome}:${b.odd}`).join('|');
+            return `${o.match}|${o.type}|${bets}`;
+        }
+
+        // ─── classify changes ──────────────────────────────────
+        function classifyChanges(newOpps) {
+            const newMap = {};
+            newOpps.forEach(o => newMap[opportunityId(o)] = o);
+
+            const oldMap = historyMap;
+            const nextHistory = {};
+            const updated = [];
+            const seen = new Set();
+
+            Object.keys(newMap).forEach(id => {
+                const o = newMap[id];
+                o.status = 'valid';
+                if (oldMap[id]) {
+                    o.changed = false;
+                    o.prevStatus = oldMap[id].status || 'valid';
+                    o.note = 'Still valid';
+                } else {
+                    o.changed = true;
+                    o.prevStatus = 'new';
+                    o.note = 'New opportunity';
+                }
+                nextHistory[id] = o;
+                updated.push(o);
+                seen.add(id);
+            });
+
+            Object.keys(oldMap).forEach(id => {
+                if (!seen.has(id)) {
+                    const old = oldMap[id];
+                    old.status = 'invalid';
+                    old.invalidAt = new Date().toISOString();
+                    old.note = 'No longer present';
+                    nextHistory[id] = old;
+                    updated.push(old);
+                }
+            });
+
+            historyMap = nextHistory;
+            allOpps = updated;
+        }
+
+        // ─── filter ─────────────────────────────────────────────
+        function setFilter(f, btn) {
+            currentFilter = f;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderArbs();
+        }
+
+        // ─── render arbs ───────────────────────────────────────
+        function renderArbs() {
+            const stake = parseInt(document.getElementById('stake').value) || 100000;
+            let opps = allOpps.slice();
+
+            if (currentFilter === 'valid') opps = opps.filter(o => o.status === 'valid');
+            else if (currentFilter === 'invalid') opps = opps.filter(o => o.status === 'invalid');
+            else if (currentFilter === 'cross') opps = opps.filter(o => new Set((o.bets || []).map(b => b.bookmaker)).size >= 2);
+            else if (currentFilter === '2way') opps = opps.filter(o => o.type === '2-way');
+            else if (currentFilter === '3way') opps = opps.filter(o => o.type === '3-way');
+
+            document.getElementById('arbInfo').textContent = opps.length + ' found';
+            document.getElementById('validCount').textContent = allOpps.filter(o => o.status === 'valid').length;
+            document.getElementById('invalidCount').textContent = allOpps.filter(o => o.status === 'invalid').length;
+
+            // hero
+            if (allOpps.length) {
+                const best = allOpps.filter(o => o.status === 'valid').sort((a, b) => (b.profit_percent || 0) - (a.profit_percent ||
+                    0))[0] || allOpps[0];
+                const pct = Number(best.profit_percent || 0).toFixed(2);
+                document.getElementById('heroProfit').textContent = pct + '%';
+                document.getElementById('heroSub').textContent = (best.match || 'Unknown') + ' • ' + (best.type || '');
+            } else {
+                document.getElementById('heroProfit').textContent = '0.00%';
+                document.getElementById('heroSub').textContent = 'Waiting for first refresh…';
+            }
+
+            // group
+            const groups = {};
+            opps.forEach(o => {
+                const g = kickoffLabel(o);
+                if (!groups[g]) groups[g] = [];
+                groups[g].push(o);
+            });
+            const order = ['Today', 'Tomorrow', 'Yesterday', 'Later', 'Older', 'Unscheduled'];
+            const keys = order.filter(k => groups[k]);
+
+            const arbDiv = document.getElementById('arbs');
+            if (!opps.length) {
+                arbDiv.innerHTML = '<div class="empty-state">😔 No arbitrage opportunities match this filter.</div>';
+                return;
+            }
+
+            arbDiv.innerHTML = keys.map(groupName => {
+                const items = groups[groupName] || [];
+                const cards = items.map(o => {
+                    const bets = o.bets || [];
+                    const arb = bets.reduce((s, b) => s + (1 / Number(b.odd || 1)), 0);
+                    const profitUGX = Math.round(stake * (1 - arb));
+                    const books = new Set(bets.map(b => b.bookmaker));
+                    const isCross = books.size >= 2;
+                    const kickoffText = o.kickoff ? formatKickoff(o.kickoff) : '';
+
+                    const betsHtml = bets.map(b => {
+                        const userStake = Math.round(stake * (1 / Number(b.odd || 1)) / arb);
+                        return `
+                        <div class="arb-bet">
+                          <div>
+                            <span class="book">${b.bookmaker}</span>
+                            <span class="outcome"> ${b.outcome} @ <span class="odd">${b.odd}</span></span>
+                          </div>
+                          <div style="text-align:right;">
+                            <div>UGX ${userStake.toLocaleString()}</div>
+                            <div class="stake">→ UGX ${Math.round(userStake * Number(b.odd || 0)).toLocaleString()}</div>
+                          </div>
                         </div>
-                        <div class="bg-green-500/20 text-green-400 px-3 py-2 rounded-xl font-bold">
-                            +${opp.profit_percent || 0}%
+                      `;
+                    }).join('');
+
+                    const statusBadge = o.status === 'valid' ?
+                        '<span class="badge green">VALID</span>' :
+                        '<span class="badge red">INVALID</span>';
+
+                    const noteBadge = o.changed && o.status === 'valid' ?
+                        '<span class="badge blue">NEW</span>' :
+                        (o.status === 'invalid' ? '<span class="badge gray">PAST</span>' : '');
+
+                    return `
+                      <div class="arb-card glass rounded-2xl p-4 ${o.status}">
+                        <div class="flex justify-between items-start">
+                          <div>
+                            <div class="font-semibold text-sm">${o.match}</div>
+                            <div class="text-xs text-gray-400">${kickoffText ? '🕒 ' + kickoffText : ''}</div>
+                          </div>
+                          <div style="text-align:right;">
+                            <div class="profit-badge">${statusBadge} +${Number(o.profit_percent || 0).toFixed(2)}%</div>
+                            <div class="text-[11px] text-orange-400 mt-1">+UGX ${profitUGX.toLocaleString()}</div>
+                          </div>
                         </div>
-                    </div>
-                    <div class="mt-4 space-y-3">
-                        ${(opp.bets || []).map(bet => `
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-400">${bet.outcome || '?'}</span>
-                                <span><span class="text-gray-400">${bet.bookmaker || '?'}</span> @ <span class="text-green-400 font-bold">${bet.odd || '?'}</span></span>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="mt-3 pt-3 border-t border-gray-800/50 flex justify-between text-xs text-gray-500">
-                        <span>${opp.type || '3-way'} Arbitrage</span>
-                        <span>Stake: ${opp.total_stake || 0} UGX</span>
-                    </div>
-                    <div class="mt-2 flex gap-2 flex-wrap">
-                        ${(opp.bets || []).map(bet => `
-                            <span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full">${bet.bookmaker}</span>
-                        `).join('')}
-                    </div>
-                    <div class="mt-2 text-xs text-gray-500">
-                        Seen valid: ${hist.validCount || 0} times
-                    </div>
-                </div>
+                        <div class="flex flex-wrap gap-2 mt-2 text-[11px] text-gray-400">
+                          <span>${o.type === '3-way' ? '🔺 3-way' : '🔷 2-way'}</span>
+                          ${isCross ? '<span class="badge green">Cross-bookmaker</span>' : '<span class="badge gray">Same bookmaker</span>'}
+                          ${noteBadge}
+                          <span class="badge ${o.status === 'valid' ? 'green' : 'red'}">${o.note || ''}</span>
+                        </div>
+                        <div class="mt-3">${betsHtml}</div>
+                      </div>
+                    `;
+                }).join('');
+
+                return `
+                  <div class="kgroup">
+                    <div class="kgroup-title">${groupName}</div>
+                    ${cards}
+                  </div>
+                `;
+            }).join('');
+        }
+
+        // ─── render odds ───────────────────────────────────────
+        function renderOdds() {
+            document.getElementById('oddsCount').textContent = rawOdds.length + ' rows';
+            const wrap = document.getElementById('oddsTable');
+            if (!rawOdds.length) {
+                wrap.innerHTML = '<div class="empty-state">⏳ No odds yet.</div>';
+                return;
+            }
+            wrap.innerHTML = `
+              <table>
+                <thead>
+                  <tr>
+                    <th>Match</th>
+                    <th>Bookmaker</th>
+                    <th>Home</th>
+                    <th>Draw</th>
+                    <th>Away</th>
+                    <th>Sport</th>
+                    <th>Kickoff</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rawOdds.map(o => `
+                    <tr>
+                      <td>${o.match}</td>
+                      <td><span class="badge blue">${o.bookmaker}</span></td>
+                      <td>${o.home ?? '-'}</td>
+                      <td>${o.draw ?? '-'}</td>
+                      <td>${o.away ?? '-'}</td>
+                      <td>${o.sport ?? '-'}</td>
+                      <td>${o.kickoff ? formatKickoff(o.kickoff) : '-'}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
             `;
-        });
+        }
 
-        container.innerHTML = html;
-    } else {
-        // Show fallback (static)
-        container.innerHTML = `
-            <div class="glass rounded-3xl p-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="font-semibold">Real Madrid vs Barcelona</h3>
-                        <p class="text-gray-400 text-sm">La Liga</p>
-                    </div>
-                    <div class="bg-green-500/20 text-green-400 px-3 py-2 rounded-xl font-bold">+4.3%</div>
-                </div>
-                <div class="mt-4 space-y-3">
-                    <div class="flex justify-between">
-                        <span class="text-gray-400">Real Madrid Win</span>
-                        <span>Bet365 @ 2.40</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-400">Barcelona Win</span>
-                        <span>1xBet @ 3.60</span>
-                    </div>
-                </div>
-                <button class="mt-5 w-full bg-green-500 rounded-2xl py-3 font-semibold">View Opportunity</button>
-            </div>
-        `;
-    }
-}
+        // ─── change log ────────────────────────────────────────
+        function renderChangeLog(newOpps) {
+            const changed = [];
+            newOpps.forEach(o => {
+                if (o.status === 'new') changed.push(`+ ${o.match} became valid now.`);
+                if (o.status === 'valid' && o.prevStatus === 'invalid') changed.push(`↻ ${o.match} changed from invalid to valid.`);
+                if (o.status === 'invalid') changed.push(`- ${o.match} is now invalid but kept in history.`);
+            });
 
-// ============================================================
-// FILTER
-// ============================================================
-function filterBySport(sport) {
-    currentSport = sport;
-    document.querySelectorAll('#filterContainer button').forEach(btn => {
-        btn.className = btn.className.replace('bg-blue-600', 'glass');
-    });
-    event.target.className = 'bg-blue-600 px-4 py-2 rounded-full text-sm whitespace-nowrap';
-    loadOpportunities(sport);
-}
+            const summary = document.getElementById('changeSummary');
+            if (!changed.length) {
+                summary.innerHTML = '<span class="text-gray-400">No changes detected in this run.</span>';
+                return;
+            }
+            summary.innerHTML = changed.slice(0, 8).map(x => {
+                if (x.startsWith('+')) return `<div class="change-item up">${x}</div>`;
+                if (x.startsWith('↻')) return `<div class="change-item same">${x}</div>`;
+                return `<div class="change-item down">${x}</div>`;
+            }).join('');
+        }
 
-// ============================================================
-// MODAL – HISTORY
-// ============================================================
-function showHistory(id) {
-    const hist = historyMap[id];
-    if (!hist) return;
+        // ─── load ──────────────────────────────────────────────
+        async function load() {
+            try {
+                const r = await fetch('odds.json?t=' + Date.now());
+                const d = await r.json();
+                rawOdds = d.raw_odds || [];
+                const freshOpps = d.opportunities || [];
+                const scraped = d.bookmakers_scraped || [...new Set(rawOdds.map(x => x.bookmaker))];
 
-    const opp = allOpportunities.find(o => opportunityId(o) === id);
-    if (!opp) return;
+                classifyChanges(freshOpps);
 
-    document.getElementById('modalMatch').textContent = opp.match || 'Unknown Match';
-    document.getElementById('modalType').textContent = opp.type || '-';
-    document.getElementById('modalSport').textContent = opp.sport || '-';
-    document.getElementById('modalProfit').textContent = (opp.profit_percent || 0) + '%';
-    document.getElementById('modalFirstSeen').textContent = hist.firstSeen ? new Date(hist.firstSeen).toLocaleString() : '-';
-    document.getElementById('modalLastSeen').textContent = hist.lastSeen ? new Date(hist.lastSeen).toLocaleString() : '-';
-    document.getElementById('modalValidCount').textContent = hist.validCount || 0;
-    document.getElementById('modalInvalidCount').textContent = hist.invalidCount || 0;
+                document.getElementById('lastUpdated').textContent = '🕐 ' + (d.last_updated || '');
+                document.getElementById('matchCount').textContent = d.total_matches || rawOdds.length;
+                document.getElementById('bookmakerCount').textContent = scraped.length;
+                document.getElementById('status').textContent =
+                    `Loaded ${rawOdds.length} odds entries from ${scraped.length} bookmakers. ` +
+                    `${allOpps.filter(o => o.status === 'valid').length} valid, ${allOpps.filter(o => o.status === 'invalid').length} invalid.`;
 
-    const historyList = document.getElementById('modalHistoryList');
-    if (hist.history && hist.history.length > 0) {
-        const items = hist.history.slice(-20).reverse();
-        let html = '';
-        items.forEach(item => {
-            const statusClass = item.status === 'valid' ? 'valid' : 'invalid';
-            const time = new Date(item.timestamp).toLocaleString();
-            html += `
-                <div class="history-item">
-                    <span>${time}</span>
-                    <span class="status-badge ${statusClass}">${item.status.toUpperCase()}</span>
-                </div>
-            `;
-        });
-        historyList.innerHTML = html;
-    } else {
-        historyList.innerHTML = '<div class="text-gray-400 text-sm">No history recorded yet.</div>';
-    }
+                renderChangeLog(allOpps);
+                renderArbs();
+                renderOdds();
+            } catch (e) {
+                document.getElementById('status').textContent = 'Could not load odds.json';
+                document.getElementById('arbs').innerHTML = '<div class="empty-state">❌ Scraper has not run yet.</div>';
+                document.getElementById('oddsTable').innerHTML = '<div class="empty-state">❌ Scraper has not run yet.</div>';
+            }
+        }
 
-    document.getElementById('historyModal').classList.add('active');
-}
+        // ─── start ─────────────────────────────────────────────
+        load();
+        setInterval(load, 30000);
+    </script>
 
-function closeModal() {
-    document.getElementById('historyModal').classList.remove('active');
-}
-
-// ============================================================
-// NAVIGATION
-// ============================================================
-function loadPage(page) {
-    document.querySelectorAll('[id^="nav"]').forEach(el => {
-        el.className = 'text-gray-400 p-2';
-    });
-    document.getElementById('nav' + page.charAt(0).toUpperCase() + page.slice(1)).className = 'text-green-400 p-2';
-
-    if (page === 'home') {
-        document.getElementById('opportunitiesContainer').style.display = 'block';
-        loadOpportunities(currentSport);
-    } else if (page === 'bookmakers') {
-        document.getElementById('opportunitiesContainer').innerHTML = `
-            <div class="glass rounded-3xl p-4">
-                <h3 class="font-semibold text-lg mb-4">📚 Bookmakers</h3>
-                <div id="bookmakerList">Loading...</div>
-            </div>
-        `;
-        loadBookmakerList();
-    } else if (page === 'history') {
-        document.getElementById('opportunitiesContainer').innerHTML = `
-            <div class="glass rounded-3xl p-4">
-                <h3 class="font-semibold text-lg mb-4">📊 Full History</h3>
-                <div id="historyList">Loading...</div>
-            </div>
-        `;
-        loadFullHistory();
-    } else if (page === 'settings') {
-        document.getElementById('opportunitiesContainer').innerHTML = `
-            <div class="glass rounded-3xl p-4">
-                <h3 class="font-semibold text-lg mb-4">⚙️ Settings</h3>
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-400">Auto-refresh interval</span>
-                        <select id="refreshInterval" class="bg-transparent border border-gray-700 rounded-lg px-3 py-1" onchange="changeRefresh()">
-                            <option value="15">15 seconds</option>
-                            <option value="30" selected>30 seconds</option>
-                            <option value="60">60 seconds</option>
-                        </select>
-                    </div>
-                    <button onclick="saveSettings()" class="w-full bg-green-500/20 text-green-400 py-2 rounded-full">💾 Save Settings</button>
-                    <button onclick="generateAllScrapers()" class="w-full bg-blue-500/20 text-blue-400 py-2 rounded-full">🤖 Generate All AI Scrapers</button>
-                </div>
-            </div>
-        `;
-    }
-}
-
-async function loadBookmakerList() {
-    const data = await fetchAPI('bookmakers');
-    const container = document.getElementById('bookmakerList');
-    if (data && data.bookmakers) {
-        let html = '';
-        data.bookmakers.forEach(bm => {
-            html += `
-                <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
-                    <div>
-                        <span class="font-medium">${bm.name}</span>
-                        <span class="text-xs text-gray-500 block">${bm.url}</span>
-                    </div>
-                    <div class="flex gap-2">
-                        <span class="text-xs ${bm.enabled ? 'text-green-400' : 'text-gray-500'}">${bm.enabled ? '● Active' : '○ Inactive'}</span>
-                        <button onclick="generateScraper('${bm.name}')" class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">🤖 AI</button>
-                    </div>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-    }
-}
-
-async function loadFullHistory() {
-    const data = await fetchAPI('opportunities/history');
-    const container = document.getElementById('historyList');
-    if (data && data.length > 0) {
-        let html = '';
-        data.slice(0, 50).forEach(item => {
-            html += `
-                <div class="flex justify-between items-center py-2 border-b border-gray-800/50">
-                    <div>
-                        <span class="font-medium">${item.match || 'Unknown'}</span>
-                        <span class="text-xs text-gray-500 block">${new Date(item.last_seen).toLocaleString()}</span>
-                    </div>
-                    <span class="text-green-400 font-bold">+${item.profit_percent || 0}%</span>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-    } else {
-        container.innerHTML = '<p class="text-gray-400 text-center py-4">No history yet</p>';
-    }
-}
-
-// ============================================================
-// AI SCRAPER GENERATION (calls backend endpoints)
-// ============================================================
-async function generateScraper(name) {
-    try {
-        const res = await fetch(`${API_BASE}/api/generate/${name}`, { method: 'POST' });
-        const data = await res.json();
-        if (data.success) alert(`✅ Scraper generated for ${name}`);
-        else alert(`❌ Failed: ${data.error}`);
-    } catch (e) {
-        alert('❌ Error: ' + e.message);
-    }
-}
-
-async function generateAllScrapers() {
-    try {
-        const res = await fetch(`${API_BASE}/api/generate-all`, { method: 'POST' });
-        const data = await res.json();
-        if (data.success) alert('✅ All scrapers generated!');
-        else alert('❌ Failed: ' + data.error);
-    } catch (e) {
-        alert('❌ Error: ' + e.message);
-    }
-}
-
-function saveSettings() {
-    alert('✅ Settings saved!');
-}
-
-// ============================================================
-// AUTO-REFRESH
-// ============================================================
-let refreshInterval = 30;
-let timer = null;
-
-function startAutoRefresh(seconds) {
-    if (timer) clearInterval(timer);
-    timer = setInterval(() => {
-        loadStats();
-        loadOpportunities(currentSport);
-        loadBookmakers();
-    }, seconds * 1000);
-}
-
-function changeRefresh() {
-    const sel = document.getElementById('refreshInterval');
-    refreshInterval = parseInt(sel.value);
-    startAutoRefresh(refreshInterval);
-    alert(`⏱️ Auto-refresh set to ${refreshInterval}s`);
-}
-
-// ============================================================
-// INIT
-// ============================================================
-document.addEventListener('DOMContentLoaded', function() {
-    loadStats();
-    loadBookmakers();
-    loadOpportunities('all');
-    startAutoRefresh(30);
-});
-
-// Close modal on outside click
-document.getElementById('historyModal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-});
-
-// Make functions globally available
-window.filterBySport = filterBySport;
-window.loadPage = loadPage;
-window.generateScraper = generateScraper;
-window.generateAllScrapers = generateAllScrapers;
-window.saveSettings = saveSettings;
-window.showHistory = showHistory;
-window.closeModal = closeModal;
-window.changeRefresh = changeRefresh;
-</script>
 </body>
-                                                                </html>
+    </html>
