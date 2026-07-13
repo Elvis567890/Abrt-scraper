@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # full history so we can pull safely
+          fetch-depth: 0  # full history so we can pull/push safely
 
       - name: Ensure main is up to date BEFORE changes
         run: |
@@ -31,15 +31,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt || true
 
-      # NEW: install Playwright browsers so BetPawa works in CI
+      # Install Playwright browsers so BetPawa native scraper works in CI
       - name: Install Playwright browsers
         run: |
           python -m playwright install --with-deps chromium
 
       - name: Run scraper
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GOOGLE_GENAI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: |
           python scraper.py
