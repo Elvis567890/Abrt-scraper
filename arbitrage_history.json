@@ -3,44 +3,6 @@
     "match": "nk lokomotiva zagreb vs fk partizan belgrade",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.51,
-    "profit_ugx": 3513,
-    "total_stake": 100000,
-    "arb_sum": 0.9649,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.66,
-        "stake": 38963,
-        "win": 103642
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30483,
-        "win": 103642
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.392,
-        "stake": 30555,
-        "win": 103643
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 13:59 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
-    "match": "nk lokomotiva zagreb vs fk partizan belgrade",
-    "sport": "Football",
-    "type": "3-way",
     "profit_percent": 5.25,
     "profit_ugx": 5246,
     "total_stake": 100000,
@@ -189780,5 +189742,41 @@
       }
     ],
     "_seen_at": "2026-07-13T05:13:36.359973+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.39,
+    "profit_ugx": 6386,
+    "total_stake": 100000,
+    "arb_sum": 0.9361,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.7,
+        "stake": 62836,
+        "win": 106821
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12494,
+        "win": 106824
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.33,
+        "stake": 24670,
+        "win": 106821
+      }
+    ],
+    "_seen_at": "2026-07-13T05:15:26.961579+00:00"
   }
 ]
