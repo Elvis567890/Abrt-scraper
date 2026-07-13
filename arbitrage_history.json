@@ -1,81 +1,5 @@
 [
   {
-    "match": "spartak trnava vs hanacka",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 7.04,
-    "profit_ugx": 7037,
-    "total_stake": 100000,
-    "arb_sum": 0.9296,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.63,
-        "stake": 40901,
-        "win": 107570
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 26892,
-        "win": 107568
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.34,
-        "stake": 32207,
-        "win": 107571
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 10:11 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
-    "match": "maribor vs charlton",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 8.23,
-    "profit_ugx": 8234,
-    "total_stake": 100000,
-    "arb_sum": 0.9177,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.75,
-        "stake": 39627,
-        "win": 108974
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 30270,
-        "win": 108972
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.62,
-        "stake": 30103,
-        "win": 108973
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 10:09 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": " hradec kralove vs nordsjaelland",
     "sport": "Football",
     "type": "3-way",
@@ -189652,5 +189576,77 @@
       }
     ],
     "_seen_at": "2026-07-13T06:09:34.249653+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.26,
+    "profit_ugx": 2264,
+    "total_stake": 100000,
+    "arb_sum": 0.9774,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 82513,
+        "win": 102316
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.5,
+        "stake": 8185,
+        "win": 102312
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 11.0,
+        "stake": 9301,
+        "win": 102311
+      }
+    ],
+    "_seen_at": "2026-07-13T06:11:41.235345+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.39,
+    "profit_ugx": 6386,
+    "total_stake": 100000,
+    "arb_sum": 0.9361,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.7,
+        "stake": 62836,
+        "win": 106821
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12494,
+        "win": 106824
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.33,
+        "stake": 24670,
+        "win": 106821
+      }
+    ],
+    "_seen_at": "2026-07-13T06:11:41.235345+00:00"
   }
 ]
