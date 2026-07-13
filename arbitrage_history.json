@@ -1,81 +1,5 @@
 [
   {
-    "match": "maribor vs charlton",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 9.38,
-    "profit_ugx": 9377,
-    "total_stake": 100000,
-    "arb_sum": 0.9062,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.827,
-        "stake": 39033,
-        "win": 110346
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 30652,
-        "win": 110347
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.64,
-        "stake": 30315,
-        "win": 110347
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 12:43 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
-    "match": "viktoria plzen vs young boys bern",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.54,
-    "profit_ugx": 4539,
-    "total_stake": 100000,
-    "arb_sum": 0.9546,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.32,
-        "stake": 45153,
-        "win": 104755
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 27567,
-        "win": 104755
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.84,
-        "stake": 27280,
-        "win": 104755
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 12:43 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "viktoria plzen vs young boys bern",
     "sport": "Football",
     "type": "3-way",
@@ -189738,5 +189662,77 @@
       }
     ],
     "_seen_at": "2026-07-13T05:35:12.594168+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.35,
+    "profit_ugx": 4355,
+    "total_stake": 100000,
+    "arb_sum": 0.9565,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 84317,
+        "win": 104553
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8713,
+        "win": 104556
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 15.0,
+        "stake": 6970,
+        "win": 104550
+      }
+    ],
+    "_seen_at": "2026-07-13T05:37:31.039105+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.39,
+    "profit_ugx": 6386,
+    "total_stake": 100000,
+    "arb_sum": 0.9361,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.7,
+        "stake": 62836,
+        "win": 106821
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12494,
+        "win": 106824
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.33,
+        "stake": 24670,
+        "win": 106821
+      }
+    ],
+    "_seen_at": "2026-07-13T05:37:31.039105+00:00"
   }
 ]
