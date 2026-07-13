@@ -1,43 +1,5 @@
 [
   {
-    "match": " wiener viktoria vs vorwarts steyr",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.22,
-    "profit_ugx": 4216,
-    "total_stake": 100000,
-    "arb_sum": 0.9578,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 2.15,
-        "stake": 48559,
-        "win": 104402
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.33,
-        "stake": 24111,
-        "win": 104401
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.82,
-        "stake": 27330,
-        "win": 104401
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 14:47 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "lugano vs heidenheim",
     "sport": "Football",
     "type": "3-way",
@@ -189818,5 +189780,41 @@
       }
     ],
     "_seen_at": "2026-07-13T04:51:34.989386+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.48,
+    "profit_ugx": 4482,
+    "total_stake": 100000,
+    "arb_sum": 0.9552,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.63,
+        "stake": 64229,
+        "win": 104693
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12245,
+        "win": 104695
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.45,
+        "stake": 23526,
+        "win": 104691
+      }
+    ],
+    "_seen_at": "2026-07-13T04:53:26.826754+00:00"
   }
 ]
