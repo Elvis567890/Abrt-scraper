@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-13 15:52 UTC",
-  "total_matches": 1096,
+  "last_updated": "2026-07-13 15:54 UTC",
+  "total_matches": 1097,
   "bookmakers_scraped": [
     "ChampionBet",
     "BetPawa",
@@ -271,38 +271,6 @@
       ]
     },
     {
-      "match": "djurgardens if vs halmstads bk",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 1.42,
-      "profit_ugx": 1419,
-      "total_stake": 100000,
-      "arb_sum": 0.9858,
-      "bets": [
-        {
-          "bookmaker": "SportyBet",
-          "outcome": "Home",
-          "odd": 1.21,
-          "stake": 83834,
-          "win": 101439
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Draw",
-          "odd": 12.5,
-          "stake": 8115,
-          "win": 101438
-        },
-        {
-          "bookmaker": "BetPawa",
-          "outcome": "Away",
-          "odd": 12.6,
-          "stake": 8051,
-          "win": 101443
-        }
-      ]
-    },
-    {
       "match": "pfk arsenal tula vs tekstilshchik ivanovo",
       "sport": "Football",
       "type": "3-way",
@@ -331,6 +299,38 @@
           "odd": 6.4,
           "stake": 15821,
           "win": 101254
+        }
+      ]
+    },
+    {
+      "match": "djurgardens if vs halmstads bk",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 1.05,
+      "profit_ugx": 1050,
+      "total_stake": 100000,
+      "arb_sum": 0.9895,
+      "bets": [
+        {
+          "bookmaker": "SportyBet",
+          "outcome": "Home",
+          "odd": 1.21,
+          "stake": 83521,
+          "win": 101060
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Draw",
+          "odd": 12.5,
+          "stake": 8085,
+          "win": 101062
+        },
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Away",
+          "odd": 12.04,
+          "stake": 8394,
+          "win": 101064
         }
       ]
     }
@@ -403,9 +403,9 @@
       "match_key": "djurgardens if vs halmstads bk",
       "bookmaker": "BetPawa",
       "competition": "Football / Sweden / Allsvenskan",
-      "home": 1.18,
-      "draw": 7.48,
-      "away": 12.6,
+      "home": 1.19,
+      "draw": 7.31,
+      "away": 12.04,
       "sport": "Football"
     },
     {
@@ -10279,9 +10279,9 @@
       "match_key": "villa san carlos r vs deportivo armenio r",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera B Metropolitana Reserves",
-      "home": "41",
-      "draw": "7",
-      "away": "1.1",
+      "home": "",
+      "draw": "",
+      "away": "",
       "sport": "Football"
     },
     {
@@ -10399,9 +10399,9 @@
       "match_key": "san antonio bulo bulo u19 vs the strongest u19",
       "bookmaker": "AbaBet",
       "competition": "Bolivia - Liga Nacional U19",
-      "home": "10",
-      "draw": "1.06",
-      "away": "15",
+      "home": "",
+      "draw": "",
+      "away": "",
       "sport": "Football"
     },
     {
@@ -10412,8 +10412,8 @@
       "bookmaker": "AbaBet",
       "competition": "Bolivia - Liga Nacional U19",
       "home": "3.75",
-      "draw": "1.91",
-      "away": "3.25",
+      "draw": "1.83",
+      "away": "3.5",
       "sport": "Football"
     },
     {
@@ -10509,7 +10509,7 @@
       "competition": "Finland - Kakkonen Group B",
       "home": "1.25",
       "draw": "5.5",
-      "away": "9.5",
+      "away": "9",
       "sport": "Football"
     },
     {
@@ -10519,8 +10519,8 @@
       "match_key": "jypk w vs honka espoo w",
       "bookmaker": "AbaBet",
       "competition": "Finland - Ykkonen Women",
-      "home": "3.1",
-      "draw": "3.4",
+      "home": "3.2",
+      "draw": "3.25",
       "away": "2.1",
       "sport": "Football"
     },
@@ -10641,7 +10641,7 @@
       "competition": "World - Club Friendlies",
       "home": "6.5",
       "draw": "3.75",
-      "away": "1.53",
+      "away": "1.57",
       "sport": "Football"
     },
     {
@@ -10653,7 +10653,7 @@
       "competition": "World - Club Friendlies",
       "home": "4",
       "draw": "3.75",
-      "away": "1.8",
+      "away": "1.83",
       "sport": "Football"
     },
     {
@@ -10750,6 +10750,18 @@
       "home": "5.5",
       "draw": "4.75",
       "away": "1.4",
+      "sport": "Football"
+    },
+    {
+      "match": "Bochum (W) vs Koln (W)",
+      "home_team": "Bochum (W)",
+      "away_team": "Koln (W)",
+      "match_key": "bochum w vs koln w",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies Women",
+      "home": "13",
+      "draw": "6",
+      "away": "1.18",
       "sport": "Football"
     },
     {
