@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-13 18:37 UTC",
-  "total_matches": 1068,
+  "last_updated": "2026-07-13 18:40 UTC",
+  "total_matches": 1073,
   "bookmakers_scraped": [
     "ChampionBet",
     "BetPawa",
@@ -82,31 +82,31 @@
       "match": "paysandu vs fenix",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 8.64,
-      "profit_ugx": 8642,
+      "profit_percent": 8.22,
+      "profit_ugx": 8218,
       "total_stake": 100000,
-      "arb_sum": 0.9136,
+      "arb_sum": 0.9178,
       "bets": [
         {
-          "bookmaker": "1xBet",
-          "outcome": "Home",
-          "odd": 3.785,
-          "stake": 28919,
-          "win": 109458
-        },
-        {
           "bookmaker": "SportyBet",
-          "outcome": "Draw",
-          "odd": 3.1,
-          "stake": 35310,
-          "win": 109461
+          "outcome": "Home",
+          "odd": 3.8,
+          "stake": 28672,
+          "win": 108954
         },
         {
-          "bookmaker": "22Bet",
+          "bookmaker": "Fortebet",
+          "outcome": "Draw",
+          "odd": 3.05,
+          "stake": 35722,
+          "win": 108952
+        },
+        {
+          "bookmaker": "1xBet",
           "outcome": "Away",
           "odd": 3.06,
-          "stake": 35771,
-          "win": 109459
+          "stake": 35606,
+          "win": 108954
         }
       ]
     },
@@ -299,9 +299,9 @@
       "match_key": "breidablik kopavogur vs keflavik if",
       "bookmaker": "BetPawa",
       "competition": "Football / Iceland / Besta deild",
-      "home": 1.64,
-      "draw": 4.61,
-      "away": 3.94,
+      "home": 1.68,
+      "draw": 4.51,
+      "away": 3.79,
       "sport": "Football"
     },
     {
@@ -1535,9 +1535,9 @@
       "match_key": "breidablik vs keflavik",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.65,
-      "draw": 4.45,
-      "away": 3.9,
+      "home": 1.71,
+      "draw": 4.35,
+      "away": 3.7,
       "sport": "Football"
     },
     {
@@ -9899,33 +9899,21 @@
       "match_key": "ferro carril oeste w vs boca juniors w",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera A Women",
-      "home": "1.44",
+      "home": "1.4",
       "draw": "3.6",
-      "away": "9.5",
+      "away": "11",
       "sport": "Football"
     },
     {
-      "match": "Banfield (W) vs Belgrano (W)",
-      "home_team": "Banfield (W)",
-      "away_team": "Belgrano (W)",
-      "match_key": "banfield w vs belgrano w",
+      "match": "Racing Club (W) vs Union de Santa Fe (W)",
+      "home_team": "Racing Club (W)",
+      "away_team": "Union de Santa Fe (W)",
+      "match_key": "racing w vs union de santa fe w",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera A Women",
-      "home": "3.75",
-      "draw": "2.5",
-      "away": "2.5",
-      "sport": "Football"
-    },
-    {
-      "match": "San Lorenzo (W) vs San Luis FC (w)",
-      "home_team": "San Lorenzo (W)",
-      "away_team": "San Luis FC (w)",
-      "match_key": "san lorenzo w vs san luis w",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Primera A Women",
-      "home": "1.08",
-      "draw": "8",
-      "away": "21",
+      "home": "1.17",
+      "draw": "5.5",
+      "away": "17",
       "sport": "Football"
     },
     {
@@ -9941,15 +9929,27 @@
       "sport": "Football"
     },
     {
-      "match": "Racing Club (W) vs Union de Santa Fe (W)",
-      "home_team": "Racing Club (W)",
-      "away_team": "Union de Santa Fe (W)",
-      "match_key": "racing w vs union de santa fe w",
+      "match": "San Lorenzo (W) vs San Luis FC (w)",
+      "home_team": "San Lorenzo (W)",
+      "away_team": "San Luis FC (w)",
+      "match_key": "san lorenzo w vs san luis w",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera A Women",
-      "home": "1.2",
-      "draw": "5.5",
-      "away": "13",
+      "home": "1.08",
+      "draw": "8",
+      "away": "21",
+      "sport": "Football"
+    },
+    {
+      "match": "Banfield (W) vs Belgrano (W)",
+      "home_team": "Banfield (W)",
+      "away_team": "Belgrano (W)",
+      "match_key": "banfield w vs belgrano w",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Primera A Women",
+      "home": "3.75",
+      "draw": "2.5",
+      "away": "2.5",
       "sport": "Football"
     },
     {
@@ -9959,9 +9959,9 @@
       "match_key": "claypole vs leones de rosario",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera C",
-      "home": "2.75",
-      "draw": "2.63",
-      "away": "3.1",
+      "home": "3.1",
+      "draw": "2.4",
+      "away": "3",
       "sport": "Football"
     },
     {
@@ -9971,9 +9971,45 @@
       "match_key": "fenix vs sportivo barracas",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera C",
-      "home": "",
-      "draw": "",
-      "away": "",
+      "home": "2.05",
+      "draw": "2.5",
+      "away": "5.5",
+      "sport": "Football"
+    },
+    {
+      "match": "Ferro Carril Oeste (R) vs Lanus (R)",
+      "home_team": "Ferro Carril Oeste (R)",
+      "away_team": "Lanus (R)",
+      "match_key": "ferro carril oeste r vs lanus r",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Reserve League",
+      "home": "4.75",
+      "draw": "2.75",
+      "away": "1.95",
+      "sport": "Football"
+    },
+    {
+      "match": "Estudiantes de Rio Cuarto (R) vs Defensa y Justicia (R)",
+      "home_team": "Estudiantes de Rio Cuarto (R)",
+      "away_team": "Defensa y Justicia (R)",
+      "match_key": "estudiantes de rio cuarto r vs defensa y justicia r",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Reserve League",
+      "home": "5",
+      "draw": "2.75",
+      "away": "1.91",
+      "sport": "Football"
+    },
+    {
+      "match": "Gimnasia Mendoza (R) vs Sarmiento (R)",
+      "home_team": "Gimnasia Mendoza (R)",
+      "away_team": "Sarmiento (R)",
+      "match_key": "gimnasia mendoza r vs sarmiento r",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Reserve League",
+      "home": "2.6",
+      "draw": "2.4",
+      "away": "3.5",
       "sport": "Football"
     },
     {
@@ -9985,43 +10021,7 @@
       "competition": "Argentina - Reserve League",
       "home": "1.83",
       "draw": "2.75",
-      "away": "5.5",
-      "sport": "Football"
-    },
-    {
-      "match": "Gimnasia Mendoza (R) vs Sarmiento (R)",
-      "home_team": "Gimnasia Mendoza (R)",
-      "away_team": "Sarmiento (R)",
-      "match_key": "gimnasia mendoza r vs sarmiento r",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Reserve League",
-      "home": "",
-      "draw": "",
-      "away": "",
-      "sport": "Football"
-    },
-    {
-      "match": "Estudiantes de Rio Cuarto (R) vs Defensa y Justicia (R)",
-      "home_team": "Estudiantes de Rio Cuarto (R)",
-      "away_team": "Defensa y Justicia (R)",
-      "match_key": "estudiantes de rio cuarto r vs defensa y justicia r",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Reserve League",
-      "home": "4.33",
-      "draw": "2.88",
-      "away": "1.91",
-      "sport": "Football"
-    },
-    {
-      "match": "Ferro Carril Oeste (R) vs Lanus (R)",
-      "home_team": "Ferro Carril Oeste (R)",
-      "away_team": "Lanus (R)",
-      "match_key": "ferro carril oeste r vs lanus r",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Reserve League",
-      "home": "4.33",
-      "draw": "2.88",
-      "away": "1.95",
+      "away": "5",
       "sport": "Football"
     },
     {
@@ -10069,7 +10069,7 @@
       "competition": "Brazil - Paulista U20",
       "home": "1.44",
       "draw": "4",
-      "away": "6.5",
+      "away": "7",
       "sport": "Football"
     },
     {
@@ -10121,18 +10121,6 @@
       "sport": "Football"
     },
     {
-      "match": "Arbair vs Reynir",
-      "home_team": "Arbair",
-      "away_team": "Reynir",
-      "match_key": "arbair vs reynir",
-      "bookmaker": "AbaBet",
-      "competition": "Iceland - 3 Deild",
-      "home": "4.5",
-      "draw": "5.25",
-      "away": "1.42",
-      "sport": "Football"
-    },
-    {
       "match": "Vidir vs Augnablik Kopavogur",
       "home_team": "Vidir",
       "away_team": "Augnablik Kopavogur",
@@ -10142,6 +10130,18 @@
       "home": "1.38",
       "draw": "5",
       "away": "5.25",
+      "sport": "Football"
+    },
+    {
+      "match": "Arbair vs Reynir",
+      "home_team": "Arbair",
+      "away_team": "Reynir",
+      "match_key": "arbair vs reynir",
+      "bookmaker": "AbaBet",
+      "competition": "Iceland - 3 Deild",
+      "home": "4.5",
+      "draw": "5.25",
+      "away": "1.42",
       "sport": "Football"
     },
     {
@@ -10211,9 +10211,9 @@
       "match_key": "la luz vs tacuarembo",
       "bookmaker": "AbaBet",
       "competition": "Uruguay - Segunda Division",
-      "home": "",
-      "draw": "",
-      "away": "",
+      "home": "1.3",
+      "draw": "4.5",
+      "away": "9",
       "sport": "Football"
     },
     {
@@ -10224,8 +10224,8 @@
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
       "home": "2.6",
-      "draw": "3.4",
-      "away": "2.4",
+      "draw": "3.5",
+      "away": "2.5",
       "sport": "Football"
     },
     {
@@ -10259,9 +10259,9 @@
       "match_key": "boldmere st michaels vs alvechurch",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 4.605,
-      "draw": 1.53,
-      "away": 4.33,
+      "home": 4.745,
+      "draw": 1.51,
+      "away": 4.4,
       "sport": "Football"
     },
     {
@@ -10367,9 +10367,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.48,
-      "draw": 1.54,
-      "away": 4.25,
+      "home": 5.44,
+      "draw": 1.55,
+      "away": 4.2,
       "sport": "Football"
     },
     {
@@ -10385,15 +10385,27 @@
       "sport": "Football"
     },
     {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.02,
+      "draw": 20.0,
+      "away": 12.5,
+      "sport": "Football"
+    },
+    {
       "match": "Breidablik UBK vs Keflav\u00edk",
       "home_team": "Breidablik UBK",
       "away_team": "Keflav\u00edk",
       "match_key": "breidablik ubk vs keflavk",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.65,
-      "draw": 4.02,
-      "away": 4.6,
+      "home": 1.72,
+      "draw": 3.72,
+      "away": 4.5,
       "sport": "Football"
     },
     {
@@ -10454,6 +10466,18 @@
       "home": 1.66,
       "draw": 3.98,
       "away": 4.05,
+      "sport": "Football"
+    },
+    {
+      "match": "Arbair vs Reynir Sandgerdi",
+      "home_team": "Arbair",
+      "away_team": "Reynir Sandgerdi",
+      "match_key": "arbair vs reynir sandgerdi",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 5.23,
+      "draw": 1.41,
+      "away": 5.1,
       "sport": "Football"
     },
     {
@@ -10589,6 +10613,18 @@
       "sport": "Football"
     },
     {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.81,
+      "draw": 3.2,
+      "away": 4.615,
+      "sport": "Football"
+    },
+    {
       "match": "Deportivo Capiat\u00e1 vs Atletico Tembetary",
       "home_team": "Deportivo Capiat\u00e1",
       "away_team": "Atletico Tembetary",
@@ -10613,30 +10649,6 @@
       "sport": "Football"
     },
     {
-      "match": "Figueirense vs Volta Redonda",
-      "home_team": "Figueirense",
-      "away_team": "Volta Redonda",
-      "match_key": "figueirense vs volta redonda",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.91,
-      "draw": 3.835,
-      "away": 3.15,
-      "sport": "Football"
-    },
-    {
-      "match": "Home vs Away",
-      "home_team": "Home",
-      "away_team": "Away",
-      "match_key": "home vs away",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.81,
-      "draw": 3.2,
-      "away": 4.615,
-      "sport": "Football"
-    },
-    {
       "match": "CSA Maceio vs Betim",
       "home_team": "CSA Maceio",
       "away_team": "Betim",
@@ -10646,6 +10658,18 @@
       "home": 1.49,
       "draw": 7.65,
       "away": 3.34,
+      "sport": "Football"
+    },
+    {
+      "match": "Figueirense vs Volta Redonda",
+      "home_team": "Figueirense",
+      "away_team": "Volta Redonda",
+      "match_key": "figueirense vs volta redonda",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.91,
+      "draw": 3.835,
+      "away": 3.15,
       "sport": "Football"
     },
     {
@@ -10802,18 +10826,6 @@
       "home": 3.75,
       "draw": 1.75,
       "away": 3.68,
-      "sport": "Football"
-    },
-    {
-      "match": "OFK Malzenice vs Besiktas",
-      "home_team": "OFK Malzenice",
-      "away_team": "Besiktas",
-      "match_key": "ofk malzenice vs besiktas",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 6.52,
-      "draw": 1.33,
-      "away": 4.88,
       "sport": "Football"
     },
     {
@@ -11111,9 +11123,9 @@
       "match_key": "boldmere st michaels vs alvechurch",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 4.605,
-      "draw": 1.53,
-      "away": 4.33,
+      "home": 4.745,
+      "draw": 1.51,
+      "away": 4.4,
       "sport": "Football"
     },
     {
@@ -11219,9 +11231,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 5.48,
-      "draw": 1.54,
-      "away": 4.25,
+      "home": 5.44,
+      "draw": 1.55,
+      "away": 4.2,
       "sport": "Football"
     },
     {
@@ -11237,15 +11249,27 @@
       "sport": "Football"
     },
     {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 1.02,
+      "draw": 20.0,
+      "away": 12.5,
+      "sport": "Football"
+    },
+    {
       "match": "Breidablik UBK vs Keflav\u00edk",
       "home_team": "Breidablik UBK",
       "away_team": "Keflav\u00edk",
       "match_key": "breidablik ubk vs keflavk",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.65,
-      "draw": 4.02,
-      "away": 4.6,
+      "home": 1.72,
+      "draw": 3.72,
+      "away": 4.5,
       "sport": "Football"
     },
     {
@@ -11306,6 +11330,18 @@
       "home": 1.66,
       "draw": 3.98,
       "away": 4.05,
+      "sport": "Football"
+    },
+    {
+      "match": "Arbair vs Reynir Sandgerdi",
+      "home_team": "Arbair",
+      "away_team": "Reynir Sandgerdi",
+      "match_key": "arbair vs reynir sandgerdi",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 5.23,
+      "draw": 1.41,
+      "away": 5.1,
       "sport": "Football"
     },
     {
@@ -11414,18 +11450,6 @@
       "home": 2.97,
       "draw": 2.524,
       "away": 2.97,
-      "sport": "Football"
-    },
-    {
-      "match": "FC Paysandu vs Centro Atletico Fenix",
-      "home_team": "FC Paysandu",
-      "away_team": "Centro Atletico Fenix",
-      "match_key": "paysandu vs centro atletico fenix",
-      "bookmaker": "22Bet",
-      "competition": "",
-      "home": 3.785,
-      "draw": 1.96,
-      "away": 3.06,
       "sport": "Football"
     },
     {
@@ -11699,9 +11723,9 @@
       "match_key": "boldmere st michaels vs alvechurch",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 4.605,
-      "draw": 1.53,
-      "away": 4.33,
+      "home": 4.745,
+      "draw": 1.51,
+      "away": 4.4,
       "sport": "Football"
     },
     {
@@ -11807,9 +11831,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 5.48,
-      "draw": 1.54,
-      "away": 4.25,
+      "home": 5.44,
+      "draw": 1.55,
+      "away": 4.2,
       "sport": "Football"
     },
     {
@@ -11822,6 +11846,18 @@
       "home": 2.38,
       "draw": 2.769,
       "away": 3.5,
+      "sport": "Football"
+    },
+    {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "Melbet",
+      "competition": "",
+      "home": 1.02,
+      "draw": 20.0,
+      "away": 12.5,
       "sport": "Football"
     },
     {
@@ -11855,9 +11891,9 @@
       "match_key": "boldmere st michaels vs alvechurch",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 4.605,
-      "draw": 1.53,
-      "away": 4.33,
+      "home": 4.745,
+      "draw": 1.51,
+      "away": 4.4,
       "sport": "Football"
     },
     {
@@ -11963,9 +11999,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.48,
-      "draw": 1.54,
-      "away": 4.25,
+      "home": 5.44,
+      "draw": 1.55,
+      "away": 4.2,
       "sport": "Football"
     },
     {
@@ -11981,15 +12017,27 @@
       "sport": "Football"
     },
     {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.02,
+      "draw": 20.0,
+      "away": 12.5,
+      "sport": "Football"
+    },
+    {
       "match": "Breidablik UBK vs Keflav\u00edk",
       "home_team": "Breidablik UBK",
       "away_team": "Keflav\u00edk",
       "match_key": "breidablik ubk vs keflavk",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.65,
-      "draw": 4.02,
-      "away": 4.6,
+      "home": 1.72,
+      "draw": 3.72,
+      "away": 4.5,
       "sport": "Football"
     },
     {
@@ -12050,6 +12098,18 @@
       "home": 1.66,
       "draw": 3.98,
       "away": 4.05,
+      "sport": "Football"
+    },
+    {
+      "match": "Arbair vs Reynir Sandgerdi",
+      "home_team": "Arbair",
+      "away_team": "Reynir Sandgerdi",
+      "match_key": "arbair vs reynir sandgerdi",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 5.23,
+      "draw": 1.41,
+      "away": 5.1,
       "sport": "Football"
     },
     {
@@ -12185,18 +12245,6 @@
       "sport": "Football"
     },
     {
-      "match": "Deportivo Capiat\u00e1 vs Atletico Tembetary",
-      "home_team": "Deportivo Capiat\u00e1",
-      "away_team": "Atletico Tembetary",
-      "match_key": "deportivo capiat vs atletico tembetary",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 2.23,
-      "draw": 3.105,
-      "away": 3.02,
-      "sport": "Football"
-    },
-    {
       "match": "America Natal vs Trem",
       "home_team": "America Natal",
       "away_team": "Trem",
@@ -12242,6 +12290,18 @@
       "home": 1.81,
       "draw": 3.2,
       "away": 4.615,
+      "sport": "Football"
+    },
+    {
+      "match": "Deportivo Capiat\u00e1 vs Atletico Tembetary",
+      "home_team": "Deportivo Capiat\u00e1",
+      "away_team": "Atletico Tembetary",
+      "match_key": "deportivo capiat vs atletico tembetary",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 2.23,
+      "draw": 3.105,
+      "away": 3.02,
       "sport": "Football"
     },
     {
@@ -12398,18 +12458,6 @@
       "home": 3.75,
       "draw": 1.75,
       "away": 3.68,
-      "sport": "Football"
-    },
-    {
-      "match": "OFK Malzenice vs Besiktas",
-      "home_team": "OFK Malzenice",
-      "away_team": "Besiktas",
-      "match_key": "ofk malzenice vs besiktas",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 6.52,
-      "draw": 1.33,
-      "away": 4.88,
       "sport": "Football"
     },
     {
@@ -12707,9 +12755,9 @@
       "match_key": "boldmere st michaels vs alvechurch",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 4.605,
-      "draw": 1.53,
-      "away": 4.33,
+      "home": 4.745,
+      "draw": 1.51,
+      "away": 4.4,
       "sport": "Football"
     },
     {
@@ -12815,9 +12863,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 5.48,
-      "draw": 1.54,
-      "away": 4.25,
+      "home": 5.44,
+      "draw": 1.55,
+      "away": 4.2,
       "sport": "Football"
     },
     {
@@ -12833,15 +12881,27 @@
       "sport": "Football"
     },
     {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 1.02,
+      "draw": 20.0,
+      "away": 12.5,
+      "sport": "Football"
+    },
+    {
       "match": "Breidablik UBK vs Keflav\u00edk",
       "home_team": "Breidablik UBK",
       "away_team": "Keflav\u00edk",
       "match_key": "breidablik ubk vs keflavk",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.65,
-      "draw": 4.02,
-      "away": 4.6,
+      "home": 1.72,
+      "draw": 3.72,
+      "away": 4.5,
       "sport": "Football"
     },
     {
