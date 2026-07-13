@@ -1,43 +1,5 @@
 [
   {
-    "match": "spain vs belgium",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.57,
-    "profit_ugx": 5569,
-    "total_stake": 100000,
-    "arb_sum": 0.9443,
-    "bets": [
-      {
-        "bookmaker": "ChampionBet",
-        "outcome": "Home",
-        "odd": 1.65,
-        "stake": 64180,
-        "win": 105897
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 6.03,
-        "stake": 17562,
-        "win": 105899
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.8,
-        "stake": 18258,
-        "win": 105896
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 15:46 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "juventude vs vila nova",
     "sport": "Football",
     "type": "3-way",
@@ -189828,5 +189790,41 @@
       }
     ],
     "_seen_at": "2026-07-13T04:41:35.158562+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.48,
+    "profit_ugx": 4482,
+    "total_stake": 100000,
+    "arb_sum": 0.9552,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.63,
+        "stake": 64229,
+        "win": 104693
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12245,
+        "win": 104695
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.45,
+        "stake": 23526,
+        "win": 104691
+      }
+    ],
+    "_seen_at": "2026-07-13T04:43:28.921114+00:00"
   }
 ]
