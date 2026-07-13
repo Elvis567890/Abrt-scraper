@@ -1,43 +1,5 @@
 [
   {
-    "match": "arsenal sarandi vs defensores unidos",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.86,
-    "profit_ugx": 4859,
-    "total_stake": 100000,
-    "arb_sum": 0.9514,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 1.52,
-        "stake": 69149,
-        "win": 105106
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 6.55,
-        "stake": 16047,
-        "win": 105108
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 7.1,
-        "stake": 14804,
-        "win": 105108
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 16:59 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "chenois vs  grandsaconnex",
     "sport": "Football",
     "type": "3-way",
@@ -189854,5 +189816,41 @@
       }
     ],
     "_seen_at": "2026-07-13T02:15:24.614964+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.35,
+    "profit_ugx": 4355,
+    "total_stake": 100000,
+    "arb_sum": 0.9565,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 84317,
+        "win": 104553
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8713,
+        "win": 104556
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 15.0,
+        "stake": 6970,
+        "win": 104550
+      }
+    ],
+    "_seen_at": "2026-07-13T02:17:23.361274+00:00"
   }
 ]
