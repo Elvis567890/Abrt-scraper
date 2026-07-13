@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-13 21:46 UTC",
+  "last_updated": "2026-07-13 21:47 UTC",
   "total_matches": 1210,
   "bookmakers_scraped": [
     "ChampionBet",
@@ -271,38 +271,6 @@
       ]
     },
     {
-      "match": "wisla plock vs bohemians prague 1905",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 2.95,
-      "profit_ugx": 2952,
-      "total_stake": 100000,
-      "arb_sum": 0.9705,
-      "bets": [
-        {
-          "bookmaker": "AbaBet",
-          "outcome": "Home",
-          "odd": 2.6,
-          "stake": 39631,
-          "win": 103041
-        },
-        {
-          "bookmaker": "BetPawa",
-          "outcome": "Draw",
-          "odd": 3.48,
-          "stake": 29610,
-          "win": 103043
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Away",
-          "odd": 3.35,
-          "stake": 30759,
-          "win": 103043
-        }
-      ]
-    },
-    {
       "match": "shamrock vs floriana",
       "sport": "Football",
       "type": "3-way",
@@ -331,6 +299,38 @@
           "odd": 9.9,
           "stake": 10334,
           "win": 102307
+        }
+      ]
+    },
+    {
+      "match": "wisla plock vs bohemians prague 1905",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 1.75,
+      "profit_ugx": 1748,
+      "total_stake": 100000,
+      "arb_sum": 0.9825,
+      "bets": [
+        {
+          "bookmaker": "AbaBet",
+          "outcome": "Home",
+          "odd": 2.6,
+          "stake": 39146,
+          "win": 101780
+        },
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Draw",
+          "odd": 3.34,
+          "stake": 30473,
+          "win": 101780
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Away",
+          "odd": 3.35,
+          "stake": 30382,
+          "win": 101780
         }
       ]
     },
@@ -549,14 +549,26 @@
       "sport": "Football"
     },
     {
+      "match": "The Cove FC vs Adelaide United FC",
+      "home_team": "The Cove FC",
+      "away_team": "Adelaide United FC",
+      "match_key": "the cove vs adelaide",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / Club Friendly Games",
+      "home": 38.16,
+      "draw": 13.36,
+      "away": 1.01,
+      "sport": "Football"
+    },
+    {
       "match": "Wisla Plock vs Bohemians Prague 1905",
       "home_team": "Wisla Plock",
       "away_team": "Bohemians Prague 1905",
       "match_key": "wisla plock vs bohemians prague 1905",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendly Games",
-      "home": 2.24,
-      "draw": 3.48,
+      "home": 2.3,
+      "draw": 3.34,
       "away": 2.81,
       "sport": "Football"
     },
@@ -618,18 +630,6 @@
       "home": 1.93,
       "draw": 3.81,
       "away": 3.24,
-      "sport": "Football"
-    },
-    {
-      "match": "Grange Thistle Women vs North Lakes United Women",
-      "home_team": "Grange Thistle Women",
-      "away_team": "North Lakes United Women",
-      "match_key": "grange thistle vs north lakes",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Australia / Queensland Premier League 1, Women",
-      "home": 8.95,
-      "draw": 6.09,
-      "away": 1.23,
       "sport": "Football"
     },
     {
@@ -10515,9 +10515,9 @@
       "match_key": "ca 9 de julio rafaela vs defensores de belgrano villa ramallo",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Torneo Federal A",
-      "home": "2.4",
+      "home": "2.38",
       "draw": "3",
-      "away": "3.1",
+      "away": "3.25",
       "sport": "Football"
     },
     {
@@ -10660,7 +10660,7 @@
       "bookmaker": "AbaBet",
       "competition": "Brazil - Piauiense U20",
       "home": "4.5",
-      "draw": "3.2",
+      "draw": "3.1",
       "away": "1.83",
       "sport": "Football"
     },
@@ -10840,8 +10840,8 @@
       "bookmaker": "AbaBet",
       "competition": "Colombia - Super Cup U19",
       "home": "7.5",
-      "draw": "1.95",
-      "away": "2.25",
+      "draw": "1.83",
+      "away": "2.3",
       "sport": "Football"
     },
     {
@@ -10959,9 +10959,9 @@
       "match_key": "independiente fbc vs tacuary",
       "bookmaker": "AbaBet",
       "competition": "Paraguay - 2nd Division",
-      "home": "5",
-      "draw": "1.3",
-      "away": "7.5",
+      "home": "6.5",
+      "draw": "1.2",
+      "away": "8.5",
       "sport": "Football"
     },
     {
@@ -11008,8 +11008,8 @@
       "bookmaker": "AbaBet",
       "competition": "Peru - Terceira Division",
       "home": "",
-      "draw": "29",
-      "away": "67",
+      "draw": "41",
+      "away": "81",
       "sport": "Football"
     },
     {
@@ -13251,9 +13251,9 @@
       "match_key": "cerro largo vs defensor sporting",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.949,
-      "draw": 2.555,
-      "away": 2.949,
+      "home": 2.875,
+      "draw": 2.515,
+      "away": 3.08,
       "sport": "Football"
     },
     {
@@ -13281,15 +13281,15 @@
       "sport": "Football"
     },
     {
-      "match": "Home vs Away",
-      "home_team": "Home",
-      "away_team": "Away",
-      "match_key": "home vs away",
+      "match": "America Natal vs Trem",
+      "home_team": "America Natal",
+      "away_team": "Trem",
+      "match_key": "america natal vs trem",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.937,
-      "draw": 2.878,
-      "away": 4.485,
+      "home": 1.12,
+      "draw": 18.5,
+      "away": 6.05,
       "sport": "Football"
     },
     {
@@ -14847,9 +14847,9 @@
       "match_key": "cerro largo vs defensor sporting",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.949,
-      "draw": 2.555,
-      "away": 2.949,
+      "home": 2.875,
+      "draw": 2.515,
+      "away": 3.08,
       "sport": "Football"
     },
     {
@@ -14883,9 +14883,9 @@
       "match_key": "home vs away",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.937,
-      "draw": 2.878,
-      "away": 4.485,
+      "home": 1.934,
+      "draw": 2.879,
+      "away": 4.5,
       "sport": "Football"
     }
   ]
