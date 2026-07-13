@@ -1,43 +1,5 @@
 [
   {
-    "match": "villa dalmine vs dock sud",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.13,
-    "profit_ugx": 3127,
-    "total_stake": 100000,
-    "arb_sum": 0.9687,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 1.94,
-        "stake": 53211,
-        "win": 103229
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 4.425,
-        "stake": 23328,
-        "win": 103226
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.4,
-        "stake": 23461,
-        "win": 103228
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 17:09 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "home vs away",
     "sport": "Football",
     "type": "3-way",
@@ -189872,5 +189834,41 @@
       }
     ],
     "_seen_at": "2026-07-13T01:59:28.978250+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.93,
+    "profit_ugx": 1931,
+    "total_stake": 100000,
+    "arb_sum": 0.9807,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 82233,
+        "win": 101969
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8497,
+        "win": 101964
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 11.0,
+        "stake": 9270,
+        "win": 101970
+      }
+    ],
+    "_seen_at": "2026-07-13T02:01:11.063531+00:00"
   }
 ]
