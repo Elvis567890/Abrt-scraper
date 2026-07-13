@@ -1,81 +1,5 @@
 [
   {
-    "match": " wiener viktoria vs vorwarts steyr",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 10.34,
-    "profit_ugx": 10342,
-    "total_stake": 100000,
-    "arb_sum": 0.8966,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.175,
-        "stake": 51280,
-        "win": 111534
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.5,
-        "stake": 24785,
-        "win": 111532
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.66,
-        "stake": 23934,
-        "win": 111532
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 16:59 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
-    "match": "atlantis vs kiffen",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 7.71,
-    "profit_ugx": 7712,
-    "total_stake": 100000,
-    "arb_sum": 0.9229,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 2.3,
-        "stake": 47112,
-        "win": 108358
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 27089,
-        "win": 108356
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.2,
-        "stake": 25799,
-        "win": 108356
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 16:59 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "arsenal sarandi vs defensores unidos",
     "sport": "Football",
     "type": "3-way",
@@ -189858,5 +189782,77 @@
       }
     ],
     "_seen_at": "2026-07-13T02:13:32.381549+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.35,
+    "profit_ugx": 4355,
+    "total_stake": 100000,
+    "arb_sum": 0.9565,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 84317,
+        "win": 104553
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8713,
+        "win": 104556
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 15.0,
+        "stake": 6970,
+        "win": 104550
+      }
+    ],
+    "_seen_at": "2026-07-13T02:15:24.614964+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.81,
+    "profit_ugx": 1814,
+    "total_stake": 100000,
+    "arb_sum": 0.9819,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.66,
+        "stake": 61354,
+        "win": 101848
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 3.93,
+        "stake": 25915,
+        "win": 101846
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 8.0,
+        "stake": 12731,
+        "win": 101848
+      }
+    ],
+    "_seen_at": "2026-07-13T02:15:24.614964+00:00"
   }
 ]
