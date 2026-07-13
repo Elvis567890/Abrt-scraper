@@ -731,6 +731,57 @@ def find_arbitrage(all_odds):
     return sorted(opportunities, key=lambda x: x["profit_percent"], reverse=True)
 
 
+# NEW: HTML report generator (added, nothing else changed)
+def write_html_report(output):
+    opportunities = output.get("opportunities", [])
+    last_updated = output.get("last_updated", "")
+
+    html = [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<meta charset='utf-8'>",
+        "<title>Arbitrage Opportunities</title>",
+        "<style>",
+        "body { font-family: Arial, sans-serif; margin: 20px; }",
+        "table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }",
+        "th, td { border: 1px solid #ccc; padding: 6px; font-size: 14px; }",
+        "th { background: #f0f0f0; }",
+        "</style>",
+        "</head>",
+        "<body>",
+        f"<h1>Arbitrage Opportunities</h1>",
+        f"<p>Last updated: {last_updated}</p>",
+    ]
+
+    if not opportunities:
+        html.append("<p>No opportunities found.</p>")
+    else:
+        html.append("<table>")
+        html.append("<tr><th>Match</th><th>Sport</th><th>Type</th><th>Profit %</th><th>Profit UGX</th><th>Bets</th></tr>")
+        for opp in opportunities[:50]:
+            bets_text = "; ".join(
+                f"{b['bookmaker']} {b['outcome']} @ {b['odd']}"
+                for b in opp.get("bets", [])
+            )
+            html.append(
+                f"<tr>"
+                f"<td>{opp.get('match')}</td>"
+                f"<td>{opp.get('sport')}</td>"
+                f"<td>{opp.get('type')}</td>"
+                f"<td>{opp.get('profit_percent')}%</td>"
+                f"<td>{opp.get('profit_ugx')}</td>"
+                f"<td>{bets_text}</td>"
+                f"</tr>"
+            )
+        html.append("</table>")
+
+    html.append("</body></html>")
+
+    with open("odds.html", "w", encoding="utf-8") as f:
+        f.write("\n".join(html))
+
+
 def main():
     print(f"Scraper started: {datetime.utcnow()}")
     all_odds = []
@@ -775,8 +826,12 @@ def main():
     with open("odds.json", "w") as f:
         json.dump(output, f, indent=2)
 
-    print(f"Done! {len(all_odds)} matches saved")
+    # NEW: also write HTML report
+    write_html_report(output)
+
+    print(f"Done! {len(all_odds)} matches saved and odds.html generated")
 
 
 if __name__ == "__main__":
     main()
+
