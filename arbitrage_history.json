@@ -1,43 +1,5 @@
 [
   {
-    "match": "spartak trnava vs hanacka",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 8.11,
-    "profit_ugx": 8110,
-    "total_stake": 100000,
-    "arb_sum": 0.9189,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.806,
-        "stake": 38783,
-        "win": 108825
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 29020,
-        "win": 108825
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.38,
-        "stake": 32197,
-        "win": 108826
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 14:39 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "lugano vs heidenheim",
     "sport": "Football",
     "type": "3-way",
@@ -189812,5 +189774,41 @@
       }
     ],
     "_seen_at": "2026-07-13T04:57:38.748154+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.48,
+    "profit_ugx": 4482,
+    "total_stake": 100000,
+    "arb_sum": 0.9552,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.63,
+        "stake": 64229,
+        "win": 104693
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12245,
+        "win": 104695
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.45,
+        "stake": 23526,
+        "win": 104691
+      }
+    ],
+    "_seen_at": "2026-07-13T04:59:27.463482+00:00"
   }
 ]
