@@ -1,43 +1,5 @@
 [
   {
-    "match": "spartak trnava vs hanacka",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 7.85,
-    "profit_ugx": 7852,
-    "total_stake": 100000,
-    "arb_sum": 0.9215,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.828,
-        "stake": 38374,
-        "win": 108522
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 28939,
-        "win": 108521
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.32,
-        "stake": 32687,
-        "win": 108521
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 14:47 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": " wiener viktoria vs vorwarts steyr",
     "sport": "Football",
     "type": "3-way",
@@ -189820,5 +189782,41 @@
       }
     ],
     "_seen_at": "2026-07-13T04:49:41.781040+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.48,
+    "profit_ugx": 4482,
+    "total_stake": 100000,
+    "arb_sum": 0.9552,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.63,
+        "stake": 64229,
+        "win": 104693
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12245,
+        "win": 104695
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.45,
+        "stake": 23526,
+        "win": 104691
+      }
+    ],
+    "_seen_at": "2026-07-13T04:51:34.989386+00:00"
   }
 ]
