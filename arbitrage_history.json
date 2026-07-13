@@ -1,43 +1,5 @@
 [
   {
-    "match": " wiener viktoria vs vorwarts steyr",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.86,
-    "profit_ugx": 4856,
-    "total_stake": 100000,
-    "arb_sum": 0.9514,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.18,
-        "stake": 48213,
-        "win": 105104
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.33,
-        "stake": 24273,
-        "win": 105102
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.82,
-        "stake": 27514,
-        "win": 105103
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 16:55 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "spain vs belgium",
     "sport": "Football",
     "type": "3-way",
@@ -189846,5 +189808,41 @@
       }
     ],
     "_seen_at": "2026-07-13T02:23:28.003581+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.35,
+    "profit_ugx": 4355,
+    "total_stake": 100000,
+    "arb_sum": 0.9565,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 84317,
+        "win": 104553
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8713,
+        "win": 104556
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 15.0,
+        "stake": 6970,
+        "win": 104550
+      }
+    ],
+    "_seen_at": "2026-07-13T02:25:32.972065+00:00"
   }
 ]
