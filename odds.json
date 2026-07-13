@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-13 22:35 UTC",
+  "last_updated": "2026-07-13 22:38 UTC",
   "total_matches": 1239,
   "bookmakers_scraped": [
     "ChampionBet",
@@ -239,38 +239,6 @@
       ]
     },
     {
-      "match": "america rn vs trem",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 2.82,
-      "profit_ugx": 2815,
-      "total_stake": 100000,
-      "arb_sum": 0.9718,
-      "bets": [
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Home",
-          "odd": 1.17,
-          "stake": 87946,
-          "win": 102897
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Draw",
-          "odd": 19.0,
-          "stake": 5416,
-          "win": 102904
-        },
-        {
-          "bookmaker": "SportyBet",
-          "outcome": "Away",
-          "odd": 15.5,
-          "stake": 6638,
-          "win": 102889
-        }
-      ]
-    },
-    {
       "match": "shamrock vs floriana",
       "sport": "Football",
       "type": "3-way",
@@ -299,6 +267,38 @@
           "odd": 9.9,
           "stake": 10380,
           "win": 102762
+        }
+      ]
+    },
+    {
+      "match": "america rn vs trem",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 2.2,
+      "profit_ugx": 2196,
+      "total_stake": 100000,
+      "arb_sum": 0.978,
+      "bets": [
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Home",
+          "odd": 1.17,
+          "stake": 87389,
+          "win": 102245
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Draw",
+          "odd": 17.0,
+          "stake": 6014,
+          "win": 102238
+        },
+        {
+          "bookmaker": "SportyBet",
+          "outcome": "Away",
+          "odd": 15.5,
+          "stake": 6596,
+          "win": 102238
         }
       ]
     },
@@ -700,8 +700,8 @@
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
       "home": 1.15,
-      "draw": 8.1,
-      "away": 18.53,
+      "draw": 8.05,
+      "away": 18.3,
       "sport": "Football"
     },
     {
@@ -4731,9 +4731,9 @@
       "match_key": "atltucuman ii vs aldosivi ii",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.84,
-      "draw": 3.35,
-      "away": 3.75,
+      "home": 1.78,
+      "draw": 3.4,
+      "away": 3.95,
       "sport": "Football"
     },
     {
@@ -11091,7 +11091,7 @@
       "match_key": "river u20 vs fluminense pi u20",
       "bookmaker": "AbaBet",
       "competition": "Brazil - Piauiense U20",
-      "home": "34",
+      "home": "41",
       "draw": "23",
       "away": "",
       "sport": "Football"
@@ -11104,7 +11104,7 @@
       "bookmaker": "AbaBet",
       "competition": "Brazil - Serie B",
       "home": "2.38",
-      "draw": "2.6",
+      "draw": "2.5",
       "away": "4",
       "sport": "Football"
     },
@@ -11127,9 +11127,9 @@
       "match_key": "itabaiana vs brusque",
       "bookmaker": "AbaBet",
       "competition": "Brazil - Serie C",
-      "home": "2",
-      "draw": "3",
-      "away": "4.33",
+      "home": "2.2",
+      "draw": "2.88",
+      "away": "3.6",
       "sport": "Football"
     },
     {
@@ -11367,9 +11367,9 @@
       "match_key": "deportivo capiata vs ca tembetary",
       "bookmaker": "AbaBet",
       "competition": "Paraguay - 2nd Division",
-      "home": "2.5",
-      "draw": "3.25",
-      "away": "2.63",
+      "home": "2.25",
+      "draw": "3.2",
+      "away": "3",
       "sport": "Football"
     },
     {
@@ -11595,8 +11595,8 @@
       "match_key": "cerro largo vs defensor",
       "bookmaker": "AbaBet",
       "competition": "Uruguay - Primera Division",
-      "home": "3.2",
-      "draw": "2.4",
+      "home": "3.4",
+      "draw": "2.3",
       "away": "2.88",
       "sport": "Football"
     },
@@ -11608,7 +11608,7 @@
       "bookmaker": "AbaBet",
       "competition": "Uruguay - Segunda Division",
       "home": "3.25",
-      "draw": "2.63",
+      "draw": "2.6",
       "away": "2.5",
       "sport": "Football"
     },
@@ -12513,6 +12513,18 @@
       "sport": "Football"
     },
     {
+      "match": "OFK Malzenice vs Besiktas",
+      "home_team": "OFK Malzenice",
+      "away_team": "Besiktas",
+      "match_key": "ofk malzenice vs besiktas",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 8.15,
+      "draw": 1.35,
+      "away": 4.9,
+      "sport": "Football"
+    },
+    {
       "match": "Dordrecht vs Borussia Dortmund II",
       "home_team": "Dordrecht",
       "away_team": "Borussia Dortmund II",
@@ -12534,18 +12546,6 @@
       "home": 25.0,
       "draw": null,
       "away": 13.0,
-      "sport": "Football"
-    },
-    {
-      "match": "OFK Malzenice vs Besiktas",
-      "home_team": "OFK Malzenice",
-      "away_team": "Besiktas",
-      "match_key": "ofk malzenice vs besiktas",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 8.15,
-      "draw": 1.35,
-      "away": 4.9,
       "sport": "Football"
     },
     {
@@ -12759,9 +12759,9 @@
       "match_key": "america natal vs trem",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.115,
-      "draw": 19.0,
-      "away": 6.15,
+      "home": 1.124,
+      "draw": 17.0,
+      "away": 6.05,
       "sport": "Football"
     },
     {
@@ -12771,9 +12771,9 @@
       "match_key": "csa maceio vs betim",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.43,
-      "draw": 8.3,
-      "away": 3.54,
+      "home": 1.44,
+      "draw": 7.85,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -12915,7 +12915,7 @@
       "match_key": "phong phu ha nam vs ho chi minh ii",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.143,
+      "home": 1.142,
       "draw": 12.5,
       "away": 6.35,
       "sport": "Football"
@@ -13377,6 +13377,18 @@
       "sport": "Football"
     },
     {
+      "match": "OFK Malzenice vs Besiktas",
+      "home_team": "OFK Malzenice",
+      "away_team": "Besiktas",
+      "match_key": "ofk malzenice vs besiktas",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 8.15,
+      "draw": 1.35,
+      "away": 4.9,
+      "sport": "Football"
+    },
+    {
       "match": "Dordrecht vs Borussia Dortmund II",
       "home_team": "Dordrecht",
       "away_team": "Borussia Dortmund II",
@@ -13398,18 +13410,6 @@
       "home": 25.0,
       "draw": null,
       "away": 13.0,
-      "sport": "Football"
-    },
-    {
-      "match": "OFK Malzenice vs Besiktas",
-      "home_team": "OFK Malzenice",
-      "away_team": "Besiktas",
-      "match_key": "ofk malzenice vs besiktas",
-      "bookmaker": "22Bet",
-      "competition": "",
-      "home": 8.15,
-      "draw": 1.35,
-      "away": 4.9,
       "sport": "Football"
     },
     {
@@ -13623,9 +13623,9 @@
       "match_key": "america natal vs trem",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.115,
-      "draw": 19.0,
-      "away": 6.15,
+      "home": 1.124,
+      "draw": 17.0,
+      "away": 6.05,
       "sport": "Football"
     },
     {
@@ -13635,9 +13635,9 @@
       "match_key": "csa maceio vs betim",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.43,
-      "draw": 8.3,
-      "away": 3.54,
+      "home": 1.44,
+      "draw": 7.85,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -13977,6 +13977,18 @@
       "sport": "Football"
     },
     {
+      "match": "OFK Malzenice vs Besiktas",
+      "home_team": "OFK Malzenice",
+      "away_team": "Besiktas",
+      "match_key": "ofk malzenice vs besiktas",
+      "bookmaker": "Melbet",
+      "competition": "",
+      "home": 8.15,
+      "draw": 1.35,
+      "away": 4.9,
+      "sport": "Football"
+    },
+    {
       "match": "Dordrecht vs Borussia Dortmund II",
       "home_team": "Dordrecht",
       "away_team": "Borussia Dortmund II",
@@ -13998,18 +14010,6 @@
       "home": 25.0,
       "draw": null,
       "away": 13.0,
-      "sport": "Football"
-    },
-    {
-      "match": "OFK Malzenice vs Besiktas",
-      "home_team": "OFK Malzenice",
-      "away_team": "Besiktas",
-      "match_key": "ofk malzenice vs besiktas",
-      "bookmaker": "Melbet",
-      "competition": "",
-      "home": 8.15,
-      "draw": 1.35,
-      "away": 4.9,
       "sport": "Football"
     },
     {
@@ -14085,6 +14085,18 @@
       "sport": "Football"
     },
     {
+      "match": "OFK Malzenice vs Besiktas",
+      "home_team": "OFK Malzenice",
+      "away_team": "Besiktas",
+      "match_key": "ofk malzenice vs besiktas",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 8.15,
+      "draw": 1.35,
+      "away": 4.9,
+      "sport": "Football"
+    },
+    {
       "match": "Dordrecht vs Borussia Dortmund II",
       "home_team": "Dordrecht",
       "away_team": "Borussia Dortmund II",
@@ -14106,18 +14118,6 @@
       "home": 25.0,
       "draw": null,
       "away": 13.0,
-      "sport": "Football"
-    },
-    {
-      "match": "OFK Malzenice vs Besiktas",
-      "home_team": "OFK Malzenice",
-      "away_team": "Besiktas",
-      "match_key": "ofk malzenice vs besiktas",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 8.15,
-      "draw": 1.35,
-      "away": 4.9,
       "sport": "Football"
     },
     {
@@ -14331,9 +14331,9 @@
       "match_key": "america natal vs trem",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.115,
-      "draw": 19.0,
-      "away": 6.15,
+      "home": 1.124,
+      "draw": 17.0,
+      "away": 6.05,
       "sport": "Football"
     },
     {
@@ -14343,9 +14343,9 @@
       "match_key": "csa maceio vs betim",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.43,
-      "draw": 8.3,
-      "away": 3.54,
+      "home": 1.44,
+      "draw": 7.85,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -14487,7 +14487,7 @@
       "match_key": "phong phu ha nam vs ho chi minh ii",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.143,
+      "home": 1.142,
       "draw": 12.5,
       "away": 6.35,
       "sport": "Football"
@@ -14949,6 +14949,18 @@
       "sport": "Football"
     },
     {
+      "match": "OFK Malzenice vs Besiktas",
+      "home_team": "OFK Malzenice",
+      "away_team": "Besiktas",
+      "match_key": "ofk malzenice vs besiktas",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 8.15,
+      "draw": 1.35,
+      "away": 4.9,
+      "sport": "Football"
+    },
+    {
       "match": "Dordrecht vs Borussia Dortmund II",
       "home_team": "Dordrecht",
       "away_team": "Borussia Dortmund II",
@@ -14970,18 +14982,6 @@
       "home": 25.0,
       "draw": null,
       "away": 13.0,
-      "sport": "Football"
-    },
-    {
-      "match": "OFK Malzenice vs Besiktas",
-      "home_team": "OFK Malzenice",
-      "away_team": "Besiktas",
-      "match_key": "ofk malzenice vs besiktas",
-      "bookmaker": "22Bet",
-      "competition": "",
-      "home": 8.15,
-      "draw": 1.35,
-      "away": 4.9,
       "sport": "Football"
     },
     {
@@ -15195,9 +15195,9 @@
       "match_key": "america natal vs trem",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.115,
-      "draw": 19.0,
-      "away": 6.15,
+      "home": 1.124,
+      "draw": 17.0,
+      "away": 6.05,
       "sport": "Football"
     },
     {
@@ -15207,9 +15207,9 @@
       "match_key": "csa maceio vs betim",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.43,
-      "draw": 8.3,
-      "away": 3.54,
+      "home": 1.44,
+      "draw": 7.85,
+      "away": 3.58,
       "sport": "Football"
     },
     {
