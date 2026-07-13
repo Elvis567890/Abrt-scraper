@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-13 16:54 UTC",
+  "last_updated": "2026-07-13 16:56 UTC",
   "total_matches": 1097,
   "bookmakers_scraped": [
     "ChampionBet",
@@ -143,6 +143,38 @@
       ]
     },
     {
+      "match": "ca san lorenzo de almagro vs san luis",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 5.18,
+      "profit_ugx": 5185,
+      "total_stake": 100000,
+      "arb_sum": 0.9482,
+      "bets": [
+        {
+          "bookmaker": "SportyBet",
+          "outcome": "Home",
+          "odd": 1.4,
+          "stake": 75335,
+          "win": 105469
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Draw",
+          "odd": 8.9,
+          "stake": 11850,
+          "win": 105465
+        },
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Away",
+          "odd": 8.23,
+          "stake": 12815,
+          "win": 105467
+        }
+      ]
+    },
+    {
       "match": "barra u20 vs carlos renaux u20",
       "sport": "Football",
       "type": "3-way",
@@ -171,38 +203,6 @@
           "odd": 10.96,
           "stake": 9554,
           "win": 104712
-        }
-      ]
-    },
-    {
-      "match": "ca san lorenzo de almagro vs san luis",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 4.44,
-      "profit_ugx": 4445,
-      "total_stake": 100000,
-      "arb_sum": 0.9556,
-      "bets": [
-        {
-          "bookmaker": "SportyBet",
-          "outcome": "Home",
-          "odd": 1.4,
-          "stake": 74751,
-          "win": 104651
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Draw",
-          "odd": 8.35,
-          "stake": 12533,
-          "win": 104651
-        },
-        {
-          "bookmaker": "BetPawa",
-          "outcome": "Away",
-          "odd": 8.23,
-          "stake": 12716,
-          "win": 104653
         }
       ]
     },
@@ -759,9 +759,9 @@
       "match_key": "larne vs sp tre fiori",
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
-      "home": 1.16,
-      "draw": 7.87,
-      "away": 17.4,
+      "home": 1.15,
+      "draw": 8.06,
+      "away": 18.24,
       "sport": "Football"
     },
     {
@@ -3051,9 +3051,9 @@
       "match_key": "san lorenzo w vs san luis w",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.4,
+      "home": 1.39,
       "draw": 3.9,
-      "away": 7.1,
+      "away": 7.4,
       "sport": "Football"
     },
     {
@@ -3339,9 +3339,9 @@
       "match_key": "zilina vs hajduk",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.92,
+      "home": 2.79,
       "draw": 3.25,
-      "away": 2.28,
+      "away": 2.37,
       "sport": "Football"
     },
     {
@@ -10317,18 +10317,6 @@
       "sport": "Football"
     },
     {
-      "match": "Gimnasia y Esgrima La Plata (W) vs Huracan (W)",
-      "home_team": "Gimnasia y Esgrima La Plata (W)",
-      "away_team": "Huracan (W)",
-      "match_key": "gimnasia y esgrima la plata w vs huracan w",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Primera A Women",
-      "home": "1.83",
-      "draw": "3.1",
-      "away": "4",
-      "sport": "Football"
-    },
-    {
       "match": "Racing Club (W) vs Union de Santa Fe (W)",
       "home_team": "Racing Club (W)",
       "away_team": "Union de Santa Fe (W)",
@@ -10341,15 +10329,15 @@
       "sport": "Football"
     },
     {
-      "match": "Claypole vs Leones de Rosario",
-      "home_team": "Claypole",
-      "away_team": "Leones de Rosario",
-      "match_key": "claypole vs leones de rosario",
+      "match": "Gimnasia y Esgrima La Plata (W) vs Huracan (W)",
+      "home_team": "Gimnasia y Esgrima La Plata (W)",
+      "away_team": "Huracan (W)",
+      "match_key": "gimnasia y esgrima la plata w vs huracan w",
       "bookmaker": "AbaBet",
-      "competition": "Argentina - Primera C",
-      "home": "2.8",
-      "draw": "2.7",
-      "away": "2.55",
+      "competition": "Argentina - Primera A Women",
+      "home": "1.83",
+      "draw": "3.1",
+      "away": "4",
       "sport": "Football"
     },
     {
@@ -10365,27 +10353,27 @@
       "sport": "Football"
     },
     {
-      "match": "Quilmes (R) vs Central Cordoba SDE (R)",
-      "home_team": "Quilmes (R)",
-      "away_team": "Central Cordoba SDE (R)",
-      "match_key": "quilmes r vs central cordoba sde r",
+      "match": "Claypole vs Leones de Rosario",
+      "home_team": "Claypole",
+      "away_team": "Leones de Rosario",
+      "match_key": "claypole vs leones de rosario",
       "bookmaker": "AbaBet",
-      "competition": "Argentina - Reserve League",
-      "home": "1.65",
-      "draw": "3.8",
-      "away": "4.1",
+      "competition": "Argentina - Primera C",
+      "home": "2.8",
+      "draw": "2.7",
+      "away": "2.55",
       "sport": "Football"
     },
     {
-      "match": "Gimnasia Mendoza (R) vs Sarmiento (R)",
-      "home_team": "Gimnasia Mendoza (R)",
-      "away_team": "Sarmiento (R)",
-      "match_key": "gimnasia mendoza r vs sarmiento r",
+      "match": "Ferro Carril Oeste (R) vs Lanus (R)",
+      "home_team": "Ferro Carril Oeste (R)",
+      "away_team": "Lanus (R)",
+      "match_key": "ferro carril oeste r vs lanus r",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Reserve League",
-      "home": "2",
-      "draw": "3",
-      "away": "3.7",
+      "home": "3.5",
+      "draw": "3.4",
+      "away": "1.85",
       "sport": "Football"
     },
     {
@@ -10401,15 +10389,27 @@
       "sport": "Football"
     },
     {
-      "match": "Ferro Carril Oeste (R) vs Lanus (R)",
-      "home_team": "Ferro Carril Oeste (R)",
-      "away_team": "Lanus (R)",
-      "match_key": "ferro carril oeste r vs lanus r",
+      "match": "Gimnasia Mendoza (R) vs Sarmiento (R)",
+      "home_team": "Gimnasia Mendoza (R)",
+      "away_team": "Sarmiento (R)",
+      "match_key": "gimnasia mendoza r vs sarmiento r",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Reserve League",
-      "home": "3.5",
-      "draw": "3.4",
-      "away": "1.85",
+      "home": "2",
+      "draw": "3",
+      "away": "3.7",
+      "sport": "Football"
+    },
+    {
+      "match": "Quilmes (R) vs Central Cordoba SDE (R)",
+      "home_team": "Quilmes (R)",
+      "away_team": "Central Cordoba SDE (R)",
+      "match_key": "quilmes r vs central cordoba sde r",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Reserve League",
+      "home": "1.65",
+      "draw": "3.8",
+      "away": "4.1",
       "sport": "Football"
     },
     {
@@ -10539,9 +10539,9 @@
       "match_key": "honka vs hjs akatemia",
       "bookmaker": "AbaBet",
       "competition": "Finland - Kakkonen Group B",
-      "home": "1.62",
-      "draw": "2.63",
-      "away": "11",
+      "home": "1.67",
+      "draw": "2.5",
+      "away": "12",
       "sport": "Football"
     },
     {
@@ -10551,9 +10551,9 @@
       "match_key": "jypk w vs honka espoo w",
       "bookmaker": "AbaBet",
       "competition": "Finland - Ykkonen Women",
-      "home": "1.73",
+      "home": "1.67",
       "draw": "3.1",
-      "away": "5",
+      "away": "6",
       "sport": "Football"
     },
     {
@@ -10569,18 +10569,6 @@
       "sport": "Football"
     },
     {
-      "match": "Arbair vs Reynir",
-      "home_team": "Arbair",
-      "away_team": "Reynir",
-      "match_key": "arbair vs reynir",
-      "bookmaker": "AbaBet",
-      "competition": "Iceland - 3 Deild",
-      "home": "4.2",
-      "draw": "5.25",
-      "away": "1.45",
-      "sport": "Football"
-    },
-    {
       "match": "Vidir vs Augnablik Kopavogur",
       "home_team": "Vidir",
       "away_team": "Augnablik Kopavogur",
@@ -10590,6 +10578,18 @@
       "home": "1.38",
       "draw": "5",
       "away": "5.25",
+      "sport": "Football"
+    },
+    {
+      "match": "Arbair vs Reynir",
+      "home_team": "Arbair",
+      "away_team": "Reynir",
+      "match_key": "arbair vs reynir",
+      "bookmaker": "AbaBet",
+      "competition": "Iceland - 3 Deild",
+      "home": "4.2",
+      "draw": "5.25",
+      "away": "1.45",
       "sport": "Football"
     },
     {
@@ -10737,18 +10737,6 @@
       "sport": "Football"
     },
     {
-      "match": "FC Solothurn vs FC Prishtina Bern",
-      "home_team": "FC Solothurn",
-      "away_team": "FC Prishtina Bern",
-      "match_key": "solothurn vs prishtina bern",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "2.5",
-      "draw": "3.4",
-      "away": "2.4",
-      "sport": "Football"
-    },
-    {
       "match": "Bradford PA vs Sheffield",
       "home_team": "Bradford PA",
       "away_team": "Sheffield",
@@ -10758,6 +10746,18 @@
       "home": "1.48",
       "draw": "5",
       "away": "4.2",
+      "sport": "Football"
+    },
+    {
+      "match": "FC Solothurn vs FC Prishtina Bern",
+      "home_team": "FC Solothurn",
+      "away_team": "FC Prishtina Bern",
+      "match_key": "solothurn vs prishtina bern",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "2.5",
+      "draw": "3.4",
+      "away": "2.4",
       "sport": "Football"
     },
     {
@@ -10971,9 +10971,9 @@
       "match_key": "san lorenzo de almagro vs san luis",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.35,
-      "draw": 8.35,
-      "away": 4.15,
+      "home": 1.32,
+      "draw": 8.9,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -11079,9 +11079,9 @@
       "match_key": "ingenieros vs oruro royal",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.42,
-      "draw": 5.48,
-      "away": 4.65,
+      "home": 1.38,
+      "draw": 5.95,
+      "away": 4.8,
       "sport": "Football"
     },
     {
@@ -11271,9 +11271,9 @@
       "match_key": "cerro largo vs defensor sporting",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.97,
-      "draw": 2.524,
-      "away": 2.97,
+      "home": 2.969,
+      "draw": 2.533,
+      "away": 2.959,
       "sport": "Football"
     },
     {
@@ -11295,21 +11295,9 @@
       "match_key": "associacao olmpica de itabaiana vs brusque",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.295,
-      "draw": 3.24,
+      "home": 2.305,
+      "draw": 3.22,
       "away": 2.8,
-      "sport": "Football"
-    },
-    {
-      "match": "Figueirense vs Volta Redonda",
-      "home_team": "Figueirense",
-      "away_team": "Volta Redonda",
-      "match_key": "figueirense vs volta redonda",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.92,
-      "draw": 3.82,
-      "away": 3.14,
       "sport": "Football"
     },
     {
@@ -11319,9 +11307,9 @@
       "match_key": "home vs away",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.804,
-      "draw": 3.215,
-      "away": 4.63,
+      "home": 1.81,
+      "draw": 3.195,
+      "away": 4.625,
       "sport": "Football"
     },
     {
@@ -11358,6 +11346,18 @@
       "home": 1.49,
       "draw": 7.65,
       "away": 3.34,
+      "sport": "Football"
+    },
+    {
+      "match": "Figueirense vs Volta Redonda",
+      "home_team": "Figueirense",
+      "away_team": "Volta Redonda",
+      "match_key": "figueirense vs volta redonda",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.92,
+      "draw": 3.82,
+      "away": 3.14,
       "sport": "Football"
     },
     {
@@ -11823,9 +11823,9 @@
       "match_key": "san lorenzo de almagro vs san luis",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.35,
-      "draw": 8.35,
-      "away": 4.15,
+      "home": 1.32,
+      "draw": 8.9,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -11931,9 +11931,9 @@
       "match_key": "ingenieros vs oruro royal",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.42,
-      "draw": 5.48,
-      "away": 4.65,
+      "home": 1.38,
+      "draw": 5.95,
+      "away": 4.8,
       "sport": "Football"
     },
     {
@@ -12543,9 +12543,9 @@
       "match_key": "san lorenzo de almagro vs san luis",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.35,
-      "draw": 8.35,
-      "away": 4.15,
+      "home": 1.32,
+      "draw": 8.9,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -12651,9 +12651,9 @@
       "match_key": "ingenieros vs oruro royal",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.42,
-      "draw": 5.48,
-      "away": 4.65,
+      "home": 1.38,
+      "draw": 5.95,
+      "away": 4.8,
       "sport": "Football"
     },
     {
@@ -12843,9 +12843,9 @@
       "match_key": "cerro largo vs defensor sporting",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.97,
-      "draw": 2.524,
-      "away": 2.97,
+      "home": 2.969,
+      "draw": 2.533,
+      "away": 2.959,
       "sport": "Football"
     },
     {
@@ -12867,8 +12867,8 @@
       "match_key": "associacao olmpica de itabaiana vs brusque",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.295,
-      "draw": 3.24,
+      "home": 2.305,
+      "draw": 3.22,
       "away": 2.8,
       "sport": "Football"
     },
@@ -12891,9 +12891,9 @@
       "match_key": "home vs away",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.804,
-      "draw": 3.215,
-      "away": 4.63,
+      "home": 1.81,
+      "draw": 3.195,
+      "away": 4.625,
       "sport": "Football"
     },
     {
@@ -13395,9 +13395,9 @@
       "match_key": "san lorenzo de almagro vs san luis",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.35,
-      "draw": 8.35,
-      "away": 4.15,
+      "home": 1.32,
+      "draw": 8.9,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -13503,9 +13503,9 @@
       "match_key": "ingenieros vs oruro royal",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.42,
-      "draw": 5.48,
-      "away": 4.65,
+      "home": 1.38,
+      "draw": 5.95,
+      "away": 4.8,
       "sport": "Football"
     },
     {
