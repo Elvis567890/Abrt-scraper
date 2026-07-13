@@ -1,43 +1,5 @@
 [
   {
-    "match": "gleisdorf vs favoritner ",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 11.28,
-    "profit_ugx": 11282,
-    "total_stake": 100000,
-    "arb_sum": 0.8872,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.375,
-        "stake": 47460,
-        "win": 112718
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.5,
-        "stake": 25048,
-        "win": 112716
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.1,
-        "stake": 27492,
-        "win": 112717
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 16:55 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "arsenal sarandi vs defensores unidos",
     "sport": "Football",
     "type": "3-way",
@@ -189850,5 +189812,41 @@
       }
     ],
     "_seen_at": "2026-07-13T02:19:28.925209+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.35,
+    "profit_ugx": 4355,
+    "total_stake": 100000,
+    "arb_sum": 0.9565,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 84317,
+        "win": 104553
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8713,
+        "win": 104556
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 15.0,
+        "stake": 6970,
+        "win": 104550
+      }
+    ],
+    "_seen_at": "2026-07-13T02:21:33.503139+00:00"
   }
 ]
