@@ -1,43 +1,5 @@
 [
   {
-    "match": "home vs away",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.23,
-    "profit_ugx": 2230,
-    "total_stake": 100000,
-    "arb_sum": 0.9777,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.2,
-        "stake": 46491,
-        "win": 102280
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 2.241,
-        "stake": 45641,
-        "win": 102281
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Away",
-        "odd": 13.0,
-        "stake": 7868,
-        "win": 102284
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 17:09 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "atlantis vs kiffen",
     "sport": "Football",
     "type": "3-way",
@@ -189870,5 +189832,41 @@
       }
     ],
     "_seen_at": "2026-07-13T02:01:11.063531+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.93,
+    "profit_ugx": 1931,
+    "total_stake": 100000,
+    "arb_sum": 0.9807,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 82233,
+        "win": 101969
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8497,
+        "win": 101964
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 11.0,
+        "stake": 9270,
+        "win": 101970
+      }
+    ],
+    "_seen_at": "2026-07-13T02:03:28.624652+00:00"
   }
 ]
