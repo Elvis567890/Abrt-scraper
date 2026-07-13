@@ -3,44 +3,6 @@
     "match": "lugano vs heidenheim",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 17.12,
-    "profit_ugx": 17122,
-    "total_stake": 100000,
-    "arb_sum": 0.8288,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 3.6,
-        "stake": 33516,
-        "win": 120658
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 33516,
-        "win": 120658
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.66,
-        "stake": 32967,
-        "win": 120659
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 14:45 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
-    "match": "lugano vs heidenheim",
-    "sport": "Football",
-    "type": "3-way",
     "profit_percent": 17.42,
     "profit_ugx": 17417,
     "total_stake": 100000,
@@ -189816,5 +189778,41 @@
       }
     ],
     "_seen_at": "2026-07-13T04:53:26.826754+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.48,
+    "profit_ugx": 4482,
+    "total_stake": 100000,
+    "arb_sum": 0.9552,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.63,
+        "stake": 64229,
+        "win": 104693
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12245,
+        "win": 104695
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.45,
+        "stake": 23526,
+        "win": 104691
+      }
+    ],
+    "_seen_at": "2026-07-13T04:55:40.674700+00:00"
   }
 ]
