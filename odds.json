@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-13 20:58 UTC",
-  "total_matches": 1215,
+  "last_updated": "2026-07-13 21:00 UTC",
+  "total_matches": 1213,
   "bookmakers_scraped": [
     "ChampionBet",
     "BetPawa",
@@ -43,38 +43,6 @@
           "odd": 3.58,
           "stake": 34906,
           "win": 124963
-        }
-      ]
-    },
-    {
-      "match": "barcelona vs dragonas idv",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 15.42,
-      "profit_ugx": 15422,
-      "total_stake": 100000,
-      "arb_sum": 0.8458,
-      "bets": [
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Home",
-          "odd": 3.425,
-          "stake": 34521,
-          "win": 118234
-        },
-        {
-          "bookmaker": "SportyBet",
-          "outcome": "Draw",
-          "odd": 3.5,
-          "stake": 33781,
-          "win": 118234
-        },
-        {
-          "bookmaker": "22Bet",
-          "outcome": "Away",
-          "odd": 3.73,
-          "stake": 31698,
-          "win": 118234
         }
       ]
     },
@@ -175,6 +143,38 @@
       ]
     },
     {
+      "match": "calcutta police vs aryans",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 8.75,
+      "profit_ugx": 8746,
+      "total_stake": 100000,
+      "arb_sum": 0.9125,
+      "bets": [
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Home",
+          "odd": 3.74,
+          "stake": 29301,
+          "win": 109586
+        },
+        {
+          "bookmaker": "AbaBet",
+          "outcome": "Draw",
+          "odd": 3.1,
+          "stake": 35350,
+          "win": 109585
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Away",
+          "odd": 3.1,
+          "stake": 35350,
+          "win": 109585
+        }
+      ]
+    },
+    {
       "match": "atletico atlanta vs colegiales",
       "sport": "Football",
       "type": "3-way",
@@ -242,31 +242,31 @@
       "match": "wisla plock vs bohemians prague 1905",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 5.74,
-      "profit_ugx": 5737,
+      "profit_percent": 6.5,
+      "profit_ugx": 6503,
       "total_stake": 100000,
-      "arb_sum": 0.9426,
+      "arb_sum": 0.935,
       "bets": [
         {
-          "bookmaker": "AbaBet",
+          "bookmaker": "BetPawa",
           "outcome": "Home",
-          "odd": 2.6,
-          "stake": 40803,
-          "win": 106088
+          "odd": 2.67,
+          "stake": 40058,
+          "win": 106955
         },
         {
-          "bookmaker": "BetPawa",
+          "bookmaker": "AbaBet",
           "outcome": "Draw",
-          "odd": 3.53,
-          "stake": 30053,
-          "win": 106087
+          "odd": 3.5,
+          "stake": 30559,
+          "win": 106956
         },
         {
           "bookmaker": "1xBet",
           "outcome": "Away",
           "odd": 3.64,
-          "stake": 29145,
-          "win": 106088
+          "stake": 29383,
+          "win": 106954
         }
       ]
     },
@@ -631,9 +631,9 @@
       "match_key": "wisla plock vs bohemians prague 1905",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendly Games",
-      "home": 2.53,
+      "home": 2.67,
       "draw": 3.53,
-      "away": 2.43,
+      "away": 2.31,
       "sport": "Football"
     },
     {
@@ -10663,18 +10663,6 @@
       "match_key": "sao raimundo u20 vs rb do norte u20",
       "bookmaker": "AbaBet",
       "competition": "Brazil - Amazonense U20",
-      "home": "81",
-      "draw": "15",
-      "away": "",
-      "sport": "Football"
-    },
-    {
-      "match": "Altos U20 vs Tiradentes PI U20",
-      "home_team": "Altos U20",
-      "away_team": "Tiradentes PI U20",
-      "match_key": "altos u20 vs tiradentes pi u20",
-      "bookmaker": "AbaBet",
-      "competition": "Brazil - Piauiense U20",
       "home": "",
       "draw": "",
       "away": "",
@@ -10868,8 +10856,8 @@
       "bookmaker": "AbaBet",
       "competition": "Colombia - Super Cup U19",
       "home": "5.5",
-      "draw": "3.4",
-      "away": "1.62",
+      "draw": "3.1",
+      "away": "1.73",
       "sport": "Football"
     },
     {
@@ -10927,8 +10915,8 @@
       "match_key": "arbair vs reynir",
       "bookmaker": "AbaBet",
       "competition": "Iceland - 3 Deild",
-      "home": "41",
-      "draw": "26",
+      "home": "67",
+      "draw": "34",
       "away": "",
       "sport": "Football"
     },
@@ -10939,21 +10927,9 @@
       "match_key": "vidir vs augnablik kopavogur",
       "bookmaker": "AbaBet",
       "competition": "Iceland - 3 Deild",
-      "home": "2.4",
-      "draw": "1.67",
-      "away": "12",
-      "sport": "Football"
-    },
-    {
-      "match": "Selfoss U19 vs Afturelding U19",
-      "home_team": "Selfoss U19",
-      "away_team": "Afturelding U19",
-      "match_key": "selfoss u19 vs afturelding u19",
-      "bookmaker": "AbaBet",
-      "competition": "Iceland - League U19",
-      "home": "",
-      "draw": "",
-      "away": "",
+      "home": "2.75",
+      "draw": "1.53",
+      "away": "13",
       "sport": "Football"
     },
     {
@@ -10987,9 +10963,9 @@
       "match_key": "breidablik vs keflavik",
       "bookmaker": "AbaBet",
       "competition": "Iceland - Urvalsdeild",
-      "home": "4.75",
-      "draw": "1.4",
-      "away": "7",
+      "home": "6",
+      "draw": "1.29",
+      "away": "8",
       "sport": "Football"
     },
     {
@@ -11035,9 +11011,9 @@
       "match_key": "independiente fbc vs tacuary",
       "bookmaker": "AbaBet",
       "competition": "Paraguay - 2nd Division",
-      "home": "6.5",
-      "draw": "3.75",
-      "away": "1.5",
+      "home": "6",
+      "draw": "3.6",
+      "away": "1.53",
       "sport": "Football"
     },
     {
@@ -12373,18 +12349,6 @@
       "sport": "Football"
     },
     {
-      "match": "Barcelona Guayaquil (Women) vs Dragonas IDV (Women)",
-      "home_team": "Barcelona Guayaquil (Women)",
-      "away_team": "Dragonas IDV (Women)",
-      "match_key": "barcelona guayaquil vs dragonas idv",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 3.425,
-      "draw": 1.92,
-      "away": 3.73,
-      "sport": "Football"
-    },
-    {
       "match": "CA 9 de Julio Rafaela vs Defensores Belgrano Villa Ramallo",
       "home_team": "CA 9 de Julio Rafaela",
       "away_team": "Defensores Belgrano Villa Ramallo",
@@ -12766,6 +12730,18 @@
       "home": 1.26,
       "draw": 7.8,
       "away": 5.55,
+      "sport": "Football"
+    },
+    {
+      "match": "Calcutta Police vs Aryan",
+      "home_team": "Calcutta Police",
+      "away_team": "Aryan",
+      "match_key": "calcutta police vs aryan",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 3.66,
+      "draw": 1.98,
+      "away": 3.1,
       "sport": "Football"
     },
     {
@@ -13237,18 +13213,6 @@
       "sport": "Football"
     },
     {
-      "match": "Barcelona Guayaquil (Women) vs Dragonas IDV (Women)",
-      "home_team": "Barcelona Guayaquil (Women)",
-      "away_team": "Dragonas IDV (Women)",
-      "match_key": "barcelona guayaquil vs dragonas idv",
-      "bookmaker": "22Bet",
-      "competition": "",
-      "home": 3.425,
-      "draw": 1.92,
-      "away": 3.73,
-      "sport": "Football"
-    },
-    {
       "match": "CA 9 de Julio Rafaela vs Defensores Belgrano Villa Ramallo",
       "home_team": "CA 9 de Julio Rafaela",
       "away_team": "Defensores Belgrano Villa Ramallo",
@@ -13294,6 +13258,18 @@
       "home": 2.43,
       "draw": 2.79,
       "away": 2.682,
+      "sport": "Football"
+    },
+    {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 1.884,
+      "draw": 2.999,
+      "away": 4.535,
       "sport": "Football"
     },
     {
@@ -13345,18 +13321,6 @@
       "sport": "Football"
     },
     {
-      "match": "Home vs Away",
-      "home_team": "Home",
-      "away_team": "Away",
-      "match_key": "home vs away",
-      "bookmaker": "22Bet",
-      "competition": "",
-      "home": 1.884,
-      "draw": 2.999,
-      "away": 4.535,
-      "sport": "Football"
-    },
-    {
       "match": "Club Atletico Atlanta vs Colegiales",
       "home_team": "Club Atletico Atlanta",
       "away_team": "Colegiales",
@@ -13366,6 +13330,18 @@
       "home": 2.0,
       "draw": 4.675,
       "away": 2.59,
+      "sport": "Football"
+    },
+    {
+      "match": "Cavalry vs Vancouver Whitecaps",
+      "home_team": "Cavalry",
+      "away_team": "Vancouver Whitecaps",
+      "match_key": "cavalry vs vancouver whitecaps",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 4.035,
+      "draw": 1.74,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -14017,18 +13993,6 @@
       "sport": "Football"
     },
     {
-      "match": "Barcelona Guayaquil (Women) vs Dragonas IDV (Women)",
-      "home_team": "Barcelona Guayaquil (Women)",
-      "away_team": "Dragonas IDV (Women)",
-      "match_key": "barcelona guayaquil vs dragonas idv",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 3.425,
-      "draw": 1.92,
-      "away": 3.73,
-      "sport": "Football"
-    },
-    {
       "match": "CA 9 de Julio Rafaela vs Defensores Belgrano Villa Ramallo",
       "home_team": "CA 9 de Julio Rafaela",
       "away_team": "Defensores Belgrano Villa Ramallo",
@@ -14077,18 +14041,6 @@
       "sport": "Football"
     },
     {
-      "match": "Home vs Away",
-      "home_team": "Home",
-      "away_team": "Away",
-      "match_key": "home vs away",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.884,
-      "draw": 2.999,
-      "away": 4.535,
-      "sport": "Football"
-    },
-    {
       "match": "Deportivo Capiat\u00e1 vs Atletico Tembetary",
       "home_team": "Deportivo Capiat\u00e1",
       "away_team": "Atletico Tembetary",
@@ -14134,6 +14086,18 @@
       "home": 1.94,
       "draw": 3.76,
       "away": 3.125,
+      "sport": "Football"
+    },
+    {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.884,
+      "draw": 2.999,
+      "away": 4.535,
       "sport": "Football"
     },
     {
@@ -14410,6 +14374,18 @@
       "home": 1.26,
       "draw": 7.8,
       "away": 5.55,
+      "sport": "Football"
+    },
+    {
+      "match": "Calcutta Police vs Aryan",
+      "home_team": "Calcutta Police",
+      "away_team": "Aryan",
+      "match_key": "calcutta police vs aryan",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 3.66,
+      "draw": 1.98,
+      "away": 3.1,
       "sport": "Football"
     },
     {
@@ -14881,18 +14857,6 @@
       "sport": "Football"
     },
     {
-      "match": "Barcelona Guayaquil (Women) vs Dragonas IDV (Women)",
-      "home_team": "Barcelona Guayaquil (Women)",
-      "away_team": "Dragonas IDV (Women)",
-      "match_key": "barcelona guayaquil vs dragonas idv",
-      "bookmaker": "22Bet",
-      "competition": "",
-      "home": 3.425,
-      "draw": 1.92,
-      "away": 3.73,
-      "sport": "Football"
-    },
-    {
       "match": "CA 9 de Julio Rafaela vs Defensores Belgrano Villa Ramallo",
       "home_team": "CA 9 de Julio Rafaela",
       "away_team": "Defensores Belgrano Villa Ramallo",
@@ -15010,6 +14974,18 @@
       "home": 2.0,
       "draw": 4.675,
       "away": 2.59,
+      "sport": "Football"
+    },
+    {
+      "match": "Cavalry vs Vancouver Whitecaps",
+      "home_team": "Cavalry",
+      "away_team": "Vancouver Whitecaps",
+      "match_key": "cavalry vs vancouver whitecaps",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 4.035,
+      "draw": 1.74,
+      "away": 3.58,
       "sport": "Football"
     }
   ]
