@@ -13,6 +13,23 @@ CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&
 
 STAKE = 100000
 
+# Shared 1xBet-style backend family configuration
+SHARED_BOOKMAKERS_1X = {
+    "1xBet": {
+        "base_url": "https://1xbet.ug",
+        "partner": "135",
+    },
+    "22Bet": {
+        "base_url": "https://22bet.ug",
+        "partner": "151",
+    },
+    "Melbet": {
+        "base_url": "https://melbet.ug",
+        "partner": "8",
+    },
+    # Add additional clones here (e.g. BetWinner) once confirmed
+}
+
 
 def normalize(name):
     name = (name or "").lower().strip()
@@ -731,7 +748,7 @@ def find_arbitrage(all_odds):
     return sorted(opportunities, key=lambda x: x["profit_percent"], reverse=True)
 
 
-# NEW: HTML report generator (added, nothing else changed)
+# NEW: HTML report generator (already added earlier)
 def write_html_report(output):
     opportunities = output.get("opportunities", [])
     last_updated = output.get("last_updated", "")
@@ -782,6 +799,124 @@ def write_html_report(output):
         f.write("\n".join(html))
 
 
+# NEW: generic 1xBet-family scraper
+def scrape_shared_1xbet_family(bookmaker_name, config):
+    """
+    Generic scraper for 1xBet-style APIs (1xBet, 22Bet, Melbet, etc.).
+    Uses /service-api/LineFeed/Get1x2_VZip and normalizes with build_match_record().
+    """
+    odds = []
+    base_url = config["base_url"].rstrip("/")
+    partner = config["partner"]
+
+    api_url = (
+        f"{base_url}/service-api/LineFeed/Get1x2_VZip?"
+        f"sports=1&count=1000&lng=en&mode=4&country=191&partner={partner}&getEmpty=true&virtualSports=true"
+    )
+
+    try:
+        print(f"Fetching {bookmaker_name} via shared 1xBet-family scraper...")
+        headers = {
+            "Accept": "application/json, text/plain, */*",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+            "X-Requested-With": "XMLHttpRequest",
+        }
+        req = urllib.request.Request(api_url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            try:
+                data = json.loads(raw.decode("utf-8"))
+            except Exception:
+                data = json.loads(raw.decode("utf-8-sig"))
+
+        values = data.get("Value", []) if isinstance(data, dict) else []
+        count = 0
+
+        for match in values:
+            try:
+                home_team = match.get("O1")
+                away_team = match.get("O2")
+                if not home_team or not away_team:
+                    continue
+
+                home_odd = draw_odd = away_odd = None
+                for e in match.get("E", []):
+                    t = str(e.get("T", "")).strip()
+                    c = clean_odd(e.get("C"))
+                    if c is None:
+                        continue
+                    if t == "1":
+                        home_odd = c
+                    elif t == "3":  # draw
+                        draw_odd = c
+                    elif t == "2":
+                        away_odd = c
+
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append(
+                        build_match_record(
+                            home_team=home_team,
+                            away_team=away_team,
+                            bookmaker=bookmaker_name,
+                            home=home_odd,
+                            draw=draw_odd,
+                            away=away_odd,
+                            sport="Football",
+                        )
+                    )
+            except Exception:
+                continue
+
+        print(f"{bookmaker_name}: {count} matches extracted (shared 1xBet-family)")
+    except Exception as e:
+        print(f"{bookmaker_name} shared 1xBet-family error: {e}")
+
+    return odds
+
+
+# NEW: backend fingerprinting utility
+def verify_shared_backend(bookmaker, base_url):
+    """
+    Probe a bookmaker base_url to fingerprint its backend.
+    Returns a dict of endpoint -> {status, content_type, length}.
+    Does NOT change any arbitrage or scraping logic.
+    """
+    base_url = base_url.rstrip("/")
+    endpoints = [
+        "/service-api/LineFeed/Get1x2_VZip?sports=1&count=5&lng=en&mode=4",
+        "/api/_internal/sportsbook/top-tournaments",
+        "/api/_internal/sportsbook/event-detail?id=1",
+        "/api/_internal/sportsbook/v0/sport/feed/localization/market-tabs?sport=F&stage=1&lang=en",
+    ]
+
+    results = {}
+
+    for path in endpoints:
+        url = f"{base_url}{path}"
+        try:
+            print(f"[fingerprint] {bookmaker} -> {url}")
+            resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
+            results[path] = {
+                "status": resp.status_code,
+                "content_type": resp.headers.get("content-type"),
+                "length": len(resp.text),
+            }
+        except Exception as e:
+            results[path] = {
+                "status": None,
+                "content_type": None,
+                "length": None,
+                "error": str(e),
+            }
+
+    return {
+        "bookmaker": bookmaker,
+        "base_url": base_url,
+        "results": results,
+    }
+
+
 def main():
     print(f"Scraper started: {datetime.utcnow()}")
     all_odds = []
@@ -797,6 +932,12 @@ def main():
         ("22Bet", scrape_22bet),
         ("Melbet", scrape_melbet),
     ]
+
+    # Shared 1xBet-family scrapers (for any configured bookmakers)
+    for name, cfg in SHARED_BOOKMAKERS_1X.items():
+        scrapers.append(
+            (f"{name} (shared-1x)", lambda cfg=cfg, name=name: scrape_shared_1xbet_family(name, cfg))
+        )
 
     for name, func in scrapers:
         print(f"Scraping {name}...")
@@ -826,7 +967,6 @@ def main():
     with open("odds.json", "w") as f:
         json.dump(output, f, indent=2)
 
-    # NEW: also write HTML report
     write_html_report(output)
 
     print(f"Done! {len(all_odds)} matches saved and odds.html generated")
@@ -834,4 +974,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
