@@ -1,43 +1,5 @@
 [
   {
-    "match": "juventude vs vila nova",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.49,
-    "profit_ugx": 2485,
-    "total_stake": 100000,
-    "arb_sum": 0.9751,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 1.8,
-        "stake": 56971,
-        "win": 102548
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 4.835,
-        "stake": 21210,
-        "win": 102550
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.7,
-        "stake": 21819,
-        "win": 102549
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 16:49 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "horsham vs eastleigh",
     "sport": "Football",
     "type": "3-way",
@@ -189840,5 +189802,41 @@
       }
     ],
     "_seen_at": "2026-07-13T04:19:39.527341+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.59,
+    "profit_ugx": 5591,
+    "total_stake": 100000,
+    "arb_sum": 0.9441,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.66,
+        "stake": 63809,
+        "win": 105923
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12389,
+        "win": 105926
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.45,
+        "stake": 23803,
+        "win": 105923
+      }
+    ],
+    "_seen_at": "2026-07-13T04:31:37.651532+00:00"
   }
 ]
