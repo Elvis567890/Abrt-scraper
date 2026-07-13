@@ -1,81 +1,5 @@
 [
   {
-    "match": "cincinnati vs burnley",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 16.41,
-    "profit_ugx": 16415,
-    "total_stake": 100000,
-    "arb_sum": 0.8359,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 3.175,
-        "stake": 37681,
-        "win": 119637
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 31484,
-        "win": 119639
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.88,
-        "stake": 30835,
-        "win": 119640
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 17:50 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
-    "match": "home vs away",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.42,
-    "profit_ugx": 2424,
-    "total_stake": 100000,
-    "arb_sum": 0.9758,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.271,
-        "stake": 45127,
-        "win": 102483
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 2.181,
-        "stake": 46989,
-        "win": 102483
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Away",
-        "odd": 13.0,
-        "stake": 7883,
-        "win": 102479
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 17:50 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "uerdingen vs bergisch gladbach",
     "sport": "Football",
     "type": "3-way",
@@ -189886,5 +189810,77 @@
       }
     ],
     "_seen_at": "2026-07-13T01:05:27.920285+00:00"
+  },
+  {
+    "match": "river plate w vs social atletico television w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.08,
+    "profit_ugx": 3084,
+    "total_stake": 100000,
+    "arb_sum": 0.9692,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.79,
+        "stake": 57644,
+        "win": 103183
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 4.545,
+        "stake": 22702,
+        "win": 103181
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 5.25,
+        "stake": 19654,
+        "win": 103184
+      }
+    ],
+    "_seen_at": "2026-07-13T01:07:33.207175+00:00"
+  },
+  {
+    "match": "ferro carril oeste w vs boca juniors w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.87,
+    "profit_ugx": 2872,
+    "total_stake": 100000,
+    "arb_sum": 0.9713,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 3.7,
+        "stake": 27826,
+        "win": 102956
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 2.78,
+        "stake": 37035,
+        "win": 102957
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 2.93,
+        "stake": 35139,
+        "win": 102957
+      }
+    ],
+    "_seen_at": "2026-07-13T01:07:33.207175+00:00"
   }
 ]
