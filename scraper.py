@@ -2,12 +2,10 @@
 def _ensure_dependencies():
     import importlib
     missing = []
-    for mod in ["reque", "bs4", "playwright", "google-genai"]:
+    # Only install the actual packages you use
+    for mod in ["requests", "bs4", "playwright", "openai"]:
         try:
-            if mod == "google-genai":
-                importlib.import_module("google.genai")
-            else:
-                importlib.import_module(mod)
+            importlib.import_module(mod)
         except ImportError:
             missing.append(mod)
     if missing:
@@ -26,16 +24,15 @@ from datetime import datetime, timezone, timedelta
 import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
-from google import genai
+from openai import OpenAI  # official OpenAI Python client.[web:223][web:235]
 
 # -----------------------------
 # Config, constants, clients
 # -----------------------------
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_GENAI_API_KEY")
-gemini_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
-SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
 
@@ -51,7 +48,17 @@ MAX_MATCH_AGE_HOURS = 24
 
 BAD_TEAM_NAMES = {"home", "away", "team a", "team b", "tbd", "unknown", "—", "-"}
 
-FINISHED_STATUSES = {"FINISHED", "FULL_TIME", "FT", "ENDED", "CANCELLED", "CANCELED", "POSTPONED", "SUSPENDED", "ABANDONED"}
+FINISHED_STATUSES = {
+    "FINISHED",
+    "FULL_TIME",
+    "FT",
+    "ENDED",
+    "CANCELLED",
+    "CANCELED",
+    "POSTPONED",
+    "SUSPENDED",
+    "ABANDONED",
+}
 LIVE_INDICATORS = {"LIVE", "IN_PLAY", "IN-PLAY", "PLAYING", "1ST HALF", "2ND HALF", "HT", "HALF TIME"}
 
 
@@ -300,18 +307,17 @@ def filter_opportunities_with_football_data(opps_list):
 
 
 # -----------------------------
-# Gemini 2.0 Flash scraper
+# OpenAI scraper (HTML → JSON)
 # -----------------------------
 
-def scrape_with_gemini(url, bookmaker_name, sport="Football"):
+def scrape_with_ai_openai(url, bookmaker_name, sport="Football"):
     """
-    Scrape pre-match odds using Gemini 2.0 Flash with stricter rules
-    to get clean match-winner markets for arbitrage.
+    Scrape pre-match odds using an OpenAI chat model.
     """
 
     odds = []
-    if not gemini_client:
-        print("Gemini API key not configured, skipping Gemini scrape.")
+    if not openai_client:
+        print("OpenAI API key not configured, skipping OpenAI scrape.")
         return odds
 
     try:
@@ -377,18 +383,22 @@ HTML STARTS BELOW THIS LINE:
 {html}
 """
 
-        # Use Gemini 2.0 Flash via Gen AI SDK.[web:186][web:189]
-        response = gemini_client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=[{"role": "user", "parts": [{"text": prompt}]}],
-        )
+        completion = openai_client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a precise odds scraper. Always output strict JSON as instructed.",
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ],
+            temperature=0,
+        )  # OpenAI chat completions.[web:235][web:225]
 
-        text = ""
-        if getattr(response, "candidates", None):
-            parts = response.candidates[0].content.parts or []
-            text = "".join(getattr(p, "text", "") or "" for p in parts)
-        else:
-            text = getattr(response, "text", "") or ""
+        text = completion.choices[0].message.content
 
         json_start = text.find("{")
         if json_start > 0:
@@ -397,7 +407,7 @@ HTML STARTS BELOW THIS LINE:
         try:
             data = json.loads(text)
         except json.JSONDecodeError:
-            print(f"Gemini JSON decode error for {bookmaker_name}")
+            print(f"OpenAI JSON decode error for {bookmaker_name}")
             return odds
 
         matches = data.get("matches", []) if isinstance(data, dict) else []
@@ -436,25 +446,100 @@ HTML STARTS BELOW THIS LINE:
                 continue
 
     except Exception as e:
-        print(f"Gemini scrape error for {bookmaker_name}: {e}")
+        print(f"OpenAI scrape error for {bookmaker_name}: {e}")
 
     return odds
 
 
-def scrape_ababet_gemini():
-    return scrape_with_gemini("https://www.ababet.ug/", "AbaBet-Gemini", sport="Football")
+# -----------------------------
+# OpenAI scrapers for bookmakers
+# -----------------------------
+# Using your licensed list; adjust URLs if needed.
 
+def scrape_betpawa_ai():
+    return scrape_with_ai_openai("https://www.betpawa.ug/", "BetPawa-AI", sport="Football")
 
-def scrape_betpawa_gemini():
-    return scrape_with_gemini("https://www.betpawa.ug/", "BetPawa-Gemini", sport="Football")
+def scrape_fortebet_ai():
+    return scrape_with_ai_openai("https://www.fortebet.ug/", "ForteBet-AI", sport="Football")
 
+def scrape_gsb_ai():
+    return scrape_with_ai_openai("https://www.gsbu.ug/", "GSB-AI", sport="Football")
 
-def scrape_fortebet_gemini():
-    return scrape_with_gemini("https://www.fortebet.ug/", "ForteBet-Gemini", sport="Football")
+def scrape_betway_ai():
+    return scrape_with_ai_openai("https://www.betway.ug/", "Betway-AI", sport="Football")
+
+def scrape_championbet_ai():
+    return scrape_with_ai_openai("https://www.championbet.ug/", "ChampionBet-AI", sport="Football")
+
+def scrape_1xbet_ai():
+    return scrape_with_ai_openai("https://www.1xbet.ug/", "1xBet-AI", sport="Football")
+
+def scrape_22bet_ai():
+    return scrape_with_ai_openai("https://www.22bet.ug/", "22Bet-AI", sport="Football")
+
+def scrape_betwinner_ai():
+    return scrape_with_ai_openai("https://www.betwinner.co.ug/", "BetWinner-AI", sport="Football")
+
+def scrape_melbet_ai():
+    return scrape_with_ai_openai("https://www.melbet.ug/", "Melbet-AI", sport="Football")
+
+def scrape_premierbet_ai():
+    return scrape_with_ai_openai("https://www.premierbetuganda.com/", "PremierBet-AI", sport="Football")
+
+def scrape_bungabet_ai():
+    return scrape_with_ai_openai("https://www.bungabet.ug/", "BungaBet-AI", sport="Football")
+
+def scrape_bongobongo_ai():
+    return scrape_with_ai_openai("https://www.bongobongo.ug/", "BongoBongo-AI", sport="Football")
+
+def scrape_betika_ai():
+    return scrape_with_ai_openai("https://www.betika.ug/", "Betika-AI", sport="Football")
+
+def scrape_mozzartbet_ai():
+    return scrape_with_ai_openai("https://www.mozzartbet.ug/", "MozzartBet-AI", sport="Football")
+
+def scrape_betin_ai():
+    return scrape_with_ai_openai("https://www.betin.co.ug/", "Betin-AI", sport="Football")
+
+def scrape_kagwirawo_ai():
+    return scrape_with_ai_openai("https://www.kagwirawo.ug/", "Kagwirawo-AI", sport="Football")
+
+def scrape_sportpesa_ai():
+    return scrape_with_ai_openai("https://www.sportpesa.co.ug/", "SportPesa-AI", sport="Football")
+
+def scrape_jackpotbet_ai():
+    return scrape_with_ai_openai("https://www.jackpotbet.ug/", "JackpotBet-AI", sport="Football")
+
+def scrape_betlion_ai():
+    return scrape_with_ai_openai("https://www.betlion.ug/", "Betlion-AI", sport="Football")
+
+def scrape_mbet_ai():
+    return scrape_with_ai_openai("https://www.mbet.ug/", "Mbet-AI", sport="Football")
+
+def scrape_paripesa_ai():
+    return scrape_with_ai_openai("https://www.paripesa.ug/", "Paripesa-AI", sport="Football")
+
+def scrape_linebet_ai():
+    return scrape_with_ai_openai("https://www.linebet.ug/", "LineBet-AI", sport="Football")
+
+def scrape_betsofa_ai():
+    return scrape_with_ai_openai("https://www.betsofa.ug/", "Betsofa-AI", sport="Football")
+
+def scrape_betwinner360_ai():
+    return scrape_with_ai_openai("https://www.betwinner360.ug/", "Betwinner360-AI", sport="Football")
+
+def scrape_odibets_ai():
+    return scrape_with_ai_openai("https://www.odibets.ug/", "OdiBets-AI", sport="Football")
+
+def scrape_thunderbet_ai():
+    return scrape_with_ai_openai("https://www.thunderbet.ug/", "ThunderBet-AI", sport="Football")
+
+def scrape_topbet_ai():
+    return scrape_with_ai_openai("https://www.topbet.ug/", "TopBet-AI", sport="Football")
 
 
 # -----------------------------
-# Native scrapers (HTTP / Playwright)
+# Native scrapers (existing ones)
 # -----------------------------
 
 def championbet_extract_1x2(match):
@@ -475,7 +560,7 @@ def championbet_extract_1x2(match):
     return pick_odd([1, 4, 7]), pick_odd([2, 5, 8]), pick_odd([3, 6, 9])
 
 
-def scrape_championbet():
+def scrape_championbet_native():
     odds = []
     try:
         headers = {
@@ -538,12 +623,12 @@ def scrape_championbet():
                 continue
 
     except Exception as e:
-        print(f"ChampionBet error: {e}")
+        print(f"ChampionBet native error: {e}")
 
     return odds
 
 
-def scrape_betika():
+def scrape_betika_native():
     odds = []
     try:
         headers = {
@@ -591,12 +676,12 @@ def scrape_betika():
                 continue
 
     except Exception as e:
-        print(f"Betika error: {e}")
+        print(f"Betika native error: {e}")
 
     return odds
 
 
-def scrape_ababet():
+def scrape_ababet_native():
     odds = []
     try:
         r = requests.get(
@@ -646,12 +731,12 @@ def scrape_ababet():
                 )
 
     except Exception as e:
-        print(f"AbaBet error: {e}")
+        print(f"AbaBet native error: {e}")
 
     return odds
 
 
-def scrape_betpawa():
+def scrape_betpawa_native():
     odds, seen_matches = [], set()
     urls = [
         "https://www.betpawa.ug/events?categoryId=2&marketId=1X2",
@@ -726,15 +811,13 @@ def scrape_betpawa():
             browser.close()
 
     except Exception as e:
-        print(f"BetPawa error: {e}")
+        print(f"BetPawa native error: {e}")
 
     return odds
 
 
-# (You can add Fortebet, SportyBet, 1xBet, 22Bet, Melbet scrapers here similarly.)
-
 # -----------------------------
-# Arbitrage finder
+# Arbitrage finder (unchanged)
 # -----------------------------
 
 def find_arbitrage(all_odds):
@@ -847,16 +930,40 @@ def find_arbitrage(all_odds):
 def main():
     all_odds = []
 
-    # Native scrapers
-    all_odds.extend(scrape_ababet())
-    all_odds.extend(scrape_betika())
-    all_odds.extend(scrape_championbet())
-    all_odds.extend(scrape_betpawa())
+    # Native scrapers (existing)
+    all_odds.extend(scrape_ababet_native())
+    all_odds.extend(scrape_betika_native())
+    all_odds.extend(scrape_championbet_native())
+    all_odds.extend(scrape_betpawa_native())
 
-    # Gemini scrapers (HTML → JSON via Gemini 2.0 Flash)
-    all_odds.extend(scrape_ababet_gemini())
-    all_odds.extend(scrape_betpawa_gemini())
-    all_odds.extend(scrape_fortebet_gemini())
+    # OpenAI scrapers (AI-based for all bookmakers)
+    all_odds.extend(scrape_betpawa_ai())
+    all_odds.extend(scrape_fortebet_ai())
+    all_odds.extend(scrape_gsb_ai())
+    all_odds.extend(scrape_betway_ai())
+    all_odds.extend(scrape_championbet_ai())
+    all_odds.extend(scrape_1xbet_ai())
+    all_odds.extend(scrape_22bet_ai())
+    all_odds.extend(scrape_betwinner_ai())
+    all_odds.extend(scrape_melbet_ai())
+    all_odds.extend(scrape_premierbet_ai())
+    all_odds.extend(scrape_bungabet_ai())
+    all_odds.extend(scrape_bongobongo_ai())
+    all_odds.extend(scrape_betika_ai())
+    all_odds.extend(scrape_mozzartbet_ai())
+    all_odds.extend(scrape_betin_ai())
+    all_odds.extend(scrape_kagwirawo_ai())
+    all_odds.extend(scrape_sportpesa_ai())
+    all_odds.extend(scrape_jackpotbet_ai())
+    all_odds.extend(scrape_betlion_ai())
+    all_odds.extend(scrape_mbet_ai())
+    all_odds.extend(scrape_paripesa_ai())
+    all_odds.extend(scrape_linebet_ai())
+    all_odds.extend(scrape_betsofa_ai())
+    all_odds.extend(scrape_betwinner360_ai())
+    all_odds.extend(scrape_odibets_ai())
+    all_odds.extend(scrape_thunderbet_ai())
+    all_odds.extend(scrape_topbet_ai())
 
     print(f"Total raw odds: {len(all_odds)}")
 
@@ -867,7 +974,6 @@ def main():
     arbs = filter_opportunities_with_football_data(arbs)
     print(f"Current arbs: {len(arbs)}")
 
-    # Save arbitrage opportunities
     try:
         with open(HISTORY_FILE, "a") as f:
             for opp in arbs:
@@ -876,7 +982,6 @@ def main():
     except Exception as e:
         print("Error writing history:", e)
 
-    # Print a sample
     for opp in arbs[:10]:
         print(json.dumps(opp, indent=2))
 
