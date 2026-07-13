@@ -1,81 +1,5 @@
 [
   {
-    "match": "home vs away",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.17,
-    "profit_ugx": 2171,
-    "total_stake": 100000,
-    "arb_sum": 0.9783,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.29,
-        "stake": 44637,
-        "win": 102219
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 2.152,
-        "stake": 47500,
-        "win": 102220
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Away",
-        "odd": 13.0,
-        "stake": 7863,
-        "win": 102219
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 18:19 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
-    "match": "spain vs belgium",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 6.63,
-    "profit_ugx": 6626,
-    "total_stake": 100000,
-    "arb_sum": 0.9337,
-    "bets": [
-      {
-        "bookmaker": "ChampionBet",
-        "outcome": "Home",
-        "odd": 1.7,
-        "stake": 62998,
-        "win": 107097
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.88,
-        "stake": 18214,
-        "win": 107098
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.7,
-        "stake": 18789,
-        "win": 107097
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 18:17 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "chenois vs  grandsaconnex",
     "sport": "Football",
     "type": "3-way",
@@ -189930,5 +189854,77 @@
       }
     ],
     "_seen_at": "2026-07-13T00:04:29.500940+00:00"
+  },
+  {
+    "match": "river plate w vs social atletico television w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.47,
+    "profit_ugx": 2473,
+    "total_stake": 100000,
+    "arb_sum": 0.9753,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.71,
+        "stake": 59962,
+        "win": 102535
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 5.0,
+        "stake": 20507,
+        "win": 102535
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 5.25,
+        "stake": 19531,
+        "win": 102538
+      }
+    ],
+    "_seen_at": "2026-07-13T00:06:49.184200+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.59,
+    "profit_ugx": 5591,
+    "total_stake": 100000,
+    "arb_sum": 0.9441,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.66,
+        "stake": 63809,
+        "win": 105923
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12389,
+        "win": 105926
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.45,
+        "stake": 23803,
+        "win": 105923
+      }
+    ],
+    "_seen_at": "2026-07-13T00:06:49.184200+00:00"
   }
 ]
