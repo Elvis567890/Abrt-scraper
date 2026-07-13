@@ -1,43 +1,5 @@
 [
   {
-    "match": "atlantis vs kiffen",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 12.37,
-    "profit_ugx": 12369,
-    "total_stake": 100000,
-    "arb_sum": 0.8763,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.615,
-        "stake": 43638,
-        "win": 114113
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 28529,
-        "win": 114116
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.1,
-        "stake": 27833,
-        "win": 114115
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 17:03 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "spain vs belgium",
     "sport": "Football",
     "type": "3-way",
@@ -189868,5 +189830,41 @@
       }
     ],
     "_seen_at": "2026-07-13T02:03:28.624652+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.93,
+    "profit_ugx": 1931,
+    "total_stake": 100000,
+    "arb_sum": 0.9807,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 82233,
+        "win": 101969
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8497,
+        "win": 101964
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 11.0,
+        "stake": 9270,
+        "win": 101970
+      }
+    ],
+    "_seen_at": "2026-07-13T02:05:30.047456+00:00"
   }
 ]
