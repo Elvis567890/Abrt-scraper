@@ -12,6 +12,7 @@ def _ensure_dependencies():
         import subprocess, sys
         subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
 
+
 _ensure_dependencies()
 # ------------------------------------------------------------------------------
 
@@ -24,16 +25,26 @@ from datetime import datetime, timezone, timedelta
 import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
-from openai import OpenAI  # official OpenAI Python client.[web:223][web:235]
+from openai import OpenAI  # OpenAI SDK, pointed to OpenRouter
 
 # -----------------------------
 # Config, constants, clients
 # -----------------------------
 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
+# We reuse OPENAI_API_KEY env name, but it holds your OpenRouter key (sk-or-v1-...)
+OPENROUTER_API_KEY = os.environ.get("OPENAI_API_KEY")
 
-CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
+openrouter_client = None
+if OPENROUTER_API_KEY:
+    # Point the OpenAI client at OpenRouter's API
+    openrouter_client = OpenAI(
+        api_key=OPENROUTER_API_KEY,
+        base_url="https://openrouter.ai/api/v1",
+    )
+
+CHAMPIONBET_API = (
+    "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
+)
 BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
 
 HISTORY_FILE = "arbitrage_history.json"
@@ -59,7 +70,16 @@ FINISHED_STATUSES = {
     "SUSPENDED",
     "ABANDONED",
 }
-LIVE_INDICATORS = {"LIVE", "IN_PLAY", "IN-PLAY", "PLAYING", "1ST HALF", "2ND HALF", "HT", "HALF TIME"}
+LIVE_INDICATORS = {
+    "LIVE",
+    "IN_PLAY",
+    "IN-PLAY",
+    "PLAYING",
+    "1ST HALF",
+    "2ND HALF",
+    "HT",
+    "HALF TIME",
+}
 
 
 # -----------------------------
@@ -68,7 +88,9 @@ LIVE_INDICATORS = {"LIVE", "IN_PLAY", "IN-PLAY", "PLAYING", "1ST HALF", "2ND HAL
 
 def normalize(name):
     name = (name or "").lower().strip()
-    name = re.sub(r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name)
+    name = re.sub(
+        r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name
+    )
     name = re.sub(r"[^a-z0-9 ]", "", name)
     name = re.sub(r"\s+", " ", name)
     return name
@@ -267,7 +289,9 @@ def get_match_status_and_kickoff_football_data(home_team, away_team, date_hint=N
             kickoff_dt = None
             if kickoff_raw:
                 try:
-                    kickoff_dt = datetime.fromisoformat(kickoff_raw.replace("Z", "+00:00")).astimezone(timezone.utc)
+                    kickoff_dt = datetime.fromisoformat(kickoff_raw.replace("Z", "+00:00")).astimezone(
+                        timezone.utc
+                    )
                 except Exception:
                     kickoff_dt = None
             return {"status": status, "kickoff": kickoff_dt}
@@ -307,17 +331,17 @@ def filter_opportunities_with_football_data(opps_list):
 
 
 # -----------------------------
-# OpenAI scraper (HTML → JSON)
+# OpenRouter scraper (HTML → JSON)
 # -----------------------------
 
 def scrape_with_ai_openai(url, bookmaker_name, sport="Football"):
     """
-    Scrape pre-match odds using an OpenAI chat model.
+    Scrape pre-match odds using an OpenRouter-backed chat model.
     """
 
     odds = []
-    if not openai_client:
-        print("OpenAI API key not configured, skipping OpenAI scrape.")
+    if not openrouter_client:
+        print("OpenRouter API key not configured, skipping AI scrape.")
         return odds
 
     try:
@@ -383,8 +407,10 @@ HTML STARTS BELOW THIS LINE:
 {html}
 """
 
-        completion = openai_client.chat.completions.create(
-            model="gpt-4.1-mini",
+        # Call OpenRouter using the OpenAI-compatible client
+        completion = openrouter_client.chat.completions.create(
+            # Use an OpenRouter model ID that routes to OpenAI's GPT-4.1 mini
+            model="openai/gpt-4.1-mini",
             messages=[
                 {
                     "role": "system",
@@ -396,7 +422,7 @@ HTML STARTS BELOW THIS LINE:
                 },
             ],
             temperature=0,
-        )  # OpenAI chat completions.[web:235][web:225]
+        )
 
         text = completion.choices[0].message.content
 
@@ -407,7 +433,7 @@ HTML STARTS BELOW THIS LINE:
         try:
             data = json.loads(text)
         except json.JSONDecodeError:
-            print(f"OpenAI JSON decode error for {bookmaker_name}")
+            print(f"OpenRouter JSON decode error for {bookmaker_name}")
             return odds
 
         matches = data.get("matches", []) if isinstance(data, dict) else []
@@ -446,93 +472,119 @@ HTML STARTS BELOW THIS LINE:
                 continue
 
     except Exception as e:
-        print(f"OpenAI scrape error for {bookmaker_name}: {e}")
+        print(f"OpenRouter scrape error for {bookmaker_name}: {e}")
 
     return odds
 
 
 # -----------------------------
-# OpenAI scrapers for bookmakers
+# AI scrapers for bookmakers (via OpenRouter)
 # -----------------------------
 # Using your licensed list; adjust URLs if needed.
 
 def scrape_betpawa_ai():
     return scrape_with_ai_openai("https://www.betpawa.ug/", "BetPawa-AI", sport="Football")
 
+
 def scrape_fortebet_ai():
     return scrape_with_ai_openai("https://www.fortebet.ug/", "ForteBet-AI", sport="Football")
+
 
 def scrape_gsb_ai():
     return scrape_with_ai_openai("https://www.gsbu.ug/", "GSB-AI", sport="Football")
 
+
 def scrape_betway_ai():
     return scrape_with_ai_openai("https://www.betway.ug/", "Betway-AI", sport="Football")
+
 
 def scrape_championbet_ai():
     return scrape_with_ai_openai("https://www.championbet.ug/", "ChampionBet-AI", sport="Football")
 
+
 def scrape_1xbet_ai():
     return scrape_with_ai_openai("https://www.1xbet.ug/", "1xBet-AI", sport="Football")
+
 
 def scrape_22bet_ai():
     return scrape_with_ai_openai("https://www.22bet.ug/", "22Bet-AI", sport="Football")
 
+
 def scrape_betwinner_ai():
     return scrape_with_ai_openai("https://www.betwinner.co.ug/", "BetWinner-AI", sport="Football")
+
 
 def scrape_melbet_ai():
     return scrape_with_ai_openai("https://www.melbet.ug/", "Melbet-AI", sport="Football")
 
+
 def scrape_premierbet_ai():
     return scrape_with_ai_openai("https://www.premierbetuganda.com/", "PremierBet-AI", sport="Football")
+
 
 def scrape_bungabet_ai():
     return scrape_with_ai_openai("https://www.bungabet.ug/", "BungaBet-AI", sport="Football")
 
+
 def scrape_bongobongo_ai():
     return scrape_with_ai_openai("https://www.bongobongo.ug/", "BongoBongo-AI", sport="Football")
+
 
 def scrape_betika_ai():
     return scrape_with_ai_openai("https://www.betika.ug/", "Betika-AI", sport="Football")
 
+
 def scrape_mozzartbet_ai():
     return scrape_with_ai_openai("https://www.mozzartbet.ug/", "MozzartBet-AI", sport="Football")
+
 
 def scrape_betin_ai():
     return scrape_with_ai_openai("https://www.betin.co.ug/", "Betin-AI", sport="Football")
 
+
 def scrape_kagwirawo_ai():
     return scrape_with_ai_openai("https://www.kagwirawo.ug/", "Kagwirawo-AI", sport="Football")
+
 
 def scrape_sportpesa_ai():
     return scrape_with_ai_openai("https://www.sportpesa.co.ug/", "SportPesa-AI", sport="Football")
 
+
 def scrape_jackpotbet_ai():
     return scrape_with_ai_openai("https://www.jackpotbet.ug/", "JackpotBet-AI", sport="Football")
+
 
 def scrape_betlion_ai():
     return scrape_with_ai_openai("https://www.betlion.ug/", "Betlion-AI", sport="Football")
 
+
 def scrape_mbet_ai():
     return scrape_with_ai_openai("https://www.mbet.ug/", "Mbet-AI", sport="Football")
+
 
 def scrape_paripesa_ai():
     return scrape_with_ai_openai("https://www.paripesa.ug/", "Paripesa-AI", sport="Football")
 
+
 def scrape_linebet_ai():
     return scrape_with_ai_openai("https://www.linebet.ug/", "LineBet-AI", sport="Football")
+
 
 def scrape_betsofa_ai():
     return scrape_with_ai_openai("https://www.betsofa.ug/", "Betsofa-AI", sport="Football")
 
+
 def scrape_betwinner360_ai():
     return scrape_with_ai_openai("https://www.betwinner360.ug/", "Betwinner360-AI", sport="Football")
+
 
 def scrape_odibets_ai():
     return scrape_with_ai_openai("https://www.odibets.ug/", "OdiBets-AI", sport="Football")
 
+
 def scrape_thunderbet_ai():
     return scrape_with_ai_openai("https://www.thunderbet.ug/", "ThunderBet-AI", sport="Football")
+
 
 def scrape_topbet_ai():
     return scrape_with_ai_openai("https://www.topbet.ug/", "TopBet-AI", sport="Football")
@@ -598,8 +650,20 @@ def scrape_championbet_native():
                     except Exception:
                         pass
 
-                home_team = m.get("home") or m.get("homeTeam") or m.get("home_team") or m.get("team1") or ""
-                away_team = m.get("away") or m.get("awayTeam") or m.get("away_team") or m.get("team2") or ""
+                home_team = (
+                    m.get("home")
+                    or m.get("homeTeam")
+                    or m.get("home_team")
+                    or m.get("team1")
+                    or ""
+                )
+                away_team = (
+                    m.get("away")
+                    or m.get("awayTeam")
+                    or m.get("away_team")
+                    or m.get("team2")
+                    or ""
+                )
                 if not home_team or not away_team:
                     continue
                 if is_bad_team_name(home_team) or is_bad_team_name(away_team):
@@ -747,7 +811,11 @@ def scrape_betpawa_native():
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
             context = browser.new_context(
-                user_agent="Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
+                user_agent=(
+                    "Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/124.0.0.0 Mobile Safari/537.36"
+                ),
                 viewport={"width": 390, "height": 844},
                 locale="en-UG",
             )
@@ -838,7 +906,7 @@ def find_arbitrage(all_odds):
                 continue
             group = list(exact_groups[key1])
             processed.add(key1)
-            for key2 in keys[i + 1:]:
+            for key2 in keys[i + 1 :]:
                 if key2 in processed:
                     continue
                 if match_key_similarity(key1, key2):
@@ -936,7 +1004,7 @@ def main():
     all_odds.extend(scrape_championbet_native())
     all_odds.extend(scrape_betpawa_native())
 
-    # OpenAI scrapers (AI-based for all bookmakers)
+    # AI scrapers (OpenRouter-backed for all bookmakers)
     all_odds.extend(scrape_betpawa_ai())
     all_odds.extend(scrape_fortebet_ai())
     all_odds.extend(scrape_gsb_ai())
