@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-13 16:46 UTC",
-  "total_matches": 1094,
+  "last_updated": "2026-07-13 16:47 UTC",
+  "total_matches": 1095,
   "bookmakers_scraped": [
     "ChampionBet",
     "BetPawa",
@@ -338,31 +338,31 @@
       "match": "djurgardens if vs halmstads bk",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 1.02,
-      "profit_ugx": 1025,
+      "profit_percent": 1.72,
+      "profit_ugx": 1721,
       "total_stake": 100000,
-      "arb_sum": 0.9898,
+      "arb_sum": 0.9828,
       "bets": [
         {
-          "bookmaker": "SportyBet",
+          "bookmaker": "1xBet",
           "outcome": "Home",
-          "odd": 1.22,
-          "stake": 82816,
-          "win": 101036
+          "odd": 1.225,
+          "stake": 83063,
+          "win": 101752
         },
         {
-          "bookmaker": "1xBet",
+          "bookmaker": "22Bet",
           "outcome": "Draw",
-          "odd": 11.5,
-          "stake": 8786,
-          "win": 101039
+          "odd": 12.0,
+          "stake": 8479,
+          "win": 101748
         },
         {
           "bookmaker": "BetPawa",
           "outcome": "Away",
           "odd": 12.03,
-          "stake": 8399,
-          "win": 101040
+          "stake": 8458,
+          "win": 101750
         }
       ]
     }
@@ -399,9 +399,9 @@
       "match_key": "derry vs cska sofia",
       "bookmaker": "ChampionBet",
       "competition": "UEFA  Europa League Qual.",
-      "home": 3.06,
-      "draw": 3.27,
-      "away": 2.28,
+      "home": 3.46,
+      "draw": 3.38,
+      "away": 2.06,
       "sport": "Football"
     },
     {
@@ -657,18 +657,6 @@
       "sport": "Football"
     },
     {
-      "match": "Kuopion Palloseura vs FK Vardar Skopje",
-      "home_team": "Kuopion Palloseura",
-      "away_team": "FK Vardar Skopje",
-      "match_key": "kuopion palloseura vs fk vardar skopje",
-      "bookmaker": "BetPawa",
-      "competition": "Football / International / UEFA Champions League",
-      "home": 1.6,
-      "draw": 4.37,
-      "away": 5.05,
-      "sport": "Football"
-    },
-    {
       "match": "Inter Club de Escaldes vs Lincoln Red Imps",
       "home_team": "Inter Club de Escaldes",
       "away_team": "Lincoln Red Imps",
@@ -678,6 +666,18 @@
       "home": 1.72,
       "draw": 4.29,
       "away": 4.25,
+      "sport": "Football"
+    },
+    {
+      "match": "Kuopion Palloseura vs FK Vardar Skopje",
+      "home_team": "Kuopion Palloseura",
+      "away_team": "FK Vardar Skopje",
+      "match_key": "kuopion palloseura vs fk vardar skopje",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / UEFA Champions League",
+      "home": 1.6,
+      "draw": 4.37,
+      "away": 5.05,
       "sport": "Football"
     },
     {
@@ -10293,18 +10293,6 @@
       "sport": "Football"
     },
     {
-      "match": "Racing Club (W) vs Union de Santa Fe (W)",
-      "home_team": "Racing Club (W)",
-      "away_team": "Union de Santa Fe (W)",
-      "match_key": "racing w vs union de santa fe w",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Primera A Women",
-      "home": "1.08",
-      "draw": "9.5",
-      "away": "21",
-      "sport": "Football"
-    },
-    {
       "match": "Gimnasia y Esgrima La Plata (W) vs Huracan (W)",
       "home_team": "Gimnasia y Esgrima La Plata (W)",
       "away_team": "Huracan (W)",
@@ -10317,15 +10305,15 @@
       "sport": "Football"
     },
     {
-      "match": "Fenix vs Sportivo Barracas",
-      "home_team": "Fenix",
-      "away_team": "Sportivo Barracas",
-      "match_key": "fenix vs sportivo barracas",
+      "match": "Racing Club (W) vs Union de Santa Fe (W)",
+      "home_team": "Racing Club (W)",
+      "away_team": "Union de Santa Fe (W)",
+      "match_key": "racing w vs union de santa fe w",
       "bookmaker": "AbaBet",
-      "competition": "Argentina - Primera C",
-      "home": "2.88",
-      "draw": "2.9",
-      "away": "2.38",
+      "competition": "Argentina - Primera A Women",
+      "home": "1.08",
+      "draw": "9.5",
+      "away": "21",
       "sport": "Football"
     },
     {
@@ -10341,27 +10329,15 @@
       "sport": "Football"
     },
     {
-      "match": "Ferro Carril Oeste (R) vs Lanus (R)",
-      "home_team": "Ferro Carril Oeste (R)",
-      "away_team": "Lanus (R)",
-      "match_key": "ferro carril oeste r vs lanus r",
+      "match": "Fenix vs Sportivo Barracas",
+      "home_team": "Fenix",
+      "away_team": "Sportivo Barracas",
+      "match_key": "fenix vs sportivo barracas",
       "bookmaker": "AbaBet",
-      "competition": "Argentina - Reserve League",
-      "home": "3.5",
-      "draw": "3.4",
-      "away": "1.85",
-      "sport": "Football"
-    },
-    {
-      "match": "Estudiantes de Rio Cuarto (R) vs Defensa y Justicia (R)",
-      "home_team": "Estudiantes de Rio Cuarto (R)",
-      "away_team": "Defensa y Justicia (R)",
-      "match_key": "estudiantes de rio cuarto r vs defensa y justicia r",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Reserve League",
-      "home": "4",
-      "draw": "3.5",
-      "away": "1.73",
+      "competition": "Argentina - Primera C",
+      "home": "2.88",
+      "draw": "2.9",
+      "away": "2.38",
       "sport": "Football"
     },
     {
@@ -10386,6 +10362,30 @@
       "home": "2",
       "draw": "3",
       "away": "3.7",
+      "sport": "Football"
+    },
+    {
+      "match": "Estudiantes de Rio Cuarto (R) vs Defensa y Justicia (R)",
+      "home_team": "Estudiantes de Rio Cuarto (R)",
+      "away_team": "Defensa y Justicia (R)",
+      "match_key": "estudiantes de rio cuarto r vs defensa y justicia r",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Reserve League",
+      "home": "4",
+      "draw": "3.5",
+      "away": "1.73",
+      "sport": "Football"
+    },
+    {
+      "match": "Ferro Carril Oeste (R) vs Lanus (R)",
+      "home_team": "Ferro Carril Oeste (R)",
+      "away_team": "Lanus (R)",
+      "match_key": "ferro carril oeste r vs lanus r",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Reserve League",
+      "home": "3.5",
+      "draw": "3.4",
+      "away": "1.85",
       "sport": "Football"
     },
     {
@@ -10515,9 +10515,9 @@
       "match_key": "honka vs hjs akatemia",
       "bookmaker": "AbaBet",
       "competition": "Finland - Kakkonen Group B",
-      "home": "2.5",
-      "draw": "3",
-      "away": "2.88",
+      "home": "1.5",
+      "draw": "3.1",
+      "away": "10",
       "sport": "Football"
     },
     {
@@ -10527,9 +10527,9 @@
       "match_key": "jypk w vs honka espoo w",
       "bookmaker": "AbaBet",
       "competition": "Finland - Ykkonen Women",
-      "home": "1.91",
-      "draw": "3.2",
-      "away": "4",
+      "home": "1.83",
+      "draw": "3.1",
+      "away": "4.33",
       "sport": "Football"
     },
     {
@@ -10545,18 +10545,6 @@
       "sport": "Football"
     },
     {
-      "match": "Vidir vs Augnablik Kopavogur",
-      "home_team": "Vidir",
-      "away_team": "Augnablik Kopavogur",
-      "match_key": "vidir vs augnablik kopavogur",
-      "bookmaker": "AbaBet",
-      "competition": "Iceland - 3 Deild",
-      "home": "1.38",
-      "draw": "5",
-      "away": "5.25",
-      "sport": "Football"
-    },
-    {
       "match": "Arbair vs Reynir",
       "home_team": "Arbair",
       "away_team": "Reynir",
@@ -10566,6 +10554,18 @@
       "home": "4.2",
       "draw": "5.25",
       "away": "1.45",
+      "sport": "Football"
+    },
+    {
+      "match": "Vidir vs Augnablik Kopavogur",
+      "home_team": "Vidir",
+      "away_team": "Augnablik Kopavogur",
+      "match_key": "vidir vs augnablik kopavogur",
+      "bookmaker": "AbaBet",
+      "competition": "Iceland - 3 Deild",
+      "home": "1.38",
+      "draw": "5",
+      "away": "5.25",
       "sport": "Football"
     },
     {
@@ -10623,7 +10623,7 @@
       "match_key": "djurgarden vs halmstads",
       "bookmaker": "AbaBet",
       "competition": "Sweden - Allsvenskan",
-      "home": "1.2",
+      "home": "1.22",
       "draw": "6.5",
       "away": "12",
       "sport": "Football"
@@ -10671,9 +10671,9 @@
       "match_key": "lokzagreb vs epicentr",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "2.6",
-      "draw": "2.88",
-      "away": "3",
+      "home": "2.5",
+      "draw": "2.75",
+      "away": "3.2",
       "sport": "Football"
     },
     {
@@ -10713,18 +10713,6 @@
       "sport": "Football"
     },
     {
-      "match": "Bradford PA vs Sheffield",
-      "home_team": "Bradford PA",
-      "away_team": "Sheffield",
-      "match_key": "bradford pa vs sheffield",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "1.48",
-      "draw": "5",
-      "away": "4.2",
-      "sport": "Football"
-    },
-    {
       "match": "FC Solothurn vs FC Prishtina Bern",
       "home_team": "FC Solothurn",
       "away_team": "FC Prishtina Bern",
@@ -10734,6 +10722,18 @@
       "home": "2.5",
       "draw": "3.4",
       "away": "2.4",
+      "sport": "Football"
+    },
+    {
+      "match": "Bradford PA vs Sheffield",
+      "home_team": "Bradford PA",
+      "away_team": "Sheffield",
+      "match_key": "bradford pa vs sheffield",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "1.48",
+      "draw": "5",
+      "away": "4.2",
       "sport": "Football"
     },
     {
@@ -10749,15 +10749,27 @@
       "sport": "Football"
     },
     {
+      "match": "Bochum (W) vs Koln (W)",
+      "home_team": "Bochum (W)",
+      "away_team": "Koln (W)",
+      "match_key": "bochum w vs koln w",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies Women",
+      "home": "",
+      "draw": "",
+      "away": "",
+      "sport": "Football"
+    },
+    {
       "match": "Djurgardens vs Halmstads",
       "home_team": "Djurgardens",
       "away_team": "Halmstads",
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.206,
-      "draw": 11.5,
-      "away": 6.6,
+      "home": 1.225,
+      "draw": 12.0,
+      "away": 6.52,
       "sport": "Football"
     },
     {
@@ -11607,9 +11619,9 @@
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.206,
-      "draw": 11.5,
-      "away": 6.6,
+      "home": 1.225,
+      "draw": 12.0,
+      "away": 6.52,
       "sport": "Football"
     },
     {
@@ -12195,9 +12207,9 @@
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 1.206,
-      "draw": 11.5,
-      "away": 6.6,
+      "home": 1.225,
+      "draw": 12.0,
+      "away": 6.52,
       "sport": "Football"
     },
     {
@@ -12327,9 +12339,9 @@
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.206,
-      "draw": 11.5,
-      "away": 6.6,
+      "home": 1.225,
+      "draw": 12.0,
+      "away": 6.52,
       "sport": "Football"
     },
     {
@@ -12837,18 +12849,6 @@
       "sport": "Football"
     },
     {
-      "match": "Home vs Away",
-      "home_team": "Home",
-      "away_team": "Away",
-      "match_key": "home vs away",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.804,
-      "draw": 3.215,
-      "away": 4.63,
-      "sport": "Football"
-    },
-    {
       "match": "Deportivo Capiat\u00e1 vs Atletico Tembetary",
       "home_team": "Deportivo Capiat\u00e1",
       "away_team": "Atletico Tembetary",
@@ -12858,18 +12858,6 @@
       "home": 2.23,
       "draw": 3.105,
       "away": 3.04,
-      "sport": "Football"
-    },
-    {
-      "match": "America Natal vs Trem",
-      "home_team": "America Natal",
-      "away_team": "Trem",
-      "match_key": "america natal vs trem",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.126,
-      "draw": 19.0,
-      "away": 5.85,
       "sport": "Football"
     },
     {
@@ -12894,6 +12882,30 @@
       "home": 1.92,
       "draw": 3.82,
       "away": 3.14,
+      "sport": "Football"
+    },
+    {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.804,
+      "draw": 3.215,
+      "away": 4.63,
+      "sport": "Football"
+    },
+    {
+      "match": "America Natal vs Trem",
+      "home_team": "America Natal",
+      "away_team": "Trem",
+      "match_key": "america natal vs trem",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.126,
+      "draw": 19.0,
+      "away": 5.85,
       "sport": "Football"
     },
     {
@@ -13179,9 +13191,9 @@
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.206,
-      "draw": 11.5,
-      "away": 6.6,
+      "home": 1.225,
+      "draw": 12.0,
+      "away": 6.52,
       "sport": "Football"
     },
     {
