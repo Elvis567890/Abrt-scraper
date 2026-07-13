@@ -1,43 +1,5 @@
 [
   {
-    "match": "spain vs belgium",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 6.0,
-    "profit_ugx": 5997,
-    "total_stake": 100000,
-    "arb_sum": 0.94,
-    "bets": [
-      {
-        "bookmaker": "ChampionBet",
-        "outcome": "Home",
-        "odd": 1.65,
-        "stake": 64473,
-        "win": 106380
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 6.19,
-        "stake": 17186,
-        "win": 106381
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.8,
-        "stake": 18341,
-        "win": 106378
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 16:53 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "arsenal sarandi vs defensores unidos",
     "sport": "Football",
     "type": "3-way",
@@ -189844,5 +189806,41 @@
       }
     ],
     "_seen_at": "2026-07-13T02:25:32.972065+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.81,
+    "profit_ugx": 1814,
+    "total_stake": 100000,
+    "arb_sum": 0.9819,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.66,
+        "stake": 61354,
+        "win": 101848
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 3.93,
+        "stake": 25915,
+        "win": 101846
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 8.0,
+        "stake": 12731,
+        "win": 101848
+      }
+    ],
+    "_seen_at": "2026-07-13T03:17:30.262059+00:00"
   }
 ]
