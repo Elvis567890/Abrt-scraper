@@ -2,7 +2,6 @@
 def _ensure_dependencies():
     import importlib
     missing = []
-    # Only install the actual packages you use
     for mod in ["requests", "bs4", "playwright", "openai"]:
         try:
             importlib.import_module(mod)
@@ -31,12 +30,10 @@ from openai import OpenAI  # OpenAI SDK, pointed to OpenRouter
 # Config, constants, clients
 # -----------------------------
 
-# We reuse OPENAI_API_KEY env name, but it holds your OpenRouter key (sk-or-v1-...)
 OPENROUTER_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 openrouter_client = None
 if OPENROUTER_API_KEY:
-    # Point the OpenAI client at OpenRouter's API
     openrouter_client = OpenAI(
         api_key=OPENROUTER_API_KEY,
         base_url="https://openrouter.ai/api/v1",
@@ -45,13 +42,16 @@ if OPENROUTER_API_KEY:
 CHAMPIONBET_API = (
     "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 )
-BETIKA_API = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=10&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
+BETIKA_API = (
+    "https://api-ug.betika.com/v1/uo/matches?page=1&limit=50&tab=&sub_type_id=1,186,340&sport_id=3&sort_id=1&period_id=-1&esports=false"
+    # increased limit from 10 to 50 to capture more matches
+)
 
 HISTORY_FILE = "arbitrage_history.json"
 FRESHNESS_FILE = "odds_freshness.json"
 
 STAKE = 100000
-STALE_ODDS_HOURS = 1
+STALE_ODDS_HOURS = 1  # drop odds older than 1 hour if snapshot unchanged
 
 FOOTBALL_API_KEY = os.environ.get("FOOTBALL_API_KEY")
 FOOTBALL_API_BASE = "https://api.football-data.org/v4"
@@ -89,7 +89,9 @@ LIVE_INDICATORS = {
 def normalize(name):
     name = (name or "").lower().strip()
     name = re.sub(
-        r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b", "", name
+        r"\b(fc|sc|cf|ac|united|city|sports|club|utd|football|soccer|women|men|u21|u23)\b",
+        "",
+        name,
     )
     name = re.sub(r"[^a-z0-9 ]", "", name)
     name = re.sub(r"\s+", " ", name)
@@ -204,6 +206,10 @@ def save_freshness(freshness):
 
 
 def filter_stale_odds(all_odds):
+    """
+    Keep odds whose snapshot changed OR whose snapshot is unchanged but 'since' is <= STALE_ODDS_HOURS.
+    Drop odds older than STALE_ODDS_HOURS with unchanged snapshot.
+    """
     previous = load_freshness()
     new_freshness, fresh_odds = {}, {}
     now = datetime.now(timezone.utc)
@@ -213,33 +219,42 @@ def filter_stale_odds(all_odds):
         snapshot = {"home": o.get("home"), "draw": o.get("draw"), "away": o.get("away")}
         old = previous.get(key)
 
+        # New odds for this key
         if not old:
             since_str = now.strftime("%Y-%m-%d %H:%M UTC")
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds[o.get("match_key")] = o
+            fresh_odds[key] = o
             continue
 
         old_snapshot = old.get("snapshot", {})
         since_str = old.get("since")
 
+        # Snapshot changed -> reset since
         if snapshot != old_snapshot:
             since_str = now.strftime("%Y-%m-%d %H:%M UTC")
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds[o.get("match_key")] = o
+            fresh_odds[key] = o
             continue
 
+        # Snapshot unchanged -> check age
+        hours = 0
         try:
             since_dt = datetime.strptime(since_str, "%Y-%m-%d %H:%M UTC").replace(tzinfo=timezone.utc)
             hours = (now - since_dt).total_seconds() / 3600
         except Exception:
-            hours = 0
+            # If parsing fails, treat as stale and drop
+            print(f"[freshness] parse error for {key} since={since_str!r}, dropping as stale")
+            continue
 
         if hours <= STALE_ODDS_HOURS:
             o["since"] = since_str
             new_freshness[key] = {"snapshot": snapshot, "since": since_str}
-            fresh_odds[o.get("match_key")] = o
+            fresh_odds[key] = o
+        else:
+            # Stale; do not include in fresh_odds
+            print(f"[freshness] DROPPING stale odds for {key}, age={hours:.2f}h")
 
     save_freshness(new_freshness)
     return list(fresh_odds.values())
@@ -289,9 +304,9 @@ def get_match_status_and_kickoff_football_data(home_team, away_team, date_hint=N
             kickoff_dt = None
             if kickoff_raw:
                 try:
-                    kickoff_dt = datetime.fromisoformat(kickoff_raw.replace("Z", "+00:00")).astimezone(
-                        timezone.utc
-                    )
+                    kickoff_dt = datetime.fromisoformat(
+                        kickoff_raw.replace("Z", "+00:00")
+                    ).astimezone(timezone.utc)
                 except Exception:
                     kickoff_dt = None
             return {"status": status, "kickoff": kickoff_dt}
@@ -337,6 +352,7 @@ def filter_opportunities_with_football_data(opps_list):
 def scrape_with_ai_openai(url, bookmaker_name, sport="Football"):
     """
     Scrape pre-match odds using an OpenRouter-backed chat model.
+    Adds HTML truncation and max_tokens to avoid huge requests.
     """
 
     odds = []
@@ -348,6 +364,11 @@ def scrape_with_ai_openai(url, bookmaker_name, sport="Football"):
         resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
         resp.raise_for_status()
         html = resp.text
+
+        # Limit HTML size to avoid excessive token usage
+        max_html_chars = 200_000
+        if len(html) > max_html_chars:
+            html = html[:max_html_chars]
 
         prompt = f"""
 You are helping extract pre-match betting odds for {bookmaker_name} in Uganda.
@@ -407,9 +428,7 @@ HTML STARTS BELOW THIS LINE:
 {html}
 """
 
-        # Call OpenRouter using the OpenAI-compatible client
         completion = openrouter_client.chat.completions.create(
-            # Use an OpenRouter model ID that routes to OpenAI's GPT-4.1 mini
             model="openai/gpt-4.1-mini",
             messages=[
                 {
@@ -422,6 +441,7 @@ HTML STARTS BELOW THIS LINE:
                 },
             ],
             temperature=0,
+            max_tokens=1500,  # keep per-request budget controlled
         )
 
         text = completion.choices[0].message.content
@@ -478,9 +498,8 @@ HTML STARTS BELOW THIS LINE:
 
 
 # -----------------------------
-# AI scrapers for bookmakers (via OpenRouter)
+# AI scrapers for bookmakers
 # -----------------------------
-# Using your licensed list; adjust URLs if needed.
 
 def scrape_betpawa_ai():
     return scrape_with_ai_openai("https://www.betpawa.ug/", "BetPawa-AI", sport="Football")
@@ -591,7 +610,7 @@ def scrape_topbet_ai():
 
 
 # -----------------------------
-# Native scrapers (existing ones)
+# Native scrapers
 # -----------------------------
 
 def championbet_extract_1x2(match):
@@ -827,7 +846,7 @@ def scrape_betpawa_native():
                     page.goto(url, timeout=60000)
                     page.wait_for_timeout(6000)
 
-                    for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:60]:
+                    for link in page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')[:80]:
                         try:
                             text = link.inner_text()
                             if "LIVE" in text.upper() or re.search(r"\b\d{1,3}:\d{2}\b", text):
@@ -843,11 +862,25 @@ def scrape_betpawa_native():
                                     except Exception:
                                         continue
                                 elif len(part) > 2 and not any(
-                                    x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
+                                    x in part
+                                    for x in [
+                                        "Football",
+                                        "Soccer",
+                                        "Netball",
+                                        "Tennis",
+                                        "Basketball",
+                                    ]
                                 ):
                                     teams.append(part)
                                 elif any(
-                                    x in part for x in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]
+                                    x in part
+                                    for x in [
+                                        "Football",
+                                        "Soccer",
+                                        "Netball",
+                                        "Tennis",
+                                        "Basketball",
+                                    ]
                                 ):
                                     competition = part
 
@@ -865,8 +898,12 @@ def scrape_betpawa_native():
                                             away_team,
                                             "BetPawa",
                                             clean_odd(odd_values[0]),
-                                            clean_odd(odd_values[1] if len(odd_values) >= 3 else None),
-                                            clean_odd(odd_values[2] if len(odd_values) >= 3 else odd_values[1]),
+                                            clean_odd(
+                                                odd_values[1] if len(odd_values) >= 3 else None
+                                            ),
+                                            clean_odd(
+                                                odd_values[2] if len(odd_values) >= 3 else odd_values[1]
+                                            ),
                                             "Football",
                                             competition,
                                         )
@@ -885,7 +922,7 @@ def scrape_betpawa_native():
 
 
 # -----------------------------
-# Arbitrage finder (unchanged)
+# Arbitrage finder
 # -----------------------------
 
 def find_arbitrage(all_odds):
@@ -906,7 +943,7 @@ def find_arbitrage(all_odds):
                 continue
             group = list(exact_groups[key1])
             processed.add(key1)
-            for key2 in keys[i + 1 :]:
+            for key2 in keys[i + 1:]:
                 if key2 in processed:
                     continue
                 if match_key_similarity(key1, key2):
@@ -998,13 +1035,13 @@ def find_arbitrage(all_odds):
 def main():
     all_odds = []
 
-    # Native scrapers (existing)
+    # Native scrapers
     all_odds.extend(scrape_ababet_native())
     all_odds.extend(scrape_betika_native())
     all_odds.extend(scrape_championbet_native())
     all_odds.extend(scrape_betpawa_native())
 
-    # AI scrapers (OpenRouter-backed for all bookmakers)
+    # AI scrapers (OpenRouter-backed)
     all_odds.extend(scrape_betpawa_ai())
     all_odds.extend(scrape_fortebet_ai())
     all_odds.extend(scrape_gsb_ai())
