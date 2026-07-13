@@ -1,43 +1,5 @@
 [
   {
-    "match": "juventude vs vila nova",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.93,
-    "profit_ugx": 2929,
-    "total_stake": 100000,
-    "arb_sum": 0.9707,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 1.8,
-        "stake": 57232,
-        "win": 103018
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 4.835,
-        "stake": 21307,
-        "win": 103019
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.8,
-        "stake": 21462,
-        "win": 103018
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 17:01 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "gleisdorf vs favoritner ",
     "sport": "Football",
     "type": "3-way",
@@ -189864,5 +189826,41 @@
       }
     ],
     "_seen_at": "2026-07-13T02:07:31.415004+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.93,
+    "profit_ugx": 1931,
+    "total_stake": 100000,
+    "arb_sum": 0.9807,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 82233,
+        "win": 101969
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8497,
+        "win": 101964
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 11.0,
+        "stake": 9270,
+        "win": 101970
+      }
+    ],
+    "_seen_at": "2026-07-13T02:09:35.580855+00:00"
   }
 ]
