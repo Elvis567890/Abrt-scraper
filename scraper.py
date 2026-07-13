@@ -2,7 +2,7 @@
 def _ensure_dependencies():
     import importlib
     missing = []
-    for mod in ["requests", "bs4", "playwright", "google-genai"]:
+    for mod in ["reque", "bs4", "playwright", "google-genai"]:
         try:
             if mod == "google-genai":
                 importlib.import_module("google.genai")
