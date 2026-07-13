@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-13 15:13 UTC",
+  "last_updated": "2026-07-13 15:16 UTC",
   "total_matches": 1092,
   "bookmakers_scraped": [
     "ChampionBet",
@@ -19,30 +19,62 @@
       "sport": "Football",
       "type": "3-way",
       "profit_percent": 19.98,
-      "profit_ugx": 19979,
+      "profit_ugx": 19982,
       "total_stake": 100000,
       "arb_sum": 0.8002,
       "bets": [
         {
-          "bookmaker": "1xBet",
+          "bookmaker": "SportyBet",
           "outcome": "Home",
-          "odd": 4.035,
-          "stake": 30971,
-          "win": 124968
+          "odd": 3.9,
+          "stake": 32044,
+          "win": 124972
         },
         {
-          "bookmaker": "SportyBet",
+          "bookmaker": "AbaBet",
           "outcome": "Draw",
-          "odd": 3.75,
-          "stake": 33324,
-          "win": 124965
+          "odd": 3.9,
+          "stake": 32044,
+          "win": 124972
         },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Away",
+          "odd": 3.48,
+          "stake": 35912,
+          "win": 124974
+        }
+      ]
+    },
+    {
+      "match": "widzew lodz vs mannsdorf",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 13.17,
+      "profit_ugx": 13173,
+      "total_stake": 100000,
+      "arb_sum": 0.8683,
+      "bets": [
         {
           "bookmaker": "22Bet",
+          "outcome": "Home",
+          "odd": 1.319,
+          "stake": 87317,
+          "win": 115171
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Draw",
+          "odd": 16.0,
+          "stake": 7198,
+          "win": 115168
+        },
+        {
+          "bookmaker": "AbaBet",
           "outcome": "Away",
-          "odd": 3.5,
-          "stake": 35705,
-          "win": 124968
+          "odd": 21.0,
+          "stake": 5484,
+          "win": 115164
         }
       ]
     },
@@ -171,38 +203,6 @@
           "odd": 10.0,
           "stake": 10395,
           "win": 103950
-        }
-      ]
-    },
-    {
-      "match": "widzew lodz vs mannsdorf",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 2.85,
-      "profit_ugx": 2848,
-      "total_stake": 100000,
-      "arb_sum": 0.9715,
-      "bets": [
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Home",
-          "odd": 1.319,
-          "stake": 78037,
-          "win": 102931
-        },
-        {
-          "bookmaker": "AbaBet",
-          "outcome": "Draw",
-          "odd": 9.5,
-          "stake": 10835,
-          "win": 102932
-        },
-        {
-          "bookmaker": "22Bet",
-          "outcome": "Away",
-          "odd": 9.25,
-          "stake": 11128,
-          "win": 102934
         }
       ]
     },
@@ -403,9 +403,9 @@
       "match_key": "hnk gorica vs gztepe",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendlies",
-      "home": 3.7,
-      "draw": 3.9,
-      "away": 1.77,
+      "home": 3.87,
+      "draw": 3.97,
+      "away": 1.72,
       "sport": "Football"
     },
     {
@@ -1963,9 +1963,9 @@
       "match_key": "honka vs hjs",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.16,
-      "draw": 6.8,
-      "away": 9.8,
+      "home": 1.19,
+      "draw": 6.0,
+      "away": 9.6,
       "sport": "Football"
     },
     {
@@ -3787,9 +3787,9 @@
       "match_key": "maardu vs tartu welco",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.35,
-      "draw": 4.55,
-      "away": 1.51,
+      "home": 3.7,
+      "draw": 4.8,
+      "away": 1.58,
       "sport": "Football"
     },
     {
@@ -10111,9 +10111,9 @@
       "match_key": "river plate w vs social atletico television w",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera A Women",
-      "home": "1.17",
-      "draw": "6",
-      "away": "17",
+      "home": "",
+      "draw": "19",
+      "away": "34",
       "sport": "Football"
     },
     {
@@ -10183,9 +10183,9 @@
       "match_key": "villa san carlos r vs deportivo armenio r",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera B Metropolitana Reserves",
-      "home": "2.88",
-      "draw": "2.1",
-      "away": "3.6",
+      "home": "3",
+      "draw": "2.05",
+      "away": "3.75",
       "sport": "Football"
     },
     {
@@ -10303,9 +10303,9 @@
       "match_key": "san antonio bulo bulo u19 vs the strongest u19",
       "bookmaker": "AbaBet",
       "competition": "Bolivia - Liga Nacional U19",
-      "home": "1.8",
-      "draw": "3",
-      "away": "5",
+      "home": "1.91",
+      "draw": "2.75",
+      "away": "4.75",
       "sport": "Football"
     },
     {
@@ -10315,9 +10315,9 @@
       "match_key": "nacional potosi u19 vs abb u19",
       "bookmaker": "AbaBet",
       "competition": "Bolivia - Liga Nacional U19",
-      "home": "1.53",
-      "draw": "4.33",
-      "away": "4.75",
+      "home": "",
+      "draw": "",
+      "away": "",
       "sport": "Football"
     },
     {
@@ -10545,7 +10545,7 @@
       "competition": "World - Club Friendlies",
       "home": "4",
       "draw": "4",
-      "away": "1.8",
+      "away": "1.73",
       "sport": "Football"
     },
     {
@@ -10687,9 +10687,9 @@
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.191,
+      "home": 1.193,
       "draw": 12.5,
-      "away": 6.8,
+      "away": 6.75,
       "sport": "Football"
     },
     {
@@ -10699,9 +10699,9 @@
       "match_key": "hnk gorica vs goztepe",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 4.035,
+      "home": 4.06,
       "draw": 1.76,
-      "away": 3.5,
+      "away": 3.48,
       "sport": "Football"
     },
     {
@@ -10735,9 +10735,9 @@
       "match_key": "sigma olomouc vs shabab alahli dubai",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.51,
-      "away": 3.9,
+      "home": 1.89,
+      "draw": 3.53,
+      "away": 3.92,
       "sport": "Football"
     },
     {
@@ -10747,9 +10747,9 @@
       "match_key": "widzew lodz vs mannsdorf",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.319,
-      "draw": 4.955,
-      "away": 9.25,
+      "home": 1.069,
+      "draw": 16.0,
+      "away": 13.5,
       "sport": "Football"
     },
     {
@@ -10891,9 +10891,9 @@
       "match_key": "honka vs hjs akatemia",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.195,
+      "home": 1.199,
       "draw": 9.95,
-      "away": 6.15,
+      "away": 6.05,
       "sport": "Football"
     },
     {
@@ -10915,9 +10915,9 @@
       "match_key": "maardu linnameeskond vs tartu jk welco elekter",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 4.325,
-      "draw": 1.51,
-      "away": 4.8,
+      "home": 3.845,
+      "draw": 1.591,
+      "away": 4.7,
       "sport": "Football"
     },
     {
@@ -11203,9 +11203,9 @@
       "match_key": "arbair vs reynir sandgerdi",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.75,
-      "draw": 1.39,
-      "away": 4.95,
+      "home": 5.69,
+      "draw": 1.373,
+      "away": 5.05,
       "sport": "Football"
     },
     {
@@ -11251,9 +11251,9 @@
       "match_key": "deportivo lute vs carlos stein",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.76,
-      "draw": 3.995,
-      "away": 3.54,
+      "home": 1.48,
+      "draw": 5.92,
+      "away": 3.9,
       "sport": "Football"
     },
     {
@@ -12127,9 +12127,9 @@
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 1.191,
+      "home": 1.193,
       "draw": 12.5,
-      "away": 6.8,
+      "away": 6.75,
       "sport": "Football"
     },
     {
@@ -12139,9 +12139,9 @@
       "match_key": "hnk gorica vs goztepe",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 4.035,
+      "home": 4.06,
       "draw": 1.76,
-      "away": 3.5,
+      "away": 3.48,
       "sport": "Football"
     },
     {
@@ -12175,9 +12175,9 @@
       "match_key": "sigma olomouc vs shabab alahli dubai",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.51,
-      "away": 3.9,
+      "home": 1.89,
+      "draw": 3.53,
+      "away": 3.92,
       "sport": "Football"
     },
     {
@@ -12187,9 +12187,9 @@
       "match_key": "widzew lodz vs mannsdorf",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 1.319,
-      "draw": 4.955,
-      "away": 9.25,
+      "home": 1.069,
+      "draw": 16.0,
+      "away": 13.5,
       "sport": "Football"
     },
     {
@@ -12283,9 +12283,9 @@
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.191,
+      "home": 1.193,
       "draw": 12.5,
-      "away": 6.8,
+      "away": 6.75,
       "sport": "Football"
     },
     {
@@ -12295,9 +12295,9 @@
       "match_key": "hnk gorica vs goztepe",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 4.035,
+      "home": 4.06,
       "draw": 1.76,
-      "away": 3.5,
+      "away": 3.48,
       "sport": "Football"
     },
     {
@@ -12331,9 +12331,9 @@
       "match_key": "sigma olomouc vs shabab alahli dubai",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.51,
-      "away": 3.9,
+      "home": 1.89,
+      "draw": 3.53,
+      "away": 3.92,
       "sport": "Football"
     },
     {
@@ -12343,9 +12343,9 @@
       "match_key": "widzew lodz vs mannsdorf",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.319,
-      "draw": 4.955,
-      "away": 9.25,
+      "home": 1.069,
+      "draw": 16.0,
+      "away": 13.5,
       "sport": "Football"
     },
     {
@@ -12487,9 +12487,9 @@
       "match_key": "honka vs hjs akatemia",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.195,
+      "home": 1.199,
       "draw": 9.95,
-      "away": 6.15,
+      "away": 6.05,
       "sport": "Football"
     },
     {
@@ -12511,9 +12511,9 @@
       "match_key": "maardu linnameeskond vs tartu jk welco elekter",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 4.325,
-      "draw": 1.51,
-      "away": 4.8,
+      "home": 3.845,
+      "draw": 1.591,
+      "away": 4.7,
       "sport": "Football"
     },
     {
@@ -12799,9 +12799,9 @@
       "match_key": "arbair vs reynir sandgerdi",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.75,
-      "draw": 1.39,
-      "away": 4.95,
+      "home": 5.69,
+      "draw": 1.373,
+      "away": 5.05,
       "sport": "Football"
     },
     {
@@ -12847,9 +12847,9 @@
       "match_key": "deportivo lute vs carlos stein",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.76,
-      "draw": 3.995,
-      "away": 3.54,
+      "home": 1.48,
+      "draw": 5.92,
+      "away": 3.9,
       "sport": "Football"
     },
     {
@@ -13135,9 +13135,9 @@
       "match_key": "djurgardens vs halmstads",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.191,
+      "home": 1.193,
       "draw": 12.5,
-      "away": 6.8,
+      "away": 6.75,
       "sport": "Football"
     },
     {
@@ -13147,9 +13147,9 @@
       "match_key": "hnk gorica vs goztepe",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 4.035,
+      "home": 4.06,
       "draw": 1.76,
-      "away": 3.5,
+      "away": 3.48,
       "sport": "Football"
     },
     {
@@ -13183,9 +13183,9 @@
       "match_key": "sigma olomouc vs shabab alahli dubai",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.51,
-      "away": 3.9,
+      "home": 1.89,
+      "draw": 3.53,
+      "away": 3.92,
       "sport": "Football"
     },
     {
@@ -13195,9 +13195,9 @@
       "match_key": "widzew lodz vs mannsdorf",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.319,
-      "draw": 4.955,
-      "away": 9.25,
+      "home": 1.069,
+      "draw": 16.0,
+      "away": 13.5,
       "sport": "Football"
     },
     {
@@ -13339,9 +13339,9 @@
       "match_key": "honka vs hjs akatemia",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.195,
+      "home": 1.199,
       "draw": 9.95,
-      "away": 6.15,
+      "away": 6.05,
       "sport": "Football"
     },
     {
@@ -13363,9 +13363,9 @@
       "match_key": "maardu linnameeskond vs tartu jk welco elekter",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 4.325,
-      "draw": 1.51,
-      "away": 4.8,
+      "home": 3.845,
+      "draw": 1.591,
+      "away": 4.7,
       "sport": "Football"
     },
     {
