@@ -1,43 +1,5 @@
 [
   {
-    "match": "arsenal sarandi vs defensores unidos",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.82,
-    "profit_ugx": 5820,
-    "total_stake": 100000,
-    "arb_sum": 0.9418,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 1.52,
-        "stake": 69855,
-        "win": 106180
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 6.99,
-        "stake": 15190,
-        "win": 106178
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 7.1,
-        "stake": 14955,
-        "win": 106180
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 16:55 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": " wiener viktoria vs vorwarts steyr",
     "sport": "Football",
     "type": "3-way",
@@ -189848,5 +189810,41 @@
       }
     ],
     "_seen_at": "2026-07-13T02:21:33.503139+00:00"
+  },
+  {
+    "match": "djurgardens vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.35,
+    "profit_ugx": 4355,
+    "total_stake": 100000,
+    "arb_sum": 0.9565,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.24,
+        "stake": 84317,
+        "win": 104553
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 12.0,
+        "stake": 8713,
+        "win": 104556
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 15.0,
+        "stake": 6970,
+        "win": 104550
+      }
+    ],
+    "_seen_at": "2026-07-13T02:23:28.003581+00:00"
   }
 ]
