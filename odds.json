@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-13 21:58 UTC",
-  "total_matches": 1205,
+  "last_updated": "2026-07-13 21:59 UTC",
+  "total_matches": 1208,
   "bookmakers_scraped": [
     "ChampionBet",
     "BetPawa",
@@ -210,31 +210,31 @@
       "match": "ceara ce vs athletic sjdr mg",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 5.25,
-      "profit_ugx": 5247,
+      "profit_percent": 5.36,
+      "profit_ugx": 5360,
       "total_stake": 100000,
-      "arb_sum": 0.9475,
+      "arb_sum": 0.9464,
       "bets": [
         {
           "bookmaker": "Fortebet",
           "outcome": "Home",
           "odd": 1.91,
-          "stake": 55255,
-          "win": 105537
+          "stake": 55321,
+          "win": 105663
         },
         {
           "bookmaker": "1xBet",
           "outcome": "Draw",
-          "odd": 4.685,
-          "stake": 22527,
-          "win": 105539
+          "odd": 4.71,
+          "stake": 22434,
+          "win": 105664
         },
         {
           "bookmaker": "AbaBet",
           "outcome": "Away",
           "odd": 4.75,
-          "stake": 22218,
-          "win": 105536
+          "stake": 22245,
+          "win": 105664
         }
       ]
     },
@@ -333,38 +333,6 @@
           "win": 101780
         }
       ]
-    },
-    {
-      "match": "america mg vs londrina ec pr",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 1.1,
-      "profit_ugx": 1102,
-      "total_stake": 100000,
-      "arb_sum": 0.989,
-      "bets": [
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Home",
-          "odd": 2.11,
-          "stake": 47921,
-          "win": 101113
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Draw",
-          "odd": 3.97,
-          "stake": 25470,
-          "win": 101116
-        },
-        {
-          "bookmaker": "SportyBet",
-          "outcome": "Away",
-          "odd": 3.8,
-          "stake": 26609,
-          "win": 101114
-        }
-      ]
     }
   ],
   "raw_odds": [
@@ -414,30 +382,6 @@
       "home": 5.75,
       "draw": 3.79,
       "away": 1.58,
-      "sport": "Football"
-    },
-    {
-      "match": "America FC MG vs Londrina EC PR",
-      "home_team": "America FC MG",
-      "away_team": "Londrina EC PR",
-      "match_key": "america mg vs londrina ec pr",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Brazil / Brasileiro Serie B",
-      "home": 2.08,
-      "draw": 3.09,
-      "away": 3.77,
-      "sport": "Football"
-    },
-    {
-      "match": "Cerro Largo FC vs Defensor Sporting",
-      "home_team": "Cerro Largo FC",
-      "away_team": "Defensor Sporting",
-      "match_key": "cerro largo vs defensor sporting",
-      "bookmaker": "BetPawa",
-      "competition": "Football / Uruguay / Primera Division",
-      "home": 2.88,
-      "draw": 2.98,
-      "away": 2.59,
       "sport": "Football"
     },
     {
@@ -549,18 +493,6 @@
       "sport": "Football"
     },
     {
-      "match": "The Cove FC vs Adelaide United FC",
-      "home_team": "The Cove FC",
-      "away_team": "Adelaide United FC",
-      "match_key": "the cove vs adelaide",
-      "bookmaker": "BetPawa",
-      "competition": "Football / International / Club Friendly Games",
-      "home": 33.32,
-      "draw": 11.43,
-      "away": 1.03,
-      "sport": "Football"
-    },
-    {
       "match": "Wisla Plock vs Bohemians Prague 1905",
       "home_team": "Wisla Plock",
       "away_team": "Bohemians Prague 1905",
@@ -630,6 +562,54 @@
       "home": 1.93,
       "draw": 3.81,
       "away": 3.24,
+      "sport": "Football"
+    },
+    {
+      "match": "Grange Thistle Women vs North Lakes United Women",
+      "home_team": "Grange Thistle Women",
+      "away_team": "North Lakes United Women",
+      "match_key": "grange thistle vs north lakes",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / Queensland Premier League 1, Women",
+      "home": 8.95,
+      "draw": 6.09,
+      "away": 1.23,
+      "sport": "Football"
+    },
+    {
+      "match": "Boroondara Eagles Women vs Preston Lions Women",
+      "home_team": "Boroondara Eagles Women",
+      "away_team": "Preston Lions Women",
+      "match_key": "boroondara eagles vs preston lions",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / Victoria NPL, Women",
+      "home": 1.54,
+      "draw": 4.38,
+      "away": 4.67,
+      "sport": "Football"
+    },
+    {
+      "match": "Zhejiang FC vs Qingdao Hainiu FC",
+      "home_team": "Zhejiang FC",
+      "away_team": "Qingdao Hainiu FC",
+      "match_key": "zhejiang vs qingdao hainiu",
+      "bookmaker": "BetPawa",
+      "competition": "Football / China / Chinese Super League",
+      "home": 1.45,
+      "draw": 4.96,
+      "away": 5.95,
+      "sport": "Football"
+    },
+    {
+      "match": "Zhejiang Hangzhou Women vs Changchun Jiuyin Loans Women",
+      "home_team": "Zhejiang Hangzhou Women",
+      "away_team": "Changchun Jiuyin Loans Women",
+      "match_key": "zhejiang hangzhou vs changchun jiuyin loans",
+      "bookmaker": "BetPawa",
+      "competition": "Football / China / Chinese Super League, Women",
+      "home": 2.65,
+      "draw": 2.9,
+      "away": 2.65,
       "sport": "Football"
     },
     {
@@ -810,6 +790,42 @@
       "home": 2.77,
       "draw": 3.63,
       "away": 2.42,
+      "sport": "Football"
+    },
+    {
+      "match": "KF Egnatia Rrogozhine vs Petrocub Hincesti",
+      "home_team": "KF Egnatia Rrogozhine",
+      "away_team": "Petrocub Hincesti",
+      "match_key": "kf egnatia rrogozhine vs petrocub hincesti",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / UEFA Champions League",
+      "home": 1.77,
+      "draw": 3.53,
+      "away": 4.97,
+      "sport": "Football"
+    },
+    {
+      "match": "Ferencvarosi Budapest vs FK Vojvodina Novi Sad",
+      "home_team": "Ferencvarosi Budapest",
+      "away_team": "FK Vojvodina Novi Sad",
+      "match_key": "ferencvarosi budapest vs fk vojvodina novi sad",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / UEFA Europa League",
+      "home": 1.35,
+      "draw": 5.57,
+      "away": 7.08,
+      "sport": "Football"
+    },
+    {
+      "match": "Derry City FC vs PFC CSKA Sofia",
+      "home_team": "Derry City FC",
+      "away_team": "PFC CSKA Sofia",
+      "match_key": "derry vs pfc cska sofia",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / UEFA Europa League",
+      "home": 3.37,
+      "draw": 3.64,
+      "away": 2.05,
       "sport": "Football"
     },
     {
@@ -1890,18 +1906,6 @@
       "home": 1.45,
       "draw": 4.85,
       "away": 6.4,
-      "sport": "Football"
-    },
-    {
-      "match": "America MG vs Londrina",
-      "home_team": "America MG",
-      "away_team": "Londrina",
-      "match_key": "america mg vs londrina",
-      "bookmaker": "Fortebet",
-      "competition": "",
-      "home": 2.11,
-      "draw": 3.1,
-      "away": 3.75,
       "sport": "Football"
     },
     {
@@ -10481,7 +10485,7 @@
       "competition": "Argentina - Torneo Federal A",
       "home": "2.63",
       "draw": "2.63",
-      "away": "3.2",
+      "away": "3.1",
       "sport": "Football"
     },
     {
@@ -10803,9 +10807,9 @@
       "match_key": "fusion caribe u19 vs jaguares de cordoba u19",
       "bookmaker": "AbaBet",
       "competition": "Colombia - Super Cup U19",
-      "home": "9",
-      "draw": "1.44",
-      "away": "3.2",
+      "home": "9.5",
+      "draw": "1.4",
+      "away": "3.4",
       "sport": "Football"
     },
     {
@@ -12135,8 +12139,8 @@
       "match_key": "america minas gerais vs londrina",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.03,
-      "draw": 3.97,
+      "home": 2.085,
+      "draw": 3.77,
       "away": 3.08,
       "sport": "Football"
     },
@@ -12147,8 +12151,8 @@
       "match_key": "ceara vs athletic mg",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.82,
-      "draw": 4.685,
+      "home": 1.8,
+      "draw": 4.71,
       "away": 3.0,
       "sport": "Football"
     },
@@ -12357,6 +12361,18 @@
       "sport": "Football"
     },
     {
+      "match": "Home vs Away",
+      "home_team": "Home",
+      "away_team": "Away",
+      "match_key": "home vs away",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 1.934,
+      "draw": 2.879,
+      "away": 4.5,
+      "sport": "Football"
+    },
+    {
       "match": "Deportivo Capiat\u00e1 vs Atletico Tembetary",
       "home_team": "Deportivo Capiat\u00e1",
       "away_team": "Atletico Tembetary",
@@ -12402,18 +12418,6 @@
       "home": 1.972,
       "draw": 3.64,
       "away": 3.125,
-      "sport": "Football"
-    },
-    {
-      "match": "Home vs Away",
-      "home_team": "Home",
-      "away_team": "Away",
-      "match_key": "home vs away",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.934,
-      "draw": 2.879,
-      "away": 4.5,
       "sport": "Football"
     },
     {
@@ -12999,8 +13003,8 @@
       "match_key": "america minas gerais vs londrina",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.03,
-      "draw": 3.97,
+      "home": 2.085,
+      "draw": 3.77,
       "away": 3.08,
       "sport": "Football"
     },
@@ -13011,8 +13015,8 @@
       "match_key": "ceara vs athletic mg",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.82,
-      "draw": 4.685,
+      "home": 1.8,
+      "draw": 4.71,
       "away": 3.0,
       "sport": "Football"
     },
@@ -13221,15 +13225,15 @@
       "sport": "Football"
     },
     {
-      "match": "Home vs Away",
-      "home_team": "Home",
-      "away_team": "Away",
-      "match_key": "home vs away",
+      "match": "Figueirense vs Volta Redonda",
+      "home_team": "Figueirense",
+      "away_team": "Volta Redonda",
+      "match_key": "figueirense vs volta redonda",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.934,
-      "draw": 2.879,
-      "away": 4.5,
+      "home": 1.972,
+      "draw": 3.64,
+      "away": 3.125,
       "sport": "Football"
     },
     {
@@ -13599,8 +13603,8 @@
       "match_key": "america minas gerais vs londrina",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 2.03,
-      "draw": 3.97,
+      "home": 2.085,
+      "draw": 3.77,
       "away": 3.08,
       "sport": "Football"
     },
@@ -13611,8 +13615,8 @@
       "match_key": "ceara vs athletic mg",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 1.82,
-      "draw": 4.685,
+      "home": 1.8,
+      "draw": 4.71,
       "away": 3.0,
       "sport": "Football"
     },
@@ -13731,8 +13735,8 @@
       "match_key": "america minas gerais vs londrina",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.03,
-      "draw": 3.97,
+      "home": 2.085,
+      "draw": 3.77,
       "away": 3.08,
       "sport": "Football"
     },
@@ -13743,8 +13747,8 @@
       "match_key": "ceara vs athletic mg",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.82,
-      "draw": 4.685,
+      "home": 1.8,
+      "draw": 4.71,
       "away": 3.0,
       "sport": "Football"
     },
@@ -14595,8 +14599,8 @@
       "match_key": "america minas gerais vs londrina",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.03,
-      "draw": 3.97,
+      "home": 2.085,
+      "draw": 3.77,
       "away": 3.08,
       "sport": "Football"
     },
@@ -14607,8 +14611,8 @@
       "match_key": "ceara vs athletic mg",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.82,
-      "draw": 4.685,
+      "home": 1.8,
+      "draw": 4.71,
       "away": 3.0,
       "sport": "Football"
     },
