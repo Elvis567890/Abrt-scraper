@@ -1,81 +1,5 @@
 [
   {
-    "match": "bridlington town vs whitby town",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 15.09,
-    "profit_ugx": 15095,
-    "total_stake": 100000,
-    "arb_sum": 0.8491,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 2.95,
-        "stake": 39925,
-        "win": 117779
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 30994,
-        "win": 117777
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.05,
-        "stake": 29081,
-        "win": 117778
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 18:09 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
-    "match": "horsham vs eastleigh",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 10.87,
-    "profit_ugx": 10873,
-    "total_stake": 100000,
-    "arb_sum": 0.8913,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 3.3,
-        "stake": 34000,
-        "win": 112200
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 33000,
-        "win": 112200
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.4,
-        "stake": 33000,
-        "win": 112200
-      }
-    ],
-    "status": "invalid",
-    "prev_status": "valid",
-    "checked_at": "2026-07-10 18:09 UTC",
-    "changed": false,
-    "note": "No longer present",
-    "invalid_at": "2026-07-11 00:04 UTC"
-  },
-  {
     "match": "chenois vs  grandsaconnex",
     "sport": "Football",
     "type": "3-way",
@@ -189922,5 +189846,77 @@
       }
     ],
     "_seen_at": "2026-07-13T00:08:17.197635+00:00"
+  },
+  {
+    "match": "river plate w vs social atletico television w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.47,
+    "profit_ugx": 2473,
+    "total_stake": 100000,
+    "arb_sum": 0.9753,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.71,
+        "stake": 59962,
+        "win": 102535
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 5.0,
+        "stake": 20507,
+        "win": 102535
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 5.25,
+        "stake": 19531,
+        "win": 102538
+      }
+    ],
+    "_seen_at": "2026-07-13T00:10:25.092925+00:00"
+  },
+  {
+    "match": "bulleen lions vs brunswick ",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.59,
+    "profit_ugx": 5591,
+    "total_stake": 100000,
+    "arb_sum": 0.9441,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "selection": "Home",
+        "odd": 1.66,
+        "stake": 63809,
+        "win": 105923
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "selection": "Draw",
+        "odd": 8.55,
+        "stake": 12389,
+        "win": 105926
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "selection": "Away",
+        "odd": 4.45,
+        "stake": 23803,
+        "win": 105923
+      }
+    ],
+    "_seen_at": "2026-07-13T00:10:25.092925+00:00"
   }
 ]
