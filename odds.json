@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-14 10:18 UTC",
+  "last_updated": "2026-07-14 10:20 UTC",
   "total_matches": 1274,
   "bookmakers_scraped": [
     "ChampionBet",
@@ -47,6 +47,38 @@
       ]
     },
     {
+      "match": "wehen vs okayama",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 15.45,
+      "profit_ugx": 15448,
+      "total_stake": 100000,
+      "arb_sum": 0.8455,
+      "bets": [
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Home",
+          "odd": 3.055,
+          "stake": 38714,
+          "win": 118271
+        },
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Draw",
+          "odd": 3.9,
+          "stake": 30326,
+          "win": 118271
+        },
+        {
+          "bookmaker": "22Bet",
+          "outcome": "Away",
+          "odd": 3.82,
+          "stake": 30961,
+          "win": 118271
+        }
+      ]
+    },
+    {
       "match": "parndorf vs austria wien ii",
       "sport": "Football",
       "type": "3-way",
@@ -75,38 +107,6 @@
           "odd": 3.58,
           "stake": 32290,
           "win": 115598
-        }
-      ]
-    },
-    {
-      "match": "wehen vs okayama",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 10.81,
-      "profit_ugx": 10814,
-      "total_stake": 100000,
-      "arb_sum": 0.8919,
-      "bets": [
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Home",
-          "odd": 2.731,
-          "stake": 41056,
-          "win": 112124
-        },
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Draw",
-          "odd": 3.85,
-          "stake": 29123,
-          "win": 112124
-        },
-        {
-          "bookmaker": "22Bet",
-          "outcome": "Away",
-          "odd": 3.76,
-          "stake": 29820,
-          "win": 112123
         }
       ]
     },
@@ -207,66 +207,66 @@
       ]
     },
     {
-      "match": "fortuna dusseldorf vs mfk ruzomberok",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 3.51,
-      "profit_ugx": 3515,
-      "total_stake": 100000,
-      "arb_sum": 0.9649,
-      "bets": [
-        {
-          "bookmaker": "AbaBet",
-          "outcome": "Home",
-          "odd": 1.75,
-          "stake": 59224,
-          "win": 103642
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Draw",
-          "odd": 5.17,
-          "stake": 20047,
-          "win": 103643
-        },
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Away",
-          "odd": 5.0,
-          "stake": 20729,
-          "win": 103645
-        }
-      ]
-    },
-    {
       "match": "nk slaven belupo vs sanfrecce hiroshima",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 3.28,
-      "profit_ugx": 3280,
+      "profit_percent": 3.05,
+      "profit_ugx": 3052,
       "total_stake": 100000,
-      "arb_sum": 0.9672,
+      "arb_sum": 0.9695,
       "bets": [
         {
           "bookmaker": "1xBet",
           "outcome": "Home",
           "odd": 2.58,
-          "stake": 40074,
-          "win": 103391
+          "stake": 39980,
+          "win": 103148
         },
         {
           "bookmaker": "BetPawa",
           "outcome": "Draw",
-          "odd": 3.64,
-          "stake": 28404,
-          "win": 103391
+          "odd": 3.61,
+          "stake": 28573,
+          "win": 103149
         },
         {
           "bookmaker": "22Bet",
           "outcome": "Away",
           "odd": 3.28,
-          "stake": 31522,
-          "win": 103392
+          "stake": 31447,
+          "win": 103146
+        }
+      ]
+    },
+    {
+      "match": "fortuna dusseldorf vs mfk ruzomberok",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 1.17,
+      "profit_ugx": 1165,
+      "total_stake": 100000,
+      "arb_sum": 0.9883,
+      "bets": [
+        {
+          "bookmaker": "AbaBet",
+          "outcome": "Home",
+          "odd": 1.75,
+          "stake": 57817,
+          "win": 101180
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Draw",
+          "odd": 4.61,
+          "stake": 21948,
+          "win": 101180
+        },
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Away",
+          "odd": 5.0,
+          "stake": 20236,
+          "win": 101180
         }
       ]
     }
@@ -279,9 +279,9 @@
       "match_key": "zhejiang professional vs qingdao huanghai",
       "bookmaker": "ChampionBet",
       "competition": "CHINA Super League",
-      "home": 1.45,
-      "draw": 4.71,
-      "away": 5.4,
+      "home": 1.44,
+      "draw": 4.77,
+      "away": 5.35,
       "sport": "Football"
     },
     {
@@ -387,9 +387,9 @@
       "match_key": "kuopion palloseura vs fk vardar skopje",
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
-      "home": 1.48,
-      "draw": 4.8,
-      "away": 6.05,
+      "home": 1.47,
+      "draw": 4.84,
+      "away": 6.11,
       "sport": "Football"
     },
     {
@@ -411,9 +411,9 @@
       "match_key": "nk slaven belupo vs sanfrecce hiroshima",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendlies",
-      "home": 2.53,
-      "draw": 3.64,
-      "away": 2.38,
+      "home": 2.49,
+      "draw": 3.61,
+      "away": 2.44,
       "sport": "Football"
     },
     {
@@ -556,8 +556,8 @@
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
       "home": 1.32,
-      "draw": 5.06,
-      "away": 10.78,
+      "draw": 5.09,
+      "away": 10.74,
       "sport": "Football"
     },
     {
@@ -579,9 +579,9 @@
       "match_key": "inter de escaldes vs lincoln red imps",
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
-      "home": 1.73,
-      "draw": 4.29,
-      "away": 4.2,
+      "home": 1.71,
+      "draw": 4.32,
+      "away": 4.27,
       "sport": "Football"
     },
     {
@@ -663,8 +663,8 @@
       "match_key": "fk sutjeska niksic vs kairat almaty",
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
-      "home": 4.52,
-      "draw": 4.07,
+      "home": 4.49,
+      "draw": 4.05,
       "away": 1.72,
       "sport": "Football"
     },
@@ -1911,9 +1911,9 @@
       "match_key": "grotta vs grindavik",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.15,
-      "draw": 3.7,
-      "away": 2.84,
+      "home": 2.19,
+      "draw": 3.65,
+      "away": 2.79,
       "sport": "Football"
     },
     {
@@ -3051,9 +3051,9 @@
       "match_key": "san antonio vs las vegas",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.94,
-      "draw": 3.3,
-      "away": 3.75,
+      "home": 1.9,
+      "draw": 3.15,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -4983,9 +4983,9 @@
       "match_key": "sutjeska vs k almaty",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.35,
+      "home": 4.3,
       "draw": 3.9,
-      "away": 1.73,
+      "away": 1.74,
       "sport": "Football"
     },
     {
@@ -5259,9 +5259,9 @@
       "match_key": "wehen vs okayama",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.55,
-      "draw": 3.85,
-      "away": 2.18,
+      "home": 2.74,
+      "draw": 3.9,
+      "away": 2.04,
       "sport": "Football"
     },
     {
@@ -11643,7 +11643,7 @@
       "match_key": "apia leichhardt tigers vs peninsula power",
       "bookmaker": "AbaBet",
       "competition": "Australia - FFA Cup",
-      "home": "1.09",
+      "home": "1.1",
       "draw": "7.5",
       "away": "21",
       "sport": "Football"
@@ -11657,7 +11657,7 @@
       "competition": "Australia - NPL Queensland Women",
       "home": "3.75",
       "draw": "2.75",
-      "away": "2.25",
+      "away": "2.3",
       "sport": "Football"
     },
     {
@@ -11715,9 +11715,9 @@
       "match_key": "tianjin shengde w vs shanxi xihua w",
       "bookmaker": "AbaBet",
       "competition": "China - League One Women",
-      "home": "41",
-      "draw": "6.5",
-      "away": "1.11",
+      "home": "81",
+      "draw": "15",
+      "away": "",
       "sport": "Football"
     },
     {
@@ -11824,8 +11824,8 @@
       "bookmaker": "AbaBet",
       "competition": "India - Calcutta Football League",
       "home": "4.75",
-      "draw": "2.38",
-      "away": "2.2",
+      "draw": "2.3",
+      "away": "2.25",
       "sport": "Football"
     },
     {
@@ -12027,9 +12027,9 @@
       "match_key": "pp ha nam w vs ho chi minh ii w",
       "bookmaker": "AbaBet",
       "competition": "Vietnam - National League Women",
-      "home": "2.88",
+      "home": "3.1",
       "draw": "2.75",
-      "away": "2.75",
+      "away": "2.63",
       "sport": "Football"
     },
     {
@@ -12052,8 +12052,8 @@
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
       "home": "4.33",
-      "draw": "1.95",
-      "away": "3.1",
+      "draw": "1.91",
+      "away": "3.2",
       "sport": "Football"
     },
     {
@@ -12063,8 +12063,8 @@
       "match_key": "wisla plock vs bohemians 1905",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "1.04",
-      "draw": "13",
+      "home": "",
+      "draw": "15",
       "away": "29",
       "sport": "Football"
     },
@@ -12759,9 +12759,9 @@
       "match_key": "france vs spain",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.477,
-      "draw": 3.3,
-      "away": 3.24,
+      "home": 2.48,
+      "draw": 3.305,
+      "away": 3.225,
       "sport": "Football"
     },
     {
@@ -12867,8 +12867,8 @@
       "match_key": "larne vs societa polisportiva tre fiori",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.131,
-      "draw": 21.0,
+      "home": 1.133,
+      "draw": 20.0,
       "away": 7.1,
       "sport": "Football"
     },
@@ -12987,9 +12987,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.731,
-      "draw": 2.13,
-      "away": 3.76,
+      "home": 3.055,
+      "draw": 1.95,
+      "away": 3.82,
       "sport": "Football"
     },
     {
@@ -13047,9 +13047,9 @@
       "match_key": "fortuna dusseldorf vs ruzomberok",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.5,
-      "draw": 5.17,
-      "away": 4.15,
+      "home": 1.57,
+      "draw": 4.61,
+      "away": 4.05,
       "sport": "Football"
     },
     {
@@ -13299,9 +13299,9 @@
       "match_key": "bamber bridge vs preston north end",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 19.5,
-      "draw": 1.104,
-      "away": 8.8,
+      "home": 15.5,
+      "draw": 1.123,
+      "away": 8.5,
       "sport": "Football"
     },
     {
@@ -13611,9 +13611,9 @@
       "match_key": "france vs spain",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.477,
-      "draw": 3.3,
-      "away": 3.24,
+      "home": 2.48,
+      "draw": 3.305,
+      "away": 3.225,
       "sport": "Football"
     },
     {
@@ -13719,8 +13719,8 @@
       "match_key": "larne vs societa polisportiva tre fiori",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.131,
-      "draw": 21.0,
+      "home": 1.133,
+      "draw": 20.0,
       "away": 7.1,
       "sport": "Football"
     },
@@ -13839,9 +13839,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.731,
-      "draw": 2.13,
-      "away": 3.76,
+      "home": 3.055,
+      "draw": 1.95,
+      "away": 3.82,
       "sport": "Football"
     },
     {
@@ -13899,9 +13899,9 @@
       "match_key": "fortuna dusseldorf vs ruzomberok",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.5,
-      "draw": 5.17,
-      "away": 4.15,
+      "home": 1.57,
+      "draw": 4.61,
+      "away": 4.05,
       "sport": "Football"
     },
     {
@@ -14200,8 +14200,8 @@
       "bookmaker": "Melbet",
       "competition": "",
       "home": 2.39,
-      "draw": 3.184,
-      "away": 3.125,
+      "draw": 3.19,
+      "away": 3.11,
       "sport": "Football"
     },
     {
@@ -14307,8 +14307,8 @@
       "match_key": "larne vs societa polisportiva tre fiori",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 1.131,
-      "draw": 21.0,
+      "home": 1.133,
+      "draw": 20.0,
       "away": 7.1,
       "sport": "Football"
     },
@@ -14391,9 +14391,9 @@
       "match_key": "france vs spain",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.477,
-      "draw": 3.3,
-      "away": 3.24,
+      "home": 2.48,
+      "draw": 3.305,
+      "away": 3.225,
       "sport": "Football"
     },
     {
@@ -14499,8 +14499,8 @@
       "match_key": "larne vs societa polisportiva tre fiori",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.131,
-      "draw": 21.0,
+      "home": 1.133,
+      "draw": 20.0,
       "away": 7.1,
       "sport": "Football"
     },
@@ -14619,9 +14619,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.731,
-      "draw": 2.13,
-      "away": 3.76,
+      "home": 3.055,
+      "draw": 1.95,
+      "away": 3.82,
       "sport": "Football"
     },
     {
@@ -14679,9 +14679,9 @@
       "match_key": "fortuna dusseldorf vs ruzomberok",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.5,
-      "draw": 5.17,
-      "away": 4.15,
+      "home": 1.57,
+      "draw": 4.61,
+      "away": 4.05,
       "sport": "Football"
     },
     {
@@ -14931,9 +14931,9 @@
       "match_key": "bamber bridge vs preston north end",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 19.5,
-      "draw": 1.104,
-      "away": 8.8,
+      "home": 15.5,
+      "draw": 1.123,
+      "away": 8.5,
       "sport": "Football"
     },
     {
@@ -15243,9 +15243,9 @@
       "match_key": "france vs spain",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.477,
-      "draw": 3.3,
-      "away": 3.24,
+      "home": 2.48,
+      "draw": 3.305,
+      "away": 3.225,
       "sport": "Football"
     },
     {
@@ -15351,8 +15351,8 @@
       "match_key": "larne vs societa polisportiva tre fiori",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.131,
-      "draw": 21.0,
+      "home": 1.133,
+      "draw": 20.0,
       "away": 7.1,
       "sport": "Football"
     },
@@ -15471,9 +15471,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.731,
-      "draw": 2.13,
-      "away": 3.76,
+      "home": 3.055,
+      "draw": 1.95,
+      "away": 3.82,
       "sport": "Football"
     },
     {
@@ -15531,9 +15531,9 @@
       "match_key": "fortuna dusseldorf vs ruzomberok",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.5,
-      "draw": 5.17,
-      "away": 4.15,
+      "home": 1.57,
+      "draw": 4.61,
+      "away": 4.05,
       "sport": "Football"
     },
     {
