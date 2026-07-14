@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-14 05:40 UTC",
+  "last_updated": "2026-07-14 05:42 UTC",
   "total_matches": 1269,
   "bookmakers_scraped": [
     "BetPawa",
@@ -13,6 +13,38 @@
     "22Bet (shared-1x)"
   ],
   "opportunities": [
+    {
+      "match": "wehen vs okayama",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 12.4,
+      "profit_ugx": 12396,
+      "total_stake": 100000,
+      "arb_sum": 0.876,
+      "bets": [
+        {
+          "bookmaker": "AbaBet",
+          "outcome": "Home",
+          "odd": 2.9,
+          "stake": 39362,
+          "win": 114150
+        },
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Draw",
+          "odd": 3.75,
+          "stake": 30440,
+          "win": 114150
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Away",
+          "odd": 3.78,
+          "stake": 30198,
+          "win": 114148
+        }
+      ]
+    },
     {
       "match": "andorra vs millwall",
       "sport": "Football",
@@ -46,66 +78,34 @@
       ]
     },
     {
-      "match": "wehen vs okayama",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 11.28,
-      "profit_ugx": 11284,
-      "total_stake": 100000,
-      "arb_sum": 0.8872,
-      "bets": [
-        {
-          "bookmaker": "AbaBet",
-          "outcome": "Home",
-          "odd": 2.9,
-          "stake": 38869,
-          "win": 112720
-        },
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Draw",
-          "odd": 3.6,
-          "stake": 31311,
-          "win": 112720
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Away",
-          "odd": 3.78,
-          "stake": 29820,
-          "win": 112720
-        }
-      ]
-    },
-    {
       "match": "pfc levski sofia vs fk borac banja luka",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 6.64,
-      "profit_ugx": 6642,
+      "profit_percent": 6.74,
+      "profit_ugx": 6736,
       "total_stake": 100000,
-      "arb_sum": 0.9336,
+      "arb_sum": 0.9326,
       "bets": [
         {
           "bookmaker": "SportyBet",
           "outcome": "Home",
           "odd": 1.36,
-          "stake": 78761,
-          "win": 107115
+          "stake": 78840,
+          "win": 107222
         },
         {
           "bookmaker": "1xBet",
           "outcome": "Draw",
           "odd": 9.9,
-          "stake": 10820,
-          "win": 107118
+          "stake": 10831,
+          "win": 107227
         },
         {
           "bookmaker": "BetPawa",
           "outcome": "Away",
-          "odd": 10.28,
-          "stake": 10420,
-          "win": 107118
+          "odd": 10.38,
+          "stake": 10330,
+          "win": 107225
         }
       ]
     },
@@ -482,9 +482,9 @@
       "match_key": "spartak trnava vs besiktas istanbul",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendly Games",
-      "home": 5.54,
-      "draw": 4.2,
-      "away": 1.49,
+      "home": 5.34,
+      "draw": 4.1,
+      "away": 1.52,
       "sport": "Football"
     },
     {
@@ -531,8 +531,8 @@
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
       "home": 1.33,
-      "draw": 4.97,
-      "away": 10.28,
+      "draw": 5.0,
+      "away": 10.38,
       "sport": "Football"
     },
     {
@@ -554,9 +554,9 @@
       "match_key": "inter de escaldes vs lincoln red imps",
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
-      "home": 1.71,
-      "draw": 4.31,
-      "away": 4.26,
+      "home": 1.72,
+      "draw": 4.29,
+      "away": 4.23,
       "sport": "Football"
     },
     {
@@ -5018,9 +5018,9 @@
       "match_key": "bissen vs klaksvik",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.63,
+      "home": 2.55,
       "draw": 3.45,
-      "away": 2.39,
+      "away": 2.47,
       "sport": "Football"
     },
     {
@@ -5138,9 +5138,9 @@
       "match_key": "inter escaldes vs lincoln",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.71,
+      "home": 1.72,
       "draw": 4.0,
-      "away": 3.95,
+      "away": 3.9,
       "sport": "Football"
     },
     {
@@ -5354,9 +5354,9 @@
       "match_key": "wehen vs okayama",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.77,
-      "draw": 3.6,
-      "away": 2.12,
+      "home": 2.61,
+      "draw": 3.75,
+      "away": 2.17,
       "sport": "Football"
     },
     {
