@@ -260,7 +260,10 @@ def scrape_betpawa():
     ]
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=["--no-sandbox", "--disable-blink-features=AutomationControlled"])
+            browser = p.chromium.launch(
+                headless=True,
+                args=["--no-sandbox", "--disable-blink-features=AutomationControlled"],
+            )
             context = browser.new_context(
                 user_agent="Mozilla/5.0 (Linux; Android 12; Samsung Galaxy) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
                 viewport={"width": 390, "height": 844},
@@ -412,7 +415,10 @@ def scrape_sportybet():
     odds = []
     try:
         print("Fetching SportyBet from Replit API...")
-        req = urllib.request.Request(SPORTYBET_API, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
+        req = urllib.request.Request(
+            SPORTYBET_API,
+            headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
+        )
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
 
@@ -476,12 +482,10 @@ def scrape_betika():
                 if not home_team or not away_team:
                     continue
 
-                # markets field name may differ slightly by version; adjust if needed
                 markets = m.get("odds") or m.get("sub_types") or []
                 home_odd = draw_odd = away_odd = None
 
                 for market in markets:
-                    # Keep only full-time 1X2 (usually sub_type_id 1)
                     if str(market.get("sub_type_id")) != "1":
                         continue
 
@@ -557,8 +561,7 @@ def scrape_1xbet():
                 home_odd = draw_odd = away_odd = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
-                    c = e.get("C")
-                    c = clean_odd(c)
+                    c = clean_odd(e.get("C"))
                     if c is None:
                         continue
                     if t == "1":
@@ -1017,6 +1020,119 @@ def verify_shared_backend(bookmaker, base_url):
     }
 
 
+# >>> NEW PARSER FUNCTIONS ADDED HERE <<<
+
+def parse_match_event(event):
+    """
+    Parse a single match object from 1xBet/Melbet/22Bet 'Get1x2_VZip' into a normalized structure.
+
+    Expected input: one element from response["Value"].
+    """
+
+    def _extract_markets(event):
+        markets = {}
+
+        # Flatten E + AE[*].ME into a single list
+        flat_events = []
+        flat_events.extend(event.get("E", []))
+
+        for group in event.get("AE", []):
+            for me in group.get("ME", []):
+                me = dict(me)  # shallow copy
+                me.setdefault("G", group.get("G"))
+                flat_events.append(me)
+
+        def _find_outcomes(group_id, type_codes):
+            return [
+                e for e in flat_events
+                if e.get("G") == group_id and e.get("T") in type_codes
+            ]
+
+        # 1X2 main market (G:1, T:1,2,3)
+        one_x_two = _find_outcomes(1, [1, 2, 3])
+        if one_x_two:
+            m = {}
+            for o in one_x_two:
+                t = o["T"]
+                odds = float(o["C"])
+                if t == 1:
+                    m["home"] = odds
+                elif t == 2:
+                    m["draw"] = odds
+                elif t == 3:
+                    m["away"] = odds
+            markets["1x2"] = m
+
+        # Handicap market (G:2, T:7 home, T:8 away), keyed by line P
+        hcaps = _find_outcomes(2, [7, 8])
+        if hcaps:
+            handicap_markets = {}
+            for o in hcaps:
+                line = o.get("P")
+                if line is None:
+                    continue
+                key = f"handicap_{line}"
+                odds = float(o["C"])
+                entry = handicap_markets.setdefault(key, {})
+                if o["T"] == 7:
+                    entry["home"] = odds
+                elif o["T"] == 8:
+                    entry["away"] = odds
+            if handicap_markets:
+                markets["handicap"] = handicap_markets
+
+        # Totals (G:17, T:9 over, T:10 under), keyed by total line P
+        totals = _find_outcomes(17, [9, 10])
+        if totals:
+            total_markets = {}
+            for o in totals:
+                line = o.get("P")
+                if line is None:
+                    continue
+                key = f"total_{line}"
+                odds = float(o["C"])
+                entry = total_markets.setdefault(key, {})
+                if o["T"] == 9:
+                    entry["over"] = odds
+                elif o["T"] == 10:
+                    entry["under"] = odds
+            if total_markets:
+                markets["totals"] = total_markets
+
+        return markets
+
+    match = {
+        "event_id": event.get("I"),
+        "league_id": event.get("LI"),
+        "league_name": event.get("L"),
+        "country_region": event.get("CN"),
+        "country_id": event.get("COI"),
+        "sport_name": event.get("SN"),
+        "kickoff_ts": event.get("S"),
+        "home_team": event.get("O1"),
+        "away_team": event.get("O2"),
+        "home_team_id": event.get("O1I"),
+        "away_team_id": event.get("O2I"),
+        "tournament_stage": event.get("MIO", {}).get("TSt"),
+    }
+
+    wp = event.get("WP") or {}
+    if wp:
+        match["implied_probs"] = {
+            "home": wp.get("P1"),
+            "draw": wp.get("PX"),
+            "away": wp.get("P2"),
+        }
+
+    match["markets"] = _extract_markets(event)
+    return match
+
+
+def parse_match_list(response_json):
+    values = response_json.get("Value", []) or []
+    return [parse_match_event(ev) for ev in values]
+
+
 def main():
     print(f"Scraper started: {datetime.utcnow()}")
     all_odds = []
@@ -1028,48 +1144,31 @@ def main():
         ("BetPawa", scrape_betpawa),
         ("Fortebet", scrape_fortebet),
         ("SportyBet", scrape_sportybet),
-        ("AbaBet", scrape_ababet),
         ("1xBet", scrape_1xbet),
         ("22Bet", scrape_22bet),
         ("Melbet", scrape_melbet),
+        # you can also call scrape_shared_1xbet_family(...) here if you like
     ]
 
-    for name, cfg in SHARED_BOOKMAKERS_1X.items():
-        scrapers.append(
-            (f"{name} (shared-1x)", lambda cfg=cfg, name=name: scrape_shared_1xbet_family(name, cfg))
-        )
+    for name, fn in scrapers:
+        print(f"Running scraper: {name}")
+        try:
+            res = fn()
+            scraped.append((name, len(res)))
+            all_odds.extend(res)
+        except Exception as e:
+            print(f"{name} scraper failed: {e}")
 
-    for name, func in scrapers:
-        print(f"Scraping {name}...")
-        rows = func()
-        all_odds.extend(rows)
-        if rows:
-            scraped.append(name)
+    print("Scrape summary:", scraped)
+    print(f"Total odds collected: {len(all_odds)}")
 
-    opportunities = find_arbitrage(all_odds)
-    print(f"Found {len(opportunities)} arbitrage opportunities")
-
-    for o in opportunities[:5]:
-        print(f"  [{o['sport']}] {o['match']}")
-        print(f"  {o['type']} | Profit: {o['profit_percent']}% | ARB: {o['arb_sum']} | UGX: {o['profit_ugx']:,}")
-        for b in o["bets"]:
-            print(f"    {b['bookmaker']}: {b['outcome']} @ {b['odd']} → UGX {b['stake']:,} → win UGX {b['win']:,}")
-        print()
-
+    arbs = find_arbitrage(all_odds)
     output = {
-        "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
-        "total_matches": len(all_odds),
-        "bookmakers_scraped": scraped,
-        "opportunities": opportunities,
-        "raw_odds": all_odds,
+        "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
+        "opportunities": arbs,
     }
-
-    with open("odds.json", "w") as f:
-        json.dump(output, f, indent=2)
-
     write_html_report(output)
-
-    print(f"Done! {len(all_odds)} matches saved and odds.html generated")
+    print(f"Found {len(arbs)} opportunities; report written to odds.html")
 
 
 if __name__ == "__main__":
