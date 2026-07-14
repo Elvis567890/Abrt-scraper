@@ -1,6 +1,7 @@
-import json
+ import json
 import re
 import time
+import urllib.parse          # <-- added for GSB scraper
 import urllib.request
 from datetime import datetime
 
@@ -717,6 +718,106 @@ def scrape_melbet():
     return odds
 
 
+# >>> NEW: GSB Uganda scraper <<<
+def scrape_gsb():
+    """
+    Scrape GSB Uganda prematch soccer odds from:
+    https://gsb.ug/services/evapi/event/GetEvents
+
+    Uses sportTypeIds=31 (Soccer) and statusId=0 (active events).
+    Returns a list of build_match_record dicts.
+    """
+    odds = []
+    try:
+        print("Fetching GSB Uganda GetEvents...")
+
+        base_url = "https://gsb.ug/services/evapi/event/GetEvents"
+        params = {
+            "timestamp": str(int(datetime.utcnow().timestamp() * 1000)),
+            "betTypeIds": "-1",   # all bet types
+            "sportTypeIds": "31", # soccer
+            "statusId": "0",      # only active events
+        }
+        query = urllib.parse.urlencode(params)
+        url = f"{base_url}?{query}"
+
+        headers = {
+            "Accept": "*/*, application/json",
+            "Content-Type": "application/json",
+            "BrandId": "112",
+            "ChannelId": "4",
+            "Language": "en-US",
+            "Terminal": "gsb.ug",
+            "User-Agent": "Mozilla/5.0",
+        }
+
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            data = json.loads(raw.decode("utf-8"))
+
+        events = data.get("data", []) or []
+        print(f"GSB: {len(events)} events returned")
+
+        for ev in events:
+            try:
+                # Only soccer, though API is already filtered by sportTypeIds=31
+                if ev.get("sid") != 31:
+                    continue
+
+                home_team = ev.get("h") or ""
+                away_team = ev.get("a") or ""
+                if not home_team or not away_team:
+                    continue
+
+                league_name = ev.get("ln") or ""
+                sport_name = ev.get("sn") or "Football"
+
+                # Extract FT 1X2
+                home_odd = draw_odd = away_odd = None
+                for bt in ev.get("bts", []) or []:
+                    name = (bt.get("n") or "").strip()
+                    if name != "FT 1X2":
+                        continue
+
+                    for o in bt.get("odds", []) or []:
+                        sel = (o.get("n") or "").strip()
+                        price = clean_odd(o.get("p"))
+                        if price is None:
+                            continue
+                        if sel == "1":
+                            home_odd = price
+                        elif sel == "X":
+                            draw_odd = price
+                        elif sel == "2":
+                            away_odd = price
+
+                if home_odd is None or away_odd is None:
+                    continue
+
+                odds.append(
+                    build_match_record(
+                        home_team=home_team,
+                        away_team=away_team,
+                        bookmaker="GSB",
+                        home=home_odd,
+                        draw=draw_odd,
+                        away=away_odd,
+                        sport=sport_name,
+                        competition=league_name,
+                    )
+                )
+            except Exception as e:
+                print(f"GSB event error: {e}")
+                continue
+
+        print(f"GSB: {len(odds)} matches extracted")
+    except Exception as e:
+        print(f"GSB error: {e}")
+
+    return odds
+
+
 def find_arbitrage(all_odds):
     opportunities = []
     sports_odds = {}
@@ -851,7 +952,6 @@ def find_arbitrage(all_odds):
     return sorted(opportunities, key=lambda x: x["profit_percent"], reverse=True)
 
 
-# NEW: HTML report generator (already added earlier)
 def write_html_report(output):
     opportunities = output.get("opportunities", [])
     last_updated = output.get("last_updated", "")
@@ -902,7 +1002,6 @@ def write_html_report(output):
         f.write("\n".join(html))
 
 
-# NEW: generic 1xBet-family scraper
 def scrape_shared_1xbet_family(bookmaker_name, config):
     """
     Generic scraper for 1xBet-style APIs (1xBet, 22Bet, Melbet, etc.).
@@ -978,7 +1077,6 @@ def scrape_shared_1xbet_family(bookmaker_name, config):
     return odds
 
 
-# NEW: backend fingerprinting utility
 def verify_shared_backend(bookmaker, base_url):
     """
     Probe a bookmaker base_url to fingerprint its backend.
@@ -1019,8 +1117,6 @@ def verify_shared_backend(bookmaker, base_url):
         "results": results,
     }
 
-
-# >>> NEW PARSER FUNCTIONS ADDED HERE <<<
 
 def parse_match_event(event):
     """
@@ -1140,14 +1236,14 @@ def main():
 
     scrapers = [
         ("ChampionBet", scrape_championbet),
-        ("Betika", scrape_betika),          # NEW
+        ("Betika", scrape_betika),
         ("BetPawa", scrape_betpawa),
         ("Fortebet", scrape_fortebet),
         ("SportyBet", scrape_sportybet),
         ("1xBet", scrape_1xbet),
         ("22Bet", scrape_22bet),
         ("Melbet", scrape_melbet),
-        # you can also call scrape_shared_1xbet_family(...) here if you like
+        ("GSB", scrape_gsb),          # <-- GSB added
     ]
 
     for name, fn in scrapers:
