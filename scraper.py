@@ -10,6 +10,7 @@ from playwright.sync_api import sync_playwright
 
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
+CHAMPIONBET_MATCH_API = "https://www.championbet.ug/restapi/offer/en/match/{match_id}?annex=13&mobileVersion=2.47.4.3&locale=en"
 
 STAKE = 100000
 
@@ -91,14 +92,20 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
     }
 
 
-def championbet_extract_1x2(match):
-    bet_map = match.get("betMap", {}) or {}
+# NEW: use detailed match betMap
+def championbet_extract_1x2_from_betmap(bet_map):
+    """
+    Given a betMap dict from the detailed match endpoint, return (home, draw, away) odds.
+    Uses your existing assumption: tt 1/4/7 = Home, 2/5/8 = Draw, 3/6/9 = Away.
+    """
+    bet_map = bet_map or {}
 
     def pick_odd(market_keys):
         for k in market_keys:
             market = bet_map.get(str(k), {}) or {}
             if not isinstance(market, dict):
                 continue
+            # Market can be {"NULL": {...}} or {"someKey": {...}}
             for _, item in market.items():
                 if isinstance(item, dict):
                     odd = clean_odd(item.get("ov"))
@@ -115,7 +122,7 @@ def championbet_extract_1x2(match):
 def scrape_championbet():
     odds = []
     try:
-        print("Fetching ChampionBet...")
+        print("Fetching ChampionBet top list...")
         headers = {
             "Accept": "application/json, text/plain, */*",
             "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
@@ -124,11 +131,15 @@ def scrape_championbet():
             "X-INSTANA-S": "2fbd167006ebd264",
             "X-INSTANA-L": "1,correlationType=web;correlationId=2fbd167006ebd264",
         }
+
+        # 1) Get the list of matches (esMatches)
         req = urllib.request.Request(CHAMPIONBET_API, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
+            top_data = json.loads(resp.read().decode())
 
-        matches = data.get("esMatches", []) if isinstance(data, dict) else []
+        matches = top_data.get("esMatches", []) if isinstance(top_data, dict) else []
+        print(f"ChampionBet: {len(matches)} matches in top list")
+
         count = 0
 
         for m in matches:
@@ -137,28 +148,47 @@ def scrape_championbet():
                 if "Soccer" not in sport_token:
                     continue
 
+                match_id = m.get("id")
+                if not match_id:
+                    continue
+
                 home_team = m.get("home") or ""
                 away_team = m.get("away") or ""
                 if not home_team or not away_team:
                     continue
 
-                home_odd, draw_odd, away_odd = championbet_extract_1x2(m)
+                # 2) Fetch detailed odds for this match (betMap, params, etc.)
+                match_url = CHAMPIONBET_MATCH_API.format(match_id=match_id)
+                match_req = urllib.request.Request(match_url, headers=headers)
+                with urllib.request.urlopen(match_req, timeout=30) as r2:
+                    match_data = json.loads(r2.read().decode())
+
+                bet_map = match_data.get("betMap", {}) if isinstance(match_data, dict) else {}
+                home_odd, draw_odd, away_odd = championbet_extract_1x2_from_betmap(bet_map)
+
                 if home_odd is not None and away_odd is not None:
                     count += 1
-                    odds.append(build_match_record(
-                        home_team=home_team,
-                        away_team=away_team,
-                        bookmaker="ChampionBet",
-                        home=home_odd,
-                        draw=draw_odd,
-                        away=away_odd,
-                        sport="Football",
-                        competition=m.get("leagueName", "")
-                    ))
-            except:
+                    odds.append(
+                        build_match_record(
+                            home_team=home_team,
+                            away_team=away_team,
+                            bookmaker="ChampionBet",
+                            home=home_odd,
+                            draw=draw_odd,
+                            away=away_odd,
+                            sport="Football",
+                            competition=m.get("leagueName", ""),
+                        )
+                    )
+
+                # polite rate limit
+                time.sleep(0.2)
+
+            except Exception as e:
+                print(f"ChampionBet match error: {e}")
                 continue
 
-        print(f"ChampionBet: {count} matches extracted")
+        print(f"ChampionBet: {count} matches extracted with detailed betMap")
     except Exception as e:
         print(f"ChampionBet error: {e}")
     return odds
