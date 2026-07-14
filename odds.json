@@ -1,7 +1,8 @@
 {
-  "last_updated": "2026-07-14 07:48 UTC",
-  "total_matches": 1303,
+  "last_updated": "2026-07-14 07:50 UTC",
+  "total_matches": 1304,
   "bookmakers_scraped": [
+    "ChampionBet",
     "BetPawa",
     "Fortebet",
     "SportyBet",
@@ -113,31 +114,31 @@
       "match": "france vs spain",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 5.78,
-      "profit_ugx": 5780,
+      "profit_percent": 6.09,
+      "profit_ugx": 6093,
       "total_stake": 100000,
-      "arb_sum": 0.9422,
+      "arb_sum": 0.9391,
       "bets": [
         {
-          "bookmaker": "1xBet",
+          "bookmaker": "Fortebet",
           "outcome": "Home",
-          "odd": 2.501,
-          "stake": 42437,
-          "win": 106135
+          "odd": 2.5,
+          "stake": 42595,
+          "win": 106488
         },
         {
           "bookmaker": "SportyBet",
           "outcome": "Draw",
           "odd": 4.27,
-          "stake": 24856,
-          "win": 106135
+          "stake": 24939,
+          "win": 106490
         },
         {
-          "bookmaker": "22Bet",
+          "bookmaker": "1xBet",
           "outcome": "Away",
-          "odd": 3.245,
-          "stake": 32707,
-          "win": 106134
+          "odd": 3.28,
+          "stake": 32466,
+          "win": 106488
         }
       ]
     },
@@ -204,9 +205,53 @@
           "win": 101070
         }
       ]
+    },
+    {
+      "match": "kuopion palloseura vs fk vardar skopje",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 0.72,
+      "profit_ugx": 717,
+      "total_stake": 100000,
+      "arb_sum": 0.9928,
+      "bets": [
+        {
+          "bookmaker": "SportyBet",
+          "outcome": "Home",
+          "odd": 1.56,
+          "stake": 64565,
+          "win": 100721
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Draw",
+          "odd": 5.86,
+          "stake": 17188,
+          "win": 100722
+        },
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Away",
+          "odd": 5.52,
+          "stake": 18247,
+          "win": 100723
+        }
+      ]
     }
   ],
   "raw_odds": [
+    {
+      "match": "APIA Leichhardt vs Peninsula Power",
+      "home_team": "APIA Leichhardt",
+      "away_team": "Peninsula Power",
+      "match_key": "apia leichhardt vs peninsula power",
+      "bookmaker": "ChampionBet",
+      "competition": "AUSTRALIA Cup",
+      "home": 1.51,
+      "draw": 4.4,
+      "away": 4.57,
+      "sport": "Football"
+    },
     {
       "match": "Boroondara-Carey Eagles U20 Women vs Preston Lions FC U20 Women",
       "home_team": "Boroondara-Carey Eagles U20 Women",
@@ -466,9 +511,9 @@
       "match_key": "kuopion palloseura vs fk vardar skopje",
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
-      "home": 1.54,
-      "draw": 4.62,
-      "away": 5.45,
+      "home": 1.53,
+      "draw": 4.65,
+      "away": 5.52,
       "sport": "Football"
     },
     {
@@ -502,9 +547,9 @@
       "match_key": "larne vs sp tre fiori",
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
-      "home": 1.13,
-      "draw": 8.43,
-      "away": 20.21,
+      "home": 1.14,
+      "draw": 8.37,
+      "away": 19.93,
       "sport": "Football"
     },
     {
@@ -3346,9 +3391,9 @@
       "match_key": "wests apia vs peninsula",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.55,
-      "draw": 4.3,
-      "away": 4.8,
+      "home": 1.57,
+      "draw": 4.2,
+      "away": 4.7,
       "sport": "Football"
     },
     {
@@ -5806,9 +5851,9 @@
       "match_key": "central esp vs cerro largo",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.66,
-      "draw": 3.1,
-      "away": 2.74,
+      "home": 2.5,
+      "draw": 3.0,
+      "away": 3.05,
       "sport": "Football"
     },
     {
@@ -11758,9 +11803,9 @@
       "match_key": "shandong jinhua b w vs chongqing province w",
       "bookmaker": "AbaBet",
       "competition": "China - League One Women",
-      "home": "19",
+      "home": "",
       "draw": "",
-      "away": "19",
+      "away": "",
       "sport": "Football"
     },
     {
@@ -11783,8 +11828,8 @@
       "bookmaker": "AbaBet",
       "competition": "China - League One Women",
       "home": "",
-      "draw": "19",
-      "away": "81",
+      "draw": "",
+      "away": "",
       "sport": "Football"
     },
     {
@@ -13078,9 +13123,9 @@
       "match_key": "france vs spain",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.501,
-      "draw": 3.255,
-      "away": 3.245,
+      "home": 2.476,
+      "draw": 3.26,
+      "away": 3.28,
       "sport": "Football"
     },
     {
@@ -13138,9 +13183,9 @@
       "match_key": "riga vs ararat armenia",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.68,
-      "draw": 4.84,
-      "away": 3.78,
+      "home": 1.67,
+      "draw": 4.885,
+      "away": 3.8,
       "sport": "Football"
     },
     {
@@ -13162,9 +13207,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.3,
-      "draw": 1.57,
-      "away": 4.15,
+      "home": 5.16,
+      "draw": 1.59,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -13258,9 +13303,9 @@
       "match_key": "dordrecht vs borussia dortmund ii",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.0,
-      "away": 4.15,
+      "home": 1.91,
+      "draw": 2.992,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -13366,9 +13411,9 @@
       "match_key": "lokomotiv moscow vs cska moscow",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.51,
+      "home": 2.49,
       "draw": 2.51,
-      "away": 3.64,
+      "away": 3.68,
       "sport": "Football"
     },
     {
@@ -13390,9 +13435,9 @@
       "match_key": "dukla banska bystrica vs hapoel tel aviv",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.98,
-      "draw": 1.47,
-      "away": 3.94,
+      "home": 5.87,
+      "draw": 1.48,
+      "away": 3.92,
       "sport": "Football"
     },
     {
@@ -13426,9 +13471,9 @@
       "match_key": "spartak trnava vs besiktas",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.2,
+      "home": 5.11,
       "draw": 1.57,
-      "away": 4.2,
+      "away": 4.25,
       "sport": "Football"
     },
     {
@@ -13450,9 +13495,9 @@
       "match_key": "fortuna dusseldorf vs ruzomberok",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.6,
-      "draw": 4.625,
-      "away": 3.84,
+      "home": 1.61,
+      "draw": 4.575,
+      "away": 3.82,
       "sport": "Football"
     },
     {
@@ -13594,9 +13639,9 @@
       "match_key": "bsv eintracht mahlsdorf vs fsv 63 luckenwalde",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 3.725,
-      "draw": 1.747,
-      "away": 3.84,
+      "home": 3.705,
+      "draw": 1.76,
+      "away": 3.8,
       "sport": "Football"
     },
     {
@@ -13930,9 +13975,9 @@
       "match_key": "france vs spain",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.501,
-      "draw": 3.255,
-      "away": 3.245,
+      "home": 2.476,
+      "draw": 3.26,
+      "away": 3.28,
       "sport": "Football"
     },
     {
@@ -13990,9 +14035,9 @@
       "match_key": "riga vs ararat armenia",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.68,
-      "draw": 4.84,
-      "away": 3.78,
+      "home": 1.67,
+      "draw": 4.885,
+      "away": 3.8,
       "sport": "Football"
     },
     {
@@ -14014,9 +14059,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 5.3,
-      "draw": 1.57,
-      "away": 4.15,
+      "home": 5.16,
+      "draw": 1.59,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -14110,9 +14155,9 @@
       "match_key": "dordrecht vs borussia dortmund ii",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.0,
-      "away": 4.15,
+      "home": 1.91,
+      "draw": 2.992,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -14218,9 +14263,9 @@
       "match_key": "lokomotiv moscow vs cska moscow",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.51,
+      "home": 2.49,
       "draw": 2.51,
-      "away": 3.64,
+      "away": 3.68,
       "sport": "Football"
     },
     {
@@ -14518,9 +14563,9 @@
       "match_key": "france vs spain",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 2.41,
-      "draw": 3.14,
-      "away": 3.13,
+      "home": 2.39,
+      "draw": 3.144,
+      "away": 3.165,
       "sport": "Football"
     },
     {
@@ -14578,9 +14623,9 @@
       "match_key": "riga vs ararat armenia",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 1.68,
-      "draw": 4.84,
-      "away": 3.78,
+      "home": 1.67,
+      "draw": 4.885,
+      "away": 3.8,
       "sport": "Football"
     },
     {
@@ -14602,9 +14647,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 5.3,
-      "draw": 1.57,
-      "away": 4.15,
+      "home": 5.16,
+      "draw": 1.59,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -14674,9 +14719,9 @@
       "match_key": "france vs spain",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.501,
-      "draw": 3.255,
-      "away": 3.245,
+      "home": 2.476,
+      "draw": 3.26,
+      "away": 3.28,
       "sport": "Football"
     },
     {
@@ -14734,9 +14779,9 @@
       "match_key": "riga vs ararat armenia",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.68,
-      "draw": 4.84,
-      "away": 3.78,
+      "home": 1.67,
+      "draw": 4.885,
+      "away": 3.8,
       "sport": "Football"
     },
     {
@@ -14758,9 +14803,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.3,
-      "draw": 1.57,
-      "away": 4.15,
+      "home": 5.16,
+      "draw": 1.59,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -14854,9 +14899,9 @@
       "match_key": "dordrecht vs borussia dortmund ii",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.0,
-      "away": 4.15,
+      "home": 1.91,
+      "draw": 2.992,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -14962,9 +15007,9 @@
       "match_key": "lokomotiv moscow vs cska moscow",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.51,
+      "home": 2.49,
       "draw": 2.51,
-      "away": 3.64,
+      "away": 3.68,
       "sport": "Football"
     },
     {
@@ -14986,9 +15031,9 @@
       "match_key": "dukla banska bystrica vs hapoel tel aviv",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.98,
-      "draw": 1.47,
-      "away": 3.94,
+      "home": 5.87,
+      "draw": 1.48,
+      "away": 3.92,
       "sport": "Football"
     },
     {
@@ -15022,9 +15067,9 @@
       "match_key": "spartak trnava vs besiktas",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.2,
+      "home": 5.11,
       "draw": 1.57,
-      "away": 4.2,
+      "away": 4.25,
       "sport": "Football"
     },
     {
@@ -15046,9 +15091,9 @@
       "match_key": "fortuna dusseldorf vs ruzomberok",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.6,
-      "draw": 4.625,
-      "away": 3.84,
+      "home": 1.61,
+      "draw": 4.575,
+      "away": 3.82,
       "sport": "Football"
     },
     {
@@ -15190,9 +15235,9 @@
       "match_key": "bsv eintracht mahlsdorf vs fsv 63 luckenwalde",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 3.725,
-      "draw": 1.747,
-      "away": 3.84,
+      "home": 3.705,
+      "draw": 1.76,
+      "away": 3.8,
       "sport": "Football"
     },
     {
@@ -15526,9 +15571,9 @@
       "match_key": "france vs spain",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.501,
-      "draw": 3.255,
-      "away": 3.245,
+      "home": 2.476,
+      "draw": 3.26,
+      "away": 3.28,
       "sport": "Football"
     },
     {
@@ -15586,9 +15631,9 @@
       "match_key": "riga vs ararat armenia",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.68,
-      "draw": 4.84,
-      "away": 3.78,
+      "home": 1.67,
+      "draw": 4.885,
+      "away": 3.8,
       "sport": "Football"
     },
     {
@@ -15610,9 +15655,9 @@
       "match_key": "the new saints vs sabah baku",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 5.3,
-      "draw": 1.57,
-      "away": 4.15,
+      "home": 5.16,
+      "draw": 1.59,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -15706,9 +15751,9 @@
       "match_key": "dordrecht vs borussia dortmund ii",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.9,
-      "draw": 3.0,
-      "away": 4.15,
+      "home": 1.91,
+      "draw": 2.992,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -15814,9 +15859,9 @@
       "match_key": "lokomotiv moscow vs cska moscow",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.51,
+      "home": 2.49,
       "draw": 2.51,
-      "away": 3.64,
+      "away": 3.68,
       "sport": "Football"
     },
     {
