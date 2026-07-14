@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-14 01:23 UTC",
-  "total_matches": 1247,
+  "last_updated": "2026-07-14 01:26 UTC",
+  "total_matches": 1245,
   "bookmakers_scraped": [
     "ChampionBet",
     "BetPawa",
@@ -14,6 +14,38 @@
     "22Bet (shared-1x)"
   ],
   "opportunities": [
+    {
+      "match": "cavalry vs vancouver whitecaps",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 19.78,
+      "profit_ugx": 19785,
+      "total_stake": 100000,
+      "arb_sum": 0.8022,
+      "bets": [
+        {
+          "bookmaker": "AbaBet",
+          "outcome": "Home",
+          "odd": 3.75,
+          "stake": 33244,
+          "win": 124665
+        },
+        {
+          "bookmaker": "SportyBet",
+          "outcome": "Draw",
+          "odd": 3.75,
+          "stake": 33244,
+          "win": 124665
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Away",
+          "odd": 3.72,
+          "stake": 33512,
+          "win": 124665
+        }
+      ]
+    },
     {
       "match": "rochedale vs sd raiders",
       "sport": "Football",
@@ -5679,9 +5711,9 @@
       "match_key": "fleetwood town vs chester",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.44,
+      "home": 1.46,
       "draw": 4.4,
-      "away": 5.3,
+      "away": 5.1,
       "sport": "Football"
     },
     {
@@ -6075,9 +6107,9 @@
       "match_key": "ceara ce vs athletic sjdr mg",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 6.7,
-      "draw": 1.23,
-      "away": 10.0,
+      "home": 14.0,
+      "draw": 1.07,
+      "away": 19.5,
       "sport": "Football"
     },
     {
@@ -6087,9 +6119,9 @@
       "match_key": "ca atlanta vs ca colegiales",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.0,
-      "draw": 2.0,
-      "away": 10.5,
+      "home": 1.12,
+      "draw": 5.7,
+      "away": 40.0,
       "sport": "Football"
     },
     {
@@ -6099,9 +6131,9 @@
       "match_key": "figueirense vs volta redonda rj",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 4.55,
-      "draw": 1.3,
-      "away": 8.25,
+      "home": 6.5,
+      "draw": 1.14,
+      "away": 12.0,
       "sport": "Football"
     },
     {
@@ -6429,40 +6461,16 @@
       "sport": "Rugby"
     },
     {
-      "match": "Sport / Instituto Todos vs Asec/Caruaru",
-      "home_team": "Sport / Instituto Todos",
-      "away_team": "Asec/Caruaru",
-      "match_key": "sport instituto todos vs aseccaruaru",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 12.0,
-      "draw": 3.15,
-      "away": 1.42,
-      "sport": "Futsal"
-    },
-    {
       "match": "Pinocho vs Boca Juniors",
       "home_team": "Pinocho",
       "away_team": "Boca Juniors",
       "match_key": "pinocho vs boca juniors",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.65,
+      "home": 1.6,
       "draw": 4.4,
-      "away": 3.85,
+      "away": 3.95,
       "sport": "Futsal"
-    },
-    {
-      "match": "Tomizawa, Naoto vs Sakamoto, Hiiro",
-      "home_team": "Tomizawa, Naoto",
-      "away_team": "Sakamoto, Hiiro",
-      "match_key": "tomizawa naoto vs sakamoto hiiro",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.73,
-      "draw": null,
-      "away": 1.96,
-      "sport": "Tennis"
     },
     {
       "match": "Vukic, Aleksandar vs Broady, Liam",
@@ -6777,18 +6785,6 @@
       "sport": "Tennis"
     },
     {
-      "match": "Kubo, Kyoka vs Nayuki, Seri",
-      "home_team": "Kubo, Kyoka",
-      "away_team": "Nayuki, Seri",
-      "match_key": "kubo kyoka vs nayuki seri",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.14,
-      "draw": null,
-      "away": 4.65,
-      "sport": "Tennis"
-    },
-    {
       "match": "Fucsovics, Marton (Srl) vs Tabilo, Alejandro (Srl)",
       "home_team": "Fucsovics, Marton (Srl)",
       "away_team": "Tabilo, Alejandro (Srl)",
@@ -6834,6 +6830,18 @@
       "home": 1.29,
       "draw": null,
       "away": 3.25,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Kubo, Kyoka vs Nayuki, Seri",
+      "home_team": "Kubo, Kyoka",
+      "away_team": "Nayuki, Seri",
+      "match_key": "kubo kyoka vs nayuki seri",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.14,
+      "draw": null,
+      "away": 4.65,
       "sport": "Tennis"
     },
     {
@@ -7053,6 +7061,18 @@
       "sport": "Tennis"
     },
     {
+      "match": "Cheung, Kei Yau vs Van Zyl, Jahnie",
+      "home_team": "Cheung, Kei Yau",
+      "away_team": "Van Zyl, Jahnie",
+      "match_key": "cheung kei yau vs van zyl jahnie",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 9.0,
+      "draw": null,
+      "away": 1.03,
+      "sport": "Tennis"
+    },
+    {
       "match": "Arseneault, Nicolas vs Martin, Andres",
       "home_team": "Arseneault, Nicolas",
       "away_team": "Martin, Andres",
@@ -7071,9 +7091,9 @@
       "match_key": "boulais justin vs zhang zhizhen",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.4,
+      "home": 1.37,
       "draw": null,
-      "away": 2.8,
+      "away": 2.85,
       "sport": "Tennis"
     },
     {
@@ -7083,9 +7103,9 @@
       "match_key": "shimizu yuta vs friend jay",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.9,
+      "home": 1.25,
       "draw": null,
-      "away": 1.8,
+      "away": 3.65,
       "sport": "Tennis"
     },
     {
@@ -7095,9 +7115,9 @@
       "match_key": "wolf jeffrey john vs fenty andrew",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.22,
+      "home": 1.07,
       "draw": null,
-      "away": 3.8,
+      "away": 7.0,
       "sport": "Tennis"
     },
     {
@@ -7107,9 +7127,9 @@
       "match_key": "buse ignacio srl vs korda sebastian srl",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.85,
+      "home": 4.45,
       "draw": null,
-      "away": 1.45,
+      "away": 1.22,
       "sport": "Tennis"
     },
     {
@@ -7167,9 +7187,9 @@
       "match_key": "sulava lubor vs urban roman",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.69,
+      "home": 1.67,
       "draw": null,
-      "away": 2.05,
+      "away": 2.1,
       "sport": "Table Tennis"
     },
     {
@@ -7251,9 +7271,9 @@
       "match_key": "mucha grzegorz vs tkaczyk henryk",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 3.6,
+      "home": 3.75,
       "draw": null,
-      "away": 1.19,
+      "away": 1.2,
       "sport": "Table Tennis"
     },
     {
@@ -7263,9 +7283,9 @@
       "match_key": "schaniel krzysztof vs gumulinski piotr",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 3.1,
+      "home": 3.2,
       "draw": null,
-      "away": 1.26,
+      "away": 1.27,
       "sport": "Table Tennis"
     },
     {
@@ -7362,6 +7382,18 @@
       "home": 1.44,
       "draw": null,
       "away": 2.35,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Machelski, Michal vs Cyndera, Jakub",
+      "home_team": "Machelski, Michal",
+      "away_team": "Cyndera, Jakub",
+      "match_key": "machelski michal vs cyndera jakub",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.3,
+      "draw": null,
+      "away": 1.46,
       "sport": "Table Tennis"
     },
     {
@@ -7701,27 +7733,15 @@
       "sport": "Table Tennis"
     },
     {
-      "match": "Kolesnykov, Valerii vs Lipeiko, Oleksandr",
-      "home_team": "Kolesnykov, Valerii",
-      "away_team": "Lipeiko, Oleksandr",
-      "match_key": "kolesnykov valerii vs lipeiko oleksandr",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.65,
-      "draw": null,
-      "away": 2.1,
-      "sport": "Table Tennis"
-    },
-    {
       "match": "Kosar, Vaclav vs Pleskot, Jan",
       "home_team": "Kosar, Vaclav",
       "away_team": "Pleskot, Jan",
       "match_key": "kosar vaclav vs pleskot jan",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 6.0,
+      "home": 2.85,
       "draw": null,
-      "away": 1.09,
+      "away": 1.37,
       "sport": "Table Tennis"
     },
     {
@@ -7731,9 +7751,9 @@
       "match_key": "kucirek ondrej vs darin kyryl",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.45,
+      "home": 7.5,
       "draw": null,
-      "away": 1.5,
+      "away": 1.06,
       "sport": "Table Tennis"
     },
     {
@@ -7743,21 +7763,9 @@
       "match_key": "wagner mark robin vs tuma daniel",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.95,
+      "home": 1.85,
       "draw": null,
-      "away": 1.75,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Gluszek, Wojciech vs Piecowski, Miroslaw",
-      "home_team": "Gluszek, Wojciech",
-      "away_team": "Piecowski, Miroslaw",
-      "match_key": "gluszek wojciech vs piecowski miroslaw",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.12,
-      "draw": null,
-      "away": 5.4,
+      "away": 1.85,
       "sport": "Table Tennis"
     },
     {
@@ -7767,9 +7775,21 @@
       "match_key": "barton aleksander vs warzecha miroslaw",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 9.75,
+      "home": 11.5,
       "draw": null,
-      "away": 1.02,
+      "away": 1.01,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Kwiatkowski, Kacper vs Tkaczyk, Henryk",
+      "home_team": "Kwiatkowski, Kacper",
+      "away_team": "Tkaczyk, Henryk",
+      "match_key": "kwiatkowski kacper vs tkaczyk henryk",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 8.0,
+      "draw": null,
+      "away": 1.05,
       "sport": "Table Tennis"
     },
     {
@@ -7959,9 +7979,9 @@
       "match_key": "golden state warriors vs memphis grizzlies",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.55,
+      "home": 1.53,
       "draw": null,
-      "away": 2.25,
+      "away": 2.3,
       "sport": "Basketball"
     },
     {
@@ -8127,9 +8147,9 @@
       "match_key": "cleveland cavaliers vs miami heat",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.16,
+      "home": 1.3,
       "draw": null,
-      "away": 4.25,
+      "away": 3.15,
       "sport": "Basketball"
     },
     {
@@ -8139,9 +8159,9 @@
       "match_key": "utah jazz vs chicago bulls",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.5,
+      "home": 2.45,
       "draw": null,
-      "away": 1.45,
+      "away": 1.47,
       "sport": "Basketball"
     },
     {
@@ -8151,9 +8171,9 @@
       "match_key": "minnesota lynx vs phoenix mercury",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.14,
+      "home": 1.2,
       "draw": null,
-      "away": 6.0,
+      "away": 4.85,
       "sport": "Basketball"
     },
     {
@@ -8163,9 +8183,9 @@
       "match_key": "cd atletico puerto varas vs ceb puerto montt",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.22,
+      "home": 1.3,
       "draw": null,
-      "away": 3.65,
+      "away": 3.2,
       "sport": "Basketball"
     },
     {
@@ -8175,9 +8195,9 @@
       "match_key": "capitanes de arecibo vs aguada santeros",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 9.0,
+      "home": 8.5,
       "draw": null,
-      "away": 1.02,
+      "away": 1.03,
       "sport": "Basketball"
     },
     {
@@ -9147,9 +9167,9 @@
       "match_key": "st kitts and nevis patriots srl vs barbados royals srl",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.0,
+      "home": 2.5,
       "draw": null,
-      "away": 1.75,
+      "away": 1.5,
       "sport": "Cricket"
     },
     {
@@ -9159,9 +9179,9 @@
       "match_key": "wellington srl vs central districts srl",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 3.45,
+      "home": 7.5,
       "draw": null,
-      "away": 1.3,
+      "away": 1.08,
       "sport": "Cricket"
     },
     {
@@ -10467,9 +10487,9 @@
       "match_key": "usa vs china",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.09,
+      "home": 1.1,
       "draw": null,
-      "away": 6.5,
+      "away": 6.4,
       "sport": "Volleyball"
     },
     {
@@ -10479,9 +10499,9 @@
       "match_key": "mupol vs morn",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.02,
+      "home": 1.01,
       "draw": null,
-      "away": 11.0,
+      "away": 13.0,
       "sport": "Volleyball"
     },
     {
@@ -10491,9 +10511,9 @@
       "match_key": "harrods gath chaves vs defensores de banfield",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 9.0,
+      "home": 10.0,
       "draw": null,
-      "away": 1.04,
+      "away": 1.03,
       "sport": "Volleyball"
     },
     {
@@ -10503,9 +10523,9 @@
       "match_key": "cedem 3 de febrero vs san fernando",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.45,
+      "home": 2.02,
       "draw": null,
-      "away": 1.51,
+      "away": 1.74,
       "sport": "Volleyball"
     },
     {
@@ -10515,21 +10535,9 @@
       "match_key": "costa rica vs panama",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.12,
+      "home": 1.06,
       "draw": null,
-      "away": 4.9,
-      "sport": "Volleyball"
-    },
-    {
-      "match": "Ferro Carril Oeste vs River Plate",
-      "home_team": "Ferro Carril Oeste",
-      "away_team": "River Plate",
-      "match_key": "ferro carril oeste vs river plate",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.01,
-      "draw": null,
-      "away": 15.0,
+      "away": 7.0,
       "sport": "Volleyball"
     },
     {
@@ -10767,9 +10775,9 @@
       "match_key": "atlanta vs ca colegiales",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Primera B Nacional",
-      "home": "1.1",
-      "draw": "7",
-      "away": "41",
+      "home": "1.08",
+      "draw": "7.5",
+      "away": "51",
       "sport": "Football"
     },
     {
@@ -11055,9 +11063,9 @@
       "match_key": "figueirense vs volta redonda",
       "bookmaker": "AbaBet",
       "competition": "Brazil - Serie C",
-      "home": "9.5",
-      "draw": "1.09",
-      "away": "13",
+      "home": "13",
+      "draw": "1.04",
+      "away": "17",
       "sport": "Football"
     },
     {
@@ -11067,9 +11075,9 @@
       "match_key": "cavalry vs vancouver whitecaps",
       "bookmaker": "AbaBet",
       "competition": "Canada - CSL",
-      "home": "5",
+      "home": "3.75",
       "draw": "4",
-      "away": "1.57",
+      "away": "1.75",
       "sport": "Football"
     },
     {
@@ -12615,8 +12623,8 @@
       "match_key": "cavalry vs vancouver whitecaps",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 3.87,
-      "draw": 1.74,
+      "home": 3.845,
+      "draw": 1.747,
       "away": 3.72,
       "sport": "Football"
     },
@@ -14331,8 +14339,8 @@
       "match_key": "cavalry vs vancouver whitecaps",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 3.87,
-      "draw": 1.74,
+      "home": 3.845,
+      "draw": 1.747,
       "away": 3.72,
       "sport": "Football"
     },
@@ -15195,8 +15203,8 @@
       "match_key": "cavalry vs vancouver whitecaps",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 3.87,
-      "draw": 1.74,
+      "home": 3.845,
+      "draw": 1.747,
       "away": 3.72,
       "sport": "Football"
     },
