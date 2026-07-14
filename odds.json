@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-14 09:06 UTC",
+  "last_updated": "2026-07-14 09:08 UTC",
   "total_matches": 1280,
   "bookmakers_scraped": [
     "ChampionBet",
@@ -207,6 +207,38 @@
       ]
     },
     {
+      "match": "nk slaven belupo vs sanfrecce hiroshima",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 3.61,
+      "profit_ugx": 3614,
+      "total_stake": 100000,
+      "arb_sum": 0.9639,
+      "bets": [
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Home",
+          "odd": 2.59,
+          "stake": 40058,
+          "win": 103750
+        },
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Draw",
+          "odd": 3.64,
+          "stake": 28503,
+          "win": 103751
+        },
+        {
+          "bookmaker": "22Bet",
+          "outcome": "Away",
+          "odd": 3.3,
+          "stake": 31439,
+          "win": 103749
+        }
+      ]
+    },
+    {
       "match": "darmstadt vs homburg",
       "sport": "Football",
       "type": "3-way",
@@ -237,38 +269,6 @@
           "win": 102195
         }
       ]
-    },
-    {
-      "match": "nk slaven belupo vs sanfrecce hiroshima",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 1.06,
-      "profit_ugx": 1057,
-      "total_stake": 100000,
-      "arb_sum": 0.9894,
-      "bets": [
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Home",
-          "odd": 2.59,
-          "stake": 39022,
-          "win": 101067
-        },
-        {
-          "bookmaker": "SportyBet",
-          "outcome": "Draw",
-          "odd": 3.33,
-          "stake": 30351,
-          "win": 101069
-        },
-        {
-          "bookmaker": "22Bet",
-          "outcome": "Away",
-          "odd": 3.3,
-          "stake": 30627,
-          "win": 101069
-        }
-      ]
     }
   ],
   "raw_odds": [
@@ -279,9 +279,9 @@
       "match_key": "apia leichhardt vs peninsula power",
       "bookmaker": "ChampionBet",
       "competition": "AUSTRALIA Cup",
-      "home": 1.5,
-      "draw": 4.45,
-      "away": 4.61,
+      "home": 1.54,
+      "draw": 4.34,
+      "away": 4.35,
       "sport": "Football"
     },
     {
@@ -291,9 +291,9 @@
       "match_key": "rochedale rovers vs sd raiders",
       "bookmaker": "ChampionBet",
       "competition": "AUSTRALIA Cup",
-      "home": 2.96,
-      "draw": 3.81,
-      "away": 1.96,
+      "home": 2.78,
+      "draw": 3.74,
+      "away": 2.07,
       "sport": "Football"
     },
     {
@@ -330,18 +330,6 @@
       "home": 3.3,
       "draw": 3.0,
       "away": 2.07,
-      "sport": "Football"
-    },
-    {
-      "match": "Wari AC vs Kalighat Sports Lovers",
-      "home_team": "Wari AC",
-      "away_team": "Kalighat Sports Lovers",
-      "match_key": "wari vs kalighat lovers",
-      "bookmaker": "BetPawa",
-      "competition": "Football / India / Calcutta Premier Div.",
-      "home": 2.49,
-      "draw": 3.17,
-      "away": 2.49,
       "sport": "Football"
     },
     {
@@ -387,9 +375,9 @@
       "match_key": "dordrecht vs borussia dortmund ii",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendlies",
-      "home": 1.98,
-      "draw": 3.87,
-      "away": 3.05,
+      "home": 1.89,
+      "draw": 3.88,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -498,6 +486,18 @@
       "home": 5.54,
       "draw": 4.2,
       "away": 1.49,
+      "sport": "Football"
+    },
+    {
+      "match": "NK Slaven Belupo vs Sanfrecce Hiroshima",
+      "home_team": "NK Slaven Belupo",
+      "away_team": "Sanfrecce Hiroshima",
+      "match_key": "nk slaven belupo vs sanfrecce hiroshima",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / Club Friendlies",
+      "home": 2.38,
+      "draw": 3.64,
+      "away": 2.53,
       "sport": "Football"
     },
     {
@@ -11835,9 +11835,9 @@
       "match_key": "tianjin shengde w vs shanxi xihua w",
       "bookmaker": "AbaBet",
       "competition": "China - League One Women",
-      "home": "2.3",
-      "draw": "2.6",
-      "away": "3.75",
+      "home": "2.4",
+      "draw": "2.5",
+      "away": "3.6",
       "sport": "Football"
     },
     {
@@ -11847,9 +11847,9 @@
       "match_key": "hebei xue ruy w vs fujian nanan w",
       "bookmaker": "AbaBet",
       "competition": "China - League One Women",
-      "home": "2.75",
+      "home": "4",
       "draw": "2.6",
-      "away": "3",
+      "away": "2.2",
       "sport": "Football"
     },
     {
@@ -12136,7 +12136,7 @@
       "bookmaker": "AbaBet",
       "competition": "Vietnam - League U21",
       "home": "29",
-      "draw": "19",
+      "draw": "17",
       "away": "",
       "sport": "Football"
     },
@@ -12148,7 +12148,7 @@
       "bookmaker": "AbaBet",
       "competition": "Vietnam - League U21",
       "home": "1.18",
-      "draw": "6",
+      "draw": "5.5",
       "away": "11",
       "sport": "Football"
     },
@@ -12159,9 +12159,9 @@
       "match_key": "pp ha nam w vs ho chi minh ii w",
       "bookmaker": "AbaBet",
       "competition": "Vietnam - National League Women",
-      "home": "",
-      "draw": "",
-      "away": "",
+      "home": "1.44",
+      "draw": "5",
+      "away": "6",
       "sport": "Football"
     },
     {
@@ -12185,7 +12185,7 @@
       "competition": "World - Club Friendlies",
       "home": "3.75",
       "draw": "3.4",
-      "away": "1.95",
+      "away": "2",
       "sport": "Football"
     },
     {
@@ -12196,7 +12196,7 @@
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
       "home": "2.2",
-      "draw": "3.6",
+      "draw": "3.5",
       "away": "3",
       "sport": "Football"
     },
@@ -13095,9 +13095,9 @@
       "match_key": "spartak trnava vs besiktas",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.29,
-      "draw": 1.55,
-      "away": 4.3,
+      "home": 5.48,
+      "draw": 1.54,
+      "away": 4.25,
       "sport": "Football"
     },
     {
@@ -13947,9 +13947,9 @@
       "match_key": "spartak trnava vs besiktas",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 5.29,
-      "draw": 1.55,
-      "away": 4.3,
+      "home": 5.48,
+      "draw": 1.54,
+      "away": 4.25,
       "sport": "Football"
     },
     {
@@ -14739,9 +14739,9 @@
       "match_key": "spartak trnava vs besiktas",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 5.29,
-      "draw": 1.55,
-      "away": 4.3,
+      "home": 5.48,
+      "draw": 1.54,
+      "away": 4.25,
       "sport": "Football"
     },
     {
@@ -15591,9 +15591,9 @@
       "match_key": "spartak trnava vs besiktas",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 5.29,
-      "draw": 1.55,
-      "away": 4.3,
+      "home": 5.48,
+      "draw": 1.54,
+      "away": 4.25,
       "sport": "Football"
     },
     {
