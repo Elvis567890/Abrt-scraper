@@ -1,7 +1,8 @@
 {
-  "last_updated": "2026-07-14 06:12 UTC",
-  "total_matches": 1275,
+  "last_updated": "2026-07-14 06:14 UTC",
+  "total_matches": 1308,
   "bookmakers_scraped": [
+    "ChampionBet",
     "BetPawa",
     "Fortebet",
     "SportyBet",
@@ -17,31 +18,31 @@
       "match": "andorra vs millwall",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 13.78,
-      "profit_ugx": 13780,
+      "profit_percent": 13.68,
+      "profit_ugx": 13681,
       "total_stake": 100000,
-      "arb_sum": 0.8622,
+      "arb_sum": 0.8632,
       "bets": [
         {
           "bookmaker": "AbaBet",
           "outcome": "Home",
           "odd": 3.5,
-          "stake": 33138,
-          "win": 115983
+          "stake": 33100,
+          "win": 115850
         },
         {
           "bookmaker": "BetPawa",
           "outcome": "Draw",
-          "odd": 3.42,
-          "stake": 33913,
-          "win": 115982
+          "odd": 3.39,
+          "stake": 34174,
+          "win": 115850
         },
         {
           "bookmaker": "1xBet",
           "outcome": "Away",
-          "odd": 3.52,
-          "stake": 32949,
-          "win": 115980
+          "odd": 3.54,
+          "stake": 32726,
+          "win": 115850
         }
       ]
     },
@@ -49,31 +50,31 @@
       "match": "wehen vs okayama",
       "sport": "Football",
       "type": "3-way",
-      "profit_percent": 12.17,
-      "profit_ugx": 12173,
+      "profit_percent": 12.19,
+      "profit_ugx": 12190,
       "total_stake": 100000,
-      "arb_sum": 0.8783,
+      "arb_sum": 0.8781,
       "bets": [
         {
           "bookmaker": "1xBet",
           "outcome": "Home",
-          "odd": 2.896,
-          "stake": 39316,
-          "win": 113859
+          "odd": 2.885,
+          "stake": 39474,
+          "win": 113882
         },
         {
           "bookmaker": "Fortebet",
           "outcome": "Draw",
           "odd": 3.85,
-          "stake": 29574,
-          "win": 113860
+          "stake": 29580,
+          "win": 113883
         },
         {
           "bookmaker": "22Bet",
           "outcome": "Away",
-          "odd": 3.66,
-          "stake": 31109,
-          "win": 113859
+          "odd": 3.68,
+          "stake": 30946,
+          "win": 113881
         }
       ]
     },
@@ -204,41 +205,381 @@
           "win": 105369
         }
       ]
-    },
-    {
-      "match": "wisla plock vs bohemians prague 1905",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 0.79,
-      "profit_ugx": 788,
-      "total_stake": 100000,
-      "arb_sum": 0.9921,
-      "bets": [
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Home",
-          "odd": 2.41,
-          "stake": 41823,
-          "win": 100793
-        },
-        {
-          "bookmaker": "AbaBet",
-          "outcome": "Draw",
-          "odd": 3.6,
-          "stake": 27998,
-          "win": 100793
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Away",
-          "odd": 3.34,
-          "stake": 30178,
-          "win": 100795
-        }
-      ]
     }
   ],
   "raw_odds": [
+    {
+      "match": "La Fiorita vs UNA Strassen",
+      "home_team": "La Fiorita",
+      "away_team": "UNA Strassen",
+      "match_key": "la fiorita vs una strassen",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 5.9,
+      "draw": 3.68,
+      "away": 1.54,
+      "sport": "Football"
+    },
+    {
+      "match": "Macara vs Mushuc Runa",
+      "home_team": "Macara",
+      "away_team": "Mushuc Runa",
+      "match_key": "macara vs mushuc runa",
+      "bookmaker": "ChampionBet",
+      "competition": "ECUADOR Liga Pro",
+      "home": 2.03,
+      "draw": 3.18,
+      "away": 3.53,
+      "sport": "Football"
+    },
+    {
+      "match": "Manta vs Delfin",
+      "home_team": "Manta",
+      "away_team": "Delfin",
+      "match_key": "manta vs delfin",
+      "bookmaker": "ChampionBet",
+      "competition": "ECUADOR Liga Pro",
+      "home": 2.78,
+      "draw": 2.79,
+      "away": 2.7,
+      "sport": "Football"
+    },
+    {
+      "match": "Malisheva vs Vllaznia",
+      "home_team": "Malisheva",
+      "away_team": "Vllaznia",
+      "match_key": "malisheva vs vllaznia",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.75,
+      "draw": 3.54,
+      "away": 4.27,
+      "sport": "Football"
+    },
+    {
+      "match": "Libertad Loja vs Tecnico U.",
+      "home_team": "Libertad Loja",
+      "away_team": "Tecnico U.",
+      "match_key": "libertad loja vs tecnico u",
+      "bookmaker": "ChampionBet",
+      "competition": "ECUADOR Liga Pro",
+      "home": 2.53,
+      "draw": 3.06,
+      "away": 2.73,
+      "sport": "Football"
+    },
+    {
+      "match": "Decic vs FK Liepaja",
+      "home_team": "Decic",
+      "away_team": "FK Liepaja",
+      "match_key": "decic vs fk liepaja",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 2.65,
+      "draw": 3.2,
+      "away": 2.5,
+      "sport": "Football"
+    },
+    {
+      "match": "Leones Del Norte vs Dep. Cuenca",
+      "home_team": "Leones Del Norte",
+      "away_team": "Dep. Cuenca",
+      "match_key": "leones del norte vs dep cuenca",
+      "bookmaker": "ChampionBet",
+      "competition": "ECUADOR Liga Pro",
+      "home": 2.37,
+      "draw": 2.9,
+      "away": 3.1,
+      "sport": "Football"
+    },
+    {
+      "match": "U. Catolica vs LDU Quito",
+      "home_team": "U. Catolica",
+      "away_team": "LDU Quito",
+      "match_key": "u catolica vs ldu quito",
+      "bookmaker": "ChampionBet",
+      "competition": "ECUADOR Liga Pro",
+      "home": 2.27,
+      "draw": 3.16,
+      "away": 3.01,
+      "sport": "Football"
+    },
+    {
+      "match": "Barcelona SC vs Guayaquil City",
+      "home_team": "Barcelona SC",
+      "away_team": "Guayaquil City",
+      "match_key": "barcelona vs guayaquil",
+      "bookmaker": "ChampionBet",
+      "competition": "ECUADOR Liga Pro",
+      "home": 1.58,
+      "draw": 3.62,
+      "away": 5.6,
+      "sport": "Football"
+    },
+    {
+      "match": "FC Astana vs Dinamo Tirana",
+      "home_team": "FC Astana",
+      "away_team": "Dinamo Tirana",
+      "match_key": "astana vs dinamo tirana",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.4,
+      "draw": 4.22,
+      "away": 7.25,
+      "sport": "Football"
+    },
+    {
+      "match": "Inter Turku vs FK Sarajevo",
+      "home_team": "Inter Turku",
+      "away_team": "FK Sarajevo",
+      "match_key": "inter turku vs fk sarajevo",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 2.01,
+      "draw": 3.37,
+      "away": 3.38,
+      "sport": "Football"
+    },
+    {
+      "match": "Yelimay Semey vs Alashkert FC",
+      "home_team": "Yelimay Semey",
+      "away_team": "Alashkert FC",
+      "match_key": "yelimay semey vs alashkert",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.65,
+      "draw": 3.44,
+      "away": 5.15,
+      "sport": "Football"
+    },
+    {
+      "match": "Ilves vs Differdange",
+      "home_team": "Ilves",
+      "away_team": "Differdange",
+      "match_key": "ilves vs differdange",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.48,
+      "draw": 4.07,
+      "away": 6.0,
+      "sport": "Football"
+    },
+    {
+      "match": "Paide vs Hegelmann",
+      "home_team": "Paide",
+      "away_team": "Hegelmann",
+      "match_key": "paide vs hegelmann",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.73,
+      "draw": 3.49,
+      "away": 4.44,
+      "sport": "Football"
+    },
+    {
+      "match": "Pyunik Yerevan vs Marsaxlokk",
+      "home_team": "Pyunik Yerevan",
+      "away_team": "Marsaxlokk",
+      "match_key": "pyunik yerevan vs marsaxlokk",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.32,
+      "draw": 4.53,
+      "away": 9.2,
+      "sport": "Football"
+    },
+    {
+      "match": "St Josephs vs Bohemians",
+      "home_team": "St Josephs",
+      "away_team": "Bohemians",
+      "match_key": "st josephs vs bohemians",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 8.05,
+      "draw": 4.8,
+      "away": 1.32,
+      "sport": "Football"
+    },
+    {
+      "match": "Torpedo Kutaisi vs Zira",
+      "home_team": "Torpedo Kutaisi",
+      "away_team": "Zira",
+      "match_key": "torpedo kutaisi vs zira",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 3.01,
+      "draw": 3.17,
+      "away": 2.26,
+      "sport": "Football"
+    },
+    {
+      "match": "Levadia vs Caernarfon",
+      "home_team": "Levadia",
+      "away_team": "Caernarfon",
+      "match_key": "levadia vs caernarfon",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.26,
+      "draw": 5.35,
+      "away": 9.0,
+      "sport": "Football"
+    },
+    {
+      "match": "RFS vs Glentoran",
+      "home_team": "RFS",
+      "away_team": "Glentoran",
+      "match_key": "rfs vs glentoran",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.46,
+      "draw": 4.34,
+      "away": 5.7,
+      "sport": "Football"
+    },
+    {
+      "match": "BATE vs AF Elbasani",
+      "home_team": "BATE",
+      "away_team": "AF Elbasani",
+      "match_key": "bate vs af elbasani",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 3.54,
+      "draw": 3.21,
+      "away": 2.02,
+      "sport": "Football"
+    },
+    {
+      "match": "Dinamo Tbilisi vs Mondorf",
+      "home_team": "Dinamo Tbilisi",
+      "away_team": "Mondorf",
+      "match_key": "dinamo tbilisi vs mondorf",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.37,
+      "draw": 4.54,
+      "away": 7.1,
+      "sport": "Football"
+    },
+    {
+      "match": "FC Santa Coloma vs Penybont",
+      "home_team": "FC Santa Coloma",
+      "away_team": "Penybont",
+      "match_key": "santa coloma vs penybont",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.68,
+      "draw": 3.5,
+      "away": 4.78,
+      "sport": "Football"
+    },
+    {
+      "match": "Milsami vs Velez Mostar",
+      "home_team": "Milsami",
+      "away_team": "Velez Mostar",
+      "match_key": "milsami vs velez mostar",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 2.29,
+      "draw": 3.04,
+      "away": 3.09,
+      "sport": "Football"
+    },
+    {
+      "match": "Vikingur vs Stjarnan",
+      "home_team": "Vikingur",
+      "away_team": "Stjarnan",
+      "match_key": "vikingur vs stjarnan",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 2.8,
+      "draw": 3.71,
+      "away": 2.16,
+      "sport": "Football"
+    },
+    {
+      "match": "Zalgiris vs OFK Petrovac",
+      "home_team": "Zalgiris",
+      "away_team": "OFK Petrovac",
+      "match_key": "zalgiris vs ofk petrovac",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.31,
+      "draw": 4.77,
+      "away": 8.5,
+      "sport": "Football"
+    },
+    {
+      "match": "Hamrun vs NSI Runavik",
+      "home_team": "Hamrun",
+      "away_team": "NSI Runavik",
+      "match_key": "hamrun vs nsi runavik",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.58,
+      "draw": 3.78,
+      "away": 5.15,
+      "sport": "Football"
+    },
+    {
+      "match": "FC Ballkani vs Connahs Q.",
+      "home_team": "FC Ballkani",
+      "away_team": "Connahs Q.",
+      "match_key": "ballkani vs connahs q",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.21,
+      "draw": 5.75,
+      "away": 11.1,
+      "sport": "Football"
+    },
+    {
+      "match": "Shkendija vs Europa FC",
+      "home_team": "Shkendija",
+      "away_team": "Europa FC",
+      "match_key": "shkendija vs europa",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.25,
+      "draw": 5.45,
+      "away": 9.8,
+      "sport": "Football"
+    },
+    {
+      "match": "Sileks vs Din. Minsk",
+      "home_team": "Sileks",
+      "away_team": "Din. Minsk",
+      "match_key": "sileks vs din minsk",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 3.61,
+      "draw": 3.22,
+      "away": 1.99,
+      "sport": "Football"
+    },
+    {
+      "match": "Linfield vs Kalju",
+      "home_team": "Linfield",
+      "away_team": "Kalju",
+      "match_key": "linfield vs kalju",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Conference League - Qual.",
+      "home": 1.64,
+      "draw": 3.35,
+      "away": 5.5,
+      "sport": "Football"
+    },
+    {
+      "match": "Boroondara-Carey Eagles U20 Women vs Preston Lions FC U20 Women",
+      "home_team": "Boroondara-Carey Eagles U20 Women",
+      "away_team": "Preston Lions FC U20 Women",
+      "match_key": "boroondaracarey eagles u20 vs preston lions u20",
+      "bookmaker": "BetPawa",
+      "competition": "Football / Australia / U20 Victoria NPL, Women",
+      "home": 2.8,
+      "draw": 3.8,
+      "away": 2.08,
+      "sport": "Football"
+    },
     {
       "match": "FC Polissya Zhytomyr vs Shimizu S-Pulse",
       "home_team": "FC Polissya Zhytomyr",
@@ -270,9 +611,9 @@
       "match_key": "andorra vs millwall",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendly Games",
-      "home": 3.23,
-      "draw": 3.42,
-      "away": 2.05,
+      "home": 3.29,
+      "draw": 3.39,
+      "away": 2.03,
       "sport": "Football"
     },
     {
@@ -444,18 +785,6 @@
       "sport": "Football"
     },
     {
-      "match": "Kuopion Palloseura vs FK Vardar Skopje",
-      "home_team": "Kuopion Palloseura",
-      "away_team": "FK Vardar Skopje",
-      "match_key": "kuopion palloseura vs fk vardar skopje",
-      "bookmaker": "BetPawa",
-      "competition": "Football / International / UEFA Champions League",
-      "home": 1.53,
-      "draw": 4.56,
-      "away": 5.61,
-      "sport": "Football"
-    },
-    {
       "match": "France vs Spain",
       "home_team": "France",
       "away_team": "Spain",
@@ -501,6 +830,18 @@
       "home": 1.33,
       "draw": 5.0,
       "away": 10.43,
+      "sport": "Football"
+    },
+    {
+      "match": "Kuopion Palloseura vs FK Vardar Skopje",
+      "home_team": "Kuopion Palloseura",
+      "away_team": "FK Vardar Skopje",
+      "match_key": "kuopion palloseura vs fk vardar skopje",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / UEFA Champions League",
+      "home": 1.54,
+      "draw": 4.53,
+      "away": 5.56,
       "sport": "Football"
     },
     {
@@ -5166,9 +5507,9 @@
       "match_key": "andorra vs millwall",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.1,
-      "draw": 3.3,
-      "away": 2.05,
+      "home": 3.2,
+      "draw": 3.25,
+      "away": 2.03,
       "sport": "Football"
     },
     {
@@ -11335,7 +11676,7 @@
       "bookmaker": "AbaBet",
       "competition": "China - League One Women",
       "home": "5",
-      "draw": "3.25",
+      "draw": "3.2",
       "away": "1.73",
       "sport": "Football"
     },
@@ -11346,9 +11687,9 @@
       "match_key": "shanghai shenhua w vs henan w",
       "bookmaker": "AbaBet",
       "competition": "China - League One Women",
-      "home": "5.5",
-      "draw": "3.6",
-      "away": "1.57",
+      "home": "5",
+      "draw": "3.5",
+      "away": "1.67",
       "sport": "Football"
     },
     {
@@ -11358,8 +11699,8 @@
       "match_key": "dalian renhe w vs shanghai shengli b w",
       "bookmaker": "AbaBet",
       "competition": "China - League One Women",
-      "home": "2.4",
-      "draw": "3.2",
+      "home": "2.5",
+      "draw": "3",
       "away": "2.75",
       "sport": "Football"
     },
@@ -11493,6 +11834,18 @@
       "home": "1.5",
       "draw": "4.2",
       "away": "4.75",
+      "sport": "Football"
+    },
+    {
+      "match": "Wari AC vs Kalighat LS",
+      "home_team": "Wari AC",
+      "away_team": "Kalighat LS",
+      "match_key": "wari vs kalighat ls",
+      "bookmaker": "AbaBet",
+      "competition": "India - Calcutta 1st Division",
+      "home": "2.4",
+      "draw": "3.5",
+      "away": "2.4",
       "sport": "Football"
     },
     {
@@ -11973,6 +12326,18 @@
       "home": "",
       "draw": "",
       "away": "",
+      "sport": "Football"
+    },
+    {
+      "match": "Levyy Bereg Kyiv vs Viktoriya Sumy",
+      "home_team": "Levyy Bereg Kyiv",
+      "away_team": "Viktoriya Sumy",
+      "match_key": "levyy bereg kyiv vs viktoriya sumy",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "1.44",
+      "draw": "3.75",
+      "away": "6.5",
       "sport": "Football"
     },
     {
@@ -12631,8 +12996,8 @@
       "bookmaker": "1xBet",
       "competition": "",
       "home": 1.53,
-      "draw": 5.48,
-      "away": 4.33,
+      "draw": 5.53,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -12714,9 +13079,9 @@
       "match_key": "kf drita vs zalgiris kaunas",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.37,
-      "draw": 2.961,
-      "away": 3.25,
+      "home": 2.35,
+      "draw": 3.03,
+      "away": 3.2,
       "sport": "Football"
     },
     {
@@ -12786,9 +13151,9 @@
       "match_key": "andorra andorra la vella vs millwall",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 3.3,
+      "home": 3.28,
       "draw": 2.08,
-      "away": 3.52,
+      "away": 3.54,
       "sport": "Football"
     },
     {
@@ -12846,9 +13211,9 @@
       "match_key": "wisla plock vs bohemians 1905 prague",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.36,
-      "draw": 2.91,
-      "away": 3.34,
+      "home": 2.29,
+      "draw": 3.05,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -12870,9 +13235,9 @@
       "match_key": "legia warsaw vs rks radomiak radom",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.89,
-      "draw": 3.915,
-      "away": 3.6,
+      "home": 1.91,
+      "draw": 3.785,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -12894,8 +13259,8 @@
       "match_key": "fleetwood town vs chester",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.45,
-      "draw": 5.85,
+      "home": 1.454,
+      "draw": 5.75,
       "away": 4.85,
       "sport": "Football"
     },
@@ -12930,9 +13295,9 @@
       "match_key": "dukla banska bystrica vs hapoel tel aviv",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 4.775,
-      "draw": 1.6,
-      "away": 3.75,
+      "home": 5.77,
+      "draw": 1.48,
+      "away": 3.96,
       "sport": "Football"
     },
     {
@@ -12942,9 +13307,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.896,
+      "home": 2.885,
       "draw": 2.07,
-      "away": 3.66,
+      "away": 3.68,
       "sport": "Football"
     },
     {
@@ -12978,9 +13343,9 @@
       "match_key": "slaven belupo vs sanfrecce hiroshima",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.46,
+      "home": 2.47,
       "draw": 2.47,
-      "away": 3.32,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -13110,8 +13475,8 @@
       "match_key": "arminia bielefeld vs imst",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.14,
-      "draw": 8.3,
+      "home": 1.134,
+      "draw": 8.6,
       "away": 8.7,
       "sport": "Football"
     },
@@ -13182,9 +13547,9 @@
       "match_key": "leobendorf vs zwettl",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.187,
+      "home": 1.189,
       "draw": 11.2,
-      "away": 5.9,
+      "away": 5.85,
       "sport": "Football"
     },
     {
@@ -13194,9 +13559,9 @@
       "match_key": "rfc seraing vs mvv maastricht",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.8,
-      "draw": 3.625,
-      "away": 3.7,
+      "home": 1.82,
+      "draw": 3.565,
+      "away": 3.68,
       "sport": "Football"
     },
     {
@@ -13495,8 +13860,8 @@
       "bookmaker": "22Bet",
       "competition": "",
       "home": 1.53,
-      "draw": 5.48,
-      "away": 4.33,
+      "draw": 5.53,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -13578,9 +13943,9 @@
       "match_key": "kf drita vs zalgiris kaunas",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.37,
-      "draw": 2.961,
-      "away": 3.25,
+      "home": 2.35,
+      "draw": 3.03,
+      "away": 3.2,
       "sport": "Football"
     },
     {
@@ -13650,9 +14015,9 @@
       "match_key": "andorra andorra la vella vs millwall",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 3.3,
+      "home": 3.28,
       "draw": 2.08,
-      "away": 3.52,
+      "away": 3.54,
       "sport": "Football"
     },
     {
@@ -13710,9 +14075,9 @@
       "match_key": "wisla plock vs bohemians 1905 prague",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.36,
-      "draw": 2.91,
-      "away": 3.34,
+      "home": 2.29,
+      "draw": 3.05,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -13734,9 +14099,9 @@
       "match_key": "legia warsaw vs rks radomiak radom",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.89,
-      "draw": 3.915,
-      "away": 3.6,
+      "home": 1.91,
+      "draw": 3.785,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -13758,8 +14123,8 @@
       "match_key": "fleetwood town vs chester",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.45,
-      "draw": 5.85,
+      "home": 1.454,
+      "draw": 5.75,
       "away": 4.85,
       "sport": "Football"
     },
@@ -13794,9 +14159,9 @@
       "match_key": "dukla banska bystrica vs hapoel tel aviv",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 4.775,
-      "draw": 1.6,
-      "away": 3.75,
+      "home": 5.77,
+      "draw": 1.48,
+      "away": 3.96,
       "sport": "Football"
     },
     {
@@ -13806,9 +14171,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.896,
+      "home": 2.885,
       "draw": 2.07,
-      "away": 3.66,
+      "away": 3.68,
       "sport": "Football"
     },
     {
@@ -14095,8 +14460,8 @@
       "bookmaker": "Melbet",
       "competition": "",
       "home": 1.53,
-      "draw": 5.48,
-      "away": 4.33,
+      "draw": 5.53,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -14178,9 +14543,9 @@
       "match_key": "kf drita vs zalgiris kaunas",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 2.37,
-      "draw": 2.961,
-      "away": 3.25,
+      "home": 2.35,
+      "draw": 3.03,
+      "away": 3.2,
       "sport": "Football"
     },
     {
@@ -14250,9 +14615,9 @@
       "match_key": "andorra andorra la vella vs millwall",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 3.3,
+      "home": 3.28,
       "draw": 2.08,
-      "away": 3.52,
+      "away": 3.54,
       "sport": "Football"
     },
     {
@@ -14310,9 +14675,9 @@
       "match_key": "wisla plock vs bohemians 1905 prague",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 2.36,
-      "draw": 2.91,
-      "away": 3.34,
+      "home": 2.29,
+      "draw": 3.05,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -14334,9 +14699,9 @@
       "match_key": "legia warsaw vs rks radomiak radom",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 1.89,
-      "draw": 3.915,
-      "away": 3.6,
+      "home": 1.91,
+      "draw": 3.785,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -14359,8 +14724,8 @@
       "bookmaker": "1xBet",
       "competition": "",
       "home": 1.53,
-      "draw": 5.48,
-      "away": 4.33,
+      "draw": 5.53,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -14442,9 +14807,9 @@
       "match_key": "kf drita vs zalgiris kaunas",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.37,
-      "draw": 2.961,
-      "away": 3.25,
+      "home": 2.35,
+      "draw": 3.03,
+      "away": 3.2,
       "sport": "Football"
     },
     {
@@ -14514,9 +14879,9 @@
       "match_key": "andorra andorra la vella vs millwall",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 3.3,
+      "home": 3.28,
       "draw": 2.08,
-      "away": 3.52,
+      "away": 3.54,
       "sport": "Football"
     },
     {
@@ -14574,9 +14939,9 @@
       "match_key": "wisla plock vs bohemians 1905 prague",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.36,
-      "draw": 2.91,
-      "away": 3.34,
+      "home": 2.29,
+      "draw": 3.05,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -14598,9 +14963,9 @@
       "match_key": "legia warsaw vs rks radomiak radom",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.89,
-      "draw": 3.915,
-      "away": 3.6,
+      "home": 1.91,
+      "draw": 3.785,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -14622,8 +14987,8 @@
       "match_key": "fleetwood town vs chester",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.45,
-      "draw": 5.85,
+      "home": 1.454,
+      "draw": 5.75,
       "away": 4.85,
       "sport": "Football"
     },
@@ -14658,9 +15023,9 @@
       "match_key": "dukla banska bystrica vs hapoel tel aviv",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 4.775,
-      "draw": 1.6,
-      "away": 3.75,
+      "home": 5.77,
+      "draw": 1.48,
+      "away": 3.96,
       "sport": "Football"
     },
     {
@@ -14670,9 +15035,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.896,
+      "home": 2.885,
       "draw": 2.07,
-      "away": 3.66,
+      "away": 3.68,
       "sport": "Football"
     },
     {
@@ -14706,9 +15071,9 @@
       "match_key": "slaven belupo vs sanfrecce hiroshima",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.46,
+      "home": 2.47,
       "draw": 2.47,
-      "away": 3.32,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -14838,8 +15203,8 @@
       "match_key": "arminia bielefeld vs imst",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.14,
-      "draw": 8.3,
+      "home": 1.134,
+      "draw": 8.6,
       "away": 8.7,
       "sport": "Football"
     },
@@ -14910,9 +15275,9 @@
       "match_key": "leobendorf vs zwettl",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.187,
+      "home": 1.189,
       "draw": 11.2,
-      "away": 5.9,
+      "away": 5.85,
       "sport": "Football"
     },
     {
@@ -14922,9 +15287,9 @@
       "match_key": "rfc seraing vs mvv maastricht",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.8,
-      "draw": 3.625,
-      "away": 3.7,
+      "home": 1.82,
+      "draw": 3.565,
+      "away": 3.68,
       "sport": "Football"
     },
     {
@@ -15223,8 +15588,8 @@
       "bookmaker": "22Bet",
       "competition": "",
       "home": 1.53,
-      "draw": 5.48,
-      "away": 4.33,
+      "draw": 5.53,
+      "away": 4.3,
       "sport": "Football"
     },
     {
@@ -15306,9 +15671,9 @@
       "match_key": "kf drita vs zalgiris kaunas",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.37,
-      "draw": 2.961,
-      "away": 3.25,
+      "home": 2.35,
+      "draw": 3.03,
+      "away": 3.2,
       "sport": "Football"
     },
     {
@@ -15378,9 +15743,9 @@
       "match_key": "andorra andorra la vella vs millwall",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 3.3,
+      "home": 3.28,
       "draw": 2.08,
-      "away": 3.52,
+      "away": 3.54,
       "sport": "Football"
     },
     {
@@ -15438,9 +15803,9 @@
       "match_key": "wisla plock vs bohemians 1905 prague",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.36,
-      "draw": 2.91,
-      "away": 3.34,
+      "home": 2.29,
+      "draw": 3.05,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -15462,9 +15827,9 @@
       "match_key": "legia warsaw vs rks radomiak radom",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.89,
-      "draw": 3.915,
-      "away": 3.6,
+      "home": 1.91,
+      "draw": 3.785,
+      "away": 3.58,
       "sport": "Football"
     },
     {
@@ -15486,8 +15851,8 @@
       "match_key": "fleetwood town vs chester",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.45,
-      "draw": 5.85,
+      "home": 1.454,
+      "draw": 5.75,
       "away": 4.85,
       "sport": "Football"
     },
@@ -15522,9 +15887,9 @@
       "match_key": "dukla banska bystrica vs hapoel tel aviv",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 4.775,
-      "draw": 1.6,
-      "away": 3.75,
+      "home": 5.77,
+      "draw": 1.48,
+      "away": 3.96,
       "sport": "Football"
     },
     {
@@ -15534,9 +15899,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.896,
+      "home": 2.885,
       "draw": 2.07,
-      "away": 3.66,
+      "away": 3.68,
       "sport": "Football"
     }
   ]
