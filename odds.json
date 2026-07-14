@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-14 16:04 UTC",
-  "total_matches": 1228,
+  "last_updated": "2026-07-14 16:06 UTC",
+  "total_matches": 1229,
   "bookmakers_scraped": [
     "ChampionBet",
     "BetPawa",
@@ -14,6 +14,38 @@
     "22Bet (shared-1x)"
   ],
   "opportunities": [
+    {
+      "match": "sligo rovers vs coleraine",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 18.7,
+      "profit_ugx": 18698,
+      "total_stake": 100000,
+      "arb_sum": 0.813,
+      "bets": [
+        {
+          "bookmaker": "SportyBet",
+          "outcome": "Home",
+          "odd": 3.33,
+          "stake": 36936,
+          "win": 122997
+        },
+        {
+          "bookmaker": "AbaBet",
+          "outcome": "Draw",
+          "odd": 4.1,
+          "stake": 30000,
+          "win": 123000
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Away",
+          "odd": 3.72,
+          "stake": 33064,
+          "win": 122998
+        }
+      ]
+    },
     {
       "match": "parndorf vs austria wien ii",
       "sport": "Football",
@@ -107,38 +139,6 @@
           "odd": 3.54,
           "stake": 31509,
           "win": 111542
-        }
-      ]
-    },
-    {
-      "match": "sligo rovers vs coleraine",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 10.06,
-      "profit_ugx": 10064,
-      "total_stake": 100000,
-      "arb_sum": 0.8994,
-      "bets": [
-        {
-          "bookmaker": "AbaBet",
-          "outcome": "Home",
-          "odd": 2.9,
-          "stake": 38341,
-          "win": 111189
-        },
-        {
-          "bookmaker": "Fortebet",
-          "outcome": "Draw",
-          "odd": 3.5,
-          "stake": 31769,
-          "win": 111192
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Away",
-          "odd": 3.72,
-          "stake": 29890,
-          "win": 111191
         }
       ]
     },
@@ -245,6 +245,18 @@
       "sport": "Football"
     },
     {
+      "match": "TNS vs Sabah Baku",
+      "home_team": "TNS",
+      "away_team": "Sabah Baku",
+      "match_key": "tns vs sabah baku",
+      "bookmaker": "ChampionBet",
+      "competition": "UEFA Champions League - Qual.",
+      "home": 5.55,
+      "draw": 4.37,
+      "away": 1.51,
+      "sport": "Football"
+    },
+    {
       "match": "SC/ESV Parndorf 1919 vs Young Violets Wien",
       "home_team": "SC/ESV Parndorf 1919",
       "away_team": "Young Violets Wien",
@@ -312,8 +324,8 @@
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
       "home": 1.52,
-      "draw": 4.69,
-      "away": 5.55,
+      "draw": 4.71,
+      "away": 5.59,
       "sport": "Football"
     },
     {
@@ -347,9 +359,9 @@
       "match_key": "pfc levski sofia vs fk borac banja luka",
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
-      "home": 1.29,
-      "draw": 5.39,
-      "away": 11.46,
+      "home": 1.3,
+      "draw": 5.32,
+      "away": 10.96,
       "sport": "Football"
     },
     {
@@ -566,6 +578,30 @@
       "home": 4.49,
       "draw": 4.05,
       "away": 1.72,
+      "sport": "Football"
+    },
+    {
+      "match": "Atert Bissen vs KI Klaksvik",
+      "home_team": "Atert Bissen",
+      "away_team": "KI Klaksvik",
+      "match_key": "atert bissen vs ki klaksvik",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / UEFA Champions League",
+      "home": 2.7,
+      "draw": 3.63,
+      "away": 2.47,
+      "sport": "Football"
+    },
+    {
+      "match": "Fenerbahce Istanbul vs Gornik Zabrze",
+      "home_team": "Fenerbahce Istanbul",
+      "away_team": "Gornik Zabrze",
+      "match_key": "fenerbahce istanbul vs gornik zabrze",
+      "bookmaker": "BetPawa",
+      "competition": "Football / International / UEFA Champions League",
+      "home": 1.26,
+      "draw": 5.68,
+      "away": 12.69,
       "sport": "Football"
     },
     {
@@ -2159,9 +2195,9 @@
       "match_key": "mariehamn vs lahti",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 4.95,
-      "draw": 4.15,
-      "away": 1.64,
+      "home": 5.3,
+      "draw": 4.25,
+      "away": 1.59,
       "sport": "Football"
     },
     {
@@ -5099,9 +5135,9 @@
       "match_key": "radomlje vs grosuplje",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 2.62,
+      "home": 2.55,
       "draw": 3.3,
-      "away": 2.48,
+      "away": 2.55,
       "sport": "Football"
     },
     {
@@ -5669,39 +5705,15 @@
       "sport": "Football"
     },
     {
-      "match": "FC Iberia 1999 vs Tallinna FC Flora",
-      "home_team": "FC Iberia 1999",
-      "away_team": "Tallinna FC Flora",
-      "match_key": "iberia 1999 vs tallinna flora",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.52,
-      "draw": 4.86,
-      "away": 5.73,
-      "sport": "Football"
-    },
-    {
-      "match": "Inter Club de Escaldes vs Lincoln Red Imps",
-      "home_team": "Inter Club de Escaldes",
-      "away_team": "Lincoln Red Imps",
-      "match_key": "inter de escaldes vs lincoln red imps",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.74,
-      "draw": 4.31,
-      "away": 4.26,
-      "sport": "Football"
-    },
-    {
       "match": "Riga FC vs FC Ararat-Armenia",
       "home_team": "Riga FC",
       "away_team": "FC Ararat-Armenia",
       "match_key": "riga vs araratarmenia",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.66,
-      "draw": 4.08,
-      "away": 5.18,
+      "home": 1.64,
+      "draw": 4.14,
+      "away": 5.28,
       "sport": "Football"
     },
     {
@@ -5712,8 +5724,8 @@
       "bookmaker": "SportyBet",
       "competition": "",
       "home": 1.55,
-      "draw": 4.67,
-      "away": 5.48,
+      "draw": 4.66,
+      "away": 5.5,
       "sport": "Football"
     },
     {
@@ -5747,9 +5759,9 @@
       "match_key": "kf drita vs fk kauno zalgiris",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.53,
+      "home": 2.52,
       "draw": 3.23,
-      "away": 2.98,
+      "away": 3.0,
       "sport": "Football"
     },
     {
@@ -5772,8 +5784,8 @@
       "bookmaker": "SportyBet",
       "competition": "",
       "home": 1.32,
-      "draw": 5.73,
-      "away": 9.29,
+      "draw": 5.77,
+      "away": 9.42,
       "sport": "Football"
     },
     {
@@ -5789,114 +5801,6 @@
       "sport": "Football"
     },
     {
-      "match": "Darmstadt vs FC 08 Homburg-Saar",
-      "home_team": "Darmstadt",
-      "away_team": "FC 08 Homburg-Saar",
-      "match_key": "darmstadt vs 08 homburgsaar",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.18,
-      "draw": 6.4,
-      "away": 10.0,
-      "sport": "Football"
-    },
-    {
-      "match": "Eintracht Braunschweig vs TSV Havelse",
-      "home_team": "Eintracht Braunschweig",
-      "away_team": "TSV Havelse",
-      "match_key": "eintracht braunschweig vs tsv havelse",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.32,
-      "draw": 5.25,
-      "away": 6.5,
-      "sport": "Football"
-    },
-    {
-      "match": "Fortuna D vs MFK Ruzomberok",
-      "home_team": "Fortuna D",
-      "away_team": "MFK Ruzomberok",
-      "match_key": "fortuna d vs mfk ruzomberok",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.63,
-      "draw": 3.9,
-      "away": 4.3,
-      "sport": "Football"
-    },
-    {
-      "match": "Middelfart BK vs Brabrand IF",
-      "home_team": "Middelfart BK",
-      "away_team": "Brabrand IF",
-      "match_key": "middelfart bk vs brabrand if",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.05,
-      "draw": 3.4,
-      "away": 3.1,
-      "sport": "Football"
-    },
-    {
-      "match": "Randers FC vs Notts County",
-      "home_team": "Randers FC",
-      "away_team": "Notts County",
-      "match_key": "randers vs notts county",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.44,
-      "draw": 4.3,
-      "away": 5.7,
-      "sport": "Football"
-    },
-    {
-      "match": "RFC Seraing vs MVV Maastricht",
-      "home_team": "RFC Seraing",
-      "away_team": "MVV Maastricht",
-      "match_key": "rfc seraing vs mvv maastricht",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.98,
-      "draw": 3.6,
-      "away": 3.2,
-      "sport": "Football"
-    },
-    {
-      "match": "SR Donaufeld vs Rapid Wien II",
-      "home_team": "SR Donaufeld",
-      "away_team": "Rapid Wien II",
-      "match_key": "sr donaufeld vs rapid wien ii",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 4.1,
-      "draw": 4.4,
-      "away": 1.59,
-      "sport": "Football"
-    },
-    {
-      "match": "Dep. Sta Monica-Alto Parana vs Resistencia SC",
-      "home_team": "Dep. Sta Monica-Alto Parana",
-      "away_team": "Resistencia SC",
-      "match_key": "dep sta monicaalto parana vs resistencia",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 26.0,
-      "draw": 12.0,
-      "away": 1.04,
-      "sport": "Football"
-    },
-    {
-      "match": "Tampereen Ilves 2 vs Grankulla IFK",
-      "home_team": "Tampereen Ilves 2",
-      "away_team": "Grankulla IFK",
-      "match_key": "tampereen ilves 2 vs grankulla ifk",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.55,
-      "draw": 4.75,
-      "away": 4.4,
-      "sport": "Football"
-    },
-    {
       "match": "BSV Eintracht Mahlsdorf vs FSV Luckenwalde",
       "home_team": "BSV Eintracht Mahlsdorf",
       "away_team": "FSV Luckenwalde",
@@ -5906,18 +5810,6 @@
       "home": 3.5,
       "draw": 3.75,
       "away": 1.82,
-      "sport": "Football"
-    },
-    {
-      "match": "FC Winterthur vs SC Bruhl St Gallen",
-      "home_team": "FC Winterthur",
-      "away_team": "SC Bruhl St Gallen",
-      "match_key": "winterthur vs bruhl st gallen",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.17,
-      "draw": 6.5,
-      "away": 11.0,
       "sport": "Football"
     },
     {
@@ -6083,9 +5975,9 @@
       "match_key": "ca defensores unidos vs ca excursionistas",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 3.7,
-      "draw": 3.0,
-      "away": 2.1,
+      "home": 3.75,
+      "draw": 3.1,
+      "away": 2.05,
       "sport": "Football"
     },
     {
@@ -6269,6 +6161,150 @@
       "sport": "Football"
     },
     {
+      "match": "Redcar Athletic FC vs Hartlepool United",
+      "home_team": "Redcar Athletic FC",
+      "away_team": "Hartlepool United",
+      "match_key": "redcar athletic vs hartlepool",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 9.4,
+      "draw": 6.4,
+      "away": 1.19,
+      "sport": "Football"
+    },
+    {
+      "match": "Saint Patrick\u00b4s Athletic FC vs Doncaster Rovers",
+      "home_team": "Saint Patrick\u00b4s Athletic FC",
+      "away_team": "Doncaster Rovers",
+      "match_key": "saint patricks athletic vs doncaster rovers",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.7,
+      "draw": 3.4,
+      "away": 2.25,
+      "sport": "Football"
+    },
+    {
+      "match": "Sligo Rovers FC vs Coleraine FC",
+      "home_team": "Sligo Rovers FC",
+      "away_team": "Coleraine FC",
+      "match_key": "sligo rovers vs coleraine",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.33,
+      "draw": 3.5,
+      "away": 1.94,
+      "sport": "Football"
+    },
+    {
+      "match": "Stockton Town vs Darlington FC",
+      "home_team": "Stockton Town",
+      "away_team": "Darlington FC",
+      "match_key": "stockton town vs darlington",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 4.2,
+      "draw": 3.9,
+      "away": 1.66,
+      "sport": "Football"
+    },
+    {
+      "match": "CD Armenio vs CA Talleres de Remedios",
+      "home_team": "CD Armenio",
+      "away_team": "CA Talleres de Remedios",
+      "match_key": "cd armenio vs ca talleres de remedios",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.8,
+      "draw": 2.5,
+      "away": 2.4,
+      "sport": "Football"
+    },
+    {
+      "match": "Cristobal Colon JAS vs 3 de Noviembre de B San Pablo",
+      "home_team": "Cristobal Colon JAS",
+      "away_team": "3 de Noviembre de B San Pablo",
+      "match_key": "cristobal colon jas vs 3 de noviembre de b san pablo",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.75,
+      "draw": 3.3,
+      "away": 2.45,
+      "sport": "Football"
+    },
+    {
+      "match": "Annan Athletic FC vs Dundee FC",
+      "home_team": "Annan Athletic FC",
+      "away_team": "Dundee FC",
+      "match_key": "annan athletic vs dundee",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 14.5,
+      "draw": 7.6,
+      "away": 1.14,
+      "sport": "Football"
+    },
+    {
+      "match": "Brechin City FC vs Livingston FC",
+      "home_team": "Brechin City FC",
+      "away_team": "Livingston FC",
+      "match_key": "brechin vs livingston",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 35.0,
+      "draw": 12.0,
+      "away": 1.03,
+      "sport": "Football"
+    },
+    {
+      "match": "Brora Rangers vs Aberdeen",
+      "home_team": "Brora Rangers",
+      "away_team": "Aberdeen",
+      "match_key": "brora rangers vs aberdeen",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 26.0,
+      "draw": 10.5,
+      "away": 1.06,
+      "sport": "Football"
+    },
+    {
+      "match": "Clyde FC vs Airdrieonians FC",
+      "home_team": "Clyde FC",
+      "away_team": "Airdrieonians FC",
+      "match_key": "clyde vs airdrieonians",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.2,
+      "draw": 3.8,
+      "away": 1.98,
+      "sport": "Football"
+    },
+    {
+      "match": "Cove Rangers FC vs East Kilbride FC",
+      "home_team": "Cove Rangers FC",
+      "away_team": "East Kilbride FC",
+      "match_key": "cove rangers vs east kilbride",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.25,
+      "draw": 3.7,
+      "away": 2.0,
+      "sport": "Football"
+    },
+    {
+      "match": "Dunfermline Athletic FC vs Dumbarton FC",
+      "home_team": "Dunfermline Athletic FC",
+      "away_team": "Dumbarton FC",
+      "match_key": "dunfermline athletic vs dumbarton",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.18,
+      "draw": 6.7,
+      "away": 12.5,
+      "sport": "Football"
+    },
+    {
       "match": "PVF U21 vs SHB Da Nang U21",
       "home_team": "PVF U21",
       "away_team": "SHB Da Nang U21",
@@ -6365,42 +6401,6 @@
       "sport": "Football"
     },
     {
-      "match": "Vaalerenga IF vs Aalesunds FK",
-      "home_team": "Vaalerenga IF",
-      "away_team": "Aalesunds FK",
-      "match_key": "vaalerenga if vs aalesunds fk",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.75,
-      "draw": 4.17,
-      "away": 4.21,
-      "sport": "Football"
-    },
-    {
-      "match": "Botafogo FR RJ vs Santos FC SP",
-      "home_team": "Botafogo FR RJ",
-      "away_team": "Santos FC SP",
-      "match_key": "botafogo fr rj vs santos sp",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.05,
-      "draw": 3.5,
-      "away": 3.6,
-      "sport": "Football"
-    },
-    {
-      "match": "CD Armenio vs CA Talleres de Remedios",
-      "home_team": "CD Armenio",
-      "away_team": "CA Talleres de Remedios",
-      "match_key": "cd armenio vs ca talleres de remedios",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 3.8,
-      "draw": 2.5,
-      "away": 2.4,
-      "sport": "Football"
-    },
-    {
       "match": "CA Brown de Adrogue vs CSCD Laferrere",
       "home_team": "CA Brown de Adrogue",
       "away_team": "CSCD Laferrere",
@@ -6410,18 +6410,6 @@
       "home": 2.6,
       "draw": 2.85,
       "away": 2.95,
-      "sport": "Football"
-    },
-    {
-      "match": "CA Ituzaingo vs CSD San Martin",
-      "home_team": "CA Ituzaingo",
-      "away_team": "CSD San Martin",
-      "match_key": "ca ituzaingo vs csd san martin",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 3.4,
-      "draw": 2.9,
-      "away": 2.25,
       "sport": "Football"
     },
     {
@@ -6437,15 +6425,39 @@
       "sport": "Football"
     },
     {
+      "match": "FC Iberia 1999 vs Tallinna FC Flora",
+      "home_team": "FC Iberia 1999",
+      "away_team": "Tallinna FC Flora",
+      "match_key": "iberia 1999 vs tallinna flora",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.5,
+      "draw": 4.75,
+      "away": 5.7,
+      "sport": "Football"
+    },
+    {
+      "match": "Inter Club de Escaldes vs Lincoln Red Imps",
+      "home_team": "Inter Club de Escaldes",
+      "away_team": "Lincoln Red Imps",
+      "match_key": "inter de escaldes vs lincoln red imps",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.75,
+      "draw": 4.15,
+      "away": 4.1,
+      "sport": "Football"
+    },
+    {
       "match": "Spartak Trnava vs Besiktas Istanbul",
       "home_team": "Spartak Trnava",
       "away_team": "Besiktas Istanbul",
       "match_key": "spartak trnava vs besiktas istanbul",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 9.5,
-      "draw": 4.65,
-      "away": 1.27,
+      "home": 12.0,
+      "draw": 5.1,
+      "away": 1.22,
       "sport": "Football"
     },
     {
@@ -6455,33 +6467,9 @@
       "match_key": "korona kielce vs zks stal rzeszow",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.5,
-      "draw": 3.25,
-      "away": 8.5,
-      "sport": "Football"
-    },
-    {
-      "match": "NK Bistrica Slovenska Bistrica vs FC Bihor Oradea",
-      "home_team": "NK Bistrica Slovenska Bistrica",
-      "away_team": "FC Bihor Oradea",
-      "match_key": "nk bistrica slovenska bistrica vs bihor oradea",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 16.0,
-      "draw": 5.2,
-      "away": 1.18,
-      "sport": "Football"
-    },
-    {
-      "match": "Defensores de Cambaceres Reserves vs Yupanqui Reserves",
-      "home_team": "Defensores de Cambaceres Reserves",
-      "away_team": "Yupanqui Reserves",
-      "match_key": "defensores de cambaceres reserves vs yupanqui reserves",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 7.4,
-      "draw": 1.17,
-      "away": 8.8,
+      "home": 1.45,
+      "draw": 3.6,
+      "away": 7.25,
       "sport": "Football"
     },
     {
@@ -6815,9 +6803,9 @@
       "match_key": "parramatta eels vs penrith panthers",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 5.4,
-      "draw": 31.0,
-      "away": 1.17,
+      "home": 5.3,
+      "draw": 30.0,
+      "away": 1.18,
       "sport": "Rugby"
     },
     {
@@ -6863,9 +6851,9 @@
       "match_key": "canterburybankstown bulldogs vs new zealand warriors",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.9,
+      "home": 3.0,
       "draw": 23.0,
-      "away": 1.46,
+      "away": 1.44,
       "sport": "Rugby"
     },
     {
@@ -6905,135 +6893,15 @@
       "sport": "Rugby"
     },
     {
-      "match": "Cecchinato, Marco vs Burruchaga, Roman Andres",
-      "home_team": "Cecchinato, Marco",
-      "away_team": "Burruchaga, Roman Andres",
-      "match_key": "cecchinato marco vs burruchaga roman andres",
+      "match": "Dietrich D / Stricker D vs Nouza P / Oberleitner N",
+      "home_team": "Dietrich D / Stricker D",
+      "away_team": "Nouza P / Oberleitner N",
+      "match_key": "dietrich d stricker d vs nouza p oberleitner n",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.05,
+      "home": 4.8,
       "draw": null,
-      "away": 1.81,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Sesko, Ziga vs Merida, Daniel",
-      "home_team": "Sesko, Ziga",
-      "away_team": "Merida, Daniel",
-      "match_key": "sesko ziga vs merida daniel",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 5.9,
-      "draw": null,
-      "away": 1.15,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Trevisan, Martina vs Grant, Tyra Caterina",
-      "home_team": "Trevisan, Martina",
-      "away_team": "Grant, Tyra Caterina",
-      "match_key": "trevisan martina vs grant tyra caterina",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 3.5,
-      "draw": null,
-      "away": 1.35,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Boogaard, Thijs vs Onclin, Gauthier",
-      "home_team": "Boogaard, Thijs",
-      "away_team": "Onclin, Gauthier",
-      "match_key": "boogaard thijs vs onclin gauthier",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 3.25,
-      "draw": null,
-      "away": 1.31,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Arseneault, A vs Dong, Emma",
-      "home_team": "Arseneault, A",
-      "away_team": "Dong, Emma",
-      "match_key": "arseneault a vs dong emma",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.31,
-      "draw": null,
-      "away": 3.15,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Chavez, Teah vs Nishimura, Kayo",
-      "home_team": "Chavez, Teah",
-      "away_team": "Nishimura, Kayo",
-      "match_key": "chavez teah vs nishimura kayo",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.95,
-      "draw": null,
-      "away": 1.35,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Kuzmova, Katarina/Mikulskyte, Justina vs Coromina Boluda, Alba Maria/Teixido Garcia, Meritxell",
-      "home_team": "Kuzmova, Katarina/Mikulskyte, Justina",
-      "away_team": "Coromina Boluda, Alba Maria/Teixido Garcia, Meritxell",
-      "match_key": "kuzmova katarinamikulskyte justina vs coromina boluda alba mariateixido garcia meritxell",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.07,
-      "draw": null,
-      "away": 7.0,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Bhagra, Tej vs Johnson, Cooper",
-      "home_team": "Bhagra, Tej",
-      "away_team": "Johnson, Cooper",
-      "match_key": "bhagra tej vs johnson cooper",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.61,
-      "draw": null,
-      "away": 2.15,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Garcia, Jose vs Patel, Shaan",
-      "home_team": "Garcia, Jose",
-      "away_team": "Patel, Shaan",
-      "match_key": "garcia jose vs patel shaan",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.06,
-      "draw": null,
-      "away": 6.6,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Crowder, Riley vs Goetz, Taylor",
-      "home_team": "Crowder, Riley",
-      "away_team": "Goetz, Taylor",
-      "match_key": "crowder riley vs goetz taylor",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.26,
-      "draw": null,
-      "away": 3.35,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Warren, Elle vs Clark, Mackenzie",
-      "home_team": "Warren, Elle",
-      "away_team": "Clark, Mackenzie",
-      "match_key": "warren elle vs clark mackenzie",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.49,
-      "draw": null,
-      "away": 2.4,
+      "away": 1.2,
       "sport": "Tennis"
     },
     {
@@ -7061,75 +6929,27 @@
       "sport": "Tennis"
     },
     {
-      "match": "Gowda, T vs Hovde, L",
-      "home_team": "Gowda, T",
-      "away_team": "Hovde, L",
-      "match_key": "gowda t vs hovde l",
+      "match": "Kawa, Katarzyna vs Waltert, Simona",
+      "home_team": "Kawa, Katarzyna",
+      "away_team": "Waltert, Simona",
+      "match_key": "kawa katarzyna vs waltert simona",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.7,
+      "home": 2.9,
       "draw": null,
-      "away": 2.04,
+      "away": 1.44,
       "sport": "Tennis"
     },
     {
-      "match": "El Jardi, D vs Kononova, M",
-      "home_team": "El Jardi, D",
-      "away_team": "Kononova, M",
-      "match_key": "el jardi d vs kononova m",
+      "match": "Barry C / Genov A vs Kadhe A / Zormann M",
+      "home_team": "Barry C / Genov A",
+      "away_team": "Kadhe A / Zormann M",
+      "match_key": "barry c genov a vs kadhe a zormann m",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.5,
+      "home": 2.45,
       "draw": null,
-      "away": 2.42,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Matushkina, Kira vs Hui, K",
-      "home_team": "Matushkina, Kira",
-      "away_team": "Hui, K",
-      "match_key": "matushkina kira vs hui k",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.63,
-      "draw": null,
-      "away": 2.15,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Freire Da Silva, Adan/Walch, Antoine vs Domenc, Mathys/Jade, Daniel",
-      "home_team": "Freire Da Silva, Adan/Walch, Antoine",
-      "away_team": "Domenc, Mathys/Jade, Daniel",
-      "match_key": "freire da silva adanwalch antoine vs domenc mathysjade daniel",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.25,
-      "draw": null,
-      "away": 1.57,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Allen, K vs Oxford, Eva",
-      "home_team": "Allen, K",
-      "away_team": "Oxford, Eva",
-      "match_key": "allen k vs oxford eva",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.6,
-      "draw": null,
-      "away": 2.2,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Aubriot, Alexandre/Cuenin, Sean vs Aerne, Laurin/Senn, Nicola",
-      "home_team": "Aubriot, Alexandre/Cuenin, Sean",
-      "away_team": "Aerne, Laurin/Senn, Nicola",
-      "match_key": "aubriot alexandrecuenin sean vs aerne laurinsenn nicola",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.1,
-      "draw": null,
-      "away": 6.0,
+      "away": 1.51,
       "sport": "Tennis"
     },
     {
@@ -7157,15 +6977,15 @@
       "sport": "Tennis"
     },
     {
-      "match": "Dietrich D / Stricker D vs Nouza P / Oberleitner N",
-      "home_team": "Dietrich D / Stricker D",
-      "away_team": "Nouza P / Oberleitner N",
-      "match_key": "dietrich d stricker d vs nouza p oberleitner n",
+      "match": "Amariei, Ilinca Dalina vs Jacquemot, Elsa",
+      "home_team": "Amariei, Ilinca Dalina",
+      "away_team": "Jacquemot, Elsa",
+      "match_key": "amariei ilinca dalina vs jacquemot elsa",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 4.8,
+      "home": 5.3,
       "draw": null,
-      "away": 1.2,
+      "away": 1.17,
       "sport": "Tennis"
     },
     {
@@ -7331,57 +7151,9 @@
       "match_key": "zhou yi vs kozlov stefan",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.55,
+      "home": 1.56,
       "draw": null,
       "away": 2.35,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Kawa, Katarzyna vs Waltert, Simona",
-      "home_team": "Kawa, Katarzyna",
-      "away_team": "Waltert, Simona",
-      "match_key": "kawa katarzyna vs waltert simona",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.9,
-      "draw": null,
-      "away": 1.44,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Hammond, Lucas/Huysmans, Axel vs Arce Fernandez, Mario/Talavera Cortes, Esteban",
-      "home_team": "Hammond, Lucas/Huysmans, Axel",
-      "away_team": "Arce Fernandez, Mario/Talavera Cortes, Esteban",
-      "match_key": "hammond lucashuysmans axel vs arce fernandez mariotalavera cortes esteban",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.85,
-      "draw": null,
-      "away": 1.85,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Amariei, Ilinca Dalina vs Jacquemot, Elsa",
-      "home_team": "Amariei, Ilinca Dalina",
-      "away_team": "Jacquemot, Elsa",
-      "match_key": "amariei ilinca dalina vs jacquemot elsa",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 5.3,
-      "draw": null,
-      "away": 1.17,
-      "sport": "Tennis"
-    },
-    {
-      "match": "Barry C / Genov A vs Kadhe A / Zormann M",
-      "home_team": "Barry C / Genov A",
-      "away_team": "Kadhe A / Zormann M",
-      "match_key": "barry c genov a vs kadhe a zormann m",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.45,
-      "draw": null,
-      "away": 1.51,
       "sport": "Tennis"
     },
     {
@@ -7409,18 +7181,6 @@
       "sport": "Tennis"
     },
     {
-      "match": "Bonnaud, Arthur/Scaglia, Mathieu vs Basile, Alessio/Raynel, Amaury",
-      "home_team": "Bonnaud, Arthur/Scaglia, Mathieu",
-      "away_team": "Basile, Alessio/Raynel, Amaury",
-      "match_key": "bonnaud arthurscaglia mathieu vs basile alessioraynel amaury",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.21,
-      "draw": null,
-      "away": 3.9,
-      "sport": "Tennis"
-    },
-    {
       "match": "Grabher J / Kraus S vs Bayerlova M / Thombare P",
       "home_team": "Grabher J / Kraus S",
       "away_team": "Bayerlova M / Thombare P",
@@ -7430,6 +7190,18 @@
       "home": 1.44,
       "draw": null,
       "away": 2.9,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Shandarov R / Shandarov V vs Delaney J / Sueoka Y",
+      "home_team": "Shandarov R / Shandarov V",
+      "away_team": "Delaney J / Sueoka Y",
+      "match_key": "shandarov r shandarov v vs delaney j sueoka y",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 11.0,
+      "draw": null,
+      "away": 1.02,
       "sport": "Tennis"
     },
     {
@@ -7469,18 +7241,6 @@
       "sport": "Tennis"
     },
     {
-      "match": "Shandarov R / Shandarov V vs Delaney J / Sueoka Y",
-      "home_team": "Shandarov R / Shandarov V",
-      "away_team": "Delaney J / Sueoka Y",
-      "match_key": "shandarov r shandarov v vs delaney j sueoka y",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 11.0,
-      "draw": null,
-      "away": 1.02,
-      "sport": "Tennis"
-    },
-    {
       "match": "Valentova, Tereza vs Costoulas, Sofia",
       "home_team": "Valentova, Tereza",
       "away_team": "Costoulas, Sofia",
@@ -7505,15 +7265,231 @@
       "sport": "Tennis"
     },
     {
-      "match": "De Dios, Felipe/Mouilleron Salvo, Manuel vs Martinez, Tomas/Monferrer, Ezequiel",
-      "home_team": "De Dios, Felipe/Mouilleron Salvo, Manuel",
-      "away_team": "Martinez, Tomas/Monferrer, Ezequiel",
-      "match_key": "de dios felipemouilleron salvo manuel vs martinez tomasmonferrer ezequiel",
+      "match": "Dilek D / Turkmen D vs Havlickova L / Knutson G A",
+      "home_team": "Dilek D / Turkmen D",
+      "away_team": "Havlickova L / Knutson G A",
+      "match_key": "dilek d turkmen d vs havlickova l knutson g a",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.75,
+      "home": 4.55,
       "draw": null,
-      "away": 1.4,
+      "away": 1.22,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Bynoe, E vs Stephenson, E",
+      "home_team": "Bynoe, E",
+      "away_team": "Stephenson, E",
+      "match_key": "bynoe e vs stephenson e",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.57,
+      "draw": null,
+      "away": 2.25,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Kadiri Hassani, Youssef vs Bonding, O",
+      "home_team": "Kadiri Hassani, Youssef",
+      "away_team": "Bonding, O",
+      "match_key": "kadiri hassani youssef vs bonding o",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.4,
+      "draw": null,
+      "away": 1.27,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Stringer, Tristan vs Gogineni, V",
+      "home_team": "Stringer, Tristan",
+      "away_team": "Gogineni, V",
+      "match_key": "stringer tristan vs gogineni v",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.1,
+      "draw": null,
+      "away": 1.32,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Cassone, Murphy vs Schoolkate, Tristan",
+      "home_team": "Cassone, Murphy",
+      "away_team": "Schoolkate, Tristan",
+      "match_key": "cassone murphy vs schoolkate tristan",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.15,
+      "draw": null,
+      "away": 1.65,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Mazzola, Alessandra vs Bronzetti, Lucia",
+      "home_team": "Mazzola, Alessandra",
+      "away_team": "Bronzetti, Lucia",
+      "match_key": "mazzola alessandra vs bronzetti lucia",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 4.0,
+      "draw": null,
+      "away": 1.28,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Colby, Ryan/Jansen, William vs Mesarovic, Marko/Miladinovic, Marko",
+      "home_team": "Colby, Ryan/Jansen, William",
+      "away_team": "Mesarovic, Marko/Miladinovic, Marko",
+      "match_key": "colby ryanjansen william vs mesarovic markomiladinovic marko",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.6,
+      "draw": null,
+      "away": 2.2,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Chinlund, Cassius vs Pitts, Nathan",
+      "home_team": "Chinlund, Cassius",
+      "away_team": "Pitts, Nathan",
+      "match_key": "chinlund cassius vs pitts nathan",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.25,
+      "draw": null,
+      "away": 3.45,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Hayduke II, Andrew vs You, Junghee",
+      "home_team": "Hayduke II, Andrew",
+      "away_team": "You, Junghee",
+      "match_key": "hayduke ii andrew vs you junghee",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.54,
+      "draw": null,
+      "away": 2.25,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Ceroni, Bianca vs Aulia, Audrey",
+      "home_team": "Ceroni, Bianca",
+      "away_team": "Aulia, Audrey",
+      "match_key": "ceroni bianca vs aulia audrey",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.85,
+      "draw": null,
+      "away": 1.2,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Rennard, Catherine vs Oved, Liam",
+      "home_team": "Rennard, Catherine",
+      "away_team": "Oved, Liam",
+      "match_key": "rennard catherine vs oved liam",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.29,
+      "draw": null,
+      "away": 3.2,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Neumayer, Lukas vs Prado Angelo, Juan Carlos",
+      "home_team": "Neumayer, Lukas",
+      "away_team": "Prado Angelo, Juan Carlos",
+      "match_key": "neumayer lukas vs prado angelo juan carlos",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.43,
+      "draw": null,
+      "away": 2.95,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Banthia S / Donski A vs Frantzen C / Haase R",
+      "home_team": "Banthia S / Donski A",
+      "away_team": "Frantzen C / Haase R",
+      "match_key": "banthia s donski a vs frantzen c haase r",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.9,
+      "draw": null,
+      "away": 1.44,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Chan H / Kato M vs Argyrokastriti M / Nepliy E",
+      "home_team": "Chan H / Kato M",
+      "away_team": "Argyrokastriti M / Nepliy E",
+      "match_key": "chan h kato m vs argyrokastriti m nepliy e",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.11,
+      "draw": null,
+      "away": 7.4,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Pace, Francesca vs Vedder, Eva",
+      "home_team": "Pace, Francesca",
+      "away_team": "Vedder, Eva",
+      "match_key": "pace francesca vs vedder eva",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 5.2,
+      "draw": null,
+      "away": 1.19,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Bara I M / Jakupovic D vs Cavalle-Reimers Y / Pigossi L",
+      "home_team": "Bara I M / Jakupovic D",
+      "away_team": "Cavalle-Reimers Y / Pigossi L",
+      "match_key": "bara i m jakupovic d vs cavallereimers y pigossi l",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.0,
+      "draw": null,
+      "away": 1.85,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Johnson, Spencer vs Bertola, Remy",
+      "home_team": "Johnson, Spencer",
+      "away_team": "Bertola, Remy",
+      "match_key": "johnson spencer vs bertola remy",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.9,
+      "draw": null,
+      "away": 1.84,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Lajal, Mark vs Svajda, Trevor",
+      "home_team": "Lajal, Mark",
+      "away_team": "Svajda, Trevor",
+      "match_key": "lajal mark vs svajda trevor",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.73,
+      "draw": null,
+      "away": 2.05,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Langmo, Christian vs Wu, Yibing",
+      "home_team": "Langmo, Christian",
+      "away_team": "Wu, Yibing",
+      "match_key": "langmo christian vs wu yibing",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 5.7,
+      "draw": null,
+      "away": 1.12,
       "sport": "Tennis"
     },
     {
@@ -7547,9 +7523,9 @@
       "match_key": "viiala z vs takizawa taiki",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.28,
+      "home": 1.29,
       "draw": null,
-      "away": 3.35,
+      "away": 3.25,
       "sport": "Tennis"
     },
     {
@@ -7613,184 +7589,88 @@
       "sport": "Tennis"
     },
     {
-      "match": "Dahlin, Max vs Baez, Sebastian",
-      "home_team": "Dahlin, Max",
-      "away_team": "Baez, Sebastian",
-      "match_key": "dahlin max vs baez sebastian",
+      "match": "Jasika, O vs Jones, Scott",
+      "home_team": "Jasika, O",
+      "away_team": "Jones, Scott",
+      "match_key": "jasika o vs jones scott",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.3,
+      "home": 1.19,
+      "draw": null,
+      "away": 4.2,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Das, Aishi vs Dodaj, C",
+      "home_team": "Das, Aishi",
+      "away_team": "Dodaj, C",
+      "match_key": "das aishi vs dodaj c",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.02,
+      "draw": null,
+      "away": 10.0,
+      "sport": "Tennis"
+    },
+    {
+      "match": "Sakellaridi, Sapfo vs Tona, Miriana",
+      "home_team": "Sakellaridi, Sapfo",
+      "away_team": "Tona, Miriana",
+      "match_key": "sakellaridi sapfo vs tona miriana",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.4,
       "draw": null,
       "away": 1.6,
       "sport": "Tennis"
     },
     {
-      "match": "Muller, Alexandre vs Shevchenko, Aleksandr",
-      "home_team": "Muller, Alexandre",
-      "away_team": "Shevchenko, Aleksandr",
-      "match_key": "muller alexandre vs shevchenko aleksandr",
+      "match": "Dzumhur D / Latinovic S vs Molteni A / Trhac P",
+      "home_team": "Dzumhur D / Latinovic S",
+      "away_team": "Molteni A / Trhac P",
+      "match_key": "dzumhur d latinovic s vs molteni a trhac p",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.55,
+      "home": 3.35,
       "draw": null,
-      "away": 1.52,
+      "away": 1.32,
       "sport": "Tennis"
     },
     {
-      "match": "Faria, Jaime vs Wawrinka, Stan",
-      "home_team": "Faria, Jaime",
-      "away_team": "Wawrinka, Stan",
-      "match_key": "faria jaime vs wawrinka stan",
+      "match": "Fruhvirtova, Linda vs Gao, Xinyu",
+      "home_team": "Fruhvirtova, Linda",
+      "away_team": "Gao, Xinyu",
+      "match_key": "fruhvirtova linda vs gao xinyu",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.45,
+      "home": 2.5,
       "draw": null,
-      "away": 2.8,
+      "away": 1.47,
       "sport": "Tennis"
     },
     {
-      "match": "Topo, Marko vs Ugo Carabelli, Camilo",
-      "home_team": "Topo, Marko",
-      "away_team": "Ugo Carabelli, Camilo",
-      "match_key": "topo marko vs ugo carabelli camilo",
+      "match": "Pigossi, Laura vs Samson, Laura",
+      "home_team": "Pigossi, Laura",
+      "away_team": "Samson, Laura",
+      "match_key": "pigossi laura vs samson laura",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.47,
+      "home": 3.55,
       "draw": null,
-      "away": 2.7,
+      "away": 1.25,
       "sport": "Tennis"
     },
     {
-      "match": "Krejcikova, Barbora vs Tomova, Viktoriya",
-      "home_team": "Krejcikova, Barbora",
-      "away_team": "Tomova, Viktoriya",
-      "match_key": "krejcikova barbora vs tomova viktoriya",
+      "match": "Serafini, M vs Ortenzi, G",
+      "home_team": "Serafini, M",
+      "away_team": "Ortenzi, G",
+      "match_key": "serafini m vs ortenzi g",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.01,
+      "home": 2.35,
       "draw": null,
-      "away": 19.5,
+      "away": 1.53,
       "sport": "Tennis"
-    },
-    {
-      "match": "Chalupa, Michal vs Kasnik, Sebastian",
-      "home_team": "Chalupa, Michal",
-      "away_team": "Kasnik, Sebastian",
-      "match_key": "chalupa michal vs kasnik sebastian",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.84,
-      "draw": null,
-      "away": 1.86,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Dousek, Tomas vs Zika, Tadeas",
-      "home_team": "Dousek, Tomas",
-      "away_team": "Zika, Tadeas",
-      "match_key": "dousek tomas vs zika tadeas",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.48,
-      "draw": null,
-      "away": 2.45,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Kolisnyk, Oleksandr vs Sychra, Martin",
-      "home_team": "Kolisnyk, Oleksandr",
-      "away_team": "Sychra, Martin",
-      "match_key": "kolisnyk oleksandr vs sychra martin",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.49,
-      "draw": null,
-      "away": 2.45,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Regner, Tomas vs Framberk, Jan",
-      "home_team": "Regner, Tomas",
-      "away_team": "Framberk, Jan",
-      "match_key": "regner tomas vs framberk jan",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.58,
-      "draw": null,
-      "away": 2.25,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Wagner, Richard vs Zuzanek, Jiri",
-      "home_team": "Wagner, Richard",
-      "away_team": "Zuzanek, Jiri",
-      "match_key": "wagner richard vs zuzanek jiri",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.0,
-      "draw": null,
-      "away": 1.72,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Kaczynski Piotr vs Koczyba, Mariusz",
-      "home_team": "Kaczynski Piotr",
-      "away_team": "Koczyba, Mariusz",
-      "match_key": "kaczynski piotr vs koczyba mariusz",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.65,
-      "draw": null,
-      "away": 1.39,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Coubal, Vaclav vs Holub, Martin",
-      "home_team": "Coubal, Vaclav",
-      "away_team": "Holub, Martin",
-      "match_key": "coubal vaclav vs holub martin",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.6,
-      "draw": null,
-      "away": 1.44,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Shmyndra, Yurii vs Seliuchenko, Oleksandr",
-      "home_team": "Shmyndra, Yurii",
-      "away_team": "Seliuchenko, Oleksandr",
-      "match_key": "shmyndra yurii vs seliuchenko oleksandr",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.47,
-      "draw": null,
-      "away": 2.5,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Stanciu, Dinu vs Filip, Mihail",
-      "home_team": "Stanciu, Dinu",
-      "away_team": "Filip, Mihail",
-      "match_key": "stanciu dinu vs filip mihail",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.9,
-      "draw": null,
-      "away": 1.36,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Vasylets, Andrii vs Fedoryshyn, Ivan",
-      "home_team": "Vasylets, Andrii",
-      "away_team": "Fedoryshyn, Ivan",
-      "match_key": "vasylets andrii vs fedoryshyn ivan",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 5.8,
-      "draw": null,
-      "away": 1.1,
-      "sport": "Table Tennis"
     },
     {
       "match": "Lengal, Dominik vs Ruzicka, Jakub",
@@ -7991,9 +7871,9 @@
       "match_key": "biolek martin vs szotkowski jan",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.66,
+      "home": 1.69,
       "draw": null,
-      "away": 2.0,
+      "away": 2.05,
       "sport": "Table Tennis"
     },
     {
@@ -8003,9 +7883,9 @@
       "match_key": "pagac zbynek vs holub marek",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.48,
+      "home": 1.5,
       "draw": null,
-      "away": 2.35,
+      "away": 2.4,
       "sport": "Table Tennis"
     },
     {
@@ -8015,9 +7895,9 @@
       "match_key": "polivka martin vs tazler jakub",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.8,
+      "home": 1.83,
       "draw": null,
-      "away": 1.84,
+      "away": 1.88,
       "sport": "Table Tennis"
     },
     {
@@ -8027,9 +7907,9 @@
       "match_key": "trinta mihail vs bruzek petr",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.44,
+      "home": 1.46,
       "draw": null,
-      "away": 2.45,
+      "away": 2.55,
       "sport": "Table Tennis"
     },
     {
@@ -8039,9 +7919,9 @@
       "match_key": "urbaniec radim vs louda jiri",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.48,
+      "home": 1.5,
       "draw": null,
-      "away": 2.35,
+      "away": 2.4,
       "sport": "Table Tennis"
     },
     {
@@ -8051,9 +7931,9 @@
       "match_key": "kos kamil vs buklat lukasz",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 2.15,
+      "home": 2.2,
       "draw": null,
-      "away": 1.58,
+      "away": 1.61,
       "sport": "Table Tennis"
     },
     {
@@ -8273,46 +8153,10 @@
       "sport": "Table Tennis"
     },
     {
-      "match": "Chlad, Petr vs Jonas, Bartolomej",
-      "home_team": "Chlad, Petr",
-      "away_team": "Jonas, Bartolomej",
-      "match_key": "chlad petr vs jonas bartolomej",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 2.8,
-      "draw": null,
-      "away": 1.37,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Neuwirth Jr, Jaroslav vs Krupnik Jr, Lukas",
-      "home_team": "Neuwirth Jr, Jaroslav",
-      "away_team": "Krupnik Jr, Lukas",
-      "match_key": "neuwirth jr jaroslav vs krupnik jr lukas",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 3.8,
-      "draw": null,
-      "away": 1.22,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Benes, Pavel vs Hyza, Daniel",
-      "home_team": "Benes, Pavel",
-      "away_team": "Hyza, Daniel",
-      "match_key": "benes pavel vs hyza daniel",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 1.25,
-      "draw": null,
-      "away": 3.5,
-      "sport": "Table Tennis"
-    },
-    {
-      "match": "Vesecky, David vs Vanek, Petr",
-      "home_team": "Vesecky, David",
-      "away_team": "Vanek, Petr",
-      "match_key": "vesecky david vs vanek petr",
+      "match": "Chadima, Ondrej vs Hendrych, Ladislav",
+      "home_team": "Chadima, Ondrej",
+      "away_team": "Hendrych, Ladislav",
+      "match_key": "chadima ondrej vs hendrych ladislav",
       "bookmaker": "SportyBet",
       "competition": "",
       "home": 1.75,
@@ -8321,28 +8165,172 @@
       "sport": "Table Tennis"
     },
     {
-      "match": "Nowalinski, Maciej vs Sklensky, Miroslav",
-      "home_team": "Nowalinski, Maciej",
-      "away_team": "Sklensky, Miroslav",
-      "match_key": "nowalinski maciej vs sklensky miroslav",
+      "match": "Gruber, Josef vs Simecek, Jan Jr",
+      "home_team": "Gruber, Josef",
+      "away_team": "Simecek, Jan Jr",
+      "match_key": "gruber josef vs simecek jan jr",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.12,
+      "home": 1.4,
       "draw": null,
-      "away": 5.5,
+      "away": 2.75,
       "sport": "Table Tennis"
     },
     {
-      "match": "Portugal vs Iceland",
-      "home_team": "Portugal",
-      "away_team": "Iceland",
-      "match_key": "portugal vs iceland",
+      "match": "Marushchak, Vitalii S. vs Seliuchenko, Oleksandr",
+      "home_team": "Marushchak, Vitalii S.",
+      "away_team": "Seliuchenko, Oleksandr",
+      "match_key": "marushchak vitalii s vs seliuchenko oleksandr",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.23,
+      "home": 1.47,
       "draw": null,
-      "away": 3.6,
-      "sport": "Basketball"
+      "away": 2.5,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Titov, Alexei vs Filip, Mihail",
+      "home_team": "Titov, Alexei",
+      "away_team": "Filip, Mihail",
+      "match_key": "titov alexei vs filip mihail",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.85,
+      "draw": null,
+      "away": 1.85,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Parahailo, Yurii vs Rodin, Oleksii",
+      "home_team": "Parahailo, Yurii",
+      "away_team": "Rodin, Oleksii",
+      "match_key": "parahailo yurii vs rodin oleksii",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.4,
+      "draw": null,
+      "away": 1.5,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Maly, Petr vs Merkl, Roman",
+      "home_team": "Maly, Petr",
+      "away_team": "Merkl, Roman",
+      "match_key": "maly petr vs merkl roman",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.85,
+      "draw": null,
+      "away": 1.85,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Kaganovych, Vitalii vs Sharpai, Viktor",
+      "home_team": "Kaganovych, Vitalii",
+      "away_team": "Sharpai, Viktor",
+      "match_key": "kaganovych vitalii vs sharpai viktor",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.3,
+      "draw": null,
+      "away": 1.55,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Cizek, Marek vs Orlowski, Petr",
+      "home_team": "Cizek, Marek",
+      "away_team": "Orlowski, Petr",
+      "match_key": "cizek marek vs orlowski petr",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.4,
+      "draw": null,
+      "away": 1.5,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Stanciu, Dinu vs Titov, Alexei",
+      "home_team": "Stanciu, Dinu",
+      "away_team": "Titov, Alexei",
+      "match_key": "stanciu dinu vs titov alexei",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.3,
+      "draw": null,
+      "away": 1.55,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Fashchevskyi, Ivan vs Pytsko, Ivan",
+      "home_team": "Fashchevskyi, Ivan",
+      "away_team": "Pytsko, Ivan",
+      "match_key": "fashchevskyi ivan vs pytsko ivan",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.35,
+      "draw": null,
+      "away": 1.53,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Chalupa, Michal vs Kasnik, Sebastian",
+      "home_team": "Chalupa, Michal",
+      "away_team": "Kasnik, Sebastian",
+      "match_key": "chalupa michal vs kasnik sebastian",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.9,
+      "draw": null,
+      "away": 1.35,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Dousek, Tomas vs Zika, Tadeas",
+      "home_team": "Dousek, Tomas",
+      "away_team": "Zika, Tadeas",
+      "match_key": "dousek tomas vs zika tadeas",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.1,
+      "draw": null,
+      "away": 5.6,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Kolisnyk, Oleksandr vs Sychra, Martin",
+      "home_team": "Kolisnyk, Oleksandr",
+      "away_team": "Sychra, Martin",
+      "match_key": "kolisnyk oleksandr vs sychra martin",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.37,
+      "draw": null,
+      "away": 2.85,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Regner, Tomas vs Framberk, Jan",
+      "home_team": "Regner, Tomas",
+      "away_team": "Framberk, Jan",
+      "match_key": "regner tomas vs framberk jan",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.22,
+      "draw": null,
+      "away": 3.75,
+      "sport": "Table Tennis"
+    },
+    {
+      "match": "Wagner, Richard vs Zuzanek, Jiri",
+      "home_team": "Wagner, Richard",
+      "away_team": "Zuzanek, Jiri",
+      "match_key": "wagner richard vs zuzanek jiri",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 3.6,
+      "draw": null,
+      "away": 1.25,
+      "sport": "Table Tennis"
     },
     {
       "match": "Netherlands vs Hungary",
@@ -8375,7 +8363,7 @@
       "match_key": "ireland vs azerbaijan",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.22,
+      "home": 1.21,
       "draw": null,
       "away": 3.75,
       "sport": "Basketball"
@@ -8423,9 +8411,9 @@
       "match_key": "golden state warriors vs memphis grizzlies",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.35,
+      "home": 1.36,
       "draw": null,
-      "away": 2.85,
+      "away": 2.8,
       "sport": "Basketball"
     },
     {
@@ -8777,15 +8765,15 @@
       "sport": "Basketball"
     },
     {
-      "match": "Bulgaria vs Denmark",
-      "home_team": "Bulgaria",
-      "away_team": "Denmark",
-      "match_key": "bulgaria vs denmark",
+      "match": "Portugal vs Iceland",
+      "home_team": "Portugal",
+      "away_team": "Iceland",
+      "match_key": "portugal vs iceland",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.01,
+      "home": 1.3,
       "draw": null,
-      "away": 11.0,
+      "away": 3.2,
       "sport": "Basketball"
     },
     {
@@ -8795,9 +8783,9 @@
       "match_key": "stade malien de bamako bc vs djoliba",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.03,
+      "home": 1.02,
       "draw": null,
-      "away": 7.75,
+      "away": 8.25,
       "sport": "Basketball"
     },
     {
@@ -8819,7 +8807,7 @@
       "match_key": "los angeles rams vs san francisco 49ers",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.5,
+      "home": 1.49,
       "draw": null,
       "away": 2.45,
       "sport": "American Football"
@@ -9581,6 +9569,18 @@
       "sport": "Cricket"
     },
     {
+      "match": "Pakistan SRL vs South Africa SRL",
+      "home_team": "Pakistan SRL",
+      "away_team": "South Africa SRL",
+      "match_key": "pakistan srl vs south africa srl",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 2.2,
+      "draw": null,
+      "away": 1.65,
+      "sport": "Cricket"
+    },
+    {
       "match": "San Francisco Unicorns vs Los Angeles Knight Riders",
       "home_team": "San Francisco Unicorns",
       "away_team": "Los Angeles Knight Riders",
@@ -9641,13 +9641,25 @@
       "sport": "Cricket"
     },
     {
+      "match": "Jaffna Kings vs Galle Gallants",
+      "home_team": "Jaffna Kings",
+      "away_team": "Galle Gallants",
+      "match_key": "jaffna kings vs galle gallants",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.85,
+      "draw": null,
+      "away": 1.85,
+      "sport": "Cricket"
+    },
+    {
       "match": "England vs India",
       "home_team": "England",
       "away_team": "India",
       "match_key": "england vs india",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 11.0,
+      "home": 11.5,
       "draw": null,
       "away": 1.04,
       "sport": "Cricket"
@@ -9671,9 +9683,21 @@
       "match_key": "central districts srl vs auckland srl",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.15,
+      "home": 1.18,
       "draw": null,
-      "away": 5.2,
+      "away": 4.6,
+      "sport": "Cricket"
+    },
+    {
+      "match": "South Africa SRL vs Australia SRL",
+      "home_team": "South Africa SRL",
+      "away_team": "Australia SRL",
+      "match_key": "south africa srl vs australia srl",
+      "bookmaker": "SportyBet",
+      "competition": "",
+      "home": 1.75,
+      "draw": null,
+      "away": 2.05,
       "sport": "Cricket"
     },
     {
@@ -9683,21 +9707,9 @@
       "match_key": "ruby white town legends vs karaikal knights",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 16.5,
+      "home": 11.0,
       "draw": null,
-      "away": 1.01,
-      "sport": "Cricket"
-    },
-    {
-      "match": "Gibraltar vs Norway",
-      "home_team": "Gibraltar",
-      "away_team": "Norway",
-      "match_key": "gibraltar vs norway",
-      "bookmaker": "SportyBet",
-      "competition": "",
-      "home": 3.0,
-      "draw": null,
-      "away": 1.37,
+      "away": 1.03,
       "sport": "Cricket"
     },
     {
@@ -9719,9 +9731,9 @@
       "match_key": "hokkaido nipponham fighters vs fukuoka hawks",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 1.62,
+      "home": 1.63,
       "draw": null,
-      "away": 2.15,
+      "away": 2.2,
       "sport": "Baseball"
     },
     {
@@ -10931,9 +10943,9 @@
       "match_key": "bulgaria vs poland",
       "bookmaker": "SportyBet",
       "competition": "",
-      "home": 3.5,
+      "home": 3.4,
       "draw": null,
-      "away": 1.28,
+      "away": 1.29,
       "sport": "Volleyball"
     },
     {
@@ -10957,7 +10969,7 @@
       "competition": "",
       "home": 1.1,
       "draw": null,
-      "away": 6.25,
+      "away": 6.1,
       "sport": "Volleyball"
     },
     {
@@ -10993,7 +11005,7 @@
       "competition": "Europe - UEFA Champions League Qualifying",
       "home": "1.73",
       "draw": "4.33",
-      "away": "3.75",
+      "away": "4",
       "sport": "Football"
     },
     {
@@ -11003,9 +11015,9 @@
       "match_key": "iberia 1999 vs flora",
       "bookmaker": "AbaBet",
       "competition": "Europe - UEFA Champions League Qualifying",
-      "home": "1.53",
-      "draw": "4.5",
-      "away": "5",
+      "home": "",
+      "draw": "",
+      "away": "",
       "sport": "Football"
     },
     {
@@ -11069,18 +11081,6 @@
       "sport": "Football"
     },
     {
-      "match": "Larne vs Tre Fiori",
-      "home_team": "Larne",
-      "away_team": "Tre Fiori",
-      "match_key": "larne vs tre fiori",
-      "bookmaker": "AbaBet",
-      "competition": "Europe - UEFA Champions League Qualifying",
-      "home": "1.14",
-      "draw": "7",
-      "away": "15",
-      "sport": "Football"
-    },
-    {
       "match": "Shamrock Rovers vs Floriana",
       "home_team": "Shamrock Rovers",
       "away_team": "Floriana",
@@ -11090,6 +11090,18 @@
       "home": "1.28",
       "draw": "5",
       "away": "7.5",
+      "sport": "Football"
+    },
+    {
+      "match": "Larne vs Tre Fiori",
+      "home_team": "Larne",
+      "away_team": "Tre Fiori",
+      "match_key": "larne vs tre fiori",
+      "bookmaker": "AbaBet",
+      "competition": "Europe - UEFA Champions League Qualifying",
+      "home": "1.14",
+      "draw": "7",
+      "away": "15",
       "sport": "Football"
     },
     {
@@ -11189,30 +11201,6 @@
       "sport": "Football"
     },
     {
-      "match": "Estudiantes LP (R) vs Colon (R)",
-      "home_team": "Estudiantes LP (R)",
-      "away_team": "Colon (R)",
-      "match_key": "estudiantes lp r vs colon r",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Reserve League",
-      "home": "",
-      "draw": "",
-      "away": "",
-      "sport": "Football"
-    },
-    {
-      "match": "Union Santa Fe(R) vs Gimnasia LP (R)",
-      "home_team": "Union Santa Fe(R)",
-      "away_team": "Gimnasia LP (R)",
-      "match_key": "union santa fer vs gimnasia lp r",
-      "bookmaker": "AbaBet",
-      "competition": "Argentina - Reserve League",
-      "home": "2.05",
-      "draw": "3.1",
-      "away": "3.5",
-      "sport": "Football"
-    },
-    {
       "match": "At. Tucuman (R) vs Aldosivi (R)",
       "home_team": "At. Tucuman (R)",
       "away_team": "Aldosivi (R)",
@@ -11225,13 +11213,37 @@
       "sport": "Football"
     },
     {
+      "match": "Union Santa Fe(R) vs Gimnasia LP (R)",
+      "home_team": "Union Santa Fe(R)",
+      "away_team": "Gimnasia LP (R)",
+      "match_key": "union santa fer vs gimnasia lp r",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Reserve League",
+      "home": "2.1",
+      "draw": "3.1",
+      "away": "3.5",
+      "sport": "Football"
+    },
+    {
+      "match": "Estudiantes LP (R) vs Colon (R)",
+      "home_team": "Estudiantes LP (R)",
+      "away_team": "Colon (R)",
+      "match_key": "estudiantes lp r vs colon r",
+      "bookmaker": "AbaBet",
+      "competition": "Argentina - Reserve League",
+      "home": "1.67",
+      "draw": "3.75",
+      "away": "4.33",
+      "sport": "Football"
+    },
+    {
       "match": "Rosario Central (R) vs San Lorenzo (R)",
       "home_team": "Rosario Central (R)",
       "away_team": "San Lorenzo (R)",
       "match_key": "rosario central r vs san lorenzo r",
       "bookmaker": "AbaBet",
       "competition": "Argentina - Reserve League",
-      "home": "2.2",
+      "home": "2.1",
       "draw": "3.5",
       "away": "3",
       "sport": "Football"
@@ -11303,9 +11315,9 @@
       "match_key": "tampereen ilves ii vs grankulla ifk",
       "bookmaker": "AbaBet",
       "competition": "Finland - Kakkonen Group B",
-      "home": "1.62",
-      "draw": "4.5",
-      "away": "4.5",
+      "home": "1.67",
+      "draw": "4.33",
+      "away": "4",
       "sport": "Football"
     },
     {
@@ -11357,18 +11369,6 @@
       "sport": "Football"
     },
     {
-      "match": "Falkirk vs Ayr United",
-      "home_team": "Falkirk",
-      "away_team": "Ayr United",
-      "match_key": "falkirk vs ayr",
-      "bookmaker": "AbaBet",
-      "competition": "Scotland - League Cup",
-      "home": "1.44",
-      "draw": "4.2",
-      "away": "5.5",
-      "sport": "Football"
-    },
-    {
       "match": "Cove Rangers FC vs East Kilbride",
       "home_team": "Cove Rangers FC",
       "away_team": "East Kilbride",
@@ -11405,66 +11405,6 @@
       "sport": "Football"
     },
     {
-      "match": "Kelty Hearts vs Queen's Park",
-      "home_team": "Kelty Hearts",
-      "away_team": "Queen's Park",
-      "match_key": "kelty hearts vs queens park",
-      "bookmaker": "AbaBet",
-      "competition": "Scotland - League Cup",
-      "home": "4",
-      "draw": "3.5",
-      "away": "1.73",
-      "sport": "Football"
-    },
-    {
-      "match": "East Fife vs Greenock Morton",
-      "home_team": "East Fife",
-      "away_team": "Greenock Morton",
-      "match_key": "east fife vs greenock morton",
-      "bookmaker": "AbaBet",
-      "competition": "Scotland - League Cup",
-      "home": "2.7",
-      "draw": "3.7",
-      "away": "2.1",
-      "sport": "Football"
-    },
-    {
-      "match": "Elgin City vs Peterhead",
-      "home_team": "Elgin City",
-      "away_team": "Peterhead",
-      "match_key": "elgin vs peterhead",
-      "bookmaker": "AbaBet",
-      "competition": "Scotland - League Cup",
-      "home": "2.88",
-      "draw": "3.6",
-      "away": "2.05",
-      "sport": "Football"
-    },
-    {
-      "match": "Dunfermline Athletic vs Dumbarton",
-      "home_team": "Dunfermline Athletic",
-      "away_team": "Dumbarton",
-      "match_key": "dunfermline athletic vs dumbarton",
-      "bookmaker": "AbaBet",
-      "competition": "Scotland - League Cup",
-      "home": "1.17",
-      "draw": "6.5",
-      "away": "12",
-      "sport": "Football"
-    },
-    {
-      "match": "Edinburgh City vs Alloa Athletic",
-      "home_team": "Edinburgh City",
-      "away_team": "Alloa Athletic",
-      "match_key": "edinburgh vs alloa athletic",
-      "bookmaker": "AbaBet",
-      "competition": "Scotland - League Cup",
-      "home": "5",
-      "draw": "4.1",
-      "away": "1.5",
-      "sport": "Football"
-    },
-    {
       "match": "Forfar Athletic vs Partick Thistle",
       "home_team": "Forfar Athletic",
       "away_team": "Partick Thistle",
@@ -11474,6 +11414,18 @@
       "home": "13",
       "draw": "5.75",
       "away": "1.18",
+      "sport": "Football"
+    },
+    {
+      "match": "Kelty Hearts vs Queen's Park",
+      "home_team": "Kelty Hearts",
+      "away_team": "Queen's Park",
+      "match_key": "kelty hearts vs queens park",
+      "bookmaker": "AbaBet",
+      "competition": "Scotland - League Cup",
+      "home": "4",
+      "draw": "3.5",
+      "away": "1.73",
       "sport": "Football"
     },
     {
@@ -11525,6 +11477,66 @@
       "sport": "Football"
     },
     {
+      "match": "Edinburgh City vs Alloa Athletic",
+      "home_team": "Edinburgh City",
+      "away_team": "Alloa Athletic",
+      "match_key": "edinburgh vs alloa athletic",
+      "bookmaker": "AbaBet",
+      "competition": "Scotland - League Cup",
+      "home": "5",
+      "draw": "4.1",
+      "away": "1.5",
+      "sport": "Football"
+    },
+    {
+      "match": "Dunfermline Athletic vs Dumbarton",
+      "home_team": "Dunfermline Athletic",
+      "away_team": "Dumbarton",
+      "match_key": "dunfermline athletic vs dumbarton",
+      "bookmaker": "AbaBet",
+      "competition": "Scotland - League Cup",
+      "home": "1.17",
+      "draw": "6.5",
+      "away": "12",
+      "sport": "Football"
+    },
+    {
+      "match": "Elgin City vs Peterhead",
+      "home_team": "Elgin City",
+      "away_team": "Peterhead",
+      "match_key": "elgin vs peterhead",
+      "bookmaker": "AbaBet",
+      "competition": "Scotland - League Cup",
+      "home": "2.88",
+      "draw": "3.6",
+      "away": "2.05",
+      "sport": "Football"
+    },
+    {
+      "match": "East Fife vs Greenock Morton",
+      "home_team": "East Fife",
+      "away_team": "Greenock Morton",
+      "match_key": "east fife vs greenock morton",
+      "bookmaker": "AbaBet",
+      "competition": "Scotland - League Cup",
+      "home": "2.7",
+      "draw": "3.7",
+      "away": "2.1",
+      "sport": "Football"
+    },
+    {
+      "match": "Falkirk vs Ayr United",
+      "home_team": "Falkirk",
+      "away_team": "Ayr United",
+      "match_key": "falkirk vs ayr",
+      "bookmaker": "AbaBet",
+      "competition": "Scotland - League Cup",
+      "home": "1.44",
+      "draw": "4.2",
+      "away": "5.5",
+      "sport": "Football"
+    },
+    {
       "match": "Spartak Trnava vs Besiktas",
       "home_team": "Spartak Trnava",
       "away_team": "Besiktas",
@@ -11543,9 +11555,33 @@
       "match_key": "belupo vs hiroshima",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "",
-      "draw": "",
-      "away": "",
+      "home": "2.75",
+      "draw": "3.5",
+      "away": "2.3",
+      "sport": "Football"
+    },
+    {
+      "match": "Randers FC vs Notts County",
+      "home_team": "Randers FC",
+      "away_team": "Notts County",
+      "match_key": "randers vs notts county",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "1.14",
+      "draw": "7.5",
+      "away": "12",
+      "sport": "Football"
+    },
+    {
+      "match": "Darmstadt vs FC 08 Homburg",
+      "home_team": "Darmstadt",
+      "away_team": "FC 08 Homburg",
+      "match_key": "darmstadt vs 08 homburg",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "1.25",
+      "draw": "6",
+      "away": "8.5",
       "sport": "Football"
     },
     {
@@ -11561,39 +11597,15 @@
       "sport": "Football"
     },
     {
-      "match": "Darmstadt vs FC 08 Homburg",
-      "home_team": "Darmstadt",
-      "away_team": "FC 08 Homburg",
-      "match_key": "darmstadt vs 08 homburg",
+      "match": "Sporting Lisbon vs Celtic",
+      "home_team": "Sporting Lisbon",
+      "away_team": "Celtic",
+      "match_key": "sporting lisbon vs celtic",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "1.2",
-      "draw": "7",
-      "away": "9.5",
-      "sport": "Football"
-    },
-    {
-      "match": "Randers FC vs Notts County",
-      "home_team": "Randers FC",
-      "away_team": "Notts County",
-      "match_key": "randers vs notts county",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "1.44",
-      "draw": "4.33",
-      "away": "6",
-      "sport": "Football"
-    },
-    {
-      "match": "BSV Eintracht Mahlsdorf vs Fsv 63 Luckenwalde",
-      "home_team": "BSV Eintracht Mahlsdorf",
-      "away_team": "Fsv 63 Luckenwalde",
-      "match_key": "bsv eintracht mahlsdorf vs fsv 63 luckenwalde",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "3.25",
-      "draw": "4",
-      "away": "1.8",
+      "home": "1.67",
+      "draw": "3.8",
+      "away": "4.33",
       "sport": "Football"
     },
     {
@@ -11609,15 +11621,15 @@
       "sport": "Football"
     },
     {
-      "match": "Sporting Lisbon vs Celtic",
-      "home_team": "Sporting Lisbon",
-      "away_team": "Celtic",
-      "match_key": "sporting lisbon vs celtic",
+      "match": "BSV Eintracht Mahlsdorf vs Fsv 63 Luckenwalde",
+      "home_team": "BSV Eintracht Mahlsdorf",
+      "away_team": "Fsv 63 Luckenwalde",
+      "match_key": "bsv eintracht mahlsdorf vs fsv 63 luckenwalde",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "1.67",
-      "draw": "3.8",
-      "away": "4.33",
+      "home": "3.25",
+      "draw": "4",
+      "away": "1.8",
       "sport": "Football"
     },
     {
@@ -11669,6 +11681,18 @@
       "sport": "Football"
     },
     {
+      "match": "Alfreton Town vs Boston United",
+      "home_team": "Alfreton Town",
+      "away_team": "Boston United",
+      "match_key": "alfreton town vs boston",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "4",
+      "draw": "4.33",
+      "away": "1.6",
+      "sport": "Football"
+    },
+    {
       "match": "Hyde United vs AFC Fylde",
       "home_team": "Hyde United",
       "away_team": "AFC Fylde",
@@ -11693,30 +11717,6 @@
       "sport": "Football"
     },
     {
-      "match": "Bamber Bridge vs Preston",
-      "home_team": "Bamber Bridge",
-      "away_team": "Preston",
-      "match_key": "bamber bridge vs preston",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "13",
-      "draw": "9",
-      "away": "1.1",
-      "sport": "Football"
-    },
-    {
-      "match": "Alfreton Town vs Boston United",
-      "home_team": "Alfreton Town",
-      "away_team": "Boston United",
-      "match_key": "alfreton town vs boston",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "4",
-      "draw": "4.33",
-      "away": "1.6",
-      "sport": "Football"
-    },
-    {
       "match": "Egham Town vs Chertsey Town",
       "home_team": "Egham Town",
       "away_team": "Chertsey Town",
@@ -11726,6 +11726,18 @@
       "home": "3",
       "draw": "3.9",
       "away": "1.9",
+      "sport": "Football"
+    },
+    {
+      "match": "Bamber Bridge vs Preston",
+      "home_team": "Bamber Bridge",
+      "away_team": "Preston",
+      "match_key": "bamber bridge vs preston",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "13",
+      "draw": "9",
+      "away": "1.1",
       "sport": "Football"
     },
     {
@@ -11741,75 +11753,15 @@
       "sport": "Football"
     },
     {
-      "match": "Hebburn Town vs Gateshead",
-      "home_team": "Hebburn Town",
-      "away_team": "Gateshead",
-      "match_key": "hebburn town vs gateshead",
+      "match": "Redcar Athletic vs Hartlepool",
+      "home_team": "Redcar Athletic",
+      "away_team": "Hartlepool",
+      "match_key": "redcar athletic vs hartlepool",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "3.75",
-      "draw": "4.1",
-      "away": "1.67",
-      "sport": "Football"
-    },
-    {
-      "match": "Stockton Town vs Darlington",
-      "home_team": "Stockton Town",
-      "away_team": "Darlington",
-      "match_key": "stockton town vs darlington",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "3.8",
-      "draw": "4",
-      "away": "1.67",
-      "sport": "Football"
-    },
-    {
-      "match": "Sligo Rovers vs Coleraine",
-      "home_team": "Sligo Rovers",
-      "away_team": "Coleraine",
-      "match_key": "sligo rovers vs coleraine",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "2.9",
-      "draw": "4.1",
-      "away": "1.91",
-      "sport": "Football"
-    },
-    {
-      "match": "Real Bedford vs Boreham Wood",
-      "home_team": "Real Bedford",
-      "away_team": "Boreham Wood",
-      "match_key": "real bedford vs boreham wood",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "5.75",
-      "draw": "5",
-      "away": "1.36",
-      "sport": "Football"
-    },
-    {
-      "match": "Plymouth Parkway vs Torquay",
-      "home_team": "Plymouth Parkway",
-      "away_team": "Torquay",
-      "match_key": "plymouth parkway vs torquay",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "4.2",
-      "draw": "4.5",
-      "away": "1.53",
-      "sport": "Football"
-    },
-    {
-      "match": "St. Patrick's vs Doncaster Rovers",
-      "home_team": "St. Patrick's",
-      "away_team": "Doncaster Rovers",
-      "match_key": "st patricks vs doncaster rovers",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "2.7",
-      "draw": "3.8",
-      "away": "2.1",
+      "home": "15",
+      "draw": "6.5",
+      "away": "1.12",
       "sport": "Football"
     },
     {
@@ -11825,15 +11777,27 @@
       "sport": "Football"
     },
     {
-      "match": "Redcar Athletic vs Hartlepool",
-      "home_team": "Redcar Athletic",
-      "away_team": "Hartlepool",
-      "match_key": "redcar athletic vs hartlepool",
+      "match": "Carmarthen Town vs Briton Ferry Llansawel",
+      "home_team": "Carmarthen Town",
+      "away_team": "Briton Ferry Llansawel",
+      "match_key": "carmarthen town vs briton ferry llansawel",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "15",
-      "draw": "6.5",
-      "away": "1.12",
+      "home": "3.9",
+      "draw": "4",
+      "away": "1.65",
+      "sport": "Football"
+    },
+    {
+      "match": "Hebburn Town vs Gateshead",
+      "home_team": "Hebburn Town",
+      "away_team": "Gateshead",
+      "match_key": "hebburn town vs gateshead",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "3.75",
+      "draw": "4.1",
+      "away": "1.67",
       "sport": "Football"
     },
     {
@@ -11849,6 +11813,66 @@
       "sport": "Football"
     },
     {
+      "match": "Plymouth Parkway vs Torquay",
+      "home_team": "Plymouth Parkway",
+      "away_team": "Torquay",
+      "match_key": "plymouth parkway vs torquay",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "4.2",
+      "draw": "4.5",
+      "away": "1.53",
+      "sport": "Football"
+    },
+    {
+      "match": "Real Bedford vs Boreham Wood",
+      "home_team": "Real Bedford",
+      "away_team": "Boreham Wood",
+      "match_key": "real bedford vs boreham wood",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "5.75",
+      "draw": "5",
+      "away": "1.36",
+      "sport": "Football"
+    },
+    {
+      "match": "Sligo Rovers vs Coleraine",
+      "home_team": "Sligo Rovers",
+      "away_team": "Coleraine",
+      "match_key": "sligo rovers vs coleraine",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "2.9",
+      "draw": "4.1",
+      "away": "1.91",
+      "sport": "Football"
+    },
+    {
+      "match": "Stockton Town vs Darlington",
+      "home_team": "Stockton Town",
+      "away_team": "Darlington",
+      "match_key": "stockton town vs darlington",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "3.8",
+      "draw": "4",
+      "away": "1.67",
+      "sport": "Football"
+    },
+    {
+      "match": "St. Patrick's vs Doncaster Rovers",
+      "home_team": "St. Patrick's",
+      "away_team": "Doncaster Rovers",
+      "match_key": "st patricks vs doncaster rovers",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "2.7",
+      "draw": "3.8",
+      "away": "2.1",
+      "sport": "Football"
+    },
+    {
       "match": "Marine vs Colwyn Bay",
       "home_team": "Marine",
       "away_team": "Colwyn Bay",
@@ -11861,27 +11885,51 @@
       "sport": "Football"
     },
     {
-      "match": "Carmarthen Town vs Briton Ferry Llansawel",
-      "home_team": "Carmarthen Town",
-      "away_team": "Briton Ferry Llansawel",
-      "match_key": "carmarthen town vs briton ferry llansawel",
+      "match": "Hitchin Town vs Dag and Red",
+      "home_team": "Hitchin Town",
+      "away_team": "Dag and Red",
+      "match_key": "hitchin town vs dag and red",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "3.9",
+      "home": "2.75",
       "draw": "4",
-      "away": "1.65",
+      "away": "2",
       "sport": "Football"
     },
     {
-      "match": "United of Manchester vs Rochdale",
-      "home_team": "United of Manchester",
-      "away_team": "Rochdale",
-      "match_key": "of manchester vs rochdale",
+      "match": "Burgess Hill Town vs Sevenoaks Town",
+      "home_team": "Burgess Hill Town",
+      "away_team": "Sevenoaks Town",
+      "match_key": "burgess hill town vs sevenoaks town",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "4.75",
-      "draw": "4.33",
-      "away": "1.48",
+      "home": "1.44",
+      "draw": "4.5",
+      "away": "5",
+      "sport": "Football"
+    },
+    {
+      "match": "Matlock Town vs Quorn",
+      "home_team": "Matlock Town",
+      "away_team": "Quorn",
+      "match_key": "matlock town vs quorn",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "2.75",
+      "draw": "3.7",
+      "away": "2.05",
+      "sport": "Football"
+    },
+    {
+      "match": "Evesham United vs Worcester City",
+      "home_team": "Evesham United",
+      "away_team": "Worcester City",
+      "match_key": "evesham vs worcester",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "3.2",
+      "draw": "3.5",
+      "away": "1.95",
       "sport": "Football"
     },
     {
@@ -11909,18 +11957,6 @@
       "sport": "Football"
     },
     {
-      "match": "Barry Town United vs Trethomas Bluebirds",
-      "home_team": "Barry Town United",
-      "away_team": "Trethomas Bluebirds",
-      "match_key": "barry town vs trethomas bluebirds",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "1.2",
-      "draw": "5.5",
-      "away": "9.5",
-      "sport": "Football"
-    },
-    {
       "match": "Tonbridge vs Sutton",
       "home_team": "Tonbridge",
       "away_team": "Sutton",
@@ -11930,42 +11966,6 @@
       "home": "3.3",
       "draw": "3.6",
       "away": "1.85",
-      "sport": "Football"
-    },
-    {
-      "match": "Canvey Island vs Chelmsford City",
-      "home_team": "Canvey Island",
-      "away_team": "Chelmsford City",
-      "match_key": "canvey island vs chelmsford",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "6",
-      "draw": "5",
-      "away": "1.33",
-      "sport": "Football"
-    },
-    {
-      "match": "Barnet vs Watford",
-      "home_team": "Barnet",
-      "away_team": "Watford",
-      "match_key": "barnet vs watford",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "1.62",
-      "draw": "4.2",
-      "away": "3.8",
-      "sport": "Football"
-    },
-    {
-      "match": "Evesham United vs Worcester City",
-      "home_team": "Evesham United",
-      "away_team": "Worcester City",
-      "match_key": "evesham vs worcester",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "3.2",
-      "draw": "3.5",
-      "away": "1.95",
       "sport": "Football"
     },
     {
@@ -12005,63 +12005,15 @@
       "sport": "Football"
     },
     {
-      "match": "Cork city vs Cardiff",
-      "home_team": "Cork city",
-      "away_team": "Cardiff",
-      "match_key": "cork vs cardiff",
+      "match": "United of Manchester vs Rochdale",
+      "home_team": "United of Manchester",
+      "away_team": "Rochdale",
+      "match_key": "of manchester vs rochdale",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "7.5",
-      "draw": "5.5",
-      "away": "1.27",
-      "sport": "Football"
-    },
-    {
-      "match": "Matlock Town vs Quorn",
-      "home_team": "Matlock Town",
-      "away_team": "Quorn",
-      "match_key": "matlock town vs quorn",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "2.75",
-      "draw": "3.7",
-      "away": "2.05",
-      "sport": "Football"
-    },
-    {
-      "match": "Cliftonville vs Moyola Park",
-      "home_team": "Cliftonville",
-      "away_team": "Moyola Park",
-      "match_key": "cliftonville vs moyola park",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "1.18",
-      "draw": "6.25",
-      "away": "9.5",
-      "sport": "Football"
-    },
-    {
-      "match": "Kingstonian vs Wingate & Finchley",
-      "home_team": "Kingstonian",
-      "away_team": "Wingate & Finchley",
-      "match_key": "kingstonian vs wingate finchley",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "3.5",
-      "draw": "4",
-      "away": "1.73",
-      "sport": "Football"
-    },
-    {
-      "match": "Bedfont Sports vs St Albans City",
-      "home_team": "Bedfont Sports",
-      "away_team": "St Albans City",
-      "match_key": "bedfont vs st albans",
-      "bookmaker": "AbaBet",
-      "competition": "World - Club Friendlies",
-      "home": "4.33",
-      "draw": "4.2",
-      "away": "1.53",
+      "home": "4.75",
+      "draw": "4.33",
+      "away": "1.48",
       "sport": "Football"
     },
     {
@@ -12077,27 +12029,87 @@
       "sport": "Football"
     },
     {
-      "match": "Burgess Hill Town vs Sevenoaks Town",
-      "home_team": "Burgess Hill Town",
-      "away_team": "Sevenoaks Town",
-      "match_key": "burgess hill town vs sevenoaks town",
+      "match": "Bedfont Sports vs St Albans City",
+      "home_team": "Bedfont Sports",
+      "away_team": "St Albans City",
+      "match_key": "bedfont vs st albans",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "1.44",
-      "draw": "4.5",
-      "away": "5",
+      "home": "4.33",
+      "draw": "4.2",
+      "away": "1.53",
       "sport": "Football"
     },
     {
-      "match": "Hitchin Town vs Dag and Red",
-      "home_team": "Hitchin Town",
-      "away_team": "Dag and Red",
-      "match_key": "hitchin town vs dag and red",
+      "match": "Kingstonian vs Wingate & Finchley",
+      "home_team": "Kingstonian",
+      "away_team": "Wingate & Finchley",
+      "match_key": "kingstonian vs wingate finchley",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "2.75",
+      "home": "3.5",
       "draw": "4",
-      "away": "2",
+      "away": "1.73",
+      "sport": "Football"
+    },
+    {
+      "match": "Cliftonville vs Moyola Park",
+      "home_team": "Cliftonville",
+      "away_team": "Moyola Park",
+      "match_key": "cliftonville vs moyola park",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "1.18",
+      "draw": "6.25",
+      "away": "9.5",
+      "sport": "Football"
+    },
+    {
+      "match": "Cork city vs Cardiff",
+      "home_team": "Cork city",
+      "away_team": "Cardiff",
+      "match_key": "cork vs cardiff",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "7.5",
+      "draw": "5.5",
+      "away": "1.27",
+      "sport": "Football"
+    },
+    {
+      "match": "Barry Town United vs Trethomas Bluebirds",
+      "home_team": "Barry Town United",
+      "away_team": "Trethomas Bluebirds",
+      "match_key": "barry town vs trethomas bluebirds",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "1.2",
+      "draw": "5.5",
+      "away": "9.5",
+      "sport": "Football"
+    },
+    {
+      "match": "Canvey Island vs Chelmsford City",
+      "home_team": "Canvey Island",
+      "away_team": "Chelmsford City",
+      "match_key": "canvey island vs chelmsford",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "6",
+      "draw": "5",
+      "away": "1.33",
+      "sport": "Football"
+    },
+    {
+      "match": "Barnet vs Watford",
+      "home_team": "Barnet",
+      "away_team": "Watford",
+      "match_key": "barnet vs watford",
+      "bookmaker": "AbaBet",
+      "competition": "World - Club Friendlies",
+      "home": "1.62",
+      "draw": "4.2",
+      "away": "3.8",
       "sport": "Football"
     },
     {
