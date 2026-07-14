@@ -1,7 +1,8 @@
 {
-  "last_updated": "2026-07-14 12:22 UTC",
-  "total_matches": 1250,
+  "last_updated": "2026-07-14 12:23 UTC",
+  "total_matches": 1252,
   "bookmakers_scraped": [
+    "ChampionBet",
     "BetPawa",
     "Fortebet",
     "SportyBet",
@@ -78,38 +79,6 @@
       ]
     },
     {
-      "match": "nk slaven belupo vs sanfrecce hiroshima",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 8.65,
-      "profit_ugx": 8646,
-      "total_stake": 100000,
-      "arb_sum": 0.9135,
-      "bets": [
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Home",
-          "odd": 2.962,
-          "stake": 36956,
-          "win": 109464
-        },
-        {
-          "bookmaker": "BetPawa",
-          "outcome": "Draw",
-          "odd": 3.64,
-          "stake": 30073,
-          "win": 109466
-        },
-        {
-          "bookmaker": "22Bet",
-          "outcome": "Away",
-          "odd": 3.32,
-          "stake": 32971,
-          "win": 109464
-        }
-      ]
-    },
-    {
       "match": "pfc levski sofia vs fk borac banja luka",
       "sport": "Football",
       "type": "3-way",
@@ -142,6 +111,38 @@
       ]
     },
     {
+      "match": "nk slaven belupo vs sanfrecce hiroshima",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 6.11,
+      "profit_ugx": 6109,
+      "total_stake": 100000,
+      "arb_sum": 0.9389,
+      "bets": [
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Home",
+          "odd": 2.755,
+          "stake": 38659,
+          "win": 106506
+        },
+        {
+          "bookmaker": "BetPawa",
+          "outcome": "Draw",
+          "odd": 3.64,
+          "stake": 29260,
+          "win": 106506
+        },
+        {
+          "bookmaker": "22Bet",
+          "outcome": "Away",
+          "odd": 3.32,
+          "stake": 32080,
+          "win": 106506
+        }
+      ]
+    },
+    {
       "match": "shamrock vs floriana",
       "sport": "Football",
       "type": "3-way",
@@ -170,6 +171,38 @@
           "odd": 10.0,
           "stake": 10558,
           "win": 105580
+        }
+      ]
+    },
+    {
+      "match": "lokomotiv moscow vs cska moscow",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 3.45,
+      "profit_ugx": 3448,
+      "total_stake": 100000,
+      "arb_sum": 0.9655,
+      "bets": [
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Home",
+          "odd": 2.5,
+          "stake": 41429,
+          "win": 103572
+        },
+        {
+          "bookmaker": "ChampionBet",
+          "outcome": "Draw",
+          "odd": 3.43,
+          "stake": 30196,
+          "win": 103572
+        },
+        {
+          "bookmaker": "22Bet",
+          "outcome": "Away",
+          "odd": 3.65,
+          "stake": 28376,
+          "win": 103572
         }
       ]
     },
@@ -208,15 +241,27 @@
   ],
   "raw_odds": [
     {
+      "match": "Lokomotiv Moscow vs CSKA Moscow",
+      "home_team": "Lokomotiv Moscow",
+      "away_team": "CSKA Moscow",
+      "match_key": "lokomotiv moscow vs cska moscow",
+      "bookmaker": "ChampionBet",
+      "competition": "FRIENDLY Club International",
+      "home": 2.39,
+      "draw": 3.43,
+      "away": 2.5,
+      "sport": "Football"
+    },
+    {
       "match": "FK Dukla Bansk\u00e1 Bystrica vs Hapoel Tel Aviv",
       "home_team": "FK Dukla Bansk\u00e1 Bystrica",
       "away_team": "Hapoel Tel Aviv",
       "match_key": "fk dukla bansk bystrica vs hapoel tel aviv",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendlies",
-      "home": 5.37,
-      "draw": 4.1,
-      "away": 1.51,
+      "home": 5.56,
+      "draw": 4.11,
+      "away": 1.5,
       "sport": "Football"
     },
     {
@@ -262,9 +307,9 @@
       "match_key": "rfc seraing vs mvv maastricht",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendlies",
-      "home": 1.85,
-      "draw": 3.9,
-      "away": 3.41,
+      "home": 1.89,
+      "draw": 3.88,
+      "away": 3.3,
       "sport": "Football"
     },
     {
@@ -274,9 +319,9 @@
       "match_key": "winterthur vs brhl st gallen",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendlies",
-      "home": 1.15,
-      "draw": 7.07,
-      "away": 12.67,
+      "home": 1.17,
+      "draw": 6.8,
+      "away": 11.66,
       "sport": "Football"
     },
     {
@@ -456,7 +501,7 @@
       "competition": "Football / International / UEFA Champions League",
       "home": 1.32,
       "draw": 5.12,
-      "away": 10.58,
+      "away": 10.48,
       "sport": "Football"
     },
     {
@@ -5794,9 +5839,9 @@
       "match_key": "real oruro vs always ready",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 3.3,
+      "home": 3.4,
       "draw": 4.25,
-      "away": 1.82,
+      "away": 1.8,
       "sport": "Football"
     },
     {
@@ -5881,6 +5926,18 @@
       "home": 4.95,
       "draw": 4.05,
       "away": 1.51,
+      "sport": "Football"
+    },
+    {
+      "match": "Blooming vs GV San Jose",
+      "home_team": "Blooming",
+      "away_team": "GV San Jose",
+      "match_key": "blooming vs gv san jose",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 1.48,
+      "draw": 4.4,
+      "away": 5.4,
       "sport": "Football"
     },
     {
@@ -11386,9 +11443,9 @@
       "match_key": "boroondara eagles w vs preston lions w",
       "bookmaker": "AbaBet",
       "competition": "Australia - NPL Victoria Women",
-      "home": "41",
-      "draw": "7",
-      "away": "1.1",
+      "home": "81",
+      "draw": "13",
+      "away": "1.04",
       "sport": "Football"
     },
     {
@@ -11662,9 +11719,9 @@
       "match_key": "thai nguyen w vs ho chi minh w",
       "bookmaker": "AbaBet",
       "competition": "Vietnam - National League Women",
-      "home": "5.5",
-      "draw": "1.73",
-      "away": "3.2",
+      "home": "6.5",
+      "draw": "1.67",
+      "away": "3.25",
       "sport": "Football"
     },
     {
@@ -11674,9 +11731,9 @@
       "match_key": "dordrecht 90 vs borussia dortmund ii",
       "bookmaker": "AbaBet",
       "competition": "World - Club Friendlies",
-      "home": "3.6",
-      "draw": "3.5",
-      "away": "2",
+      "home": "3.75",
+      "draw": "3.6",
+      "away": "1.91",
       "sport": "Football"
     },
     {
@@ -12478,9 +12535,9 @@
       "match_key": "sp la fiorita vs una strassen",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 7.05,
-      "draw": 1.46,
-      "away": 4.05,
+      "home": 7.15,
+      "draw": 1.45,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -12526,9 +12583,9 @@
       "match_key": "wehen wiesbaden vs fagiano okayama",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.954,
-      "draw": 2.02,
-      "away": 3.74,
+      "home": 3.075,
+      "draw": 1.94,
+      "away": 3.84,
       "sport": "Football"
     },
     {
@@ -12586,8 +12643,8 @@
       "match_key": "slaven belupo vs sanfrecce hiroshima",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 2.962,
-      "draw": 2.16,
+      "home": 2.755,
+      "draw": 2.29,
       "away": 3.32,
       "sport": "Football"
     },
@@ -12706,9 +12763,9 @@
       "match_key": "winterthur vs bruhl",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.162,
-      "draw": 12.8,
-      "away": 6.15,
+      "home": 1.164,
+      "draw": 12.3,
+      "away": 6.2,
       "sport": "Football"
     },
     {
@@ -12850,9 +12907,9 @@
       "match_key": "bamber bridge vs preston north end",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 16.5,
-      "draw": 1.106,
-      "away": 9.3,
+      "home": 18.5,
+      "draw": 1.092,
+      "away": 9.7,
       "sport": "Football"
     },
     {
@@ -13342,9 +13399,9 @@
       "match_key": "sp la fiorita vs una strassen",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 7.05,
-      "draw": 1.46,
-      "away": 4.05,
+      "home": 7.15,
+      "draw": 1.45,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -13450,8 +13507,8 @@
       "match_key": "slaven belupo vs sanfrecce hiroshima",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.962,
-      "draw": 2.16,
+      "home": 2.755,
+      "draw": 2.29,
       "away": 3.32,
       "sport": "Football"
     },
