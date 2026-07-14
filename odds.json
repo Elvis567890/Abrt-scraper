@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-14 09:24 UTC",
-  "total_matches": 1279,
+  "last_updated": "2026-07-14 09:26 UTC",
+  "total_matches": 1280,
   "bookmakers_scraped": [
     "ChampionBet",
     "BetPawa",
@@ -269,6 +269,38 @@
           "win": 103749
         }
       ]
+    },
+    {
+      "match": "dusseldorf vs ruzomberok",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 0.67,
+      "profit_ugx": 666,
+      "total_stake": 100000,
+      "arb_sum": 0.9933,
+      "bets": [
+        {
+          "bookmaker": "AbaBet",
+          "outcome": "Home",
+          "odd": 1.8,
+          "stake": 55928,
+          "win": 100670
+        },
+        {
+          "bookmaker": "22Bet",
+          "outcome": "Draw",
+          "odd": 4.81,
+          "stake": 20929,
+          "win": 100668
+        },
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Away",
+          "odd": 4.35,
+          "stake": 23143,
+          "win": 100672
+        }
+      ]
     }
   ],
   "raw_odds": [
@@ -279,9 +311,9 @@
       "match_key": "apia leichhardt vs peninsula power",
       "bookmaker": "ChampionBet",
       "competition": "AUSTRALIA Cup",
-      "home": 1.58,
-      "draw": 4.27,
-      "away": 4.14,
+      "home": 1.62,
+      "draw": 4.26,
+      "away": 3.91,
       "sport": "Football"
     },
     {
@@ -291,9 +323,9 @@
       "match_key": "rochedale rovers vs sd raiders",
       "bookmaker": "ChampionBet",
       "competition": "AUSTRALIA Cup",
-      "home": 2.87,
-      "draw": 3.77,
-      "away": 2.02,
+      "home": 3.1,
+      "draw": 3.88,
+      "away": 1.89,
       "sport": "Football"
     },
     {
@@ -976,8 +1008,8 @@
       "bookmaker": "Fortebet",
       "competition": "",
       "home": 1.67,
-      "draw": 3.9,
-      "away": 4.8,
+      "draw": 3.95,
+      "away": 4.75,
       "sport": "Football"
     },
     {
@@ -999,9 +1031,9 @@
       "match_key": "middlesbrough vs wrexham",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.78,
-      "draw": 3.85,
-      "away": 4.15,
+      "home": 1.8,
+      "draw": 3.8,
+      "away": 4.1,
       "sport": "Football"
     },
     {
@@ -2523,9 +2555,9 @@
       "match_key": "annan vs dundee",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 13.0,
-      "draw": 7.6,
-      "away": 1.14,
+      "home": 14.0,
+      "draw": 8.0,
+      "away": 1.12,
       "sport": "Football"
     },
     {
@@ -3423,9 +3455,9 @@
       "match_key": "wests apia vs peninsula",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.57,
-      "draw": 4.2,
-      "away": 4.7,
+      "home": 1.6,
+      "draw": 4.15,
+      "away": 4.5,
       "sport": "Football"
     },
     {
@@ -5958,6 +5990,18 @@
       "home": 5.0,
       "draw": 4.15,
       "away": 1.49,
+      "sport": "Football"
+    },
+    {
+      "match": "CS Limpeno vs General Caballero",
+      "home_team": "CS Limpeno",
+      "away_team": "General Caballero",
+      "match_key": "cs limpeno vs general caballero",
+      "bookmaker": "Fortebet",
+      "competition": "",
+      "home": 7.0,
+      "draw": 5.0,
+      "away": 1.3,
       "sport": "Football"
     },
     {
@@ -11703,9 +11747,9 @@
       "match_key": "rochedale rovers vs sd raiders",
       "bookmaker": "AbaBet",
       "competition": "Australia - FFA Cup",
-      "home": "3.1",
-      "draw": "3.8",
-      "away": "2.1",
+      "home": "3.4",
+      "draw": "3.9",
+      "away": "1.91",
       "sport": "Football"
     },
     {
@@ -11715,9 +11759,9 @@
       "match_key": "apia leichhardt tigers vs peninsula power",
       "bookmaker": "AbaBet",
       "competition": "Australia - FFA Cup",
-      "home": "1.57",
+      "home": "1.62",
       "draw": "4.33",
-      "away": "5",
+      "away": "4.5",
       "sport": "Football"
     },
     {
@@ -11739,9 +11783,9 @@
       "match_key": "gold coast w vs brisbane w",
       "bookmaker": "AbaBet",
       "competition": "Australia - NPL Queensland Women",
-      "home": "5",
-      "draw": "4.1",
-      "away": "1.5",
+      "home": "4.75",
+      "draw": "4",
+      "away": "1.55",
       "sport": "Football"
     },
     {
@@ -11763,9 +11807,9 @@
       "match_key": "south melbourne w vs heidelberg w",
       "bookmaker": "AbaBet",
       "competition": "Australia - Victoria Cup Women",
-      "home": "1.33",
-      "draw": "5",
-      "away": "6",
+      "home": "1.36",
+      "draw": "4.75",
+      "away": "5.75",
       "sport": "Football"
     },
     {
@@ -12123,9 +12167,9 @@
       "match_key": "pp ha nam w vs ho chi minh ii w",
       "bookmaker": "AbaBet",
       "competition": "Vietnam - National League Women",
-      "home": "1.83",
+      "home": "1.91",
       "draw": "3.5",
-      "away": "4",
+      "away": "3.75",
       "sport": "Football"
     },
     {
@@ -14379,9 +14423,9 @@
       "match_key": "sp la fiorita vs una strassen",
       "bookmaker": "Melbet",
       "competition": "",
-      "home": 6.6,
-      "draw": 1.49,
-      "away": 3.98,
+      "home": 6.85,
+      "draw": 1.47,
+      "away": 4.05,
       "sport": "Football"
     },
     {
@@ -15435,9 +15479,9 @@
       "match_key": "sp la fiorita vs una strassen",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 6.6,
-      "draw": 1.49,
-      "away": 3.98,
+      "home": 6.85,
+      "draw": 1.47,
+      "away": 4.05,
       "sport": "Football"
     },
     {
@@ -15459,9 +15503,9 @@
       "match_key": "legia warsaw vs rks radomiak radom",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 2.02,
+      "home": 2.01,
       "draw": 3.415,
-      "away": 3.58,
+      "away": 3.6,
       "sport": "Football"
     },
     {
@@ -15603,9 +15647,9 @@
       "match_key": "fortuna dusseldorf vs ruzomberok",
       "bookmaker": "22Bet",
       "competition": "",
-      "home": 1.55,
-      "draw": 4.765,
-      "away": 4.05,
+      "home": 1.54,
+      "draw": 4.81,
+      "away": 4.1,
       "sport": "Football"
     },
     {
