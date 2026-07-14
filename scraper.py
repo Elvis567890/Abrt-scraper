@@ -105,7 +105,6 @@ def championbet_extract_1x2_from_betmap(bet_map):
             market = bet_map.get(str(k), {}) or {}
             if not isinstance(market, dict):
                 continue
-            # Market can be {"NULL": {...}} or {"someKey": {...}}
             for _, item in market.items():
                 if isinstance(item, dict):
                     odd = clean_odd(item.get("ov"))
@@ -132,7 +131,6 @@ def scrape_championbet():
             "X-INSTANA-L": "1,correlationType=web;correlationId=2fbd167006ebd264",
         }
 
-        # 1) Get the list of matches (esMatches)
         req = urllib.request.Request(CHAMPIONBET_API, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             top_data = json.loads(resp.read().decode())
@@ -157,7 +155,6 @@ def scrape_championbet():
                 if not home_team or not away_team:
                     continue
 
-                # 2) Fetch detailed odds for this match (betMap, params, etc.)
                 match_url = CHAMPIONBET_MATCH_API.format(match_id=match_id)
                 match_req = urllib.request.Request(match_url, headers=headers)
                 with urllib.request.urlopen(match_req, timeout=30) as r2:
@@ -181,7 +178,6 @@ def scrape_championbet():
                         )
                     )
 
-                # polite rate limit
                 time.sleep(0.2)
 
             except Exception as e:
@@ -449,6 +445,80 @@ def scrape_sportybet():
         print(f"SportyBet: {len(odds)} matches extracted")
     except Exception as e:
         print(f"SportyBet error: {e}")
+    return odds
+
+
+# NEW: Betika native API scraper
+def scrape_betika():
+    odds = []
+    try:
+        print("Fetching Betika Uganda API...")
+        url = (
+            "https://api-ug.betika.com/v1/uo/matches"
+            "?page=1&limit=200&tab=&sub_type_id=1&sport_id=3&sort_id=1&period_id=-1&esports=false"
+        )
+        headers = {
+            "Accept": "application/json, text/plain, */*",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
+            "Referer": "https://www.betika.com/en-ug/",
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())
+
+        matches = data.get("data", []) if isinstance(data, dict) else []
+        count = 0
+
+        for m in matches:
+            try:
+                home_team = m.get("home_team") or ""
+                away_team = m.get("away_team") or ""
+                if not home_team or not away_team:
+                    continue
+
+                # markets field name may differ slightly by version; adjust if needed
+                markets = m.get("odds") or m.get("sub_types") or []
+                home_odd = draw_odd = away_odd = None
+
+                for market in markets:
+                    # Keep only full-time 1X2 (usually sub_type_id 1)
+                    if str(market.get("sub_type_id")) != "1":
+                        continue
+
+                    for sel in market.get("odds", []):
+                        outcome = (sel.get("odd_type") or sel.get("name") or "").strip()
+                        price = clean_odd(sel.get("value") or sel.get("odd_value"))
+                        if price is None:
+                            continue
+
+                        if outcome in ("1", "Home"):
+                            home_odd = price
+                        elif outcome in ("X", "Draw"):
+                            draw_odd = price
+                        elif outcome in ("2", "Away"):
+                            away_odd = price
+
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append(
+                        build_match_record(
+                            home_team=home_team,
+                            away_team=away_team,
+                            bookmaker="Betika",
+                            home=home_odd,
+                            draw=draw_odd,
+                            away=away_odd,
+                            sport="Football",
+                            competition=m.get("competition_name", ""),
+                        )
+                    )
+            except Exception as e:
+                print(f"Betika match error: {e}")
+                continue
+
+        print(f"Betika: {count} matches extracted")
+    except Exception as e:
+        print(f"Betika error: {e}")
     return odds
 
 
@@ -877,7 +947,7 @@ def scrape_shared_1xbet_family(bookmaker_name, config):
                         continue
                     if t == "1":
                         home_odd = c
-                    elif t == "3":  # draw
+                    elif t == "3":
                         draw_odd = c
                     elif t == "2":
                         away_odd = c
@@ -954,6 +1024,7 @@ def main():
 
     scrapers = [
         ("ChampionBet", scrape_championbet),
+        ("Betika", scrape_betika),          # NEW
         ("BetPawa", scrape_betpawa),
         ("Fortebet", scrape_fortebet),
         ("SportyBet", scrape_sportybet),
@@ -963,7 +1034,6 @@ def main():
         ("Melbet", scrape_melbet),
     ]
 
-    # Shared 1xBet-family scrapers (for any configured bookmakers)
     for name, cfg in SHARED_BOOKMAKERS_1X.items():
         scrapers.append(
             (f"{name} (shared-1x)", lambda cfg=cfg, name=name: scrape_shared_1xbet_family(name, cfg))
