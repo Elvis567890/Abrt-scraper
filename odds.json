@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-14 10:46 UTC",
+  "last_updated": "2026-07-14 10:48 UTC",
   "total_matches": 1271,
   "bookmakers_scraped": [
     "ChampionBet",
@@ -207,6 +207,38 @@
       ]
     },
     {
+      "match": "braunschweig vs havelse",
+      "sport": "Football",
+      "type": "3-way",
+      "profit_percent": 3.15,
+      "profit_ugx": 3147,
+      "total_stake": 100000,
+      "arb_sum": 0.9685,
+      "bets": [
+        {
+          "bookmaker": "AbaBet",
+          "outcome": "Home",
+          "odd": 1.42,
+          "stake": 72711,
+          "win": 103250
+        },
+        {
+          "bookmaker": "1xBet",
+          "outcome": "Draw",
+          "odd": 8.1,
+          "stake": 12747,
+          "win": 103251
+        },
+        {
+          "bookmaker": "Fortebet",
+          "outcome": "Away",
+          "odd": 7.1,
+          "stake": 14542,
+          "win": 103248
+        }
+      ]
+    },
+    {
       "match": "nk slaven belupo vs sanfrecce hiroshima",
       "sport": "Football",
       "type": "3-way",
@@ -267,38 +299,6 @@
           "odd": 12.5,
           "stake": 8081,
           "win": 101012
-        }
-      ]
-    },
-    {
-      "match": "braunschweig vs havelse",
-      "sport": "Football",
-      "type": "3-way",
-      "profit_percent": 0.84,
-      "profit_ugx": 838,
-      "total_stake": 100000,
-      "arb_sum": 0.9916,
-      "bets": [
-        {
-          "bookmaker": "AbaBet",
-          "outcome": "Home",
-          "odd": 1.42,
-          "stake": 71018,
-          "win": 100846
-        },
-        {
-          "bookmaker": "1xBet",
-          "outcome": "Draw",
-          "odd": 8.1,
-          "stake": 12450,
-          "win": 100845
-        },
-        {
-          "bookmaker": "SportyBet",
-          "outcome": "Away",
-          "odd": 6.1,
-          "stake": 16532,
-          "win": 100845
         }
       ]
     },
@@ -403,9 +403,9 @@
       "match_key": "dordrecht vs borussia dortmund ii",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendlies",
-      "home": 1.78,
+      "home": 1.73,
       "draw": 4.0,
-      "away": 3.61,
+      "away": 3.8,
       "sport": "Football"
     },
     {
@@ -451,9 +451,9 @@
       "match_key": "spartak trnava vs besiktas istanbul",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendly Games",
-      "home": 5.73,
-      "draw": 4.49,
-      "away": 1.44,
+      "home": 6.08,
+      "draw": 4.66,
+      "away": 1.41,
       "sport": "Football"
     },
     {
@@ -487,9 +487,9 @@
       "match_key": "winterthur vs brhl st gallen",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendlies",
-      "home": 1.14,
-      "draw": 7.29,
-      "away": 13.61,
+      "home": 1.12,
+      "draw": 7.79,
+      "away": 14.6,
       "sport": "Football"
     },
     {
@@ -523,9 +523,9 @@
       "match_key": "fortuna dusseldorf vs mfk ruzomberok",
       "bookmaker": "BetPawa",
       "competition": "Football / International / Club Friendly Games",
-      "home": 1.62,
-      "draw": 4.0,
-      "away": 4.48,
+      "home": 1.66,
+      "draw": 3.99,
+      "away": 4.19,
       "sport": "Football"
     },
     {
@@ -608,8 +608,8 @@
       "bookmaker": "BetPawa",
       "competition": "Football / International / UEFA Champions League",
       "home": 1.32,
-      "draw": 5.1,
-      "away": 10.33,
+      "draw": 5.09,
+      "away": 10.47,
       "sport": "Football"
     },
     {
@@ -5347,9 +5347,9 @@
       "match_key": "braunschweig vs havelse",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.35,
-      "draw": 4.9,
-      "away": 6.0,
+      "home": 1.28,
+      "draw": 5.3,
+      "away": 7.1,
       "sport": "Football"
     },
     {
@@ -5359,9 +5359,9 @@
       "match_key": "dusseldorf vs ruzomberok",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 1.68,
-      "draw": 3.95,
-      "away": 3.8,
+      "home": 1.69,
+      "draw": 3.8,
+      "away": 3.9,
       "sport": "Football"
     },
     {
@@ -5443,9 +5443,9 @@
       "match_key": "lask vs fenerbahce",
       "bookmaker": "Fortebet",
       "competition": "",
-      "home": 5.4,
-      "draw": 4.25,
-      "away": 1.45,
+      "home": 4.7,
+      "draw": 4.0,
+      "away": 1.54,
       "sport": "Football"
     },
     {
@@ -11731,8 +11731,8 @@
       "match_key": "rochedale rovers vs sd raiders",
       "bookmaker": "AbaBet",
       "competition": "Australia - FFA Cup",
-      "home": "",
-      "draw": "",
+      "home": "34",
+      "draw": "15",
       "away": "",
       "sport": "Football"
     },
@@ -11779,9 +11779,9 @@
       "match_key": "boroondara eagles w vs preston lions w",
       "bookmaker": "AbaBet",
       "competition": "Australia - NPL Victoria Women",
-      "home": "1.95",
-      "draw": "3.75",
-      "away": "3.5",
+      "home": "2.05",
+      "draw": "3.6",
+      "away": "3.25",
       "sport": "Football"
     },
     {
@@ -11889,7 +11889,7 @@
       "competition": "India - Calcutta Football League",
       "home": "4.75",
       "draw": "2.1",
-      "away": "2.4",
+      "away": "2.5",
       "sport": "Football"
     },
     {
@@ -12067,9 +12067,9 @@
       "match_key": "pp ha nam w vs ho chi minh ii w",
       "bookmaker": "AbaBet",
       "competition": "Vietnam - National League Women",
-      "home": "2.88",
-      "draw": "1.53",
-      "away": "11",
+      "home": "3.5",
+      "draw": "1.36",
+      "away": "13",
       "sport": "Football"
     },
     {
@@ -12925,18 +12925,6 @@
       "sport": "Football"
     },
     {
-      "match": "Dordrecht vs Borussia Dortmund II",
-      "home_team": "Dordrecht",
-      "away_team": "Borussia Dortmund II",
-      "match_key": "dordrecht vs borussia dortmund ii",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.79,
-      "draw": 3.29,
-      "away": 4.2,
-      "sport": "Football"
-    },
-    {
       "match": "Levyy Bereg Kyiv vs Viktoriya Sumy",
       "home_team": "Levyy Bereg Kyiv",
       "away_team": "Viktoriya Sumy",
@@ -13255,9 +13243,9 @@
       "match_key": "macva sabac vs proleter zrenjanin",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.41,
-      "draw": 7.3,
-      "away": 4.1,
+      "home": 1.33,
+      "draw": 8.3,
+      "away": 4.6,
       "sport": "Football"
     },
     {
@@ -13354,6 +13342,18 @@
       "home": 5.13,
       "draw": 1.44,
       "away": 4.53,
+      "sport": "Football"
+    },
+    {
+      "match": "Hyde United vs Fylde",
+      "home_team": "Hyde United",
+      "away_team": "Fylde",
+      "match_key": "hyde vs fylde",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 5.81,
+      "draw": 1.43,
+      "away": 4.35,
       "sport": "Football"
     },
     {
@@ -13777,18 +13777,6 @@
       "sport": "Football"
     },
     {
-      "match": "Dordrecht vs Borussia Dortmund II",
-      "home_team": "Dordrecht",
-      "away_team": "Borussia Dortmund II",
-      "match_key": "dordrecht vs borussia dortmund ii",
-      "bookmaker": "22Bet",
-      "competition": "",
-      "home": 1.79,
-      "draw": 3.29,
-      "away": 4.2,
-      "sport": "Football"
-    },
-    {
       "match": "Levyy Bereg Kyiv vs Viktoriya Sumy",
       "home_team": "Levyy Bereg Kyiv",
       "away_team": "Viktoriya Sumy",
@@ -13954,6 +13942,18 @@
       "home": 1.32,
       "draw": 8.1,
       "away": 5.35,
+      "sport": "Football"
+    },
+    {
+      "match": "Winterthur vs Bruhl",
+      "home_team": "Winterthur",
+      "away_team": "Bruhl",
+      "match_key": "winterthur vs bruhl",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 1.092,
+      "draw": 16.0,
+      "away": 7.5,
       "sport": "Football"
     },
     {
@@ -14557,18 +14557,6 @@
       "sport": "Football"
     },
     {
-      "match": "Dordrecht vs Borussia Dortmund II",
-      "home_team": "Dordrecht",
-      "away_team": "Borussia Dortmund II",
-      "match_key": "dordrecht vs borussia dortmund ii",
-      "bookmaker": "1xBet",
-      "competition": "",
-      "home": 1.79,
-      "draw": 3.29,
-      "away": 4.2,
-      "sport": "Football"
-    },
-    {
       "match": "Levyy Bereg Kyiv vs Viktoriya Sumy",
       "home_team": "Levyy Bereg Kyiv",
       "away_team": "Viktoriya Sumy",
@@ -14887,9 +14875,9 @@
       "match_key": "macva sabac vs proleter zrenjanin",
       "bookmaker": "1xBet",
       "competition": "",
-      "home": 1.41,
-      "draw": 7.3,
-      "away": 4.1,
+      "home": 1.33,
+      "draw": 8.3,
+      "away": 4.6,
       "sport": "Football"
     },
     {
@@ -14986,6 +14974,18 @@
       "home": 5.13,
       "draw": 1.44,
       "away": 4.53,
+      "sport": "Football"
+    },
+    {
+      "match": "Hyde United vs Fylde",
+      "home_team": "Hyde United",
+      "away_team": "Fylde",
+      "match_key": "hyde vs fylde",
+      "bookmaker": "1xBet",
+      "competition": "",
+      "home": 5.81,
+      "draw": 1.43,
+      "away": 4.35,
       "sport": "Football"
     },
     {
@@ -15409,18 +15409,6 @@
       "sport": "Football"
     },
     {
-      "match": "Dordrecht vs Borussia Dortmund II",
-      "home_team": "Dordrecht",
-      "away_team": "Borussia Dortmund II",
-      "match_key": "dordrecht vs borussia dortmund ii",
-      "bookmaker": "22Bet",
-      "competition": "",
-      "home": 1.79,
-      "draw": 3.29,
-      "away": 4.2,
-      "sport": "Football"
-    },
-    {
       "match": "Levyy Bereg Kyiv vs Viktoriya Sumy",
       "home_team": "Levyy Bereg Kyiv",
       "away_team": "Viktoriya Sumy",
@@ -15586,6 +15574,18 @@
       "home": 1.32,
       "draw": 8.1,
       "away": 5.35,
+      "sport": "Football"
+    },
+    {
+      "match": "Winterthur vs Bruhl",
+      "home_team": "Winterthur",
+      "away_team": "Bruhl",
+      "match_key": "winterthur vs bruhl",
+      "bookmaker": "22Bet",
+      "competition": "",
+      "home": 1.092,
+      "draw": 16.0,
+      "away": 7.5,
       "sport": "Football"
     }
   ]
