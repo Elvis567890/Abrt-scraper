@@ -232,7 +232,7 @@ def scrape_championbet():
             top_data = json.loads(resp.read().decode())
 
         matches = top_data.get("esMatches", []) if isinstance(top_data, dict) else []
-        print(f"ChampionBet: {len(matches)} matches in top list")
+        print(f"ChampionBet: {len(matches)} matches in top list}")
 
         count = 0
 
@@ -1078,179 +1078,43 @@ def find_arbitrage(all_odds):
                 if best:
                     opportunities.append(best)
 
-    return sorted(opportunities, key=lambda x: x["profit_percent"], reverse=True)
+    return opportunities
 
 
-def write_html_report(output, arb_history=None):  # CHANGED: extra param
-    opportunities = output.get("opportunities", [])
-    last_updated = output.get("last_updated", "")
-
-    if arb_history is None:
-        arb_history = {}
-
-    html = [
-        "<!DOCTYPE html>",
-        "<html>",
-        "<head>",
-        "<meta charset='utf-8'>",
-        "<title>Arbitrage Opportunities</title>",
-        "<style>",
-        "body { font-family: Arial, sans-serif; margin: 20px; }",
-        "table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }",
-        "th, td { border: 1px solid #ccc; padding: 6px; font-size: 14px; }",
-        "th { background: #f0f0f0; }",
-        "</style>",
-        "</head>",
-        "<body>",
-        f"<h1>Arbitrage Opportunities</h1>",
-        f"<p>Last updated: {last_updated}</p>",
-    ]
-
-    if not opportunities:
-        html.append("<p>No opportunities found.</p>")
-    else:
-        html.append("<table>")
-        # CHANGED: added Valid / First Seen / Last Seen columns
-        html.append("<tr><th>Match</th><th>Sport</th><th>Type</th><th>Profit %</th><th>Profit UGX</th><th>Valid</th><th>First Seen</th><th>Last Seen</th><th>Bets</th></tr>")
-        for opp in opportunities[:50]:
-            key = opportunity_key(opp)
-            hist = arb_history.get(key, {})
-            valid = hist.get("valid", True)
-            first_seen = hist.get("first_seen", "")
-            last_seen = hist.get("last_seen", "")
-
-            bets_text = "; ".join(
-                f"{b['bookmaker']} {b['outcome']} @ {b['odd']}"
-                for b in opp.get("bets", [])
-            )
-            html.append(
-                f"<tr>"
-                f"<td>{opp.get('match')}</td>"
-                f"<td>{opp.get('sport')}</td>"
-                f"<td>{opp.get('type')}</td>"
-                f"<td>{opp.get('profit_percent')}%</td>"
-                f"<td>{opp.get('profit_ugx')}</td>"
-                f"<td>{'Yes' if valid else 'No'}</td>"
-                f"<td>{first_seen}</td>"
-                f"<td>{last_seen}</td>"
-                f"<td>{bets_text}</td>"
-                f"</tr>"
-            )
-        html.append("</table>")
-
-    html.append("</body></html>")
-
-    with open("odds.html", "w", encoding="utf-8") as f:
-        f.write("\n".join(html))
-
-
-def scrape_shared_1xbet_family(bookmaker_name, config):
-    """
-    Generic scraper for 1xBet-style APIs (1xBet, 22Bet, Melbet, etc.).
-    Uses /service-api/LineFeed/Get1x2_VZip and normalizes with build_match_record().
-    """
-    odds = []
-    base_url = config["base_url"].rstrip("/")
-    partner = config["partner"]
-
-    api_url = (
-        f"{base_url}/service-api/LineFeed/Get1x2_VZip?"
-        f"sports=1&count=1000&lng=en&mode=4&country=191&partner={partner}&getEmpty=true&virtualSports=true"
-    )
-
-    try:
-        print(f"Fetching {bookmaker_name} via shared 1xBet-family scraper...")
-        headers = {
-            "Accept": "application/json, text/plain, */*",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
-            "X-Requested-With": "XMLHttpRequest",
-        }
-        req = urllib.request.Request(api_url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            raw = resp.read()
-            try:
-                data = json.loads(raw.decode("utf-8"))
-            except Exception:
-                data = json.loads(raw.decode("utf-8-sig"))
-
-        values = data.get("Value", []) if isinstance(data, dict) else []
-        count = 0
-        for match in values:
-            try:
-                home_team = match.get("O1")
-                away_team = match.get("O2")
-                if not home_team or not away_team:
-                    continue
-
-                home_odd = draw_odd = away_odd = None
-                for e in match.get("E", []):
-                    t = str(e.get("T", "")).strip()
-                    c = clean_odd(e.get("C"))
-                    if c is None:
-                        continue
-                    if t == "1":
-                        home_odd = c
-                    elif t == "2":
-                        away_odd = c
-                    elif t == "3":
-                        draw_odd = c
-
-                if home_odd is not None and away_odd is not None:
-                    count += 1
-                    odds.append(
-                        build_match_record(
-                            home_team=home_team,
-                            away_team=away_team,
-                            bookmaker=bookmaker_name,
-                            home=home_odd,
-                            draw=draw_odd,
-                            away=away_odd,
-                            sport="Football",
-                        )
-                    )
-            except Exception:
-                continue
-
-        print(f"{bookmaker_name}: {count} matches extracted")
-    except Exception as e:
-        print(f"{bookmaker_name} error: {e}")
-    return odds
-
-
-def main():
+# NEW: runner to scrape, compute arbs, update history JSON and current opportunities JSON
+def run_scan():
+    # 1) collect all odds from all scrapers
     all_odds = []
+    all_odds.extend(scrape_sportybet())
     all_odds.extend(scrape_championbet())
     all_odds.extend(scrape_ababet())
     all_odds.extend(scrape_betpawa())
     all_odds.extend(scrape_fortebet())
-    all_odds.extend(scrape_sportybet())
     all_odds.extend(scrape_betika())
     all_odds.extend(scrape_1xbet())
     all_odds.extend(scrape_22bet())
     all_odds.extend(scrape_melbet())
     all_odds.extend(scrape_gsb())
 
-    # If you want to use shared 1xBet-family scrapers:
-    # for name, cfg in SHARED_BOOKMAKERS_1X.items():
-    #     all_odds.extend(scrape_shared_1xbet_family(name, cfg))
-
-    # Normalize sport names across all records (safety)
-    all_odds = [normalize_sport_name(rec) for rec in all_odds]
-
+    # 2) calculate arbitrage opportunities
     opportunities = find_arbitrage(all_odds)
-    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # NEW: load, update, save history
+    # 3) load existing history
     arb_history = load_arbitrage_history()
-    update_arbitrage_history(opportunities, arb_history, now_str)
+
+    # 4) update history with this scan
+    timestamp_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    update_arbitrage_history(opportunities, arb_history, timestamp_str)
+
+    # 5) save history back to JSON
     save_arbitrage_history(arb_history)
 
-    output = {
-        "opportunities": opportunities,
-        "last_updated": now_str,
-    }
-    write_html_report(output, arb_history)
+    # 6) save current opportunities JSON for the frontend
+    with open("current_opportunities.json", "w", encoding="utf-8") as f:
+        json.dump(opportunities, f, indent=2)
+
+    print(f"Scan complete: {len(opportunities)} opportunities, history + current_opportunities.json updated.")
 
 
 if __name__ == "__main__":
-    main()
+    run_scan()
