@@ -26,44 +26,12 @@
             --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
             --nav-height: 72px;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: var(--font);
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .phone-frame {
-            width: 390px;
-            height: 844px;
-            background: var(--bg);
-            border-radius: 36px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 8px #2a2a2a, 0 20px 60px rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-        }
-        @media (max-width: 430px) {
-            .phone-frame { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; }
-        }
-        .status-bar {
-            height: 44px; background: var(--bg); display: flex; align-items: center; justify-content: space-between;
-            padding: 0 24px; color: #fff; font-size: 12px; font-weight: 600; flex-shrink: 0;
-        }
-        .main-content {
-            flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 8px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; -webkit-font-smoothing: antialiased; user-select: none; }
+        .phone-frame { width: 390px; height: 844px; background: var(--bg); border-radius: 36px; overflow: hidden; position: relative; box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 8px #2a2a2a, 0 20px 60px rgba(0,0,0,0.7); display: flex; flex-direction: column; }
+        @media (max-width: 430px) { .phone-frame { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; } }
+        .status-bar { height: 44px; background: var(--bg); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; color: #fff; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .main-content { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
         .main-content::-webkit-scrollbar { width: 0; }
         .page { display: none; padding: 0 16px 20px; animation: fadeSlideIn 0.3s ease; }
         .page.active { display: block; }
@@ -72,15 +40,9 @@
         .page-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 0 14px; }
         .page-header h1 { font-size: 22px; font-weight: 700; color: var(--text); }
         .filter-tabs { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; }
-        .filter-tab {
-            padding: 9px 18px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer;
-            white-space: nowrap; border: 1.5px solid var(--surface3); background: transparent; color: var(--text2);
-        }
+        .filter-tab { padding: 9px 18px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; border: 1.5px solid var(--surface3); background: transparent; color: var(--text2); }
         .filter-tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; box-shadow: 0 2px 12px var(--green-glow); }
-        .opp-card {
-            background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; cursor: pointer;
-            border: 1px solid transparent; transition: all 0.2s;
-        }
+        .opp-card { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
         .opp-card:active { transform: scale(0.985); border-color: var(--surface3); }
         .opp-card .top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
         .event-info { flex: 1; }
@@ -154,6 +116,7 @@
         .hist-date { font-size: 11px; color: var(--text3); }
         .status-chip { font-size: 10px; font-weight: 700; padding: 5px 10px; border-radius: 12px; text-transform: uppercase; }
         .status-placed { background: rgba(0,230,118,0.15); color: var(--green); }
+        .status-invalid { background: rgba(255,82,82,0.15); color: var(--red); }
         .alert-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
         .alert-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,230,118,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; }
         .alert-info { flex: 1; }
@@ -276,54 +239,72 @@
 </div>
 
 <script>
-    // Backend data coming from Luxury desktop backend (odds.json)
+    // State
     let opportunitiesData = [];
+    let allHistory = {};
     let currentPage = 'dashboard';
     let currentDetailArb = null;
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
+    // FIXED: Fetch correct backend files from the NEW scraper
     async function loadFromLuxuryBackend() {
         try {
-            const res = await fetch('odds.json?t=' + Date.now());
-            const d = await res.json();
-            const freshOpps = d.opportunities || [];
-            const lastUpdated = d.last_updated || null;
+            const [oppsRes, histRes] = await Promise.all([
+                fetch('current_opportunities.json?t=' + Date.now()),
+                fetch('arb_history.json?t=' + Date.now())
+            ]);
 
-            opportunitiesData = freshOpps.map(o => {
-                const history = o.history || [];
-                const latest = history.length ? history[history.length - 1] : null;
-                const profitPercent = latest ? Number(latest.profit_percent || 0) : Number(o.profit_percent || 0);
-                const profitUGX = latest ? Number(latest.profit_ugx || 0) : Number(o.profit_ugx || 0);
+            if (!oppsRes.ok) {
+                throw new Error(`Failed to load current_opportunities.json (Status: ${oppsRes.status})`);
+            }
+
+            const currentOpps = await oppsRes.json();
+            if (histRes.ok) {
+                allHistory = await histRes.json();
+            }
+
+            // Merge history data with current opportunities
+            opportunitiesData = currentOpps.map(o => {
+                // Key generation matches the Python scraper: f"{sport}::{type}::{match}"
+                const key = `${o.sport || 'Football'}::${o.type || '3-way'}::${o.match}`;
+                const histEntry = allHistory[key] || {};
+
+                // Get the latest version from history for the profit figures
+                const versions = histEntry.versions || [];
+                const latest = versions.length ? versions[versions.length - 1] : null;
+
                 return {
                     match: o.match,
                     sport: o.sport || 'Football',
                     type: o.type || '3-way',
-                    kickoff: o.kickoff || null,
-                    profitPercent,
-                    profitUGX,
+                    profitPercent: latest ? Number(latest.profit_percent) : Number(o.profit_percent || 0),
+                    profitUGX: latest ? Number(latest.profit_ugx) : Number(o.profit_ugx || 0),
                     bets: (o.bets || []).map(b => ({
                         bookie: b.bookmaker,
                         outcome: b.outcome,
-                        odds: Number(b.odd || 0)
+                        odds: Number(b.odd || 0),
+                        stake: Number(b.stake || 0),
+                        win: Number(b.win || 0)
                     })),
-                    valid: o.status === 'valid',
-                    first_seen: o.first_seen || null,
-                    last_seen: o.last_seen || lastUpdated,
-                    history: history.map(h => ({
-                        timestamp: h.timestamp,
-                        profitPercent: Number(h.profit_percent || 0),
-                        profitUGX: Number(h.profit_ugx || 0)
+                    valid: histEntry.valid !== undefined ? histEntry.valid : true,
+                    first_seen: histEntry.first_seen || null,
+                    last_seen: histEntry.last_seen || null,
+                    history: versions.map(v => ({
+                        timestamp: v.timestamp,
+                        profitPercent: Number(v.profit_percent || 0),
+                        profitUGX: Number(v.profit_ugx || 0)
                     }))
                 };
             });
 
             renderOpportunities();
             renderAlerts();
+            renderHistory(); // Pre-render history page as well
         } catch (e) {
             console.error('LOAD ERROR:', e);
             document.getElementById('oppList').innerHTML =
-                '<div class="empty-state">❌ Error loading odds.json backend.</div>';
+                `<div class="empty-state">❌ Error loading backend data.<br>Ensure your scraper has run and generated <code>current_opportunities.json</code> and <code>arb_history.json</code>.<br><br>Error: ${e.message}</div>`;
         }
     }
 
@@ -337,12 +318,11 @@
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             const navBtn = document.querySelector(`.nav-item[data-page="${pageName}"]`);
             if (navBtn) navBtn.classList.add('active');
-            if (['detail','history','alerts'].includes(pageName)) {
-                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            }
+            
             if (pageName === 'detail' && data) populateDetailPage(data);
             if (pageName === 'history') renderHistory();
             if (pageName === 'alerts') renderAlerts();
+            
             const fab = document.querySelector('.fab');
             if (fab) fab.style.display = pageName === 'dashboard' ? 'flex' : 'none';
         }
@@ -392,7 +372,7 @@
     }
 
     function getBookieColor(bookie) {
-        const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32' };
+        const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
         return map[bookie.toLowerCase()] || '#444';
     }
 
@@ -594,13 +574,8 @@
         document.getElementById('slipProfit').textContent = '+UGX ' + totalProfit.toFixed(2);
     }
 
-    function copySlip(idx) {
-        showToast('Slip copied');
-    }
-
-    function openSlip(idx) {
-        showToast('Open bet on bookmaker');
-    }
+    function copySlip(idx) { showToast('Slip copied'); }
+    function openSlip(idx) { showToast('Open bet on bookmaker'); }
 
     function completeArb() {
         if (slipBets.length === 0) return;
@@ -627,40 +602,67 @@
         const chart = document.getElementById('profitChart');
         const list = document.getElementById('historyList');
 
-        totalArbsEl.textContent = completedArbs.length;
-        const totalProfit = completedArbs.reduce((s, r) => s + r.profit, 0);
+        // Sort history entries by last_seen descending (newest first)
+        const entries = Object.values(allHistory)
+            .filter(e => e.versions && e.versions.length > 0)
+            .sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
+
+        totalArbsEl.textContent = entries.length;
+
+        // Calculate total profit from latest valid version
+        let totalProfit = 0;
+        entries.forEach(e => {
+            const latest = e.versions[e.versions.length - 1];
+            if (e.valid && latest) {
+                totalProfit += latest.profit_ugx || 0;
+            }
+        });
         totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(2);
 
-        chart.innerHTML = completedArbs.map(r => {
-            const h = Math.max(8, Math.min(100, Math.abs(r.profit) / 1000));
-            return `<div class="chart-bar" style="height:${h}px;"></div>`;
+        chart.innerHTML = entries.map(e => {
+            const latest = e.versions[e.versions.length - 1];
+            if (latest) {
+                const h = Math.max(8, Math.min(100, Math.abs(latest.profit_ugx) / 1000));
+                return `<div class="chart-bar" style="height:${h}px;"></div>`;
+            }
+            return '';
         }).join('');
 
-        list.innerHTML = completedArbs.map(r => `
-            <div class="hist-item">
-                <div class="hist-info">
-                    <div class="hist-event">${r.matches.join(' · ')}</div>
-                    <div class="hist-date">${r.timestamp}</div>
+        list.innerHTML = entries.map(e => {
+            const latest = e.versions[e.versions.length - 1];
+            const profit = latest ? latest.profit_ugx : 0;
+            const timestamp = latest ? latest.timestamp : e.last_seen || '-';
+            return `
+                <div class="hist-item">
+                    <div class="hist-info">
+                        <div class="hist-event">${e.match || 'Unknown'}</div>
+                        <div class="hist-date">${timestamp}</div>
+                    </div>
+                    <div class="status-chip ${e.valid ? 'status-placed' : 'status-invalid'}">
+                        ${e.valid ? '+UGX ' + profit.toFixed(2) : 'Invalid'}
+                    </div>
                 </div>
-                <div class="status-chip status-placed">+UGX ${r.profit.toFixed(2)}</div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     function renderAlerts() {
         const alertsList = document.getElementById('alertsList');
-        alertsList.innerHTML = opportunitiesData
-            .filter(a => a.valid && a.profitPercent > 5)
-            .map(a => `
-                <div class="alert-card" onclick="handleCardClick(${JSON.stringify(a).replace(/'/g, '&#39;').replace(/"/g, '&quot;')})">
-                    <div class="alert-icon">⚡</div>
-                    <div class="alert-info">
-                        <div class="alert-event">${a.match}</div>
-                        <div class="alert-meta">${a.sport} · ${a.type} · Last ${a.last_seen || ''}</div>
-                    </div>
-                    <div class="alert-profit">+${a.profitPercent.toFixed(2)}%</div>
+        const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
+        if (highProfit.length === 0) {
+            alertsList.innerHTML = '<div class="empty-state"><p>No high profit alerts</p></div>';
+            return;
+        }
+        alertsList.innerHTML = highProfit.map(a => `
+            <div class="alert-card" onclick="handleCardClick(${JSON.stringify(a).replace(/'/g, '&#39;').replace(/"/g, '&quot;')})">
+                <div class="alert-icon">⚡</div>
+                <div class="alert-info">
+                    <div class="alert-event">${a.match}</div>
+                    <div class="alert-meta">${a.sport} · ${a.type} · Last ${a.last_seen || ''}</div>
                 </div>
-            `).join('');
+                <div class="alert-profit">+${a.profitPercent.toFixed(2)}%</div>
+            </div>
+        `).join('');
     }
 
     function showToast(msg) {
@@ -677,4 +679,4 @@
     });
 </script>
 </body>
-</html>
+    </html>
