@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "match": "botafogo fr rj vs santos sp",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.66,
+    "profit_ugx": 6657,
+    "total_stake": 100000,
+    "arb_sum": 0.9334,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 2.62,
+        "stake": 40890,
+        "win": 107132
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.65,
+        "stake": 29351,
+        "win": 107131
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 29759,
+        "win": 107132
+      }
+    ]
+  }
+]
