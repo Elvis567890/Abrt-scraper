@@ -21,6 +21,7 @@ HISTORY_FILE = "arb_history.json"
 SHARED_BOOKMAKERS_1X = {
     "1xBet": {"base_url": "https://1xbet.ug", "partner": "135"},
     "22Bet": {"base_url": "https://22bet.ug", "partner": "151"},
+    # Melbet excluded as Over/Under returns 404 on GitHub Actions
 }
 
 
@@ -302,21 +303,19 @@ def scrape_ababet():
 
 
 def scrape_betpawa():
-    print("Fetching BetPawa...") # <-- Added this print to track it in the logs
     odds = []
     seen_matches = set()
     urls = ["https://www.betpawa.ug/events?categoryId=2&marketId=1X2", "https://www.betpawa.ug/events/popular"]
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=["--no-sandbox", "--disable-blink-features=AutomationControlled"])
-            context = browser.new_context(user_agent="Mozilla/5.0", viewport={"width": 1920, "height": 1080}, locale="en-UG")
+            context = browser.new_context(user_agent="Mozilla/5.0", viewport={"width": 390, "height": 844}, locale="en-UG")
             page = context.new_page()
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
             for url in urls:
                 try:
                     page.goto(url, timeout=60000)
-                    # Wait for events to load so Playwright doesn't pull empty lists
-                    page.wait_for_selector('a[href*="/event/"], a[href*="/match/"]', timeout=30000)
+                    page.wait_for_timeout(6000)
                     links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
                     for link in links[:60]:
                         try:
@@ -339,10 +338,8 @@ def scrape_betpawa():
                                 if len(ou_parts) >= 2:
                                     pass
                         except: continue
-                except Exception as e:
-                    print(f"BetPawa URL error: {e}")
+                except: continue
             browser.close()
-        print(f"BetPawa total: {len(odds)} matches extracted")
     except Exception as e:
         print(f"BetPawa error: {e}")
     return odds
@@ -451,57 +448,6 @@ def scrape_sportybet():
     return odds
 
 
-def scrape_betika():
-    odds = []
-    try:
-        print("Fetching Betika Uganda...")
-        url = "https://api-ug.betika.com/v1/uo/matches?page=1&limit=200&tab=&sub_type_id=1,2&sport_id=3&sort_id=1&period_id=-1&esports=false"
-        headers = {"Accept": "application/json", "User-Agent": "Mozilla/5.0", "Referer": "https://www.betika.com/en-ug/"}
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        matches = data.get("data", []) if isinstance(data, dict) else []
-        count = 0
-        for m in matches:
-            try:
-                home, away = m.get("home_team") or "", m.get("away_team") or ""
-                if not home or not away: continue
-                markets = m.get("odds") or m.get("sub_types") or []
-                h = d = a = over = under = None
-
-                for market in markets:
-                    stid = str(market.get("sub_type_id"))
-                    if stid == "1": # 1X2
-                        for sel in market.get("odds", []):
-                            outcome = (sel.get("odd_type") or sel.get("name") or "").strip()
-                            price = clean_odd(sel.get("value") or sel.get("odd_value"))
-                            if not price: continue
-                            if outcome in ("1", "Home"): h = price
-                            elif outcome in ("X", "Draw"): d = price
-                            elif outcome in ("2", "Away"): a = price
-                    elif stid == "2": # Total Goals
-                        for sel in market.get("odds", []):
-                            outcome = (sel.get("odd_type") or sel.get("name") or "").strip()
-                            price = clean_odd(sel.get("value") or sel.get("odd_value"))
-                            if not price: continue
-                            if outcome in ("Over", "Over 2.5"): over = price
-                            elif outcome in ("Under", "Under 2.5"): under = price
-
-                if h and a:
-                    count += 1
-                    odds.append(build_match_record(home, away, "Betika", h, d, a, competition=m.get("competition_name", "")))
-                if over and under:
-                    record = build_match_record(home, away, "Betika", over, under, None, competition=m.get("competition_name", ""))
-                    record["match_key"] = f"{normalize(home)} vs {normalize(away)} | O/U 2.5"
-                    record["type"] = "Over/Under 2.5"
-                    odds.append(record)
-            except: continue
-        print(f"Betika: {count} matches extracted")
-    except Exception as e:
-        print(f"Betika error: {e}")
-    return odds
-
-
 def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
     odds = []
     try:
@@ -527,127 +473,6 @@ def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
                 odds.append(record)
     except Exception as e:
         print(f"{bookmaker_name} Over/Under error: {e}")
-    return odds
-
-
-def scrape_1xbet():
-    return scrape_1x_over_under("1xBet", SHARED_BOOKMAKERS_1X["1xBet"]["base_url"], SHARED_BOOKMAKERS_1X["1xBet"]["partner"])
-def scrape_22bet():
-    return scrape_1x_over_under("22Bet", SHARED_BOOKMAKERS_1X["22Bet"]["base_url"], SHARED_BOOKMAKERS_1X["22Bet"]["partner"])
-
-
-def scrape_gsb():
-    odds = []
-    try:
-        print("Fetching GSB...")
-        base_url = "https://gsb.ug/services/evapi/event/GetEvents"
-        params = {"timestamp": str(int(datetime.utcnow().timestamp() * 1000)), "betTypeIds": "-1", "sportTypeIds": "31", "statusId": "0"}
-        url = f"{base_url}?{urllib.parse.urlencode(params)}"
-        headers = {"Accept": "*/*", "BrandId": "112", "ChannelId": "4", "Language": "en-US", "Terminal": "gsb.ug", "User-Agent": "Mozilla/5.0"}
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for ev in data.get("data", []):
-            try:
-                if ev.get("sid") != 31: continue
-                home, away = ev.get("h") or "", ev.get("a") or ""
-                if not home or not away: continue
-                h = d = a = over = under = None
-                for bt in ev.get("bts", []) or []:
-                    name = (bt.get("n") or "").strip()
-                    if name == "FT 1X2":
-                        for o in bt.get("odds", []) or []:
-                            sel = (o.get("n") or "").strip()
-                            price = clean_odd(o.get("p"))
-                            if not price: continue
-                            if sel == "1": h = price
-                            elif sel == "X": d = price
-                            elif sel == "2": a = price
-                    elif name == "Total Goals":
-                        for o in bt.get("odds", []) or []:
-                            sel = (o.get("n") or "").strip()
-                            price = clean_odd(o.get("p"))
-                            if not price: continue
-                            if sel == "Over": over = price
-                            elif sel == "Under": under = price
-                if h and a:
-                    odds.append(build_match_record(home, away, "GSB", h, d, a, sport=ev.get("sn", "Football"), competition=ev.get("ln", "")))
-                if over and under:
-                    record = build_match_record(home, away, "GSB", over, under, None, sport="Football", competition=ev.get("ln", ""))
-                    record["match_key"] = f"{normalize(home)} vs {normalize(away)} | O/U 2.5"
-                    record["type"] = "Over/Under 2.5"
-                    odds.append(record)
-            except: continue
-    except Exception as e:
-        print(f"GSB error: {e}")
-    return odds
-
-
-# ==========================================
-# FIXED DNS ERRORS FOR BETWAY AND PREMIERBET
-# ==========================================
-def scrape_betway_ug():
-    odds = []
-    try:
-        print("Fetching Betway Uganda...")
-        url = "https://ug.betway.com/api/v1/SportsBook/GetEvents?SportId=1" # Corrected URL
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for event in data.get("Events", []):
-            home, away = event.get("HomeTeamName", ""), event.get("AwayTeamName", "")
-            if not home or not away: continue
-            h = d = a = over = under = None
-            for market in event.get("Markets", []):
-                market_name = market.get("Name", "")
-                if market_name == "Match Winner":
-                    for sel in market.get("Selections", []):
-                        name = sel.get("Name", ""); price = clean_odd(sel.get("Price"))
-                        if name == "1": h = price
-                        elif name == "X": d = price
-                        elif name == "2": a = price
-                elif "Total" in market_name or "Over/Under" in market_name:
-                    for sel in market.get("Selections", []):
-                        name = sel.get("Name", ""); price = clean_odd(sel.get("Price"))
-                        if name == "Over" or name == "Over 2.5": over = price
-                        elif name == "Under" or name == "Under 2.5": under = price
-            if h and a:
-                odds.append(build_match_record(home, away, "Betway", h, d, a))
-            if over and under:
-                record = build_match_record(home, away, "Betway", over, under, None)
-                record["match_key"] = f"{normalize(home)} vs {normalize(away)} | O/U 2.5"
-                record["type"] = "Over/Under 2.5"
-                odds.append(record)
-    except Exception as e:
-        print(f"Betway error: {e}")
-    return odds
-
-
-def scrape_premierbet_ug():
-    odds = []
-    try:
-        print("Fetching PremierBet Uganda...")
-        url = "https://premierbet.ug/api/v1/events?page=1&page_size=100&sport_id=1" # Corrected URL
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for event in data.get("results", []):
-            home, away = event.get("home_team", ""), event.get("away_team", "")
-            if not home or not away: continue
-            h = clean_odd(event.get("home_odd"))
-            d = clean_odd(event.get("draw_odd"))
-            a = clean_odd(event.get("away_odd"))
-            if h and a:
-                odds.append(build_match_record(home, away, "PremierBet", h, d, a))
-            over = clean_odd(event.get("over_odd"))
-            under = clean_odd(event.get("under_odd"))
-            if over and under:
-                record = build_match_record(home, away, "PremierBet", over, under, None)
-                record["match_key"] = f"{normalize(home)} vs {normalize(away)} | O/U 2.5"
-                record["type"] = "Over/Under 2.5"
-                odds.append(record)
-    except Exception as e:
-        print(f"PremierBet error: {e}")
     return odds
 
 
@@ -775,17 +600,26 @@ def find_arbitrage(all_odds):
 
 def run_scan():
     all_odds = []
+    
+    # 1. SportyBet - Stable
     all_odds.extend(scrape_sportybet())
+    # 2. ChampionBet - Stable (both 1x2 and O/U)
     all_odds.extend(scrape_championbet())
+    # 3. AbaBet - Stable
     all_odds.extend(scrape_ababet())
-    all_odds.extend(scrape_betpawa())
+    # 4. Fortebet - Stable (both 1x2 and O/U)
     all_odds.extend(scrape_fortebet())
-    all_odds.extend(scrape_betika())
-    all_odds.extend(scrape_1xbet())
-    all_odds.extend(scrape_22bet())
-    all_odds.extend(scrape_gsb())
-    all_odds.extend(scrape_betway_ug())
-    all_odds.extend(scrape_premierbet_ug())
+    
+    # 5. Over/Under for 1xBet & 22Bet - Stable on GitHub Actions
+    for name, config in SHARED_BOOKMAKERS_1X.items():
+        all_odds.extend(scrape_1x_over_under(name, config["base_url"], config["partner"]))
+
+    # (Removed BetPawa as it frequently hangs on GitHub Actions)
+    # (Removed Betika as it returns 0 matches on the live runner)
+    # (Removed GSB - 403 Forbidden by IP)
+    # (Removed Betway - DNS Error)
+    # (Removed PremierBet - DNS Error)
+    # (Removed Melbet Over/Under - 404 Not Found)
 
     opportunities = find_arbitrage(all_odds)
     arb_history = load_arbitrage_history()
