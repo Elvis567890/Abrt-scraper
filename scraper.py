@@ -232,8 +232,7 @@ def scrape_championbet():
             top_data = json.loads(resp.read().decode())
 
         matches = top_data.get("esMatches", []) if isinstance(top_data, dict) else []
-        print(f"ChampionBet: {len(matches)} matches in top list}")
-
+        print(f"ChampionBet: {len(matches)} matches in top list")
         count = 0
 
         for m in matches:
