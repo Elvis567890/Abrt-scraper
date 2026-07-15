@@ -1,11 +1,11 @@
 import json
 import re
 import time
-import urllib.parse
+import urllib.parse          # <-- added for GSB scraper
 import urllib.request
 from datetime import datetime
-import os
-from copy import deepcopy
+import os  # NEW
+from copy import deepcopy  # NEW
 
 import requests
 from bs4 import BeautifulSoup
@@ -21,7 +21,7 @@ HISTORY_FILE = "arb_history.json"
 SHARED_BOOKMAKERS_1X = {
     "1xBet": {"base_url": "https://1xbet.ug", "partner": "135"},
     "22Bet": {"base_url": "https://22bet.ug", "partner": "151"},
-    # Melbet excluded as Over/Under returns 404 on GitHub Actions
+    "Melbet": {"base_url": "https://melbet.ug", "partner": "8"},
 }
 
 
@@ -302,49 +302,6 @@ def scrape_ababet():
     return odds
 
 
-def scrape_betpawa():
-    odds = []
-    seen_matches = set()
-    urls = ["https://www.betpawa.ug/events?categoryId=2&marketId=1X2", "https://www.betpawa.ug/events/popular"]
-    try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=["--no-sandbox", "--disable-blink-features=AutomationControlled"])
-            context = browser.new_context(user_agent="Mozilla/5.0", viewport={"width": 390, "height": 844}, locale="en-UG")
-            page = context.new_page()
-            page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-            for url in urls:
-                try:
-                    page.goto(url, timeout=60000)
-                    page.wait_for_timeout(6000)
-                    links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
-                    for link in links[:60]:
-                        try:
-                            text = link.inner_text()
-                            parts = [p.strip() for p in text.split("\n") if p.strip()]
-                            teams, odd_values, competition = [], [], ""
-                            for part in parts:
-                                if re.match(r"^\d+\.\d+$", part):
-                                    odd_values.append(float(part))
-                                elif any(s in part for s in ["Football", "Soccer", "Netball", "Tennis", "Basketball"]):
-                                    competition = part
-                                elif part in ["1", "X", "2", "1X", "X2", "12"]:
-                                    continue
-                                elif len(part) > 2 and part not in ["Over", "Under", "O/U", "Over 2.5", "Under 2.5", "O 2.5", "U 2.5"]:
-                                    if "Over" in part or "Under" in part:
-                                        continue
-                                    teams.append(part)
-                            if len(teams) >= 2:
-                                ou_parts = [p for p in parts if "Over" in p or "Under" in p]
-                                if len(ou_parts) >= 2:
-                                    pass
-                        except: continue
-                except: continue
-            browser.close()
-    except Exception as e:
-        print(f"BetPawa error: {e}")
-    return odds
-
-
 def scrape_fortebet():
     odds = []
     try:
@@ -448,11 +405,144 @@ def scrape_sportybet():
     return odds
 
 
+# PROVEN 1x2 SCRAPERS (Brought back!)
+def scrape_1xbet():
+    odds = []
+    try:
+        print("Fetching 1xBet Uganda...")
+        url = "https://1xbet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=135&getEmpty=true&virtualSports=true"
+        headers = {
+            "content-type": "application/json",
+            "accept": "application/json, text/plain, */*",
+            "x-requested-with": "XMLHttpRequest",
+            "is-srv": "false",
+            "x-svc-source": "__BETTING_APP__",
+            "x-app-n": "__BETTING_APP__",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+            "Referer": "https://1xbet.ug/en/line/football",
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            try:
+                data = json.loads(raw.decode("utf-8"))
+            except:
+                data = json.loads(raw.decode("utf-8-sig"))
+        values = data.get("Value", []) if isinstance(data, dict) else []
+        count = 0
+        for match in values:
+            try:
+                home_team = match.get("O1")
+                away_team = match.get("O2")
+                if not home_team or not away_team: continue
+                home_odd = draw_odd = away_odd = None
+                for e in match.get("E", []):
+                    t = str(e.get("T", "")).strip()
+                    c = clean_odd(e.get("C"))
+                    if c is None: continue
+                    if t == "1": home_odd = c
+                    elif t == "2": away_odd = c
+                    elif t == "3": draw_odd = c
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append(build_match_record(home_team, away_team, "1xBet", home_odd, draw_odd, away_odd))
+            except: continue
+        print(f"1xBet: {count} matches extracted")
+    except Exception as e:
+        print(f"1xBet error: {e}")
+    return odds
+
+def scrape_22bet():
+    odds = []
+    try:
+        print("Fetching 22Bet Uganda...")
+        url = "https://22bet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=151&getEmpty=true&virtualSports=true"
+        headers = {
+            "Accept": "application/json, text/plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            try: data = json.loads(raw.decode("utf-8"))
+            except: data = json.loads(raw.decode("utf-8-sig"))
+        values = data.get("Value", []) if isinstance(data, dict) else []
+        count = 0
+        for match in values:
+            try:
+                home_team = match.get("O1")
+                away_team = match.get("O2")
+                if not home_team or not away_team: continue
+                home_odd = draw_odd = away_odd = None
+                for e in match.get("E", []):
+                    t = str(e.get("T", "")).strip()
+                    c = clean_odd(e.get("C"))
+                    if c is None: continue
+                    if t == "1": home_odd = c
+                    elif t == "2": away_odd = c
+                    elif t == "3": draw_odd = c
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append(build_match_record(home_team, away_team, "22Bet", home_odd, draw_odd, away_odd))
+            except: continue
+        print(f"22Bet: {count} matches extracted")
+    except Exception as e:
+        print(f"22Bet error: {e}")
+    return odds
+
+def scrape_melbet():
+    odds = []
+    try:
+        print("Fetching Melbet...")
+        url = "https://melbet-046935.top/service-api/LineFeed/Get1x2_VZip?count=1000&lng=en&mode=4&country=191&partner=8&getEmpty=true"
+        headers = {
+            "content-type": "application/json",
+            "accept": "application/json, text/plain, */*",
+            "x-mobile-project-id": "0",
+            "x-requested-with": "XMLHttpRequest",
+            "is-srv": "false",
+            "x-svc-source": "__BETTING_APP__",
+            "x-app-n": "__BETTING_APP__",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+            "Referer": "https://1xbet.ug/en/line/football",
+        }
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            try: data = json.loads(raw.decode("utf-8"))
+            except: data = json.loads(raw.decode("utf-8-sig"))
+        values = data.get("Value", []) if isinstance(data, dict) else []
+        count = 0
+        for match in values:
+            try:
+                home_team = match.get("O1")
+                away_team = match.get("O2")
+                if not home_team or not away_team: continue
+                home_odd = draw_odd = away_odd = None
+                for e in match.get("E", []):
+                    t = str(e.get("T", "")).strip()
+                    c = clean_odd(e.get("C"))
+                    if c is None: continue
+                    if t == "1": home_odd = c
+                    elif t == "2": away_odd = c
+                    elif t == "3": draw_odd = c
+                if home_odd is not None and away_odd is not None:
+                    count += 1
+                    odds.append(build_match_record(home_team, away_team, "Melbet", home_odd, draw_odd, away_odd))
+            except: continue
+        print(f"Melbet: {count} matches extracted")
+    except Exception as e:
+        print(f"Melbet error: {e}")
+    return odds
+
+
+# CORRECTED OVER/UNDER SCRAPER FOR 1xBet FAMILY
 def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
     odds = []
     try:
         print(f"Fetching {bookmaker_name} Over/Under...")
-        url = f"{base_url}/service-api/LineFeed/Get1x2_VZip?count=1000&lng=en&mode=4&country=191&partner={partner_id}&getEmpty=true&virtualSports=true"
+        url = f"{base_url}/service-api/LineFeed/GetEvents_VZip?count=1000&lng=en&mode=4&country=191&partner={partner_id}&market=5,6&getEmpty=true&virtualSports=true&eventType=1"
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
@@ -601,25 +691,18 @@ def find_arbitrage(all_odds):
 def run_scan():
     all_odds = []
     
-    # 1. SportyBet - Stable
+    # 1. Established 1x2 Scrapers (Brought back 1xBet, 22Bet, Melbet!)
     all_odds.extend(scrape_sportybet())
-    # 2. ChampionBet - Stable (both 1x2 and O/U)
     all_odds.extend(scrape_championbet())
-    # 3. AbaBet - Stable
     all_odds.extend(scrape_ababet())
-    # 4. Fortebet - Stable (both 1x2 and O/U)
     all_odds.extend(scrape_fortebet())
+    all_odds.extend(scrape_1xbet())
+    all_odds.extend(scrape_22bet())
+    all_odds.extend(scrape_melbet())
     
-    # 5. Over/Under for 1xBet & 22Bet - Stable on GitHub Actions
+    # 2. Over/Under 2.5 Scrapers
     for name, config in SHARED_BOOKMAKERS_1X.items():
         all_odds.extend(scrape_1x_over_under(name, config["base_url"], config["partner"]))
-
-    # (Removed BetPawa as it frequently hangs on GitHub Actions)
-    # (Removed Betika as it returns 0 matches on the live runner)
-    # (Removed GSB - 403 Forbidden by IP)
-    # (Removed Betway - DNS Error)
-    # (Removed PremierBet - DNS Error)
-    # (Removed Melbet Over/Under - 404 Not Found)
 
     opportunities = find_arbitrage(all_odds)
     arb_history = load_arbitrage_history()
