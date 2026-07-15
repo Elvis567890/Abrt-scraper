@@ -1,27 +1,1859 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset='utf-8'>
-<title>Arbitrage Opportunities</title>
-<style>
-body { font-family: Arial, sans-serif; margin: 20px; }
-table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-th, td { border: 1px solid #ccc; padding: 6px; font-size: 14px; }
-th { background: #f0f0f0; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArbiMax - Live Arbitrage Opportunities</title>
+    <style>
+        :root {
+            --bg: #0d0f13;
+            --surface: #161820;
+            --surface2: #1c1e26;
+            --surface3: #22242e;
+            --text: #e8e8ec;
+            --text2: #a0a4b0;
+            --text3: #6b6f7c;
+            --green: #00e676;
+            --green-glow: rgba(0, 230, 118, 0.25);
+            --red: #ff5252;
+            --red-glow: rgba(255, 82, 82, 0.2);
+            --blue: #448aff;
+            --yellow: #ffc107;
+            --orange: #ff9100;
+            --accent: #00e676;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-xs: 8px;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --nav-height: 72px;
+            --header-height: 56px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            background: var(--bg);
+            border-radius: 36px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 8px #2a2a2a, 0 20px 60px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 430px) {
+            .phone-frame {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 44px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .status-bar .time {
+            font-weight: 700;
+        }
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            font-size: 11px;
+        }
+        .status-icons span {
+            font-size: 13px;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+        }
+        .main-content::-webkit-scrollbar {
+            width: 0;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            padding: 0 16px 20px;
+            animation: fadeSlideIn 0.3s ease;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        @keyframes glowPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 12px var(--green-glow);
+            }
+            50% {
+                box-shadow: 0 0 24px var(--green-glow), 0 0 40px rgba(0, 230, 118, 0.15);
+            }
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0 14px;
+            flex-shrink: 0;
+        }
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+        .page-header .header-icons {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+        .page-header .header-icons .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            transition: all 0.2s;
+            border: none;
+            color: var(--text);
+        }
+        .page-header .header-icons .icon-btn:active {
+            transform: scale(0.92);
+            background: var(--surface3);
+        }
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            border: 2px solid var(--surface2);
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-shrink: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .filter-tabs::-webkit-scrollbar {
+            height: 0;
+        }
+        .filter-tab {
+            padding: 9px 18px;
+            border-radius: 22px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            border: 1.5px solid var(--surface3);
+            background: transparent;
+            color: var(--text2);
+            letter-spacing: -0.2px;
+        }
+        .filter-tab.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            font-weight: 700;
+            box-shadow: 0 2px 12px var(--green-glow);
+        }
+
+        /* Opportunity Card */
+        .opp-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .opp-card:active {
+            transform: scale(0.985);
+            border-color: var(--surface3);
+        }
+        .opp-card .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .opp-card .event-info {
+            flex: 1;
+        }
+        .opp-card .sport-badge {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--blue);
+            margin-bottom: 4px;
+        }
+        .opp-card .event-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.2px;
+            text-transform: capitalize;
+        }
+        .opp-card .market-type {
+            font-size: 12px;
+            color: var(--text2);
+            margin-top: 2px;
+        }
+        .opp-card .profit-badge {
+            background: rgba(0, 230, 118, 0.12);
+            color: var(--green);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            letter-spacing: -0.3px;
+            animation: glowPulse 2.5s infinite;
+            white-space: nowrap;
+        }
+        .opp-card .bookie-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+        }
+        .bookie-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface2);
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .bookie-tag .bookie-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .dot-b365 {
+            background: #027a48;
+        }
+        .dot-pin {
+            background: #e63946;
+        }
+        .dot-1x {
+            background: #1a5ba8;
+        }
+        .dot-sporty {
+            background: #f5a623;
+        }
+        .dot-betpawa {
+            background: #7b2cbf;
+        }
+        .dot-forte {
+            background: #0f4c81;
+        }
+        .dot-22bet {
+            background: #d32f2f;
+        }
+        .dot-melbet {
+            background: #2e7d32;
+        }
+        .opp-card .stake-preview {
+            font-size: 11px;
+            color: var(--text3);
+            margin-top: 6px;
+            display: flex;
+            gap: 12px;
+        }
+        .opp-card .live-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--red);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.2s infinite;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        /* Floating Button */
+        .fab {
+            position: absolute;
+            bottom: 100px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #000;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 28px var(--green-glow);
+            z-index: 20;
+            transition: all 0.25s;
+            border: none;
+            font-weight: 700;
+        }
+        .fab:active {
+            transform: scale(0.88);
+            box-shadow: 0 4px 16px var(--green-glow);
+        }
+
+        /* Detail Page */
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .back-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            border: none;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        .back-btn:active {
+            transform: scale(0.9);
+        }
+        .detail-sport {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--blue);
+        }
+        .detail-event {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            text-transform: capitalize;
+        }
+        .detail-timer {
+            font-size: 13px;
+            color: var(--orange);
+            font-weight: 600;
+        }
+        .outcome-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .outcome-cards.two-cols {
+            grid-template-columns: 1fr 1fr;
+        }
+        .outcome-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .outcome-card.highlight {
+            border-color: var(--green);
+            box-shadow: 0 0 20px var(--green-glow);
+        }
+        .outcome-card .outcome-label {
+            font-size: 12px;
+            color: var(--text2);
+            margin-bottom: 6px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .outcome-card .outcome-odds {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+        .outcome-card .outcome-bookie {
+            font-size: 11px;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+        .stake-input-group {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+        .stake-input-group label {
+            font-size: 12px;
+            color: var(--text2);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .stake-input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stake-input-row input {
+            flex: 1;
+            background: var(--surface2);
+            border: 2px solid var(--surface3);
+            color: var(--text);
+            font-size: 20px;
+            font-weight: 700;
+            padding: 12px 14px;
+            border-radius: var(--radius-xs);
+            outline: none;
+            letter-spacing: -0.5px;
+            transition: border 0.2s;
+            font-family: var(--font);
+        }
+        .stake-input-row input:focus {
+            border-color: var(--accent);
+        }
+        .stake-input-row .currency {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text2);
+        }
+        .breakdown-table {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--text2);
+            border-bottom: 1px solid var(--surface2);
+        }
+        .breakdown-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--green);
+            font-size: 15px;
+        }
+        .breakdown-row .val {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .breakdown-row:last-child .val {
+            color: var(--green);
+        }
+        .cta-row {
+            display: flex;
+            gap: 10px;
+        }
+        .cta-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            transition: all 0.2s;
+            letter-spacing: -0.2px;
+            font-family: var(--font);
+        }
+        .cta-btn.primary {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 4px 16px var(--green-glow);
+        }
+        .cta-btn.secondary {
+            background: var(--surface2);
+            color: var(--text);
+            border: 1.5px solid var(--surface3);
+        }
+        .cta-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Calculator */
+        .calc-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+        .calc-input {
+            margin-bottom: 14px;
+        }
+        .calc-input label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text2);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .calc-input input {
+            width: 100%;
+            background: var(--surface2);
+            border: 2px solid var(--surface3);
+            color: var(--text);
+            font-size: 17px;
+            font-weight: 600;
+            padding: 12px 14px;
+            border-radius: var(--radius-xs);
+            outline: none;
+            font-family: var(--font);
+            letter-spacing: -0.3px;
+        }
+        .calc-input input:focus {
+            border-color: var(--accent);
+        }
+        .calc-result {
+            background: var(--surface2);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+            margin-top: 8px;
+        }
+        .calc-result .profit-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 6px solid var(--green);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--green);
+            box-shadow: 0 0 24px var(--green-glow);
+        }
+        .calc-result .details {
+            font-size: 13px;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+        .calc-result .details strong {
+            color: var(--text);
+        }
+
+        /* Bet Slip */
+        .slip-item {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .slip-item .slip-bookie {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 11px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .slip-item .slip-info {
+            flex: 1;
+        }
+        .slip-item .slip-info .slip-event {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 13px;
+            text-transform: capitalize;
+        }
+        .slip-item .slip-info .slip-detail {
+            font-size: 11px;
+            color: var(--text2);
+        }
+        .slip-item .slip-stake {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 14px;
+        }
+        .slip-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .slip-actions button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .btn-copy {
+            background: var(--surface2);
+            color: var(--text);
+        }
+        .btn-open {
+            background: var(--blue);
+            color: #fff;
+        }
+        .btn-check {
+            background: var(--surface2);
+            color: var(--text2);
+            font-size: 18px;
+        }
+        .btn-check.checked {
+            background: var(--green);
+            color: #000;
+        }
+        .slip-summary {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-top: 8px;
+            text-align: center;
+        }
+        .slip-summary .summary-profit {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--green);
+            letter-spacing: -1px;
+        }
+
+        /* Bookmaker Grid */
+        .bookie-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .bookie-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .bookie-card:active {
+            transform: scale(0.96);
+        }
+        .bookie-card.connected {
+            border-color: rgba(0, 230, 118, 0.3);
+        }
+        .bookie-card .bookie-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            color: #fff;
+        }
+        .bookie-card .bookie-name {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 14px;
+        }
+        .bookie-card .bookie-balance {
+            font-size: 13px;
+            color: var(--text2);
+            margin-top: 2px;
+        }
+        .bookie-card .bookie-status {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--green);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .connect-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            margin-right: 3px;
+        }
+
+        /* Settings */
+        .settings-section {
+            margin-bottom: 18px;
+        }
+        .settings-section h3 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text3);
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+        .settings-item {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .settings-item .setting-label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 14px;
+        }
+        .toggle-switch {
+            width: 46px;
+            height: 26px;
+            background: var(--surface3);
+            border-radius: 13px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .toggle-switch.on {
+            background: var(--accent);
+        }
+        .toggle-switch::after {
+            content: '';
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        .toggle-switch.on::after {
+            left: 22px;
+        }
+        .slider-container {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            margin-bottom: 6px;
+        }
+        .slider-container input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent);
+            margin-top: 6px;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text3);
+        }
+        .sport-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 4px;
+        }
+        .sport-chip {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--surface3);
+            background: transparent;
+            color: var(--text2);
+            transition: all 0.2s;
+            letter-spacing: -0.2px;
+        }
+        .sport-chip.selected {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* History */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .summary-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            text-align: center;
+        }
+        .summary-card .summary-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+        .summary-card .summary-label {
+            font-size: 10px;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+        .profit-chart {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 14px;
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            overflow: hidden;
+        }
+        .chart-bar {
+            flex: 1;
+            background: var(--green);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.4s;
+            min-height: 8px;
+            opacity: 0.8;
+        }
+        .hist-item {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .hist-item .hist-info {
+            flex: 1;
+        }
+        .hist-item .hist-event {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 13px;
+            text-transform: capitalize;
+        }
+        .hist-item .hist-date {
+            font-size: 11px;
+            color: var(--text3);
+        }
+        .status-chip {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status-placed {
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--green);
+        }
+        .status-partial {
+            background: rgba(255, 193, 7, 0.15);
+            color: var(--yellow);
+        }
+
+        /* Alerts */
+        .alert-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .alert-card:active {
+            transform: scale(0.98);
+        }
+        .alert-card .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 230, 118, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .alert-card .alert-info {
+            flex: 1;
+        }
+        .alert-card .alert-event {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 13px;
+            text-transform: capitalize;
+        }
+        .alert-card .alert-meta {
+            font-size: 11px;
+            color: var(--text3);
+        }
+        .alert-card .alert-profit {
+            font-weight: 700;
+            color: var(--green);
+            font-size: 14px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            height: var(--nav-height);
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-shrink: 0;
+            border-top: 1px solid var(--surface3);
+            padding-bottom: 6px;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 6px 12px;
+            transition: all 0.2s;
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-family: var(--font);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: -0.1px;
+        }
+        .nav-item .nav-icon {
+            font-size: 20px;
+            transition: all 0.2s;
+        }
+        .nav-item.active {
+            color: var(--accent);
+        }
+        .nav-item.active .nav-icon {
+            text-shadow: 0 0 12px var(--green-glow);
+        }
+        .nav-item:active {
+            transform: scale(0.9);
+        }
+
+        /* Toast */
+        .toast {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            letter-spacing: -0.2px;
+        }
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text3);
+        }
+        .empty-state .empty-icon {
+            font-size: 56px;
+            margin-bottom: 14px;
+        }
+        .empty-state p {
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-<h1>Arbitrage Opportunities</h1>
-<p>Last updated: 2026-07-15 05:08:05</p>
-<table>
-<tr><th>Match</th><th>Sport</th><th>Type</th><th>Profit %</th><th>Profit UGX</th><th>Bets</th></tr>
-<tr><td>schwarzweiss bregenz vs austria lustenau</td><td>Football</td><td>3-way</td><td>19.38%</td><td>19381</td><td>1xBet Home @ 3.685; SportyBet Draw @ 3.7; 22Bet Away @ 3.78</td></tr>
-<tr><td>atert bissen vs ki klaksvik</td><td>Football</td><td>3-way</td><td>6.99%</td><td>6995</td><td>SportyBet Home @ 2.65; BetPawa Draw @ 3.69; 1xBet Away @ 3.55</td></tr>
-<tr><td>fk decic tuzi vs fk liepaja</td><td>Football</td><td>3-way</td><td>5.84%</td><td>5835</td><td>1xBet Home @ 2.776; BetPawa Draw @ 3.46; 22Bet Away @ 3.42</td></tr>
-<tr><td>polonia warszawa vs zlin</td><td>Football</td><td>3-way</td><td>5.46%</td><td>5464</td><td>Fortebet Home @ 2.63; SportyBet Draw @ 3.6; 1xBet Away @ 3.48</td></tr>
-<tr><td>home vs away</td><td>Football</td><td>3-way</td><td>4.93%</td><td>4929</td><td>1xBet Home @ 1.922; 22Bet Draw @ 3.3; Melbet Away @ 7.85</td></tr>
-<tr><td>kf egnatia rrogozhine vs petrocub hincesti</td><td>Football</td><td>3-way</td><td>3.83%</td><td>3832</td><td>SportyBet Home @ 1.79; 1xBet Draw @ 4.955; BetPawa Away @ 4.97</td></tr>
-<tr><td>england vs argentina</td><td>Football</td><td>3-way</td><td>2.42%</td><td>2418</td><td>1xBet Home @ 2.786; SportyBet Draw @ 3.46; Fortebet Away @ 3.05</td></tr>
-<tr><td>fleury vs boulogne</td><td>Football</td><td>3-way</td><td>1.12%</td><td>1121</td><td>Fortebet Home @ 2.72; SportyBet Draw @ 3.2; 1xBet Away @ 3.24</td></tr>
-</table>
-</body></html>
+
+    <div class="phone-frame" id="app">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+                <span>5G</span>
+                <span>▮▮▮▮</span>
+                <span>🔋</span>
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" id="toast">Copied to clipboard ✓</div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+
+            <!-- PAGE 1: Dashboard -->
+            <div class="page active" id="page-dashboard">
+                <div class="page-header">
+                    <h1>🔍 ArbiMax</h1>
+                    <div class="header-icons">
+                        <button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button>
+                        <button class="icon-btn">👤</button>
+                    </div>
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="football">Football</button>
+                    <button class="filter-tab" data-filter="high">High Profit (>5%)</button>
+                </div>
+                <div id="oppList">
+                    <!-- Dynamically generated from opportunities data -->
+                </div>
+                <button class="fab" onclick="navigateTo('calculator')" title="Calculator">🧮</button>
+            </div>
+
+            <!-- PAGE 2: Opportunity Detail -->
+            <div class="page" id="page-detail">
+                <div class="detail-header">
+                    <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
+                    <div>
+                        <div class="detail-sport" id="detailSport">Football</div>
+                        <div class="detail-event" id="detailEvent">Match</div>
+                        <div class="detail-timer" id="detailTimer">⏱ Pre-match</div>
+                    </div>
+                </div>
+                <div class="outcome-cards" id="outcomeCards">
+                    <!-- filled dynamically -->
+                </div>
+                <div class="stake-input-group">
+                    <label>Total Stake (UGX)</label>
+                    <div class="stake-input-row">
+                        <span class="currency">UGX</span>
+                        <input type="number" id="detailStake" value="100000" oninput="updateDetailCalc()">
+                    </div>
+                </div>
+                <div class="breakdown-table" id="detailBreakdown">
+                    <!-- filled dynamically -->
+                </div>
+                <div class="cta-row" id="ctaRow">
+                    <!-- Place bet buttons generated dynamically -->
+                </div>
+                <button class="cta-btn secondary" style="width:100%;margin-top:8px;" onclick="addCurrentDetailToSlip()">➕ Add to Bet Slip</button>
+            </div>
+
+            <!-- PAGE 3: Calculator -->
+            <div class="page" id="page-calculator">
+                <div class="detail-header">
+                    <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
+                    <h1 style="font-size:20px;">🧮 Arbitrage Calculator</h1>
+                </div>
+                <div class="calc-card">
+                    <div class="calc-input">
+                        <label>Total Stake (UGX)</label>
+                        <input type="number" id="calcStake" value="100000" oninput="updateCalculator()">
+                    </div>
+                    <div class="calc-input">
+                        <label>Odds 1</label>
+                        <input type="number" id="calcOdds1" value="3.6" step="0.01" oninput="updateCalculator()">
+                    </div>
+                    <div class="calc-input">
+                        <label>Odds 2</label>
+                        <input type="number" id="calcOdds2" value="3.82" step="0.01" oninput="updateCalculator()">
+                    </div>
+                    <div class="calc-input" id="calcOdds3Container" style="display:block;">
+                        <label>Odds 3 (3-way market)</label>
+                        <input type="number" id="calcOdds3" value="3.82" step="0.01" oninput="updateCalculator()">
+                    </div>
+                    <button class="cta-btn secondary" style="width:100%;font-size:12px;" onclick="toggleThirdOdds()">Toggle 3rd Outcome</button>
+                    <div class="calc-result" id="calcResult">
+                        <!-- filled dynamically -->
+                    </div>
+                </div>
+                <button class="cta-btn primary" style="width:100%;" onclick="addCurrentCalcToSlip()">📋 Save to Bet Slip</button>
+            </div>
+
+            <!-- PAGE 4: Bet Slip -->
+            <div class="page" id="page-slip">
+                <div class="page-header">
+                    <h1>📋 Bet Slip</h1>
+                    <span style="color:var(--text2);font-size:13px;" id="slipCount">0 bets</span>
+                </div>
+                <div id="slipItems">
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <p>No bets in slip yet</p>
+                        <span style="font-size:12px;color:var(--text3);">Add opportunities from the dashboard or calculator</span>
+                    </div>
+                </div>
+                <div class="slip-summary" id="slipSummary" style="display:none;">
+                    <div style="font-size:12px;color:var(--text2);">Total Guaranteed Profit</div>
+                    <div class="summary-profit" id="slipProfit">+UGX 0</div>
+                    <button class="cta-btn primary" style="width:100%;margin-top:10px;" onclick="completeArb()">✅ Complete Arb</button>
+                </div>
+            </div>
+
+            <!-- PAGE 5: Bookmakers -->
+            <div class="page" id="page-bookies">
+                <div class="page-header">
+                    <h1>🏦 Bookmakers</h1>
+                    <button class="icon-btn" style="background:var(--surface2);width:36px;height:36px;border-radius:50%;border:none;color:var(--text);cursor:pointer;font-size:16px;">＋</button>
+                </div>
+                <div class="bookie-grid">
+                    <div class="bookie-card connected">
+                        <div class="bookie-logo" style="background:#027a48;">B365</div>
+                        <div class="bookie-name">Bet365</div>
+                        <div class="bookie-balance">UGX 2,450,000</div>
+                        <div class="bookie-status"><span class="connect-dot"></span>Connected</div>
+                    </div>
+                    <div class="bookie-card connected">
+                        <div class="bookie-logo" style="background:#e63946;">PIN</div>
+                        <div class="bookie-name">Pinnacle</div>
+                        <div class="bookie-balance">UGX 1,820,000</div>
+                        <div class="bookie-status"><span class="connect-dot"></span>Connected</div>
+                    </div>
+                    <div class="bookie-card connected">
+                        <div class="bookie-logo" style="background:#1a5ba8;">1XB</div>
+                        <div class="bookie-name">1xBet</div>
+                        <div class="bookie-balance">UGX 890,000</div>
+                        <div class="bookie-status"><span class="connect-dot"></span>Connected</div>
+                    </div>
+                    <div class="bookie-card connected">
+                        <div class="bookie-logo" style="background:#f5a623;">SP</div>
+                        <div class="bookie-name">SportyBet</div>
+                        <div class="bookie-balance">UGX 1,500,000</div>
+                        <div class="bookie-status"><span class="connect-dot"></span>Connected</div>
+                    </div>
+                </div>
+                <button class="cta-btn secondary" style="width:100%;margin-top:14px;">＋ Add Bookmaker</button>
+            </div>
+
+            <!-- PAGE 6: Settings -->
+            <div class="page" id="page-settings">
+                <div class="page-header">
+                    <h1>⚙️ Settings</h1>
+                </div>
+                <div class="settings-section">
+                    <h3>Profit Filter</h3>
+                    <div class="slider-container">
+                        <span style="font-size:12px;color:var(--text2);">Min Profit: <strong id="minProfitLabel">1.0%</strong></span>
+                        <input type="range" min="0.5" max="20" step="0.1" value="1.0" oninput="document.getElementById('minProfitLabel').textContent=this.value+'%'; filterOpportunities()">
+                        <div class="slider-labels"><span>0.5%</span><span>20%</span></div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>Sports</h3>
+                    <div class="sport-chips">
+                        <span class="sport-chip selected" data-sport="football">⚽ Football</span>
+                        <span class="sport-chip" data-sport="tennis">🎾 Tennis</span>
+                        <span class="sport-chip" data-sport="basketball">🏀 Basketball</span>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>Preferences</h3>
+                    <div class="settings-item">
+                        <span class="setting-label">Push Notifications</span>
+                        <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                    </div>
+                    <div class="settings-item">
+                        <span class="setting-label">Sound Alerts</span>
+                        <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                    </div>
+                    <div class="settings-item">
+                        <span class="setting-label">Dark Mode</span>
+                        <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 7: History -->
+            <div class="page" id="page-history">
+                <div class="page-header">
+                    <h1>📊 History</h1>
+                </div>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="summary-val" id="totalArbs">0</div>
+                        <div class="summary-label">Arbs Completed</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-val" id="totalProfit">UGX 0</div>
+                        <div class="summary-label">Total Profit</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-val" id="avgROI">0%</div>
+                        <div class="summary-label">Avg ROI</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-val" id="successRate">0%</div>
+                        <div class="summary-label">Success Rate</div>
+                    </div>
+                </div>
+                <div class="profit-chart" id="profitChart">
+                    <!-- dynamic bars -->
+                </div>
+                <div id="historyList">
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <p>No completed arbs yet</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 8: Alerts -->
+            <div class="page" id="page-alerts">
+                <div class="page-header">
+                    <h1>🔔 Alerts</h1>
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-tab active">All</button>
+                    <button class="filter-tab">High Profit</button>
+                    <button class="filter-tab">Favourites</button>
+                </div>
+                <div id="alertsList">
+                    <!-- filled from opportunities -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+                <span class="nav-icon">🏠</span> Home
+            </button>
+            <button class="nav-item" data-page="slip" onclick="navigateTo('slip')">
+                <span class="nav-icon">📋</span> Slip
+            </button>
+            <button class="nav-item" data-page="calculator" onclick="navigateTo('calculator')">
+                <span class="nav-icon">🧮</span> Calculator
+            </button>
+            <button class="nav-item" data-page="bookies" onclick="navigateTo('bookies')">
+                <span class="nav-icon">🏦</span> Bookies
+            </button>
+            <button class="nav-item" data-page="settings" onclick="navigateTo('settings')">
+                <span class="nav-icon">⚙️</span> Settings
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ---- DATA EXTRACTED FROM SECOND HTML (Parsed Table) ----
+        const opportunitiesData = [
+            {
+                match: "schwarzweiss bregenz vs austria lustenau",
+                sport: "Football",
+                type: "3-way",
+                profitPercent: 19.87,
+                profitUGX: 19866,
+                bets: [
+                    { bookie: "SportyBet", outcome: "Home", odds: 3.6 },
+                    { bookie: "BetPawa", outcome: "Draw", odds: 3.82 },
+                    { bookie: "1xBet", outcome: "Away", odds: 3.82 }
+                ]
+            },
+            {
+                match: "eintracht trier vs fortuna koln",
+                sport: "Football",
+                type: "3-way",
+                profitPercent: 16.3,
+                profitUGX: 16301,
+                bets: [
+                    { bookie: "Fortebet", outcome: "Home", odds: 3.1 },
+                    { bookie: "SportyBet", outcome: "Draw", odds: 3.8 },
+                    { bookie: "1xBet", outcome: "Away", odds: 3.98 }
+                ]
+            },
+            {
+                match: "atert bissen vs ki klaksvik",
+                sport: "Football",
+                type: "3-way",
+                profitPercent: 6.86,
+                profitUGX: 6857,
+                bets: [
+                    { bookie: "SportyBet", outcome: "Home", odds: 2.64 },
+                    { bookie: "BetPawa", outcome: "Draw", odds: 3.68 },
+                    { bookie: "1xBet", outcome: "Away", odds: 3.56 }
+                ]
+            },
+            {
+                match: "fk decic tuzi vs fk liepaja",
+                sport: "Football",
+                type: "3-way",
+                profitPercent: 5.84,
+                profitUGX: 5835,
+                bets: [
+                    { bookie: "1xBet", outcome: "Home", odds: 2.776 },
+                    { bookie: "BetPawa", outcome: "Draw", odds: 3.46 },
+                    { bookie: "22Bet", outcome: "Away", odds: 3.42 }
+                ]
+            },
+            {
+                match: "home vs away",
+                sport: "Football",
+                type: "3-way",
+                profitPercent: 5.6,
+                profitUGX: 5601,
+                bets: [
+                    { bookie: "1xBet", outcome: "Home", odds: 1.97 },
+                    { bookie: "22Bet", outcome: "Draw", odds: 3.245 },
+                    { bookie: "Melbet", outcome: "Away", odds: 7.8 }
+                ]
+            },
+            {
+                match: "kf egnatia rrogozhine vs petrocub hincesti",
+                sport: "Football",
+                type: "3-way",
+                profitPercent: 4.08,
+                profitUGX: 4081,
+                bets: [
+                    { bookie: "SportyBet", outcome: "Home", odds: 1.8 },
+                    { bookie: "1xBet", outcome: "Draw", odds: 4.95 },
+                    { bookie: "BetPawa", outcome: "Away", odds: 4.96 }
+                ]
+            },
+            {
+                match: "england vs argentina",
+                sport: "Football",
+                type: "3-way",
+                profitPercent: 3.46,
+                profitUGX: 3458,
+                bets: [
+                    { bookie: "1xBet", outcome: "Home", odds: 2.786 },
+                    { bookie: "SportyBet", outcome: "Draw", odds: 3.46 },
+                    { bookie: "Fortebet", outcome: "Away", odds: 3.15 }
+                ]
+            },
+            {
+                match: "fleury vs boulogne",
+                sport: "Football",
+                type: "3-way",
+                profitPercent: 1.12,
+                profitUGX: 1121,
+                bets: [
+                    { bookie: "Fortebet", outcome: "Home", odds: 2.72 },
+                    { bookie: "SportyBet", outcome: "Draw", odds: 3.2 },
+                    { bookie: "1xBet", outcome: "Away", odds: 3.24 }
+                ]
+            }
+        ];
+
+        // ---- APP STATE ----
+        const pages = document.querySelectorAll('.page');
+        const navItems = document.querySelectorAll('.nav-item');
+        const mainContent = document.getElementById('mainContent');
+        let currentPage = 'dashboard';
+        let slipBets = [];
+        let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
+        let currentDetailArb = null; // holds the arb object currently viewed in detail
+
+        // ---- NAVIGATION ----
+        function navigateTo(pageName, data) {
+            pages.forEach(p => p.classList.remove('active'));
+            const targetPage = document.getElementById('page-' + pageName);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                currentPage = pageName;
+                mainContent.scrollTop = 0;
+                navItems.forEach(n => n.classList.remove('active'));
+                const navBtn = document.querySelector(`.nav-item[data-page="${pageName}"]`);
+                if (navBtn) navBtn.classList.add('active');
+                if (['detail', 'history', 'alerts'].includes(pageName)) {
+                    navItems.forEach(n => n.classList.remove('active'));
+                }
+                // If navigating to detail with arb data, populate it
+                if (pageName === 'detail' && data) {
+                    populateDetailPage(data);
+                }
+                if (pageName === 'alerts') {
+                    renderAlerts();
+                }
+                if (pageName === 'history') {
+                    renderHistory();
+                }
+                updateFab();
+            }
+        }
+
+        // ---- RENDER DASHBOARD CARDS ----
+        function renderOpportunities(filter = 'all', minProfit = parseFloat(document.getElementById('minProfitLabel')?.textContent) || 1.0) {
+            const container = document.getElementById('oppList');
+            let filtered = opportunitiesData.filter(arb => arb.profitPercent >= minProfit);
+            if (filter === 'football') {
+                filtered = filtered.filter(arb => arb.sport.toLowerCase() === 'football');
+            } else if (filter === 'high') {
+                filtered = filtered.filter(arb => arb.profitPercent > 5);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p>No opportunities found</p></div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(arb => {
+                const betSummary = arb.bets.map(b => `${b.bookie} ${b.outcome} @ ${b.odds}`).join('; ');
+                const stakePreview = arb.type === '3-way' ? '3-way arb' : '2-way arb';
+                return `
+                <div class="opp-card" onclick="navigateTo('detail', ${JSON.stringify(arb).replace(/"/g, '&quot;')})">
+                    <div class="top-row">
+                        <div class="event-info">
+                            <div class="sport-badge">⚽ ${arb.sport}</div>
+                            <div class="event-name">${arb.match}</div>
+                            <div class="market-type">${arb.type} · Pre-match</div>
+                        </div>
+                        <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
+                    </div>
+                    <div class="bookie-row">
+                        ${arb.bets.map(b => `
+                            <span class="bookie-tag">
+                                <span class="bookie-dot dot-${b.bookie.toLowerCase().replace(/[^a-z]/g,'')}">${b.bookie.charAt(0)}</span>
+                                ${b.bookie} ${b.outcome} @ ${b.odds}
+                            </span>
+                        `).join('')}
+                    </div>
+                    <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()} · ${stakePreview}</div>
+                </div>`;
+            }).join('');
+        }
+
+        // ---- FILTER INTERACTIONS ----
+        document.querySelectorAll('.filter-tabs').forEach(tabGroup => {
+            tabGroup.addEventListener('click', function(e) {
+                if (e.target.classList.contains('filter-tab')) {
+                    this.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    const filter = e.target.dataset.filter || 'all';
+                    filterOpportunities(filter);
+                }
+            });
+        });
+
+        function filterOpportunities(filter = 'all') {
+            renderOpportunities(filter);
+        }
+
+        // ---- DETAIL PAGE LOGIC ----
+        function populateDetailPage(arb) {
+            currentDetailArb = arb;
+            document.getElementById('detailSport').textContent = `⚽ ${arb.sport} · ${arb.type}`;
+            document.getElementById('detailEvent').textContent = arb.match;
+            document.getElementById('detailTimer').textContent = '⏱ Pre-match';
+
+            const outcomesContainer = document.getElementById('outcomeCards');
+            const isThreeWay = arb.type === '3-way';
+            outcomesContainer.className = 'outcome-cards' + (isThreeWay ? '' : ' two-cols');
+            outcomesContainer.innerHTML = arb.bets.map((bet, idx) => `
+                <div class="outcome-card highlight">
+                    <div class="outcome-label">${bet.outcome}</div>
+                    <div class="outcome-odds">${bet.odds}</div>
+                    <div class="outcome-bookie">${bet.bookie}</div>
+                </div>
+            `).join('');
+
+            // Update stake input default to 100000 UGX and recalc
+            document.getElementById('detailStake').value = 100000;
+            updateDetailCalc();
+
+            // Generate place bet buttons
+            const ctaRow = document.getElementById('ctaRow');
+            ctaRow.innerHTML = arb.bets.map(bet => `
+                <button class="cta-btn primary" onclick="showToast('Bet details copied for ${bet.bookie}!')">📋 Place at ${bet.bookie}</button>
+            `).join('');
+        }
+
+        function updateDetailCalc() {
+            if (!currentDetailArb) return;
+            const arb = currentDetailArb;
+            const stake = parseFloat(document.getElementById('detailStake').value) || 100000;
+            const bets = arb.bets;
+            const odds = bets.map(b => b.odds);
+
+            // Calculate stakes proportionally
+            const invOddsSum = odds.reduce((sum, odd) => sum + 1/odd, 0);
+            const stakes = odds.map(odd => (stake / odd) / invOddsSum);
+            const payouts = stakes.map((s, i) => s * odds[i]);
+            const minPayout = Math.min(...payouts);
+            const profit = minPayout - stake;
+            const roi = (profit / stake) * 100;
+
+            const breakdown = document.getElementById('detailBreakdown');
+            let html = stakes.map((s, i) => `
+                <div class="breakdown-row"><span>Stake on ${bets[i].outcome} (${bets[i].bookie})</span><span class="val">UGX ${s.toFixed(2)}</span></div>
+            `).join('');
+            html += `<div class="breakdown-row"><span>Total Invested</span><span class="val">UGX ${stake.toFixed(2)}</span></div>`;
+            html += `<div class="breakdown-row"><span>Guaranteed Profit</span><span class="val">+UGX ${profit.toFixed(2)} (${roi.toFixed(2)}%)</span></div>`;
+            breakdown.innerHTML = html;
+        }
+
+        function addCurrentDetailToSlip() {
+            if (!currentDetailArb) return;
+            const arb = currentDetailArb;
+            const stake = parseFloat(document.getElementById('detailStake').value) || 100000;
+            const odds = arb.bets.map(b => b.odds);
+            const invOddsSum = odds.reduce((sum, odd) => sum + 1/odd, 0);
+            const stakes = odds.map(odd => (stake / odd) / invOddsSum);
+            const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
+
+            const slipEntry = {
+                id: Date.now(),
+                match: arb.match,
+                type: arb.type,
+                bets: arb.bets.map((bet, idx) => ({
+                    ...bet,
+                    stake: stakes[idx],
+                })),
+                totalStake: stake,
+                profit: profit,
+                placedStatus: arb.bets.map(() => false),
+            };
+            slipBets.push(slipEntry);
+            renderSlip();
+            navigateTo('slip');
+            showToast('Arb added to slip!');
+        }
+
+        // ---- CALCULATOR ----
+        function updateCalculator() {
+            const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
+            const odds1 = parseFloat(document.getElementById('calcOdds1').value) || 3.6;
+            const odds2 = parseFloat(document.getElementById('calcOdds2').value) || 3.82;
+            const odds3El = document.getElementById('calcOdds3');
+            const hasThird = document.getElementById('calcOdds3Container').style.display !== 'none';
+            let odds = [odds1, odds2];
+            if (hasThird) odds.push(parseFloat(odds3El.value) || 3.82);
+
+            const invOddsSum = odds.reduce((sum, odd) => sum + 1/odd, 0);
+            const stakes = odds.map(odd => (stake / odd) / invOddsSum);
+            const payouts = stakes.map((s, i) => s * odds[i]);
+            const minPayout = Math.min(...payouts);
+            const profit = minPayout - stake;
+            const roi = (profit / stake) * 100;
+
+            const result = document.getElementById('calcResult');
+            let detailHTML = stakes.map((s, i) => `<strong>Bet ${i+1}:</strong> UGX ${s.toFixed(2)}`).join(' &nbsp;|&nbsp; ');
+            detailHTML += `<br><strong>Guaranteed Profit:</strong> UGX ${profit.toFixed(2)}`;
+            result.innerHTML = `
+                <div class="profit-ring">${roi.toFixed(2)}%</div>
+                <div class="details">${detailHTML}</div>
+            `;
+        }
+
+        function toggleThirdOdds() {
+            const container = document.getElementById('calcOdds3Container');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+            updateCalculator();
+        }
+
+        function addCurrentCalcToSlip() {
+            const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
+            const odds1 = parseFloat(document.getElementById('calcOdds1').value) || 3.6;
+            const odds2 = parseFloat(document.getElementById('calcOdds2').value) || 3.82;
+            const odds3El = document.getElementById('calcOdds3');
+            const hasThird = document.getElementById('calcOdds3Container').style.display !== 'none';
+            let bets = [
+                { bookie: 'Bookie1', outcome: 'Outcome 1', odds: odds1 },
+                { bookie: 'Bookie2', outcome: 'Outcome 2', odds: odds2 }
+            ];
+            if (hasThird) bets.push({ bookie: 'Bookie3', outcome: 'Outcome 3', odds: parseFloat(odds3El.value) || 3.82 });
+
+            const odds = bets.map(b => b.odds);
+            const invOddsSum = odds.reduce((sum, odd) => sum + 1/odd, 0);
+            const stakes = odds.map(odd => (stake / odd) / invOddsSum);
+            const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
+
+            const slipEntry = {
+                id: Date.now(),
+                match: 'Custom Calculation',
+                type: hasThird ? '3-way' : '2-way',
+                bets: bets.map((bet, idx) => ({ ...bet, stake: stakes[idx] })),
+                totalStake: stake,
+                profit: profit,
+                placedStatus: bets.map(() => false),
+            };
+            slipBets.push(slipEntry);
+            renderSlip();
+            navigateTo('slip');
+            showToast('Custom arb added to slip!');
+        }
+
+        // ---- BET SLIP ----
+        function renderSlip() {
+            const slipItems = document.getElementById('slipItems');
+            const slipSummary = document.getElementById('slipSummary');
+            const slipCount = document.getElementById('slipCount');
+            slipCount.textContent = slipBets.length + ' bet' + (slipBets.length !== 1 ? 's' : '');
+
+            if (slipBets.length === 0) {
+                slipItems.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p>No bets in slip yet</p></div>`;
+                slipSummary.style.display = 'none';
+                return;
+            }
+
+            slipItems.innerHTML = slipBets.map((entry, index) => {
+                let html = '';
+                entry.bets.forEach((bet, betIdx) => {
+                    const bookieClass = bet.bookie.toLowerCase().replace(/[^a-z]/g, '');
+                    html += `
+                    <div class="slip-item">
+                        <div class="slip-bookie" style="background:${getBookieColor(bet.bookie)};">${bet.bookie.substring(0,2).toUpperCase()}</div>
+                        <div class="slip-info">
+                            <div class="slip-event">${entry.match}</div>
+                            <div class="slip-detail">${bet.outcome} · ${bet.bookie} @ ${bet.odds}</div>
+                        </div>
+                        <div class="slip-stake">UGX ${bet.stake.toFixed(2)}</div>
+                        <div class="slip-actions">
+                            <button class="btn-copy" onclick="showToast('Copied: ${entry.match} ${bet.outcome} @ ${bet.odds}, stake UGX ${bet.stake.toFixed(2)}')">📋</button>
+                            <button class="btn-open" onclick="showToast('Opening ${bet.bookie}...')">↗</button>
+                            <button class="btn-check ${entry.placedStatus[betIdx] ? 'checked' : ''}" onclick="togglePlaced(${index}, ${betIdx})">✓</button>
+                        </div>
+                    </div>`;
+                });
+                return html;
+            }).join('');
+
+            const totalProfit = slipBets.reduce((sum, b) => sum + b.profit, 0);
+            slipSummary.style.display = 'block';
+            slipSummary.querySelector('.summary-profit').textContent = '+UGX ' + totalProfit.toFixed(2);
+        }
+
+        function getBookieColor(bookie) {
+            const colors = {
+                'sportybet': '#f5a623',
+                'betpawa': '#7b2cbf',
+                '1xbet': '#1a5ba8',
+                'fortebet': '#0f4c81',
+                '22bet': '#d32f2f',
+                'melbet': '#2e7d32',
+                'bet365': '#027a48',
+                'pinnacle': '#e63946',
+            };
+            return colors[bookie.toLowerCase()] || '#444';
+        }
+
+        function togglePlaced(slipIndex, betIndex) {
+            slipBets[slipIndex].placedStatus[betIndex] = !slipBets[slipIndex].placedStatus[betIndex];
+            renderSlip();
+        }
+
+        function completeArb() {
+            if (slipBets.length === 0) return;
+            const allPlaced = slipBets.every(entry => entry.placedStatus.every(v => v));
+            if (allPlaced) {
+                const totalProfit = slipBets.reduce((sum, b) => sum + b.profit, 0);
+                completedArbs.push({
+                    date: new Date().toISOString(),
+                    bets: slipBets.length,
+                    profit: totalProfit,
+                });
+                localStorage.setItem('arbiHistory', JSON.stringify(completedArbs));
+                slipBets = [];
+                renderSlip();
+                renderHistory();
+                navigateTo('history');
+                showToast('🎉 Arb completed! Profit locked in.');
+            } else {
+                showToast('⚠️ Please mark all bets as placed first.');
+            }
+        }
+
+        // ---- HISTORY ----
+        function renderHistory() {
+            const totalArbsEl = document.getElementById('totalArbs');
+            const totalProfitEl = document.getElementById('totalProfit');
+            const avgROIEl = document.getElementById('avgROI');
+            const successRateEl = document.getElementById('successRate');
+            const profitChart = document.getElementById('profitChart');
+            const historyList = document.getElementById('historyList');
+
+            if (completedArbs.length === 0) {
+                totalArbsEl.textContent = '0';
+                totalProfitEl.textContent = 'UGX 0';
+                avgROIEl.textContent = '0%';
+                successRateEl.textContent = '0%';
+                profitChart.innerHTML = '';
+                historyList.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p>No completed arbs yet</p></div>`;
+                return;
+            }
+
+            const totalProfit = completedArbs.reduce((sum, a) => sum + a.profit, 0);
+            totalArbsEl.textContent = completedArbs.length;
+            totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(0);
+            avgROIEl.textContent = (completedArbs.reduce((sum, a) => sum + (a.profit / 100000) * 100, 0) / completedArbs.length).toFixed(1) + '%';
+            successRateEl.textContent = '100%'; // assuming all completed are successful
+
+            // Simple chart bars from profit values
+            const maxProfit = Math.max(...completedArbs.map(a => a.profit), 1);
+            profitChart.innerHTML = completedArbs.map(a => {
+                const height = (a.profit / maxProfit) * 100;
+                return `<div class="chart-bar" style="height:${height}%;" title="UGX ${a.profit.toFixed(2)}"></div>`;
+            }).join('');
+
+            historyList.innerHTML = completedArbs.slice().reverse().map(a => {
+                const date = new Date(a.date).toLocaleDateString();
+                return `
+                <div class="hist-item">
+                    <div class="hist-info">
+                        <div class="hist-event">${a.bets} bets completed</div>
+                        <div class="hist-date">${date}</div>
+                    </div>
+                    <span class="status-chip status-placed">Placed</span>
+                    <span style="color:var(--green);font-weight:700;margin-left:8px;">+UGX ${a.profit.toFixed(2)}</span>
+                </div>`;
+            }).join('');
+        }
+
+        // ---- ALERTS (use same data as dashboard) ----
+        function renderAlerts() {
+            const container = document.getElementById('alertsList');
+            const highProfit = opportunitiesData.filter(a => a.profitPercent > 5);
+            container.innerHTML = highProfit.map(arb => `
+                <div class="alert-card" onclick="navigateTo('detail', ${JSON.stringify(arb).replace(/"/g, '&quot;')})">
+                    <div class="alert-icon">🔥</div>
+                    <div class="alert-info">
+                        <div class="alert-event">${arb.match}</div>
+                        <div class="alert-meta">${arb.bets.map(b=>b.bookie).join(' + ')} · Pre-match</div>
+                    </div>
+                    <div class="alert-profit">+${arb.profitPercent.toFixed(2)}%</div>
+                </div>
+            `).join('');
+        }
+
+        // ---- TOAST ----
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 1800);
+        }
+
+        // ---- FAB VISIBILITY ----
+        const fab = document.querySelector('.fab');
+        function updateFab() {
+            fab.style.display = currentPage === 'dashboard' ? 'flex' : 'none';
+        }
+
+        // ---- INITIAL RENDER ----
+        renderOpportunities();
+        updateCalculator();
+        renderSlip();
+        renderHistory();
+        renderAlerts();
+
+        // ---- SWIPE BACK ON DETAIL ----
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+        document.addEventListener('touchend', e => {
+            if (e.changedTouches[0].clientX - touchStartX > 80 && currentPage === 'detail') {
+                navigateTo('dashboard');
+            }
+        });
+
+        console.log('🏆 ArbiMax - Live Arbitrage Opportunities Loaded');
+    </script>
+</body>
+  </html>
