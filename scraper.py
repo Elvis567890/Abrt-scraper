@@ -21,7 +21,6 @@ HISTORY_FILE = "arb_history.json"
 SHARED_BOOKMAKERS_1X = {
     "1xBet": {"base_url": "https://1xbet.ug", "partner": "135"},
     "22Bet": {"base_url": "https://22bet.ug", "partner": "151"},
-    "Melbet": {"base_url": "https://melbet.ug", "partner": "8"},
 }
 
 
@@ -303,19 +302,21 @@ def scrape_ababet():
 
 
 def scrape_betpawa():
+    print("Fetching BetPawa...") # <-- Added this print to track it in the logs
     odds = []
     seen_matches = set()
     urls = ["https://www.betpawa.ug/events?categoryId=2&marketId=1X2", "https://www.betpawa.ug/events/popular"]
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True, args=["--no-sandbox", "--disable-blink-features=AutomationControlled"])
-            context = browser.new_context(user_agent="Mozilla/5.0", viewport={"width": 390, "height": 844}, locale="en-UG")
+            context = browser.new_context(user_agent="Mozilla/5.0", viewport={"width": 1920, "height": 1080}, locale="en-UG")
             page = context.new_page()
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
             for url in urls:
                 try:
                     page.goto(url, timeout=60000)
-                    page.wait_for_timeout(6000)
+                    # Wait for events to load so Playwright doesn't pull empty lists
+                    page.wait_for_selector('a[href*="/event/"], a[href*="/match/"]', timeout=30000)
                     links = page.query_selector_all('a[href*="/event/"], a[href*="/match/"]')
                     for link in links[:60]:
                         try:
@@ -334,13 +335,14 @@ def scrape_betpawa():
                                         continue
                                     teams.append(part)
                             if len(teams) >= 2:
-                                # Attempt to find Over/Under if explicit labels exist in text later
                                 ou_parts = [p for p in parts if "Over" in p or "Under" in p]
                                 if len(ou_parts) >= 2:
                                     pass
                         except: continue
-                except: continue
+                except Exception as e:
+                    print(f"BetPawa URL error: {e}")
             browser.close()
+        print(f"BetPawa total: {len(odds)} matches extracted")
     except Exception as e:
         print(f"BetPawa error: {e}")
     return odds
@@ -532,8 +534,6 @@ def scrape_1xbet():
     return scrape_1x_over_under("1xBet", SHARED_BOOKMAKERS_1X["1xBet"]["base_url"], SHARED_BOOKMAKERS_1X["1xBet"]["partner"])
 def scrape_22bet():
     return scrape_1x_over_under("22Bet", SHARED_BOOKMAKERS_1X["22Bet"]["base_url"], SHARED_BOOKMAKERS_1X["22Bet"]["partner"])
-def scrape_melbet():
-    return scrape_1x_over_under("Melbet", SHARED_BOOKMAKERS_1X["Melbet"]["base_url"], SHARED_BOOKMAKERS_1X["Melbet"]["partner"])
 
 
 def scrape_gsb():
@@ -583,11 +583,14 @@ def scrape_gsb():
     return odds
 
 
+# ==========================================
+# FIXED DNS ERRORS FOR BETWAY AND PREMIERBET
+# ==========================================
 def scrape_betway_ug():
     odds = []
     try:
-        print("Fetching Betway...")
-        url = "https://bnv2-ug.betway.com/api/v1/SportsBook/GetEvents?SportId=1"
+        print("Fetching Betway Uganda...")
+        url = "https://ug.betway.com/api/v1/SportsBook/GetEvents?SportId=1" # Corrected URL
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
@@ -623,8 +626,8 @@ def scrape_betway_ug():
 def scrape_premierbet_ug():
     odds = []
     try:
-        print("Fetching PremierBet...")
-        url = "https://ug.premierbet.com/api/v1/events?page=1&page_size=100&sport_id=1"
+        print("Fetching PremierBet Uganda...")
+        url = "https://premierbet.ug/api/v1/events?page=1&page_size=100&sport_id=1" # Corrected URL
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
@@ -780,7 +783,6 @@ def run_scan():
     all_odds.extend(scrape_betika())
     all_odds.extend(scrape_1xbet())
     all_odds.extend(scrape_22bet())
-    all_odds.extend(scrape_melbet())
     all_odds.extend(scrape_gsb())
     all_odds.extend(scrape_betway_ug())
     all_odds.extend(scrape_premierbet_ug())
