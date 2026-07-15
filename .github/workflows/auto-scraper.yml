@@ -1,65 +1,50 @@
-name: Auto Scraper
+name: Scrape and Deploy Arbitrage Data
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"  # every 30 minutes
+    # Runs every 30 minutes. You can change this to '*/15 * * * *' for 15 mins.
+    - cron: '*/30 * * * *'
+  workflow_dispatch:  # Allows you to run it manually from the GitHub Actions tab
+
+permissions:
+  contents: write
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # full history so we can pull/push safely
-
-      - name: Ensure main is up to date BEFORE changes
-        run: |
-          git fetch origin
-          git checkout main
-          git pull origin main
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt || true
+          pip install requests beautifulsoup4 playwright
+          # Install the browser engine for Playwright (needed for BetPawa)
+          playwright install chromium
 
-      # Install Playwright browsers so BetPawa scraper works in CI
-      - name: Install Playwright browsers
+      - name: Run Python scraper
+        # ⚠️ IMPORTANT: Change 'your_scraper_name.py' to your actual filename
+        run: python your_scraper_name.py
+
+      - name: Verify JSON files were generated
+        run: ls -la current_opportunities.json arb_history.json
+
+      # THIS IS THE STEP THAT FIXES YOUR 404 ERROR
+      - name: Commit and push updated JSON files to the root
         run: |
-          python -m playwright install --with-deps chromium
-
-      - name: Run scraper
-        # Only include env vars that scraper.py actually uses
-        env:
-          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
-        run: |
-          python scraper.py
-
-      - name: Upload arbitrage results artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: arbitrage-results
-          path: |
-            odds.json
-            arbitrage_history.json
-            odds_freshness.json
-            odds.html
-
-      - name: Commit and push updated odds files
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add odds.json arbitrage_history.json odds_freshness.json odds.html || true
-          git commit -m "Update arbitrage results (CI)" || echo "No changes to commit"
-          git push origin main
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Force git to track these specific JSON files
+          git add -f current_opportunities.json arb_history.json
+          
+          # Only commit if there are actual file changes
+          git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
+          
+          # Push directly to the root branch (usually main or master)
+          git push
