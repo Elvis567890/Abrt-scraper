@@ -1,657 +1,717 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AFRINODE | Arbitrage Scanner</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Inter',sans-serif;
-    background:
-        radial-gradient(circle at top,#12203d 0%,#071018 35%,#030712 100%);
-    color:#fff;
-    min-height:100vh;
-    padding-bottom:90px;
-}
-
-.glass{
-    background:rgba(15,23,42,.72);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:24px;
-}
-
-.card-glow{
-    box-shadow:
-        0 0 20px rgba(0,255,255,.08),
-        0 0 60px rgba(34,211,238,.08);
-}
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-.nav-btn{
-    transition:.25s;
-}
-
-.nav-btn.active{
-    color:#22d3ee;
-}
-
-.arb-card{
-    border-radius:22px;
-    padding:18px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(15,23,42,.98),
-            rgba(8,15,25,.98)
-        );
-
-    border:1px solid rgba(255,255,255,.06);
-
-    transition:.3s;
-}
-
-.arb-card:hover{
-    transform:translateY(-2px);
-    border-color:rgba(34,211,238,.3);
-}
-
-.bet-row{
-    background:#08111c;
-    border:1px solid rgba(255,255,255,.05);
-    border-radius:14px;
-    padding:10px;
-}
-
-.table-wrap{
-    overflow-x:auto;
-}
-
-table{
-    width:100%;
-    min-width:700px;
-    border-collapse:collapse;
-}
-
-th,td{
-    padding:14px;
-    border-bottom:1px solid rgba(255,255,255,.06);
-    text-align:left;
-}
-
-th{
-    color:#94a3b8;
-    font-size:12px;
-}
-
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-
-    background:rgba(2,6,23,.95);
-    backdrop-filter:blur(18px);
-
-    border-top:1px solid rgba(255,255,255,.08);
-
-    display:flex;
-    justify-content:space-around;
-
-    padding:12px;
-}
-
-.live-dot{
-    width:10px;
-    height:10px;
-    background:#22c55e;
-    border-radius:999px;
-    box-shadow:0 0 12px #22c55e;
-}
-
-.hero-number{
-    font-size:clamp(2.5rem,7vw,5rem);
-    font-weight:800;
-    line-height:1;
-}
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:
-        repeat(auto-fit,minmax(180px,1fr));
-    gap:14px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="max-w-7xl mx-auto p-4">
-
-    <!-- HEADER -->
-
-    <header class="glass card-glow p-5 mb-5">
-
-        <div class="flex justify-between items-center flex-wrap gap-4">
-
-            <div>
-                <h1 class="text-3xl font-extrabold tracking-wide">
-                    AFRINODE
-                </h1>
-
-                <p class="text-slate-400 text-sm">
-                    Premium Arbitrage Scanner
-                </p>
-            </div>
-
-            <div class="flex items-center gap-3">
-
-                <div class="flex items-center gap-2">
-                    <div class="live-dot"></div>
-
-                    <span class="text-green-400 text-sm">
-                        LIVE
-                    </span>
-                </div>
-
-                <span id="lastUpdated"
-                      class="text-slate-400 text-sm">
-                    --
-                </span>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- HERO -->
-
-    <section
-        class="glass card-glow p-8 mb-6">
-
-        <div class="flex flex-col lg:flex-row justify-between gap-6">
-
-            <div>
-
-                <p class="text-slate-400 text-sm">
-                    Best Opportunity
-                </p>
-
-                <div
-                    id="heroProfit"
-                    class="hero-number text-cyan-400">
-
-                    0.00%
-
-                </div>
-
-                <p
-                    id="heroProfitUgx"
-                    class="text-slate-300 text-lg">
-
-                    UGX 0
-
-                </p>
-
-            </div>
-
-            <div class="text-right">
-
-                <p
-                    id="heroMatch"
-                    class="text-xl font-semibold">
-
-                </p>
-
-                <p
-                    id="heroMeta"
-                    class="text-slate-400 mt-2">
-
-                    Waiting for opportunities...
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- STATS -->
-
-    <section
-        class="stats-grid mb-6">
-
-        <div class="glass p-5">
-            <p class="text-slate-400 text-sm">
-                Live Opportunities
-            </p>
-
-            <h2
-                id="statValid"
-                class="text-4xl font-bold text-green-400">
-                0
-            </h2>
-        </div>
-
-        <div class="glass p-5">
-            <p class="text-slate-400 text-sm">
-                Invalid History
-            </p>
-
-            <h2
-                id="statInvalid"
-                class="text-4xl font-bold text-amber-400">
-                0
-            </h2>
-        </div>
-
-        <div class="glass p-5">
-            <p class="text-slate-400 text-sm">
-                Matches
-            </p>
-
-            <h2
-                id="statMatches"
-                class="text-4xl font-bold text-cyan-400">
-                0
-            </h2>
-        </div>
-
-        <div class="glass p-5">
-            <p class="text-slate-400 text-sm">
-                Bookmakers
-            </p>
-
-            <h2
-                id="statBooks"
-                class="text-4xl font-bold text-purple-400">
-                0
-            </h2>
-        </div>
-
-    </section>
-
-
-    <!-- TABS -->
-
-    <div class="flex gap-3 mb-5">
-
-        <button
-            class="nav-btn active"
-            onclick="showPage('page-arbs',this)">
-            Arbitrage
-        </button>
-
-        <button
-            class="nav-btn"
-            onclick="showPage('page-odds',this)">
-            Raw Odds
-        </button>
-
-    </div>
-
-
-    <!-- ARBS -->
-
-    <section
-        id="page-arbs"
-        class="page active">
-
-        <div
-            id="arbsContainer"
-            class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-
-        </div>
-
-    </section>
-
-
-    <!-- ODDS -->
-
-    <section
-        id="page-odds"
-        class="page">
-
-        <div class="glass p-5">
-
-            <div class="flex justify-between mb-4">
-
-                <h2 class="font-semibold">
-                    Raw Odds Feed
-                </h2>
-
-                <span
-                    id="oddsCount"
-                    class="text-slate-400">
-
-                    0 Rows
-
-                </span>
-
-            </div>
-
-            <div
-                id="oddsTable"
-                class="table-wrap">
-
-            </div>
-
-        </div>
-
-    </section>
-
-</div>
-
-
-<!-- MOBILE NAV -->
-
-<div class="bottom-nav">
-
-    <button
-        class="nav-btn active"
-        onclick="showPage('page-arbs',this)">
-        ⚡
-    </button>
-
-    <button
-        class="nav-btn"
-        onclick="showPage('page-odds',this)">
-        📊
-    </button>
-
-</div>
-
-
-<script>
-
-let state = {
-    opportunities: [],
-    raw_odds: [],
-    history: [],
-    last_updated: null,
-    total_matches: 0,
-    bookmakers: []
-};
-
-function showPage(page,btn){
-
-    document
-        .querySelectorAll('.page')
-        .forEach(p=>p.classList.remove('active'));
-
-    document
-        .getElementById(page)
-        .classList.add('active');
-
-    document
-        .querySelectorAll('.nav-btn')
-        .forEach(b=>b.classList.remove('active'));
-
-    btn.classList.add('active');
-}
-
-
-async function loadOdds(){
-
-    try{
-
-        const res =
-            await fetch(
-                "odds.json?t="+Date.now(),
-                {cache:"no-store"}
-            );
-
-        const data = await res.json();
-
-        state = {
-            ...state,
-            ...data
-        };
-
-        renderStats();
-        renderHero();
-        renderArbs();
-        renderOdds();
-
-    }catch(e){
-
-        console.log(e);
-
-    }
-
-}
-
-
-function renderStats(){
-
-    document.getElementById(
-        'statValid'
-    ).innerText =
-        state.opportunities.length;
-
-    document.getElementById(
-        'statInvalid'
-    ).innerText =
-        Math.max(
-            state.history.length -
-            state.opportunities.length,
-            0
-        );
-
-    document.getElementById(
-        'statMatches'
-    ).innerText =
-        state.total_matches || 0;
-
-    document.getElementById(
-        'statBooks'
-    ).innerText =
-        (state.bookmakers || []).length;
-
-}
-
-
-function renderHero(){
-
-    if(!state.opportunities.length)
-        return;
-
-    let best =
-        state.opportunities.reduce(
-            (a,b)=>
-                b.profit_percent >
-                a.profit_percent
-                ? b
-                : a
-        );
-
-    heroProfit.innerText =
-        Number(
-            best.profit_percent
-        ).toFixed(2)+"%";
-
-    heroProfitUgx.innerText =
-        "UGX "+
-        Number(
-            best.profit_ugx || 0
-        ).toLocaleString();
-
-    heroMatch.innerText =
-        best.match || "";
-
-    heroMeta.innerText =
-        (best.sport || "")+
-        " • "+
-        (best.competition || "");
-
-}
-
-
-function renderArbs(){
-
-    const c =
-        document.getElementById(
-            'arbsContainer'
-        );
-
-    if(!state.opportunities.length){
-
-        c.innerHTML =
-        `<div class="glass p-6 text-center">
-            No opportunities found.
-        </div>`;
-
-        return;
-    }
-
-    c.innerHTML =
-        state.opportunities.map(o=>`
-
-        <div class="arb-card">
-
-            <div class="flex justify-between">
-
-                <div>
-
-                    <h3 class="font-bold">
-                        ${o.match}
-                    </h3>
-
-                    <p class="text-slate-400 text-sm">
-                        ${o.sport || ""}
-                    </p>
-
-                </div>
-
-                <div
-                    class="text-green-400 font-bold">
-
-                    +${Number(
-                        o.profit_percent
-                    ).toFixed(2)}%
-
-                </div>
-
-            </div>
-
-            <div class="mt-4 space-y-3">
-
-                ${(o.bets||[]).map(b=>`
-
-                <div class="bet-row flex justify-between">
-
-                    <div>
-
-                        <div class="font-semibold text-cyan-400">
-                            ${b.bookmaker}
-                        </div>
-
-                        <div class="text-sm text-slate-400">
-                            ${b.selection || ""}
-                        </div>
-
-                    </div>
-
-                    <div class="text-right">
-
-                        <div>
-                            @ ${b.odd}
-                        </div>
-
-                        <div class="text-slate-400 text-sm">
-                            UGX ${Number(
-                                b.stake||0
-                            ).toLocaleString()}
-                        </div>
-
-                    </div>
-
-                </div>
-
-                `).join("")}
-
-            </div>
-
-        </div>
-
-        `).join("");
-
-}
-
-
-function renderOdds(){
-
-    oddsCount.innerText =
-        state.raw_odds.length+" rows";
-
-    oddsTable.innerHTML = `
-
-    <table>
-
-        <thead>
-
-            <tr>
-                <th>Match</th>
-                <th>Bookmaker</th>
-                <th>Home</th>
-                <th>Draw</th>
-                <th>Away</th>
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            ${state.raw_odds.map(o=>`
-
-            <tr>
-
-                <td>${o.match}</td>
-                <td>${o.bookmaker}</td>
-                <td>${o.home||'-'}</td>
-                <td>${o.draw||'-'}</td>
-                <td>${o.away||'-'}</td>
-
-            </tr>
-
-            `).join("")}
-
-        </tbody>
-
-    </table>
-
-    `;
-
-}
-
-
-loadOdds();
-setInterval(loadOdds,30000);
-
-</script>
-
-</body>
-</html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArbiMax - Live Arbitrage Opportunities</title>
+    <style>
+        :root {
+            --bg: #0d0f13;
+            --surface: #161820;
+            --surface2: #1c1e26;
+            --surface3: #22242e;
+            --text: #e8e8ec;
+            --text2: #a0a4b0;
+            --text3: #6b6f7c;
+            --green: #00e676;
+            --green-glow: rgba(0, 230, 118, 0.25);
+            --red: #ff5252;
+            --red-glow: rgba(255, 82, 82, 0.2);
+            --blue: #448aff;
+            --yellow: #ffc107;
+            --orange: #ff9100;
+            --accent: #00e676;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-xs: 8px;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --nav-height: 72px;
+            --header-height: 56px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            background: var(--bg);
+            border-radius: 36px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 8px #2a2a2a, 0 20px 60px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 430px) {
+            .phone-frame {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 44px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .status-bar .time {
+            font-weight: 700;
+        }
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            font-size: 11px;
+        }
+        .status-icons span {
+            font-size: 13px;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+        }
+        .main-content::-webkit-scrollbar {
+            width: 0;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            padding: 0 16px 20px;
+            animation: fadeSlideIn 0.3s ease;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        @keyframes glowPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 12px var(--green-glow);
+            }
+            50% {
+                box-shadow: 0 0 24px var(--green-glow), 0 0 40px rgba(0, 230, 118, 0.15);
+            }
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0 14px;
+            flex-shrink: 0;
+        }
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+        .page-header .header-icons {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+        .page-header .header-icons .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            transition: all 0.2s;
+            border: none;
+            color: var(--text);
+        }
+        .page-header .header-icons .icon-btn:active {
+            transform: scale(0.92);
+            background: var(--surface3);
+        }
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            border: 2px solid var(--surface2);
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-shrink: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .filter-tabs::-webkit-scrollbar {
+            height: 0;
+        }
+        .filter-tab {
+            padding: 9px 18px;
+            border-radius: 22px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            border: 1.5px solid var(--surface3);
+            background: transparent;
+            color: var(--text2);
+            letter-spacing: -0.2px;
+        }
+        .filter-tab.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            font-weight: 700;
+            box-shadow: 0 2px 12px var(--green-glow);
+        }
+
+        /* Opportunity Card */
+        .opp-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .opp-card:active {
+            transform: scale(0.985);
+            border-color: var(--surface3);
+        }
+        .opp-card .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .opp-card .event-info {
+            flex: 1;
+        }
+        .opp-card .sport-badge {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--blue);
+            margin-bottom: 4px;
+        }
+        .opp-card .event-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.2px;
+            text-transform: capitalize;
+        }
+        .opp-card .market-type {
+            font-size: 12px;
+            color: var(--text2);
+            margin-top: 2px;
+        }
+        .opp-card .profit-badge {
+            background: rgba(0, 230, 118, 0.12);
+            color: var(--green);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            letter-spacing: -0.3px;
+            animation: glowPulse 2.5s infinite;
+            white-space: nowrap;
+        }
+        .opp-card .bookie-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+        }
+        .bookie-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface2);
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .bookie-tag .bookie-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .dot-b365 {
+            background: #027a48;
+        }
+        .dot-pin {
+            background: #e63946;
+        }
+        .dot-1x {
+            background: #1a5ba8;
+        }
+        .dot-sporty {
+            background: #f5a623;
+        }
+        .dot-betpawa {
+            background: #7b2cbf;
+        }
+        .dot-forte {
+            background: #0f4c81;
+        }
+        .dot-22bet {
+            background: #d32f2f;
+        }
+        .dot-melbet {
+            background: #2e7d32;
+        }
+        .opp-card .stake-preview {
+            font-size: 11px;
+            color: var(--text3);
+            margin-top: 6px;
+            display: flex;
+            gap: 12px;
+        }
+        .opp-card .live-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--red);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.2s infinite;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        /* Floating Button */
+        .fab {
+            position: absolute;
+            bottom: 100px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #000;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 28px var(--green-glow);
+            z-index: 20;
+            transition: all 0.25s;
+            border: none;
+            font-weight: 700;
+        }
+        .fab:active {
+            transform: scale(0.88);
+            box-shadow: 0 4px 16px var(--green-glow);
+        }
+
+        /* Detail Page */
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .back-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            border: none;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        .back-btn:active {
+            transform: scale(0.9);
+        }
+        .detail-sport {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--blue);
+        }
+        .detail-event {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            text-transform: capitalize;
+        }
+        .detail-timer {
+            font-size: 13px;
+            color: var(--orange);
+            font-weight: 600;
+        }
+        .outcome-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .outcome-cards.two-cols {
+            grid-template-columns: 1fr 1fr;
+        }
+        .outcome-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .outcome-card.highlight {
+            border-color: var(--green);
+            box-shadow: 0 0 20px var(--green-glow);
+        }
+        .outcome-card .outcome-label {
+            font-size: 12px;
+            color: var(--text2);
+            margin-bottom: 6px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .outcome-card .outcome-odds {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+        .outcome-card .outcome-bookie {
+            font-size: 11px;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+        .stake-input-group {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+        .stake-input-group label {
+            font-size: 12px;
+            color: var(--text2);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .stake-input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stake-input-row input {
+            flex: 1;
+            background: var(--surface2);
+            border: 2px solid var(--surface3);
+            color: var(--text);
+            font-size: 20px;
+            font-weight: 700;
+            padding: 12px 14px;
+            border-radius: var(--radius-xs);
+            outline: none;
+            letter-spacing: -0.5px;
+            transition: border 0.2s;
+            font-family: var(--font);
+        }
+        .stake-input-row input:focus {
+            border-color: var(--accent);
+        }
+        .stake-input-row .currency {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text2);
+        }
+        .breakdown-table {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--text2);
+            border-bottom: 1px solid var(--surface2);
+        }
+        .breakdown-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--green);
+            font-size: 15px;
+        }
+        .breakdown-row .val {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .breakdown-row:last-child .val {
+            color: var(--green);
+        }
+        .cta-row {
+            display: flex;
+            gap: 10px;
+        }
+        .cta-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            transition: all 0.2s;
+            letter-spacing: -0.2px;
+            font-family: var(--font);
+        }
+        .cta-btn.primary {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 4px 16px var(--green-glow);
+        }
+        .cta-btn.secondary {
+            background: var(--surface2);
+            color: var(--text);
+            border: 1.5px solid var(--surface3);
+        }
+        .cta-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Calculator */
+        .calc-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+        .calc-input {
+            margin-bottom: 14px;
+        }
+        .calc-input label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text2);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .calc-input input {
+            width: 100%;
+            background: var(--surface2);
+            border: 2px solid var(--surface3);
+            color: var(--text);
+            font-size: 17px;
+            font-weight: 600;
+            padding: 12px 14px;
+            border-radius: var(--radius-xs);
+            outline: none;
+            font-family: var(--font);
+            letter-spacing: -0.3px;
+        }
+        .calc-input input:focus {
+            border-color: var(--accent);
+        }
+        .calc-result {
+            background: var(--surface2);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+            margin-top: 8px;
+        }
+        .calc-result .profit-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 6px solid var(--green);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--green);
+            box-shadow: 0 0 24px var(--green-glow);
+        }
+        .calc-result .details {
+            font-size: 13px;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+        .calc-result .details strong {
+            color: var(--text);
+        }
+
+        /* Bet Slip */
+        .slip-item {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .slip-item .slip-bookie {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 11px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .slip-item .slip-info {
+            flex: 1;
+        }
+        .slip-item .slip-info .slip-event {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 13px;
+            text-transform: capitalize;
+        }
+        .slip-item .slip-info .slip-detail {
+            font-size: 11px;
+            color: var(--text2);
+        }
+        .slip-item .slip-stake {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 14px;
+        }
+        .slip-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .slip-actions button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .btn-copy {
+            background: var(--surface2);
+            color: var(--text);
+        }
+        .btn-open {
+            background: var(--blue);
+            color: #fff;
+        }
+        .btn-check {
+            background: var(--surface2);
+            color: var(--text2);
+            font-size: 18px;
+        }
+        .btn-check.checked {
+            background: var(--green);
+            color: #000;
+        }
+        .slip-summary {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-top: 8px;
+            text-align: center;
+        }
+        .slip-summary .summary-profit {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--green);
+            letter-spacing: -1px;
+        }
+
+        
