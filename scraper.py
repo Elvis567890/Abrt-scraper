@@ -93,6 +93,30 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
     }
 
 
+# NEW: small helper to normalize sport names across scrapers
+def normalize_sport_name(record):
+    raw = (record.get("sport") or "").strip().lower()
+    if not raw:
+        record["sport"] = "Football"
+        return record
+
+    if "foot" in raw or "soccer" in raw:
+        record["sport"] = "Football"
+    elif "basket" in raw:
+        record["sport"] = "Basketball"
+    elif "netball" in raw:
+        record["sport"] = "Netball"
+    elif "tennis" in raw:
+        record["sport"] = "Tennis"
+    elif "rugby" in raw:
+        record["sport"] = "Rugby"
+    elif "futsal" in raw:
+        record["sport"] = "Futsal"
+    else:
+        record["sport"] = raw.title()
+    return record
+
+
 # NEW: use detailed match betMap
 def championbet_extract_1x2_from_betmap(bet_map):
     """
@@ -311,16 +335,28 @@ def scrape_betpawa():
                                 if match_key not in seen_matches:
                                     seen_matches.add(match_key)
                                     page_odds += 1
-                                    odds.append(build_match_record(
+
+                                    # detect sport from competition text (Football default)
+                                    sport_name = "Football"
+                                    comp_lower = (competition or "").lower()
+                                    if "netball" in comp_lower:
+                                        sport_name = "Netball"
+                                    elif "basketball" in comp_lower:
+                                        sport_name = "Basketball"
+                                    elif "tennis" in comp_lower:
+                                        sport_name = "Tennis"
+
+                                    record = build_match_record(
                                         home_team=teams[0],
                                         away_team=teams[1],
                                         bookmaker="BetPawa",
                                         home=odd_values[0],
                                         draw=odd_values[1] if len(odd_values) >= 3 else None,
                                         away=odd_values[2] if len(odd_values) >= 3 else odd_values[1],
-                                        sport="Netball" if "Netball" in competition else "Football",
+                                        sport=sport_name,
                                         competition=competition,
-                                    ))
+                                    )
+                                    odds.append(normalize_sport_name(record))
                         except:
                             continue
 
@@ -392,17 +428,35 @@ def scrape_fortebet():
                             d_odd = None
                         break
 
-                if h_odd is not None and a_odd is not None:
-                    football_count += 1
-                    odds.append(build_match_record(
-                        home_team=home_team,
-                        away_team=away_team,
-                        bookmaker="Fortebet",
-                        home=h_odd,
-                        draw=d_odd,
-                        away=a_odd,
-                        sport="Netball" if d_odd is None else "Football",
-                    ))
+                if h_odd is None or a_odd is None:
+                    continue
+
+                # base: draw presence
+                sport_name = "Netball" if d_odd is None else "Football"
+
+                # optional refinement if event contains sport name
+                ev_sport = ""
+                if isinstance(event, dict):
+                    ev_sport = (event.get("sportName") or event.get("sport") or "").lower()
+                if "basketball" in ev_sport:
+                    sport_name = "Basketball"
+                elif "tennis" in ev_sport:
+                    sport_name = "Tennis"
+                elif "football" in ev_sport or "soccer" in ev_sport:
+                    sport_name = "Football"
+
+                football_count += 1
+
+                record = build_match_record(
+                    home_team=home_team,
+                    away_team=away_team,
+                    bookmaker="Fortebet",
+                    home=h_odd,
+                    draw=d_odd,
+                    away=a_odd,
+                    sport=sport_name,
+                )
+                odds.append(normalize_sport_name(record))
             except:
                 continue
 
@@ -429,14 +483,17 @@ def scrape_sportybet():
                 try:
                     home = event.get("home_team", "")
                     away = event.get("away_team", "")
-                    sport = event.get("sport", "Football")
+                    if not home or not away:
+                        continue
+
+                    sport = (event.get("sport") or "Football").strip()
                     h_odd = clean_odd(event.get("home"))
                     d_odd = clean_odd(event.get("draw"))
                     a_odd = clean_odd(event.get("away"))
 
-                    if home and away and h_odd is not None and a_odd is not None:
+                    if h_odd is not None and a_odd is not None:
                         sport_counts[sport] = sport_counts.get(sport, 0) + 1
-                        odds.append(build_match_record(
+                        record = build_match_record(
                             home_team=home,
                             away_team=away,
                             bookmaker="SportyBet",
@@ -444,7 +501,8 @@ def scrape_sportybet():
                             draw=d_odd,
                             away=a_odd,
                             sport=sport,
-                        ))
+                        )
+                        odds.append(normalize_sport_name(record))
                 except:
                     continue
 
@@ -1033,7 +1091,6 @@ def scrape_shared_1xbet_family(bookmaker_name, config):
 
         values = data.get("Value", []) if isinstance(data, dict) else []
         count = 0
-
         for match in values:
             try:
                 home_team = match.get("O1")
@@ -1049,10 +1106,10 @@ def scrape_shared_1xbet_family(bookmaker_name, config):
                         continue
                     if t == "1":
                         home_odd = c
-                    elif t == "3":
-                        draw_odd = c
                     elif t == "2":
                         away_odd = c
+                    elif t == "3":
+                        draw_odd = c
 
                 if home_odd is not None and away_odd is not None:
                     count += 1
@@ -1070,202 +1127,41 @@ def scrape_shared_1xbet_family(bookmaker_name, config):
             except Exception:
                 continue
 
-        print(f"{bookmaker_name}: {count} matches extracted (shared 1xBet-family)")
+        print(f"{bookmaker_name}: {count} matches extracted")
     except Exception as e:
-        print(f"{bookmaker_name} shared 1xBet-family error: {e}")
-
+        print(f"{bookmaker_name} error: {e}")
     return odds
 
 
-def verify_shared_backend(bookmaker, base_url):
-    """
-    Probe a bookmaker base_url to fingerprint its backend.
-    Returns a dict of endpoint -> {status, content_type, length}.
-    Does NOT change any arbitrage or scraping logic.
-    """
-    base_url = base_url.rstrip("/")
-    endpoints = [
-        "/service-api/LineFeed/Get1x2_VZip?sports=1&count=5&lng=en&mode=4",
-        "/api/_internal/sportsbook/top-tournaments",
-        "/api/_internal/sportsbook/event-detail?id=1",
-        "/api/_internal/sportsbook/v0/sport/feed/localization/market-tabs?sport=F&stage=1&lang=en",
-    ]
-
-    results = {}
-
-    for path in endpoints:
-        url = f"{base_url}{path}"
-        try:
-            print(f"[fingerprint] {bookmaker} -> {url}")
-            resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
-            results[path] = {
-                "status": resp.status_code,
-                "content_type": resp.headers.get("content-type"),
-                "length": len(resp.text),
-            }
-        except Exception as e:
-            results[path] = {
-                "status": None,
-                "content_type": None,
-                "length": None,
-                "error": str(e),
-            }
-
-    return {
-        "bookmaker": bookmaker,
-        "base_url": base_url,
-        "results": results,
-    }
-
-
-def parse_match_event(event):
-    """
-    Parse a single match object from 1xBet/Melbet/22Bet 'Get1x2_VZip' into a normalized structure.
-
-    Expected input: one element from response["Value"].
-    """
-
-    def _extract_markets(event):
-        markets = {}
-
-        # Flatten E + AE[*].ME into a single list
-        flat_events = []
-        flat_events.extend(event.get("E", []))
-
-        for group in event.get("AE", []):
-            for me in group.get("ME", []):
-                me = dict(me)  # shallow copy
-                me.setdefault("G", group.get("G"))
-                flat_events.append(me)
-
-        def _find_outcomes(group_id, type_codes):
-            return [
-                e for e in flat_events
-                if e.get("G") == group_id and e.get("T") in type_codes
-            ]
-
-        # 1X2 main market (G:1, T:1,2,3)
-        one_x_two = _find_outcomes(1, [1, 2, 3])
-        if one_x_two:
-            m = {}
-            for o in one_x_two:
-                t = o["T"]
-                odds = float(o["C"])
-                if t == 1:
-                    m["home"] = odds
-                elif t == 2:
-                    m["draw"] = odds
-                elif t == 3:
-                    m["away"] = odds
-            markets["1x2"] = m
-
-        # Handicap market (G:2, T:7 home, T:8 away), keyed by line P
-        hcaps = _find_outcomes(2, [7, 8])
-        if hcaps:
-            handicap_markets = {}
-            for o in hcaps:
-                line = o.get("P")
-                if line is None:
-                    continue
-                key = f"handicap_{line}"
-                odds = float(o["C"])
-                entry = handicap_markets.setdefault(key, {})
-                if o["T"] == 7:
-                    entry["home"] = odds
-                elif o["T"] == 8:
-                    entry["away"] = odds
-            if handicap_markets:
-                markets["handicap"] = handicap_markets
-
-        # Totals (G:17, T:9 over, T:10 under), keyed by total line P
-        totals = _find_outcomes(17, [9, 10])
-        if totals:
-            total_markets = {}
-            for o in totals:
-                line = o.get("P")
-                if line is None:
-                    continue
-                key = f"total_{line}"
-                odds = float(o["C"])
-                entry = total_markets.setdefault(key, {})
-                if o["T"] == 9:
-                    entry["over"] = odds
-                elif o["T"] == 10:
-                    entry["under"] = odds
-            if total_markets:
-                markets["totals"] = total_markets
-
-        return markets
-
-    match = {
-        "event_id": event.get("I"),
-        "league_id": event.get("LI"),
-        "league_name": event.get("L"),
-        "country_region": event.get("CN"),
-        "country_id": event.get("COI"),
-        "sport_name": event.get("SN"),
-        "kickoff_ts": event.get("S"),
-        "home_team": event.get("O1"),
-        "away_team": event.get("O2"),
-        "home_team_id": event.get("O1I"),
-        "away_team_id": event.get("O2I"),
-        "tournament_stage": event.get("MIO", {}).get("TSt"),
-    }
-
-    wp = event.get("WP") or {}
-    if wp:
-        match["implied_probs"] = {
-            "home": wp.get("P1"),
-            "draw": wp.get("PX"),
-            "away": wp.get("P2"),
-        }
-
-    match["markets"] = _extract_markets(event)
-    return match
-
-
-def parse_match_list(response_json):
-    values = response_json.get("Value", []) or []
-    return [parse_match_event(ev) for ev in values]
-
-
 def main():
-    print(f"Scraper started: {datetime.utcnow()}")
     all_odds = []
-    scraped = []
+    all_odds.extend(scrape_championbet())
+    all_odds.extend(scrape_ababet())
+    all_odds.extend(scrape_betpawa())
+    all_odds.extend(scrape_fortebet())
+    all_odds.extend(scrape_sportybet())
+    all_odds.extend(scrape_betika())
+    all_odds.extend(scrape_1xbet())
+    all_odds.extend(scrape_22bet())
+    all_odds.extend(scrape_melbet())
+    all_odds.extend(scrape_gsb())
 
-    scrapers = [
-        ("ChampionBet", scrape_championbet),
-        ("Betika", scrape_betika),
-        ("BetPawa", scrape_betpawa),
-        ("Fortebet", scrape_fortebet),
-        ("SportyBet", scrape_sportybet),
-        ("1xBet", scrape_1xbet),
-        ("22Bet", scrape_22bet),
-        ("Melbet", scrape_melbet),
-        ("GSB", scrape_gsb),          # <-- GSB added
-    ]
+    # If you want to use shared 1xBet-family scrapers:
+    # for name, cfg in SHARED_BOOKMAKERS_1X.items():
+    #     all_odds.extend(scrape_shared_1xbet_family(name, cfg))
 
-    for name, fn in scrapers:
-        print(f"Running scraper: {name}")
-        try:
-            res = fn()
-            scraped.append((name, len(res)))
-            all_odds.extend(res)
-        except Exception as e:
-            print(f"{name} scraper failed: {e}")
+    # Normalize sport names across all records (safety)
+    all_odds = [normalize_sport_name(rec) for rec in all_odds]
 
-    print("Scrape summary:", scraped)
-    print(f"Total odds collected: {len(all_odds)}")
-
-    arbs = find_arbitrage(all_odds)
+    opportunities = find_arbitrage(all_odds)
     output = {
-        "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
-        "opportunities": arbs,
+        "opportunities": opportunities,
+        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     }
     write_html_report(output)
-    print(f"Found {len(arbs)} opportunities; report written to odds.html")
 
 
 if __name__ == "__main__":
     main()
+
+
