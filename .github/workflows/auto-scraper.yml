@@ -2,9 +2,8 @@ name: Scrape and Deploy Arbitrage Data
 
 on:
   schedule:
-    # Runs every 30 minutes. You can change this to '*/15 * * * *' for 15 mins.
     - cron: '*/30 * * * *'
-  workflow_dispatch:  # Allows you to run it manually from the GitHub Actions tab
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -24,27 +23,25 @@ jobs:
       - name: Install dependencies
         run: |
           pip install requests beautifulsoup4 playwright
-          # Install the browser engine for Playwright (needed for BetPawa)
           playwright install chromium
 
       - name: Run Python scraper
-        # ⚠️ IMPORTANT: Change 'your_scraper_name.py' to your actual filename
+        # CHANGE 'your_scraper_name.py' TO YOUR ACTUAL FILENAME
         run: python your_scraper_name.py
 
-      - name: Verify JSON files were generated
-        run: ls -la current_opportunities.json arb_history.json
+      - name: Find and copy JSONs to root
+        run: |
+          echo "Searching for JSON files..."
+          find . -name "current_opportunities.json" -exec cp {} . \;
+          find . -name "arb_history.json" -exec cp {} . \;
+          echo "Current directory contents:"
+          ls -la
 
-      # THIS IS THE STEP THAT FIXES YOUR 404 ERROR
-      - name: Commit and push updated JSON files to the root
+      - name: Commit and push updated JSON files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Force git to track these specific JSON files
           git add -f current_opportunities.json arb_history.json
-          
-          # Only commit if there are actual file changes
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
-          
-          # Push directly to the root branch (usually main or master)
           git push
