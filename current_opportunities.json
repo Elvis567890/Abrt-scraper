@@ -1,37 +1,5 @@
 [
   {
-    "match": "miami vs indy eleven",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.48,
-    "profit_ugx": 3477,
-    "total_stake": 100000,
-    "arb_sum": 0.9652,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.72,
-        "stake": 38089,
-        "win": 103602
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 31395,
-        "win": 103604
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.395,
-        "stake": 30516,
-        "win": 103602
-      }
-    ]
-  },
-  {
     "match": "sporting jax vs pittsburgh riverhounds",
     "sport": "Football",
     "type": "3-way",
@@ -60,6 +28,38 @@
         "odd": 3.45,
         "stake": 35314,
         "win": 121833
+      }
+    ]
+  },
+  {
+    "match": "barcelona vs guayaquil",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.6,
+    "profit_ugx": 1596,
+    "total_stake": 100000,
+    "arb_sum": 0.984,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.54,
+        "stake": 65989,
+        "win": 101623
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.22,
+        "stake": 16338,
+        "win": 101622
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.75,
+        "stake": 17673,
+        "win": 101620
       }
     ]
   },
