@@ -35,31 +35,31 @@
     "match": "pyunik yerevan vs marsaxlokk",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.93,
-    "profit_ugx": 932,
+    "profit_percent": 0.57,
+    "profit_ugx": 570,
     "total_stake": 100000,
-    "arb_sum": 0.9907,
+    "arb_sum": 0.9943,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.23,
-        "stake": 82066,
-        "win": 100941
+        "stake": 81767,
+        "win": 100573
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 10.6,
-        "stake": 9523,
-        "win": 100944
+        "stake": 9488,
+        "win": 100573
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 12.0,
-        "stake": 8412,
-        "win": 100944
+        "odd": 11.5,
+        "stake": 8745,
+        "win": 100568
       }
     ]
   },
@@ -444,6 +444,38 @@
         "odd": 4.35,
         "stake": 23213,
         "win": 100977
+      }
+    ]
+  },
+  {
+    "match": "mornar vs atletic escaldes",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.99,
+    "profit_ugx": 994,
+    "total_stake": 100000,
+    "arb_sum": 0.9901,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.59,
+        "stake": 63525,
+        "win": 101005
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.86,
+        "stake": 17236,
+        "win": 101003
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.25,
+        "stake": 19239,
+        "win": 101005
       }
     ]
   },
