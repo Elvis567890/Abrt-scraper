@@ -47,7 +47,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-  # === FIXED APK BUILDER ===
+  # === PERFECTED APK BUILDER ===
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -65,19 +65,23 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # (All previous fixes remain intact exactly as they were)
-      - name: Initialize Capacitor and Create Android folder
+      # THIS IS THE FIX: We write the correct config file BEFORE running init.
+      - name: Create Capacitor config with exact root directory
+        run: |
+          echo '{
+            "appId": "com.elvis.arbimax",
+            "appName": "ArbiMax",
+            "webDir": ".",
+            "bundledWebRuntime": false
+          }' > capacitor.config.json
+
+      - name: Initialize Capacitor and Add Android
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init ArbiMax com.elvis.arbimax .
           npx cap add android
 
-      # ===== NEWLY ADDED LINE TO FIX "./www" ERROR =====
-      - name: Force Capacitor to look at the root folder
-        run: sed -i 's/"webDir": "www"/"webDir": "."/' capacitor.config.json
-
-      - name: Sync your HTML/CSS files into the Android app
+      - name: Sync your files into the Android app
         run: npx cap sync android
 
       - name: Build the APK
