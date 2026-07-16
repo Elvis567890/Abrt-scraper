@@ -1,5 +1,37 @@
 [
   {
+    "match": "astana vs dinamo",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.7,
+    "profit_ugx": 703,
+    "total_stake": 100000,
+    "arb_sum": 0.993,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Home",
+        "odd": 1.53,
+        "stake": 65822,
+        "win": 100708
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 5.79,
+        "stake": 17393,
+        "win": 100705
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.0,
+        "stake": 16785,
+        "win": 100710
+      }
+    ]
+  },
+  {
     "match": "hoang anh gia lai vs song lam nghe an",
     "sport": "Football",
     "type": "3-way",
@@ -92,38 +124,6 @@
         "odd": 5.1,
         "stake": 19904,
         "win": 101510
-      }
-    ]
-  },
-  {
-    "match": "astana vs dinamo",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.7,
-    "profit_ugx": 703,
-    "total_stake": 100000,
-    "arb_sum": 0.993,
-    "bets": [
-      {
-        "bookmaker": "ChampionBet",
-        "outcome": "Home",
-        "odd": 1.53,
-        "stake": 65822,
-        "win": 100708
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Draw",
-        "odd": 5.79,
-        "stake": 17393,
-        "win": 100705
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 6.0,
-        "stake": 16785,
-        "win": 100710
       }
     ]
   },
@@ -323,31 +323,63 @@
     "match": "botafogo fr rj vs santos sp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 17.16,
-    "profit_ugx": 17156,
+    "profit_percent": 17.94,
+    "profit_ugx": 17940,
     "total_stake": 100000,
-    "arb_sum": 0.8284,
+    "arb_sum": 0.8206,
     "bets": [
       {
         "bookmaker": "SportyBet",
         "outcome": "Home",
         "odd": 2.05,
-        "stake": 58882,
-        "win": 120708
+        "stake": 59445,
+        "win": 121862
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.65,
-        "stake": 33071,
-        "win": 120709
+        "stake": 33387,
+        "win": 121863
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 15.0,
-        "stake": 8047,
-        "win": 120705
+        "odd": 17.0,
+        "stake": 7168,
+        "win": 121856
+      }
+    ]
+  },
+  {
+    "match": "vikingur vs stjarnan",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 11.08,
+    "profit_ugx": 11079,
+    "total_stake": 100000,
+    "arb_sum": 0.8892,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.833,
+        "stake": 39696,
+        "win": 112459
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 30394,
+        "win": 112458
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.76,
+        "stake": 29909,
+        "win": 112458
       }
     ]
   },
@@ -412,38 +444,6 @@
         "odd": 7.0,
         "stake": 14394,
         "win": 100758
-      }
-    ]
-  },
-  {
-    "match": "vikingur vs stjarnan",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 11.08,
-    "profit_ugx": 11079,
-    "total_stake": 100000,
-    "arb_sum": 0.8892,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 2.833,
-        "stake": 39696,
-        "win": 112459
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 30394,
-        "win": 112458
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.76,
-        "stake": 29909,
-        "win": 112458
       }
     ]
   },
