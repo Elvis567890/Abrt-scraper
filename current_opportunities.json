@@ -1,5 +1,37 @@
 [
   {
+    "match": "astana vs dinamo",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.32,
+    "profit_ugx": 1320,
+    "total_stake": 100000,
+    "arb_sum": 0.9868,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Home",
+        "odd": 1.49,
+        "stake": 68012,
+        "win": 101338
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 6.18,
+        "stake": 16398,
+        "win": 101340
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.5,
+        "stake": 15590,
+        "win": 101335
+      }
+    ]
+  },
+  {
     "match": "pyunik yerevan vs marsaxlokk",
     "sport": "Football",
     "type": "3-way",
