@@ -47,7 +47,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-  # === APK BUILDER (PERMANENTLY FIXED PATH ERROR) ===
+  # === APK BUILDER (100% FIXED PATH SEARCH) ===
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -68,15 +68,24 @@ jobs:
       - name: Copy your web files into the folder
         run: cp index.html style.css main.js manifest.json www/ || true
 
-      # THIS IS THE EXACT FIX: Added "npx" so it ALWAYS finds the command
       - name: Package Android APK
         run: npx pwabuilder package --platforms android --output ./out ./www
 
+      # This now searches the ENTIRE workspace for the APK, not just one specific folder
       - name: Find and Prepare APK for download
         run: |
-          APK_FILE=$(find out -name "*.apk" | head -n 1)
-          echo "APK found at: $APK_FILE"
-          cp $APK_FILE app-debug.apk
+          echo "🔍 Searching for APK in the entire workspace..."
+          APK_FILE=$(find . -name "*.apk" | head -n 1)
+          
+          if [ -z "$APK_FILE" ]; then
+            echo "❌ ERROR: No APK file was generated. Check logs above."
+            echo "Listing current directory contents to help debug:"
+            ls -la
+            exit 1
+          fi
+          
+          echo "✅ APK found at: $APK_FILE"
+          cp "$APK_FILE" app-debug.apk
 
       - name: Upload APK to GitHub Artifacts
         uses: actions/upload-artifact@v4
