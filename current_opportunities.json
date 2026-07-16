@@ -1,5 +1,37 @@
 [
   {
+    "match": "astana vs dinamo",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.77,
+    "profit_ugx": 767,
+    "total_stake": 100000,
+    "arb_sum": 0.9923,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Home",
+        "odd": 1.44,
+        "stake": 69981,
+        "win": 100773
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 6.63,
+        "stake": 15199,
+        "win": 100769
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 6.8,
+        "stake": 14820,
+        "win": 100776
+      }
+    ]
+  },
+  {
     "match": "pyunik yerevan vs marsaxlokk",
     "sport": "Football",
     "type": "3-way",
@@ -28,38 +60,6 @@
         "odd": 11.0,
         "stake": 9153,
         "win": 100683
-      }
-    ]
-  },
-  {
-    "match": "paide linnameeskond vs hegelmann kaunas",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.59,
-    "profit_ugx": 589,
-    "total_stake": 100000,
-    "arb_sum": 0.9941,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 1.94,
-        "stake": 51852,
-        "win": 100593
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Draw",
-        "odd": 4.435,
-        "stake": 22682,
-        "win": 100595
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 3.95,
-        "stake": 25467,
-        "win": 100595
       }
     ]
   },
