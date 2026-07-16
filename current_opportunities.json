@@ -256,34 +256,34 @@
     ]
   },
   {
-    "match": "bate borisov vs af elbasani",
+    "match": "bate vs af elbasani",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 13.53,
-    "profit_ugx": 13530,
+    "profit_percent": 10.59,
+    "profit_ugx": 10591,
     "total_stake": 100000,
-    "arb_sum": 0.8647,
+    "arb_sum": 0.8941,
     "bets": [
       {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.6,
-        "stake": 32124,
-        "win": 115646
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 33042,
-        "win": 115647
-      },
-      {
         "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 3.45,
+        "stake": 32419,
+        "win": 111846
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.3,
+        "stake": 33893,
+        "win": 111847
+      },
+      {
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.32,
-        "stake": 34834,
-        "win": 115649
+        "stake": 33688,
+        "win": 111844
       }
     ]
   },
@@ -316,6 +316,38 @@
         "odd": 6.5,
         "stake": 15503,
         "win": 100770
+      }
+    ]
+  },
+  {
+    "match": "vikingur vs stjarnan",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 11.08,
+    "profit_ugx": 11079,
+    "total_stake": 100000,
+    "arb_sum": 0.8892,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.833,
+        "stake": 39696,
+        "win": 112459
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 30394,
+        "win": 112458
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.76,
+        "stake": 29909,
+        "win": 112458
       }
     ]
   },
@@ -380,38 +412,6 @@
         "odd": 7.0,
         "stake": 14394,
         "win": 100758
-      }
-    ]
-  },
-  {
-    "match": "vikingur vs stjarnan",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 11.08,
-    "profit_ugx": 11079,
-    "total_stake": 100000,
-    "arb_sum": 0.8892,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 2.833,
-        "stake": 39696,
-        "win": 112459
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 30394,
-        "win": 112458
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.76,
-        "stake": 29909,
-        "win": 112458
       }
     ]
   },
