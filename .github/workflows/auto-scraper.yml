@@ -10,7 +10,7 @@ permissions:
   actions: write
 
 jobs:
-  # JOB 1: Your exact Python Scraping Workflow
+  # === YOUR ORIGINAL SCRAPING JOB (100% UNTOUCHED) ===
   scrape:
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +47,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-  # JOB 2: Corrected APK Builder
+  # === FIXED APK BUILDER ===
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -65,19 +65,14 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # THIS IS THE FIXED STEP
       - name: Initialize Capacitor and Create Android folder
         run: |
-          # 1. Create a basic package.json
           npm init -y
-          
-          # 2. Install the required Capacitor libraries inside the project
           npm install @capacitor/core @capacitor/cli @capacitor/android
           
-          # 3. Initialize the Capacitor project
-          npx cap init ArbiMax com.elvis.arbimax
+          # FIXED: Added the '.' at the end. This tells Capacitor to use the CURRENT folder, not a 'www' folder.
+          npx cap init ArbiMax com.elvis.arbimax .
           
-          # 4. Add the Android platform (This requires the package from step 2)
           npx cap add android
 
       - name: Sync your HTML/CSS files into the Android app
