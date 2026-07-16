@@ -47,7 +47,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-  # === FINAL APK BUILDER (CAPACITOR WITH JAVA 21) ===
+  # === FINAL APK BUILDER (KOTLIN DEPENDENCY FIXED) ===
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -59,7 +59,6 @@ jobs:
         with:
           node-version: '20'
 
-      # THIS IS THE FIX: We need Java 21 for the Gradle build to work
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
@@ -69,7 +68,7 @@ jobs:
       - name: Create web assets folder
         run: mkdir www
 
-      - name: Copy files to www (Safe from missing errors)
+      - name: Copy files to www (Ignores missing files safely)
         run: |
           cp index.html www/ || true
           cp style.css www/ || true
@@ -82,6 +81,13 @@ jobs:
           npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap init ArbiMax com.elvis.arbimax
           npx cap add android
+
+      # THIS IS THE EXACT FIX FOR YOUR SCREENSHOT ERROR
+      - name: Fix Kotlin version to prevent classpath crash
+        run: |
+          echo "Updating Kotlin version in build.gradle to 1.9.0..."
+          sed -i "s/ext.kotlin_version = .*/ext.kotlin_version = '1.9.0'/" android/build.gradle
+          echo "Kotlin version fixed."
 
       - name: Sync your files into the Android app
         run: npx cap sync android
