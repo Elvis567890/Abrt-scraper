@@ -3,31 +3,31 @@
     "match": "astana vs dinamo",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.88,
-    "profit_ugx": 879,
+    "profit_percent": 0.52,
+    "profit_ugx": 522,
     "total_stake": 100000,
-    "arb_sum": 0.9912,
+    "arb_sum": 0.9948,
     "bets": [
       {
         "bookmaker": "ChampionBet",
         "outcome": "Home",
         "odd": 1.53,
-        "stake": 65939,
-        "win": 100887
+        "stake": 65702,
+        "win": 100524
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
-        "odd": 5.63,
-        "stake": 17919,
-        "win": 100884
+        "odd": 5.73,
+        "stake": 17544,
+        "win": 100527
       },
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 6.25,
-        "stake": 16142,
-        "win": 100888
+        "odd": 6.0,
+        "stake": 16754,
+        "win": 100524
       }
     ]
   },
@@ -320,38 +320,6 @@
     ]
   },
   {
-    "match": "santa coloma vs penybont",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.51,
-    "profit_ugx": 2513,
-    "total_stake": 100000,
-    "arb_sum": 0.9749,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.62,
-        "stake": 63319,
-        "win": 102577
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 5.49,
-        "stake": 18684,
-        "win": 102575
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.7,
-        "stake": 17996,
-        "win": 102577
-      }
-    ]
-  },
-  {
     "match": "vikingur vs stjarnan",
     "sport": "Football",
     "type": "3-way",
@@ -380,6 +348,38 @@
         "odd": 3.76,
         "stake": 29909,
         "win": 112458
+      }
+    ]
+  },
+  {
+    "match": "santa coloma vs penybont",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.51,
+    "profit_ugx": 2513,
+    "total_stake": 100000,
+    "arb_sum": 0.9749,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.62,
+        "stake": 63319,
+        "win": 102577
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.49,
+        "stake": 18684,
+        "win": 102575
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.7,
+        "stake": 17996,
+        "win": 102577
       }
     ]
   },
