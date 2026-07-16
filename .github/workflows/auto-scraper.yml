@@ -47,7 +47,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-  # === APK BUILDER (100% FIXED PATH SEARCH) ===
+  # === FINAL APK BUILDER (CAPACITOR WITH JAVA 21) ===
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -59,36 +59,38 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install PWABuilder CLI
-        run: npm install -g @pwabuilder/cli
+      # THIS IS THE FIX: We need Java 21 for the Gradle build to work
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '21'
 
       - name: Create web assets folder
         run: mkdir www
 
-      - name: Copy your web files into the folder
-        run: cp index.html style.css main.js manifest.json www/ || true
-
-      - name: Package Android APK
-        run: npx pwabuilder package --platforms android --output ./out ./www
-
-      # This now searches the ENTIRE workspace for the APK, not just one specific folder
-      - name: Find and Prepare APK for download
+      - name: Copy files to www (Safe from missing errors)
         run: |
-          echo "🔍 Searching for APK in the entire workspace..."
-          APK_FILE=$(find . -name "*.apk" | head -n 1)
-          
-          if [ -z "$APK_FILE" ]; then
-            echo "❌ ERROR: No APK file was generated. Check logs above."
-            echo "Listing current directory contents to help debug:"
-            ls -la
-            exit 1
-          fi
-          
-          echo "✅ APK found at: $APK_FILE"
-          cp "$APK_FILE" app-debug.apk
+          cp index.html www/ || true
+          cp style.css www/ || true
+          cp main.js www/ || true
+          cp manifest.json www/ || true
+
+      - name: Initialize Capacitor and Add Android
+        run: |
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init ArbiMax com.elvis.arbimax
+          npx cap add android
+
+      - name: Sync your files into the Android app
+        run: npx cap sync android
+
+      - name: Build the APK
+        run: cd android && ./gradlew assembleDebug
 
       - name: Upload APK to GitHub Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: arbimax-app
-          path: app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
