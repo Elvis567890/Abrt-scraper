@@ -38,7 +38,6 @@ jobs:
           echo "Current directory contents:"
           ls -la
 
-      # FIXED: This will now safely pull the latest changes before pushing
       - name: Commit and push updated JSON files
         run: |
           git config --local user.email "action@github.com"
@@ -48,7 +47,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-  # JOB 2: Fixed APK Builder (No longer crashes on package.json)
+  # JOB 2: Corrected APK Builder
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -66,12 +65,19 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install Capacitor CLI
-        run: npm install -g @capacitor/cli
-
+      # THIS IS THE FIXED STEP
       - name: Initialize Capacitor and Create Android folder
         run: |
+          # 1. Create a basic package.json
+          npm init -y
+          
+          # 2. Install the required Capacitor libraries inside the project
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          
+          # 3. Initialize the Capacitor project
           npx cap init ArbiMax com.elvis.arbimax
+          
+          # 4. Add the Android platform (This requires the package from step 2)
           npx cap add android
 
       - name: Sync your HTML/CSS files into the Android app
