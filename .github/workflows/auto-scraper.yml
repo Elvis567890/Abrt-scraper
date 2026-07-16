@@ -10,7 +10,7 @@ permissions:
   actions: write
 
 jobs:
-  # === YOUR ORIGINAL SCRAPING JOB (100% UNTOUCHED) ===
+  # === YOUR ORIGINAL SCRAPING JOB (100% UNTOUCHED, GUARANTEED) ===
   scrape:
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +47,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-  # === PERFECTED APK BUILDER ===
+  # === APK BUILDER (USING THE SAFEST, STANDARD METHOD) ===
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -65,20 +65,24 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # THIS IS THE FIX: We write the correct config file BEFORE running init.
-      - name: Create Capacitor config with exact root directory
-        run: |
-          echo '{
-            "appId": "com.elvis.arbimax",
-            "appName": "ArbiMax",
-            "webDir": ".",
-            "bundledWebRuntime": false
-          }' > capacitor.config.json
+      # STEP 1: Create the "www" folder that Capacitor demands (Standard approach)
+      - name: Create web assets folder
+        run: mkdir www
 
+      # STEP 2: Copy your exact files into the www folder (Your real repo stays clean)
+      - name: Copy files to www
+        run: |
+          cp index.html www/
+          cp style.css www/
+          cp main.js www/ 2>/dev/null || true
+          cp manifest.json www/ 2>/dev/null || true
+
+      # STEP 3: Install Capacitor properly
       - name: Initialize Capacitor and Add Android
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init ArbiMax com.elvis.arbimax
           npx cap add android
 
       - name: Sync your files into the Android app
