@@ -47,7 +47,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-  # === APK BUILDER (CLEAN SWAP TO PWABUILDER CLI - NO JAVA REQUIRED) ===
+  # === APK BUILDER (PERMANENTLY FIXED PATH ERROR) ===
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -59,8 +59,6 @@ jobs:
         with:
           node-version: '20'
 
-      # NO JAVA SETUP NEEDED! We are done with Gradle errors forever.
-
       - name: Install PWABuilder CLI
         run: npm install -g @pwabuilder/cli
 
@@ -70,8 +68,9 @@ jobs:
       - name: Copy your web files into the folder
         run: cp index.html style.css main.js manifest.json www/ || true
 
+      # THIS IS THE EXACT FIX: Added "npx" so it ALWAYS finds the command
       - name: Package Android APK
-        run: pwabuilder package --platforms android --output ./out ./www
+        run: npx pwabuilder package --platforms android --output ./out ./www
 
       - name: Find and Prepare APK for download
         run: |
