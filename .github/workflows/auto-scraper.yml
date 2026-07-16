@@ -7,10 +7,10 @@ on:
 
 permissions:
   contents: write
-  actions: write   # <-- Added this! Needed to upload the APK download link
+  actions: write
 
 jobs:
-  # JOB 1: Your exact Python Scraping Workflow (Kept 100% unchanged)
+  # JOB 1: Your exact Python Scraping Workflow
   scrape:
     runs-on: ubuntu-latest
     steps:
@@ -38,15 +38,17 @@ jobs:
           echo "Current directory contents:"
           ls -la
 
+      # FIXED: This will now safely pull the latest changes before pushing
       - name: Commit and push updated JSON files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -f current_opportunities.json arb_history.json
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
+          git pull --rebase origin main
           git push
 
-  # JOB 2: Fixed APK Builder (Now runs entirely on GitHub's cloud servers)
+  # JOB 2: Fixed APK Builder (No longer crashes on package.json)
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -67,7 +69,6 @@ jobs:
       - name: Install Capacitor CLI
         run: npm install -g @capacitor/cli
 
-      # These 2 lines create the android folder entirely in the GitHub cloud
       - name: Initialize Capacitor and Create Android folder
         run: |
           npx cap init ArbiMax com.elvis.arbimax
@@ -79,7 +80,7 @@ jobs:
       - name: Build the APK
         run: cd android && ./gradlew assembleDebug
 
-      - name: Upload APK to GitHub Artifacts (For easy download)
+      - name: Upload APK to GitHub Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: arbimax-app
