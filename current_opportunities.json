@@ -355,31 +355,31 @@
     "match": "botafogo fr rj vs santos sp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 8.93,
-    "profit_ugx": 8929,
+    "profit_percent": 14.47,
+    "profit_ugx": 14474,
     "total_stake": 100000,
-    "arb_sum": 0.9107,
+    "arb_sum": 0.8553,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.0,
-        "stake": 54902,
-        "win": 109804
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 31373,
-        "win": 109806
+        "stake": 58462,
+        "win": 116924
       },
       {
         "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 29231,
+        "win": 116924
+      },
+      {
+        "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 8.0,
-        "stake": 13725,
-        "win": 109800
+        "odd": 9.5,
+        "stake": 12308,
+        "win": 116926
       }
     ]
   },
@@ -416,38 +416,6 @@
     ]
   },
   {
-    "match": "santa coloma vs penybont",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.51,
-    "profit_ugx": 2513,
-    "total_stake": 100000,
-    "arb_sum": 0.9749,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.62,
-        "stake": 63319,
-        "win": 102577
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 5.49,
-        "stake": 18684,
-        "win": 102575
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.7,
-        "stake": 17996,
-        "win": 102577
-      }
-    ]
-  },
-  {
     "match": "zalgiris vs petrovac",
     "sport": "Football",
     "type": "3-way",
@@ -476,6 +444,38 @@
         "odd": 7.0,
         "stake": 14394,
         "win": 100758
+      }
+    ]
+  },
+  {
+    "match": "santa coloma vs penybont",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.51,
+    "profit_ugx": 2513,
+    "total_stake": 100000,
+    "arb_sum": 0.9749,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.62,
+        "stake": 63319,
+        "win": 102577
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.49,
+        "stake": 18684,
+        "win": 102575
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.7,
+        "stake": 17996,
+        "win": 102577
       }
     ]
   },
