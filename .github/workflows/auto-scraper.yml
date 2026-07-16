@@ -7,9 +7,10 @@ on:
 
 permissions:
   contents: write
+  actions: write   # <-- Added this! Needed to upload the APK download link
 
 jobs:
-  # JOB 1: Your exact Python Scraping Workflow
+  # JOB 1: Your exact Python Scraping Workflow (Kept 100% unchanged)
   scrape:
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +46,7 @@ jobs:
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
           git push
 
-  # JOB 2: Your new APK Building Workflow (Runs at the same time)
+  # JOB 2: Fixed APK Builder (Now runs entirely on GitHub's cloud servers)
   build-apk:
     runs-on: ubuntu-latest
     steps:
@@ -63,23 +64,23 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install Capacitor dependencies
+      - name: Install Capacitor CLI
+        run: npm install -g @capacitor/cli
+
+      # These 2 lines create the android folder entirely in the GitHub cloud
+      - name: Initialize Capacitor and Create Android folder
         run: |
-          npm install
-          npm install -g @capacitor/cli
+          npx cap init ArbiMax com.elvis.arbimax
+          npx cap add android
 
-      - name: Build web app
-        run: npm run build
-
-      - name: Sync Capacitor with Android
+      - name: Sync your HTML/CSS files into the Android app
         run: npx cap sync android
 
-      - name: Build APK
+      - name: Build the APK
         run: cd android && ./gradlew assembleDebug
 
-      - name: Upload APK to GitHub Releases
-        uses: softprops/action-gh-release@v1
+      - name: Upload APK to GitHub Artifacts (For easy download)
+        uses: actions/upload-artifact@v4
         with:
-          files: android/app/build/outputs/apk/debug/app-debug.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: arbimax-app
+          path: android/app/build/outputs/apk/debug/app-debug.apk
