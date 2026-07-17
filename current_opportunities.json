@@ -96,6 +96,38 @@
     ]
   },
   {
+    "match": "spvgg bayreuth vs carl zeiss jena",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.23,
+    "profit_ugx": 4232,
+    "total_stake": 100000,
+    "arb_sum": 0.9577,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.81,
+        "stake": 37160,
+        "win": 104420
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 30711,
+        "win": 104417
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.25,
+        "stake": 32129,
+        "win": 104419
+      }
+    ]
+  },
+  {
     "match": "nashville vs atlanta utd",
     "sport": "Football",
     "type": "3-way",
@@ -124,38 +156,6 @@
         "odd": 6.35,
         "stake": 16074,
         "win": 102070
-      }
-    ]
-  },
-  {
-    "match": "spvgg bayreuth vs jena",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.23,
-    "profit_ugx": 4232,
-    "total_stake": 100000,
-    "arb_sum": 0.9577,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.81,
-        "stake": 37160,
-        "win": 104420
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30711,
-        "win": 104417
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.25,
-        "stake": 32129,
-        "win": 104419
       }
     ]
   },
