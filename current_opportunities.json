@@ -1,5 +1,73 @@
 [
   {
+    "match": "londrina ec pr vs botafogo sp",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.55,
+    "profit_ugx": 548,
+    "total_stake": 100000,
+    "arb_sum": 0.9945,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.963,
+        "stake": 33935,
+        "win": 100549
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.1,
+        "stake": 32436,
+        "win": 100552
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 2.99,
+        "stake": 33629,
+        "win": 100551
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "nashville vs atlanta utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.8,
+    "profit_ugx": 803,
+    "total_stake": 100000,
+    "arb_sum": 0.992,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.6,
+        "stake": 63006,
+        "win": 100810
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.45,
+        "stake": 18497,
+        "win": 100809
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 5.45,
+        "stake": 18497,
+        "win": 100809
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "los angeles galaxy vs los angeles",
     "sport": "Football",
     "type": "3-way",
