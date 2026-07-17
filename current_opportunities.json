@@ -32,6 +32,38 @@
     ]
   },
   {
+    "match": "ibrachina sp vs botafogo sp",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.35,
+    "profit_ugx": 2349,
+    "total_stake": 100000,
+    "arb_sum": 0.9765,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.48,
+        "stake": 69193,
+        "win": 102406
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.97,
+        "stake": 17153,
+        "win": 102403
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 7.5,
+        "stake": 13654,
+        "win": 102405
+      }
+    ]
+  },
+  {
     "match": "lugano vs vaduz",
     "sport": "Football",
     "type": "3-way",
@@ -48,7 +80,7 @@
         "win": 101990
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 4.67,
         "stake": 21840,
@@ -163,31 +195,31 @@
     "match": "mirassol sp vs gremio fb porto alegrense rs",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.61,
-    "profit_ugx": 612,
+    "profit_percent": 0.5,
+    "profit_ugx": 505,
     "total_stake": 100000,
-    "arb_sum": 0.9939,
+    "arb_sum": 0.995,
     "bets": [
       {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 1.95,
-        "stake": 51598,
-        "win": 100616
-      },
-      {
         "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 4.165,
-        "stake": 24157,
-        "win": 100614
+        "outcome": "Home",
+        "odd": 1.945,
+        "stake": 51675,
+        "win": 100508
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 4.12,
+        "stake": 24395,
+        "win": 100507
+      },
+      {
+        "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 4.15,
-        "stake": 24245,
-        "win": 100617
+        "odd": 4.2,
+        "stake": 23930,
+        "win": 100506
       }
     ]
   },
@@ -195,95 +227,31 @@
     "match": "san luis vs cruz azul",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 15.62,
-    "profit_ugx": 15623,
+    "profit_percent": 19.63,
+    "profit_ugx": 19627,
     "total_stake": 100000,
-    "arb_sum": 0.8438,
+    "arb_sum": 0.8037,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 4.04,
-        "stake": 29335,
-        "win": 118513
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 3.14,
-        "stake": 37744,
-        "win": 118516
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.6,
-        "stake": 32921,
-        "win": 118516
-      }
-    ]
-  },
-  {
-    "match": "leon vs atlas",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.95,
-    "profit_ugx": 951,
-    "total_stake": 100000,
-    "arb_sum": 0.9905,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.43,
-        "stake": 41547,
-        "win": 100959
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 3.41,
-        "stake": 29607,
-        "win": 100960
+        "odd": 3.935,
+        "stake": 31619,
+        "win": 124421
       },
       {
         "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 3.5,
-        "stake": 28846,
-        "win": 100961
-      }
-    ]
-  },
-  {
-    "match": "juarez vs puebla",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 18.4,
-    "profit_ugx": 18403,
-    "total_stake": 100000,
-    "arb_sum": 0.816,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.49,
-        "stake": 49218,
-        "win": 122553
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 33627,
+        "win": 124420
       },
       {
         "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 4.665,
-        "stake": 26271,
-        "win": 122554
-      },
-      {
-        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 5.0,
-        "stake": 24511,
-        "win": 122555
+        "odd": 3.58,
+        "stake": 34754,
+        "win": 124419
       }
     ]
   },
