@@ -3,31 +3,65 @@
     "match": "londrina ec pr vs botafogo sp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.28,
-    "profit_ugx": 1278,
+    "profit_percent": 2.81,
+    "profit_ugx": 2807,
     "total_stake": 100000,
-    "arb_sum": 0.9872,
+    "arb_sum": 0.9719,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 2.96,
-        "stake": 34221,
-        "win": 101294
+        "odd": 3.08,
+        "stake": 33405,
+        "win": 102887
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.1,
-        "stake": 32676,
-        "win": 101296
+        "stake": 33190,
+        "win": 102889
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.06,
-        "stake": 33103,
-        "win": 101295
+        "odd": 3.08,
+        "stake": 33405,
+        "win": 102887
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "nashville vs atlanta utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.99,
+    "profit_ugx": 987,
+    "total_stake": 100000,
+    "arb_sum": 0.9901,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.61,
+        "stake": 62731,
+        "win": 100997
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.39,
+        "stake": 18738,
+        "win": 100998
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 5.45,
+        "stake": 18531,
+        "win": 100994
       }
     ],
     "market_type": "1x2",
