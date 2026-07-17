@@ -32,6 +32,38 @@
     ]
   },
   {
+    "match": "yunnan yukun vs shanghai port",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.62,
+    "profit_ugx": 623,
+    "total_stake": 100000,
+    "arb_sum": 0.9938,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 2.6,
+        "stake": 38703,
+        "win": 100628
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 5.06,
+        "stake": 19887,
+        "win": 100628
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 2.43,
+        "stake": 41410,
+        "win": 100626
+      }
+    ]
+  },
+  {
     "match": "henan jianye srl vs qingdao hainiu srl",
     "sport": "Football",
     "type": "3-way",
@@ -60,38 +92,6 @@
         "odd": 8.5,
         "stake": 13266,
         "win": 112761
-      }
-    ]
-  },
-  {
-    "match": "yunnan yukun srl vs shanghai sipg srl",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.62,
-    "profit_ugx": 623,
-    "total_stake": 100000,
-    "arb_sum": 0.9938,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 2.6,
-        "stake": 38703,
-        "win": 100628
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 5.06,
-        "stake": 19887,
-        "win": 100628
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 2.43,
-        "stake": 41410,
-        "win": 100626
       }
     ]
   },
