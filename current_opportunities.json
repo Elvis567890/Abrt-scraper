@@ -3,31 +3,31 @@
     "match": "ifk goteborg vs if brommapojkarna",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.72,
-    "profit_ugx": 718,
+    "profit_percent": 0.75,
+    "profit_ugx": 750,
     "total_stake": 100000,
-    "arb_sum": 0.9928,
+    "arb_sum": 0.9925,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 2.15,
-        "stake": 46848,
-        "win": 100723
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 26506,
-        "win": 100723
+        "stake": 46863,
+        "win": 100755
       },
       {
         "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 3.765,
+        "stake": 26761,
+        "win": 100755
+      },
+      {
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.78,
-        "stake": 26646,
-        "win": 100722
+        "odd": 3.82,
+        "stake": 26376,
+        "win": 100756
       }
     ]
   },
@@ -35,31 +35,63 @@
     "match": "deutschlandsberger vs sk treibach",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.37,
-    "profit_ugx": 4366,
+    "profit_percent": 2.73,
+    "profit_ugx": 2732,
     "total_stake": 100000,
-    "arb_sum": 0.9563,
+    "arb_sum": 0.9727,
     "bets": [
       {
         "bookmaker": "SportyBet",
         "outcome": "Home",
-        "odd": 1.37,
-        "stake": 76325,
-        "win": 104565
+        "odd": 1.34,
+        "stake": 76723,
+        "win": 102809
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 7.38,
-        "stake": 14169,
-        "win": 104567
+        "stake": 13931,
+        "win": 102811
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 11.0,
-        "stake": 9506,
-        "win": 104566
+        "stake": 9346,
+        "win": 102806
+      }
+    ]
+  },
+  {
+    "match": "getafe vs reading",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.64,
+    "profit_ugx": 645,
+    "total_stake": 100000,
+    "arb_sum": 0.9936,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.78,
+        "stake": 56544,
+        "win": 100648
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.665,
+        "stake": 21575,
+        "win": 100647
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 4.6,
+        "stake": 21880,
+        "win": 100648
       }
     ]
   },
@@ -92,6 +124,38 @@
         "odd": 5.75,
         "stake": 17570,
         "win": 101028
+      }
+    ]
+  },
+  {
+    "match": "lugano vs vaduz",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.74,
+    "profit_ugx": 1744,
+    "total_stake": 100000,
+    "arb_sum": 0.9826,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.66,
+        "stake": 61310,
+        "win": 101775
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.625,
+        "stake": 22005,
+        "win": 101773
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 6.1,
+        "stake": 16684,
+        "win": 101772
       }
     ]
   },
@@ -160,7 +224,7 @@
     ]
   },
   {
-    "match": "fluminense vs bragantino",
+    "match": "fluminense rj vs red bull bragantino sp",
     "sport": "Football",
     "type": "3-way",
     "profit_percent": 1.36,
