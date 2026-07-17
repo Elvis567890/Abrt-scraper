@@ -37,12 +37,14 @@ jobs:
           head -n 20 current_opportunities.json || echo "FILE NOT FOUND"
           echo "=== END PREVIEW ==="
           ls -la *.json
+          # --- NEW: Force GitHub Pages rebuild ---
+          echo "Triggering Pages rebuild at $(date)" > trigger_rebuild.txt
 
       - name: Commit and push updated JSON files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -f current_opportunities.json arb_history.json
-          git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
+          git add -f current_opportunities.json arb_history.json trigger_rebuild.txt
+          git diff --staged --quiet || git commit -m "Update arbitrage data and force Pages rebuild [skip ci]"
           git pull --rebase origin main
           git push
