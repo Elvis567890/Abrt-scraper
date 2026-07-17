@@ -1,33 +1,65 @@
 [
   {
+    "match": "beijing guoan vs liaoning tieren",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.82,
+    "profit_ugx": 1821,
+    "total_stake": 100000,
+    "arb_sum": 0.9818,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.4,
+        "stake": 72753,
+        "win": 101854
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 5.1,
+        "stake": 19971,
+        "win": 101852
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 14.0,
+        "stake": 7275,
+        "win": 101850
+      }
+    ]
+  },
+  {
     "match": "bodoglimt vs fredrikstad",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.84,
-    "profit_ugx": 843,
+    "profit_percent": 0.52,
+    "profit_ugx": 516,
     "total_stake": 100000,
-    "arb_sum": 0.9916,
+    "arb_sum": 0.9948,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 1.14,
-        "stake": 88465,
-        "win": 100850
+        "stake": 88174,
+        "win": 100518
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
-        "odd": 18.0,
-        "stake": 5603,
-        "win": 100854
+        "odd": 17.0,
+        "stake": 5913,
+        "win": 100521
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 17.0,
-        "stake": 5932,
-        "win": 100844
+        "stake": 5913,
+        "win": 100521
       }
     ]
   },
