@@ -158,5 +158,37 @@
         "win": 101204
       }
     ]
+  },
+  {
+    "match": "eldense vs millwall",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 11.11,
+    "profit_ugx": 11111,
+    "total_stake": 100000,
+    "arb_sum": 0.8889,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.35,
+        "stake": 33582,
+        "win": 112500
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.3,
+        "stake": 34091,
+        "win": 112500
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.48,
+        "stake": 32327,
+        "win": 112498
+      }
+    ]
   }
 ]
