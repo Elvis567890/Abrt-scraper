@@ -1,16 +1,14 @@
-name: Scrape Data and Build APK
+name: Scrape and Deploy Arbitrage Data
 
 on:
   schedule:
-    - cron: '*/2 * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
-  actions: write
 
 jobs:
-  # === YOUR ORIGINAL SCRAPING JOB (100% UNTOUCHED) ===
   scrape:
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +25,7 @@ jobs:
           pip install requests beautifulsoup4 playwright
           playwright install chromium
 
+      # THIS IS THE FIX: I changed the filename to 'scraper.py' to match your screenshot
       - name: Run Python scraper
         run: python scraper.py
 
@@ -42,61 +41,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Force-add the new JSON files so git tracks them
           git add -f current_opportunities.json arb_history.json
+          
+          # Only commit if there are changes to the staged files
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
-          git pull --rebase origin main
           git push
-
-  # === FINAL APK BUILDER (KOTLIN DEPENDENCY FIXED) ===
-  build-apk:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '21'
-
-      - name: Create web assets folder
-        run: mkdir www
-
-      - name: Copy files to www (Ignores missing files safely)
-        run: |
-          cp index.html www/ || true
-          cp style.css www/ || true
-          cp main.js www/ || true
-          cp manifest.json www/ || true
-
-      - name: Initialize Capacitor and Add Android
-        run: |
-          npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init ArbiMax com.elvis.arbimax
-          npx cap add android
-
-      # THIS IS THE EXACT FIX FOR YOUR SCREENSHOT ERROR
-      - name: Fix Kotlin version to prevent classpath crash
-        run: |
-          echo "Updating Kotlin version in build.gradle to 1.9.0..."
-          sed -i "s/ext.kotlin_version = .*/ext.kotlin_version = '1.9.0'/" android/build.gradle
-          echo "Kotlin version fixed."
-
-      - name: Sync your files into the Android app
-        run: npx cap sync android
-
-      - name: Build the APK
-        run: cd android && ./gradlew assembleDebug
-
-      - name: Upload APK to GitHub Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: arbimax-app
-          path: android/app/build/outputs/apk/debug/app-debug.apk
