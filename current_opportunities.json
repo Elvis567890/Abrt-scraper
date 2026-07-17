@@ -1,33 +1,33 @@
 [
   {
-    "match": "jagiellonia bialystok vs nordsjaelland",
+    "match": "mainz vs 1 kaiserslautern",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.97,
-    "profit_ugx": 6970,
+    "profit_percent": 1.54,
+    "profit_ugx": 1542,
     "total_stake": 100000,
-    "arb_sum": 0.9303,
+    "arb_sum": 0.9846,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "SportyBet",
         "outcome": "Home",
-        "odd": 2.5,
-        "stake": 42997,
-        "win": 107492
+        "odd": 1.77,
+        "stake": 57382,
+        "win": 101566
       },
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 29859,
-        "win": 107492
+        "odd": 4.505,
+        "stake": 22545,
+        "win": 101565
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.96,
-        "stake": 27144,
-        "win": 107490
+        "odd": 5.06,
+        "stake": 20072,
+        "win": 101564
       }
     ]
   },
@@ -80,7 +80,7 @@
         "win": 101392
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.14,
         "stake": 19726,
@@ -92,6 +92,70 @@
         "odd": 5.0,
         "stake": 20278,
         "win": 101390
+      }
+    ]
+  },
+  {
+    "match": "atletico san luis vs cruz azul",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 13.88,
+    "profit_ugx": 13878,
+    "total_stake": 100000,
+    "arb_sum": 0.8612,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.95,
+        "stake": 29396,
+        "win": 116114
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.0,
+        "stake": 38705,
+        "win": 116115
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Away",
+        "odd": 3.64,
+        "stake": 31899,
+        "win": 116112
+      }
+    ]
+  },
+  {
+    "match": "leon vs atlas",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.9,
+    "profit_ugx": 2896,
+    "total_stake": 100000,
+    "arb_sum": 0.971,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 2.55,
+        "stake": 40385,
+        "win": 102982
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 3.47,
+        "stake": 29678,
+        "win": 102983
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.44,
+        "stake": 29937,
+        "win": 102983
       }
     ]
   },
