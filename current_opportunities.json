@@ -1,69 +1,5 @@
 [
   {
-    "match": "lugano vs vaduz",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.57,
-    "profit_ugx": 569,
-    "total_stake": 100000,
-    "arb_sum": 0.9943,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.69,
-        "stake": 59510,
-        "win": 100572
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 4.19,
-        "stake": 24003,
-        "win": 100573
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 6.1,
-        "stake": 16487,
-        "win": 100571
-      }
-    ]
-  },
-  {
-    "match": "heart of midlothian vs rayo vallecano",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.33,
-    "profit_ugx": 1334,
-    "total_stake": 100000,
-    "arb_sum": 0.9867,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.66,
-        "stake": 38102,
-        "win": 101351
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 30713,
-        "win": 101353
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.25,
-        "stake": 31185,
-        "win": 101351
-      }
-    ]
-  },
-  {
     "match": "finn harps vs bray wanderers afc",
     "sport": "Football",
     "type": "3-way",
@@ -93,7 +29,9 @@
         "stake": 34140,
         "win": 120173
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "waterford vs cobh ramblers",
@@ -125,103 +63,145 @@
         "stake": 13454,
         "win": 100905
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hk kopavogur vs grotta",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 9.67,
+    "profit_ugx": 9675,
+    "total_stake": 100000,
+    "arb_sum": 0.9033,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 2.7,
+        "stake": 41004,
+        "win": 110711
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 30753,
+        "win": 110711
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.92,
+        "stake": 28243,
+        "win": 110713
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "ca san lorenzo de almagro vs deportivo riestra afbc",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.55,
-    "profit_ugx": 3551,
+    "profit_percent": 3.69,
+    "profit_ugx": 3687,
     "total_stake": 100000,
-    "arb_sum": 0.9645,
+    "arb_sum": 0.9631,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.609,
-        "stake": 39740,
-        "win": 103682
+        "odd": 2.556,
+        "stake": 40621,
+        "win": 103827
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 3.56,
-        "stake": 29124,
-        "win": 103681
+        "odd": 3.6,
+        "stake": 28841,
+        "win": 103828
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 3.33,
-        "stake": 31136,
-        "win": 103683
+        "odd": 3.4,
+        "stake": 30538,
+        "win": 103829
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "ec bahia ba vs chapecoense",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.63,
-    "profit_ugx": 634,
+    "profit_percent": 0.58,
+    "profit_ugx": 584,
     "total_stake": 100000,
-    "arb_sum": 0.9937,
+    "arb_sum": 0.9942,
     "bets": [
       {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.405,
-        "stake": 71629,
-        "win": 100639
-      },
-      {
         "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 7.3,
-        "stake": 13786,
-        "win": 100638
+        "outcome": "Home",
+        "odd": 1.416,
+        "stake": 71036,
+        "win": 100587
       },
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.21,
+        "stake": 13951,
+        "win": 100587
+      },
+      {
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 6.9,
-        "stake": 14585,
-        "win": 100636
+        "odd": 6.7,
+        "stake": 15013,
+        "win": 100587
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "fluminense rj vs red bull bragantino sp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.36,
-    "profit_ugx": 1364,
+    "profit_percent": 1.11,
+    "profit_ugx": 1109,
     "total_stake": 100000,
-    "arb_sum": 0.9864,
+    "arb_sum": 0.9889,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.875,
-        "stake": 54071,
-        "win": 101383
+        "odd": 1.832,
+        "stake": 55197,
+        "win": 101121
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 4.38,
-        "stake": 23147,
-        "win": 101384
+        "odd": 4.58,
+        "stake": 22079,
+        "win": 101122
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.45,
-        "stake": 22783,
-        "win": 101384
+        "stake": 22724,
+        "win": 101122
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "mirassol sp vs gremio fb porto alegrense rs",
@@ -240,7 +220,7 @@
         "win": 100508
       },
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 4.12,
         "stake": 24395,
@@ -253,7 +233,9 @@
         "stake": 23930,
         "win": 100506
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "nashville vs atlanta utd",
@@ -272,7 +254,7 @@
         "win": 101001
       },
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.7,
         "stake": 17719,
@@ -285,71 +267,111 @@
         "stake": 17119,
         "win": 101002
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "los angeles galaxy vs los angeles",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 13.92,
-    "profit_ugx": 13917,
+    "profit_percent": 14.51,
+    "profit_ugx": 14511,
     "total_stake": 100000,
-    "arb_sum": 0.8608,
+    "arb_sum": 0.8549,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 3.015,
-        "stake": 38529,
-        "win": 116165
+        "stake": 38797,
+        "win": 116973
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Draw",
         "odd": 3.82,
-        "stake": 30410,
-        "win": 116166
+        "stake": 30621,
+        "win": 116972
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.74,
-        "stake": 31061,
-        "win": 116168
+        "odd": 3.825,
+        "stake": 30581,
+        "win": 116972
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mosta vs birzebbuga",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.46,
+    "profit_ugx": 3460,
+    "total_stake": 100000,
+    "arb_sum": 0.9654,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.23,
+        "stake": 46450,
+        "win": 103584
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 27259,
+        "win": 103584
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.94,
+        "stake": 26290,
+        "win": 103583
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "san luis vs cruz azul",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 19.63,
-    "profit_ugx": 19627,
+    "profit_percent": 19.91,
+    "profit_ugx": 19911,
     "total_stake": 100000,
-    "arb_sum": 0.8037,
+    "arb_sum": 0.8009,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.935,
-        "stake": 31619,
-        "win": 124421
+        "odd": 3.955,
+        "stake": 31570,
+        "win": 124859
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.7,
-        "stake": 33627,
-        "win": 124420
+        "stake": 33746,
+        "win": 124860
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.58,
-        "stake": 34754,
-        "win": 124419
+        "odd": 3.6,
+        "stake": 34684,
+        "win": 124862
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "river plate vs aldosivi",
@@ -361,14 +383,14 @@
     "arb_sum": 0.9538,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.426,
         "stake": 73521,
         "win": 104841
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 8.15,
         "stake": 12864,
@@ -381,38 +403,170 @@
         "stake": 13616,
         "win": 104843
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "los angeles galaxy vs los angeles",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.91,
+    "profit_ugx": 911,
+    "total_stake": 100000,
+    "arb_sum": 0.9909,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.691,
+        "stake": 59680,
+        "win": 100919
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.503,
+        "stake": 40320,
+        "win": 100921
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "los angeles galaxy vs los angeles",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.91,
+    "profit_ugx": 911,
+    "total_stake": 100000,
+    "arb_sum": 0.9909,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.691,
+        "stake": 59680,
+        "win": 100919
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.503,
+        "stake": 40320,
+        "win": 100921
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   },
   {
     "match": "home vs away",
     "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 14.57,
-    "profit_ugx": 14569,
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 7.19,
+    "profit_ugx": 7195,
     "total_stake": 100000,
-    "arb_sum": 0.8543,
+    "arb_sum": 0.9281,
     "bets": [
       {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.746,
-        "stake": 67041,
-        "win": 117054
-      },
-      {
         "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 6.05,
-        "stake": 19348,
-        "win": 117055
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.43,
+        "stake": 44343,
+        "win": 107753
       },
       {
         "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 8.6,
-        "stake": 13611,
-        "win": 117055
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.936,
+        "stake": 55657,
+        "win": 107752
       }
-    ]
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home vs away",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 7.19,
+    "profit_ugx": 7195,
+    "total_stake": 100000,
+    "arb_sum": 0.9281,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.43,
+        "stake": 44343,
+        "win": 107753
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.936,
+        "stake": 55657,
+        "win": 107752
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "accrington stanley vs bradford",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.76,
+    "profit_ugx": 6763,
+    "total_stake": 100000,
+    "arb_sum": 0.9324,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.515,
+        "stake": 42645,
+        "win": 107252
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.87,
+        "stake": 57355,
+        "win": 107254
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "accrington stanley vs bradford",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.76,
+    "profit_ugx": 6763,
+    "total_stake": 100000,
+    "arb_sum": 0.9324,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.515,
+        "stake": 42645,
+        "win": 107252
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.87,
+        "stake": 57355,
+        "win": 107254
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   }
 ]
