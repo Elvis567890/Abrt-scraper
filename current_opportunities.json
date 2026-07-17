@@ -1,5 +1,39 @@
 [
   {
+    "match": "fortaleza ec ce vs gremio novorizontino sp",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.54,
+    "profit_ugx": 540,
+    "total_stake": 100000,
+    "arb_sum": 0.9946,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.17,
+        "stake": 46333,
+        "win": 100543
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 3.795,
+        "stake": 26493,
+        "win": 100541
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.7,
+        "stake": 27174,
+        "win": 100544
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "los angeles galaxy vs los angeles",
     "sport": "Football",
     "type": "3-way",
@@ -28,6 +62,40 @@
         "odd": 3.78,
         "stake": 30805,
         "win": 116443
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "incheon utd srl vs jeonbuk hyundai motors srl",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.16,
+    "profit_ugx": 5157,
+    "total_stake": 100000,
+    "arb_sum": 0.9484,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.15,
+        "stake": 33472,
+        "win": 105437
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.2,
+        "stake": 32949,
+        "win": 105437
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.14,
+        "stake": 33579,
+        "win": 105438
       }
     ],
     "market_type": "1x2",
@@ -266,40 +334,6 @@
         "odd": 2.7,
         "stake": 39059,
         "win": 105459
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "incheon utd vs jeonbuk",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.16,
-    "profit_ugx": 5157,
-    "total_stake": 100000,
-    "arb_sum": 0.9484,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.15,
-        "stake": 33472,
-        "win": 105437
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.2,
-        "stake": 32949,
-        "win": 105437
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.14,
-        "stake": 33579,
-        "win": 105438
       }
     ],
     "market_type": "1x2",
