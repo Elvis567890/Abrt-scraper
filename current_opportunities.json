@@ -96,6 +96,38 @@
     ]
   },
   {
+    "match": "feyenoord vs charleroi",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.63,
+    "profit_ugx": 627,
+    "total_stake": 100000,
+    "arb_sum": 0.9937,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.67,
+        "stake": 60258,
+        "win": 100631
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.13,
+        "stake": 19616,
+        "win": 100630
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.0,
+        "stake": 20126,
+        "win": 100630
+      }
+    ]
+  },
+  {
     "match": "spvgg bayreuth vs jena",
     "sport": "Football",
     "type": "3-way",
@@ -227,31 +259,31 @@
     "match": "home vs away",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.32,
-    "profit_ugx": 9315,
+    "profit_percent": 9.09,
+    "profit_ugx": 9087,
     "total_stake": 100000,
-    "arb_sum": 0.9068,
+    "arb_sum": 0.9091,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.625,
-        "stake": 67860,
-        "win": 110272
+        "odd": 1.619,
+        "stake": 67941,
+        "win": 109996
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.8,
-        "stake": 19012,
-        "win": 110270
+        "stake": 18965,
+        "win": 109997
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 8.4,
-        "stake": 13128,
-        "win": 110275
+        "stake": 13095,
+        "win": 109998
       }
     ]
   }
