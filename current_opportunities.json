@@ -275,31 +275,31 @@
     "match": "lugano vs vaduz",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 12.13,
-    "profit_ugx": 12131,
+    "profit_percent": 1.48,
+    "profit_ugx": 1480,
     "total_stake": 100000,
-    "arb_sum": 0.8787,
+    "arb_sum": 0.9852,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 29.0,
-        "stake": 3924,
-        "win": 113796
+        "odd": 1.48,
+        "stake": 68583,
+        "win": 101503
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 6.0,
+        "stake": 16917,
+        "win": 101502
       },
       {
         "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 1.47,
-        "stake": 77419,
-        "win": 113806
-      },
-      {
-        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 6.1,
-        "stake": 18657,
-        "win": 113808
+        "odd": 7.0,
+        "stake": 14500,
+        "win": 101500
       }
     ],
     "market_type": "1x2",
