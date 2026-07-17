@@ -23,28 +23,25 @@ jobs:
       - name: Install dependencies
         run: |
           pip install requests beautifulsoup4 playwright
-          playwright install chromium
+          playwright install chromium --with-deps
 
-      # THIS IS THE FIX: I changed the filename to 'scraper.py' to match your screenshot
       - name: Run Python scraper
         run: python scraper.py
 
-      - name: Find and copy JSONs to root
+      - name: Find and copy JSONs to root + Debug
         run: |
           echo "Searching for JSON files..."
           find . -name "current_opportunities.json" -exec cp {} . \;
           find . -name "arb_history.json" -exec cp {} . \;
-          echo "Current directory contents:"
-          ls -la
+          echo "=== JSON CONTENT PREVIEW ==="
+          head -n 20 current_opportunities.json || echo "FILE NOT FOUND"
+          echo "=== END PREVIEW ==="
+          ls -la *.json
 
       - name: Commit and push updated JSON files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          # Force-add the new JSON files so git tracks them
           git add -f current_opportunities.json arb_history.json
-          
-          # Only commit if there are changes to the staged files
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
           git push
