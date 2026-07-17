@@ -2,8 +2,8 @@ name: Scrape and Deploy Arbitrage Data
 
 on:
   schedule:
-    - cron: '*/30 *'  # every 30 minutes
-  workflow_dispatch: # lets you run it manually + cron-job.org can trigger this
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,15 +22,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          playwright install chromium --with-deps
+          pip install requests beautifulsoup4 playwright
+          playwright install chromium
 
-      # CHANGED: Use arbitrage_bot.py since that's your main file
-      - name: Run Arbitrage Bot
-        run: python arbitrage_bot.py --once
-        env:
-          # Add your API keys here as GitHub Secrets later
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      # THIS IS THE FIX: I changed the filename to 'scraper.py' to match your screenshot
+      - name: Run Python scraper
+        run: python scraper.py
 
       - name: Find and copy JSONs to root
         run: |
@@ -38,7 +35,7 @@ jobs:
           find . -name "current_opportunities.json" -exec cp {} . \;
           find . -name "arb_history.json" -exec cp {} . \;
           echo "Current directory contents:"
-          ls -la *.json || echo "No JSON files found"
+          ls -la
 
       - name: Commit and push updated JSON files
         run: |
@@ -46,7 +43,7 @@ jobs:
           git config --local user.name "GitHub Action"
           
           # Force-add the new JSON files so git tracks them
-          git add -f current_opportunities.json arb_history.json 2>/dev/null || true
+          git add -f current_opportunities.json arb_history.json
           
           # Only commit if there are changes to the staged files
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
