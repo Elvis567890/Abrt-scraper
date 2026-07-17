@@ -3,31 +3,31 @@
     "match": "ca san lorenzo de almagro vs deportivo riestra afbc",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.93,
-    "profit_ugx": 929,
+    "profit_percent": 2.43,
+    "profit_ugx": 2429,
     "total_stake": 100000,
-    "arb_sum": 0.9907,
+    "arb_sum": 0.9757,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 2.31,
-        "stake": 43696,
-        "win": 100938
+        "odd": 2.329,
+        "stake": 44006,
+        "win": 102490
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 3.925,
-        "stake": 25717,
-        "win": 100939
+        "odd": 4.11,
+        "stake": 24937,
+        "win": 102491
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 3.3,
-        "stake": 30587,
-        "win": 100937
+        "stake": 31057,
+        "win": 102488
       }
     ],
     "market_type": "1x2",
@@ -164,6 +164,40 @@
         "odd": 3.62,
         "stake": 31290,
         "win": 113270
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "nacional de vs montevideo wanderers",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.5,
+    "profit_ugx": 500,
+    "total_stake": 100000,
+    "arb_sum": 0.995,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.62,
+        "stake": 62039,
+        "win": 100503
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.29,
+        "stake": 18999,
+        "win": 100505
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.3,
+        "stake": 18963,
+        "win": 100504
       }
     ],
     "market_type": "1x2",
