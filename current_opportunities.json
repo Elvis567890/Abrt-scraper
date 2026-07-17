@@ -32,6 +32,38 @@
     ]
   },
   {
+    "match": "mainz vs 1 kaiserslautern",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.1,
+    "profit_ugx": 1104,
+    "total_stake": 100000,
+    "arb_sum": 0.989,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.64,
+        "stake": 61656,
+        "win": 101116
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.21,
+        "stake": 19408,
+        "win": 101116
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 5.34,
+        "stake": 18936,
+        "win": 101118
+      }
+    ]
+  },
+  {
     "match": "sparta prague b vs fsv zwickau",
     "sport": "Football",
     "type": "3-way",
@@ -96,7 +128,7 @@
     ]
   },
   {
-    "match": "spvgg bayreuth vs carl zeiss jena",
+    "match": "spvgg bayreuth vs jena",
     "sport": "Football",
     "type": "3-way",
     "profit_percent": 4.23,
