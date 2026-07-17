@@ -1,5 +1,37 @@
 [
   {
+    "match": "stockport county vs bristol",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 19.55,
+    "profit_ugx": 19549,
+    "total_stake": 100000,
+    "arb_sum": 0.8045,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.65,
+        "stake": 34055,
+        "win": 124301
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 32710,
+        "win": 124298
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.74,
+        "stake": 33235,
+        "win": 124299
+      }
+    ]
+  },
+  {
     "match": "prostejov vs floridsdorfer",
     "sport": "Football",
     "type": "3-way",
@@ -156,38 +188,6 @@
         "odd": 3.28,
         "stake": 30855,
         "win": 101204
-      }
-    ]
-  },
-  {
-    "match": "eldense vs millwall",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 11.11,
-    "profit_ugx": 11111,
-    "total_stake": 100000,
-    "arb_sum": 0.8889,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.35,
-        "stake": 33582,
-        "win": 112500
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 34091,
-        "win": 112500
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.48,
-        "stake": 32327,
-        "win": 112498
       }
     ]
   }
