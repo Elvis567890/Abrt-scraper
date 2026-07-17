@@ -1,37 +1,5 @@
 [
   {
-    "match": "de graafschap vs telstar",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 19.95,
-    "profit_ugx": 19954,
-    "total_stake": 100000,
-    "arb_sum": 0.8005,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.225,
-        "stake": 38737,
-        "win": 124927
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 31232,
-        "win": 124928
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.16,
-        "stake": 30031,
-        "win": 124929
-      }
-    ]
-  },
-  {
     "match": "mainz vs 1 kaiserslautern",
     "sport": "Football",
     "type": "3-way",
@@ -112,7 +80,7 @@
         "win": 101196
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.09,
         "stake": 19881,
@@ -124,6 +92,38 @@
         "odd": 5.0,
         "stake": 20239,
         "win": 101195
+      }
+    ]
+  },
+  {
+    "match": "nashville vs atlanta utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.03,
+    "profit_ugx": 2027,
+    "total_stake": 100000,
+    "arb_sum": 0.9797,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.51,
+        "stake": 67595,
+        "win": 102068
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 6.25,
+        "stake": 16331,
+        "win": 102069
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 6.35,
+        "stake": 16074,
+        "win": 102070
       }
     ]
   },
@@ -259,31 +259,31 @@
     "match": "home vs away",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.43,
-    "profit_ugx": 9433,
+    "profit_percent": 12.17,
+    "profit_ugx": 12166,
     "total_stake": 100000,
-    "arb_sum": 0.9057,
+    "arb_sum": 0.8783,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.63,
-        "stake": 67739,
-        "win": 110415
+        "odd": 1.706,
+        "stake": 66736,
+        "win": 113852
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.8,
-        "stake": 19037,
-        "win": 110415
+        "stake": 19629,
+        "win": 113848
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 8.35,
-        "stake": 13223,
-        "win": 110412
+        "stake": 13635,
+        "win": 113852
       }
     ]
   }
