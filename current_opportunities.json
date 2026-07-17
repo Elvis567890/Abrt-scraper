@@ -96,6 +96,38 @@
     ]
   },
   {
+    "match": "de graafschap vs telstar",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 12.91,
+    "profit_ugx": 12906,
+    "total_stake": 100000,
+    "arb_sum": 0.8709,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.994,
+        "stake": 38350,
+        "win": 114820
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.75,
+        "stake": 30618,
+        "win": 114818
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.7,
+        "stake": 31032,
+        "win": 114818
+      }
+    ]
+  },
+  {
     "match": "sparta prague b vs zwickau",
     "sport": "Football",
     "type": "3-way",
@@ -220,38 +252,6 @@
         "odd": 3.48,
         "stake": 32327,
         "win": 112498
-      }
-    ]
-  },
-  {
-    "match": "getafe vs reading",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.07,
-    "profit_ugx": 5071,
-    "total_stake": 100000,
-    "arb_sum": 0.9493,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.95,
-        "stake": 54022,
-        "win": 105343
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 4.615,
-        "stake": 22826,
-        "win": 105342
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.55,
-        "stake": 23152,
-        "win": 105342
       }
     ]
   }
