@@ -1,5 +1,39 @@
 [
   {
+    "match": "ec bahia ba vs chapecoense",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.63,
+    "profit_ugx": 634,
+    "total_stake": 100000,
+    "arb_sum": 0.9937,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.405,
+        "stake": 71629,
+        "win": 100639
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 7.3,
+        "stake": 13786,
+        "win": 100638
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 6.9,
+        "stake": 14585,
+        "win": 100636
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "nueva chicago vs agropecuario argentino",
     "sport": "Football",
     "type": "3-way",
@@ -62,40 +96,6 @@
         "odd": 3.4,
         "stake": 30542,
         "win": 103843
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "ec bahia ba vs chapecoense",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.63,
-    "profit_ugx": 634,
-    "total_stake": 100000,
-    "arb_sum": 0.9937,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.405,
-        "stake": 71629,
-        "win": 100639
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 7.3,
-        "stake": 13786,
-        "win": 100638
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Away",
-        "odd": 6.9,
-        "stake": 14585,
-        "win": 100636
       }
     ],
     "market_type": "1x2",
