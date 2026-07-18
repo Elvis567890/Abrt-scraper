@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "sporting jax vs brooklyn",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.15,
+    "profit_ugx": 5152,
+    "total_stake": 100000,
+    "arb_sum": 0.9485,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.7,
+        "stake": 39049,
+        "win": 105432
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 30123,
+        "win": 105430
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.42,
+        "stake": 30828,
+        "win": 105432
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "spain vs argentina",
     "sport": "Football",
     "type": "3-way",
