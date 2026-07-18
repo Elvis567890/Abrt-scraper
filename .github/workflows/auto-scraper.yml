@@ -25,8 +25,13 @@ jobs:
           pip install requests beautifulsoup4 playwright
           playwright install chromium --with-deps
 
+      # --- THE ONLY CHANGE: added the env block below ---
       - name: Run Python scraper
         run: python scraper.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      # -------------------------------------------------
 
       - name: Find and copy JSONs to root + Debug
         run: |
@@ -37,7 +42,6 @@ jobs:
           head -n 20 current_opportunities.json || echo "FILE NOT FOUND"
           echo "=== END PREVIEW ==="
           ls -la *.json
-          # --- NEW: Force GitHub Pages rebuild ---
           echo "Triggering Pages rebuild at $(date)" > trigger_rebuild.txt
 
       - name: Commit and push updated JSON files
