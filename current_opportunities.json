@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "nk opatija vs austria salzburg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 29.37,
+    "profit_ugx": 29369,
+    "total_stake": 100000,
+    "arb_sum": 0.7063,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 4.97,
+        "stake": 28487,
+        "win": 141580
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 35395,
+        "win": 141580
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.92,
+        "stake": 36118,
+        "win": 141583
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "racing santander vs real sociedad",
     "sport": "Football",
     "type": "3-way",
@@ -442,6 +476,60 @@
         "odd": 3.415,
         "stake": 32709,
         "win": 111701
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "opatija vs austria salzburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.39,
+    "profit_ugx": 7390,
+    "total_stake": 100000,
+    "arb_sum": 0.9261,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.19,
+        "stake": 49306,
+        "win": 107980
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.13,
+        "stake": 50694,
+        "win": 107978
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "opatija vs austria salzburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.39,
+    "profit_ugx": 7390,
+    "total_stake": 100000,
+    "arb_sum": 0.9261,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.19,
+        "stake": 49306,
+        "win": 107980
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.13,
+        "stake": 50694,
+        "win": 107978
       }
     ],
     "market_type": "1x2",
