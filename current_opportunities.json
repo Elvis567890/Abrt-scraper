@@ -1,67 +1,33 @@
 [
   {
-    "match": "france vs england",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.62,
-    "profit_ugx": 619,
-    "total_stake": 100000,
-    "arb_sum": 0.9938,
-    "bets": [
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Home",
-        "odd": 1.88,
-        "stake": 53523,
-        "win": 100623
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 4.33,
-        "stake": 23239,
-        "win": 100625
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.33,
-        "stake": 23239,
-        "win": 100625
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "nacao vs caravaggio",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 28.83,
-    "profit_ugx": 28833,
+    "profit_percent": 25.53,
+    "profit_ugx": 25532,
     "total_stake": 100000,
-    "arb_sum": 0.7117,
+    "arb_sum": 0.7447,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 6.25,
-        "stake": 22482,
-        "win": 140512
+        "odd": 5.45,
+        "stake": 24640,
+        "win": 134288
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 40147,
-        "win": 140514
+        "stake": 38367,
+        "win": 134284
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.76,
-        "stake": 37371,
-        "win": 140515
+        "odd": 3.63,
+        "stake": 36993,
+        "win": 134285
       }
     ],
     "market_type": "1x2",
@@ -198,60 +164,6 @@
         "odd": 3.5,
         "stake": 33349,
         "win": 116722
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "nacao araquari vs caravaggio nova veneza",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 2.84,
-    "profit_ugx": 2842,
-    "total_stake": 100000,
-    "arb_sum": 0.9716,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.32,
-        "stake": 44365,
-        "win": 102927
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.85,
-        "stake": 55635,
-        "win": 102925
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "nacao araquari vs caravaggio nova veneza",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 2.84,
-    "profit_ugx": 2842,
-    "total_stake": 100000,
-    "arb_sum": 0.9716,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.32,
-        "stake": 44365,
-        "win": 102927
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 1.85,
-        "stake": 55635,
-        "win": 102925
       }
     ],
     "market_type": "1x2",
