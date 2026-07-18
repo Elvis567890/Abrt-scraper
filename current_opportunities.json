@@ -139,65 +139,31 @@
     "match": "gangwon vs gimcheon sangmu",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.0,
-    "profit_ugx": 1002,
+    "profit_percent": 1.82,
+    "profit_ugx": 1824,
     "total_stake": 100000,
-    "arb_sum": 0.99,
+    "arb_sum": 0.9818,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.72,
-        "stake": 58728,
-        "win": 101012
+        "stake": 59219,
+        "win": 101857
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 4.89,
-        "stake": 20657,
-        "win": 101013
+        "odd": 4.895,
+        "stake": 20808,
+        "win": 101855
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 4.9,
-        "stake": 20615,
-        "win": 101014
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "incheon utd vs jeonbuk",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 6.22,
-    "profit_ugx": 6220,
-    "total_stake": 100000,
-    "arb_sum": 0.9378,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.35,
-        "stake": 31830,
-        "win": 106630
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.2,
-        "stake": 33322,
-        "win": 106630
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.06,
-        "stake": 34847,
-        "win": 106632
+        "odd": 5.1,
+        "stake": 19972,
+        "win": 101857
       }
     ],
     "market_type": "1x2",
@@ -232,6 +198,40 @@
         "odd": 3.275,
         "stake": 35295,
         "win": 115591
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "aik vs gais",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.2,
+    "profit_ugx": 3204,
+    "total_stake": 100000,
+    "arb_sum": 0.968,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.61,
+        "stake": 39583,
+        "win": 103312
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 30385,
+        "win": 103309
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.44,
+        "stake": 30032,
+        "win": 103310
       }
     ],
     "market_type": "1x2",
@@ -408,34 +408,34 @@
     "market_specifier": ""
   },
   {
-    "match": "aik vs gais",
+    "match": "incheon utd vs jeonbuk",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.2,
-    "profit_ugx": 3204,
+    "profit_percent": 6.22,
+    "profit_ugx": 6220,
     "total_stake": 100000,
-    "arb_sum": 0.968,
+    "arb_sum": 0.9378,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.61,
-        "stake": 39583,
-        "win": 103312
+        "odd": 3.35,
+        "stake": 31830,
+        "win": 106630
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30385,
-        "win": 103309
+        "odd": 3.2,
+        "stake": 33322,
+        "win": 106630
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.44,
-        "stake": 30032,
-        "win": 103310
+        "odd": 3.06,
+        "stake": 34847,
+        "win": 106632
       }
     ],
     "market_type": "1x2",
