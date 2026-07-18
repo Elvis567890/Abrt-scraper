@@ -139,31 +139,31 @@
     "match": "one knoxville vs av alta",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.85,
-    "profit_ugx": 1849,
+    "profit_percent": 1.15,
+    "profit_ugx": 1153,
     "total_stake": 100000,
-    "arb_sum": 0.9815,
+    "arb_sum": 0.9885,
     "bets": [
       {
         "bookmaker": "SportyBet",
         "outcome": "Home",
-        "odd": 1.55,
-        "stake": 65732,
-        "win": 101885
+        "odd": 1.53,
+        "stake": 66122,
+        "win": 101167
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 5.8,
-        "stake": 17566,
-        "win": 101883
+        "odd": 5.85,
+        "stake": 17293,
+        "win": 101164
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 6.1,
-        "stake": 16702,
-        "win": 101882
+        "stake": 16585,
+        "win": 101168
       }
     ],
     "market_type": "1x2",
@@ -198,40 +198,6 @@
         "odd": 6.5,
         "stake": 15698,
         "win": 102037
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "huntsville vs atlanta utd 2",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 13.81,
-    "profit_ugx": 13810,
-    "total_stake": 100000,
-    "arb_sum": 0.8619,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.15,
-        "stake": 36832,
-        "win": 116021
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 30939,
-        "win": 116021
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.6,
-        "stake": 32228,
-        "win": 116021
       }
     ],
     "market_type": "1x2",
@@ -436,6 +402,40 @@
         "odd": 9.1,
         "stake": 11229,
         "win": 102184
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "huntsville vs atlanta utd ii",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 13.81,
+    "profit_ugx": 13810,
+    "total_stake": 100000,
+    "arb_sum": 0.8619,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.15,
+        "stake": 36832,
+        "win": 116021
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.75,
+        "stake": 30939,
+        "win": 116021
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 32228,
+        "win": 116021
       }
     ],
     "market_type": "1x2",
