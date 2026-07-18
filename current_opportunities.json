@@ -272,6 +272,40 @@
     "market_specifier": ""
   },
   {
+    "match": "esbjerg fb vs fredericia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.74,
+    "profit_ugx": 737,
+    "total_stake": 100000,
+    "arb_sum": 0.9926,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 2.5,
+        "stake": 40297,
+        "win": 100742
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 29630,
+        "win": 100742
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.35,
+        "stake": 30073,
+        "win": 100745
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "hillerod fodbold vs lyngby bk",
     "sport": "Football",
     "type": "3-way",
@@ -538,6 +572,40 @@
         "odd": 5.0,
         "stake": 20399,
         "win": 101995
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kv mechelen vs den haag",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.97,
+    "profit_ugx": 2974,
+    "total_stake": 100000,
+    "arb_sum": 0.9703,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.34,
+        "stake": 44045,
+        "win": 103065
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.75,
+        "stake": 27484,
+        "win": 103065
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.62,
+        "stake": 28471,
+        "win": 103065
       }
     ],
     "market_type": "1x2",
