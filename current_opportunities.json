@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "incheon utd vs jeonbuk",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.22,
+    "profit_ugx": 6220,
+    "total_stake": 100000,
+    "arb_sum": 0.9378,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.35,
+        "stake": 31830,
+        "win": 106630
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.2,
+        "stake": 33322,
+        "win": 106630
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.06,
+        "stake": 34847,
+        "win": 106632
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "hamkam vs tromsoe il",
     "sport": "Football",
     "type": "3-way",
@@ -198,40 +232,6 @@
         "odd": 3.275,
         "stake": 35177,
         "win": 115205
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "aik vs gais",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.99,
-    "profit_ugx": 2993,
-    "total_stake": 100000,
-    "arb_sum": 0.9701,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.59,
-        "stake": 39801,
-        "win": 103085
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30319,
-        "win": 103085
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.45,
-        "stake": 29880,
-        "win": 103086
       }
     ],
     "market_type": "1x2",
@@ -408,34 +408,34 @@
     "market_specifier": ""
   },
   {
-    "match": "incheon utd vs jeonbuk",
+    "match": "aik vs gais",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.22,
-    "profit_ugx": 6220,
+    "profit_percent": 2.99,
+    "profit_ugx": 2993,
     "total_stake": 100000,
-    "arb_sum": 0.9378,
+    "arb_sum": 0.9701,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.35,
-        "stake": 31830,
-        "win": 106630
+        "odd": 2.59,
+        "stake": 39801,
+        "win": 103085
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.2,
-        "stake": 33322,
-        "win": 106630
+        "odd": 3.4,
+        "stake": 30319,
+        "win": 103085
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.06,
-        "stake": 34847,
-        "win": 106632
+        "odd": 3.45,
+        "stake": 29880,
+        "win": 103086
       }
     ],
     "market_type": "1x2",
