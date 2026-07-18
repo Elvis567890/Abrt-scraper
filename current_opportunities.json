@@ -136,6 +136,40 @@
     "market_specifier": ""
   },
   {
+    "match": "gangwon vs gimcheon sangmu",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.55,
+    "profit_ugx": 551,
+    "total_stake": 100000,
+    "arb_sum": 0.9945,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.75,
+        "stake": 57459,
+        "win": 100553
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.705,
+        "stake": 21372,
+        "win": 100555
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 4.75,
+        "stake": 21169,
+        "win": 100553
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "incheon utd vs jeonbuk",
     "sport": "Football",
     "type": "3-way",
