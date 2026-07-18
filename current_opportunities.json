@@ -374,6 +374,40 @@
     "market_specifier": ""
   },
   {
+    "match": "kristiansund bk vs sarpsborg 08",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 12.49,
+    "profit_ugx": 12492,
+    "total_stake": 100000,
+    "arb_sum": 0.8751,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.1,
+        "stake": 36863,
+        "win": 114275
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 31743,
+        "win": 114275
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.64,
+        "stake": 31394,
+        "win": 114274
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "criciuma vs vila nova",
     "sport": "Football",
     "type": "3-way",
@@ -504,40 +538,6 @@
         "odd": 5.0,
         "stake": 20399,
         "win": 101995
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "kristiansund vs sarpsborg 08",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 13.17,
-    "profit_ugx": 13174,
-    "total_stake": 100000,
-    "arb_sum": 0.8683,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.152,
-        "stake": 36540,
-        "win": 115174
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 31992,
-        "win": 115171
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.66,
-        "stake": 31468,
-        "win": 115173
       }
     ],
     "market_type": "1x2",
