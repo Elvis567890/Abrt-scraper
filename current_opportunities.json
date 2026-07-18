@@ -71,31 +71,65 @@
     "match": "viking fk vs sandefjord fotball",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.69,
-    "profit_ugx": 693,
+    "profit_percent": 0.59,
+    "profit_ugx": 588,
     "total_stake": 100000,
-    "arb_sum": 0.9931,
+    "arb_sum": 0.9941,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.27,
-        "stake": 79290,
-        "win": 100698
+        "stake": 79206,
+        "win": 100592
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 9.65,
-        "stake": 10435,
-        "win": 100698
+        "stake": 10424,
+        "win": 100592
       },
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 9.8,
-        "stake": 10275,
-        "win": 100695
+        "odd": 9.7,
+        "stake": 10370,
+        "win": 100589
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mfk ruzomberok vs fk teplice",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.63,
+    "profit_ugx": 6625,
+    "total_stake": 100000,
+    "arb_sum": 0.9337,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.8,
+        "stake": 38248,
+        "win": 107094
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 31499,
+        "win": 107097
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.54,
+        "stake": 30253,
+        "win": 107096
       }
     ],
     "market_type": "1x2",
@@ -207,31 +241,31 @@
     "match": "aik vs gais",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.2,
-    "profit_ugx": 3204,
+    "profit_percent": 3.14,
+    "profit_ugx": 3141,
     "total_stake": 100000,
-    "arb_sum": 0.968,
+    "arb_sum": 0.9686,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.61,
-        "stake": 39583,
-        "win": 103312
+        "odd": 2.6,
+        "stake": 39709,
+        "win": 103243
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.4,
-        "stake": 30385,
-        "win": 103309
+        "stake": 30366,
+        "win": 103244
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.44,
-        "stake": 30032,
-        "win": 103310
+        "odd": 3.45,
+        "stake": 29926,
+        "win": 103245
       }
     ],
     "market_type": "1x2",
