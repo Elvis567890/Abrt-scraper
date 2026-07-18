@@ -1,39 +1,5 @@
 [
   {
-    "match": "chicago red stars vs angel",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 25.43,
-    "profit_ugx": 25427,
-    "total_stake": 100000,
-    "arb_sum": 0.7457,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 4.07,
-        "stake": 32948,
-        "win": 134098
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 4.15,
-        "stake": 32312,
-        "win": 134095
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.86,
-        "stake": 34740,
-        "win": 134096
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "loudoun utd vs tampa bay rowdies",
     "sport": "Football",
     "type": "3-way",
@@ -125,7 +91,7 @@
         "win": 120863
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.45,
         "stake": 35033,
@@ -436,6 +402,74 @@
         "odd": 9.1,
         "stake": 11244,
         "win": 102320
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bucheon 1995 vs seoul",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 21.56,
+    "profit_ugx": 21561,
+    "total_stake": 100000,
+    "arb_sum": 0.7844,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.85,
+        "stake": 26286,
+        "win": 127487
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 37496,
+        "win": 127486
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.52,
+        "stake": 36218,
+        "win": 127487
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "anyang vs gwangju",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.74,
+    "profit_ugx": 2742,
+    "total_stake": 100000,
+    "arb_sum": 0.9726,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.62,
+        "stake": 63469,
+        "win": 102820
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.56,
+        "stake": 18493,
+        "win": 102821
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.7,
+        "stake": 18038,
+        "win": 102817
       }
     ],
     "market_type": "1x2",
