@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "langwarrin vs brunswick juventus",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 20.42,
+    "profit_ugx": 20421,
+    "total_stake": 100000,
+    "arb_sum": 0.7958,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.25,
+        "stake": 38665,
+        "win": 125661
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 29919,
+        "win": 125660
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 4.0,
+        "stake": 31415,
+        "win": 125660
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "dalian young boy srl vs shandong luneng srl",
     "sport": "Football",
     "type": "3-way",
@@ -130,40 +164,6 @@
         "odd": 6.25,
         "stake": 22026,
         "win": 137662
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "altona magic vs heidelberg utd",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 30.56,
-    "profit_ugx": 30556,
-    "total_stake": 100000,
-    "arb_sum": 0.6944,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 4.5,
-        "stake": 32000,
-        "win": 144000
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 36000,
-        "win": 144000
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 4.5,
-        "stake": 32000,
-        "win": 144000
       }
     ],
     "market_type": "1x2",
