@@ -3,31 +3,31 @@
     "match": "chicago red stars vs angel",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 31.62,
-    "profit_ugx": 31620,
+    "profit_percent": 32.08,
+    "profit_ugx": 32082,
     "total_stake": 100000,
-    "arb_sum": 0.6838,
+    "arb_sum": 0.6792,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 5.45,
-        "stake": 26833,
-        "win": 146240
+        "odd": 5.55,
+        "stake": 26529,
+        "win": 147236
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.1,
-        "stake": 35669,
-        "win": 146243
+        "stake": 35911,
+        "win": 147235
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.9,
-        "stake": 37498,
-        "win": 146242
+        "odd": 3.92,
+        "stake": 37560,
+        "win": 147235
       }
     ],
     "market_type": "1x2",
@@ -57,7 +57,7 @@
         "win": 138904
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.96,
         "stake": 35077,
@@ -71,31 +71,31 @@
     "match": "sporting jax vs brooklyn",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.15,
-    "profit_ugx": 5152,
+    "profit_percent": 4.58,
+    "profit_ugx": 4584,
     "total_stake": 100000,
-    "arb_sum": 0.9485,
+    "arb_sum": 0.9542,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.7,
-        "stake": 39049,
-        "win": 105432
+        "odd": 2.72,
+        "stake": 38531,
+        "win": 104804
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 30123,
-        "win": 105430
+        "odd": 3.4,
+        "stake": 30825,
+        "win": 104805
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.42,
-        "stake": 30828,
-        "win": 105432
+        "stake": 30644,
+        "win": 104802
       }
     ],
     "market_type": "1x2",
@@ -125,7 +125,7 @@
         "win": 120863
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.45,
         "stake": 35033,
@@ -558,6 +558,60 @@
         "odd": 2.28,
         "stake": 52201,
         "win": 119018
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "loudoun utd vs tampa bay rowdies",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.75,
+    "profit_ugx": 7748,
+    "total_stake": 100000,
+    "arb_sum": 0.9225,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.16,
+        "stake": 50185,
+        "win": 108400
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.176,
+        "stake": 49815,
+        "win": 108397
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "loudoun utd vs tampa bay rowdies",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.75,
+    "profit_ugx": 7748,
+    "total_stake": 100000,
+    "arb_sum": 0.9225,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.16,
+        "stake": 50185,
+        "win": 108400
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.176,
+        "stake": 49815,
+        "win": 108397
       }
     ],
     "market_type": "1x2",
