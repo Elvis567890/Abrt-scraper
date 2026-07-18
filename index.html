@@ -201,17 +201,99 @@
                 <div class="bookie-card connected"><div class="bookie-logo" style="background:#e63946;">PIN</div><div class="bookie-name">Pinnacle</div><div class="bookie-status">Connected</div></div>
             </div>
         </div>
-        <!-- Settings -->
+        
+        <!-- ========== NEW SETTINGS PAGE ========== -->
         <div class="page" id="page-settings">
-            <div class="page-header"><h1>⚙️ Settings</h1></div>
+            <div class="page-header">
+                <h1>⚙️ Settings</h1>
+                <button class="icon-btn" onclick="saveUserSettings()">💾</button>
+            </div>
+
             <div class="settings-section">
-                <h3>Profit Filter</h3>
+                <h3>👤 Account & Subscription</h3>
+                <div class="slider-container" style="text-align:center;">
+                    <div style="color:var(--text2); margin-bottom:6px;">Current Plan</div>
+                    <div id="displayPlan" style="color:var(--green); font-weight:700; font-size:18px;">Free Trial</div>
+                    <div id="displayExpiry" style="font-size:11px; color:var(--text3); margin-bottom:10px;">Expires: Never</div>
+                    <button id="subBtn" class="cta-btn primary" style="width:100%;" onclick="redirectToPayment()">Upgrade to VIP</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>📊 Arbitrage Preferences</h3>
                 <div class="slider-container">
-                    <span>Min Profit: <strong id="minProfitLabel">1.0%</strong></span>
-                    <input type="range" min="0.5" max="20" step="0.1" value="1.0" oninput="document.getElementById('minProfitLabel').textContent=this.value+'%'; filterOpportunities()">
+                    <label>Default Stake (UGX)</label>
+                    <input type="number" id="defaultStake" class="settings-input" value="100000" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                </div>
+
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Min Profit Filter (%)</label>
+                    <select id="minProfit" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                        <option value="0.5">0.5%</option>
+                        <option value="1.0" selected>1.0%</option>
+                        <option value="2.0">2.0%</option>
+                        <option value="3.0">3.0%</option>
+                        <option value="5.0">5.0%</option>
+                    </select>
+                </div>
+
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Max Profit Filter (Avoid Glitches)</label>
+                    <select id="maxProfit" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                        <option value="8.0">Safe (< 8%)</option>
+                        <option value="15.0" selected>Moderate (< 15%)</option>
+                        <option value="99.0">Degenerate (Show All)</option>
+                    </select>
+                </div>
+
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Show Market Types</label>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;">
+                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                            <input type="checkbox" id="mkt_1x2" checked> 1x2
+                        </label>
+                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                            <input type="checkbox" id="mkt_ou" checked> Over/Under
+                        </label>
+                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                            <input type="checkbox" id="mkt_ah" checked> Asian Handicap
+                        </label>
+                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                            <input type="checkbox" id="mkt_btts" checked> BTTS
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>🔔 Alerts & Notifications</h3>
+                <div class="slider-container" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Enable Push Alerts</label>
+                    <input type="checkbox" id="alertToggle" checked style="accent-color:var(--accent); transform:scale(1.2);">
+                </div>
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Alert Minimum Profit (%)</label>
+                    <input type="number" id="alertThreshold" value="5.0" class="settings-input" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;" step="0.5">
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>🎨 Display</h3>
+                <div class="slider-container" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Dark Mode</label>
+                    <input type="checkbox" id="darkModeToggle" checked style="accent-color:var(--accent); transform:scale(1.2);">
+                </div>
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Card Layout</label>
+                    <select id="cardLayout" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                        <option value="comfortable">Comfortable (Expanded)</option>
+                        <option value="compact">Compact (Tight)</option>
+                    </select>
                 </div>
             </div>
         </div>
+        <!-- ========== END SETTINGS PAGE ========== -->
+
         <!-- History -->
         <div class="page" id="page-history">
             <div class="page-header"><h1>📊 History</h1></div>
@@ -247,6 +329,85 @@
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
+    // ========== SETTINGS LOAD/SAVE (BACKEND READY) ==========
+    function getDefaultSettings() {
+        return {
+            plan: 'free',
+            expiry: 'Never',
+            defaultStake: 100000,
+            minProfit: 1.0,
+            maxProfit: 15.0,
+            markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true },
+            alertToggle: true,
+            alertThreshold: 5.0,
+            darkMode: true,
+            cardLayout: 'comfortable'
+        };
+    }
+
+    function loadUserSettings() {
+        const saved = localStorage.getItem('arbi_settings');
+        if (saved) {
+            try {
+                return JSON.parse(saved);
+            } catch (e) { /* fall through */ }
+        }
+        return getDefaultSettings();
+    }
+
+    function applySettingsToUI(settings) {
+        document.getElementById('displayPlan').textContent = settings.plan === 'vip' ? 'VIP Active' : 'Free Trial';
+        document.getElementById('displayExpiry').textContent = settings.plan === 'vip' ? `Expires: ${settings.expiry}` : 'Expires: Never';
+        document.getElementById('defaultStake').value = settings.defaultStake;
+        document.getElementById('minProfit').value = settings.minProfit;
+        document.getElementById('maxProfit').value = settings.maxProfit;
+        document.getElementById('mkt_1x2').checked = settings.markets['1x2'];
+        document.getElementById('mkt_ou').checked = settings.markets['ou'];
+        document.getElementById('mkt_ah').checked = settings.markets['ah'];
+        document.getElementById('mkt_btts').checked = settings.markets['btts'];
+        document.getElementById('alertToggle').checked = settings.alertToggle;
+        document.getElementById('alertThreshold').value = settings.alertThreshold;
+        document.getElementById('darkModeToggle').checked = settings.darkMode;
+        document.getElementById('cardLayout').value = settings.cardLayout;
+
+        // Apply dark mode immediately
+        if(settings.darkMode) {
+            document.documentElement.style.setProperty('--bg', '#0d0f13');
+        } else {
+            document.documentElement.style.setProperty('--bg', '#ffffff');
+        }
+    }
+
+    function saveUserSettings() {
+        const settings = {
+            plan: 'free', // Hardcoded to free until backend is connected
+            expiry: 'Never',
+            defaultStake: parseInt(document.getElementById('defaultStake').value) || 100000,
+            minProfit: parseFloat(document.getElementById('minProfit').value) || 1.0,
+            maxProfit: parseFloat(document.getElementById('maxProfit').value) || 15.0,
+            markets: {
+                '1x2': document.getElementById('mkt_1x2').checked,
+                'ou': document.getElementById('mkt_ou').checked,
+                'ah': document.getElementById('mkt_ah').checked,
+                'btts': document.getElementById('mkt_btts').checked
+            },
+            alertToggle: document.getElementById('alertToggle').checked,
+            alertThreshold: parseFloat(document.getElementById('alertThreshold').value) || 5.0,
+            darkMode: document.getElementById('darkModeToggle').checked,
+            cardLayout: document.getElementById('cardLayout').value
+        };
+        
+        localStorage.setItem('arbi_settings', JSON.stringify(settings));
+        showToast('✅ Settings Saved!');
+        filterOpportunities(); // Refresh the dashboard immediately
+    }
+
+    function redirectToPayment() {
+        showToast('🔒 Backend coming soon! For now, set plan to VIP manually.');
+        // In the future, this will redirect to Flutterwave/Paystack
+    }
+    // =======================================================
+
     // FIXED: Fetch correct backend files from the NEW scraper
     async function loadFromLuxuryBackend() {
         try {
@@ -266,11 +427,8 @@
 
             // Merge history data with current opportunities
             opportunitiesData = currentOpps.map(o => {
-                // Key generation matches the Python scraper: f"{sport}::{type}::{match}"
                 const key = `${o.sport || 'Football'}::${o.type || '3-way'}::${o.match}`;
                 const histEntry = allHistory[key] || {};
-
-                // Get the latest version from history for the profit figures
                 const versions = histEntry.versions || [];
                 const latest = versions.length ? versions[versions.length - 1] : null;
 
@@ -297,10 +455,14 @@
                     }))
                 };
             });
+            
+            // Load Settings into UI
+            const settings = loadUserSettings();
+            applySettingsToUI(settings);
 
             renderOpportunities();
             renderAlerts();
-            renderHistory(); // Pre-render history page as well
+            renderHistory(); 
         } catch (e) {
             console.error('LOAD ERROR:', e);
             document.getElementById('oppList').innerHTML =
@@ -329,11 +491,27 @@
     }
 
     function renderOpportunities(filter = 'all') {
-        const minLabel = document.getElementById('minProfitLabel');
-        const minProfit = minLabel ? parseFloat(minLabel.textContent) : 1.0;
-        let filtered = opportunitiesData.filter(a => a.profitPercent >= minProfit);
-        if (filter === 'football') filtered = filtered.filter(a => a.sport.toLowerCase() === 'football');
-        if (filter === 'high') filtered = filtered.filter(a => a.profitPercent > 5);
+        // Use the NEW settings system
+        const settings = loadUserSettings();
+        const minProfit = settings.minProfit || 1.0;
+        const maxProfit = settings.maxProfit || 99.0;
+        const markets = settings.markets;
+
+        let filtered = opportunitiesData.filter(a => {
+            // Profit checks
+            if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
+            // Market Type checks
+            const type = a.type || '3-way';
+            if (type.includes('1x2') && !markets['1x2']) return false;
+            if (type.includes('Over/Under') && !markets['ou']) return false;
+            if (type.includes('Asian Handicap') && !markets['ah']) return false;
+            if (type.includes('BTTS') && !markets['btts']) return false;
+            // Category tabs
+            if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
+            if (filter === 'high' && a.profitPercent <= 5) return false;
+            return true;
+        });
+
         const container = document.getElementById('oppList');
         if (filtered.length === 0) {
             container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
@@ -442,7 +620,9 @@
     function updateDetailCalc() {
         if (!currentDetailArb) return;
         const arb = currentDetailArb;
-        const stake = parseFloat(document.getElementById('detailStake')?.value) || 100000;
+        // Use the saved default stake from settings
+        const settings = loadUserSettings();
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.defaultStake || 100000;
         const odds = arb.bets.map(b => b.odds);
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
@@ -463,7 +643,8 @@
     function addCurrentDetailToSlip() {
         if (!currentDetailArb) return;
         const arb = currentDetailArb;
-        const stake = parseFloat(document.getElementById('detailStake')?.value) || 100000;
+        const settings = loadUserSettings();
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.defaultStake || 100000;
         const odds = arb.bets.map(b => b.odds);
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
@@ -602,14 +783,11 @@
         const chart = document.getElementById('profitChart');
         const list = document.getElementById('historyList');
 
-        // Sort history entries by last_seen descending (newest first)
         const entries = Object.values(allHistory)
             .filter(e => e.versions && e.versions.length > 0)
             .sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
 
         totalArbsEl.textContent = entries.length;
-
-        // Calculate total profit from latest valid version
         let totalProfit = 0;
         entries.forEach(e => {
             const latest = e.versions[e.versions.length - 1];
@@ -679,4 +857,4 @@
     });
 </script>
 </body>
-    </html>
+                                                                    </html>
