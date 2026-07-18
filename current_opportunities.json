@@ -1,33 +1,67 @@
 [
   {
-    "match": "hamkam vs tromsoe il",
+    "match": "dundee vs everton",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 19.18,
-    "profit_ugx": 19183,
+    "profit_percent": 36.56,
+    "profit_ugx": 36562,
     "total_stake": 100000,
-    "arb_sum": 0.8082,
+    "arb_sum": 0.6344,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 4.1,
-        "stake": 30180,
-        "win": 123738
+        "odd": 5.0,
+        "stake": 31527,
+        "win": 157635
       },
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.59,
-        "stake": 34467,
-        "win": 123737
+        "odd": 4.1,
+        "stake": 38447,
+        "win": 157633
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.5,
-        "stake": 35353,
-        "win": 123736
+        "odd": 5.25,
+        "stake": 30026,
+        "win": 157636
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "basel vs juventus",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 10.72,
+    "profit_ugx": 10720,
+    "total_stake": 100000,
+    "arb_sum": 0.8928,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.0,
+        "stake": 37336,
+        "win": 112008
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 31113,
+        "win": 112007
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.55,
+        "stake": 31551,
+        "win": 112006
       }
     ],
     "market_type": "1x2",
@@ -136,142 +170,6 @@
     "market_specifier": ""
   },
   {
-    "match": "barnet vs luton",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 16.92,
-    "profit_ugx": 16923,
-    "total_stake": 100000,
-    "arb_sum": 0.8308,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.25,
-        "stake": 37037,
-        "win": 120370
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 32099,
-        "win": 120371
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.9,
-        "stake": 30864,
-        "win": 120370
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "bonner vs msv duisburg",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 38.86,
-    "profit_ugx": 38861,
-    "total_stake": 100000,
-    "arb_sum": 0.6114,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 5.5,
-        "stake": 29738,
-        "win": 163559
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 4.8,
-        "stake": 34075,
-        "win": 163560
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.52,
-        "stake": 36186,
-        "win": 163561
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "schalke 04 ii vs tsv steinbach haiger",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.93,
-    "profit_ugx": 4929,
-    "total_stake": 100000,
-    "arb_sum": 0.9507,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 2.4,
-        "stake": 43827,
-        "win": 105185
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 28049,
-        "win": 105184
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.74,
-        "stake": 28124,
-        "win": 105184
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "zurich vs greuther furth",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 13.24,
-    "profit_ugx": 13238,
-    "total_stake": 100000,
-    "arb_sum": 0.8676,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.98,
-        "stake": 38677,
-        "win": 115257
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 31151,
-        "win": 115259
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.82,
-        "stake": 30172,
-        "win": 115257
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "aik vs gais",
     "sport": "Football",
     "type": "3-way",
@@ -300,6 +198,108 @@
         "odd": 3.48,
         "stake": 29744,
         "win": 103509
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "cardiff metropolitan university vs brackley town",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 11.03,
+    "profit_ugx": 11032,
+    "total_stake": 100000,
+    "arb_sum": 0.8897,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.2,
+        "stake": 35125,
+        "win": 112400
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 31222,
+        "win": 112399
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.34,
+        "stake": 33653,
+        "win": 112401
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "falkirk vs genk",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 14.45,
+    "profit_ugx": 14448,
+    "total_stake": 100000,
+    "arb_sum": 0.8555,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 3.5,
+        "stake": 33397,
+        "win": 116890
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 33397,
+        "win": 116890
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.52,
+        "stake": 33207,
+        "win": 116889
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "northampton town vs coventry",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 45.58,
+    "profit_ugx": 45577,
+    "total_stake": 100000,
+    "arb_sum": 0.5442,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 7.5,
+        "stake": 24499,
+        "win": 183742
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.5,
+        "stake": 40832,
+        "win": 183744
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 5.3,
+        "stake": 34669,
+        "win": 183746
       }
     ],
     "market_type": "1x2",
@@ -476,34 +476,68 @@
     "market_specifier": ""
   },
   {
-    "match": "hibernian vs brondby",
+    "match": "notts county vs nottingham",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.07,
-    "profit_ugx": 7069,
+    "profit_percent": 33.04,
+    "profit_ugx": 33037,
     "total_stake": 100000,
-    "arb_sum": 0.9293,
+    "arb_sum": 0.6696,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.7,
-        "stake": 39854,
-        "win": 107606
+        "odd": 5.3,
+        "stake": 28177,
+        "win": 149338
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 30745,
-        "win": 107608
+        "odd": 4.0,
+        "stake": 37334,
+        "win": 149336
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.66,
-        "stake": 29401,
-        "win": 107608
+        "odd": 4.33,
+        "stake": 34489,
+        "win": 149337
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "york vs sunderland",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 46.44,
+    "profit_ugx": 46445,
+    "total_stake": 100000,
+    "arb_sum": 0.5356,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 6.8,
+        "stake": 27459,
+        "win": 186721
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 5.25,
+        "stake": 35566,
+        "win": 186722
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 5.05,
+        "stake": 36975,
+        "win": 186724
       }
     ],
     "market_type": "1x2",
