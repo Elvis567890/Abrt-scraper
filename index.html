@@ -137,6 +137,11 @@
         .icon-btn { background: var(--surface2); border: none; color: var(--text); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; position: relative; }
         .badge-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; top: 6px; right: 6px; border: 2px solid var(--surface2); }
     </style>
+    
+    <!-- FIREBASE CDN SCRIPTS (NEW) -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
 </head>
 <body>
 <div class="phone-frame" id="app">
@@ -202,7 +207,7 @@
             </div>
         </div>
         
-        <!-- ========== NEW SETTINGS PAGE ========== -->
+        <!-- ========== SETTINGS PAGE WITH LOGIN ========== -->
         <div class="page" id="page-settings">
             <div class="page-header">
                 <h1>⚙️ Settings</h1>
@@ -216,6 +221,12 @@
                     <div id="displayPlan" style="color:var(--green); font-weight:700; font-size:18px;">Free Trial</div>
                     <div id="displayExpiry" style="font-size:11px; color:var(--text3); margin-bottom:10px;">Expires: Never</div>
                     <button id="subBtn" class="cta-btn primary" style="width:100%;" onclick="redirectToPayment()">Upgrade to VIP</button>
+                </div>
+                
+                <!-- NEW LOGIN / LOGOUT SECTION -->
+                <div style="margin-top:15px; border-top:1px solid var(--surface3); padding-top:15px;">
+                    <div id="authStateDisplay" style="font-size:12px; color:var(--text2); margin-bottom:10px; text-align:center;">Status: Not logged in</div>
+                    <button id="authBtn" class="cta-btn primary" style="width:100%;" onclick="handleAuthClick()">Sign Up / Log In</button>
                 </div>
             </div>
 
@@ -329,82 +340,154 @@
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
-    // ========== SETTINGS LOAD/SAVE (BACKEND READY) ==========
+    // ========== FIREBASE LOGIN + CLOUDFLARE BACKEND ==========
+    const CLOUDFLARE_URL = "https://arbimax-backend.hkltfsmjgkfde.workers.dev";
+
+    // Initialize Firebase with your config
+    firebase.initializeApp({
+        apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw",
+        authDomain: "arbimax-auth.firebaseapp.com",
+        projectId: "arbimax-auth",
+        storageBucket: "arbimax-auth.firebasestorage.app",
+        messagingSenderId: "985163289771",
+        appId: "1:985163289771:web:537320c707db2c152353ee",
+        measurementId: "G-BZVYW7NKR9"
+    });
+    
+    const auth = firebase.auth();
+
+    // Listen for Login/Logout changes
+    auth.onAuthStateChanged(user => {
+        const authBtn = document.getElementById('authBtn');
+        const statusDisplay = document.getElementById('authStateDisplay');
+        
+        if (user) {
+            statusDisplay.innerHTML = `✅ Logged in as: ${user.email}`;
+            authBtn.textContent = '🚪 Log Out';
+            authBtn.onclick = () => auth.signOut();
+            // Load settings with the real user ID
+            loadUserSettings(user.uid);
+        } else {
+            statusDisplay.innerHTML = `Status: Not logged in`;
+            authBtn.textContent = '👤 Sign Up / Log In';
+            authBtn.onclick = handleAuthClick;
+            // Use local fallback if not logged in
+            const saved = localStorage.getItem('arbi_settings');
+            applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
+        }
+    });
+
+    function handleAuthClick() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).catch((error) => {
+            // If popup fails on mobile, fallback to email/password or redirect
+            if (error.code === 'auth/popup-blocked' || error.code === 'auth/cancelled-popup-request') {
+                auth.signInWithRedirect(provider);
+            } else {
+                showToast('❌ Login failed: ' + error.message);
+            }
+        });
+    }
+
+    // Default settings object
     function getDefaultSettings() {
         return {
-            plan: 'free',
-            expiry: 'Never',
-            defaultStake: 100000,
-            minProfit: 1.0,
-            maxProfit: 15.0,
+            default_stake: 100000,
+            min_profit: 1.0,
+            max_profit: 15.0,
             markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true },
-            alertToggle: true,
-            alertThreshold: 5.0,
-            darkMode: true,
-            cardLayout: 'comfortable'
+            alert_threshold: 5.0,
+            dark_mode: true,
+            card_layout: 'comfortable'
         };
     }
 
-    function loadUserSettings() {
-        const saved = localStorage.getItem('arbi_settings');
-        if (saved) {
-            try {
-                return JSON.parse(saved);
-            } catch (e) { /* fall through */ }
+    // Load settings from Cloudflare
+    async function loadUserSettings(userId) {
+        try {
+            const res = await fetch(`${CLOUDFLARE_URL}/api/get-settings/${userId}`);
+            const data = await res.json();
+            applySettingsToUI(data);
+        } catch (e) {
+            // Fallback to local storage if backend is offline
+            const saved = localStorage.getItem('arbi_settings');
+            applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
         }
-        return getDefaultSettings();
     }
 
+    // Apply settings to UI
     function applySettingsToUI(settings) {
         document.getElementById('displayPlan').textContent = settings.plan === 'vip' ? 'VIP Active' : 'Free Trial';
         document.getElementById('displayExpiry').textContent = settings.plan === 'vip' ? `Expires: ${settings.expiry}` : 'Expires: Never';
-        document.getElementById('defaultStake').value = settings.defaultStake;
-        document.getElementById('minProfit').value = settings.minProfit;
-        document.getElementById('maxProfit').value = settings.maxProfit;
+        document.getElementById('defaultStake').value = settings.default_stake;
+        document.getElementById('minProfit').value = settings.min_profit;
+        document.getElementById('maxProfit').value = settings.max_profit;
         document.getElementById('mkt_1x2').checked = settings.markets['1x2'];
         document.getElementById('mkt_ou').checked = settings.markets['ou'];
         document.getElementById('mkt_ah').checked = settings.markets['ah'];
         document.getElementById('mkt_btts').checked = settings.markets['btts'];
-        document.getElementById('alertToggle').checked = settings.alertToggle;
-        document.getElementById('alertThreshold').value = settings.alertThreshold;
-        document.getElementById('darkModeToggle').checked = settings.darkMode;
-        document.getElementById('cardLayout').value = settings.cardLayout;
+        document.getElementById('alertToggle').checked = settings.alert_toggle !== undefined ? settings.alert_toggle : true;
+        document.getElementById('alertThreshold').value = settings.alert_threshold;
+        document.getElementById('darkModeToggle').checked = settings.dark_mode;
+        document.getElementById('cardLayout').value = settings.card_layout;
 
-        // Apply dark mode immediately
-        if(settings.darkMode) {
+        if(settings.dark_mode) {
             document.documentElement.style.setProperty('--bg', '#0d0f13');
         } else {
             document.documentElement.style.setProperty('--bg', '#ffffff');
         }
     }
 
-    function saveUserSettings() {
-        const settings = {
-            plan: 'free', // Hardcoded to free until backend is connected
-            expiry: 'Never',
-            defaultStake: parseInt(document.getElementById('defaultStake').value) || 100000,
-            minProfit: parseFloat(document.getElementById('minProfit').value) || 1.0,
-            maxProfit: parseFloat(document.getElementById('maxProfit').value) || 15.0,
+    // Save settings to Cloudflare
+    async function saveUserSettings() {
+        const user = auth.currentUser;
+        if (!user) {
+            showToast('⚠️ Please log in to save settings to the cloud.');
+            // Save locally as fallback
+            const settings = buildSettingsObjectWithoutId();
+            localStorage.setItem('arbi_settings', JSON.stringify(settings));
+            filterOpportunities();
+            return;
+        }
+
+        const settings = buildSettingsObjectWithoutId();
+        settings.user_id = user.uid;
+
+        try {
+            const res = await fetch(`${CLOUDFLARE_URL}/api/save-settings`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings)
+            });
+            const result = await res.json();
+            if(result.status === 'success') {
+                showToast('✅ Settings Saved to Cloud!');
+                filterOpportunities();
+            }
+        } catch (e) {
+            localStorage.setItem('arbi_settings', JSON.stringify(settings));
+            showToast('✅ Saved Locally (Cloud offline)');
+            filterOpportunities();
+        }
+    }
+
+    function buildSettingsObjectWithoutId() {
+        return {
+            default_stake: parseInt(document.getElementById('defaultStake').value) || 100000,
+            min_profit: parseFloat(document.getElementById('minProfit').value) || 1.0,
+            max_profit: parseFloat(document.getElementById('maxProfit').value) || 15.0,
             markets: {
                 '1x2': document.getElementById('mkt_1x2').checked,
                 'ou': document.getElementById('mkt_ou').checked,
                 'ah': document.getElementById('mkt_ah').checked,
                 'btts': document.getElementById('mkt_btts').checked
             },
-            alertToggle: document.getElementById('alertToggle').checked,
-            alertThreshold: parseFloat(document.getElementById('alertThreshold').value) || 5.0,
-            darkMode: document.getElementById('darkModeToggle').checked,
-            cardLayout: document.getElementById('cardLayout').value
+            alert_toggle: document.getElementById('alertToggle').checked,
+            alert_threshold: parseFloat(document.getElementById('alertThreshold').value) || 5.0,
+            dark_mode: document.getElementById('darkModeToggle').checked,
+            card_layout: document.getElementById('cardLayout').value,
+            plan: 'free' // Placeholder for now
         };
-        
-        localStorage.setItem('arbi_settings', JSON.stringify(settings));
-        showToast('✅ Settings Saved!');
-        filterOpportunities(); // Refresh the dashboard immediately
-    }
-
-    function redirectToPayment() {
-        showToast('🔒 Backend coming soon! For now, set plan to VIP manually.');
-        // In the future, this will redirect to Flutterwave/Paystack
     }
     // =======================================================
 
@@ -457,8 +540,8 @@
             });
             
             // Load Settings into UI
-            const settings = loadUserSettings();
-            applySettingsToUI(settings);
+            const saved = localStorage.getItem('arbi_settings');
+            if (saved) applySettingsToUI(JSON.parse(saved));
 
             renderOpportunities();
             renderAlerts();
@@ -492,7 +575,8 @@
 
     function renderOpportunities(filter = 'all') {
         // Use the NEW settings system
-        const settings = loadUserSettings();
+        const saved = localStorage.getItem('arbi_settings');
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const minProfit = settings.minProfit || 1.0;
         const maxProfit = settings.maxProfit || 99.0;
         const markets = settings.markets;
@@ -621,7 +705,8 @@
         if (!currentDetailArb) return;
         const arb = currentDetailArb;
         // Use the saved default stake from settings
-        const settings = loadUserSettings();
+        const saved = localStorage.getItem('arbi_settings');
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.defaultStake || 100000;
         const odds = arb.bets.map(b => b.odds);
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
@@ -643,7 +728,8 @@
     function addCurrentDetailToSlip() {
         if (!currentDetailArb) return;
         const arb = currentDetailArb;
-        const settings = loadUserSettings();
+        const saved = localStorage.getItem('arbi_settings');
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.defaultStake || 100000;
         const odds = arb.bets.map(b => b.odds);
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
@@ -857,4 +943,4 @@
     });
 </script>
 </body>
-                                                                    </html>
+                                                                 </html>
