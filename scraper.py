@@ -141,7 +141,6 @@ def save_arbitrage_history(arb_history):
 
 
 def opportunity_key(opp):
-    # CRASH-PROOF: default to '1x2' if missing
     mtype = opp.get('market_type', '1x2')
     spec = opp.get('market_specifier', '')
     return f"{opp['sport']}::{mtype}::{opp['match']}::{spec}"
@@ -152,7 +151,6 @@ def update_arbitrage_history(current_opportunities, arb_history, timestamp_str):
         history["updated_this_cycle"] = False
 
     for opp in current_opportunities:
-        # Ensure missing keys exist
         if 'market_type' not in opp:
             opp['market_type'] = '1x2'
         if 'market_specifier' not in opp:
@@ -280,18 +278,15 @@ def scrape_championbet():
                     match_data = json.loads(r2.read().decode())
                 bet_map = match_data.get("betMap", {}) if isinstance(match_data, dict) else {}
 
-                # EXISTING: 1x2
                 h, d, a = championbet_extract_1x2_from_betmap(bet_map)
                 if h and a:
                     count += 1
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", h, d, a, competition=m.get("leagueName", ""), market_type="1x2"))
 
-                # EXISTING: Over/Under
                 over, under = championbet_extract_ou_from_betmap(bet_map)
                 if over and under:
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", over, under, None, market_type="Over/Under 2.5"))
 
-                # NEW: AH, DC, BTTS
                 ah_odds, dc_odds, btts_odds = championbet_extract_ah_dc_btts_from_betmap(bet_map)
                 if ah_odds.get(5) and ah_odds.get(6):
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[5], None, ah_odds[6], market_type="Asian Handicap", market_specifier="-1.5"))
@@ -512,6 +507,9 @@ def scrape_1xbet():
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team: continue
+                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
+                if home_team.strip() == "Home" and away_team.strip() == "Away":
+                    continue
                 home_odd = draw_odd = away_odd = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -552,6 +550,9 @@ def scrape_22bet():
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team: continue
+                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
+                if home_team.strip() == "Home" and away_team.strip() == "Away":
+                    continue
                 home_odd = draw_odd = away_odd = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -598,6 +599,9 @@ def scrape_melbet():
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team: continue
+                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
+                if home_team.strip() == "Home" and away_team.strip() == "Away":
+                    continue
                 home_odd = draw_odd = away_odd = None
                 for e in match.get("E", []):
                     t = str(e.get("T", "")).strip()
@@ -656,6 +660,9 @@ def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
             home = match.get("O1")
             away = match.get("O2")
             if not home or not away: continue
+            # --- ADDED FILTER: skip "Home vs Away" placeholders ---
+            if home.strip() == "Home" and away.strip() == "Away":
+                continue
 
             ah_home = ah_away = None
             dc_home = dc_away = None
@@ -768,7 +775,6 @@ def find_arbitrage(all_odds):
                         arb = (1/over) + (1/under)
                         if arb < 1:
                             profit = round((1 - arb) * 100, 2)
-                            # UPDATED: Max profit limit raised from 20.0% to 50.0%
                             if 0.5 <= profit <= 50.0:
                                 stake_over = round(STAKE * (1/over) / arb)
                                 stake_under = round(STAKE * (1/under) / arb)
@@ -816,7 +822,6 @@ def find_arbitrage(all_odds):
                             arb = (1/h) + (1/d) + (1/a)
                             if arb < 1:
                                 profit = round((1 - arb) * 100, 2)
-                                # UPDATED: Max profit limit raised from 20.0% to 50.0%
                                 if 0.5 <= profit <= 50.0:
                                     stake_h = round(STAKE * (1/h) / arb)
                                     stake_d = round(STAKE * (1/d) / arb)
@@ -848,7 +853,6 @@ def find_arbitrage(all_odds):
                         arb = (1/h) + (1/a)
                         if arb < 1:
                             profit = round((1 - arb) * 100, 2)
-                            # UPDATED: Max profit limit raised from 20.0% to 50.0%
                             if 0.5 <= profit <= 50.0:
                                 stake_h = round(STAKE * (1/h) / arb)
                                 stake_a = round(STAKE * (1/a) / arb)
@@ -868,6 +872,33 @@ def find_arbitrage(all_odds):
                 if best: opportunities.append(best)
 
     return opportunities
+
+
+# ===== TELEGRAM ALERT FUNCTION =====
+def send_telegram_alert(opp):
+    token = os.getenv('TELEGRAM_BOT_TOKEN')
+    chat = os.getenv('TELEGRAM_CHAT_ID')
+    if not token or not chat:
+        print("⚠️ Telegram credentials missing – alert not sent.")
+        return
+
+    match = opp.get('match', 'Unknown')
+    profit = opp.get('profit_percent', 0)
+    ugx = opp.get('profit_ugx', 0)
+    message = f"⚽ *{match}*\n💰 Profit: *{profit}%* (UGX {ugx:,})\n"
+    for bet in opp.get('bets', []):
+        bookie = bet.get('bookmaker', 'Unknown')
+        outcome = bet.get('outcome', 'Unknown')
+        odd = bet.get('odd', 0)
+        stake = bet.get('stake', 0)
+        message += f"▶ {bookie} ({outcome}) @ {odd} – Stake: UGX {stake:,}\n"
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    try:
+        requests.post(url, json={'chat_id': chat, 'text': message, 'parse_mode': 'Markdown'}, timeout=10)
+        print(f"✅ Alert sent for {match}")
+    except Exception as e:
+        print(f"❌ Telegram error: {e}")
 
 
 # ========== RUN SCAN WITH ALL ORIGINAL + NEW MARKETS ==========
@@ -894,6 +925,15 @@ def run_scan():
     opportunities = find_arbitrage(all_odds)
     arb_history = load_arbitrage_history()
     timestamp_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # ===== TELEGRAM ALERT LOOP =====
+    print("📨 Checking for new high‑profit opportunities...")
+    for opp in opportunities:
+        key = opportunity_key(opp)
+        is_new = (key in arb_history and arb_history[key]['first_seen'] == timestamp_str)
+        if is_new and opp.get('profit_percent', 0) >= 5.0:
+            send_telegram_alert(opp)
+
     update_arbitrage_history(opportunities, arb_history, timestamp_str)
     save_arbitrage_history(arb_history)
 
