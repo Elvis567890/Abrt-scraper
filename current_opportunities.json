@@ -1,5 +1,39 @@
 [
   {
+    "match": "goiatuba ec go vs ferroviario ce",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.19,
+    "profit_ugx": 1190,
+    "total_stake": 100000,
+    "arb_sum": 0.9881,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 2.0,
+        "stake": 50602,
+        "win": 101204
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 24096,
+        "win": 101203
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 4.0,
+        "stake": 25301,
+        "win": 101204
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "chicago red stars vs angel",
     "sport": "Football",
     "type": "3-way",
