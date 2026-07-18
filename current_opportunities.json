@@ -3,31 +3,31 @@
     "match": "dundee vs everton",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 38.73,
-    "profit_ugx": 38730,
+    "profit_percent": 43.48,
+    "profit_ugx": 43479,
     "total_stake": 100000,
-    "arb_sum": 0.6127,
+    "arb_sum": 0.5652,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 5.0,
-        "stake": 32642,
-        "win": 163210
+        "odd": 5.79,
+        "stake": 30557,
+        "win": 176925
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 4.5,
-        "stake": 36269,
-        "win": 163210
+        "odd": 4.95,
+        "stake": 35743,
+        "win": 176928
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 5.25,
-        "stake": 31088,
-        "win": 163212
+        "stake": 33700,
+        "win": 176925
       }
     ],
     "market_type": "1x2",
@@ -578,6 +578,40 @@
     "market_specifier": ""
   },
   {
+    "match": "southend utd vs west ham",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 43.17,
+    "profit_ugx": 43170,
+    "total_stake": 100000,
+    "arb_sum": 0.5683,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.8,
+        "stake": 36659,
+        "win": 175963
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 5.25,
+        "stake": 33517,
+        "win": 175964
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 5.9,
+        "stake": 29824,
+        "win": 175962
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "york vs sunderland",
     "sport": "Football",
     "type": "3-way",
@@ -660,6 +694,114 @@
         "odd": 2.556,
         "stake": 39873,
         "win": 101915
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "dundee vs everton",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.21,
+    "profit_ugx": 14214,
+    "total_stake": 100000,
+    "arb_sum": 0.8579,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.76,
+        "stake": 42235,
+        "win": 116569
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 57765,
+        "win": 116570
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "dundee vs everton",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.21,
+    "profit_ugx": 14214,
+    "total_stake": 100000,
+    "arb_sum": 0.8579,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.76,
+        "stake": 42235,
+        "win": 116569
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 57765,
+        "win": 116570
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "northampton town vs coventry",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.65,
+    "profit_ugx": 17653,
+    "total_stake": 100000,
+    "arb_sum": 0.8235,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.45,
+        "stake": 35199,
+        "win": 121437
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 64801,
+        "win": 121437
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "northampton town vs coventry",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.65,
+    "profit_ugx": 17653,
+    "total_stake": 100000,
+    "arb_sum": 0.8235,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.45,
+        "stake": 35199,
+        "win": 121437
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 64801,
+        "win": 121437
       }
     ],
     "market_type": "1x2",
