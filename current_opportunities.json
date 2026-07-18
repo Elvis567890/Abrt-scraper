@@ -1,39 +1,5 @@
 [
   {
-    "match": "ludogorets vs pfc lokomotiv plovdiv",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.86,
-    "profit_ugx": 2858,
-    "total_stake": 100000,
-    "arb_sum": 0.9714,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.34,
-        "stake": 76823,
-        "win": 102943
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 9.02,
-        "stake": 11413,
-        "win": 102945
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Away",
-        "odd": 8.75,
-        "stake": 11765,
-        "win": 102944
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "braga vs celta",
     "sport": "Football",
     "type": "3-way",
@@ -164,6 +130,40 @@
         "odd": 3.9,
         "stake": 25823,
         "win": 100710
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "nacao vs caravaggio",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 27.16,
+    "profit_ugx": 27164,
+    "total_stake": 100000,
+    "arb_sum": 0.7284,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 5.25,
+        "stake": 26151,
+        "win": 137293
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 36130,
+        "win": 137294
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.64,
+        "stake": 37718,
+        "win": 137294
       }
     ],
     "market_type": "1x2",
@@ -462,6 +462,60 @@
         "odd": 1.86,
         "stake": 58202,
         "win": 108256
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "legiao u20 vs brasiliense u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.53,
+    "profit_ugx": 15527,
+    "total_stake": 100000,
+    "arb_sum": 0.8447,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.98,
+        "stake": 29744,
+        "win": 118381
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.685,
+        "stake": 70256,
+        "win": 118381
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "legiao u20 vs brasiliense u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.53,
+    "profit_ugx": 15527,
+    "total_stake": 100000,
+    "arb_sum": 0.8447,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.98,
+        "stake": 29744,
+        "win": 118381
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.685,
+        "stake": 70256,
+        "win": 118381
       }
     ],
     "market_type": "1x2",
