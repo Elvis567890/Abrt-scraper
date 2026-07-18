@@ -207,31 +207,31 @@
     "match": "hamkam vs tromsoe il",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 16.32,
-    "profit_ugx": 16325,
+    "profit_percent": 16.59,
+    "profit_ugx": 16586,
     "total_stake": 100000,
-    "arb_sum": 0.8368,
+    "arb_sum": 0.8341,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.86,
-        "stake": 30961,
-        "win": 119509
+        "odd": 3.88,
+        "stake": 30898,
+        "win": 119884
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 34146,
-        "win": 119511
+        "stake": 34252,
+        "win": 119882
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.425,
-        "stake": 34893,
-        "win": 119509
+        "odd": 3.44,
+        "stake": 34850,
+        "win": 119884
       }
     ],
     "market_type": "1x2",
@@ -275,31 +275,31 @@
     "match": "bonner vs msv duisburg",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 38.86,
-    "profit_ugx": 38860,
+    "profit_percent": 38.4,
+    "profit_ugx": 38398,
     "total_stake": 100000,
-    "arb_sum": 0.6114,
+    "arb_sum": 0.616,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 5.75,
-        "stake": 28445,
-        "win": 163559
+        "stake": 28232,
+        "win": 162334
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Draw",
-        "odd": 4.7,
-        "stake": 34800,
-        "win": 163560
+        "odd": 4.6,
+        "stake": 35289,
+        "win": 162329
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.45,
-        "stake": 36755,
-        "win": 163560
+        "stake": 36479,
+        "win": 162332
       }
     ],
     "market_type": "1x2",
@@ -343,31 +343,31 @@
     "match": "kristiansund bk vs sarpsborg 08",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 12.34,
-    "profit_ugx": 12340,
+    "profit_percent": 12.64,
+    "profit_ugx": 12642,
     "total_stake": 100000,
-    "arb_sum": 0.8766,
+    "arb_sum": 0.8736,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.1,
-        "stake": 36799,
-        "win": 114077
+        "stake": 36926,
+        "win": 114471
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 31688,
-        "win": 114077
+        "stake": 31798,
+        "win": 114473
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.62,
-        "stake": 31513,
-        "win": 114077
+        "odd": 3.66,
+        "stake": 31276,
+        "win": 114470
       }
     ],
     "market_type": "1x2",
@@ -504,6 +504,60 @@
         "odd": 3.85,
         "stake": 26465,
         "win": 101890
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kristiansund bk vs sarpsborg 08",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.58,
+    "profit_ugx": 585,
+    "total_stake": 100000,
+    "arb_sum": 0.9942,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.696,
+        "stake": 59309,
+        "win": 100588
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.472,
+        "stake": 40691,
+        "win": 100588
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kristiansund bk vs sarpsborg 08",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.58,
+    "profit_ugx": 585,
+    "total_stake": 100000,
+    "arb_sum": 0.9942,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.696,
+        "stake": 59309,
+        "win": 100588
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.472,
+        "stake": 40691,
+        "win": 100588
       }
     ],
     "market_type": "1x2",
