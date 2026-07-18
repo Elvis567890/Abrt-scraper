@@ -43,7 +43,7 @@
     "arb_sum": 0.9812,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "SportyBet",
         "outcome": "Home",
         "odd": 1.28,
         "stake": 79618,
@@ -105,31 +105,31 @@
     "match": "osters if vs ik brage",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.38,
-    "profit_ugx": 1380,
+    "profit_percent": 1.41,
+    "profit_ugx": 1407,
     "total_stake": 100000,
-    "arb_sum": 0.9862,
+    "arb_sum": 0.9859,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "SportyBet",
         "outcome": "Home",
-        "odd": 2.09,
-        "stake": 48516,
-        "win": 101398
+        "odd": 2.1,
+        "stake": 48299,
+        "win": 101428
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.0,
-        "stake": 25350,
-        "win": 101400
+        "stake": 25357,
+        "win": 101428
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.88,
-        "stake": 26134,
-        "win": 101400
+        "odd": 3.85,
+        "stake": 26345,
+        "win": 101428
       }
     ],
     "market_type": "1x2",
@@ -164,6 +164,40 @@
         "odd": 3.805,
         "stake": 37974,
         "win": 144491
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "nice vs nimes",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.88,
+    "profit_ugx": 876,
+    "total_stake": 100000,
+    "arb_sum": 0.9912,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.16,
+        "stake": 86969,
+        "win": 100884
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 16.0,
+        "stake": 6305,
+        "win": 100880
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 15.0,
+        "stake": 6726,
+        "win": 100890
       }
     ],
     "market_type": "1x2",
