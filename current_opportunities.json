@@ -68,34 +68,102 @@
     "market_specifier": ""
   },
   {
-    "match": "osters if vs ik brage",
+    "match": "swansea vs holstein kiel",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.01,
-    "profit_ugx": 2010,
+    "profit_percent": 6.25,
+    "profit_ugx": 6251,
     "total_stake": 100000,
-    "arb_sum": 0.9799,
+    "arb_sum": 0.9375,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.13,
-        "stake": 47911,
-        "win": 102050
+        "odd": 2.909,
+        "stake": 36668,
+        "win": 106667
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.3,
+        "stake": 32324,
+        "win": 106669
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.44,
+        "stake": 31008,
+        "win": 106668
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "osters if vs ik brage",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.38,
+    "profit_ugx": 1380,
+    "total_stake": 100000,
+    "arb_sum": 0.9862,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.09,
+        "stake": 48516,
+        "win": 101398
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.0,
-        "stake": 25513,
-        "win": 102052
+        "stake": 25350,
+        "win": 101400
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.84,
-        "stake": 26576,
-        "win": 102052
+        "odd": 3.88,
+        "stake": 26134,
+        "win": 101400
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "fk atyrau vs kairat almaty",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 30.79,
+    "profit_ugx": 30792,
+    "total_stake": 100000,
+    "arb_sum": 0.6921,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 6.15,
+        "stake": 23495,
+        "win": 144494
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.75,
+        "stake": 38531,
+        "win": 144491
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.805,
+        "stake": 37974,
+        "win": 144491
       }
     ],
     "market_type": "1x2",
@@ -170,34 +238,27 @@
     "market_specifier": ""
   },
   {
-    "match": "swansea vs holstein kiel",
+    "match": "giessen vs eintracht frankfurt",
     "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 6.25,
-    "profit_ugx": 6251,
+    "type": "Double Chance 1X",
+    "profit_percent": 39.77,
+    "profit_ugx": 39775,
     "total_stake": 100000,
-    "arb_sum": 0.9375,
+    "arb_sum": 0.6023,
     "bets": [
       {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.909,
-        "stake": 36668,
-        "win": 106667
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 32324,
-        "win": 106669
-      },
-      {
         "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.44,
-        "stake": 31008,
-        "win": 106668
+        "outcome": "1X",
+        "odd": 21.0,
+        "stake": 7907,
+        "win": 166047
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.803,
+        "stake": 92093,
+        "win": 166044
       }
     ],
     "market_type": "1x2",
@@ -207,51 +268,24 @@
     "match": "giessen vs eintracht frankfurt",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 38.45,
-    "profit_ugx": 38452,
+    "profit_percent": 39.77,
+    "profit_ugx": 39775,
     "total_stake": 100000,
-    "arb_sum": 0.6155,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 21.0,
-        "stake": 7737,
-        "win": 162477
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.761,
-        "stake": 92263,
-        "win": 162475
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "giessen vs eintracht frankfurt",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 38.45,
-    "profit_ugx": 38452,
-    "total_stake": 100000,
-    "arb_sum": 0.6155,
+    "arb_sum": 0.6023,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 21.0,
-        "stake": 7737,
-        "win": 162477
+        "stake": 7907,
+        "win": 166047
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.761,
-        "stake": 92263,
-        "win": 162475
+        "odd": 1.803,
+        "stake": 92093,
+        "win": 166044
       }
     ],
     "market_type": "1x2",
