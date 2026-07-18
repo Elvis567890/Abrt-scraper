@@ -1,5 +1,39 @@
 [
   {
+    "match": "juarez vs puebla",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.69,
+    "profit_ugx": 687,
+    "total_stake": 100000,
+    "arb_sum": 0.9931,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.74,
+        "stake": 57869,
+        "win": 100692
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.76,
+        "stake": 21154,
+        "win": 100693
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 4.8,
+        "stake": 20977,
+        "win": 100690
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "altona magic vs heidelberg utd",
     "sport": "Football",
     "type": "3-way",
@@ -130,6 +164,40 @@
         "odd": 2.15,
         "stake": 48917,
         "win": 105172
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gold coast utd vs lions",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.81,
+    "profit_ugx": 1806,
+    "total_stake": 100000,
+    "arb_sum": 0.9819,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 7.0,
+        "stake": 14548,
+        "win": 101836
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 5.8,
+        "stake": 17559,
+        "win": 101842
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 1.5,
+        "stake": 67893,
+        "win": 101840
       }
     ],
     "market_type": "1x2",
