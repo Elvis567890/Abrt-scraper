@@ -340,6 +340,40 @@
     "market_specifier": ""
   },
   {
+    "match": "daejeon citizen srl vs ulsan hyundai srl",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 12.34,
+    "profit_ugx": 12342,
+    "total_stake": 100000,
+    "arb_sum": 0.8766,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.44,
+        "stake": 46754,
+        "win": 114080
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 6.25,
+        "stake": 18253,
+        "win": 114081
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.26,
+        "stake": 34994,
+        "win": 114080
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "kyzylzhar vs tobol",
     "sport": "Football",
     "type": "3-way",
