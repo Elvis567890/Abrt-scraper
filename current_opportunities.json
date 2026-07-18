@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "gualaceo vs 22 de julio",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.85,
+    "profit_ugx": 855,
+    "total_stake": 100000,
+    "arb_sum": 0.9915,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.26,
+        "stake": 80049,
+        "win": 100862
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 10.5,
+        "stake": 9606,
+        "win": 100863
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 9.75,
+        "stake": 10345,
+        "win": 100864
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "spain vs argentina",
     "sport": "Football",
     "type": "3-way",
@@ -173,85 +207,31 @@
     "match": "queretaro vs america",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 14.73,
-    "profit_ugx": 14729,
+    "profit_percent": 14.33,
+    "profit_ugx": 14326,
     "total_stake": 100000,
-    "arb_sum": 0.8527,
+    "arb_sum": 0.8567,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 3.505,
-        "stake": 33459,
-        "win": 117274
+        "stake": 33302,
+        "win": 116724
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.55,
-        "stake": 33035,
-        "win": 117274
+        "odd": 3.5,
+        "stake": 33349,
+        "win": 116722
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.5,
-        "stake": 33507,
-        "win": 117274
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "valur vs knattspyrnufelagid fram",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 20.27,
-    "profit_ugx": 20267,
-    "total_stake": 100000,
-    "arb_sum": 0.7973,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.056,
-        "stake": 61002,
-        "win": 125420
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 3.216,
-        "stake": 38998,
-        "win": 125418
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "valur vs knattspyrnufelagid fram",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 20.27,
-    "profit_ugx": 20267,
-    "total_stake": 100000,
-    "arb_sum": 0.7973,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.056,
-        "stake": 61002,
-        "win": 125420
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 3.216,
-        "stake": 38998,
-        "win": 125418
+        "stake": 33349,
+        "win": 116722
       }
     ],
     "market_type": "1x2",
