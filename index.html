@@ -207,7 +207,7 @@
             </div>
         </div>
         
-        <!-- ========== SETTINGS PAGE WITH LOGIN ========== -->
+        <!-- ========== NEW SETTINGS PAGE ========== -->
         <div class="page" id="page-settings">
             <div class="page-header">
                 <h1>⚙️ Settings</h1>
@@ -365,13 +365,11 @@
             statusDisplay.innerHTML = `✅ Logged in as: ${user.email}`;
             authBtn.textContent = '🚪 Log Out';
             authBtn.onclick = () => auth.signOut();
-            // Load settings with the real user ID
             loadUserSettings(user.uid);
         } else {
             statusDisplay.innerHTML = `Status: Not logged in`;
             authBtn.textContent = '👤 Sign Up / Log In';
             authBtn.onclick = handleAuthClick;
-            // Use local fallback if not logged in
             const saved = localStorage.getItem('arbi_settings');
             applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
         }
@@ -380,7 +378,6 @@
     function handleAuthClick() {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider).catch((error) => {
-            // If popup fails on mobile, fallback to email/password or redirect
             if (error.code === 'auth/popup-blocked' || error.code === 'auth/cancelled-popup-request') {
                 auth.signInWithRedirect(provider);
             } else {
@@ -389,7 +386,6 @@
         });
     }
 
-    // Default settings object
     function getDefaultSettings() {
         return {
             default_stake: 100000,
@@ -402,20 +398,17 @@
         };
     }
 
-    // Load settings from Cloudflare
     async function loadUserSettings(userId) {
         try {
             const res = await fetch(`${CLOUDFLARE_URL}/api/get-settings/${userId}`);
             const data = await res.json();
             applySettingsToUI(data);
         } catch (e) {
-            // Fallback to local storage if backend is offline
             const saved = localStorage.getItem('arbi_settings');
             applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
         }
     }
 
-    // Apply settings to UI
     function applySettingsToUI(settings) {
         document.getElementById('displayPlan').textContent = settings.plan === 'vip' ? 'VIP Active' : 'Free Trial';
         document.getElementById('displayExpiry').textContent = settings.plan === 'vip' ? `Expires: ${settings.expiry}` : 'Expires: Never';
@@ -438,12 +431,10 @@
         }
     }
 
-    // Save settings to Cloudflare
     async function saveUserSettings() {
         const user = auth.currentUser;
         if (!user) {
             showToast('⚠️ Please log in to save settings to the cloud.');
-            // Save locally as fallback
             const settings = buildSettingsObjectWithoutId();
             localStorage.setItem('arbi_settings', JSON.stringify(settings));
             filterOpportunities();
@@ -486,7 +477,7 @@
             alert_threshold: parseFloat(document.getElementById('alertThreshold').value) || 5.0,
             dark_mode: document.getElementById('darkModeToggle').checked,
             card_layout: document.getElementById('cardLayout').value,
-            plan: 'free' // Placeholder for now
+            plan: 'free'
         };
     }
     // =======================================================
@@ -943,4 +934,4 @@
     });
 </script>
 </body>
-                                                                 </html>
+    </html>
