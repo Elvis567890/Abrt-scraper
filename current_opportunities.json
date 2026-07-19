@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "fk radnik surdulica vs fk mladost lucani",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.5,
+    "profit_ugx": 495,
+    "total_stake": 100000,
+    "arb_sum": 0.995,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.02,
+        "stake": 49751,
+        "win": 100497
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 25124,
+        "win": 100496
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 4.0,
+        "stake": 25124,
+        "win": 100496
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "petrocub hincesti vs sheriff tiraspol",
     "sport": "Football",
     "type": "3-way",
@@ -173,31 +207,31 @@
     "match": "santos nasca vs deportivo binacional",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.21,
-    "profit_ugx": 1213,
+    "profit_percent": 1.45,
+    "profit_ugx": 1452,
     "total_stake": 100000,
-    "arb_sum": 0.9879,
+    "arb_sum": 0.9855,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.4,
-        "stake": 72305,
-        "win": 101227
+        "stake": 72481,
+        "win": 101473
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 6.73,
-        "stake": 15041,
-        "win": 101226
+        "odd": 6.84,
+        "stake": 14835,
+        "win": 101471
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 8.0,
-        "stake": 12653,
-        "win": 101224
+        "stake": 12684,
+        "win": 101472
       }
     ],
     "market_type": "1x2",
