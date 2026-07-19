@@ -306,41 +306,41 @@
     "market_specifier": ""
   },
   {
-    "match": "altay vs aktobe",
+    "match": "st pauli vs hnk gorica",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.27,
-    "profit_ugx": 7270,
+    "profit_percent": 4.51,
+    "profit_ugx": 4509,
     "total_stake": 100000,
-    "arb_sum": 0.9273,
+    "arb_sum": 0.9549,
     "bets": [
       {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.045,
-        "stake": 35416,
-        "win": 107842
-      },
-      {
         "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 32679,
-        "win": 107841
+        "outcome": "Home",
+        "odd": 1.83,
+        "stake": 57225,
+        "win": 104722
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.11,
+        "stake": 20494,
+        "win": 104724
+      },
+      {
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 3.38,
-        "stake": 31905,
-        "win": 107839
+        "odd": 4.7,
+        "stake": 22281,
+        "win": 104721
       }
     ],
     "market_type": "1x2",
     "market_specifier": ""
   },
   {
-    "match": "cracovia vs sevilla",
+    "match": "ks cracovia krakow vs sevilla",
     "sport": "Football",
     "type": "3-way",
     "profit_percent": 6.83,
@@ -374,34 +374,68 @@
     "market_specifier": ""
   },
   {
-    "match": "st pauli vs gorica",
+    "match": "sporting hasselt vs royal antwerp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.09,
-    "profit_ugx": 1094,
+    "profit_percent": 19.55,
+    "profit_ugx": 19554,
     "total_stake": 100000,
-    "arb_sum": 0.9891,
+    "arb_sum": 0.8045,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.83,
-        "stake": 55249,
-        "win": 101106
+        "odd": 3.9,
+        "stake": 31874,
+        "win": 124309
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "SportyBet",
         "outcome": "Draw",
-        "odd": 5.11,
-        "stake": 19786,
-        "win": 101106
+        "odd": 3.6,
+        "stake": 34530,
+        "win": 124308
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.05,
-        "stake": 24965,
-        "win": 101108
+        "odd": 3.7,
+        "stake": 33597,
+        "win": 124309
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "altay vs aktobe",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 7.27,
+    "profit_ugx": 7270,
+    "total_stake": 100000,
+    "arb_sum": 0.9273,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.045,
+        "stake": 35416,
+        "win": 107842
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.3,
+        "stake": 32679,
+        "win": 107841
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.38,
+        "stake": 31905,
+        "win": 107839
       }
     ],
     "market_type": "1x2",
