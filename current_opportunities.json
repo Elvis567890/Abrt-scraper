@@ -411,31 +411,31 @@
     "match": "capalaba bulldogs vs holland park hawks",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 8.42,
-    "profit_ugx": 8418,
+    "profit_percent": 10.08,
+    "profit_ugx": 10078,
     "total_stake": 100000,
-    "arb_sum": 0.9158,
+    "arb_sum": 0.8992,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.3,
-        "stake": 33089,
-        "win": 109194
+        "stake": 33699,
+        "win": 111207
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Draw",
         "odd": 4.3,
-        "stake": 25394,
-        "win": 109194
+        "stake": 25862,
+        "win": 111207
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 2.63,
-        "stake": 41518,
-        "win": 109192
+        "odd": 2.75,
+        "stake": 40439,
+        "win": 111207
       }
     ],
     "market_type": "1x2",
@@ -876,6 +876,60 @@
         "odd": 2.276,
         "stake": 46523,
         "win": 105886
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "koninklijke sporting hasselt vs royal antwerp",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.41,
+    "profit_ugx": 11406,
+    "total_stake": 100000,
+    "arb_sum": 0.8859,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.26,
+        "stake": 49945,
+        "win": 112876
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.255,
+        "stake": 50055,
+        "win": 112874
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "koninklijke sporting hasselt vs royal antwerp",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.41,
+    "profit_ugx": 11406,
+    "total_stake": 100000,
+    "arb_sum": 0.8859,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.26,
+        "stake": 49945,
+        "win": 112876
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.255,
+        "stake": 50055,
+        "win": 112874
       }
     ],
     "market_type": "1x2",
