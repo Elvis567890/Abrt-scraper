@@ -37,31 +37,65 @@
     "match": "algeria vs zambia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.82,
-    "profit_ugx": 7823,
+    "profit_percent": 8.99,
+    "profit_ugx": 8989,
     "total_stake": 100000,
-    "arb_sum": 0.9218,
+    "arb_sum": 0.9101,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.64,
-        "stake": 41093,
-        "win": 108486
+        "odd": 2.76,
+        "stake": 39810,
+        "win": 109876
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.25,
-        "stake": 33380,
-        "win": 108485
+        "odd": 3.2,
+        "stake": 34336,
+        "win": 109875
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Away",
         "odd": 4.25,
-        "stake": 25526,
-        "win": 108486
+        "stake": 25853,
+        "win": 109875
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "petrocub hincesti vs sheriff tiraspol",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.31,
+    "profit_ugx": 4309,
+    "total_stake": 100000,
+    "arb_sum": 0.9569,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.29,
+        "stake": 31764,
+        "win": 104504
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 2.95,
+        "stake": 35425,
+        "win": 104504
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.185,
+        "stake": 32811,
+        "win": 104503
       }
     ],
     "market_type": "1x2",
