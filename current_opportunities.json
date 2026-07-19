@@ -275,31 +275,65 @@
     "match": "robina vs redlands utd",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.34,
-    "profit_ugx": 3344,
+    "profit_percent": 1.83,
+    "profit_ugx": 1829,
     "total_stake": 100000,
-    "arb_sum": 0.9666,
+    "arb_sum": 0.9817,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.84,
-        "stake": 56228,
-        "win": 103460
+        "stake": 55361,
+        "win": 101864
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Draw",
         "odd": 3.9,
-        "stake": 26528,
-        "win": 103459
+        "stake": 26119,
+        "win": 101864
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 6.0,
-        "stake": 17243,
-        "win": 103458
+        "odd": 5.5,
+        "stake": 18521,
+        "win": 101866
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "capalaba bulldogs vs holland park hawks",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 17.03,
+    "profit_ugx": 17029,
+    "total_stake": 100000,
+    "arb_sum": 0.8297,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.3,
+        "stake": 36523,
+        "win": 120526
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 4.3,
+        "stake": 28029,
+        "win": 120525
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.4,
+        "stake": 35448,
+        "win": 120523
       }
     ],
     "market_type": "1x2",
