@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "bucheon vs seoul",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 23.61,
+    "profit_ugx": 23611,
+    "total_stake": 100000,
+    "arb_sum": 0.7639,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 4.99,
+        "stake": 26234,
+        "win": 130908
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 37402,
+        "win": 130907
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 36363,
+        "win": 130907
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "anyang vs gwangju",
     "sport": "Football",
     "type": "3-way",
@@ -300,40 +334,6 @@
         "odd": 5.25,
         "stake": 19274,
         "win": 101188
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "bucheon 1995 vs seoul",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 23.65,
-    "profit_ugx": 23651,
-    "total_stake": 100000,
-    "arb_sum": 0.7635,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 5.0,
-        "stake": 26195,
-        "win": 130975
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 37422,
-        "win": 130977
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.6,
-        "stake": 36383,
-        "win": 130979
       }
     ],
     "market_type": "1x2",
