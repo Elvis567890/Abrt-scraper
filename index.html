@@ -350,7 +350,8 @@
             domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
             clientId: 'zCFNae5jkDbYsIsG2ktHX8b2qhyixoDH',
             authorizationParams: { 
-                redirect_uri: 'https://567890.github.io'
+                // UPDATED TO MATCH YOUR GITHUB PAGES PROJECT PATH
+                redirect_uri: 'https://elvis567890.github.io/Abrt-scraper'
             }
         });
 
@@ -373,7 +374,7 @@
             document.getElementById('authStateDisplay').innerHTML = `✅ Logged in as: ${user.email}`;
             document.getElementById('authBtn').textContent = '🚪 Log Out';
             document.getElementById('authBtn').onclick = () => {
-                auth0Client.logout({ logoutParams: { returnTo: 'https://567890.github.io' } });
+                auth0Client.logout({ logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' } });
             };
             loadUserSettings(user.sub);
         } else {
@@ -939,4 +940,4 @@
     });
 </script>
 </body>
-                                                                                   </html>
+                </html>
