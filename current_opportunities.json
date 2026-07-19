@@ -340,41 +340,7 @@
     "market_specifier": ""
   },
   {
-    "match": "genoa vs trento scsd",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.28,
-    "profit_ugx": 1282,
-    "total_stake": 100000,
-    "arb_sum": 0.9872,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.17,
-        "stake": 86580,
-        "win": 101299
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 18.0,
-        "stake": 5628,
-        "win": 101304
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 13.0,
-        "stake": 7792,
-        "win": 101296
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "bicskei vs dunaharaszti",
+    "match": "bicskei tc vs dunaharaszti mtk",
     "sport": "Football",
     "type": "3-way",
     "profit_percent": 1.65,
@@ -402,6 +368,40 @@
         "odd": 3.48,
         "stake": 29216,
         "win": 101672
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "genoa vs trento",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.28,
+    "profit_ugx": 1282,
+    "total_stake": 100000,
+    "arb_sum": 0.9872,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.17,
+        "stake": 86580,
+        "win": 101299
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 18.0,
+        "stake": 5628,
+        "win": 101304
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 13.0,
+        "stake": 7792,
+        "win": 101296
       }
     ],
     "market_type": "1x2",
