@@ -238,40 +238,6 @@
     "market_specifier": ""
   },
   {
-    "match": "ifk varnamo vs ljungskile sk",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.74,
-    "profit_ugx": 2738,
-    "total_stake": 100000,
-    "arb_sum": 0.9726,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.59,
-        "stake": 39697,
-        "win": 102815
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30240,
-        "win": 102816
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.42,
-        "stake": 30063,
-        "win": 102815
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "altay vs aktobe",
     "sport": "Football",
     "type": "3-way",
@@ -334,6 +300,40 @@
         "odd": 5.25,
         "stake": 19274,
         "win": 101188
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "varnamo vs ljungskile",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.74,
+    "profit_ugx": 2738,
+    "total_stake": 100000,
+    "arb_sum": 0.9726,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.59,
+        "stake": 39697,
+        "win": 102815
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 30240,
+        "win": 102816
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.42,
+        "stake": 30063,
+        "win": 102815
       }
     ],
     "market_type": "1x2",
