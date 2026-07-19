@@ -348,8 +348,10 @@
     window.onload = async () => {
         auth0Client = await auth0.createAuth0Client({
             domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
-            clientId: 'sbw1TbwsO-8F-0fHajmgdMsRk-MBfJEKFomtvvfl9Xjac3V20Dc9_qX3gkIDwF-x',
-            authorizationParams: { redirect_uri: window.location.origin }
+            clientId: 'zCFNae5jkDbYsIsG2ktHX8b2qhyixoDH',
+            authorizationParams: { 
+                redirect_uri: 'https://567890.github.io'
+            }
         });
 
         // Handle errors if they occur during Auth0 redirect
@@ -371,7 +373,7 @@
             document.getElementById('authStateDisplay').innerHTML = `✅ Logged in as: ${user.email}`;
             document.getElementById('authBtn').textContent = '🚪 Log Out';
             document.getElementById('authBtn').onclick = () => {
-                auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
+                auth0Client.logout({ logoutParams: { returnTo: 'https://567890.github.io' } });
             };
             loadUserSettings(user.sub);
         } else {
@@ -937,4 +939,4 @@
     });
 </script>
 </body>
-                            </html>
+                                                                                   </html>
