@@ -442,6 +442,40 @@
     "market_specifier": ""
   },
   {
+    "match": "genoa vs trento scsd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.22,
+    "profit_ugx": 1222,
+    "total_stake": 100000,
+    "arb_sum": 0.9878,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.21,
+        "stake": 83667,
+        "win": 101237
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 14.2,
+        "stake": 7129,
+        "win": 101232
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 11.0,
+        "stake": 9203,
+        "win": 101233
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "algeria w vs zambia w",
     "sport": "Football",
     "type": "3-way",
