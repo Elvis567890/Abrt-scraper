@@ -1,33 +1,67 @@
 [
   {
+    "match": "newcastle olympic vs belmont swansea utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 12.44,
+    "profit_ugx": 12442,
+    "total_stake": 100000,
+    "arb_sum": 0.8756,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.64,
+        "stake": 43261,
+        "win": 114209
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 29285,
+        "win": 114212
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.16,
+        "stake": 27454,
+        "win": 114209
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "queretaro vs america",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 13.37,
-    "profit_ugx": 13373,
+    "profit_percent": 13.85,
+    "profit_ugx": 13848,
     "total_stake": 100000,
-    "arb_sum": 0.8663,
+    "arb_sum": 0.8615,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.45,
-        "stake": 33460,
-        "win": 115437
+        "odd": 3.4,
+        "stake": 34139,
+        "win": 116073
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 32982,
-        "win": 115437
+        "stake": 33164,
+        "win": 116074
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.44,
-        "stake": 33558,
-        "win": 115440
+        "odd": 3.55,
+        "stake": 32697,
+        "win": 116074
       }
     ],
     "market_type": "1x2",
@@ -62,40 +96,6 @@
         "odd": 3.7,
         "stake": 27551,
         "win": 101939
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "newcastle olympic vs belmont swansea utd",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 12.44,
-    "profit_ugx": 12442,
-    "total_stake": 100000,
-    "arb_sum": 0.8756,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.64,
-        "stake": 43261,
-        "win": 114209
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 29285,
-        "win": 114212
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.16,
-        "stake": 27454,
-        "win": 114209
       }
     ],
     "market_type": "1x2",
