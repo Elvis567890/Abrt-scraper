@@ -204,34 +204,68 @@
     "market_specifier": ""
   },
   {
+    "match": "csd independiente del valle vs cs emelec",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.94,
+    "profit_ugx": 937,
+    "total_stake": 100000,
+    "arb_sum": 0.9906,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.352,
+        "stake": 74664,
+        "win": 100946
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 8.2,
+        "stake": 12310,
+        "win": 100942
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 7.75,
+        "stake": 13025,
+        "win": 100944
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "algeria vs zambia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 29.69,
-    "profit_ugx": 29690,
+    "profit_percent": 31.33,
+    "profit_ugx": 31332,
     "total_stake": 100000,
-    "arb_sum": 0.7031,
+    "arb_sum": 0.6867,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
-        "odd": 2.75,
-        "stake": 51719,
-        "win": 142227
+        "odd": 2.88,
+        "stake": 50565,
+        "win": 145627
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
         "odd": 9.6,
-        "stake": 14815,
-        "win": 142224
+        "stake": 15170,
+        "win": 145632
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 4.25,
-        "stake": 33465,
-        "win": 142226
+        "stake": 34265,
+        "win": 145626
       }
     ],
     "market_type": "1x2",
