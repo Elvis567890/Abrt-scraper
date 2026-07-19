@@ -68,74 +68,6 @@
     "market_specifier": ""
   },
   {
-    "match": "bucheon srl vs seoul srl",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 21.4,
-    "profit_ugx": 21398,
-    "total_stake": 100000,
-    "arb_sum": 0.786,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 4.85,
-        "stake": 26232,
-        "win": 127225
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 37419,
-        "win": 127225
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.5,
-        "stake": 36350,
-        "win": 127225
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "anyang srl vs gwangju srl",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.84,
-    "profit_ugx": 1841,
-    "total_stake": 100000,
-    "arb_sum": 0.9816,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.64,
-        "stake": 62120,
-        "win": 101877
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.46,
-        "stake": 18659,
-        "win": 101878
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.3,
-        "stake": 19222,
-        "win": 101877
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "newcastle olympic vs belmont swansea utd",
     "sport": "Football",
     "type": "3-way",
@@ -343,31 +275,31 @@
     "match": "robina vs redlands utd",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.53,
-    "profit_ugx": 1532,
+    "profit_percent": 3.34,
+    "profit_ugx": 3344,
     "total_stake": 100000,
-    "arb_sum": 0.9847,
+    "arb_sum": 0.9666,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.84,
-        "stake": 55193,
-        "win": 101555
+        "stake": 56228,
+        "win": 103460
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "SportyBet",
         "outcome": "Draw",
-        "odd": 3.48,
-        "stake": 29183,
-        "win": 101557
+        "odd": 3.9,
+        "stake": 26528,
+        "win": 103459
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 6.5,
-        "stake": 15624,
-        "win": 101556
+        "odd": 6.0,
+        "stake": 17243,
+        "win": 103458
       }
     ],
     "market_type": "1x2",
@@ -436,6 +368,74 @@
         "odd": 3.355,
         "stake": 31427,
         "win": 105438
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bucheon 1995 vs seoul",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 21.4,
+    "profit_ugx": 21398,
+    "total_stake": 100000,
+    "arb_sum": 0.786,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.85,
+        "stake": 26232,
+        "win": 127225
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 37419,
+        "win": 127225
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.5,
+        "stake": 36350,
+        "win": 127225
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "anyang vs gwangju",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.84,
+    "profit_ugx": 1841,
+    "total_stake": 100000,
+    "arb_sum": 0.9816,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.64,
+        "stake": 62120,
+        "win": 101877
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.46,
+        "stake": 18659,
+        "win": 101878
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.3,
+        "stake": 19222,
+        "win": 101877
       }
     ],
     "market_type": "1x2",
