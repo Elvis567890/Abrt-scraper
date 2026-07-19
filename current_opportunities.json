@@ -1,73 +1,5 @@
 [
   {
-    "match": "bucheon vs seoul",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 28.89,
-    "profit_ugx": 28889,
-    "total_stake": 100000,
-    "arb_sum": 0.7111,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 6.0,
-        "stake": 23438,
-        "win": 140628
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 39063,
-        "win": 140627
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.75,
-        "stake": 37500,
-        "win": 140625
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "anyang vs gwangju",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.29,
-    "profit_ugx": 1287,
-    "total_stake": 100000,
-    "arb_sum": 0.9871,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.696,
-        "stake": 59731,
-        "win": 101304
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.17,
-        "stake": 19595,
-        "win": 101306
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.9,
-        "stake": 20674,
-        "win": 101303
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "halmstads bk vs bk hacken",
     "sport": "Football",
     "type": "3-way",
@@ -888,6 +820,60 @@
         "odd": 1.582,
         "stake": 76500,
         "win": 121023
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "stk 1914 samorin vs algharafa",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.59,
+    "profit_ugx": 6589,
+    "total_stake": 100000,
+    "arb_sum": 0.9341,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.96,
+        "stake": 54619,
+        "win": 107053
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.359,
+        "stake": 45381,
+        "win": 107054
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "stk 1914 samorin vs algharafa",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.59,
+    "profit_ugx": 6589,
+    "total_stake": 100000,
+    "arb_sum": 0.9341,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.96,
+        "stake": 54619,
+        "win": 107053
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.359,
+        "stake": 45381,
+        "win": 107054
       }
     ],
     "market_type": "1x2",
