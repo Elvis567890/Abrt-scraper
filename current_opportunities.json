@@ -1,73 +1,5 @@
 [
   {
-    "match": "newcastle olympic vs belmont swansea utd",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 12.44,
-    "profit_ugx": 12442,
-    "total_stake": 100000,
-    "arb_sum": 0.8756,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.64,
-        "stake": 43261,
-        "win": 114209
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 29285,
-        "win": 114212
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.16,
-        "stake": 27454,
-        "win": 114209
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "queretaro vs america",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 13.85,
-    "profit_ugx": 13848,
-    "total_stake": 100000,
-    "arb_sum": 0.8615,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.4,
-        "stake": 34139,
-        "win": 116073
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 33164,
-        "win": 116074
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.55,
-        "stake": 32697,
-        "win": 116074
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "spain vs argentina",
     "sport": "Football",
     "type": "3-way",
@@ -96,74 +28,6 @@
         "odd": 3.7,
         "stake": 27551,
         "win": 101939
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "blacktown vs st george fa",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.89,
-    "profit_ugx": 3888,
-    "total_stake": 100000,
-    "arb_sum": 0.9611,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.03,
-        "stake": 51254,
-        "win": 104046
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.2,
-        "stake": 24773,
-        "win": 104047
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.34,
-        "stake": 23974,
-        "win": 104047
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "marconi stallions vs sydney utd 58",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.7,
-    "profit_ugx": 2701,
-    "total_stake": 100000,
-    "arb_sum": 0.973,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.275,
-        "stake": 45176,
-        "win": 102775
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 27046,
-        "win": 102775
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 3.7,
-        "stake": 27777,
-        "win": 102775
       }
     ],
     "market_type": "1x2",
@@ -876,6 +740,60 @@
         "odd": 2.952,
         "stake": 40747,
         "win": 120285
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vfb homberg vs fortuna dusseldorf ii",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 25.75,
+    "profit_ugx": 25753,
+    "total_stake": 100000,
+    "arb_sum": 0.7425,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.15,
+        "stake": 32454,
+        "win": 134684
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.994,
+        "stake": 67546,
+        "win": 134687
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vfb homberg vs fortuna dusseldorf ii",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 25.75,
+    "profit_ugx": 25753,
+    "total_stake": 100000,
+    "arb_sum": 0.7425,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.15,
+        "stake": 32454,
+        "win": 134684
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.994,
+        "stake": 67546,
+        "win": 134687
       }
     ],
     "market_type": "1x2",
