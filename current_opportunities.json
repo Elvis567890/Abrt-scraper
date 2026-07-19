@@ -3,31 +3,31 @@
     "match": "ff jaro vs inter turku",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 20.65,
-    "profit_ugx": 20649,
+    "profit_percent": 20.79,
+    "profit_ugx": 20793,
     "total_stake": 100000,
-    "arb_sum": 0.7935,
+    "arb_sum": 0.7921,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 4.05,
-        "stake": 31117,
-        "win": 126024
+        "stake": 31173,
+        "win": 126251
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 35006,
-        "win": 126022
+        "stake": 35070,
+        "win": 126252
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.72,
-        "stake": 33877,
-        "win": 126022
+        "odd": 3.74,
+        "stake": 33757,
+        "win": 126251
       }
     ],
     "market_type": "1x2",
@@ -105,31 +105,31 @@
     "match": "torpedo moscow vs volga ulyanovsk",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.6,
-    "profit_ugx": 2602,
+    "profit_percent": 2.56,
+    "profit_ugx": 2560,
     "total_stake": 100000,
-    "arb_sum": 0.974,
+    "arb_sum": 0.9744,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.555,
-        "stake": 66027,
-        "win": 102672
+        "odd": 1.544,
+        "stake": 66468,
+        "win": 102627
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 6.31,
-        "stake": 16271,
-        "win": 102670
+        "odd": 6.48,
+        "stake": 15837,
+        "win": 102624
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Away",
         "odd": 5.8,
-        "stake": 17702,
-        "win": 102672
+        "stake": 17694,
+        "win": 102625
       }
     ],
     "market_type": "1x2",
@@ -411,31 +411,31 @@
     "match": "js hercules ii vs keps",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.79,
-    "profit_ugx": 9793,
+    "profit_percent": 11.43,
+    "profit_ugx": 11430,
     "total_stake": 100000,
-    "arb_sum": 0.9021,
+    "arb_sum": 0.8857,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.45,
-        "stake": 45248,
-        "win": 110858
+        "odd": 2.46,
+        "stake": 45896,
+        "win": 112904
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.1,
-        "stake": 27038,
-        "win": 110856
+        "stake": 27538,
+        "win": 112906
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.0,
-        "stake": 27714,
-        "win": 110856
+        "odd": 4.25,
+        "stake": 26566,
+        "win": 112906
       }
     ],
     "market_type": "1x2",
@@ -510,27 +510,34 @@
     "market_specifier": ""
   },
   {
-    "match": "ff jaro vs inter turku",
+    "match": "sharjah vs abha",
     "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 4.11,
-    "profit_ugx": 4108,
+    "type": "3-way",
+    "profit_percent": 1.22,
+    "profit_ugx": 1221,
     "total_stake": 100000,
-    "arb_sum": 0.9589,
+    "arb_sum": 0.9878,
     "bets": [
       {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.94,
-        "stake": 53754,
-        "win": 104283
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.34,
+        "stake": 43263,
+        "win": 101235
       },
       {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.255,
-        "stake": 46246,
-        "win": 104285
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 28925,
+        "win": 101238
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.64,
+        "stake": 27812,
+        "win": 101236
       }
     ],
     "market_type": "1x2",
@@ -540,24 +547,51 @@
     "match": "ff jaro vs inter turku",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 4.11,
-    "profit_ugx": 4108,
+    "profit_percent": 2.94,
+    "profit_ugx": 2938,
     "total_stake": 100000,
-    "arb_sum": 0.9589,
+    "arb_sum": 0.9706,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.93,
+        "stake": 53382,
+        "win": 103027
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.21,
+        "stake": 46618,
+        "win": 103026
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ff jaro vs inter turku",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.94,
+    "profit_ugx": 2938,
+    "total_stake": 100000,
+    "arb_sum": 0.9706,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 1.94,
-        "stake": 53754,
-        "win": 104283
+        "odd": 1.93,
+        "stake": 53382,
+        "win": 103027
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 2.255,
-        "stake": 46246,
-        "win": 104285
+        "odd": 2.21,
+        "stake": 46618,
+        "win": 103026
       }
     ],
     "market_type": "1x2",
@@ -567,24 +601,24 @@
     "match": "szombathelyi halads vs lecce",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 29.84,
-    "profit_ugx": 29836,
+    "profit_percent": 31.57,
+    "profit_ugx": 31573,
     "total_stake": 100000,
-    "arb_sum": 0.7016,
+    "arb_sum": 0.6843,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 7.3,
-        "stake": 19524,
-        "win": 142525
+        "odd": 8.36,
+        "stake": 17481,
+        "win": 146141
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
         "odd": 1.771,
-        "stake": 80476,
-        "win": 142523
+        "stake": 82519,
+        "win": 146141
       }
     ],
     "market_type": "1x2",
@@ -594,24 +628,24 @@
     "match": "szombathelyi halads vs lecce",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 29.84,
-    "profit_ugx": 29836,
+    "profit_percent": 31.57,
+    "profit_ugx": 31573,
     "total_stake": 100000,
-    "arb_sum": 0.7016,
+    "arb_sum": 0.6843,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 7.3,
-        "stake": 19524,
-        "win": 142525
+        "odd": 8.36,
+        "stake": 17481,
+        "win": 146141
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
         "odd": 1.771,
-        "stake": 80476,
-        "win": 142523
+        "stake": 82519,
+        "win": 146141
       }
     ],
     "market_type": "1x2",
@@ -621,24 +655,24 @@
     "match": "js hercules ii vs keps",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 6.94,
-    "profit_ugx": 6940,
+    "profit_percent": 4.78,
+    "profit_ugx": 4778,
     "total_stake": 100000,
-    "arb_sum": 0.9306,
+    "arb_sum": 0.9522,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 1.53,
-        "stake": 70233,
-        "win": 107456
+        "odd": 1.568,
+        "stake": 66976,
+        "win": 105018
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 3.61,
-        "stake": 29767,
-        "win": 107459
+        "odd": 3.18,
+        "stake": 33024,
+        "win": 105016
       }
     ],
     "market_type": "1x2",
@@ -648,24 +682,24 @@
     "match": "js hercules ii vs keps",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 6.94,
-    "profit_ugx": 6940,
+    "profit_percent": 4.78,
+    "profit_ugx": 4778,
     "total_stake": 100000,
-    "arb_sum": 0.9306,
+    "arb_sum": 0.9522,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 1.53,
-        "stake": 70233,
-        "win": 107456
+        "odd": 1.568,
+        "stake": 66976,
+        "win": 105018
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 3.61,
-        "stake": 29767,
-        "win": 107459
+        "odd": 3.18,
+        "stake": 33024,
+        "win": 105016
       }
     ],
     "market_type": "1x2",
