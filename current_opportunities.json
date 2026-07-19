@@ -102,40 +102,6 @@
     "market_specifier": ""
   },
   {
-    "match": "bicskei tc vs dunaharaszti mtk",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.39,
-    "profit_ugx": 3394,
-    "total_stake": 100000,
-    "arb_sum": 0.9661,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.36,
-        "stake": 43862,
-        "win": 103514
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 28754,
-        "win": 103514
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.78,
-        "stake": 27385,
-        "win": 103515
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "genoa vs trento",
     "sport": "Football",
     "type": "3-way",
@@ -672,6 +638,60 @@
         "odd": 2.635,
         "stake": 39495,
         "win": 104069
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "keflavik u19 vs thor thk vols magni u19",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.15,
+    "profit_ugx": 1145,
+    "total_stake": 100000,
+    "arb_sum": 0.9885,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.248,
+        "stake": 81056,
+        "win": 101158
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 5.34,
+        "stake": 18944,
+        "win": 101161
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "keflavik u19 vs thor thk vols magni u19",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.15,
+    "profit_ugx": 1145,
+    "total_stake": 100000,
+    "arb_sum": 0.9885,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.248,
+        "stake": 81056,
+        "win": 101158
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 5.34,
+        "stake": 18944,
+        "win": 101161
       }
     ],
     "market_type": "1x2",
