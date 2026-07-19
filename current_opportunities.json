@@ -1,33 +1,67 @@
 [
   {
+    "match": "bucheon vs seoul",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 24.0,
+    "profit_ugx": 24004,
+    "total_stake": 100000,
+    "arb_sum": 0.76,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 5.09,
+        "stake": 25852,
+        "win": 131587
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 37596,
+        "win": 131586
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 36552,
+        "win": 131587
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "anyang vs gwangju",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.2,
-    "profit_ugx": 1199,
+    "profit_percent": 0.9,
+    "profit_ugx": 901,
     "total_stake": 100000,
-    "arb_sum": 0.988,
+    "arb_sum": 0.991,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.59,
-        "stake": 63656,
-        "win": 101213
+        "stake": 63465,
+        "win": 100909
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 5.54,
-        "stake": 18270,
-        "win": 101216
+        "odd": 5.45,
+        "stake": 18515,
+        "win": 100907
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 5.6,
-        "stake": 18074,
-        "win": 101214
+        "stake": 18020,
+        "win": 100912
       }
     ],
     "market_type": "1x2",
@@ -204,40 +238,6 @@
     "market_specifier": ""
   },
   {
-    "match": "bucheon vs seoul",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 23.48,
-    "profit_ugx": 23476,
-    "total_stake": 100000,
-    "arb_sum": 0.7652,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 4.995,
-        "stake": 26162,
-        "win": 130679
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 37336,
-        "win": 130676
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.58,
-        "stake": 36502,
-        "win": 130677
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "ifk varnamo vs ljungskile sk",
     "sport": "Football",
     "type": "3-way",
@@ -275,31 +275,31 @@
     "match": "altay vs aktobe",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.16,
-    "profit_ugx": 5156,
+    "profit_percent": 8.52,
+    "profit_ugx": 8522,
     "total_stake": 100000,
-    "arb_sum": 0.9484,
+    "arb_sum": 0.9148,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.879,
-        "stake": 36623,
-        "win": 105438
+        "odd": 3.17,
+        "stake": 34484,
+        "win": 109314
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.3,
-        "stake": 31951,
-        "win": 105438
+        "stake": 33126,
+        "win": 109316
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.355,
-        "stake": 31427,
-        "win": 105438
+        "odd": 3.375,
+        "stake": 32390,
+        "win": 109316
       }
     ],
     "market_type": "1x2",
