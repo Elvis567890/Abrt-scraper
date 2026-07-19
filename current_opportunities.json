@@ -1,39 +1,5 @@
 [
   {
-    "match": "boston legacy vs washington spirit",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 24.35,
-    "profit_ugx": 24353,
-    "total_stake": 100000,
-    "arb_sum": 0.7565,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.8,
-        "stake": 34788,
-        "win": 132194
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 33048,
-        "win": 132192
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Away",
-        "odd": 4.11,
-        "stake": 32164,
-        "win": 132194
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "sporting kansas ii vs minnesota utd 2",
     "sport": "Football",
     "type": "3-way",
@@ -164,6 +130,40 @@
         "odd": 4.9,
         "stake": 20549,
         "win": 100690
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ifk mariehamn vs lahti",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 32.93,
+    "profit_ugx": 32932,
+    "total_stake": 100000,
+    "arb_sum": 0.6707,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.3,
+        "stake": 28133,
+        "win": 149105
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.1,
+        "stake": 36367,
+        "win": 149105
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.2,
+        "stake": 35501,
+        "win": 149104
       }
     ],
     "market_type": "1x2",
