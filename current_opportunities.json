@@ -1,67 +1,33 @@
 [
   {
-    "match": "spain vs argentina",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.23,
-    "profit_ugx": 1225,
-    "total_stake": 100000,
-    "arb_sum": 0.9877,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 2.29,
-        "stake": 44210,
-        "win": 101241
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 3.58,
-        "stake": 28279,
-        "win": 101239
-      },
-      {
-        "bookmaker": "SportyBet",
-        "outcome": "Away",
-        "odd": 3.68,
-        "stake": 27511,
-        "win": 101240
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "santos nasca vs deportivo binacional",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.48,
-    "profit_ugx": 3484,
+    "profit_percent": 1.5,
+    "profit_ugx": 1500,
     "total_stake": 100000,
-    "arb_sum": 0.9652,
+    "arb_sum": 0.985,
     "bets": [
       {
         "bookmaker": "SportyBet",
         "outcome": "Home",
-        "odd": 1.44,
-        "stake": 71951,
-        "win": 103609
+        "odd": 1.4,
+        "stake": 72516,
+        "win": 101522
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
         "odd": 7.95,
-        "stake": 13033,
-        "win": 103612
+        "stake": 12770,
+        "win": 101522
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 6.9,
-        "stake": 15016,
-        "win": 103610
+        "stake": 14713,
+        "win": 101520
       }
     ],
     "market_type": "1x2",
@@ -91,7 +57,7 @@
         "win": 124602
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Away",
         "odd": 3.62,
         "stake": 34420,
@@ -272,34 +238,34 @@
     "market_specifier": ""
   },
   {
-    "match": "algeria w vs zambia w",
+    "match": "yangon utd w vs ayeyawady utd w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.33,
-    "profit_ugx": 4327,
+    "profit_percent": 47.12,
+    "profit_ugx": 47121,
     "total_stake": 100000,
-    "arb_sum": 0.9567,
+    "arb_sum": 0.5288,
     "bets": [
       {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.3,
-        "stake": 80402,
-        "win": 104523
-      },
-      {
         "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 9.6,
-        "stake": 10888,
-        "win": 104525
+        "outcome": "Home",
+        "odd": 7.23,
+        "stake": 26156,
+        "win": 189108
       },
       {
         "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 5.25,
+        "stake": 36021,
+        "win": 189110
+      },
+      {
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 12.0,
-        "stake": 8710,
-        "win": 104520
+        "odd": 5.0,
+        "stake": 37822,
+        "win": 189110
       }
     ],
     "market_type": "1x2",
