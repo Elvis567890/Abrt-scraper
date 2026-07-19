@@ -340,40 +340,6 @@
     "market_specifier": ""
   },
   {
-    "match": "sv schermbeck vs sv meppen ii",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.03,
-    "profit_ugx": 5032,
-    "total_stake": 100000,
-    "arb_sum": 0.9497,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.18,
-        "stake": 48302,
-        "win": 105298
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 26325,
-        "win": 105300
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.15,
-        "stake": 25373,
-        "win": 105298
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "cracovia vs sevilla",
     "sport": "Football",
     "type": "3-way",
@@ -868,6 +834,60 @@
         "odd": 2.03,
         "stake": 62684,
         "win": 127249
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sturm graz ii vs alhilal riyadh",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.37,
+    "profit_ugx": 17371,
+    "total_stake": 100000,
+    "arb_sum": 0.8263,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 5.15,
+        "stake": 23500,
+        "win": 121025
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.582,
+        "stake": 76500,
+        "win": 121023
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sturm graz ii vs alhilal riyadh",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.37,
+    "profit_ugx": 17371,
+    "total_stake": 100000,
+    "arb_sum": 0.8263,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 5.15,
+        "stake": 23500,
+        "win": 121025
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.582,
+        "stake": 76500,
+        "win": 121023
       }
     ],
     "market_type": "1x2",
