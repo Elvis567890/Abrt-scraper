@@ -139,31 +139,65 @@
     "match": "anyang vs gwangju",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.55,
-    "profit_ugx": 1547,
+    "profit_percent": 2.23,
+    "profit_ugx": 2233,
     "total_stake": 100000,
-    "arb_sum": 0.9845,
+    "arb_sum": 0.9777,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.62,
-        "stake": 62698,
-        "win": 101571
+        "stake": 63138,
+        "win": 102284
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 5.6,
-        "stake": 18138,
-        "win": 101573
+        "stake": 18265,
+        "win": 102284
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 5.3,
-        "stake": 19164,
-        "win": 101569
+        "odd": 5.5,
+        "stake": 18597,
+        "win": 102284
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ifk varnamo vs ljungskile sk",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.14,
+    "profit_ugx": 4139,
+    "total_stake": 100000,
+    "arb_sum": 0.9586,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.7,
+        "stake": 38636,
+        "win": 104317
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 30682,
+        "win": 104319
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.4,
+        "stake": 30682,
+        "win": 104319
       }
     ],
     "market_type": "1x2",
@@ -300,40 +334,6 @@
         "odd": 3.55,
         "stake": 36119,
         "win": 128222
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "varnamo vs ljungskile",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.14,
-    "profit_ugx": 4139,
-    "total_stake": 100000,
-    "arb_sum": 0.9586,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.7,
-        "stake": 38636,
-        "win": 104317
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30682,
-        "win": 104319
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.4,
-        "stake": 30682,
-        "win": 104319
       }
     ],
     "market_type": "1x2",
