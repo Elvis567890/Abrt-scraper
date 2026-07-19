@@ -136,34 +136,34 @@
     "market_specifier": ""
   },
   {
-    "match": "south hobart vs launceston utd",
+    "match": "south east utd vs launceston utd",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.29,
-    "profit_ugx": 4287,
+    "profit_percent": 4.08,
+    "profit_ugx": 4076,
     "total_stake": 100000,
-    "arb_sum": 0.9571,
+    "arb_sum": 0.9592,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.04,
-        "stake": 51215,
-        "win": 104479
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.75,
-        "stake": 21996,
-        "win": 104481
+        "stake": 51103,
+        "win": 104250
       },
       {
         "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 24821,
+        "win": 104248
+      },
+      {
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 3.9,
-        "stake": 26789,
-        "win": 104477
+        "odd": 4.33,
+        "stake": 24076,
+        "win": 104249
       }
     ],
     "market_type": "1x2",
