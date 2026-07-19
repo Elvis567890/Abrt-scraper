@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "erzgebirge aue vs schalke",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 47.65,
+    "profit_ugx": 47651,
+    "total_stake": 100000,
+    "arb_sum": 0.5235,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 6.58,
+        "stake": 29031,
+        "win": 191024
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 5.1,
+        "stake": 37456,
+        "win": 191026
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 5.7,
+        "stake": 33513,
+        "win": 191024
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "1 monheim vs siegburger sv 04",
     "sport": "Football",
     "type": "3-way",
@@ -607,24 +641,24 @@
     "match": "erzgebirge aue vs schalke 04",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 19.6,
-    "profit_ugx": 19601,
+    "profit_percent": 15.53,
+    "profit_ugx": 15532,
     "total_stake": 100000,
-    "arb_sum": 0.804,
+    "arb_sum": 0.8447,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 3.45,
-        "stake": 36052,
-        "win": 124379
+        "odd": 3.075,
+        "stake": 38500,
+        "win": 118388
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 1.945,
-        "stake": 63948,
-        "win": 124379
+        "odd": 1.925,
+        "stake": 61500,
+        "win": 118388
       }
     ],
     "market_type": "1x2",
@@ -634,24 +668,78 @@
     "match": "erzgebirge aue vs schalke 04",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 19.6,
-    "profit_ugx": 19601,
+    "profit_percent": 15.53,
+    "profit_ugx": 15532,
     "total_stake": 100000,
-    "arb_sum": 0.804,
+    "arb_sum": 0.8447,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 3.45,
-        "stake": 36052,
-        "win": 124379
+        "odd": 3.075,
+        "stake": 38500,
+        "win": 118388
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.945,
-        "stake": 63948,
-        "win": 124379
+        "odd": 1.925,
+        "stake": 61500,
+        "win": 118388
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "werder bremen ii vs bfc preussen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.31,
+    "profit_ugx": 1307,
+    "total_stake": 100000,
+    "arb_sum": 0.9869,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.51,
+        "stake": 67102,
+        "win": 101324
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.08,
+        "stake": 32898,
+        "win": 101326
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "werder bremen ii vs bfc preussen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.31,
+    "profit_ugx": 1307,
+    "total_stake": 100000,
+    "arb_sum": 0.9869,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.51,
+        "stake": 67102,
+        "win": 101324
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.08,
+        "stake": 32898,
+        "win": 101326
       }
     ],
     "market_type": "1x2",
