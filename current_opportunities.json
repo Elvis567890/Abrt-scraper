@@ -105,31 +105,31 @@
     "match": "alianza lima vs sport huancayo",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.71,
-    "profit_ugx": 706,
+    "profit_percent": 0.78,
+    "profit_ugx": 785,
     "total_stake": 100000,
-    "arb_sum": 0.9929,
+    "arb_sum": 0.9922,
     "bets": [
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.41,
-        "stake": 71427,
-        "win": 100712
+        "odd": 1.39,
+        "stake": 72512,
+        "win": 100792
       },
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 7.7,
-        "stake": 13079,
-        "win": 100708
+        "stake": 13090,
+        "win": 100793
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 6.5,
-        "stake": 15494,
-        "win": 100711
+        "odd": 7.0,
+        "stake": 14399,
+        "win": 100793
       }
     ],
     "market_type": "1x2",
@@ -198,6 +198,40 @@
         "odd": 4.9,
         "stake": 20587,
         "win": 100876
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ifk mariehamn vs lahti",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 32.93,
+    "profit_ugx": 32932,
+    "total_stake": 100000,
+    "arb_sum": 0.6707,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.3,
+        "stake": 28133,
+        "win": 149105
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.1,
+        "stake": 36367,
+        "win": 149105
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.2,
+        "stake": 35501,
+        "win": 149104
       }
     ],
     "market_type": "1x2",
