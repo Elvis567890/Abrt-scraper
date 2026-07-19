@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArbiMax - Live Arbitrage Opportunities</title>
+    <title>Abrimax - Live Arbitrage Opportunities</title>
     <style>
         :root {
             --bg: #0d0f13;
@@ -153,7 +153,7 @@
         <!-- Dashboard -->
         <div class="page active" id="page-dashboard">
             <div class="page-header">
-                <h1>🔍 ArbiMax</h1>
+                <h1>🔍 Abrimax</h1>
                 <div>
                     <button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button>
                     <button class="icon-btn">👤</button>
@@ -350,9 +350,10 @@
             domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
             clientId: 'zCFNae5jkDbYsIsG2ktHX8b2qhyixoDH',
             authorizationParams: { 
-                // UPDATED TO MATCH YOUR GITHUB PAGES PROJECT PATH
                 redirect_uri: 'https://elvis567890.github.io/Abrt-scraper'
-            }
+            },
+            // ADDED: Guarantees the return link works perfectly after login/logout
+            logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' }
         });
 
         // Handle errors if they occur during Auth0 redirect
@@ -940,4 +941,4 @@
     });
 </script>
 </body>
-                </html>
+    </html>
