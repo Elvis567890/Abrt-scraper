@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "sporting vs strasbourg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.09,
+    "profit_ugx": 1090,
+    "total_stake": 100000,
+    "arb_sum": 0.9891,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.6,
+        "stake": 63189,
+        "win": 101102
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.39,
+        "stake": 18757,
+        "win": 101100
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 5.6,
+        "stake": 18054,
+        "win": 101102
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "sk rotor volgograd vs skakhabarovsk",
     "sport": "Football",
     "type": "3-way",
