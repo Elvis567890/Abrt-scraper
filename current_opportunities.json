@@ -71,31 +71,31 @@
     "match": "ifk mariehamn vs lahti",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 32.93,
-    "profit_ugx": 32932,
+    "profit_percent": 34.23,
+    "profit_ugx": 34232,
     "total_stake": 100000,
-    "arb_sum": 0.6707,
+    "arb_sum": 0.6577,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 5.3,
-        "stake": 28133,
-        "win": 149105
+        "odd": 5.2,
+        "stake": 29241,
+        "win": 152053
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 4.1,
-        "stake": 36367,
-        "win": 149105
+        "odd": 4.4,
+        "stake": 34557,
+        "win": 152051
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 4.2,
-        "stake": 35501,
-        "win": 149104
+        "stake": 36203,
+        "win": 152053
       }
     ],
     "market_type": "1x2",
@@ -207,31 +207,85 @@
     "match": "torque vs nacional de montevideo",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.35,
-    "profit_ugx": 3347,
+    "profit_percent": 1.02,
+    "profit_ugx": 1020,
     "total_stake": 100000,
-    "arb_sum": 0.9665,
+    "arb_sum": 0.9898,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "SportyBet",
         "outcome": "Home",
-        "odd": 2.938,
-        "stake": 35215,
-        "win": 103462
+        "odd": 2.75,
+        "stake": 36738,
+        "win": 101030
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.25,
-        "stake": 31835,
-        "win": 103464
+        "stake": 31086,
+        "win": 101030
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.14,
-        "stake": 32950,
-        "win": 103463
+        "stake": 32175,
+        "win": 101030
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mariehamn vs lahti",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.35,
+    "profit_ugx": 7347,
+    "total_stake": 100000,
+    "arb_sum": 0.9265,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.35,
+        "stake": 45927,
+        "win": 107928
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.996,
+        "stake": 54073,
+        "win": 107930
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mariehamn vs lahti",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.35,
+    "profit_ugx": 7347,
+    "total_stake": 100000,
+    "arb_sum": 0.9265,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.35,
+        "stake": 45927,
+        "win": 107928
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.996,
+        "stake": 54073,
+        "win": 107930
       }
     ],
     "market_type": "1x2",
