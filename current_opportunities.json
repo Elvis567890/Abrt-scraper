@@ -37,31 +37,31 @@
     "match": "colon reserve vs boston river",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.88,
-    "profit_ugx": 884,
+    "profit_percent": 1.32,
+    "profit_ugx": 1319,
     "total_stake": 100000,
-    "arb_sum": 0.9912,
+    "arb_sum": 0.9868,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.71,
-        "stake": 37229,
-        "win": 100891
+        "odd": 2.779,
+        "stake": 36465,
+        "win": 101336
       },
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.25,
-        "stake": 31044,
-        "win": 100893
+        "odd": 3.2,
+        "stake": 31668,
+        "win": 101338
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.18,
-        "stake": 31727,
-        "win": 100892
+        "stake": 31867,
+        "win": 101337
       }
     ],
     "market_type": "1x2",
@@ -96,6 +96,40 @@
         "odd": 3.96,
         "stake": 28454,
         "win": 112678
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mjallby aif vs lincoln red imps",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.73,
+    "profit_ugx": 727,
+    "total_stake": 100000,
+    "arb_sum": 0.9927,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.12,
+        "stake": 89940,
+        "win": 100733
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 19.5,
+        "stake": 5166,
+        "win": 100737
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 20.58,
+        "stake": 4895,
+        "win": 100739
       }
     ],
     "market_type": "1x2",
