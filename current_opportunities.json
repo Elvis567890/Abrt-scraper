@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "pfc slavia sofia vs pfc cska sofia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 39.6,
+    "profit_ugx": 39597,
+    "total_stake": 100000,
+    "arb_sum": 0.604,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 6.7,
+        "stake": 24709,
+        "win": 165550
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.5,
+        "stake": 36790,
+        "win": 165555
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.3,
+        "stake": 38501,
+        "win": 165554
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "kalighat lovers vs utd",
     "sport": "Football",
     "type": "3-way",
@@ -198,40 +232,6 @@
         "odd": 4.9,
         "stake": 20587,
         "win": 100876
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "pfc slavia sofia vs pfc cska sofia",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 39.6,
-    "profit_ugx": 39597,
-    "total_stake": 100000,
-    "arb_sum": 0.604,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 6.7,
-        "stake": 24709,
-        "win": 165550
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.5,
-        "stake": 36790,
-        "win": 165555
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.3,
-        "stake": 38501,
-        "win": 165554
       }
     ],
     "market_type": "1x2",
