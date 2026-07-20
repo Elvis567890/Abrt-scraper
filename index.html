@@ -352,7 +352,7 @@
             authorizationParams: { 
                 redirect_uri: 'https://elvis567890.github.io/Abrt-scraper'
             },
-            // ADDED: Guarantees the return link works perfectly after login/logout
+            // Guarantees the return link works perfectly after login/logout
             logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' }
         });
 
@@ -486,6 +486,33 @@
             card_layout: document.getElementById('cardLayout').value,
             plan: 'free'
         };
+    }
+
+    // ========== NEW PAYMENT FUNCTION ==========
+    function redirectToPayment() {
+        // Get the current logged-in user's unique Auth0 ID
+        auth0Client.getUser().then(user => {
+            if (!user) {
+                showToast('⚠️ Please log in first to upgrade to VIP.');
+                return;
+            }
+            
+            // Check the user's current plan from the backend
+            fetch(`${CLOUDFLARE_URL}/api/get-subscription/${user.sub}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.plan !== 'free') {
+                    showToast('✅ You are already a VIP user!');
+                    return;
+                }
+
+                // --- Replace this link with your actual Flutterwave Checkout Link ---
+                const flutterwaveLink = `https://checkout.flutterwave.com/pay/abrimax-vip?meta[user_id]=${user.sub}`;
+                
+                // Redirect the user to Flutterwave to pay
+                window.location.href = flutterwaveLink;
+            });
+        }).catch(e => showToast('❌ Error: Please log in again.'));
     }
     // =======================================================
 
@@ -941,4 +968,4 @@
     });
 </script>
 </body>
-    </html>
+            </html>
