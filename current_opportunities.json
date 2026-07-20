@@ -1,5 +1,39 @@
 [
   {
+    "match": "sporting vs strasbourg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.55,
+    "profit_ugx": 549,
+    "total_stake": 100000,
+    "arb_sum": 0.9945,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.507,
+        "stake": 66723,
+        "win": 100552
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.85,
+        "stake": 17188,
+        "win": 100550
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 6.25,
+        "stake": 16088,
+        "win": 100550
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fh hafnarfjordur vs breidablik",
     "sport": "Football",
     "type": "3-way",
