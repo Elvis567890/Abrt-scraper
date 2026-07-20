@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abrimax - Live Arbitrage Opportunities</title>
+    <title>ArbiMax - Live Arbitrage Opportunities</title>
     <style>
         :root {
             --bg: #0d0f13;
@@ -138,7 +138,7 @@
         .badge-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; top: 6px; right: 6px; border: 2px solid var(--surface2); }
     </style>
     
-    <!-- AUTH0 SDK SCRIPT -->
+    <!-- AUTH0 SDK SCRIPT (Replaces Firebase) -->
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.18/auth0-spa-js.production.js"></script>
 
 </head>
@@ -153,7 +153,7 @@
         <!-- Dashboard -->
         <div class="page active" id="page-dashboard">
             <div class="page-header">
-                <h1>🔍 Abrimax</h1>
+                <h1>🔍 ArbiMax</h1>
                 <div>
                     <button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button>
                     <button class="icon-btn">👤</button>
@@ -349,11 +349,7 @@
         auth0Client = await auth0.createAuth0Client({
             domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
             clientId: 'zCFNae5jkDbYsIsG2ktHX8b2qhyixoDH',
-            authorizationParams: { 
-                redirect_uri: 'https://elvis567890.github.io/Abrt-scraper'
-            },
-            // ADDED: Guarantees the return link works perfectly after login/logout
-            logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' }
+            authorizationParams: { redirect_uri: window.location.origin }
         });
 
         // Handle errors if they occur during Auth0 redirect
@@ -375,7 +371,7 @@
             document.getElementById('authStateDisplay').innerHTML = `✅ Logged in as: ${user.email}`;
             document.getElementById('authBtn').textContent = '🚪 Log Out';
             document.getElementById('authBtn').onclick = () => {
-                auth0Client.logout({ logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' } });
+                auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
             };
             loadUserSettings(user.sub);
         } else {
@@ -941,4 +937,4 @@
     });
 </script>
 </body>
-                    </html>
+    </html>
