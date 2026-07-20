@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArbiMax - Live Arbitrage Opportunities</title>
+    <title>Abrimax - Live Arbitrage Opportunities</title>
     <style>
         :root {
             --bg: #0d0f13;
@@ -137,10 +137,6 @@
         .icon-btn { background: var(--surface2); border: none; color: var(--text); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; position: relative; }
         .badge-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; top: 6px; right: 6px; border: 2px solid var(--surface2); }
     </style>
-    
-    <!-- AUTH0 SDK SCRIPT (Replaces Firebase) -->
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.18/auth0-spa-js.production.js"></script>
-
 </head>
 <body>
 <div class="phone-frame" id="app">
@@ -153,7 +149,7 @@
         <!-- Dashboard -->
         <div class="page active" id="page-dashboard">
             <div class="page-header">
-                <h1>🔍 ArbiMax</h1>
+                <h1>🔍 Abrimax</h1>
                 <div>
                     <button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button>
                     <button class="icon-btn">👤</button>
@@ -220,12 +216,6 @@
                     <div id="displayPlan" style="color:var(--green); font-weight:700; font-size:18px;">Free Trial</div>
                     <div id="displayExpiry" style="font-size:11px; color:var(--text3); margin-bottom:10px;">Expires: Never</div>
                     <button id="subBtn" class="cta-btn primary" style="width:100%;" onclick="redirectToPayment()">Upgrade to VIP</button>
-                </div>
-                
-                <!-- LOGIN / LOGOUT SECTION -->
-                <div style="margin-top:15px; border-top:1px solid var(--surface3); padding-top:15px;">
-                    <div id="authStateDisplay" style="font-size:12px; color:var(--text2); margin-bottom:10px; text-align:center;">Status: Not logged in</div>
-                    <button id="authBtn" class="cta-btn primary" style="width:100%;" onclick="handleAuthClick()">Sign Up / Log In</button>
                 </div>
             </div>
 
@@ -339,55 +329,8 @@
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
-    // ========== AUTH0 PROFESSIONAL LOGIN ==========
-    const CLOUDFLARE_URL = "https://arbimax-backend.hkltfsmjgkfde.workers.dev";
-
-    let auth0Client;
-
-    // Initialize Auth0 on page load
-    window.onload = async () => {
-        auth0Client = await auth0.createAuth0Client({
-            domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
-            clientId: 'zCFNae5jkDbYsIsG2ktHX8b2qhyixoDH',
-            authorizationParams: { redirect_uri: window.location.origin }
-        });
-
-        // Handle errors if they occur during Auth0 redirect
-        if (location.search.includes("error=")) {
-            const params = new URLSearchParams(location.search);
-            showToast(`Error: ${params.get("error")} — ${params.get("error_description")}`);
-            history.replaceState({}, "", location.pathname);
-        }
-
-        // Handle the redirect callback after a successful login
-        if (location.search.includes("code=") && location.search.includes("state=")) {
-            await auth0Client.handleRedirectCallback();
-            history.replaceState({}, "", location.pathname);
-        }
-
-        // Update UI based on login state
-        if (await auth0Client.isAuthenticated()) {
-            const user = await auth0Client.getUser();
-            document.getElementById('authStateDisplay').innerHTML = `✅ Logged in as: ${user.email}`;
-            document.getElementById('authBtn').textContent = '🚪 Log Out';
-            document.getElementById('authBtn').onclick = () => {
-                auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
-            };
-            loadUserSettings(user.sub);
-        } else {
-            document.getElementById('authStateDisplay').innerHTML = `Status: Not logged in`;
-            document.getElementById('authBtn').textContent = '👤 Sign Up / Log In';
-            document.getElementById('authBtn').onclick = handleAuthClick;
-            
-            const saved = localStorage.getItem('arbi_settings');
-            applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
-        }
-    };
-
-    function handleAuthClick() {
-        // Opens Auth0's hosted beautiful Login/Signup page
-        auth0Client.loginWithRedirect();
-    }
+    // GUEST MODE: No Auth0. Just a local user ID so settings don't crash.
+    const GUEST_USER_ID = "guest_user_001";
 
     function getDefaultSettings() {
         return {
@@ -401,14 +344,17 @@
         };
     }
 
-    async function loadUserSettings(userId) {
+    function loadUserSettings() {
         try {
-            const res = await fetch(`${CLOUDFLARE_URL}/api/get-settings/${userId}`);
-            const data = await res.json();
-            applySettingsToUI(data);
-        } catch (e) {
             const saved = localStorage.getItem('arbi_settings');
-            applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
+            if (saved) {
+                applySettingsToUI(JSON.parse(saved));
+            } else {
+                applySettingsToUI(getDefaultSettings());
+            }
+        } catch (e) {
+            localStorage.removeItem('arbi_settings');
+            applySettingsToUI(getDefaultSettings());
         }
     }
 
@@ -434,35 +380,11 @@
         }
     }
 
-    async function saveUserSettings() {
-        const user = await auth0Client.getUser();
-        if (!user) {
-            showToast('⚠️ Please log in to save settings to the cloud.');
-            const settings = buildSettingsObjectWithoutId();
-            localStorage.setItem('arbi_settings', JSON.stringify(settings));
-            filterOpportunities();
-            return;
-        }
-
+    function saveUserSettings() {
         const settings = buildSettingsObjectWithoutId();
-        settings.user_id = user.sub;
-
-        try {
-            const res = await fetch(`${CLOUDFLARE_URL}/api/save-settings`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings)
-            });
-            const result = await res.json();
-            if(result.status === 'success') {
-                showToast('✅ Settings Saved to Cloud!');
-                filterOpportunities();
-            }
-        } catch (e) {
-            localStorage.setItem('arbi_settings', JSON.stringify(settings));
-            showToast('✅ Saved Locally (Cloud offline)');
-            filterOpportunities();
-        }
+        localStorage.setItem('arbi_settings', JSON.stringify(settings));
+        showToast('✅ Settings Saved Locally!');
+        filterOpportunities();
     }
 
     function buildSettingsObjectWithoutId() {
@@ -483,9 +405,12 @@
             plan: 'free'
         };
     }
-    // =======================================================
 
-    // FIXED: Fetch correct backend files from the NEW scraper
+    function redirectToPayment() {
+        showToast('🔒 Login system removed for this test. Future update incoming.');
+    }
+
+    // ========== DATA FETCHING ==========
     async function loadFromLuxuryBackend() {
         try {
             const [oppsRes, histRes] = await Promise.all([
@@ -502,7 +427,6 @@
                 allHistory = await histRes.json();
             }
 
-            // Merge history data with current opportunities
             opportunitiesData = currentOpps.map(o => {
                 const key = `${o.sport || 'Football'}::${o.type || '3-way'}::${o.match}`;
                 const histEntry = allHistory[key] || {};
@@ -533,17 +457,15 @@
                 };
             });
             
-            // Load Settings into UI
-            const saved = localStorage.getItem('arbi_settings');
-            if (saved) applySettingsToUI(JSON.parse(saved));
-
             renderOpportunities();
             renderAlerts();
             renderHistory(); 
         } catch (e) {
             console.error('LOAD ERROR:', e);
-            document.getElementById('oppList').innerHTML =
-                `<div class="empty-state">❌ Error loading backend data.<br>Ensure your scraper has run and generated <code>current_opportunities.json</code> and <code>arb_history.json</code>.<br><br>Error: ${e.message}</div>`;
+            const container = document.getElementById('oppList');
+            if (container) {
+                container.innerHTML = `<div class="empty-state">⚠️ Network error or JSON missing.<br>Check your scraper.</div>`;
+            }
         }
     }
 
@@ -568,59 +490,79 @@
     }
 
     function renderOpportunities(filter = 'all') {
-        // Use the NEW settings system
-        const saved = localStorage.getItem('arbi_settings');
-        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
-        const minProfit = settings.minProfit || 1.0;
-        const maxProfit = settings.maxProfit || 99.0;
-        const markets = settings.markets;
+        try {
+            let settings = getDefaultSettings();
+            const saved = localStorage.getItem('arbi_settings');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    settings = { ...settings, ...parsed };
+                } catch (e) {
+                    localStorage.removeItem('arbi_settings');
+                }
+            }
 
-        let filtered = opportunitiesData.filter(a => {
-            // Profit checks
-            if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
-            // Market Type checks
-            const type = a.type || '3-way';
-            if (type.includes('1x2') && !markets['1x2']) return false;
-            if (type.includes('Over/Under') && !markets['ou']) return false;
-            if (type.includes('Asian Handicap') && !markets['ah']) return false;
-            if (type.includes('BTTS') && !markets['btts']) return false;
-            // Category tabs
-            if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
-            if (filter === 'high' && a.profitPercent <= 5) return false;
-            return true;
-        });
+            const minProfit = settings.minProfit || 1.0;
+            const maxProfit = settings.maxProfit || 99.0;
+            const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
+            const container = document.getElementById('oppList');
+            if (!container) return;
 
-        const container = document.getElementById('oppList');
-        if (filtered.length === 0) {
-            container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
-            return;
-        }
-        container.innerHTML = filtered.map(arb => {
-            const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
-            return `
-            <div class="opp-card" onclick='handleCardClick(${arbStr})'>
-                <div class="top-row">
-                    <div class="event-info">
-                        <div class="sport-badge">⚽ ${arb.sport}</div>
-                        <div class="event-name">${arb.match}</div>
-                        <div class="market-type">${arb.type} · Pre-match</div>
+            if (!opportunitiesData || opportunitiesData.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+                return;
+            }
+
+            let filtered = opportunitiesData.filter(a => {
+                if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
+                const type = a.type || '3-way';
+                if (type.includes('1x2') && !markets['1x2']) return false;
+                if (type.includes('Over/Under') && !markets['ou']) return false;
+                if (type.includes('Asian Handicap') && !markets['ah']) return false;
+                if (type.includes('BTTS') && !markets['btts']) return false;
+                if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
+                if (filter === 'high' && a.profitPercent <= 5) return false;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(arb => {
+                const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+                return `
+                <div class="opp-card" onclick='handleCardClick(${arbStr})'>
+                    <div class="top-row">
+                        <div class="event-info">
+                            <div class="sport-badge">⚽ ${arb.sport}</div>
+                            <div class="event-name">${arb.match}</div>
+                            <div class="market-type">${arb.type} · Pre-match</div>
+                        </div>
+                        <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
                     </div>
-                    <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
-                </div>
-                <div class="bookie-row">
-                    ${arb.bets.map(b => `
-                        <span class="bookie-tag">
-                            <span class="bookie-dot" style="background:${getBookieColor(b.bookie)}">${b.bookie.charAt(0)}</span>
-                            ${b.bookie} ${b.outcome} @ ${b.odds}
-                        </span>
-                    `).join('')}
-                </div>
-                <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
-                <div class="arb-meta">
-                    ${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}
-                </div>
-            </div>`;
-        }).join('');
+                    <div class="bookie-row">
+                        ${arb.bets.map(b => `
+                            <span class="bookie-tag">
+                                <span class="bookie-dot" style="background:${getBookieColor(b.bookie)}">${b.bookie.charAt(0)}</span>
+                                ${b.bookie} ${b.outcome} @ ${b.odds}
+                            </span>
+                        `).join('')}
+                    </div>
+                    <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
+                    <div class="arb-meta">
+                        ${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}
+                    </div>
+                </div>`;
+            }).join('');
+        } catch (error) {
+            console.error("Render error:", error);
+            const container = document.getElementById('oppList');
+            if (container) {
+                container.innerHTML = '<div class="empty-state"><p>⚠️ Error displaying opportunities. Refresh the page.</p></div>';
+            }
+        }
     }
 
     function handleCardClick(arb) {
@@ -698,7 +640,6 @@
     function updateDetailCalc() {
         if (!currentDetailArb) return;
         const arb = currentDetailArb;
-        // Use the saved default stake from settings
         const saved = localStorage.getItem('arbi_settings');
         const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.defaultStake || 100000;
@@ -931,10 +872,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        loadUserSettings();
         loadFromLuxuryBackend();
         updateCalculator();
         renderSlip();
     });
 </script>
 </body>
-    </html>
+                                    </html>
