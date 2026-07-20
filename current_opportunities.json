@@ -3,31 +3,31 @@
     "match": "turun palloseura vs tampereen ilves",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.81,
-    "profit_ugx": 3813,
+    "profit_percent": 3.65,
+    "profit_ugx": 3651,
     "total_stake": 100000,
-    "arb_sum": 0.9619,
+    "arb_sum": 0.9635,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 2.49,
-        "stake": 41753,
-        "win": 103965
+        "odd": 2.48,
+        "stake": 41851,
+        "win": 103790
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 28879,
-        "win": 103964
+        "stake": 28830,
+        "win": 103788
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.54,
-        "stake": 29368,
-        "win": 103963
+        "stake": 29319,
+        "win": 103789
       }
     ],
     "market_type": "1x2",
@@ -139,31 +139,31 @@
     "match": "kalighat lovers vs utd",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 49.33,
-    "profit_ugx": 49328,
+    "profit_percent": 49.78,
+    "profit_ugx": 49781,
     "total_stake": 100000,
-    "arb_sum": 0.5067,
+    "arb_sum": 0.5022,
     "bets": [
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 9.2,
-        "stake": 21451,
-        "win": 197349
+        "odd": 9.6,
+        "stake": 20743,
+        "win": 199133
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 5.0,
-        "stake": 39470,
-        "win": 197350
+        "stake": 39826,
+        "win": 199130
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 5.05,
-        "stake": 39079,
-        "win": 197349
+        "stake": 39432,
+        "win": 199132
       }
     ],
     "market_type": "1x2",
@@ -604,6 +604,60 @@
         "odd": 3.21,
         "stake": 34167,
         "win": 109676
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kalighat lovers vs utd sc",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 19.64,
+    "profit_ugx": 19637,
+    "total_stake": 100000,
+    "arb_sum": 0.8036,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 37938,
+        "win": 124437
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.005,
+        "stake": 62062,
+        "win": 124434
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kalighat lovers vs utd sc",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 19.64,
+    "profit_ugx": 19637,
+    "total_stake": 100000,
+    "arb_sum": 0.8036,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 37938,
+        "win": 124437
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.005,
+        "stake": 62062,
+        "win": 124434
       }
     ],
     "market_type": "1x2",
