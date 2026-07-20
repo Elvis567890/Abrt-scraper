@@ -139,31 +139,31 @@
     "match": "fenerbahce istanbul vs gornik zabrze",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.93,
-    "profit_ugx": 932,
+    "profit_percent": 0.9,
+    "profit_ugx": 900,
     "total_stake": 100000,
-    "arb_sum": 0.9907,
+    "arb_sum": 0.991,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.185,
-        "stake": 85182,
-        "win": 100941
+        "stake": 85154,
+        "win": 100907
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 13.5,
-        "stake": 7477,
-        "win": 100940
+        "stake": 7475,
+        "win": 100912
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 13.75,
-        "stake": 7341,
-        "win": 100939
+        "odd": 13.69,
+        "stake": 7371,
+        "win": 100909
       }
     ],
     "market_type": "1x2",
@@ -726,6 +726,60 @@
         "odd": 2.468,
         "stake": 45009,
         "win": 111082
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "cumberland utd vs heidelberg utd",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 16.66,
+    "profit_ugx": 16662,
+    "total_stake": 100000,
+    "arb_sum": 0.8334,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.25,
+        "stake": 28234,
+        "win": 119994
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.672,
+        "stake": 71766,
+        "win": 119993
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "cumberland utd vs heidelberg utd",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 16.66,
+    "profit_ugx": 16662,
+    "total_stake": 100000,
+    "arb_sum": 0.8334,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.25,
+        "stake": 28234,
+        "win": 119994
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.672,
+        "stake": 71766,
+        "win": 119993
       }
     ],
     "market_type": "1x2",
