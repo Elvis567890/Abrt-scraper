@@ -339,9 +339,12 @@
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
-    // ========== AUTH0 LOGIN ==========
+    // ========== AUTH0 PROFESSIONAL LOGIN ==========
+    const CLOUDFLARE_URL = "https://arbimax-backend.hkltfsmjgkfde.workers.dev";
+
     let auth0Client;
 
+    // Initialize Auth0 on page load
     window.onload = async () => {
         auth0Client = await auth0.createAuth0Client({
             domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
@@ -352,20 +355,17 @@
             logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' }
         });
 
-        // Handle errors if they occur during Auth0 redirect
         if (location.search.includes("error=")) {
             const params = new URLSearchParams(location.search);
             showToast(`Error: ${params.get("error")} — ${params.get("error_description")}`);
             history.replaceState({}, "", location.pathname);
         }
 
-        // Handle the redirect callback after a successful login
         if (location.search.includes("code=") && location.search.includes("state=")) {
             await auth0Client.handleRedirectCallback();
             history.replaceState({}, "", location.pathname);
         }
 
-        // Update UI based on login state
         if (await auth0Client.isAuthenticated()) {
             const user = await auth0Client.getUser();
             document.getElementById('authStateDisplay').innerHTML = `✅ Logged in as: ${user.email}`;
@@ -400,25 +400,20 @@
         };
     }
 
-    // ========== WORKING LOCALSTORAGE BACKEND ==========
-    function loadUserSettings(userId) {
-        const saved = localStorage.getItem('arbi_settings');
-        if (saved) {
-            try {
-                applySettingsToUI(JSON.parse(saved));
-                return;
-            } catch (e) { /* ignore */ }
+    // ========== CRASH-PROOF SETTINGS LOADER ==========
+    async function loadUserSettings(userId) {
+        try {
+            // Try to fetch from Cloudflare
+            const res = await fetch(`${CLOUDFLARE_URL}/api/get-settings/${userId}`);
+            if (!res.ok) throw new Error("Cloudflare unavailable");
+            const data = await res.json();
+            applySettingsToUI(data);
+        } catch (e) {
+            // If Cloudflare fails, fallback to LocalStorage WITHOUT crashing the app
+            const saved = localStorage.getItem('arbi_settings');
+            applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
         }
-        applySettingsToUI(getDefaultSettings());
     }
-
-    async function saveUserSettings() {
-        const settings = buildSettingsObjectWithoutId();
-        localStorage.setItem('arbi_settings', JSON.stringify(settings));
-        showToast('✅ Settings Saved Locally!');
-        filterOpportunities();
-    }
-    // =======================================================
 
     function applySettingsToUI(settings) {
         document.getElementById('displayPlan').textContent = settings.plan === 'vip' ? 'VIP Active' : 'Free Trial';
@@ -439,6 +434,37 @@
             document.documentElement.style.setProperty('--bg', '#0d0f13');
         } else {
             document.documentElement.style.setProperty('--bg', '#ffffff');
+        }
+    }
+
+    async function saveUserSettings() {
+        const user = await auth0Client.getUser();
+        if (!user) {
+            showToast('⚠️ Please log in to save settings to the cloud.');
+            const settings = buildSettingsObjectWithoutId();
+            localStorage.setItem('arbi_settings', JSON.stringify(settings));
+            filterOpportunities();
+            return;
+        }
+
+        const settings = buildSettingsObjectWithoutId();
+        settings.user_id = user.sub;
+
+        try {
+            const res = await fetch(`${CLOUDFLARE_URL}/api/save-settings`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings)
+            });
+            const result = await res.json();
+            if(result.status === 'success') {
+                showToast('✅ Settings Saved to Cloud!');
+                filterOpportunities();
+            }
+        } catch (e) {
+            localStorage.setItem('arbi_settings', JSON.stringify(settings));
+            showToast('✅ Saved Locally (Cloud offline)');
+            filterOpportunities();
         }
     }
 
@@ -471,8 +497,9 @@
             window.location.href = flutterwaveLink;
         }).catch(e => showToast('❌ Error: Please log in again.'));
     }
+    // =======================================================
 
-    // ========== DATA FETCHING (UNTOUCHED) ==========
+    // ========== CRASH-PROOF DATA FETCHER ==========
     async function loadFromLuxuryBackend() {
         try {
             const [oppsRes, histRes] = await Promise.all([
@@ -525,7 +552,86 @@
         } catch (e) {
             console.error('LOAD ERROR:', e);
             document.getElementById('oppList').innerHTML =
-                `<div class="empty-state">❌ Error loading backend data.<br>Ensure your scraper has run and generated <code>current_opportunities.json</code> and <code>arb_history.json</code>.<br><br>Error: ${e.message}</div>`;
+                `<div class="empty-state">⚠️ Network error or JSON missing.<br>Ensure your scraper has run.</div>`;
+        }
+    }
+
+    // ========== CRASH-PROOF RENDERER ==========
+    function renderOpportunities(filter = 'all') {
+        try {
+            let settings = getDefaultSettings();
+            const saved = localStorage.getItem('arbi_settings');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    settings = { ...settings, ...parsed };
+                } catch (e) {
+                    // If corrupted, delete the bad data so it doesn't crash next time
+                    localStorage.removeItem('arbi_settings');
+                }
+            }
+
+            const minProfit = settings.minProfit || 1.0;
+            const maxProfit = settings.maxProfit || 99.0;
+            const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
+
+            const container = document.getElementById('oppList');
+            if (!container) return;
+
+            if (!opportunitiesData || opportunitiesData.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+                return;
+            }
+
+            let filtered = opportunitiesData.filter(a => {
+                if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
+                const type = a.type || '3-way';
+                if (type.includes('1x2') && !markets['1x2']) return false;
+                if (type.includes('Over/Under') && !markets['ou']) return false;
+                if (type.includes('Asian Handicap') && !markets['ah']) return false;
+                if (type.includes('BTTS') && !markets['btts']) return false;
+                if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
+                if (filter === 'high' && a.profitPercent <= 5) return false;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(arb => {
+                const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+                return `
+                <div class="opp-card" onclick='handleCardClick(${arbStr})'>
+                    <div class="top-row">
+                        <div class="event-info">
+                            <div class="sport-badge">⚽ ${arb.sport}</div>
+                            <div class="event-name">${arb.match}</div>
+                            <div class="market-type">${arb.type} · Pre-match</div>
+                        </div>
+                        <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
+                    </div>
+                    <div class="bookie-row">
+                        ${arb.bets.map(b => `
+                            <span class="bookie-tag">
+                                <span class="bookie-dot" style="background:${getBookieColor(b.bookie)}">${b.bookie.charAt(0)}</span>
+                                ${b.bookie} ${b.outcome} @ ${b.odds}
+                            </span>
+                        `).join('')}
+                    </div>
+                    <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
+                    <div class="arb-meta">
+                        ${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}
+                    </div>
+                </div>`;
+            }).join('');
+        } catch (error) {
+            console.error("Render error:", error);
+            const container = document.getElementById('oppList');
+            if (container) {
+                container.innerHTML = '<div class="empty-state"><p>⚠️ Error displaying opportunities. Refresh the page.</p></div>';
+            }
         }
     }
 
@@ -547,59 +653,6 @@
             const fab = document.querySelector('.fab');
             if (fab) fab.style.display = pageName === 'dashboard' ? 'flex' : 'none';
         }
-    }
-
-    // ========== RENDER LOGIC (UNTOUCHED) ==========
-    function renderOpportunities(filter = 'all') {
-        const saved = localStorage.getItem('arbi_settings');
-        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
-        const minProfit = settings.minProfit || 1.0;
-        const maxProfit = settings.maxProfit || 99.0;
-        const markets = settings.markets;
-
-        let filtered = opportunitiesData.filter(a => {
-            if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
-            const type = a.type || '3-way';
-            if (type.includes('1x2') && !markets['1x2']) return false;
-            if (type.includes('Over/Under') && !markets['ou']) return false;
-            if (type.includes('Asian Handicap') && !markets['ah']) return false;
-            if (type.includes('BTTS') && !markets['btts']) return false;
-            if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
-            if (filter === 'high' && a.profitPercent <= 5) return false;
-            return true;
-        });
-
-        const container = document.getElementById('oppList');
-        if (filtered.length === 0) {
-            container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
-            return;
-        }
-        container.innerHTML = filtered.map(arb => {
-            const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
-            return `
-            <div class="opp-card" onclick='handleCardClick(${arbStr})'>
-                <div class="top-row">
-                    <div class="event-info">
-                        <div class="sport-badge">⚽ ${arb.sport}</div>
-                        <div class="event-name">${arb.match}</div>
-                        <div class="market-type">${arb.type} · Pre-match</div>
-                    </div>
-                    <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
-                </div>
-                <div class="bookie-row">
-                    ${arb.bets.map(b => `
-                        <span class="bookie-tag">
-                            <span class="bookie-dot" style="background:${getBookieColor(b.bookie)}">${b.bookie.charAt(0)}</span>
-                            ${b.bookie} ${b.outcome} @ ${b.odds}
-                        </span>
-                    `).join('')}
-                </div>
-                <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
-                <div class="arb-meta">
-                    ${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}
-                </div>
-            </div>`;
-        }).join('');
     }
 
     function handleCardClick(arb) {
