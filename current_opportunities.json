@@ -306,27 +306,34 @@
     "market_specifier": ""
   },
   {
-    "match": "mariehamn vs lahti",
+    "match": "tianjin shengde w vs fujian nanan w",
     "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 6.61,
-    "profit_ugx": 6610,
+    "type": "3-way",
+    "profit_percent": 0.84,
+    "profit_ugx": 837,
     "total_stake": 100000,
-    "arb_sum": 0.9339,
+    "arb_sum": 0.9916,
     "bets": [
       {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.31,
-        "stake": 46354,
-        "win": 107078
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.17,
+        "stake": 31812,
+        "win": 100844
       },
       {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.996,
-        "stake": 53646,
-        "win": 107077
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 2.88,
+        "stake": 35015,
+        "win": 100843
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.04,
+        "stake": 33172,
+        "win": 100843
       }
     ],
     "market_type": "1x2",
@@ -336,24 +343,51 @@
     "match": "mariehamn vs lahti",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 6.61,
-    "profit_ugx": 6610,
+    "profit_percent": 6.63,
+    "profit_ugx": 6635,
     "total_stake": 100000,
-    "arb_sum": 0.9339,
+    "arb_sum": 0.9337,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.31,
+        "stake": 46366,
+        "win": 107105
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.997,
+        "stake": 53634,
+        "win": 107107
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mariehamn vs lahti",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.63,
+    "profit_ugx": 6635,
+    "total_stake": 100000,
+    "arb_sum": 0.9337,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 2.31,
-        "stake": 46354,
-        "win": 107078
+        "stake": 46366,
+        "win": 107105
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.996,
-        "stake": 53646,
-        "win": 107077
+        "odd": 1.997,
+        "stake": 53634,
+        "win": 107107
       }
     ],
     "market_type": "1x2",
