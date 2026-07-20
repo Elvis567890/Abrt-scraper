@@ -14,7 +14,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'  # Upgraded to Node 22 to stop deprecation warnings
+          node-version: '22'
+
+      # THIS STEP WILL DIRECTLY TELL US IF YOUR TOKEN IS VALID
+      - name: Verify Token
+        run: |
+          echo "Testing your API Token directly..."
+          curl -X GET "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/workers/services" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json"
+        continue-on-error: false
 
       - name: Install and Deploy Wrangler
         run: |
