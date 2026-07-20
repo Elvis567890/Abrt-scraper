@@ -1,5 +1,39 @@
 [
   {
+    "match": "botev plovdiv vs lokomotiv 1929 sofia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.36,
+    "profit_ugx": 1355,
+    "total_stake": 100000,
+    "arb_sum": 0.9864,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.79,
+        "stake": 56633,
+        "win": 101373
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.39,
+        "stake": 23092,
+        "win": 101374
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.0,
+        "stake": 20275,
+        "win": 101375
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fh hafnarfjordur vs breidablik",
     "sport": "Football",
     "type": "3-way",
@@ -34,34 +68,34 @@
     "market_specifier": ""
   },
   {
-    "match": "mjallby aif vs lincoln red imps",
+    "match": "coritiba pr vs internacional rs",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.73,
-    "profit_ugx": 727,
+    "profit_percent": 49.61,
+    "profit_ugx": 49613,
     "total_stake": 100000,
-    "arb_sum": 0.9927,
+    "arb_sum": 0.5039,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Home",
-        "odd": 1.12,
-        "stake": 89940,
-        "win": 100733
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Draw",
-        "odd": 19.5,
-        "stake": 5166,
-        "win": 100737
+        "odd": 9.0,
+        "stake": 22051,
+        "win": 198459
       },
       {
         "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 4.9,
+        "stake": 40503,
+        "win": 198465
+      },
+      {
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 20.58,
-        "stake": 4895,
-        "win": 100739
+        "odd": 5.3,
+        "stake": 37446,
+        "win": 198464
       }
     ],
     "market_type": "1x2",
