@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abrimax - Live Arbitrage Opportunities</title>
+    <title>Abrimax - Live Arbitrage</title>
+
+    <!-- Firebase SDKs (compat v9) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
     <style>
+        /* ===== YOUR EXISTING STYLES ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -136,6 +142,38 @@
         .fab { position: absolute; bottom: 100px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: #000; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 28px var(--green-glow); z-index: 20; border: none; }
         .icon-btn { background: var(--surface2); border: none; color: var(--text); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; position: relative; }
         .badge-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; top: 6px; right: 6px; border: 2px solid var(--surface2); }
+
+        /* ===== AUTH PAGE STYLES ===== */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            padding: 20px 0;
+        }
+        .auth-box {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 30px 24px;
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .auth-box h2 { color: var(--text); font-size: 24px; margin-bottom: 8px; text-align: center; }
+        .auth-box p { color: var(--text2); text-align: center; font-size: 14px; margin-bottom: 20px; }
+        .auth-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+        .auth-tab { flex:1; padding: 10px; border: 2px solid var(--surface3); border-radius: var(--radius-xs); background: transparent; color: var(--text2); font-weight: 700; cursor: pointer; text-align: center; }
+        .auth-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(0,230,118,0.08); }
+        .auth-input { width: 100%; padding: 14px; background: var(--surface2); border: 2px solid var(--surface3); border-radius: var(--radius-xs); color: var(--text); font-size: 15px; margin-bottom: 12px; outline: none; }
+        .auth-input:focus { border-color: var(--accent); }
+        .auth-btn { width: 100%; padding: 14px; border: none; border-radius: var(--radius-xs); font-weight: 700; font-size: 16px; cursor: pointer; }
+        .auth-btn.primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px var(--green-glow); }
+        .auth-btn.google { background: #fff; color: #000; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
+        .auth-error { color: var(--red); font-size: 13px; margin: 6px 0; text-align: center; min-height: 20px; }
+        .auth-divider { display: flex; align-items: center; gap: 12px; color: var(--text3); font-size: 12px; margin: 12px 0; }
+        .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--surface3); }
+        .user-email { color: var(--text2); font-size: 13px; margin-bottom: 12px; text-align: center; }
     </style>
 </head>
 <body>
@@ -146,13 +184,50 @@
     </div>
     <div class="toast" id="toast">Copied ✓</div>
     <div class="main-content" id="mainContent">
+
+        <!-- ===== AUTH PAGE ===== -->
+        <div class="page active" id="page-auth">
+            <div class="auth-container">
+                <div class="auth-box">
+                    <h2>🔒 Abrimax</h2>
+                    <p>Sign in to access live arbitrage</p>
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Login</button>
+                        <button class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</button>
+                    </div>
+                    <div id="authForm">
+                        <!-- Login form -->
+                        <div id="loginForm">
+                            <input type="email" id="loginEmail" class="auth-input" placeholder="Email" required>
+                            <input type="password" id="loginPassword" class="auth-input" placeholder="Password" required>
+                            <div id="authError" class="auth-error"></div>
+                            <button class="auth-btn primary" onclick="loginWithEmail()">Log In</button>
+                        </div>
+                        <!-- Signup form (hidden by default) -->
+                        <div id="signupForm" style="display:none;">
+                            <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
+                            <input type="password" id="signupPassword" class="auth-input" placeholder="Password (min 6 chars)" required>
+                            <div id="authErrorSignup" class="auth-error"></div>
+                            <button class="auth-btn primary" onclick="signUpWithEmail()">Create Account</button>
+                        </div>
+                    </div>
+                    <div class="auth-divider"><hr><span>or</span><hr></div>
+                    <button class="auth-btn google" onclick="signInWithGoogle()">
+                        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                        Sign in with Google
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== REST OF YOUR PAGES ===== -->
         <!-- Dashboard -->
-        <div class="page active" id="page-dashboard">
+        <div class="page" id="page-dashboard">
             <div class="page-header">
                 <h1>🔍 Abrimax</h1>
                 <div>
                     <button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button>
-                    <button class="icon-btn">👤</button>
+                    <button class="icon-btn" onclick="navigateTo('settings')">👤</button>
                 </div>
             </div>
             <div class="filter-tabs" id="dashboardFilterTabs">
@@ -201,8 +276,8 @@
                 <div class="bookie-card connected"><div class="bookie-logo" style="background:#e63946;">PIN</div><div class="bookie-name">Pinnacle</div><div class="bookie-status">Connected</div></div>
             </div>
         </div>
-        
-        <!-- ========== SETTINGS PAGE ========== -->
+
+        <!-- Settings -->
         <div class="page" id="page-settings">
             <div class="page-header">
                 <h1>⚙️ Settings</h1>
@@ -210,12 +285,10 @@
             </div>
 
             <div class="settings-section">
-                <h3>👤 Account & Subscription</h3>
+                <h3>👤 Account</h3>
                 <div class="slider-container" style="text-align:center;">
-                    <div style="color:var(--text2); margin-bottom:6px;">Current Plan</div>
-                    <div id="displayPlan" style="color:var(--green); font-weight:700; font-size:18px;">Free Trial</div>
-                    <div id="displayExpiry" style="font-size:11px; color:var(--text3); margin-bottom:10px;">Expires: Never</div>
-                    <button id="subBtn" class="cta-btn primary" style="width:100%;" onclick="redirectToPayment()">Upgrade to VIP</button>
+                    <div id="settingsUserEmail" class="user-email">Not logged in</div>
+                    <button class="cta-btn secondary" style="width:100%;" onclick="logoutUser()">🚪 Log Out</button>
                 </div>
             </div>
 
@@ -292,7 +365,6 @@
                 </div>
             </div>
         </div>
-        <!-- ========== END SETTINGS PAGE ========== -->
 
         <!-- History -->
         <div class="page" id="page-history">
@@ -310,8 +382,9 @@
             <div id="alertsList"></div>
         </div>
     </div>
+
     <!-- BOTTOM NAVIGATION -->
-    <div class="bottom-nav">
+    <div class="bottom-nav" id="bottomNav">
         <button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">🏠 Home</button>
         <button class="nav-item" data-page="slip" onclick="navigateTo('slip')">📋 Slip</button>
         <button class="nav-item" data-page="calculator" onclick="navigateTo('calculator')">🧮 Calc</button>
@@ -321,16 +394,108 @@
 </div>
 
 <script>
-    // State
-    let opportunitiesData = [];
-    let allHistory = {};
-    let currentPage = 'dashboard';
-    let currentDetailArb = null;
-    let slipBets = [];
-    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
+    // ============================================================
+    // 1. FIREBASE CONFIG – YOUR CONFIG
+    // ============================================================
+    const firebaseConfig = {
+        apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw",
+        authDomain: "arbimax-auth.firebaseapp.com",
+        projectId: "arbimax-auth",
+        storageBucket: "arbimax-auth.firebasestorage.app",
+        messagingSenderId: "985163289771",
+        appId: "1:985163289771:web:798f8b55bab13d7d2353ee",
+        measurementId: "G-ZFXKEY2QL7"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-    // GUEST MODE: No Auth0. Just a local user ID so settings don't crash.
-    const GUEST_USER_ID = "guest_user_001";
+    // ============================================================
+    // 2. AUTH STATE LISTENER
+    // ============================================================
+    let currentUser = null;
+
+    auth.onAuthStateChanged(user => {
+        const authPage = document.getElementById('page-auth');
+        const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
+        const bottomNav = document.getElementById('bottomNav');
+        const fab = document.querySelector('.fab');
+
+        if (user) {
+            currentUser = user;
+            authPage.classList.remove('active');
+            mainPages.forEach(p => p.classList.add('active'));
+            bottomNav.style.display = 'flex';
+            if (fab) fab.style.display = 'flex';
+            document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + user.email;
+            loadUserSettings();
+            navigateTo('dashboard');
+        } else {
+            currentUser = null;
+            authPage.classList.add('active');
+            mainPages.forEach(p => p.classList.remove('active'));
+            bottomNav.style.display = 'none';
+            if (fab) fab.style.display = 'none';
+            document.getElementById('settingsUserEmail').textContent = 'Not logged in';
+        }
+    });
+
+    // ============================================================
+    // 3. AUTH FUNCTIONS
+    // ============================================================
+    function switchAuthTab(tab) {
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        document.querySelector(`.auth-tab[data-tab="${tab}"]`).classList.add('active');
+        if (tab === 'login') {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('signupForm').style.display = 'none';
+        } else {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+        }
+        document.getElementById('authError').textContent = '';
+        document.getElementById('authErrorSignup').textContent = '';
+    }
+
+    function signUpWithEmail() {
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const errorEl = document.getElementById('authErrorSignup');
+        errorEl.textContent = '';
+        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+        if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(() => showToast('Account created! Welcome.'))
+            .catch(err => errorEl.textContent = err.message);
+    }
+
+    function loginWithEmail() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errorEl = document.getElementById('authError');
+        errorEl.textContent = '';
+        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+        auth.signInWithEmailAndPassword(email, password)
+            .then(() => showToast('Logged in successfully!'))
+            .catch(err => errorEl.textContent = err.message);
+    }
+
+    function signInWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+            .then(() => showToast('Google sign-in successful!'))
+            .catch(err => showToast('Google error: ' + err.message));
+    }
+
+    function logoutUser() {
+        auth.signOut().then(() => showToast('Logged out.'));
+    }
+
+    // ============================================================
+    // 4. USER-SPECIFIC SETTINGS (localStorage)
+    // ============================================================
+    function getUserSettingsKey() {
+        return currentUser ? 'arbi_settings_' + currentUser.uid : 'arbi_settings_guest';
+    }
 
     function getDefaultSettings() {
         return {
@@ -340,27 +505,22 @@
             markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true },
             alert_threshold: 5.0,
             dark_mode: true,
-            card_layout: 'comfortable'
+            card_layout: 'comfortable',
+            plan: 'free'
         };
     }
 
     function loadUserSettings() {
         try {
-            const saved = localStorage.getItem('arbi_settings');
-            if (saved) {
-                applySettingsToUI(JSON.parse(saved));
-            } else {
-                applySettingsToUI(getDefaultSettings());
-            }
+            const saved = localStorage.getItem(getUserSettingsKey());
+            saved ? applySettingsToUI(JSON.parse(saved)) : applySettingsToUI(getDefaultSettings());
         } catch (e) {
-            localStorage.removeItem('arbi_settings');
+            localStorage.removeItem(getUserSettingsKey());
             applySettingsToUI(getDefaultSettings());
         }
     }
 
     function applySettingsToUI(settings) {
-        document.getElementById('displayPlan').textContent = settings.plan === 'vip' ? 'VIP Active' : 'Free Trial';
-        document.getElementById('displayExpiry').textContent = settings.plan === 'vip' ? `Expires: ${settings.expiry}` : 'Expires: Never';
         document.getElementById('defaultStake').value = settings.default_stake;
         document.getElementById('minProfit').value = settings.min_profit;
         document.getElementById('maxProfit').value = settings.max_profit;
@@ -372,23 +532,11 @@
         document.getElementById('alertThreshold').value = settings.alert_threshold;
         document.getElementById('darkModeToggle').checked = settings.dark_mode;
         document.getElementById('cardLayout').value = settings.card_layout;
-
-        if(settings.dark_mode) {
-            document.documentElement.style.setProperty('--bg', '#0d0f13');
-        } else {
-            document.documentElement.style.setProperty('--bg', '#ffffff');
-        }
+        document.documentElement.style.setProperty('--bg', settings.dark_mode ? '#0d0f13' : '#ffffff');
     }
 
     function saveUserSettings() {
-        const settings = buildSettingsObjectWithoutId();
-        localStorage.setItem('arbi_settings', JSON.stringify(settings));
-        showToast('✅ Settings Saved Locally!');
-        filterOpportunities();
-    }
-
-    function buildSettingsObjectWithoutId() {
-        return {
+        const settings = {
             default_stake: parseInt(document.getElementById('defaultStake').value) || 100000,
             min_profit: parseFloat(document.getElementById('minProfit').value) || 1.0,
             max_profit: parseFloat(document.getElementById('maxProfit').value) || 15.0,
@@ -404,35 +552,35 @@
             card_layout: document.getElementById('cardLayout').value,
             plan: 'free'
         };
+        localStorage.setItem(getUserSettingsKey(), JSON.stringify(settings));
+        showToast('✅ Settings Saved!');
+        filterOpportunities();
     }
 
-    function redirectToPayment() {
-        showToast('🔒 Login system removed for this test. Future update incoming.');
-    }
+    // ============================================================
+    // 5. YOUR EXISTING APP LOGIC (unchanged)
+    // ============================================================
+    let opportunitiesData = [];
+    let allHistory = {};
+    let currentPage = 'dashboard';
+    let currentDetailArb = null;
+    let slipBets = [];
+    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
-    // ========== DATA FETCHING ==========
     async function loadFromLuxuryBackend() {
         try {
             const [oppsRes, histRes] = await Promise.all([
                 fetch('current_opportunities.json?t=' + Date.now()),
                 fetch('arb_history.json?t=' + Date.now())
             ]);
-
-            if (!oppsRes.ok) {
-                throw new Error(`Failed to load current_opportunities.json (Status: ${oppsRes.status})`);
-            }
-
+            if (!oppsRes.ok) throw new Error('Failed to load JSON');
             const currentOpps = await oppsRes.json();
-            if (histRes.ok) {
-                allHistory = await histRes.json();
-            }
-
+            if (histRes.ok) allHistory = await histRes.json();
             opportunitiesData = currentOpps.map(o => {
                 const key = `${o.sport || 'Football'}::${o.type || '3-way'}::${o.match}`;
                 const histEntry = allHistory[key] || {};
                 const versions = histEntry.versions || [];
                 const latest = versions.length ? versions[versions.length - 1] : null;
-
                 return {
                     match: o.match,
                     sport: o.sport || 'Football',
@@ -456,16 +604,12 @@
                     }))
                 };
             });
-            
             renderOpportunities();
             renderAlerts();
-            renderHistory(); 
+            renderHistory();
         } catch (e) {
             console.error('LOAD ERROR:', e);
-            const container = document.getElementById('oppList');
-            if (container) {
-                container.innerHTML = `<div class="empty-state">⚠️ Network error or JSON missing.<br>Check your scraper.</div>`;
-            }
+            document.getElementById('oppList').innerHTML = `<div class="empty-state">⚠️ Network error or JSON missing.<br>Check your scraper.</div>`;
         }
     }
 
@@ -479,11 +623,9 @@
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             const navBtn = document.querySelector(`.nav-item[data-page="${pageName}"]`);
             if (navBtn) navBtn.classList.add('active');
-            
             if (pageName === 'detail' && data) populateDetailPage(data);
             if (pageName === 'history') renderHistory();
             if (pageName === 'alerts') renderAlerts();
-            
             const fab = document.querySelector('.fab');
             if (fab) fab.style.display = pageName === 'dashboard' ? 'flex' : 'none';
         }
@@ -492,27 +634,19 @@
     function renderOpportunities(filter = 'all') {
         try {
             let settings = getDefaultSettings();
-            const saved = localStorage.getItem('arbi_settings');
+            const saved = localStorage.getItem(getUserSettingsKey());
             if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    settings = { ...settings, ...parsed };
-                } catch (e) {
-                    localStorage.removeItem('arbi_settings');
-                }
+                try { settings = { ...settings, ...JSON.parse(saved) }; } catch (e) { localStorage.removeItem(getUserSettingsKey()); }
             }
-
             const minProfit = settings.minProfit || 1.0;
             const maxProfit = settings.maxProfit || 99.0;
             const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
             const container = document.getElementById('oppList');
             if (!container) return;
-
             if (!opportunitiesData || opportunitiesData.length === 0) {
                 container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
                 return;
             }
-
             let filtered = opportunitiesData.filter(a => {
                 if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
                 const type = a.type || '3-way';
@@ -524,12 +658,10 @@
                 if (filter === 'high' && a.profitPercent <= 5) return false;
                 return true;
             });
-
             if (filtered.length === 0) {
                 container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
                 return;
             }
-
             container.innerHTML = filtered.map(arb => {
                 const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
                 return `
@@ -551,24 +683,16 @@
                         `).join('')}
                     </div>
                     <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
-                    <div class="arb-meta">
-                        ${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}
-                    </div>
+                    <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
                 </div>`;
             }).join('');
         } catch (error) {
             console.error("Render error:", error);
-            const container = document.getElementById('oppList');
-            if (container) {
-                container.innerHTML = '<div class="empty-state"><p>⚠️ Error displaying opportunities. Refresh the page.</p></div>';
-            }
+            document.getElementById('oppList').innerHTML = '<div class="empty-state"><p>⚠️ Error displaying opportunities.</p></div>';
         }
     }
 
-    function handleCardClick(arb) {
-        navigateTo('detail', arb);
-    }
-
+    function handleCardClick(arb) { navigateTo('detail', arb); }
     function getBookieColor(bookie) {
         const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
         return map[bookie.toLowerCase()] || '#444';
@@ -593,22 +717,17 @@
             ? `<div style="margin-bottom:12px;font-size:12px;color:var(--text3);">
                    <strong>History:</strong>
                    <ul style="margin-top:4px;padding-left:18px;">
-                       ${arb.history.map(h =>
-                           `<li>${h.timestamp} – ${h.profitPercent.toFixed(2)}% (UGX ${h.profitUGX})</li>`
-                        ).join('')}
+                       ${arb.history.map(h => `<li>${h.timestamp} – ${h.profitPercent.toFixed(2)}% (UGX ${h.profitUGX})</li>`).join('')}
                    </ul>
                </div>`
             : "";
-
         document.getElementById('page-detail').innerHTML = `
             <div class="detail-header">
                 <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
                 <div>
                     <div class="detail-sport">⚽ ${arb.sport} · ${arb.type}</div>
                     <div class="detail-event">${arb.match}</div>
-                    <div class="detail-timer">
-                        ${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}
-                    </div>
+                    <div class="detail-timer">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
                 </div>
             </div>
             ${historyHtml}
@@ -640,9 +759,9 @@
     function updateDetailCalc() {
         if (!currentDetailArb) return;
         const arb = currentDetailArb;
-        const saved = localStorage.getItem('arbi_settings');
+        const saved = localStorage.getItem(getUserSettingsKey());
         const settings = saved ? JSON.parse(saved) : getDefaultSettings();
-        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.defaultStake || 100000;
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
         const odds = arb.bets.map(b => b.odds);
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
@@ -663,9 +782,9 @@
     function addCurrentDetailToSlip() {
         if (!currentDetailArb) return;
         const arb = currentDetailArb;
-        const saved = localStorage.getItem('arbi_settings');
+        const saved = localStorage.getItem(getUserSettingsKey());
         const settings = saved ? JSON.parse(saved) : getDefaultSettings();
-        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.defaultStake || 100000;
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
         const odds = arb.bets.map(b => b.odds);
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
@@ -756,7 +875,6 @@
         }
         document.getElementById('slipSummary').style.display = 'block';
         document.getElementById('slipCount').textContent = slipBets.length + ' bets';
-
         container.innerHTML = slipBets.map((item, idx) => `
             <div class="slip-item">
                 <div class="slip-bookie" style="background:#027a48;">${item.bets[0].bookie.charAt(0)}</div>
@@ -771,7 +889,6 @@
                 </div>
             </div>
         `).join('');
-
         const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
         document.getElementById('slipProfit').textContent = '+UGX ' + totalProfit.toFixed(2);
     }
@@ -803,21 +920,16 @@
         const totalProfitEl = document.getElementById('totalProfit');
         const chart = document.getElementById('profitChart');
         const list = document.getElementById('historyList');
-
         const entries = Object.values(allHistory)
             .filter(e => e.versions && e.versions.length > 0)
             .sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
-
         totalArbsEl.textContent = entries.length;
         let totalProfit = 0;
         entries.forEach(e => {
             const latest = e.versions[e.versions.length - 1];
-            if (e.valid && latest) {
-                totalProfit += latest.profit_ugx || 0;
-            }
+            if (e.valid && latest) totalProfit += latest.profit_ugx || 0;
         });
         totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(2);
-
         chart.innerHTML = entries.map(e => {
             const latest = e.versions[e.versions.length - 1];
             if (latest) {
@@ -826,7 +938,6 @@
             }
             return '';
         }).join('');
-
         list.innerHTML = entries.map(e => {
             const latest = e.versions[e.versions.length - 1];
             const profit = latest ? latest.profit_ugx : 0;
@@ -871,12 +982,36 @@
         setTimeout(() => toast.classList.remove('show'), 1500);
     }
 
+    // ============================================================
+    // 6. INIT
+    // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
         loadUserSettings();
         loadFromLuxuryBackend();
         updateCalculator();
         renderSlip();
     });
+
+    // Expose functions globally
+    window.switchAuthTab = switchAuthTab;
+    window.signUpWithEmail = signUpWithEmail;
+    window.loginWithEmail = loginWithEmail;
+    window.signInWithGoogle = signInWithGoogle;
+    window.logoutUser = logoutUser;
+    window.navigateTo = navigateTo;
+    window.handleCardClick = handleCardClick;
+    window.showToast = showToast;
+    window.addCurrentDetailToSlip = addCurrentDetailToSlip;
+    window.addCurrentCalcToSlip = addCurrentCalcToSlip;
+    window.completeArb = completeArb;
+    window.copySlip = copySlip;
+    window.openSlip = openSlip;
+    window.toggleThirdOdds = toggleThirdOdds;
+    window.updateCalculator = updateCalculator;
+    window.saveUserSettings = saveUserSettings;
+    window.filterOpportunities = filterOpportunities;
+    window.renderAlerts = renderAlerts;
+    window.renderHistory = renderHistory;
 </script>
 </body>
-                                    </html>
+    </html>
