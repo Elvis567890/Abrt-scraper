@@ -139,31 +139,85 @@
     "match": "yangon utd w vs ayeyawady utd w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 47.2,
-    "profit_ugx": 47200,
+    "profit_percent": 47.12,
+    "profit_ugx": 47121,
     "total_stake": 100000,
-    "arb_sum": 0.528,
+    "arb_sum": 0.5288,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 7.38,
-        "stake": 25663,
-        "win": 189393
+        "odd": 7.23,
+        "stake": 26156,
+        "win": 189108
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 5.25,
-        "stake": 36075,
-        "win": 189394
+        "stake": 36021,
+        "win": 189110
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.95,
-        "stake": 38262,
-        "win": 189397
+        "odd": 5.0,
+        "stake": 37822,
+        "win": 189110
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "playford patriots vs adelaide utd",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.14,
+    "profit_ugx": 14145,
+    "total_stake": 100000,
+    "arb_sum": 0.8586,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.65,
+        "stake": 25048,
+        "win": 116473
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.554,
+        "stake": 74952,
+        "win": 116475
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "playford patriots vs adelaide utd",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.14,
+    "profit_ugx": 14145,
+    "total_stake": 100000,
+    "arb_sum": 0.8586,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.65,
+        "stake": 25048,
+        "win": 116473
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.554,
+        "stake": 74952,
+        "win": 116475
       }
     ],
     "market_type": "1x2",
