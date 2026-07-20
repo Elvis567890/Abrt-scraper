@@ -170,68 +170,34 @@
     "market_specifier": ""
   },
   {
-    "match": "new alipore suruchi sangha vs calcutta police",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.41,
-    "profit_ugx": 1410,
-    "total_stake": 100000,
-    "arb_sum": 0.9859,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.553,
-        "stake": 65313,
-        "win": 101431
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.95,
-        "stake": 17047,
-        "win": 101430
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 5.75,
-        "stake": 17640,
-        "win": 101430
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "viettel vs pvfcand",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.39,
-    "profit_ugx": 9390,
+    "profit_percent": 8.48,
+    "profit_ugx": 8479,
     "total_stake": 100000,
-    "arb_sum": 0.9061,
+    "arb_sum": 0.9152,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "AbaBet",
         "outcome": "Home",
-        "odd": 3.19,
-        "stake": 34596,
-        "win": 110361
+        "odd": 3.1,
+        "stake": 35247,
+        "win": 109266
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "SportyBet",
         "outcome": "Draw",
         "odd": 3.4,
-        "stake": 32460,
-        "win": 110364
+        "stake": 32137,
+        "win": 109266
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.35,
-        "stake": 32944,
-        "win": 110362
+        "stake": 32616,
+        "win": 109264
       }
     ],
     "market_type": "1x2",
@@ -476,6 +442,60 @@
         "odd": 2.172,
         "stake": 58327,
         "win": 126686
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "atus velden vs wolfsberger",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 23.3,
+    "profit_ugx": 23303,
+    "total_stake": 100000,
+    "arb_sum": 0.767,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.22,
+        "stake": 40492,
+        "win": 130384
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.191,
+        "stake": 59508,
+        "win": 130382
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "atus velden vs wolfsberger",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 23.3,
+    "profit_ugx": 23303,
+    "total_stake": 100000,
+    "arb_sum": 0.767,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.22,
+        "stake": 40492,
+        "win": 130384
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.191,
+        "stake": 59508,
+        "win": 130382
       }
     ],
     "market_type": "1x2",
