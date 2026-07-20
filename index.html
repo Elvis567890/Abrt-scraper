@@ -141,8 +141,26 @@
     <!-- AUTH0 SDK SCRIPT -->
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.18/auth0-spa-js.production.js"></script>
 
+    <!-- LOADING SCREEN (Just in case the JS crashes) -->
+    <style>
+        #app-loader {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text2);
+            font-size: 16px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        #app-loader.hidden { display: none; }
+    </style>
 </head>
 <body>
+<div id="app-loader">Loading Abrimax...</div>
+
 <div class="phone-frame" id="app">
     <div class="status-bar">
         <span class="time">9:41</span>
@@ -339,48 +357,71 @@
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
-    // ========== AUTH0 PROFESSIONAL LOGIN ==========
-    const CLOUDFLARE_URL = "https://arbimax-backend.hkltfsmjgkfde.workers.dev";
-
+    // ========== AUTH0 LOGIN ==========
     let auth0Client;
 
-    // Initialize Auth0 on page load
+    // Global Error Catcher: If ANYTHING fails, hide loader and show crash state
+    window.onerror = function(msg, url, line, col, error) {
+        const loader = document.getElementById('app-loader');
+        if(loader) {
+            loader.innerHTML = "⚠️ App failed to initialize. Please refresh.";
+            loader.style.color = "var(--red)";
+            loader.style.display = "flex";
+        }
+        console.error("GLOBAL ERROR:", msg, error);
+        return true;
+    };
+
     window.onload = async () => {
-        auth0Client = await auth0.createAuth0Client({
-            domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
-            clientId: 'zCFNae5jkDbYsIsG2ktHX8b2qhyixoDH',
-            authorizationParams: { 
-                redirect_uri: 'https://elvis567890.github.io/Abrt-scraper'
-            },
-            logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' }
-        });
+        try {
+            // Initialize Auth0
+            auth0Client = await auth0.createAuth0Client({
+                domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
+                clientId: 'zCFNae5jkDbYsIsG2ktHX8b2qhyixoDH',
+                authorizationParams: { 
+                    redirect_uri: 'https://elvis567890.github.io/Abrt-scraper'
+                },
+                logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' }
+            });
 
-        if (location.search.includes("error=")) {
-            const params = new URLSearchParams(location.search);
-            showToast(`Error: ${params.get("error")} — ${params.get("error_description")}`);
-            history.replaceState({}, "", location.pathname);
-        }
+            if (location.search.includes("error=")) {
+                const params = new URLSearchParams(location.search);
+                showToast(`Error: ${params.get("error")} — ${params.get("error_description")}`);
+                history.replaceState({}, "", location.pathname);
+            }
 
-        if (location.search.includes("code=") && location.search.includes("state=")) {
-            await auth0Client.handleRedirectCallback();
-            history.replaceState({}, "", location.pathname);
-        }
+            if (location.search.includes("code=") && location.search.includes("state=")) {
+                await auth0Client.handleRedirectCallback();
+                history.replaceState({}, "", location.pathname);
+            }
 
-        if (await auth0Client.isAuthenticated()) {
-            const user = await auth0Client.getUser();
-            document.getElementById('authStateDisplay').innerHTML = `✅ Logged in as: ${user.email}`;
-            document.getElementById('authBtn').textContent = '🚪 Log Out';
-            document.getElementById('authBtn').onclick = () => {
-                auth0Client.logout({ logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' } });
-            };
-            loadUserSettings(user.sub);
-        } else {
-            document.getElementById('authStateDisplay').innerHTML = `Status: Not logged in`;
-            document.getElementById('authBtn').textContent = '👤 Sign Up / Log In';
-            document.getElementById('authBtn').onclick = handleAuthClick;
+            // Update UI based on login state
+            if (await auth0Client.isAuthenticated()) {
+                const user = await auth0Client.getUser();
+                document.getElementById('authStateDisplay').innerHTML = `✅ Logged in as: ${user.email}`;
+                document.getElementById('authBtn').textContent = '🚪 Log Out';
+                document.getElementById('authBtn').onclick = () => {
+                    auth0Client.logout({ logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' } });
+                };
+                loadUserSettings(user.sub);
+            } else {
+                document.getElementById('authStateDisplay').innerHTML = `Status: Not logged in`;
+                document.getElementById('authBtn').textContent = '👤 Sign Up / Log In';
+                document.getElementById('authBtn').onclick = handleAuthClick;
+                
+                const saved = localStorage.getItem('arbi_settings');
+                applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
+            }
             
-            const saved = localStorage.getItem('arbi_settings');
-            applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
+            // Hide the loading overlay once everything is ready
+            document.getElementById('app-loader').classList.add('hidden');
+        } catch (e) {
+            console.error("FATAL INIT ERROR:", e);
+            const loader = document.getElementById('app-loader');
+            if(loader) {
+                loader.innerHTML = "⚠️ App failed to initialize. Please refresh.";
+                loader.style.color = "var(--red)";
+            }
         }
     };
 
@@ -400,18 +441,15 @@
         };
     }
 
-    // ========== CRASH-PROOF SETTINGS LOADER ==========
-    async function loadUserSettings(userId) {
+    // ========== 100% LOCALSTORAGE SETTINGS (CLOUDFLARE REMOVED) ==========
+    function loadUserSettings(userId) {
+        // Cloudflare is disabled. We load 100% from LocalStorage to prevent crashes.
         try {
-            // Try to fetch from Cloudflare
-            const res = await fetch(`${CLOUDFLARE_URL}/api/get-settings/${userId}`);
-            if (!res.ok) throw new Error("Cloudflare unavailable");
-            const data = await res.json();
-            applySettingsToUI(data);
-        } catch (e) {
-            // If Cloudflare fails, fallback to LocalStorage WITHOUT crashing the app
             const saved = localStorage.getItem('arbi_settings');
             applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
+        } catch (e) {
+            localStorage.removeItem('arbi_settings');
+            applySettingsToUI(getDefaultSettings());
         }
     }
 
@@ -437,35 +475,12 @@
         }
     }
 
-    async function saveUserSettings() {
-        const user = await auth0Client.getUser();
-        if (!user) {
-            showToast('⚠️ Please log in to save settings to the cloud.');
-            const settings = buildSettingsObjectWithoutId();
-            localStorage.setItem('arbi_settings', JSON.stringify(settings));
-            filterOpportunities();
-            return;
-        }
-
+    function saveUserSettings() {
+        // Saving 100% locally to ensure no crashes
         const settings = buildSettingsObjectWithoutId();
-        settings.user_id = user.sub;
-
-        try {
-            const res = await fetch(`${CLOUDFLARE_URL}/api/save-settings`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings)
-            });
-            const result = await res.json();
-            if(result.status === 'success') {
-                showToast('✅ Settings Saved to Cloud!');
-                filterOpportunities();
-            }
-        } catch (e) {
-            localStorage.setItem('arbi_settings', JSON.stringify(settings));
-            showToast('✅ Saved Locally (Cloud offline)');
-            filterOpportunities();
-        }
+        localStorage.setItem('arbi_settings', JSON.stringify(settings));
+        showToast('✅ Settings Saved Locally!');
+        filterOpportunities();
     }
 
     function buildSettingsObjectWithoutId() {
@@ -551,8 +566,10 @@
             renderHistory(); 
         } catch (e) {
             console.error('LOAD ERROR:', e);
-            document.getElementById('oppList').innerHTML =
-                `<div class="empty-state">⚠️ Network error or JSON missing.<br>Ensure your scraper has run.</div>`;
+            const container = document.getElementById('oppList');
+            if (container) {
+                container.innerHTML = `<div class="empty-state">⚠️ Network error or JSON missing.<br>Check your scraper.</div>`;
+            }
         }
     }
 
@@ -566,7 +583,6 @@
                     const parsed = JSON.parse(saved);
                     settings = { ...settings, ...parsed };
                 } catch (e) {
-                    // If corrupted, delete the bad data so it doesn't crash next time
                     localStorage.removeItem('arbi_settings');
                 }
             }
@@ -574,7 +590,6 @@
             const minProfit = settings.minProfit || 1.0;
             const maxProfit = settings.maxProfit || 99.0;
             const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
-
             const container = document.getElementById('oppList');
             if (!container) return;
 
@@ -962,9 +977,16 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        loadFromLuxuryBackend();
-        updateCalculator();
-        renderSlip();
+        // Separate call so the loading screen stays up if it fails
+        setTimeout(() => {
+            try {
+                loadFromLuxuryBackend();
+                updateCalculator();
+                renderSlip();
+            } catch (e) {
+                console.error("Post-Load Error:", e);
+            }
+        }, 500);
     });
 </script>
 </body>
