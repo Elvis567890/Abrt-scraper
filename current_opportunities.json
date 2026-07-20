@@ -1,5 +1,39 @@
 [
   {
+    "match": "botev plovdiv vs lokomotiv 1929 sofia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.85,
+    "profit_ugx": 846,
+    "total_stake": 100000,
+    "arb_sum": 0.9915,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.8,
+        "stake": 56030,
+        "win": 100854
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.48,
+        "stake": 22512,
+        "win": 100854
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 4.7,
+        "stake": 21458,
+        "win": 100853
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "colon reserve vs boston river",
     "sport": "Football",
     "type": "3-way",
