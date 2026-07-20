@@ -1,5 +1,39 @@
 [
   {
+    "match": "turun palloseura vs tampereen ilves",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.49,
+    "profit_ugx": 3487,
+    "total_stake": 100000,
+    "arb_sum": 0.9651,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.54,
+        "stake": 40793,
+        "win": 103614
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 29604,
+        "win": 103614
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.5,
+        "stake": 29604,
+        "win": 103614
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "ifk mariehamn vs lahti",
     "sport": "Football",
     "type": "3-way",
