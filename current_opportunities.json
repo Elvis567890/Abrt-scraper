@@ -1,5 +1,39 @@
 [
   {
+    "match": "botev plovdiv vs lokomotiv 1929 sofia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.99,
+    "profit_ugx": 991,
+    "total_stake": 100000,
+    "arb_sum": 0.9901,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 1.8,
+        "stake": 56112,
+        "win": 101002
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.71,
+        "stake": 21444,
+        "win": 101001
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 4.5,
+        "stake": 22445,
+        "win": 101002
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fh hafnarfjordur vs breidablik",
     "sport": "Football",
     "type": "3-way",
