@@ -1,73 +1,5 @@
 [
   {
-    "match": "kalmar ff vs malmo",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.84,
-    "profit_ugx": 840,
-    "total_stake": 100000,
-    "arb_sum": 0.9916,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.38,
-        "stake": 42373,
-        "win": 100848
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 28814,
-        "win": 100849
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.5,
-        "stake": 28814,
-        "win": 100849
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "orgryte is vs djurgardens if",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 49.51,
-    "profit_ugx": 49510,
-    "total_stake": 100000,
-    "arb_sum": 0.5049,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 7.5,
-        "stake": 26408,
-        "win": 198060
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 5.5,
-        "stake": 36010,
-        "win": 198055
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 5.27,
-        "stake": 37582,
-        "win": 198057
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "colon reserve vs boston river",
     "sport": "Football",
     "type": "3-way",
@@ -238,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "la luz ii vs defensor sp ii",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 10.4,
+    "profit_ugx": 10401,
+    "total_stake": 100000,
+    "arb_sum": 0.896,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.205,
+        "stake": 34823,
+        "win": 111608
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 32826,
+        "win": 111608
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.45,
+        "stake": 32350,
+        "win": 111608
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "iberia 1999 vs slovan bratislava",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -286,114 +252,6 @@
         "odd": 2.297,
         "stake": 45388,
         "win": 104256
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "orgryte vs djurgardens",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 24.75,
-    "profit_ugx": 24747,
-    "total_stake": 100000,
-    "arb_sum": 0.7525,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 3.125,
-        "stake": 42523,
-        "win": 132884
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.312,
-        "stake": 57477,
-        "win": 132887
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "orgryte vs djurgardens",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 24.75,
-    "profit_ugx": 24747,
-    "total_stake": 100000,
-    "arb_sum": 0.7525,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 3.125,
-        "stake": 42523,
-        "win": 132884
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.312,
-        "stake": 57477,
-        "win": 132887
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "contestano vs darul takzim",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 30.89,
-    "profit_ugx": 30888,
-    "total_stake": 100000,
-    "arb_sum": 0.6911,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 3.96,
-        "stake": 36538,
-        "win": 144690
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.28,
-        "stake": 63462,
-        "win": 144693
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "contestano vs darul takzim",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 30.89,
-    "profit_ugx": 30888,
-    "total_stake": 100000,
-    "arb_sum": 0.6911,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 3.96,
-        "stake": 36538,
-        "win": 144690
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.28,
-        "stake": 63462,
-        "win": 144693
       }
     ],
     "market_type": "1x2",
