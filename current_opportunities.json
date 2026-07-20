@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "iberia 1999 vs slovan bratislava",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 19.41,
+    "profit_ugx": 19409,
+    "total_stake": 100000,
+    "arb_sum": 0.8059,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 3.835,
+        "stake": 32355,
+        "win": 124081
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 34467,
+        "win": 124081
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.74,
+        "stake": 33177,
+        "win": 124082
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "bissen vs gyor",
     "sport": "Football",
     "type": "3-way",
@@ -130,40 +164,6 @@
         "odd": 3.66,
         "stake": 32280,
         "win": 118145
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "iberia 1999 vs slovan bratislava",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 19.41,
-    "profit_ugx": 19409,
-    "total_stake": 100000,
-    "arb_sum": 0.8059,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 3.835,
-        "stake": 32355,
-        "win": 124081
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 34467,
-        "win": 124081
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.74,
-        "stake": 33177,
-        "win": 124082
       }
     ],
     "market_type": "1x2",
