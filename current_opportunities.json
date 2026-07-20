@@ -1,67 +1,33 @@
 [
   {
-    "match": "ifk mariehamn vs lahti",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 37.24,
-    "profit_ugx": 37245,
-    "total_stake": 100000,
-    "arb_sum": 0.6276,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 5.6,
-        "stake": 28455,
-        "win": 159348
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 4.5,
-        "stake": 35411,
-        "win": 159350
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.41,
-        "stake": 36134,
-        "win": 159351
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "pfc slavia sofia vs pfc cska sofia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 32.05,
-    "profit_ugx": 32047,
+    "profit_percent": 33.35,
+    "profit_ugx": 33348,
     "total_stake": 100000,
-    "arb_sum": 0.6795,
+    "arb_sum": 0.6665,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 5.5,
-        "stake": 26757,
-        "win": 147164
+        "odd": 5.94,
+        "stake": 25258,
+        "win": 150033
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 4.1,
-        "stake": 35893,
-        "win": 147161
+        "odd": 4.05,
+        "stake": 37045,
+        "win": 150032
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.94,
-        "stake": 37351,
-        "win": 147163
+        "odd": 3.98,
+        "stake": 37697,
+        "win": 150034
       }
     ],
     "market_type": "1x2",
@@ -306,54 +272,34 @@
     "market_specifier": ""
   },
   {
-    "match": "mariehamn vs lahti",
+    "match": "iberia 1999 vs slovan bratislava",
     "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 10.9,
-    "profit_ugx": 10897,
+    "type": "3-way",
+    "profit_percent": 18.2,
+    "profit_ugx": 18199,
     "total_stake": 100000,
-    "arb_sum": 0.891,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.48,
-        "stake": 45254,
-        "win": 112230
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.05,
-        "stake": 54746,
-        "win": 112229
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "mariehamn vs lahti",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 10.9,
-    "profit_ugx": 10897,
-    "total_stake": 100000,
-    "arb_sum": 0.891,
+    "arb_sum": 0.818,
     "bets": [
       {
         "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.48,
-        "stake": 45254,
-        "win": 112230
+        "outcome": "Home",
+        "odd": 3.845,
+        "stake": 31794,
+        "win": 122248
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.55,
+        "stake": 34436,
+        "win": 122248
       },
       {
         "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.05,
-        "stake": 54746,
-        "win": 112229
+        "outcome": "Away",
+        "odd": 3.62,
+        "stake": 33770,
+        "win": 122247
       }
     ],
     "market_type": "1x2",
@@ -408,60 +354,6 @@
         "odd": 2.182,
         "stake": 59457,
         "win": 129735
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "atus velden vs wolfsberger",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 43.35,
-    "profit_ugx": 43352,
-    "total_stake": 100000,
-    "arb_sum": 0.5665,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 8.33,
-        "stake": 21192,
-        "win": 176529
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.24,
-        "stake": 78808,
-        "win": 176530
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "atus velden vs wolfsberger",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 43.35,
-    "profit_ugx": 43352,
-    "total_stake": 100000,
-    "arb_sum": 0.5665,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 8.33,
-        "stake": 21192,
-        "win": 176529
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.24,
-        "stake": 78808,
-        "win": 176530
       }
     ],
     "market_type": "1x2",
@@ -576,6 +468,60 @@
     "market_specifier": ""
   },
   {
+    "match": "iberia 1999 vs slovan bratislava",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.98,
+    "profit_ugx": 979,
+    "total_stake": 100000,
+    "arb_sum": 0.9902,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.88,
+        "stake": 53717,
+        "win": 100988
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.182,
+        "stake": 46283,
+        "win": 100990
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "iberia 1999 vs slovan bratislava",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.98,
+    "profit_ugx": 979,
+    "total_stake": 100000,
+    "arb_sum": 0.9902,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.88,
+        "stake": 53717,
+        "win": 100988
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.182,
+        "stake": 46283,
+        "win": 100990
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "hafnarfjordur vs breidablik ubk",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -624,6 +570,60 @@
         "odd": 2.94,
         "stake": 35808,
         "win": 105276
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "slavia sofia vs cska sofia",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.63,
+    "profit_ugx": 4627,
+    "total_stake": 100000,
+    "arb_sum": 0.9537,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.41,
+        "stake": 43507,
+        "win": 104852
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.856,
+        "stake": 56493,
+        "win": 104851
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "slavia sofia vs cska sofia",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.63,
+    "profit_ugx": 4627,
+    "total_stake": 100000,
+    "arb_sum": 0.9537,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.41,
+        "stake": 43507,
+        "win": 104852
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.856,
+        "stake": 56493,
+        "win": 104851
       }
     ],
     "market_type": "1x2",
