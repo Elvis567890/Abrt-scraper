@@ -71,31 +71,31 @@
     "match": "iberia 1999 vs slovan bratislava",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 13.22,
-    "profit_ugx": 13218,
+    "profit_percent": 12.96,
+    "profit_ugx": 12961,
     "total_stake": 100000,
-    "arb_sum": 0.8678,
+    "arb_sum": 0.8704,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 3.32,
-        "stake": 34708,
-        "win": 115231
+        "stake": 34606,
+        "win": 114892
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 32923,
-        "win": 115230
+        "odd": 3.45,
+        "stake": 33302,
+        "win": 114892
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.56,
-        "stake": 32368,
-        "win": 115230
+        "odd": 3.58,
+        "stake": 32092,
+        "win": 114889
       }
     ],
     "market_type": "1x2",
@@ -411,31 +411,31 @@
     "match": "home special bets vs away special bets",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.98,
-    "profit_ugx": 4979,
+    "profit_percent": 5.29,
+    "profit_ugx": 5287,
     "total_stake": 100000,
-    "arb_sum": 0.9502,
+    "arb_sum": 0.9471,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.479,
-        "stake": 71156,
-        "win": 105240
+        "stake": 71387,
+        "win": 105581
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 5.65,
-        "stake": 18627,
-        "win": 105243
+        "odd": 5.75,
+        "stake": 18362,
+        "win": 105582
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 10.3,
-        "stake": 10217,
-        "win": 105235
+        "stake": 10251,
+        "win": 105585
       }
     ],
     "market_type": "1x2",
@@ -544,6 +544,60 @@
         "odd": 1.526,
         "stake": 76066,
         "win": 116077
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 4.99,
+    "profit_ugx": 4988,
+    "total_stake": 100000,
+    "arb_sum": 0.9501,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.104,
+        "stake": 50024,
+        "win": 105250
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.106,
+        "stake": 49976,
+        "win": 105249
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 4.99,
+    "profit_ugx": 4988,
+    "total_stake": 100000,
+    "arb_sum": 0.9501,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.104,
+        "stake": 50024,
+        "win": 105250
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.106,
+        "stake": 49976,
+        "win": 105249
       }
     ],
     "market_type": "1x2",
