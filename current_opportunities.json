@@ -71,31 +71,65 @@
     "match": "coritiba pr vs internacional rs",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 49.61,
-    "profit_ugx": 49613,
+    "profit_percent": 49.21,
+    "profit_ugx": 49210,
     "total_stake": 100000,
-    "arb_sum": 0.5039,
+    "arb_sum": 0.5079,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "SportyBet",
         "outcome": "Home",
-        "odd": 9.0,
-        "stake": 22051,
-        "win": 198459
+        "odd": 9.2,
+        "stake": 21401,
+        "win": 196889
       },
       {
-        "bookmaker": "SportyBet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 4.9,
-        "stake": 40503,
-        "win": 198465
+        "odd": 4.75,
+        "stake": 41450,
+        "win": 196888
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 5.3,
-        "stake": 37446,
-        "win": 198464
+        "stake": 37149,
+        "win": 196890
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bissen vs gyor",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 36.65,
+    "profit_ugx": 36655,
+    "total_stake": 100000,
+    "arb_sum": 0.6335,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 6.14,
+        "stake": 25711,
+        "win": 157866
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 4.25,
+        "stake": 37145,
+        "win": 157866
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.25,
+        "stake": 37145,
+        "win": 157866
       }
     ],
     "market_type": "1x2",
@@ -173,31 +207,85 @@
     "match": "home special bets vs away special bets",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.39,
-    "profit_ugx": 3391,
+    "profit_percent": 3.3,
+    "profit_ugx": 3298,
     "total_stake": 100000,
-    "arb_sum": 0.9661,
+    "arb_sum": 0.967,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.505,
-        "stake": 68777,
-        "win": 103509
+        "stake": 68712,
+        "win": 103412
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 5.01,
-        "stake": 20661,
-        "win": 103512
+        "odd": 5.0,
+        "stake": 20682,
+        "win": 103410
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 9.8,
-        "stake": 10562,
-        "win": 103508
+        "odd": 9.75,
+        "stake": 10606,
+        "win": 103408
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "atert bissen vs gyori eto",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.13,
+    "profit_ugx": 8125,
+    "total_stake": 100000,
+    "arb_sum": 0.9187,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.52,
+        "stake": 43192,
+        "win": 108844
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.916,
+        "stake": 56808,
+        "win": 108844
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "atert bissen vs gyori eto",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.13,
+    "profit_ugx": 8125,
+    "total_stake": 100000,
+    "arb_sum": 0.9187,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.52,
+        "stake": 43192,
+        "win": 108844
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.916,
+        "stake": 56808,
+        "win": 108844
       }
     ],
     "market_type": "1x2",
