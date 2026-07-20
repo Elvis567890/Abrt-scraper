@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "mjallby aif vs lincoln red imps",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.53,
+    "profit_ugx": 528,
+    "total_stake": 100000,
+    "arb_sum": 0.9947,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.12,
+        "stake": 89760,
+        "win": 100531
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 19.5,
+        "stake": 5155,
+        "win": 100522
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 19.77,
+        "stake": 5085,
+        "win": 100530
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "bissen vs gyor",
     "sport": "Football",
     "type": "3-way",
