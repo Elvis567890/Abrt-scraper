@@ -339,12 +339,9 @@
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
-    // ========== AUTH0 PROFESSIONAL LOGIN ==========
-    const CLOUDFLARE_URL = "https://arbimax-backend.hkltfsmjgkfde.workers.dev";
-
+    // ========== AUTH0 LOGIN ==========
     let auth0Client;
 
-    // Initialize Auth0 on page load
     window.onload = async () => {
         auth0Client = await auth0.createAuth0Client({
             domain: 'dev-rde8gkc7sxkka7ll.us.auth0.com',
@@ -352,7 +349,6 @@
             authorizationParams: { 
                 redirect_uri: 'https://elvis567890.github.io/Abrt-scraper'
             },
-            // Guarantees the return link works perfectly after login/logout
             logoutParams: { returnTo: 'https://elvis567890.github.io/Abrt-scraper' }
         });
 
@@ -389,7 +385,6 @@
     };
 
     function handleAuthClick() {
-        // Opens Auth0's hosted beautiful Login/Signup page
         auth0Client.loginWithRedirect();
     }
 
@@ -405,16 +400,25 @@
         };
     }
 
-    async function loadUserSettings(userId) {
-        try {
-            const res = await fetch(`${CLOUDFLARE_URL}/api/get-settings/${userId}`);
-            const data = await res.json();
-            applySettingsToUI(data);
-        } catch (e) {
-            const saved = localStorage.getItem('arbi_settings');
-            applySettingsToUI(saved ? JSON.parse(saved) : getDefaultSettings());
+    // ========== WORKING LOCALSTORAGE BACKEND ==========
+    function loadUserSettings(userId) {
+        const saved = localStorage.getItem('arbi_settings');
+        if (saved) {
+            try {
+                applySettingsToUI(JSON.parse(saved));
+                return;
+            } catch (e) { /* ignore */ }
         }
+        applySettingsToUI(getDefaultSettings());
     }
+
+    async function saveUserSettings() {
+        const settings = buildSettingsObjectWithoutId();
+        localStorage.setItem('arbi_settings', JSON.stringify(settings));
+        showToast('✅ Settings Saved Locally!');
+        filterOpportunities();
+    }
+    // =======================================================
 
     function applySettingsToUI(settings) {
         document.getElementById('displayPlan').textContent = settings.plan === 'vip' ? 'VIP Active' : 'Free Trial';
@@ -438,37 +442,6 @@
         }
     }
 
-    async function saveUserSettings() {
-        const user = await auth0Client.getUser();
-        if (!user) {
-            showToast('⚠️ Please log in to save settings to the cloud.');
-            const settings = buildSettingsObjectWithoutId();
-            localStorage.setItem('arbi_settings', JSON.stringify(settings));
-            filterOpportunities();
-            return;
-        }
-
-        const settings = buildSettingsObjectWithoutId();
-        settings.user_id = user.sub;
-
-        try {
-            const res = await fetch(`${CLOUDFLARE_URL}/api/save-settings`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings)
-            });
-            const result = await res.json();
-            if(result.status === 'success') {
-                showToast('✅ Settings Saved to Cloud!');
-                filterOpportunities();
-            }
-        } catch (e) {
-            localStorage.setItem('arbi_settings', JSON.stringify(settings));
-            showToast('✅ Saved Locally (Cloud offline)');
-            filterOpportunities();
-        }
-    }
-
     function buildSettingsObjectWithoutId() {
         return {
             default_stake: parseInt(document.getElementById('defaultStake').value) || 100000,
@@ -488,35 +461,18 @@
         };
     }
 
-    // ========== NEW PAYMENT FUNCTION ==========
     function redirectToPayment() {
-        // Get the current logged-in user's unique Auth0 ID
         auth0Client.getUser().then(user => {
             if (!user) {
                 showToast('⚠️ Please log in first to upgrade to VIP.');
                 return;
             }
-            
-            // Check the user's current plan from the backend
-            fetch(`${CLOUDFLARE_URL}/api/get-subscription/${user.sub}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.plan !== 'free') {
-                    showToast('✅ You are already a VIP user!');
-                    return;
-                }
-
-                // --- Replace this link with your actual Flutterwave Checkout Link ---
-                const flutterwaveLink = `https://checkout.flutterwave.com/pay/abrimax-vip?meta[user_id]=${user.sub}`;
-                
-                // Redirect the user to Flutterwave to pay
-                window.location.href = flutterwaveLink;
-            });
+            const flutterwaveLink = `https://checkout.flutterwave.com/pay/abrimax-vip?meta[user_id]=${user.sub}`;
+            window.location.href = flutterwaveLink;
         }).catch(e => showToast('❌ Error: Please log in again.'));
     }
-    // =======================================================
 
-    // FIXED: Fetch correct backend files from the NEW scraper
+    // ========== DATA FETCHING (UNTOUCHED) ==========
     async function loadFromLuxuryBackend() {
         try {
             const [oppsRes, histRes] = await Promise.all([
@@ -533,7 +489,6 @@
                 allHistory = await histRes.json();
             }
 
-            // Merge history data with current opportunities
             opportunitiesData = currentOpps.map(o => {
                 const key = `${o.sport || 'Football'}::${o.type || '3-way'}::${o.match}`;
                 const histEntry = allHistory[key] || {};
@@ -564,10 +519,6 @@
                 };
             });
             
-            // Load Settings into UI
-            const saved = localStorage.getItem('arbi_settings');
-            if (saved) applySettingsToUI(JSON.parse(saved));
-
             renderOpportunities();
             renderAlerts();
             renderHistory(); 
@@ -598,8 +549,8 @@
         }
     }
 
+    // ========== RENDER LOGIC (UNTOUCHED) ==========
     function renderOpportunities(filter = 'all') {
-        // Use the NEW settings system
         const saved = localStorage.getItem('arbi_settings');
         const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const minProfit = settings.minProfit || 1.0;
@@ -607,15 +558,12 @@
         const markets = settings.markets;
 
         let filtered = opportunitiesData.filter(a => {
-            // Profit checks
             if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
-            // Market Type checks
             const type = a.type || '3-way';
             if (type.includes('1x2') && !markets['1x2']) return false;
             if (type.includes('Over/Under') && !markets['ou']) return false;
             if (type.includes('Asian Handicap') && !markets['ah']) return false;
             if (type.includes('BTTS') && !markets['btts']) return false;
-            // Category tabs
             if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
             if (filter === 'high' && a.profitPercent <= 5) return false;
             return true;
@@ -729,7 +677,6 @@
     function updateDetailCalc() {
         if (!currentDetailArb) return;
         const arb = currentDetailArb;
-        // Use the saved default stake from settings
         const saved = localStorage.getItem('arbi_settings');
         const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.defaultStake || 100000;
@@ -968,4 +915,4 @@
     });
 </script>
 </body>
-            </html>
+    </html>
