@@ -37,31 +37,31 @@
     "match": "alfreton town vs rotherham utd",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 28.88,
-    "profit_ugx": 28881,
+    "profit_percent": 28.61,
+    "profit_ugx": 28607,
     "total_stake": 100000,
-    "arb_sum": 0.7112,
+    "arb_sum": 0.7139,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 4.3,
-        "stake": 32700,
-        "win": 140610
+        "odd": 4.25,
+        "stake": 32958,
+        "win": 140072
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.9,
-        "stake": 36054,
-        "win": 140611
+        "stake": 35915,
+        "win": 140068
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.5,
-        "stake": 31247,
-        "win": 140612
+        "stake": 31127,
+        "win": 140072
       }
     ],
     "market_type": "1x2",
@@ -136,34 +136,68 @@
     "market_specifier": ""
   },
   {
+    "match": "south shields vs harrogate town",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.16,
+    "profit_ugx": 1163,
+    "total_stake": 100000,
+    "arb_sum": 0.9884,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 2.38,
+        "stake": 42511,
+        "win": 101176
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 28908,
+        "win": 101178
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.54,
+        "stake": 28581,
+        "win": 101177
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "walsall vs aston villa",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 29.6,
-    "profit_ugx": 29598,
+    "profit_percent": 26.42,
+    "profit_ugx": 26423,
     "total_stake": 100000,
-    "arb_sum": 0.704,
+    "arb_sum": 0.7358,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.85,
-        "stake": 36894,
-        "win": 142042
+        "stake": 35302,
+        "win": 135913
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 5.25,
-        "stake": 27055,
-        "win": 142039
+        "odd": 4.5,
+        "stake": 30203,
+        "win": 135914
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.94,
-        "stake": 36051,
-        "win": 142041
+        "stake": 34495,
+        "win": 135910
       }
     ],
     "market_type": "1x2",
@@ -660,25 +694,52 @@
   {
     "match": "alloa athletic vs falkirk",
     "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 18.56,
-    "profit_ugx": 18564,
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 8.46,
+    "profit_ugx": 8463,
     "total_stake": 100000,
-    "arb_sum": 0.8144,
+    "arb_sum": 0.9154,
     "bets": [
       {
         "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 4.15,
-        "stake": 29589,
-        "win": 122794
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.2,
+        "stake": 49657,
+        "win": 109245
       },
       {
         "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.744,
-        "stake": 70411,
-        "win": 122797
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.17,
+        "stake": 50343,
+        "win": 109244
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "alloa athletic vs falkirk",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 8.46,
+    "profit_ugx": 8463,
+    "total_stake": 100000,
+    "arb_sum": 0.9154,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.2,
+        "stake": 49657,
+        "win": 109245
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.17,
+        "stake": 50343,
+        "win": 109244
       }
     ],
     "market_type": "1x2",
@@ -688,24 +749,51 @@
     "match": "alloa athletic vs falkirk",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 18.56,
-    "profit_ugx": 18564,
+    "profit_percent": 20.92,
+    "profit_ugx": 20921,
     "total_stake": 100000,
-    "arb_sum": 0.8144,
+    "arb_sum": 0.7908,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 4.15,
-        "stake": 29589,
-        "win": 122794
+        "odd": 4.6,
+        "stake": 27491,
+        "win": 126459
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
         "odd": 1.744,
-        "stake": 70411,
-        "win": 122797
+        "stake": 72509,
+        "win": 126456
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "alloa athletic vs falkirk",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 20.92,
+    "profit_ugx": 20921,
+    "total_stake": 100000,
+    "arb_sum": 0.7908,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.6,
+        "stake": 27491,
+        "win": 126459
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.744,
+        "stake": 72509,
+        "win": 126456
       }
     ],
     "market_type": "1x2",
