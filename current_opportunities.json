@@ -37,31 +37,31 @@
     "match": "fenerbahce istanbul vs gornik zabrze",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.07,
-    "profit_ugx": 2068,
+    "profit_percent": 2.02,
+    "profit_ugx": 2019,
     "total_stake": 100000,
-    "arb_sum": 0.9793,
+    "arb_sum": 0.9798,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.183,
-        "stake": 86316,
-        "win": 102112
+        "odd": 1.18,
+        "stake": 86492,
+        "win": 102061
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 13.3,
-        "stake": 7678,
-        "win": 102117
+        "odd": 13.6,
+        "stake": 7504,
+        "win": 102054
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 17.0,
-        "stake": 6007,
-        "win": 102119
+        "stake": 6004,
+        "win": 102068
       }
     ],
     "market_type": "1x2",
@@ -275,31 +275,31 @@
     "match": "walsall vs aston villa",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 40.15,
-    "profit_ugx": 40153,
+    "profit_percent": 0.88,
+    "profit_ugx": 875,
     "total_stake": 100000,
-    "arb_sum": 0.5985,
+    "arb_sum": 0.9912,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 5.7,
-        "stake": 29314,
-        "win": 167090
+        "odd": 6.26,
+        "stake": 16116,
+        "win": 100886
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 5.25,
-        "stake": 31827,
-        "win": 167092
+        "stake": 19216,
+        "win": 100884
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 4.3,
-        "stake": 38859,
-        "win": 167094
+        "odd": 1.56,
+        "stake": 64669,
+        "win": 100884
       }
     ],
     "market_type": "1x2",
@@ -754,6 +754,60 @@
         "odd": 1.546,
         "stake": 76310,
         "win": 117975
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.55,
+    "profit_ugx": 3555,
+    "total_stake": 100000,
+    "arb_sum": 0.9645,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.188,
+        "stake": 87278,
+        "win": 103686
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 8.15,
+        "stake": 12722,
+        "win": 103684
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.55,
+    "profit_ugx": 3555,
+    "total_stake": 100000,
+    "arb_sum": 0.9645,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.188,
+        "stake": 87278,
+        "win": 103686
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 8.15,
+        "stake": 12722,
+        "win": 103684
       }
     ],
     "market_type": "1x2",
