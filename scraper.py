@@ -1379,7 +1379,10 @@ def get_arbitrage():
 
 # ---- Entry Point ----
 if __name__ == "__main__":
-    if os.environ.get("GITHUB_ACTION") == "1":
+    # Detect GitHub Actions environment
+    if os.environ.get("GITHUB_ACTION") == "1" or os.environ.get("CI") == "true":
+        print("🚀 Running in GitHub Actions - executing scanner...")
         run_scan()
     else:
+        print("🚀 Running locally - starting Flask server...")
         app.run(host='0.0.0.0', port=5000, debug=True)
