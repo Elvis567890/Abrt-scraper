@@ -241,31 +241,31 @@
     "match": "jeju utd vs gangwon",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.14,
-    "profit_ugx": 7143,
+    "profit_percent": 5.82,
+    "profit_ugx": 5820,
     "total_stake": 100000,
-    "arb_sum": 0.9286,
+    "arb_sum": 0.9418,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "SportyBet",
         "outcome": "Home",
-        "odd": 3.6,
-        "stake": 29915,
-        "win": 107694
+        "odd": 6.75,
+        "stake": 15730,
+        "win": 106178
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.15,
+        "stake": 33708,
+        "win": 106180
       },
       {
         "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.0,
-        "stake": 35897,
-        "win": 107691
-      },
-      {
-        "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 3.15,
-        "stake": 34188,
-        "win": 107692
+        "odd": 2.1,
+        "stake": 50562,
+        "win": 106180
       }
     ],
     "market_type": "1x2",
@@ -275,31 +275,31 @@
     "match": "jeonbuk vs daejeon citizen",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 15.19,
-    "profit_ugx": 15195,
+    "profit_percent": 20.34,
+    "profit_ugx": 20337,
     "total_stake": 100000,
-    "arb_sum": 0.8481,
+    "arb_sum": 0.7966,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 2.0,
-        "stake": 58959,
-        "win": 117918
+        "stake": 62765,
+        "win": 125530
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 3.615,
-        "stake": 32619,
-        "win": 117918
+        "stake": 34725,
+        "win": 125531
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 14.0,
-        "stake": 8423,
-        "win": 117922
+        "odd": 50.0,
+        "stake": 2511,
+        "win": 125550
       }
     ],
     "market_type": "1x2",
@@ -309,31 +309,31 @@
     "match": "ulsan hd vs incheon utd",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.84,
-    "profit_ugx": 1844,
+    "profit_percent": 2.11,
+    "profit_ugx": 2111,
     "total_stake": 100000,
-    "arb_sum": 0.9816,
+    "arb_sum": 0.9789,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.24,
-        "stake": 45482,
-        "win": 101880
+        "stake": 45606,
+        "win": 102157
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 3.305,
-        "stake": 30826,
-        "win": 101880
+        "stake": 30910,
+        "win": 102158
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 4.3,
-        "stake": 23693,
-        "win": 101880
+        "odd": 4.35,
+        "stake": 23484,
+        "win": 102155
       }
     ],
     "market_type": "1x2",
@@ -479,31 +479,31 @@
     "match": "home special bets vs away special bets",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.43,
-    "profit_ugx": 4426,
+    "profit_percent": 4.52,
+    "profit_ugx": 4519,
     "total_stake": 100000,
-    "arb_sum": 0.9557,
+    "arb_sum": 0.9548,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.467,
-        "stake": 71323,
-        "win": 104631
+        "stake": 71393,
+        "win": 104734
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.65,
-        "stake": 18519,
-        "win": 104632
+        "stake": 18537,
+        "win": 104734
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 10.3,
-        "stake": 10158,
-        "win": 104627
+        "odd": 10.4,
+        "stake": 10070,
+        "win": 104728
       }
     ],
     "market_type": "1x2",
@@ -666,6 +666,60 @@
         "odd": 1.526,
         "stake": 76794,
         "win": 117188
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 1.07,
+    "profit_ugx": 1072,
+    "total_stake": 100000,
+    "arb_sum": 0.9893,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.107,
+        "stake": 47975,
+        "win": 101083
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.943,
+        "stake": 52025,
+        "win": 101085
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 1.07,
+    "profit_ugx": 1072,
+    "total_stake": 100000,
+    "arb_sum": 0.9893,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.107,
+        "stake": 47975,
+        "win": 101083
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.943,
+        "stake": 52025,
+        "win": 101085
       }
     ],
     "market_type": "1x2",
