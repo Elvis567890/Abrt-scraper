@@ -22,16 +22,18 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 playwright
+          pip install --upgrade pip
+          pip install requests beautifulsoup4 playwright \
+                      PyJWT bcrypt python-dotenv \
+                      Flask Flask-CORS Flask-SQLAlchemy
           playwright install chromium --with-deps
 
-      # --- THE ONLY CHANGE: added the env block below ---
       - name: Run Python scraper
         run: python scraper.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      # -------------------------------------------------
+          GITHUB_ACTION: 1   # 👈 tells your script to skip the Flask app
 
       - name: Find and copy JSONs to root + Debug
         run: |
