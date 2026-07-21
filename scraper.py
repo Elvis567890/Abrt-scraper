@@ -7,9 +7,10 @@ import re
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 from copy import deepcopy
+from functools import wraps
 
 import requests
 from bs4 import BeautifulSoup
@@ -959,7 +960,7 @@ def run_scan():
 
 
 # ============================================================================
-#                              FLASK BILLING API
+#                              FLASK BILLING API (PESAPAL)
 # ============================================================================
 
 import uuid
@@ -969,6 +970,9 @@ from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+
+# --- Import Pesapal client ---
+from pesapal_client.client import PesapalClientV3
 
 load_dotenv()
 
@@ -1049,7 +1053,7 @@ class User(db.Model):
     is_subscribed = db.Column(db.Boolean, default=False)
     subscription_expires = db.Column(db.DateTime, nullable=True)
 
-    flutterwave_customer_id = db.Column(db.String(100), nullable=True)
+    # Removed flutterwave_customer_id – no longer needed
 
     last_arbitrage_date = db.Column(db.DateTime, nullable=True)
     arbitrage_today_count = db.Column(db.Integer, default=0)
@@ -1066,13 +1070,12 @@ class User(db.Model):
 class Transaction(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)
-    tx_ref = db.Column(db.String(100), unique=True, nullable=False)
+    tx_ref = db.Column(db.String(100), unique=True, nullable=False)   # merchant_reference
     amount = db.Column(db.Float, nullable=False)
     currency = db.Column(db.String(10), default='UGX')
     status = db.Column(db.String(20), default='pending')
-    provider = db.Column(db.String(20))
-    plan = db.Column(db.String(20))
-    flutterwave_transaction_id = db.Column(db.String(100))
+    plan = db.Column(db.String(20))          # day, monthly, quarterly
+    pesapal_tracking_id = db.Column(db.String(100), nullable=True)   # instead of flutterwave_transaction_id
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
@@ -1146,133 +1149,111 @@ def login():
     })
 
 
-# ---- Payment Initiation ----
+# ---- Payment Initiation with Pesapal ----
 @app.route('/api/pay', methods=['POST'])
 @token_required
 def initiate_payment():
     user = User.query.get(g.user_id)
     data = request.get_json()
-    plan = data.get('plan')
-    provider = data.get('provider')
+    plan = data.get('plan')  # 'day', 'monthly', 'quarterly'
 
     if plan not in ['day', 'monthly', 'quarterly']:
         return jsonify({'error': 'Invalid plan. Choose: day, monthly, quarterly'}), 400
-    if provider not in ['MTN', 'AIRTEL']:
-        return jsonify({'error': 'Provider must be MTN or AIRTEL'}), 400
 
     amount = TIERS[plan]['price']
     phone = user.phone
     if not phone.startswith('256'):
         phone = '256' + phone.lstrip('0')
 
-    tx_ref = f"tx-{uuid.uuid4().hex[:10]}"
+    merchant_reference = f"ORDER-{uuid.uuid4().hex[:10].upper()}"
 
-    payload = {
-        "tx_ref": tx_ref,
-        "amount": amount,
-        "currency": "UGX",
-        "payment_options": "mobilemoneyuganda",
-        "redirect_url": "https://yourapp.com/redirect",
-        "customer": {
-            "email": user.email,
-            "phonenumber": phone,
-        },
-        "meta": {
-            "user_id": user.id,
-            "plan": plan
-        },
-        "customizations": {
-            "title": "Arbitrage Access",
-            "description": f"{TIERS[plan]['label']} - {amount} UGX via {provider}"
-        }
-    }
-
-    headers = {
-        "Authorization": f"Bearer {os.getenv('FLUTTERWAVE_SECRET_KEY')}",
-        "Content-Type": "application/json"
-    }
-
-    transaction = Transaction(
-        user_id=user.id,
-        tx_ref=tx_ref,
-        amount=amount,
-        currency='UGX',
-        provider=provider,
-        status='pending',
-        plan=plan
+    # Initialize Pesapal client
+    client = PesapalClientV3(
+        consumer_key=os.getenv('PESAPAL_CONSUMER_KEY'),
+        consumer_secret=os.getenv('PESAPAL_CONSUMER_SECRET'),
+        is_sandbox=os.getenv('PESAPAL_ENVIRONMENT', 'sandbox') == 'sandbox',
     )
-    db.session.add(transaction)
-    db.session.commit()
 
-    url = "https://api.flutterwave.com/v3/charges?type=mobilemoneyuganda"
+    # Build payment data
+    payment_data = {
+        "currency": "UGX",
+        "amount": amount,
+        "description": f"{TIERS[plan]['label']} - {amount} UGX",
+        "email": user.email,
+        "phone_number": phone,
+        "callback_url": os.getenv('PESAPAL_CALLBACK_URL'),
+        "merchant_reference": merchant_reference,
+    }
+
     try:
-        resp = requests.post(url, json=payload, headers=headers, timeout=30)
-        data = resp.json()
-    except Exception as e:
-        transaction.status = 'failed'
+        # Submit order to Pesapal
+        response = client.one_time_payment.initiate_payment_order(payment_data)
+
+        # Save transaction in DB
+        transaction = Transaction(
+            user_id=user.id,
+            tx_ref=merchant_reference,
+            amount=amount,
+            currency='UGX',
+            status='pending',
+            plan=plan
+        )
+        db.session.add(transaction)
         db.session.commit()
+
+        return jsonify({
+            'redirect_url': response.redirect_url,
+            'merchant_reference': merchant_reference,
+            'message': 'Redirect user to Pesapal checkout page.'
+        })
+
+    except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-    if data.get('status') == 'success':
-        return jsonify({
-            'tx_ref': tx_ref,
-            'message': 'Payment prompt sent to your phone. Enter your PIN.',
-            'flutterwave_ref': data.get('data', {}).get('flw_ref')
-        })
+
+# ---- Pesapal IPN (Webhook) ----
+@app.route('/pesapal/ipn', methods=['GET', 'POST'])
+def pesapal_ipn():
+    # Pesapal sends a GET request with query parameters
+    merchant_reference = request.args.get('merchant_reference')
+    status = request.args.get('status')  # 'COMPLETED', 'FAILED', 'PENDING', etc.
+    pesapal_tracking_id = request.args.get('pesapal_transaction_tracking_id')
+
+    if not merchant_reference or not status:
+        return 'Missing parameters', 400
+
+    transaction = Transaction.query.filter_by(tx_ref=merchant_reference).first()
+    if not transaction:
+        return 'Transaction not found', 404
+
+    if status == 'COMPLETED':
+        transaction.status = 'success'
+        transaction.pesapal_tracking_id = pesapal_tracking_id
+        db.session.commit()
+
+        # Grant subscription
+        user = User.query.get(transaction.user_id)
+        if user:
+            plan = transaction.plan
+            duration_days = TIERS[plan]['duration_days']
+            now = datetime.utcnow()
+            if user.subscription_expires and user.subscription_expires > now:
+                new_expiry = user.subscription_expires + timedelta(days=duration_days)
+            else:
+                new_expiry = now + timedelta(days=duration_days)
+            user.tier = plan
+            user.is_subscribed = True
+            user.subscription_expires = new_expiry
+            user.arbitrage_today_count = 0
+            db.session.commit()
     else:
         transaction.status = 'failed'
         db.session.commit()
-        return jsonify({'error': data.get('message', 'Payment initiation failed')}), 400
+
+    return 'OK', 200
 
 
-# ---- Flutterwave Webhook ----
-@app.route('/webhook/flutterwave', methods=['POST'])
-def flutterwave_webhook():
-    signature = request.headers.get('verif-hash')
-    expected = os.getenv('FLUTTERWAVE_WEBHOOK_SECRET')
-    if signature != expected:
-        return jsonify({'error': 'Invalid signature'}), 401
-
-    data = request.get_json()
-    event = data.get('event')
-    if event == 'charge.completed':
-        tx_ref = data.get('data', {}).get('tx_ref')
-        status = data.get('data', {}).get('status')
-        flw_ref = data.get('data', {}).get('flw_ref')
-
-        transaction = Transaction.query.filter_by(tx_ref=tx_ref).first()
-        if not transaction:
-            return jsonify({'error': 'Transaction not found'}), 404
-
-        if status == 'successful':
-            transaction.status = 'success'
-            transaction.flutterwave_transaction_id = flw_ref
-            db.session.commit()
-
-            user = User.query.get(transaction.user_id)
-            if user:
-                plan = transaction.plan
-                duration_days = TIERS[plan]['duration_days']
-                now = datetime.utcnow()
-                if user.subscription_expires and user.subscription_expires > now:
-                    new_expiry = user.subscription_expires + timedelta(days=duration_days)
-                else:
-                    new_expiry = now + timedelta(days=duration_days)
-
-                user.tier = plan
-                user.is_subscribed = True
-                user.subscription_expires = new_expiry
-                user.arbitrage_today_count = 0
-                db.session.commit()
-
-        elif status in ['failed', 'cancelled']:
-            transaction.status = 'failed'
-            db.session.commit()
-
-    return jsonify({'status': 'ok'}), 200
-
-
-# ---- Filtering Helper ----
+# ---- Filtering Helper (unchanged) ----
 def filter_opportunities(opportunities, tier_config):
     allowed_bookmakers = set(tier_config['bookmakers'])
     allowed_markets = set(tier_config['market_types'])
@@ -1310,7 +1291,7 @@ def filter_opportunities(opportunities, tier_config):
     return filtered
 
 
-# ---- Main Arbitrage Endpoint ----
+# ---- Main Arbitrage Endpoint (unchanged) ----
 @app.route('/api/arbitrage', methods=['GET'])
 @token_required
 def get_arbitrage():
@@ -1346,7 +1327,6 @@ def get_arbitrage():
     cache_file = 'current_opportunities.json'
     run_scanner = False
 
-    # Decide whether to refresh cache based on tier speed
     if os.path.exists(cache_file):
         file_age = time.time() - os.path.getmtime(cache_file)
         if tier_config['scanner_speed_seconds'] == 0:
@@ -1397,14 +1377,9 @@ def get_arbitrage():
     return jsonify(response)
 
 
-# ============================================================================
-#                           ENTRY POINT – smart switch
-# ============================================================================
-
+# ---- Entry Point ----
 if __name__ == "__main__":
-    # If running inside GitHub Actions, only run the scanner and exit.
     if os.environ.get("GITHUB_ACTION") == "1":
         run_scan()
     else:
-        # Otherwise, start the Flask API (development server).
         app.run(host='0.0.0.0', port=5000, debug=True)
