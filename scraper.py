@@ -1397,6 +1397,14 @@ def get_arbitrage():
     return jsonify(response)
 
 
-# ---- Run Flask App ----
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# ============================================================================
+#                           ENTRY POINT – smart switch
+# ============================================================================
+
+if __name__ == "__main__":
+    # If running inside GitHub Actions, only run the scanner and exit.
+    if os.environ.get("GITHUB_ACTION") == "1":
+        run_scan()
+    else:
+        # Otherwise, start the Flask API (development server).
+        app.run(host='0.0.0.0', port=5000, debug=True)
