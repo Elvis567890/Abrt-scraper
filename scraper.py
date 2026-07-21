@@ -971,8 +971,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
-# --- Import Pesapal client ---
-from pesapal_client.client import PesapalClientV3
+# --- DO NOT import PesapalClientV3 globally – it's lazy‑loaded inside the /api/pay route ---
 
 load_dotenv()
 
@@ -1052,8 +1051,6 @@ class User(db.Model):
     tier = db.Column(db.String(20), default='free')
     is_subscribed = db.Column(db.Boolean, default=False)
     subscription_expires = db.Column(db.DateTime, nullable=True)
-
-    # Removed flutterwave_customer_id – no longer needed
 
     last_arbitrage_date = db.Column(db.DateTime, nullable=True)
     arbitrage_today_count = db.Column(db.Integer, default=0)
@@ -1149,10 +1146,13 @@ def login():
     })
 
 
-# ---- Payment Initiation with Pesapal ----
+# ---- Payment Initiation with Pesapal (lazy import) ----
 @app.route('/api/pay', methods=['POST'])
 @token_required
 def initiate_payment():
+    # Import Pesapal client only when this endpoint is called
+    from pesapal_client.client import PesapalClientV3
+
     user = User.query.get(g.user_id)
     data = request.get_json()
     plan = data.get('plan')  # 'day', 'monthly', 'quarterly'
