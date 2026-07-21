@@ -309,31 +309,65 @@
     "match": "jeju utd vs gangwon",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 30.89,
-    "profit_ugx": 30889,
+    "profit_percent": 34.89,
+    "profit_ugx": 34889,
     "total_stake": 100000,
-    "arb_sum": 0.6911,
+    "arb_sum": 0.6511,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.6,
-        "stake": 40193,
-        "win": 144695
+        "stake": 42662,
+        "win": 153583
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.0,
-        "stake": 48232,
-        "win": 144696
+        "stake": 51195,
+        "win": 153585
       },
       {
         "bookmaker": "SportyBet",
         "outcome": "Away",
-        "odd": 12.5,
-        "stake": 11576,
-        "win": 144700
+        "odd": 25.0,
+        "stake": 6143,
+        "win": 153575
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ulsan hd vs incheon utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 20.34,
+    "profit_ugx": 20338,
+    "total_stake": 100000,
+    "arb_sum": 0.7966,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.24,
+        "stake": 56040,
+        "win": 125530
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 3.305,
+        "stake": 37982,
+        "win": 125531
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 21.0,
+        "stake": 5978,
+        "win": 125538
       }
     ],
     "market_type": "1x2",
