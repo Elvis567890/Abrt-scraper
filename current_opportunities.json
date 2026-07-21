@@ -278,6 +278,40 @@
     "market_specifier": ""
   },
   {
+    "match": "istanbul bb vs inter turku",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.14,
+    "profit_ugx": 1135,
+    "total_stake": 100000,
+    "arb_sum": 0.9886,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.14,
+        "stake": 88727,
+        "win": 101149
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 19.0,
+        "stake": 5324,
+        "win": 101156
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 17.0,
+        "stake": 5950,
+        "win": 101150
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "maitland vs fremantle",
     "sport": "Football",
     "type": "3-way",
