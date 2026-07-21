@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "nk istra 1961 vs orijent 1919 rijeka",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.71,
+    "profit_ugx": 713,
+    "total_stake": 100000,
+    "arb_sum": 0.9929,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.3,
+        "stake": 77476,
+        "win": 100719
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 9.2,
+        "stake": 10948,
+        "win": 100722
+      },
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Away",
+        "odd": 8.7,
+        "stake": 11577,
+        "win": 100720
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "sv langenrohr vs red star penzing",
     "sport": "Football",
     "type": "3-way",
@@ -173,31 +207,31 @@
     "match": "dunfermline athletic vs cove rangers",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.79,
-    "profit_ugx": 787,
+    "profit_percent": 0.95,
+    "profit_ugx": 953,
     "total_stake": 100000,
-    "arb_sum": 0.9921,
+    "arb_sum": 0.9905,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.29,
-        "stake": 78135,
-        "win": 100794
+        "stake": 78265,
+        "win": 100962
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 9.45,
-        "stake": 10666,
-        "win": 100794
+        "odd": 9.6,
+        "stake": 10517,
+        "win": 100963
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 9.0,
-        "stake": 11199,
-        "win": 100791
+        "stake": 11218,
+        "win": 100962
       }
     ],
     "market_type": "1x2",
