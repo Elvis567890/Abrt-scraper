@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "brabrand if vs vsk aarhus",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.18,
+    "profit_ugx": 1176,
+    "total_stake": 100000,
+    "arb_sum": 0.9882,
+    "bets": [
+      {
+        "bookmaker": "SportyBet",
+        "outcome": "Home",
+        "odd": 2.5,
+        "stake": 40476,
+        "win": 101190
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 29762,
+        "win": 101191
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.4,
+        "stake": 29762,
+        "win": 101191
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "floriana vs drita",
     "sport": "Football",
     "type": "3-way",
@@ -760,60 +794,6 @@
         "odd": 1.916,
         "stake": 56661,
         "win": 108562
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "alloa athletic vs falkirk",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 18.26,
-    "profit_ugx": 18257,
-    "total_stake": 100000,
-    "arb_sum": 0.8174,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 4.35,
-        "stake": 28123,
-        "win": 122335
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.702,
-        "stake": 71877,
-        "win": 122335
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "alloa athletic vs falkirk",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 18.26,
-    "profit_ugx": 18257,
-    "total_stake": 100000,
-    "arb_sum": 0.8174,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 4.35,
-        "stake": 28123,
-        "win": 122335
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 1.702,
-        "stake": 71877,
-        "win": 122335
       }
     ],
     "market_type": "1x2",
