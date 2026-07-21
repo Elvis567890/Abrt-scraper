@@ -3,31 +3,31 @@
     "match": "iberia 1999 vs slovan bratislava",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 13.54,
-    "profit_ugx": 13535,
+    "profit_percent": 16.18,
+    "profit_ugx": 16175,
     "total_stake": 100000,
-    "arb_sum": 0.8646,
+    "arb_sum": 0.8382,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 4.075,
-        "stake": 28381,
-        "win": 115653
+        "odd": 3.66,
+        "stake": 32595,
+        "win": 119298
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.2,
-        "stake": 36142,
-        "win": 115654
+        "stake": 37280,
+        "win": 119296
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.26,
-        "stake": 35477,
-        "win": 115655
+        "odd": 3.96,
+        "stake": 30125,
+        "win": 119295
       }
     ],
     "market_type": "1x2",
@@ -37,31 +37,31 @@
     "match": "mjallby aif vs lincoln red imps",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.27,
-    "profit_ugx": 4267,
+    "profit_percent": 1.14,
+    "profit_ugx": 1135,
     "total_stake": 100000,
-    "arb_sum": 0.9573,
+    "arb_sum": 0.9886,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
-        "odd": 1.17,
-        "stake": 89279,
-        "win": 104456
+        "odd": 1.14,
+        "stake": 88727,
+        "win": 101149
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
-        "odd": 20.0,
-        "stake": 5223,
-        "win": 104460
+        "odd": 17.0,
+        "stake": 5950,
+        "win": 101150
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 19.0,
-        "stake": 5498,
-        "win": 104462
+        "stake": 5324,
+        "win": 101156
       }
     ],
     "market_type": "1x2",
@@ -578,6 +578,60 @@
         "odd": 11.4,
         "stake": 9620,
         "win": 109668
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "iberia 1999 vs slovan bratislava",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.07,
+    "profit_ugx": 1072,
+    "total_stake": 100000,
+    "arb_sum": 0.9893,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.9,
+        "stake": 53202,
+        "win": 101084
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.16,
+        "stake": 46798,
+        "win": 101084
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "iberia 1999 vs slovan bratislava",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.07,
+    "profit_ugx": 1072,
+    "total_stake": 100000,
+    "arb_sum": 0.9893,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.9,
+        "stake": 53202,
+        "win": 101084
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.16,
+        "stake": 46798,
+        "win": 101084
       }
     ],
     "market_type": "1x2",
