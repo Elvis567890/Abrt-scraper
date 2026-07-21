@@ -136,6 +136,40 @@
     "market_specifier": ""
   },
   {
+    "match": "radcliffe vs barrow afc",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 22.5,
+    "profit_ugx": 22497,
+    "total_stake": 100000,
+    "arb_sum": 0.775,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.2,
+        "stake": 30721,
+        "win": 129028
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 34872,
+        "win": 129026
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.75,
+        "stake": 34407,
+        "win": 129026
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "south shields vs harrogate town",
     "sport": "Football",
     "type": "3-way",
@@ -220,7 +254,7 @@
         "win": 100792
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 12.7,
         "stake": 7936,
@@ -550,40 +584,6 @@
     "market_specifier": ""
   },
   {
-    "match": "atert bissen vs gyori eto",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 30.07,
-    "profit_ugx": 30068,
-    "total_stake": 100000,
-    "arb_sum": 0.6993,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 5.01,
-        "stake": 28542,
-        "win": 142995
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 36666,
-        "win": 142997
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.11,
-        "stake": 34792,
-        "win": 142995
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "larne vs crvena zvezda",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -632,60 +632,6 @@
         "odd": 1.546,
         "stake": 77083,
         "win": 119170
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "atert bissen vs gyori eto",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 6.81,
-    "profit_ugx": 6813,
-    "total_stake": 100000,
-    "arb_sum": 0.9319,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.24,
-        "stake": 47907,
-        "win": 107312
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.06,
-        "stake": 52093,
-        "win": 107312
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "atert bissen vs gyori eto",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 6.81,
-    "profit_ugx": 6813,
-    "total_stake": 100000,
-    "arb_sum": 0.9319,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.24,
-        "stake": 47907,
-        "win": 107312
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.06,
-        "stake": 52093,
-        "win": 107312
       }
     ],
     "market_type": "1x2",
