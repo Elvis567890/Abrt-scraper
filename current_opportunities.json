@@ -445,31 +445,355 @@
     "match": "home special bets vs away special bets",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.92,
-    "profit_ugx": 4920,
+    "profit_percent": 4.59,
+    "profit_ugx": 4594,
     "total_stake": 100000,
-    "arb_sum": 0.9508,
+    "arb_sum": 0.9541,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.469,
-        "stake": 71596,
-        "win": 105175
+        "odd": 1.462,
+        "stake": 71693,
+        "win": 104815
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.75,
-        "stake": 18291,
-        "win": 105173
+        "stake": 18229,
+        "win": 104817
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 10.4,
-        "stake": 10113,
-        "win": 105175
+        "stake": 10078,
+        "win": 104811
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "iberia 1999 vs slovan bratislava",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.21,
+    "profit_ugx": 2215,
+    "total_stake": 100000,
+    "arb_sum": 0.9779,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.8,
+        "stake": 56814,
+        "win": 102265
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.368,
+        "stake": 43186,
+        "win": 102264
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "iberia 1999 vs slovan bratislava",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.21,
+    "profit_ugx": 2215,
+    "total_stake": 100000,
+    "arb_sum": 0.9779,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.8,
+        "stake": 56814,
+        "win": 102265
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.368,
+        "stake": 43186,
+        "win": 102264
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "thun vs dinamo zagreb",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.51,
+    "profit_ugx": 508,
+    "total_stake": 100000,
+    "arb_sum": 0.9949,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.8,
+        "stake": 55839,
+        "win": 100510
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.276,
+        "stake": 44161,
+        "win": 100510
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "thun vs dinamo zagreb",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.51,
+    "profit_ugx": 508,
+    "total_stake": 100000,
+    "arb_sum": 0.9949,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.8,
+        "stake": 55839,
+        "win": 100510
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.276,
+        "stake": 44161,
+        "win": 100510
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "larne vs crvena zvezda",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.67,
+    "profit_ugx": 14667,
+    "total_stake": 100000,
+    "arb_sum": 0.8533,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 5.05,
+        "stake": 23206,
+        "win": 117190
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.526,
+        "stake": 76794,
+        "win": 117188
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "larne vs crvena zvezda",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.67,
+    "profit_ugx": 14667,
+    "total_stake": 100000,
+    "arb_sum": 0.8533,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 5.05,
+        "stake": 23206,
+        "win": 117190
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.526,
+        "stake": 76794,
+        "win": 117188
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 1.1,
+    "profit_ugx": 1102,
+    "total_stake": 100000,
+    "arb_sum": 0.989,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.099,
+        "stake": 48173,
+        "win": 101115
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.951,
+        "stake": 51827,
+        "win": 101114
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 1.1,
+    "profit_ugx": 1102,
+    "total_stake": 100000,
+    "arb_sum": 0.989,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.099,
+        "stake": 48173,
+        "win": 101115
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.951,
+        "stake": 51827,
+        "win": 101114
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.35,
+    "profit_ugx": 2351,
+    "total_stake": 100000,
+    "arb_sum": 0.9765,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.18,
+        "stake": 86786,
+        "win": 102407
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 7.75,
+        "stake": 13214,
+        "win": 102408
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.35,
+    "profit_ugx": 2351,
+    "total_stake": 100000,
+    "arb_sum": 0.9765,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.18,
+        "stake": 86786,
+        "win": 102407
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 7.75,
+        "stake": 13214,
+        "win": 102408
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "atert bissen vs gyori eto",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.16,
+    "profit_ugx": 7158,
+    "total_stake": 100000,
+    "arb_sum": 0.9284,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.46,
+        "stake": 43784,
+        "win": 107709
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.916,
+        "stake": 56216,
+        "win": 107710
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "atert bissen vs gyori eto",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.16,
+    "profit_ugx": 7158,
+    "total_stake": 100000,
+    "arb_sum": 0.9284,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.46,
+        "stake": 43784,
+        "win": 107709
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.916,
+        "stake": 56216,
+        "win": 107710
       }
     ],
     "market_type": "1x2",
