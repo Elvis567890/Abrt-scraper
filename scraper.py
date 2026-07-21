@@ -1,1385 +1,1017 @@
-# ============================================================================
-#                           ARBITRAGE SCANNER (UNCHANGED)
-# ============================================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrimax - Live Arbitrage</title>
 
-import json
-import re
-import time
-import urllib.parse
-import urllib.request
-from datetime import datetime, timedelta
-import os
-from copy import deepcopy
-from functools import wraps
+    <!-- Firebase SDKs (compat v9) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
-import requests
-from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
+    <style>
+        /* ===== YOUR EXISTING STYLES ===== */
+        :root {
+            --bg: #0d0f13;
+            --surface: #161820;
+            --surface2: #1c1e26;
+            --surface3: #22242e;
+            --text: #e8e8ec;
+            --text2: #a0a4b0;
+            --text3: #6b6f7c;
+            --green: #00e676;
+            --green-glow: rgba(0, 230, 118, 0.25);
+            --red: #ff5252;
+            --blue: #448aff;
+            --yellow: #ffc107;
+            --orange: #ff9100;
+            --accent: #00e676;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-xs: 8px;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --nav-height: 72px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; -webkit-font-smoothing: antialiased; user-select: none; }
+        .phone-frame { width: 390px; height: 844px; background: var(--bg); border-radius: 36px; overflow: hidden; position: relative; box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 8px #2a2a2a, 0 20px 60px rgba(0,0,0,0.7); display: flex; flex-direction: column; }
+        @media (max-width: 430px) { .phone-frame { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; } }
+        .status-bar { height: 44px; background: var(--bg); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; color: #fff; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .main-content { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
+        .main-content::-webkit-scrollbar { width: 0; }
+        .page { display: none; padding: 0 16px 20px; animation: fadeSlideIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes glowPulse { 0%,100% { box-shadow: 0 0 12px var(--green-glow); } 50% { box-shadow: 0 0 24px var(--green-glow), 0 0 40px rgba(0,230,118,0.15); } }
+        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 0 14px; }
+        .page-header h1 { font-size: 22px; font-weight: 700; color: var(--text); }
+        .filter-tabs { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; }
+        .filter-tab { padding: 9px 18px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; border: 1.5px solid var(--surface3); background: transparent; color: var(--text2); }
+        .filter-tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; box-shadow: 0 2px 12px var(--green-glow); }
+        .opp-card { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+        .opp-card:active { transform: scale(0.985); border-color: var(--surface3); }
+        .opp-card .top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .event-info { flex: 1; }
+        .sport-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 4px; }
+        .event-name { font-size: 15px; font-weight: 700; color: var(--text); text-transform: capitalize; }
+        .market-type { font-size: 12px; color: var(--text2); margin-top: 2px; }
+        .profit-badge { background: rgba(0,230,118,0.12); color: var(--green); font-weight: 700; font-size: 16px; padding: 8px 14px; border-radius: 20px; animation: glowPulse 2.5s infinite; }
+        .bookie-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+        .bookie-tag { display: flex; align-items: center; gap: 6px; background: var(--surface2); padding: 7px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--text); }
+        .bookie-dot { width: 18px; height: 18px; border-radius: 50%; font-weight: 700; font-size: 9px; display: flex; align-items: center; justify-content: center; color: #fff; }
+        .stake-preview { font-size: 11px; color: var(--text3); margin-top: 6px; }
+        .arb-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
 
-SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
-CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
-CHAMPIONBET_MATCH_API = "https://www.championbet.ug/restapi/offer/en/match/{match_id}?annex=13&mobileVersion=2.47.4.3&locale=en"
+        .detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .back-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; border: none; color: var(--text); }
+        .detail-sport { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); }
+        .detail-event { font-size: 18px; font-weight: 700; color: var(--text); text-transform: capitalize; }
+        .detail-timer { font-size: 13px; color: var(--orange); font-weight: 600; }
+        .outcome-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .outcome-card { background: var(--surface); border-radius: var(--radius); padding: 16px; text-align: center; border: 2px solid transparent; transition: all 0.2s; }
+        .outcome-card.highlight { border-color: var(--green); box-shadow: 0 0 20px var(--green-glow); }
+        .outcome-label { font-size: 12px; color: var(--text2); margin-bottom: 6px; font-weight: 600; text-transform: capitalize; }
+        .outcome-odds { font-size: 36px; font-weight: 800; color: var(--text); letter-spacing: -1px; }
+        .outcome-bookie { font-size: 11px; color: var(--text3); margin-top: 2px; }
+        .stake-input-group { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px; }
+        .stake-input-group label { font-size: 12px; color: var(--text2); font-weight: 600; display: block; margin-bottom: 6px; }
+        .stake-input-row { display: flex; align-items: center; gap: 8px; }
+        .stake-input-row input { flex: 1; background: var(--surface2); border: 2px solid var(--surface3); color: var(--text); font-size: 20px; font-weight: 700; padding: 12px 14px; border-radius: var(--radius-xs); outline: none; font-family: var(--font); }
+        .stake-input-row .currency { font-size: 18px; font-weight: 700; color: var(--text2); }
+        .breakdown-table { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px; }
+        .breakdown-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; color: var(--text2); border-bottom: 1px solid var(--surface2); }
+        .breakdown-row:last-child { border-bottom: none; font-weight: 700; color: var(--green); font-size: 15px; }
+        .breakdown-row .val { color: var(--text); font-weight: 600; }
+        .breakdown-row:last-child .val { color: var(--green); }
+        .cta-row { display: flex; gap: 10px; }
+        .cta-btn { flex: 1; padding: 14px; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px; cursor: pointer; text-align: center; border: none; transition: all 0.2s; font-family: var(--font); }
+        .cta-btn.primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px var(--green-glow); }
+        .cta-btn.secondary { background: var(--surface2); color: var(--text); border: 1.5px solid var(--surface3); }
+        .cta-btn:active { transform: scale(0.95); }
+        .calc-card { background: var(--surface); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
+        .calc-input { margin-bottom: 14px; }
+        .calc-input label { font-size: 12px; font-weight: 600; color: var(--text2); display: block; margin-bottom: 5px; }
+        .calc-input input { width: 100%; background: var(--surface2); border: 2px solid var(--surface3); color: var(--text); font-size: 17px; padding: 12px 14px; border-radius: var(--radius-xs); outline: none; }
+        .calc-result { background: var(--surface2); border-radius: var(--radius-sm); padding: 16px; text-align: center; margin-top: 8px; }
+        .profit-ring { width: 80px; height: 80px; border-radius: 50%; border: 6px solid var(--green); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: var(--green); box-shadow: 0 0 24px var(--green-glow); }
+        .slip-item { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+        .slip-bookie { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; color: #fff; }
+        .slip-info { flex: 1; }
+        .slip-event { font-weight: 600; color: var(--text); font-size: 13px; text-transform: capitalize; }
+        .slip-detail { font-size: 11px; color: var(--text2); }
+        .slip-stake { font-weight: 700; color: var(--text); font-size: 14px; }
+        .slip-actions { display: flex; gap: 6px; }
+        .slip-actions button { width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer; font-size: 14px; }
+        .btn-copy { background: var(--surface2); color: var(--text); }
+        .btn-open { background: var(--blue); color: #fff; }
+        .bookie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .bookie-card { background: var(--surface); border-radius: var(--radius); padding: 16px; text-align: center; border: 2px solid transparent; }
+        .bookie-card.connected { border-color: rgba(0,230,118,0.3); }
+        .bookie-logo { width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: #fff; }
+        .bookie-name { font-weight: 700; color: var(--text); font-size: 14px; }
+        .bookie-status { font-size: 10px; font-weight: 700; color: var(--green); margin-top: 4px; text-transform: uppercase; }
+        .summary-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+        .summary-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
+        .summary-val { font-size: 22px; font-weight: 800; color: var(--text); }
+        .summary-label { font-size: 10px; color: var(--text3); text-transform: uppercase; }
+        .profit-chart { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; height: 120px; display: flex; align-items: flex-end; gap: 6px; }
+        .chart-bar { flex: 1; background: var(--green); border-radius: 4px 4px 0 0; min-height: 8px; opacity: 0.8; }
+        .hist-item { background: var(--surface); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+        .hist-info { flex: 1; }
+        .hist-event { font-weight: 600; color: var(--text); font-size: 13px; }
+        .hist-date { font-size: 11px; color: var(--text3); }
+        .status-chip { font-size: 10px; font-weight: 700; padding: 5px 10px; border-radius: 12px; text-transform: uppercase; }
+        .status-placed { background: rgba(0,230,118,0.15); color: var(--green); }
+        .status-invalid { background: rgba(255,82,82,0.15); color: var(--red); }
+        .alert-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .alert-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,230,118,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .alert-info { flex: 1; }
+        .alert-event { font-weight: 600; color: var(--text); font-size: 13px; text-transform: capitalize; }
+        .alert-meta { font-size: 11px; color: var(--text3); }
+        .alert-profit { font-weight: 700; color: var(--green); font-size: 14px; }
+        .bottom-nav { height: 72px; background: var(--surface); display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--surface3); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 6px 12px; background: none; border: none; color: var(--text3); font-family: var(--font); font-size: 10px; font-weight: 600; }
+        .nav-item.active { color: var(--accent); }
+        .toast { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .toast.show { opacity: 1; }
+        .empty-state { text-align: center; padding: 50px 20px; color: var(--text3); }
+        .settings-section { margin-bottom: 18px; }
+        .settings-section h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 10px; }
+        .slider-container { background: var(--surface); border-radius: var(--radius-sm); padding: 14px 16px; }
+        .slider-container input[type="range"] { width: 100%; accent-color: var(--accent); margin-top: 6px; }
+        .fab { position: absolute; bottom: 100px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: #000; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 28px var(--green-glow); z-index: 20; border: none; }
+        .icon-btn { background: var(--surface2); border: none; color: var(--text); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; position: relative; }
+        .badge-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; top: 6px; right: 6px; border: 2px solid var(--surface2); }
 
-STAKE = 100000
-HISTORY_FILE = "arb_history.json"
+        /* ===== AUTH PAGE STYLES ===== */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            padding: 20px 0;
+        }
+        .auth-box {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 30px 24px;
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        .auth-box h2 { color: var(--text); font-size: 24px; margin-bottom: 8px; text-align: center; }
+        .auth-box p { color: var(--text2); text-align: center; font-size: 14px; margin-bottom: 20px; }
+        .auth-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+        .auth-tab { flex:1; padding: 10px; border: 2px solid var(--surface3); border-radius: var(--radius-xs); background: transparent; color: var(--text2); font-weight: 700; cursor: pointer; text-align: center; }
+        .auth-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(0,230,118,0.08); }
+        .auth-input { width: 100%; padding: 14px; background: var(--surface2); border: 2px solid var(--surface3); border-radius: var(--radius-xs); color: var(--text); font-size: 15px; margin-bottom: 12px; outline: none; }
+        .auth-input:focus { border-color: var(--accent); }
+        .auth-btn { width: 100%; padding: 14px; border: none; border-radius: var(--radius-xs); font-weight: 700; font-size: 16px; cursor: pointer; }
+        .auth-btn.primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px var(--green-glow); }
+        .auth-btn.google { background: #fff; color: #000; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
+        .auth-error { color: var(--red); font-size: 13px; margin: 6px 0; text-align: center; min-height: 20px; }
+        .auth-divider { display: flex; align-items: center; gap: 12px; color: var(--text3); font-size: 12px; margin: 12px 0; }
+        .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--surface3); }
+        .user-email { color: var(--text2); font-size: 13px; margin-bottom: 12px; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="phone-frame" id="app">
+    <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="status-icons">5G ▮▮▮▮ 🔋</div>
+    </div>
+    <div class="toast" id="toast">Copied ✓</div>
+    <div class="main-content" id="mainContent">
 
-SHARED_BOOKMAKERS_1X = {
-    "1xBet": {"base_url": "https://1xbet.ug", "partner": "135"},
-    "22Bet": {"base_url": "https://22bet.ug", "partner": "151"},
-    "Melbet": {"base_url": "https://melbet.ug", "partner": "8"},
-}
+        <!-- ===== AUTH PAGE ===== -->
+        <div class="page active" id="page-auth">
+            <div class="auth-container">
+                <div class="auth-box">
+                    <h2>🔒 Abrimax</h2>
+                    <p>Sign in to access live arbitrage</p>
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Login</button>
+                        <button class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</button>
+                    </div>
+                    <div id="authForm">
+                        <!-- Login form -->
+                        <div id="loginForm">
+                            <input type="email" id="loginEmail" class="auth-input" placeholder="Email" required>
+                            <input type="password" id="loginPassword" class="auth-input" placeholder="Password" required>
+                            <div id="authError" class="auth-error"></div>
+                            <button class="auth-btn primary" onclick="loginWithEmail()">Log In</button>
+                        </div>
+                        <!-- Signup form (hidden by default) -->
+                        <div id="signupForm" style="display:none;">
+                            <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
+                            <input type="password" id="signupPassword" class="auth-input" placeholder="Password (min 6 chars)" required>
+                            <div id="authErrorSignup" class="auth-error"></div>
+                            <button class="auth-btn primary" onclick="signUpWithEmail()">Create Account</button>
+                        </div>
+                    </div>
+                    <div class="auth-divider"><hr><span>or</span><hr></div>
+                    <button class="auth-btn google" onclick="signInWithGoogle()">
+                        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                        Sign in with Google
+                    </button>
+                </div>
+            </div>
+        </div>
 
+        <!-- ===== REST OF YOUR PAGES ===== -->
+        <!-- Dashboard -->
+        <div class="page" id="page-dashboard">
+            <div class="page-header">
+                <h1>🔍 Abrimax</h1>
+                <div>
+                    <button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button>
+                    <button class="icon-btn" onclick="navigateTo('settings')">👤</button>
+                </div>
+            </div>
+            <div class="filter-tabs" id="dashboardFilterTabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="football">Football</button>
+                <button class="filter-tab" data-filter="high">High Profit (>5%)</button>
+            </div>
+            <div id="oppList"></div>
+            <button class="fab" onclick="navigateTo('calculator')">🧮</button>
+        </div>
+        <!-- Detail (injected) -->
+        <div class="page" id="page-detail"></div>
+        <!-- Calculator -->
+        <div class="page" id="page-calculator">
+            <div class="detail-header">
+                <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
+                <h1 style="font-size:20px;">🧮 Arbitrage Calculator</h1>
+            </div>
+            <div class="calc-card">
+                <div class="calc-input"><label>Total Stake (UGX)</label><input type="number" id="calcStake" value="100000" oninput="updateCalculator()"></div>
+                <div class="calc-input"><label>Odds 1</label><input type="number" id="calcOdds1" value="3.6" step="0.01" oninput="updateCalculator()"></div>
+                <div class="calc-input"><label>Odds 2</label><input type="number" id="calcOdds2" value="3.82" step="0.01" oninput="updateCalculator()"></div>
+                <div class="calc-input" id="calcOdds3Container" style="display:block;"><label>Odds 3 (3-way)</label><input type="number" id="calcOdds3" value="3.82" step="0.01" oninput="updateCalculator()"></div>
+                <button class="cta-btn secondary" style="width:100%;font-size:12px;" onclick="toggleThirdOdds()">Toggle 3rd Outcome</button>
+                <div class="calc-result" id="calcResult"></div>
+            </div>
+            <button class="cta-btn primary" style="width:100%;" onclick="addCurrentCalcToSlip()">📋 Save to Bet Slip</button>
+        </div>
+        <!-- Bet Slip -->
+        <div class="page" id="page-slip">
+            <div class="page-header"><h1>📋 Bet Slip</h1><span id="slipCount">0 bets</span></div>
+            <div id="slipItems"></div>
+            <div class="slip-summary" id="slipSummary" style="display:none;">
+                <div>Total Profit</div>
+                <div class="summary-profit" id="slipProfit">+UGX 0</div>
+                <button class="cta-btn primary" style="width:100%;margin-top:10px;" onclick="completeArb()">✅ Complete Arb</button>
+            </div>
+        </div>
+        <!-- Bookmakers -->
+        <div class="page" id="page-bookies">
+            <div class="page-header"><h1>🏦 Bookmakers</h1></div>
+            <div class="bookie-grid">
+                <div class="bookie-card connected"><div class="bookie-logo" style="background:#027a48;">B365</div><div class="bookie-name">Bet365</div><div class="bookie-status">Connected</div></div>
+                <div class="bookie-card connected"><div class="bookie-logo" style="background:#f5a623;">SP</div><div class="bookie-name">SportyBet</div><div class="bookie-status">Connected</div></div>
+                <div class="bookie-card connected"><div class="bookie-logo" style="background:#1a5ba8;">1XB</div><div class="bookie-name">1xBet</div><div class="bookie-status">Connected</div></div>
+                <div class="bookie-card connected"><div class="bookie-logo" style="background:#e63946;">PIN</div><div class="bookie-name">Pinnacle</div><div class="bookie-status">Connected</div></div>
+            </div>
+        </div>
 
-def normalize(name):
-    name = (name or "").lower().strip()
-    name = re.sub(r"\b(rovers|rvs)\b", "rvs", name)
-    name = re.sub(r"\b(united|utd)\b", "utd", name)
-    name = re.sub(r"\b(fc|sc|cf|ac|city|sports|club|football|soccer|women|men|u21|u23)\b", "", name)
-    name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"\s+", " ", name).strip()
-    return name
+        <!-- Settings -->
+        <div class="page" id="page-settings">
+            <div class="page-header">
+                <h1>⚙️ Settings</h1>
+                <button class="icon-btn" onclick="saveUserSettings()">💾</button>
+            </div>
 
+            <div class="settings-section">
+                <h3>👤 Account</h3>
+                <div class="slider-container" style="text-align:center;">
+                    <div id="settingsUserEmail" class="user-email">Not logged in</div>
+                    <button class="cta-btn secondary" style="width:100%;" onclick="logoutUser()">🚪 Log Out</button>
+                </div>
+            </div>
 
-def teams_match(name1, name2):
-    n1 = normalize(name1)
-    n2 = normalize(name2)
-    if not n1 or not n2:
-        return False
-    if n1 == n2:
-        return True
-    if len(n1) > 3 and len(n2) > 3:
-        if n1 in n2 or n2 in n1:
-            return True
-        w1 = n1.split()[0] if n1.split() else ""
-        w2 = n2.split()[0] if n2.split() else ""
-        if len(w1) > 4 and w1 == w2:
-            return True
-    return False
+            <div class="settings-section">
+                <h3>📊 Arbitrage Preferences</h3>
+                <div class="slider-container">
+                    <label>Default Stake (UGX)</label>
+                    <input type="number" id="defaultStake" class="settings-input" value="100000" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                </div>
 
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Min Profit Filter (%)</label>
+                    <select id="minProfit" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                        <option value="0.5">0.5%</option>
+                        <option value="1.0" selected>1.0%</option>
+                        <option value="2.0">2.0%</option>
+                        <option value="3.0">3.0%</option>
+                        <option value="5.0">5.0%</option>
+                    </select>
+                </div>
 
-def match_key_similarity(key1, key2):
-    if "|" in key1 or "|" in key2:
-        return key1 == key2
-    parts1 = key1.split(" vs ")
-    parts2 = key2.split(" vs ")
-    if len(parts1) != 2 or len(parts2) != 2:
-        return False
-    return teams_match(parts1[0], parts2[0]) and teams_match(parts1[1], parts2[1])
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Max Profit Filter (Avoid Glitches)</label>
+                    <select id="maxProfit" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                        <option value="8.0">Safe (< 8%)</option>
+                        <option value="15.0" selected>Moderate (< 15%)</option>
+                        <option value="99.0">Degenerate (Show All)</option>
+                    </select>
+                </div>
 
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Show Market Types</label>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;">
+                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                            <input type="checkbox" id="mkt_1x2" checked> 1x2
+                        </label>
+                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                            <input type="checkbox" id="mkt_ou" checked> Over/Under
+                        </label>
+                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                            <input type="checkbox" id="mkt_ah" checked> Asian Handicap
+                        </label>
+                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                            <input type="checkbox" id="mkt_btts" checked> BTTS
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-def clean_odd(v, min_odd=1.01, max_odd=50.0):
-    try:
-        if v is None:
-            return None
-        v = float(v)
-        if min_odd <= v <= max_odd:
-            return v
-    except:
-        pass
-    return None
+            <div class="settings-section">
+                <h3>🔔 Alerts & Notifications</h3>
+                <div class="slider-container" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Enable Push Alerts</label>
+                    <input type="checkbox" id="alertToggle" checked style="accent-color:var(--accent); transform:scale(1.2);">
+                </div>
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Alert Minimum Profit (%)</label>
+                    <input type="number" id="alertThreshold" value="5.0" class="settings-input" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;" step="0.5">
+                </div>
+            </div>
 
+            <div class="settings-section">
+                <h3>🎨 Display</h3>
+                <div class="slider-container" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Dark Mode</label>
+                    <input type="checkbox" id="darkModeToggle" checked style="accent-color:var(--accent); transform:scale(1.2);">
+                </div>
+                <div class="slider-container" style="margin-top:8px;">
+                    <label>Card Layout</label>
+                    <select id="cardLayout" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                        <option value="comfortable">Comfortable (Expanded)</option>
+                        <option value="compact">Compact (Tight)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
-def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport="Football", competition="", market_type="1x2", market_specifier=""):
-    base_key = f"{normalize(home_team)} vs {normalize(away_team)}"
-    if market_type == "Over/Under 2.5":
-        match_key = f"{base_key} | O/U 2.5"
-    elif market_type == "Asian Handicap":
-        match_key = f"{base_key} | AH {market_specifier}"
-    elif market_type == "Double Chance":
-        match_key = f"{base_key} | DC {market_specifier}"
-    elif market_type == "BTTS":
-        match_key = f"{base_key} | BTTS"
-    else:
-        match_key = base_key
+        <!-- History -->
+        <div class="page" id="page-history">
+            <div class="page-header"><h1>📊 History</h1></div>
+            <div class="summary-cards">
+                <div class="summary-card"><div class="summary-val" id="totalArbs">0</div><div class="summary-label">Arbs Done</div></div>
+                <div class="summary-card"><div class="summary-val" id="totalProfit">UGX 0</div><div class="summary-label">Total Profit</div></div>
+            </div>
+            <div class="profit-chart" id="profitChart"></div>
+            <div id="historyList"></div>
+        </div>
+        <!-- Alerts -->
+        <div class="page" id="page-alerts">
+            <div class="page-header"><h1>🔔 Alerts</h1></div>
+            <div id="alertsList"></div>
+        </div>
+    </div>
 
-    return {
-        "match": f"{home_team} vs {away_team}",
-        "home_team": home_team,
-        "away_team": away_team,
-        "match_key": match_key,
-        "bookmaker": bookmaker,
-        "competition": competition,
-        "home": home,
-        "draw": draw,
-        "away": away,
-        "sport": sport,
-        "market_type": market_type,
-        "market_specifier": market_specifier
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom-nav" id="bottomNav">
+        <button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">🏠 Home</button>
+        <button class="nav-item" data-page="slip" onclick="navigateTo('slip')">📋 Slip</button>
+        <button class="nav-item" data-page="calculator" onclick="navigateTo('calculator')">🧮 Calc</button>
+        <button class="nav-item" data-page="bookies" onclick="navigateTo('bookies')">🏦 Bookies</button>
+        <button class="nav-item" data-page="settings" onclick="navigateTo('settings')">⚙️ Settings</button>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 1. FIREBASE CONFIG – YOUR CONFIG
+    // ============================================================
+    const firebaseConfig = {
+        apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw",
+        authDomain: "arbimax-auth.firebaseapp.com",
+        projectId: "arbimax-auth",
+        storageBucket: "arbimax-auth.firebasestorage.app",
+        messagingSenderId: "985163289771",
+        appId: "1:985163289771:web:798f8b55bab13d7d2353ee",
+        measurementId: "G-ZFXKEY2QL7"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // ============================================================
+    // 2. AUTH STATE LISTENER
+    // ============================================================
+    let currentUser = null;
+
+    auth.onAuthStateChanged(user => {
+        const authPage = document.getElementById('page-auth');
+        const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
+        const bottomNav = document.getElementById('bottomNav');
+        const fab = document.querySelector('.fab');
+
+        if (user) {
+            currentUser = user;
+            authPage.classList.remove('active');
+            mainPages.forEach(p => p.classList.add('active'));
+            bottomNav.style.display = 'flex';
+            if (fab) fab.style.display = 'flex';
+            document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + user.email;
+            loadUserSettings();
+            navigateTo('dashboard');
+        } else {
+            currentUser = null;
+            authPage.classList.add('active');
+            mainPages.forEach(p => p.classList.remove('active'));
+            bottomNav.style.display = 'none';
+            if (fab) fab.style.display = 'none';
+            document.getElementById('settingsUserEmail').textContent = 'Not logged in';
+        }
+    });
+
+    // ============================================================
+    // 3. AUTH FUNCTIONS
+    // ============================================================
+    function switchAuthTab(tab) {
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        document.querySelector(`.auth-tab[data-tab="${tab}"]`).classList.add('active');
+        if (tab === 'login') {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('signupForm').style.display = 'none';
+        } else {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+        }
+        document.getElementById('authError').textContent = '';
+        document.getElementById('authErrorSignup').textContent = '';
     }
 
+    function signUpWithEmail() {
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const errorEl = document.getElementById('authErrorSignup');
+        errorEl.textContent = '';
+        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+        if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(() => showToast('Account created! Welcome.'))
+            .catch(err => errorEl.textContent = err.message);
+    }
 
-def normalize_sport_name(record):
-    raw = (record.get("sport") or "").strip().lower()
-    if not raw:
-        record["sport"] = "Football"
-        return record
-    if "foot" in raw or "soccer" in raw:
-        record["sport"] = "Football"
-    elif "basket" in raw:
-        record["sport"] = "Basketball"
-    elif "netball" in raw:
-        record["sport"] = "Netball"
-    elif "tennis" in raw:
-        record["sport"] = "Tennis"
-    elif "rugby" in raw:
-        record["sport"] = "Rugby"
-    elif "futsal" in raw:
-        record["sport"] = "Futsal"
-    else:
-        record["sport"] = raw.title()
-    return record
+    function loginWithEmail() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errorEl = document.getElementById('authError');
+        errorEl.textContent = '';
+        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+        auth.signInWithEmailAndPassword(email, password)
+            .then(() => showToast('Logged in successfully!'))
+            .catch(err => errorEl.textContent = err.message);
+    }
 
+    function signInWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+            .then(() => showToast('Google sign-in successful!'))
+            .catch(err => showToast('Google error: ' + err.message));
+    }
 
-def load_arbitrage_history():
-    if not os.path.exists(HISTORY_FILE):
-        return {}
-    try:
-        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return {}
+    function logoutUser() {
+        auth.signOut().then(() => showToast('Logged out.'));
+    }
 
+    // ============================================================
+    // 4. USER-SPECIFIC SETTINGS (localStorage)
+    // ============================================================
+    function getUserSettingsKey() {
+        return currentUser ? 'arbi_settings_' + currentUser.uid : 'arbi_settings_guest';
+    }
 
-def save_arbitrage_history(arb_history):
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(arb_history, f, indent=2)
+    function getDefaultSettings() {
+        return {
+            default_stake: 100000,
+            min_profit: 1.0,
+            max_profit: 15.0,
+            markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true },
+            alert_threshold: 5.0,
+            dark_mode: true,
+            card_layout: 'comfortable',
+            plan: 'free'
+        };
+    }
 
+    function loadUserSettings() {
+        try {
+            const saved = localStorage.getItem(getUserSettingsKey());
+            saved ? applySettingsToUI(JSON.parse(saved)) : applySettingsToUI(getDefaultSettings());
+        } catch (e) {
+            localStorage.removeItem(getUserSettingsKey());
+            applySettingsToUI(getDefaultSettings());
+        }
+    }
 
-def opportunity_key(opp):
-    mtype = opp.get('market_type', '1x2')
-    spec = opp.get('market_specifier', '')
-    return f"{opp['sport']}::{mtype}::{opp['match']}::{spec}"
+    function applySettingsToUI(settings) {
+        document.getElementById('defaultStake').value = settings.default_stake;
+        document.getElementById('minProfit').value = settings.min_profit;
+        document.getElementById('maxProfit').value = settings.max_profit;
+        document.getElementById('mkt_1x2').checked = settings.markets['1x2'];
+        document.getElementById('mkt_ou').checked = settings.markets['ou'];
+        document.getElementById('mkt_ah').checked = settings.markets['ah'];
+        document.getElementById('mkt_btts').checked = settings.markets['btts'];
+        document.getElementById('alertToggle').checked = settings.alert_toggle !== undefined ? settings.alert_toggle : true;
+        document.getElementById('alertThreshold').value = settings.alert_threshold;
+        document.getElementById('darkModeToggle').checked = settings.dark_mode;
+        document.getElementById('cardLayout').value = settings.card_layout;
+        document.documentElement.style.setProperty('--bg', settings.dark_mode ? '#0d0f13' : '#ffffff');
+    }
 
+    function saveUserSettings() {
+        const settings = {
+            default_stake: parseInt(document.getElementById('defaultStake').value) || 100000,
+            min_profit: parseFloat(document.getElementById('minProfit').value) || 1.0,
+            max_profit: parseFloat(document.getElementById('maxProfit').value) || 15.0,
+            markets: {
+                '1x2': document.getElementById('mkt_1x2').checked,
+                'ou': document.getElementById('mkt_ou').checked,
+                'ah': document.getElementById('mkt_ah').checked,
+                'btts': document.getElementById('mkt_btts').checked
+            },
+            alert_toggle: document.getElementById('alertToggle').checked,
+            alert_threshold: parseFloat(document.getElementById('alertThreshold').value) || 5.0,
+            dark_mode: document.getElementById('darkModeToggle').checked,
+            card_layout: document.getElementById('cardLayout').value,
+            plan: 'free'
+        };
+        localStorage.setItem(getUserSettingsKey(), JSON.stringify(settings));
+        showToast('✅ Settings Saved!');
+        filterOpportunities();
+    }
 
-def update_arbitrage_history(current_opportunities, arb_history, timestamp_str):
-    for history in arb_history.values():
-        history["updated_this_cycle"] = False
+    // ============================================================
+    // 5. YOUR EXISTING APP LOGIC (unchanged)
+    // ============================================================
+    let opportunitiesData = [];
+    let allHistory = {};
+    let currentPage = 'dashboard';
+    let currentDetailArb = null;
+    let slipBets = [];
+    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
-    for opp in current_opportunities:
-        if 'market_type' not in opp:
-            opp['market_type'] = '1x2'
-        if 'market_specifier' not in opp:
-            opp['market_specifier'] = ''
+    async function loadFromLuxuryBackend() {
+        try {
+            const [oppsRes, histRes] = await Promise.all([
+                fetch('current_opportunities.json?t=' + Date.now()),
+                fetch('arb_history.json?t=' + Date.now())
+            ]);
+            if (!oppsRes.ok) throw new Error('Failed to load JSON');
+            const currentOpps = await oppsRes.json();
+            if (histRes.ok) allHistory = await histRes.json();
+            opportunitiesData = currentOpps.map(o => {
+                const key = `${o.sport || 'Football'}::${o.type || '3-way'}::${o.match}`;
+                const histEntry = allHistory[key] || {};
+                const versions = histEntry.versions || [];
+                const latest = versions.length ? versions[versions.length - 1] : null;
+                return {
+                    match: o.match,
+                    sport: o.sport || 'Football',
+                    type: o.type || '3-way',
+                    profitPercent: latest ? Number(latest.profit_percent) : Number(o.profit_percent || 0),
+                    profitUGX: latest ? Number(latest.profit_ugx) : Number(o.profit_ugx || 0),
+                    bets: (o.bets || []).map(b => ({
+                        bookie: b.bookmaker,
+                        outcome: b.outcome,
+                        odds: Number(b.odd || 0),
+                        stake: Number(b.stake || 0),
+                        win: Number(b.win || 0)
+                    })),
+                    valid: histEntry.valid !== undefined ? histEntry.valid : true,
+                    first_seen: histEntry.first_seen || null,
+                    last_seen: histEntry.last_seen || null,
+                    history: versions.map(v => ({
+                        timestamp: v.timestamp,
+                        profitPercent: Number(v.profit_percent || 0),
+                        profitUGX: Number(v.profit_ugx || 0)
+                    }))
+                };
+            });
+            renderOpportunities();
+            renderAlerts();
+            renderHistory();
+        } catch (e) {
+            console.error('LOAD ERROR:', e);
+            document.getElementById('oppList').innerHTML = `<div class="empty-state">⚠️ Network error or JSON missing.<br>Check your scraper.</div>`;
+        }
+    }
 
-        key = opportunity_key(opp)
-        if key not in arb_history:
-            entry = {
-                "match": opp["match"],
-                "sport": opp["sport"],
-                "market_type": opp["market_type"],
-                "market_specifier": opp.get("market_specifier", ""),
-                "first_seen": timestamp_str,
-                "last_seen": timestamp_str,
-                "valid": True,
-                "cycles_missed": 0,
-                "versions": [],
+    function navigateTo(pageName, data) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('page-' + pageName);
+        if (target) {
+            target.classList.add('active');
+            currentPage = pageName;
+            document.getElementById('mainContent').scrollTop = 0;
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const navBtn = document.querySelector(`.nav-item[data-page="${pageName}"]`);
+            if (navBtn) navBtn.classList.add('active');
+            if (pageName === 'detail' && data) populateDetailPage(data);
+            if (pageName === 'history') renderHistory();
+            if (pageName === 'alerts') renderAlerts();
+            const fab = document.querySelector('.fab');
+            if (fab) fab.style.display = pageName === 'dashboard' ? 'flex' : 'none';
+        }
+    }
+
+    function renderOpportunities(filter = 'all') {
+        try {
+            let settings = getDefaultSettings();
+            const saved = localStorage.getItem(getUserSettingsKey());
+            if (saved) {
+                try { settings = { ...settings, ...JSON.parse(saved) }; } catch (e) { localStorage.removeItem(getUserSettingsKey()); }
             }
-            arb_history[key] = entry
-
-        entry = arb_history[key]
-        entry["last_seen"] = timestamp_str
-        entry["valid"] = True
-        entry["cycles_missed"] = 0
-        entry["updated_this_cycle"] = True
-
-        version = {
-            "timestamp": timestamp_str,
-            "profit_percent": opp["profit_percent"],
-            "profit_ugx": opp["profit_ugx"],
-            "arb_sum": opp["arb_sum"],
-            "bets": deepcopy(opp["bets"]),
+            const minProfit = settings.minProfit || 1.0;
+            const maxProfit = settings.maxProfit || 99.0;
+            const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
+            const container = document.getElementById('oppList');
+            if (!container) return;
+            if (!opportunitiesData || opportunitiesData.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+                return;
+            }
+            let filtered = opportunitiesData.filter(a => {
+                if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
+                const type = a.type || '3-way';
+                if (type.includes('1x2') && !markets['1x2']) return false;
+                if (type.includes('Over/Under') && !markets['ou']) return false;
+                if (type.includes('Asian Handicap') && !markets['ah']) return false;
+                if (type.includes('BTTS') && !markets['btts']) return false;
+                if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
+                if (filter === 'high' && a.profitPercent <= 5) return false;
+                return true;
+            });
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+                return;
+            }
+            container.innerHTML = filtered.map(arb => {
+                const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+                return `
+                <div class="opp-card" onclick='handleCardClick(${arbStr})'>
+                    <div class="top-row">
+                        <div class="event-info">
+                            <div class="sport-badge">⚽ ${arb.sport}</div>
+                            <div class="event-name">${arb.match}</div>
+                            <div class="market-type">${arb.type} · Pre-match</div>
+                        </div>
+                        <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
+                    </div>
+                    <div class="bookie-row">
+                        ${arb.bets.map(b => `
+                            <span class="bookie-tag">
+                                <span class="bookie-dot" style="background:${getBookieColor(b.bookie)}">${b.bookie.charAt(0)}</span>
+                                ${b.bookie} ${b.outcome} @ ${b.odds}
+                            </span>
+                        `).join('')}
+                    </div>
+                    <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
+                    <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
+                </div>`;
+            }).join('');
+        } catch (error) {
+            console.error("Render error:", error);
+            document.getElementById('oppList').innerHTML = '<div class="empty-state"><p>⚠️ Error displaying opportunities.</p></div>';
         }
-        entry["versions"].append(version)
-
-    for key, entry in arb_history.items():
-        if not entry.get("updated_this_cycle"):
-            entry["cycles_missed"] = entry.get("cycles_missed", 0) + 1
-            if entry["cycles_missed"] >= 2:
-                entry["valid"] = False
-
-    for entry in arb_history.values():
-        if "updated_this_cycle" in entry:
-            del entry["updated_this_cycle"]
-
-
-def championbet_extract_1x2_from_betmap(bet_map):
-    bet_map = bet_map or {}
-    def pick_odd(market_keys):
-        for k in market_keys:
-            market = bet_map.get(str(k), {}) or {}
-            if not isinstance(market, dict): continue
-            for _, item in market.items():
-                if isinstance(item, dict):
-                    odd = clean_odd(item.get("ov"))
-                    if odd is not None: return odd
-        return None
-    return pick_odd([1, 4, 7]), pick_odd([2, 5, 8]), pick_odd([3, 6, 9])
-
-
-def championbet_extract_ou_from_betmap(bet_map):
-    bet_map = bet_map or {}
-    def pick_odd(market_keys):
-        for k in market_keys:
-            market = bet_map.get(str(k), {}) or {}
-            if not isinstance(market, dict): continue
-            for _, item in market.items():
-                if isinstance(item, dict):
-                    odd = clean_odd(item.get("ov"))
-                    if odd is not None: return odd
-        return None
-    return pick_odd([51, 21]), pick_odd([52, 22])
-
-
-def championbet_extract_ah_dc_btts_from_betmap(bet_map):
-    bet_map = bet_map or {}
-    ah_odds, dc_odds, btts_odds = {}, {}, {}
-    def get_odds(market_keys):
-        odds_dict = {}
-        for k in market_keys:
-            market = bet_map.get(str(k), {}) or {}
-            if not isinstance(market, dict): continue
-            for _, item in market.items():
-                if isinstance(item, dict):
-                    odd = clean_odd(item.get("ov"))
-                    if odd is not None:
-                        odds_dict[k] = odd
-        return odds_dict
-
-    ah_odds = get_odds([5, 6, 7, 8])
-    dc_odds = get_odds([20, 21, 22])
-    btts_odds = get_odds([19, 20])
-    return ah_odds, dc_odds, btts_odds
-
-
-def scrape_championbet():
-    odds = []
-    try:
-        print("Fetching ChampionBet...")
-        headers = {
-            "Accept": "application/json, text/plain, */*",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
-            "Referer": "https://www.championbet.ug/mob/",
-        }
-        req = urllib.request.Request(CHAMPIONBET_API, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            top_data = json.loads(resp.read().decode())
-
-        matches = top_data.get("esMatches", []) if isinstance(top_data, dict) else []
-        print(f"ChampionBet: {len(matches)} matches in top list")
-        count = 0
-        for m in matches:
-            try:
-                sport_token = str(m.get("sportToken", ""))
-                if "Soccer" not in sport_token: continue
-                match_id = m.get("id")
-                if not match_id: continue
-                home_team = m.get("home") or ""
-                away_team = m.get("away") or ""
-                if not home_team or not away_team: continue
-
-                match_url = CHAMPIONBET_MATCH_API.format(match_id=match_id)
-                match_req = urllib.request.Request(match_url, headers=headers)
-                with urllib.request.urlopen(match_req, timeout=30) as r2:
-                    match_data = json.loads(r2.read().decode())
-                bet_map = match_data.get("betMap", {}) if isinstance(match_data, dict) else {}
-
-                h, d, a = championbet_extract_1x2_from_betmap(bet_map)
-                if h and a:
-                    count += 1
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", h, d, a, competition=m.get("leagueName", ""), market_type="1x2"))
-
-                over, under = championbet_extract_ou_from_betmap(bet_map)
-                if over and under:
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", over, under, None, market_type="Over/Under 2.5"))
-
-                ah_odds, dc_odds, btts_odds = championbet_extract_ah_dc_btts_from_betmap(bet_map)
-                if ah_odds.get(5) and ah_odds.get(6):
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[5], None, ah_odds[6], market_type="Asian Handicap", market_specifier="-1.5"))
-                if ah_odds.get(7) and ah_odds.get(8):
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[7], None, ah_odds[8], market_type="Asian Handicap", market_specifier="-0.5"))
-                if dc_odds.get(20): odds.append(build_match_record(home_team, away_team, "ChampionBet", dc_odds[20], None, None, market_type="Double Chance", market_specifier="1X"))
-                if dc_odds.get(21): odds.append(build_match_record(home_team, away_team, "ChampionBet", None, None, dc_odds[21], market_type="Double Chance", market_specifier="X2"))
-                if dc_odds.get(22): odds.append(build_match_record(home_team, away_team, "ChampionBet", dc_odds[22], None, None, market_type="Double Chance", market_specifier="12"))
-                if btts_odds.get(19) and btts_odds.get(20):
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", btts_odds[19], None, btts_odds[20], market_type="BTTS"))
-
-                time.sleep(0.2)
-            except:
-                continue
-        print(f"ChampionBet: {count} matches extracted")
-    except Exception as e:
-        print(f"ChampionBet error: {e}")
-    return odds
-
-
-def scrape_ababet():
-    odds = []
-    try:
-        print("Fetching AbaBet...")
-        url = "https://www.ababet.ug/soccer/match_result?mobile=1"
-        headers = {"User-Agent": "Mozilla/5.0", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
-        r = requests.get(url, headers=headers, timeout=30)
-        r.raise_for_status()
-        soup = BeautifulSoup(r.text, "html.parser")
-        tables = soup.find_all("table")
-        if not tables:
-            print("AbaBet: no tables found")
-            return odds
-
-        for table in tables:
-            first_row = table.find("tr")
-            if not first_row: continue
-            headers = [c.get_text(" ", strip=True) for c in first_row.find_all(["th", "td"])]
-            if "Home" not in headers or "Away" not in headers: continue
-            for tr in table.find_all("tr")[1:]:
-                cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
-                if len(cells) < 5: continue
-                row = dict(zip(headers, cells[:len(headers)]))
-                home, away = row.get("Home"), row.get("Away")
-                if not home or not away or home == "-" or away == "-": continue
-
-                h = row.get("1"); d = row.get("X"); a = row.get("2")
-                if h and a:
-                    odds.append(build_match_record(home, away, "AbaBet", h, d, a, competition=row.get("League", ""), market_type="1x2"))
-
-                over = row.get("Over"); under = row.get("Under")
-                if over and under:
-                    odds.append(build_match_record(home, away, "AbaBet", over, under, None, market_type="Over/Under 2.5"))
-
-        print(f"AbaBet: {len(odds)} matches extracted")
-    except Exception as e:
-        print(f"AbaBet error: {e}")
-    return odds
-
-
-def scrape_fortebet():
-    odds = []
-    try:
-        print("Fetching Fortebet API...")
-        url = "https://desktop.fortebet.ug/api/web/v1/offer/full-prematch-en"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json", "Referer": "https://desktop.fortebet.ug/prematch/landing"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-
-        inner = data.get("data", {})
-        events = inner.get("event", {})
-        markets = inner.get("markets", {})
-        competitors = inner.get("competitors", {})
-        event_markets = {}
-        for _, market in markets.items():
-            event_markets.setdefault(str(market.get("eventId", "")), []).append(market)
-
-        count = 0
-        for eid, event in events.items():
-            try:
-                comps = event.get("competitors", [])
-                if len(comps) < 2: continue
-                home = competitors.get(str(comps[0]), {}).get("name", "")
-                away = competitors.get(str(comps[1]), {}).get("name", "")
-                if not home or not away: continue
-                h = d = a = over = under = None
-                ah_home = ah_away = None
-                dc_home = dc_away = None
-                btts_yes = btts_no = None
-
-                for market in event_markets.get(eid, []):
-                    mid = market.get("marketId")
-                    if mid == 1:
-                        odd_list = []
-                        mkt_odds = market.get("odds", {})
-                        for _, v in mkt_odds.items():
-                            if isinstance(v, dict) and "odds" in v:
-                                odd_list.append((v.get("outcomeId", 0), clean_odd(v["odds"])))
-                        odd_list = [(i, o) for i, o in odd_list if o is not None]
-                        odd_list.sort(key=lambda x: x[0])
-                        if len(odd_list) >= 3:
-                            h, d, a = odd_list[0][1], odd_list[1][1], odd_list[2][1]
-                        elif len(odd_list) == 2:
-                            h, a = odd_list[0][1], odd_list[1][1]
-                    elif mid == 5:
-                        mkt_odds = market.get("odds", {})
-                        for _, v in mkt_odds.items():
-                            if isinstance(v, dict) and "odds" in v:
-                                oid = v.get("outcomeId", 0)
-                                if oid == 1: over = clean_odd(v["odds"])
-                                elif oid == 2: under = clean_odd(v["odds"])
-                    elif mid == 2:
-                        mkt_odds = market.get("odds", {})
-                        for _, v in mkt_odds.items():
-                            if isinstance(v, dict) and "odds" in v:
-                                oid = v.get("outcomeId", 0)
-                                if oid == 1: ah_home = clean_odd(v["odds"])
-                                elif oid == 2: ah_away = clean_odd(v["odds"])
-                    elif mid == 8:
-                        mkt_odds = market.get("odds", {})
-                        for _, v in mkt_odds.items():
-                            if isinstance(v, dict) and "odds" in v:
-                                oid = v.get("outcomeId", 0)
-                                if oid == 1: dc_home = clean_odd(v["odds"])
-                                elif oid == 3: dc_away = clean_odd(v["odds"])
-                    elif mid == 12:
-                        mkt_odds = market.get("odds", {})
-                        for _, v in mkt_odds.items():
-                            if isinstance(v, dict) and "odds" in v:
-                                oid = v.get("outcomeId", 0)
-                                if oid == 1: btts_yes = clean_odd(v["odds"])
-                                elif oid == 2: btts_no = clean_odd(v["odds"])
-
-                if h and a:
-                    sport_name = "Netball" if d is None else "Football"
-                    ev_sport = (event.get("sportName") or event.get("sport") or "").lower()
-                    if "basketball" in ev_sport: sport_name = "Basketball"
-                    elif "tennis" in ev_sport: sport_name = "Tennis"
-                    count += 1
-                    odds.append(build_match_record(home, away, "Fortebet", h, d, a, sport=sport_name, market_type="1x2"))
-
-                if over and under:
-                    odds.append(build_match_record(home, away, "Fortebet", over, under, None, sport="Football", market_type="Over/Under 2.5"))
-
-                if ah_home and ah_away:
-                    odds.append(build_match_record(home, away, "Fortebet", ah_home, None, ah_away, sport="Football", market_type="Asian Handicap", market_specifier="-0.5"))
-
-                if dc_home: odds.append(build_match_record(home, away, "Fortebet", dc_home, None, None, sport="Football", market_type="Double Chance", market_specifier="1X"))
-                if dc_away: odds.append(build_match_record(home, away, "Fortebet", None, None, dc_away, sport="Football", market_type="Double Chance", market_specifier="12"))
-
-                if btts_yes and btts_no:
-                    odds.append(build_match_record(home, away, "Fortebet", btts_yes, None, btts_no, sport="Football", market_type="BTTS"))
-
-            except: continue
-        print(f"Fortebet: {count} matches extracted")
-    except Exception as e:
-        print(f"Fortebet error: {e}")
-    return odds
-
-
-def scrape_sportybet():
-    odds = []
-    try:
-        print("Fetching SportyBet...")
-        req = urllib.request.Request(SPORTYBET_API, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        if isinstance(data, list):
-            for event in data:
-                try:
-                    home, away = event.get("home_team", ""), event.get("away_team", "")
-                    if not home or not away: continue
-                    sport = (event.get("sport") or "Football").strip()
-                    h = clean_odd(event.get("home"))
-                    d = clean_odd(event.get("draw"))
-                    a = clean_odd(event.get("away"))
-                    if h and a:
-                        odds.append(build_match_record(home, away, "SportyBet", h, d, a, sport=sport, market_type="1x2"))
-
-                    over = clean_odd(event.get("over_odd"))
-                    under = clean_odd(event.get("under_odd"))
-                    if over and under:
-                        odds.append(build_match_record(home, away, "SportyBet", over, under, None, sport=sport, market_type="Over/Under 2.5"))
-                except: continue
-        print(f"SportyBet: {len(odds)} matches extracted")
-    except Exception as e:
-        print(f"SportyBet error: {e}")
-    return odds
-
-
-# ========== RESTORED ORIGINAL 1xBET FAMILY SCRAPERS ==========
-def scrape_1xbet():
-    odds = []
-    try:
-        print("Fetching 1xBet Uganda...")
-        url = "https://1xbet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=135&getEmpty=true&virtualSports=true"
-        headers = {
-            "content-type": "application/json",
-            "accept": "application/json, text/plain, */*",
-            "x-requested-with": "XMLHttpRequest",
-            "is-srv": "false",
-            "x-svc-source": "__BETTING_APP__",
-            "x-app-n": "__BETTING_APP__",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
-            "Referer": "https://1xbet.ug/en/line/football",
-        }
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            raw = resp.read()
-            try:
-                data = json.loads(raw.decode("utf-8"))
-            except:
-                data = json.loads(raw.decode("utf-8-sig"))
-        values = data.get("Value", []) if isinstance(data, dict) else []
-        count = 0
-        for match in values:
-            try:
-                home_team = match.get("O1")
-                away_team = match.get("O2")
-                if not home_team or not away_team: continue
-                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
-                if home_team.strip() == "Home" and away_team.strip() == "Away":
-                    continue
-                home_odd = draw_odd = away_odd = None
-                for e in match.get("E", []):
-                    t = str(e.get("T", "")).strip()
-                    c = clean_odd(e.get("C"))
-                    if c is None: continue
-                    if t == "1": home_odd = c
-                    elif t == "2": away_odd = c
-                    elif t == "3": draw_odd = c
-                if home_odd is not None and away_odd is not None:
-                    count += 1
-                    odds.append(build_match_record(home_team, away_team, "1xBet", home_odd, draw_odd, away_odd, market_type="1x2"))
-            except: continue
-        print(f"1xBet: {count} matches extracted")
-    except Exception as e:
-        print(f"1xBet error: {e}")
-    return odds
-
-
-def scrape_22bet():
-    odds = []
-    try:
-        print("Fetching 22Bet Uganda...")
-        url = "https://22bet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=151&getEmpty=true&virtualSports=true"
-        headers = {
-            "Accept": "application/json, text/plain, */*",
-            "X-Requested-With": "XMLHttpRequest",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
-        }
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            raw = resp.read()
-            try: data = json.loads(raw.decode("utf-8"))
-            except: data = json.loads(raw.decode("utf-8-sig"))
-        values = data.get("Value", []) if isinstance(data, dict) else []
-        count = 0
-        for match in values:
-            try:
-                home_team = match.get("O1")
-                away_team = match.get("O2")
-                if not home_team or not away_team: continue
-                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
-                if home_team.strip() == "Home" and away_team.strip() == "Away":
-                    continue
-                home_odd = draw_odd = away_odd = None
-                for e in match.get("E", []):
-                    t = str(e.get("T", "")).strip()
-                    c = clean_odd(e.get("C"))
-                    if c is None: continue
-                    if t == "1": home_odd = c
-                    elif t == "2": away_odd = c
-                    elif t == "3": draw_odd = c
-                if home_odd is not None and away_odd is not None:
-                    count += 1
-                    odds.append(build_match_record(home_team, away_team, "22Bet", home_odd, draw_odd, away_odd, market_type="1x2"))
-            except: continue
-        print(f"22Bet: {count} matches extracted")
-    except Exception as e:
-        print(f"22Bet error: {e}")
-    return odds
-
-
-def scrape_melbet():
-    odds = []
-    try:
-        print("Fetching Melbet...")
-        url = "https://melbet-046935.top/service-api/LineFeed/Get1x2_VZip?count=1000&lng=en&mode=4&country=191&partner=8&getEmpty=true"
-        headers = {
-            "content-type": "application/json",
-            "accept": "application/json, text/plain, */*",
-            "x-mobile-project-id": "0",
-            "x-requested-with": "XMLHttpRequest",
-            "is-srv": "false",
-            "x-svc-source": "__BETTING_APP__",
-            "x-app-n": "__BETTING_APP__",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
-            "Referer": "https://1xbet.ug/en/line/football",
-        }
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            raw = resp.read()
-            try: data = json.loads(raw.decode("utf-8"))
-            except: data = json.loads(raw.decode("utf-8-sig"))
-        values = data.get("Value", []) if isinstance(data, dict) else []
-        count = 0
-        for match in values:
-            try:
-                home_team = match.get("O1")
-                away_team = match.get("O2")
-                if not home_team or not away_team: continue
-                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
-                if home_team.strip() == "Home" and away_team.strip() == "Away":
-                    continue
-                home_odd = draw_odd = away_odd = None
-                for e in match.get("E", []):
-                    t = str(e.get("T", "")).strip()
-                    c = clean_odd(e.get("C"))
-                    if c is None: continue
-                    if t == "1": home_odd = c
-                    elif t == "2": away_odd = c
-                    elif t == "3": draw_odd = c
-                if home_odd is not None and away_odd is not None:
-                    count += 1
-                    odds.append(build_match_record(home_team, away_team, "Melbet", home_odd, draw_odd, away_odd, market_type="1x2"))
-            except: continue
-        print(f"Melbet: {count} matches extracted")
-    except Exception as e:
-        print(f"Melbet error: {e}")
-    return odds
-
-
-def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
-    odds = []
-    try:
-        print(f"Fetching {bookmaker_name} Over/Under...")
-        url = f"{base_url}/service-api/LineFeed/GetEvents_VZip?count=1000&lng=en&mode=4&country=191&partner={partner_id}&market=5,6&getEmpty=true&virtualSports=true&eventType=1"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for match in data.get("Value", []):
-            home, away = match.get("O1"), match.get("O2")
-            if not home or not away: continue
-            over = under = None
-            for e in match.get("E", []):
-                t = str(e.get("T", "")).strip()
-                c = clean_odd(e.get("C"))
-                if not c: continue
-                if t == "5": over = c
-                elif t == "6": under = c
-            if over and under:
-                record = build_match_record(home, away, bookmaker_name, over, under, None, market_type="Over/Under 2.5")
-                odds.append(record)
-    except Exception as e:
-        print(f"{bookmaker_name} Over/Under error: {e}")
-    return odds
-
-
-# ========== NEW: EXTRA MARKETS SCRAPER (AH, DC, BTTS) - NO DUPLICATION ==========
-def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
-    odds = []
-    try:
-        print(f"Fetching {bookmaker_name} AH, DC, BTTS...")
-        # Use the proven endpoint, but only extract AH, DC, and BTTS markets
-        url = f"{base_url}/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner={partner_id}&getEmpty=true"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for match in data.get("Value", []):
-            home = match.get("O1")
-            away = match.get("O2")
-            if not home or not away: continue
-            # --- ADDED FILTER: skip "Home vs Away" placeholders ---
-            if home.strip() == "Home" and away.strip() == "Away":
-                continue
-
-            ah_home = ah_away = None
-            dc_home = dc_away = None
-            btts_yes = btts_no = None
-
-            for e in match.get("E", []):
-                t = str(e.get("T", "")).strip()
-                c = clean_odd(e.get("C"))
-                if not c: continue
-                p = e.get("P")
-
-                # Asian Handicap
-                if t == "7" and p is not None: ah_home = c
-                elif t == "8" and p is not None: ah_away = c
-                # Double Chance
-                elif t == "4" or t == "180": dc_home = c
-                elif t == "181": dc_away = c
-                # BTTS
-                elif t == "19": btts_yes = c
-                elif t == "20": btts_no = c
-
-            if ah_home and ah_away:
-                odds.append(build_match_record(home, away, bookmaker_name, ah_home, None, ah_away, market_type="Asian Handicap", market_specifier="-0.5"))
-            if dc_home and dc_away:
-                odds.append(build_match_record(home, away, bookmaker_name, dc_home, None, dc_away, market_type="Double Chance", market_specifier="1X"))
-            if btts_yes and btts_no:
-                odds.append(build_match_record(home, away, bookmaker_name, btts_yes, None, btts_no, market_type="BTTS"))
-
-        print(f"{bookmaker_name} extra markets: {len(odds)} records")
-    except Exception as e:
-        print(f"{bookmaker_name} extra markets error: {e}")
-    return odds
-
-
-# ========== CALCULATE ARBITRAGE (UPDATED TO 50% CAP) ==========
-def find_arbitrage(all_odds):
-    opportunities = []
-    sports_odds = {}
-    for odd in all_odds:
-        sport = odd.get("sport", "Football")
-        sports_odds.setdefault(sport, []).append(odd)
-
-    for sport, sport_odds in sports_odds.items():
-        exact_groups = {}
-        for odd in sport_odds:
-            exact_groups.setdefault(odd.get("match_key", ""), []).append(odd)
-
-        merged_groups, processed_keys = {}, set()
-        all_keys = list(exact_groups.keys())
-        for i, key1 in enumerate(all_keys):
-            if key1 in processed_keys: continue
-            group = list(exact_groups[key1])
-            processed_keys.add(key1)
-            for key2 in all_keys[i+1:]:
-                if key2 in processed_keys: continue
-                if match_key_similarity(key1, key2):
-                    group.extend(exact_groups[key2])
-                    processed_keys.add(key2)
-            merged_groups[key1] = group
-
-        for match_name, bookmakers in merged_groups.items():
-            if not bookmakers: continue
-            first = bookmakers[0]
-            mtype = first.get("market_type", "1x2")
-            spec = first.get("market_specifier", "")
-
-            if len(set(b["bookmaker"] for b in bookmakers)) < 2: continue
-
-            bk_odds = {}
-            for b in bookmakers:
-                bk = b["bookmaker"]
-                bk_odds.setdefault(bk, {"home": 0.0, "draw": 0.0, "away": 0.0})
-                home = clean_odd(b.get("home"))
-                draw = clean_odd(b.get("draw"))
-                away = clean_odd(b.get("away"))
-                if home is not None and home > bk_odds[bk]["home"]: bk_odds[bk]["home"] = home
-                if draw is not None and draw > bk_odds[bk]["draw"]: bk_odds[bk]["draw"] = draw
-                if away is not None and away > bk_odds[bk]["away"]: bk_odds[bk]["away"] = away
-
-            bk_list = list(bk_odds.keys())
-
-            # 2-way markets: O/U, AH, DC, BTTS
-            if mtype in ["Over/Under 2.5", "Asian Handicap", "Double Chance", "BTTS"]:
-                best = None
-                for bk1 in bk_list:
-                    for bk2 in bk_list:
-                        if bk1 == bk2: continue
-                        h1 = bk_odds[bk1]["home"]
-                        a1 = bk_odds[bk1]["away"]
-                        h2 = bk_odds[bk2]["home"]
-                        a2 = bk_odds[bk2]["away"]
-
-                        candidates = []
-                        if h1 and a2: candidates.append((h1, a2, bk1, bk2))
-                        if h2 and a1: candidates.append((h2, a1, bk2, bk1))
-                        if not candidates: continue
-
-                        best_candidate = None
-                        best_arb = 2.0
-                        for cand in candidates:
-                            o, u, bk_o, bk_u = cand
-                            arb = (1/o) + (1/u)
-                            if arb < best_arb:
-                                best_arb = arb
-                                best_candidate = (o, u, bk_o, bk_u)
-
-                        if not best_candidate: continue
-                        over, under, bk_over, bk_under = best_candidate
-
-                        arb = (1/over) + (1/under)
-                        if arb < 1:
-                            profit = round((1 - arb) * 100, 2)
-                            if 0.5 <= profit <= 50.0:
-                                stake_over = round(STAKE * (1/over) / arb)
-                                stake_under = round(STAKE * (1/under) / arb)
-                                display_match = match_name.split(" | ")[0] if " | " in match_name else match_name
-                                best = {
-                                    "match": display_match,
-                                    "sport": sport,
-                                    "type": mtype + (f" {spec}" if spec else ""),
-                                    "profit_percent": profit,
-                                    "profit_ugx": round(STAKE * (1 - arb)),
-                                    "total_stake": STAKE,
-                                    "arb_sum": round(arb, 4),
-                                    "bets": [
-                                        {"bookmaker": bk_over, "outcome": "Outcome 1", "odd": over, "stake": stake_over, "win": round(stake_over * over)},
-                                        {"bookmaker": bk_under, "outcome": "Outcome 2", "odd": under, "stake": stake_under, "win": round(stake_under * under)}
-                                    ]
-                                }
-                                if mtype == "Over/Under 2.5":
-                                    best["bets"][0]["outcome"] = "Over 2.5"
-                                    best["bets"][1]["outcome"] = "Under 2.5"
-                                elif mtype == "Asian Handicap":
-                                    best["bets"][0]["outcome"] = f"AH {spec} (Home)"
-                                    best["bets"][1]["outcome"] = f"AH {spec} (Away)"
-                                elif mtype == "Double Chance":
-                                    if spec == "1X":
-                                        best["bets"][0]["outcome"] = "1X"
-                                        best["bets"][1]["outcome"] = "X2"
-                                    elif spec == "12":
-                                        best["bets"][0]["outcome"] = "12"
-                                        best["bets"][1]["outcome"] = "12 (other)"
-                                elif mtype == "BTTS":
-                                    best["bets"][0]["outcome"] = "BTTS Yes"
-                                    best["bets"][1]["outcome"] = "BTTS No"
-                                opportunities.append(best)
-
-            # 3-way: Football/Rugby/Futsal
-            elif mtype == "1x2" and sport in ["Football", "Rugby", "Futsal"]:
-                best = None
-                for bk_h in bk_list:
-                    for bk_d in bk_list:
-                        for bk_a in bk_list:
-                            if len({bk_h, bk_d, bk_a}) < 3: continue
-                            h, d, a = bk_odds[bk_h]["home"], bk_odds[bk_d]["draw"], bk_odds[bk_a]["away"]
-                            if not h or not d or not a: continue
-                            arb = (1/h) + (1/d) + (1/a)
-                            if arb < 1:
-                                profit = round((1 - arb) * 100, 2)
-                                if 0.5 <= profit <= 50.0:
-                                    stake_h = round(STAKE * (1/h) / arb)
-                                    stake_d = round(STAKE * (1/d) / arb)
-                                    stake_a = round(STAKE * (1/a) / arb)
-                                    best = {
-                                        "match": match_name,
-                                        "sport": sport,
-                                        "type": "3-way",
-                                        "profit_percent": profit,
-                                        "profit_ugx": round(STAKE * (1 - arb)),
-                                        "total_stake": STAKE,
-                                        "arb_sum": round(arb, 4),
-                                        "bets": [
-                                            {"bookmaker": bk_h, "outcome": "Home", "odd": h, "stake": stake_h, "win": round(stake_h * h)},
-                                            {"bookmaker": bk_d, "outcome": "Draw", "odd": d, "stake": stake_d, "win": round(stake_d * d)},
-                                            {"bookmaker": bk_a, "outcome": "Away", "odd": a, "stake": stake_a, "win": round(stake_a * a)}
-                                        ]
-                                    }
-                if best: opportunities.append(best)
-
-            # 2-way sports
-            elif mtype == "1x2" and sport not in ["Football", "Rugby", "Futsal"]:
-                best = None
-                for bk_h in bk_list:
-                    for bk_a in bk_list:
-                        if bk_h == bk_a: continue
-                        h, a = bk_odds[bk_h]["home"], bk_odds[bk_a]["away"]
-                        if not h or not a: continue
-                        arb = (1/h) + (1/a)
-                        if arb < 1:
-                            profit = round((1 - arb) * 100, 2)
-                            if 0.5 <= profit <= 50.0:
-                                stake_h = round(STAKE * (1/h) / arb)
-                                stake_a = round(STAKE * (1/a) / arb)
-                                best = {
-                                    "match": match_name,
-                                    "sport": sport,
-                                    "type": "2-way",
-                                    "profit_percent": profit,
-                                    "profit_ugx": round(STAKE * (1 - arb)),
-                                    "total_stake": STAKE,
-                                    "arb_sum": round(arb, 4),
-                                    "bets": [
-                                        {"bookmaker": bk_h, "outcome": "Home", "odd": h, "stake": stake_h, "win": round(stake_h * h)},
-                                        {"bookmaker": bk_a, "outcome": "Away", "odd": a, "stake": stake_a, "win": round(stake_a * a)}
-                                    ]
-                                }
-                if best: opportunities.append(best)
-
-    return opportunities
-
-
-# ===== TELEGRAM ALERT FUNCTION =====
-def send_telegram_alert(opp):
-    token = os.getenv('TELEGRAM_BOT_TOKEN')
-    chat = os.getenv('TELEGRAM_CHAT_ID')
-    if not token or not chat:
-        print("⚠️ Telegram credentials missing – alert not sent.")
-        return
-
-    match = opp.get('match', 'Unknown')
-    profit = opp.get('profit_percent', 0)
-    ugx = opp.get('profit_ugx', 0)
-    message = f"⚽ *{match}*\n💰 Profit: *{profit}%* (UGX {ugx:,})\n"
-    for bet in opp.get('bets', []):
-        bookie = bet.get('bookmaker', 'Unknown')
-        outcome = bet.get('outcome', 'Unknown')
-        odd = bet.get('odd', 0)
-        stake = bet.get('stake', 0)
-        message += f"▶ {bookie} ({outcome}) @ {odd} – Stake: UGX {stake:,}\n"
-
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    try:
-        requests.post(url, json={'chat_id': chat, 'text': message, 'parse_mode': 'Markdown'}, timeout=10)
-        print(f"✅ Alert sent for {match}")
-    except Exception as e:
-        print(f"❌ Telegram error: {e}")
-
-
-# ========== RUN SCAN WITH ALL ORIGINAL + NEW MARKETS ==========
-def run_scan():
-    all_odds = []
-    
-    # EXACT ORIGINAL SCRAPERS (100% restored)
-    all_odds.extend(scrape_sportybet())
-    all_odds.extend(scrape_championbet())
-    all_odds.extend(scrape_ababet())
-    all_odds.extend(scrape_fortebet())
-    all_odds.extend(scrape_1xbet())
-    all_odds.extend(scrape_22bet())
-    all_odds.extend(scrape_melbet())
-    
-    # EXACT ORIGINAL OVER/UNDER
-    for name, config in SHARED_BOOKMAKERS_1X.items():
-        all_odds.extend(scrape_1x_over_under(name, config["base_url"], config["partner"]))
-
-    # NEWLY ADDED EXTRA MARKETS (No deletions, purely added on top)
-    for name, config in SHARED_BOOKMAKERS_1X.items():
-        all_odds.extend(scrape_1x_ah_dc_btts(name, config["base_url"], config["partner"]))
-
-    opportunities = find_arbitrage(all_odds)
-    arb_history = load_arbitrage_history()
-    timestamp_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-    
-    # ===== TELEGRAM ALERT LOOP =====
-    print("📨 Checking for new high‑profit opportunities...")
-    for opp in opportunities:
-        key = opportunity_key(opp)
-        is_new = (key in arb_history and arb_history[key]['first_seen'] == timestamp_str)
-        if is_new and opp.get('profit_percent', 0) >= 5.0:
-            send_telegram_alert(opp)
-
-    update_arbitrage_history(opportunities, arb_history, timestamp_str)
-    save_arbitrage_history(arb_history)
-
-    # Fallback Cache
-    if len(opportunities) == 0 and os.path.exists("current_opportunities.json"):
-        try:
-            with open("current_opportunities.json", "r") as f:
-                old_data = json.load(f)
-            if old_data:
-                print("⚠️ Fallback active: Keeping previous data to prevent app crash.")
-                return
-        except:
-            pass
-
-    with open("current_opportunities.json", "w", encoding="utf-8") as f:
-        json.dump(opportunities, f, indent=2)
-
-    print(f"Scan complete: {len(opportunities)} opportunities, history updated.")
-
-
-# ============================================================================
-#                              FLASK BILLING API (PESAPAL)
-# ============================================================================
-
-import uuid
-import jwt
-import bcrypt
-from flask import Flask, request, jsonify, g
-from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv
-
-# --- DO NOT import PesapalClientV3 globally – it's lazy‑loaded inside the /api/pay route ---
-
-load_dotenv()
-
-# ---- Flask app ----
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///users.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
-app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
-CORS(app)
-
-db = SQLAlchemy(app)
-
-# ---- Tier Configuration ----
-TIERS = {
-    'free': {
-        'label': 'Free Trial',
-        'price': 0,
-        'duration_days': None,
-        'scanner_speed_seconds': 1800,
-        'max_profit_percent': 5.0,
-        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'],
-        'market_types': ['1x2'],
-        'daily_matches': 3,
-        'telegram_alerts': False,
-        'historical_data': False,
-        'value_rating': 'Poor Value',
-    },
-    'day': {
-        'label': 'Day Pass',
-        'price': 2500,
-        'duration_days': 1,
-        'scanner_speed_seconds': 120,
-        'max_profit_percent': 15.0,
-        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'],
-        'market_types': ['1x2', 'Over/Under 2.5'],
-        'daily_matches': None,
-        'telegram_alerts': False,
-        'historical_data': False,
-        'value_rating': 'Best Value',
-    },
-    'monthly': {
-        'label': 'Monthly VIP',
-        'price': 15000,
-        'duration_days': 30,
-        'scanner_speed_seconds': 0,
-        'max_profit_percent': 50.0,
-        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
-        'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,
-        'telegram_alerts': True,
-        'historical_data': True,
-        'value_rating': 'High Saver',
-    },
-    'quarterly': {
-        'label': 'Quarterly Pro',
-        'price': 40000,
-        'duration_days': 90,
-        'scanner_speed_seconds': 0,
-        'max_profit_percent': 50.0,
-        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
-        'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,
-        'telegram_alerts': True,
-        'historical_data': True,
-        'value_rating': 'High Saver',
-    }
-}
-
-# ---- Database Models ----
-class User(db.Model):
-    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    phone = db.Column(db.String(20), nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
-
-    tier = db.Column(db.String(20), default='free')
-    is_subscribed = db.Column(db.Boolean, default=False)
-    subscription_expires = db.Column(db.DateTime, nullable=True)
-
-    last_arbitrage_date = db.Column(db.DateTime, nullable=True)
-    arbitrage_today_count = db.Column(db.Integer, default=0)
-
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def set_password(self, password):
-        self.password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
-    def check_password(self, password):
-        return bcrypt.checkpw(password.encode('utf-8'), self.password_hash.encode('utf-8'))
-
-
-class Transaction(db.Model):
-    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)
-    tx_ref = db.Column(db.String(100), unique=True, nullable=False)   # merchant_reference
-    amount = db.Column(db.Float, nullable=False)
-    currency = db.Column(db.String(10), default='UGX')
-    status = db.Column(db.String(20), default='pending')
-    plan = db.Column(db.String(20))          # day, monthly, quarterly
-    pesapal_tracking_id = db.Column(db.String(100), nullable=True)   # instead of flutterwave_transaction_id
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-
-with app.app_context():
-    db.create_all()
-
-# ---- JWT Helpers ----
-def generate_token(user_id):
-    payload = {
-        'user_id': user_id,
-        'exp': datetime.utcnow() + timedelta(days=7)
-    }
-    return jwt.encode(payload, os.getenv('JWT_SECRET', 'dev-jwt-secret'), algorithm='HS256')
-
-
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = request.headers.get('Authorization')
-        if not token or not token.startswith('Bearer '):
-            return jsonify({'error': 'Token missing'}), 401
-        token = token.split(' ')[1]
-        try:
-            data = jwt.decode(token, os.getenv('JWT_SECRET', 'dev-jwt-secret'), algorithms=['HS256'])
-            g.user_id = data['user_id']
-        except:
-            return jsonify({'error': 'Invalid token'}), 401
-        return f(*args, **kwargs)
-    return decorated
-
-
-# ---- Auth Endpoints ----
-@app.route('/api/signup', methods=['POST'])
-def signup():
-    data = request.get_json()
-    email = data.get('email')
-    phone = data.get('phone')
-    password = data.get('password')
-
-    if not email or not phone or not password:
-        return jsonify({'error': 'Missing fields'}), 400
-    if User.query.filter_by(email=email).first():
-        return jsonify({'error': 'Email already exists'}), 400
-
-    user = User(email=email, phone=phone, tier='free')
-    user.set_password(password)
-    db.session.add(user)
-    db.session.commit()
-
-    token = generate_token(user.id)
-    return jsonify({'token': token, 'user_id': user.id}), 201
-
-
-@app.route('/api/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
-
-    user = User.query.filter_by(email=email).first()
-    if not user or not user.check_password(password):
-        return jsonify({'error': 'Invalid credentials'}), 401
-
-    token = generate_token(user.id)
-    return jsonify({
-        'token': token,
-        'user_id': user.id,
-        'tier': user.tier,
-        'subscribed': user.is_subscribed,
-        'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
-    })
-
-
-# ---- Payment Initiation with Pesapal (lazy import) ----
-@app.route('/api/pay', methods=['POST'])
-@token_required
-def initiate_payment():
-    # Import Pesapal client only when this endpoint is called
-    from pesapal_client.client import PesapalClientV3
-
-    user = User.query.get(g.user_id)
-    data = request.get_json()
-    plan = data.get('plan')  # 'day', 'monthly', 'quarterly'
-
-    if plan not in ['day', 'monthly', 'quarterly']:
-        return jsonify({'error': 'Invalid plan. Choose: day, monthly, quarterly'}), 400
-
-    amount = TIERS[plan]['price']
-    phone = user.phone
-    if not phone.startswith('256'):
-        phone = '256' + phone.lstrip('0')
-
-    merchant_reference = f"ORDER-{uuid.uuid4().hex[:10].upper()}"
-
-    # Initialize Pesapal client
-    client = PesapalClientV3(
-        consumer_key=os.getenv('PESAPAL_CONSUMER_KEY'),
-        consumer_secret=os.getenv('PESAPAL_CONSUMER_SECRET'),
-        is_sandbox=os.getenv('PESAPAL_ENVIRONMENT', 'sandbox') == 'sandbox',
-    )
-
-    # Build payment data
-    payment_data = {
-        "currency": "UGX",
-        "amount": amount,
-        "description": f"{TIERS[plan]['label']} - {amount} UGX",
-        "email": user.email,
-        "phone_number": phone,
-        "callback_url": os.getenv('PESAPAL_CALLBACK_URL'),
-        "merchant_reference": merchant_reference,
     }
 
-    try:
-        # Submit order to Pesapal
-        response = client.one_time_payment.initiate_payment_order(payment_data)
-
-        # Save transaction in DB
-        transaction = Transaction(
-            user_id=user.id,
-            tx_ref=merchant_reference,
-            amount=amount,
-            currency='UGX',
-            status='pending',
-            plan=plan
-        )
-        db.session.add(transaction)
-        db.session.commit()
-
-        return jsonify({
-            'redirect_url': response.redirect_url,
-            'merchant_reference': merchant_reference,
-            'message': 'Redirect user to Pesapal checkout page.'
-        })
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-
-# ---- Pesapal IPN (Webhook) ----
-@app.route('/pesapal/ipn', methods=['GET', 'POST'])
-def pesapal_ipn():
-    # Pesapal sends a GET request with query parameters
-    merchant_reference = request.args.get('merchant_reference')
-    status = request.args.get('status')  # 'COMPLETED', 'FAILED', 'PENDING', etc.
-    pesapal_tracking_id = request.args.get('pesapal_transaction_tracking_id')
-
-    if not merchant_reference or not status:
-        return 'Missing parameters', 400
-
-    transaction = Transaction.query.filter_by(tx_ref=merchant_reference).first()
-    if not transaction:
-        return 'Transaction not found', 404
-
-    if status == 'COMPLETED':
-        transaction.status = 'success'
-        transaction.pesapal_tracking_id = pesapal_tracking_id
-        db.session.commit()
-
-        # Grant subscription
-        user = User.query.get(transaction.user_id)
-        if user:
-            plan = transaction.plan
-            duration_days = TIERS[plan]['duration_days']
-            now = datetime.utcnow()
-            if user.subscription_expires and user.subscription_expires > now:
-                new_expiry = user.subscription_expires + timedelta(days=duration_days)
-            else:
-                new_expiry = now + timedelta(days=duration_days)
-            user.tier = plan
-            user.is_subscribed = True
-            user.subscription_expires = new_expiry
-            user.arbitrage_today_count = 0
-            db.session.commit()
-    else:
-        transaction.status = 'failed'
-        db.session.commit()
-
-    return 'OK', 200
-
-
-# ---- Filtering Helper (unchanged) ----
-def filter_opportunities(opportunities, tier_config):
-    allowed_bookmakers = set(tier_config['bookmakers'])
-    allowed_markets = set(tier_config['market_types'])
-    max_profit = tier_config['max_profit_percent']
-    daily_limit = tier_config['daily_matches']
-
-    filtered = []
-    for opp in opportunities:
-        bets = opp.get('bets', [])
-        bookmakers_in_opp = set(b.get('bookmaker') for b in bets)
-        if not bookmakers_in_opp.issubset(allowed_bookmakers):
-            continue
-
-        market_map = {
-            '3-way': '1x2',
-            '2-way': '1x2',
-            'Over/Under 2.5': 'Over/Under 2.5',
-            'Asian Handicap': 'Asian Handicap',
-            'Double Chance': 'Double Chance',
-            'BTTS': 'BTTS'
-        }
-        opp_market = market_map.get(opp.get('type', ''), opp.get('type', ''))
-        if opp_market not in allowed_markets:
-            continue
-
-        if opp.get('profit_percent', 0) > max_profit:
-            continue
-
-        filtered.append(opp)
-
-    if daily_limit is not None:
-        filtered.sort(key=lambda x: x.get('profit_percent', 0), reverse=True)
-        filtered = filtered[:daily_limit]
-
-    return filtered
-
-
-# ---- Main Arbitrage Endpoint (unchanged) ----
-@app.route('/api/arbitrage', methods=['GET'])
-@token_required
-def get_arbitrage():
-    user = User.query.get(g.user_id)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-
-    # Check expiry for paid tiers
-    if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
-        user.is_subscribed = False
-        user.tier = 'free'
-        db.session.commit()
-        return jsonify({'error': 'Subscription expired. Please renew.'}), 403
-
-    # Free tier daily limit
-    if user.tier == 'free':
-        today = datetime.utcnow().date()
-        if user.last_arbitrage_date:
-            last_date = user.last_arbitrage_date.date()
-            if last_date != today:
-                user.arbitrage_today_count = 0
-                user.last_arbitrage_date = datetime.utcnow()
-        else:
-            user.last_arbitrage_date = datetime.utcnow()
-
-        if user.arbitrage_today_count >= 3:
-            return jsonify({
-                'error': 'Daily limit reached (3 matches). Upgrade to continue.',
-                'tier': 'free'
-            }), 403
-
-    tier_config = TIERS[user.tier]
-    cache_file = 'current_opportunities.json'
-    run_scanner = False
-
-    if os.path.exists(cache_file):
-        file_age = time.time() - os.path.getmtime(cache_file)
-        if tier_config['scanner_speed_seconds'] == 0:
-            run_scanner = True
-        elif file_age >= tier_config['scanner_speed_seconds']:
-            run_scanner = True
-    else:
-        run_scanner = True
-
-    if run_scanner:
-        print("Running fresh scan... (20-30 sec)")
-        try:
-            run_scan()
-        except Exception as e:
-            if not os.path.exists(cache_file):
-                return jsonify({'error': 'Scanner failed and no cache available.'}), 500
-
-    try:
-        with open(cache_file, 'r', encoding='utf-8') as f:
-            all_opportunities = json.load(f)
-    except:
-        all_opportunities = []
-
-    filtered_opps = filter_opportunities(all_opportunities, tier_config)
-
-    if user.tier == 'free':
-        user.arbitrage_today_count += 1
-        user.last_arbitrage_date = datetime.utcnow()
-        db.session.commit()
-
-    history = None
-    if tier_config['historical_data']:
-        history = load_arbitrage_history()
-
-    response = {
-        'opportunities': filtered_opps,
-        'count': len(filtered_opps),
-        'tier': user.tier,
-        'tier_label': tier_config['label'],
-        'value_rating': tier_config['value_rating'],
-        'scan_time': datetime.utcnow().isoformat(),
-        'cached': not run_scanner,
-        'remaining_daily': tier_config['daily_matches'] - user.arbitrage_today_count if tier_config['daily_matches'] else None
+    function handleCardClick(arb) { navigateTo('detail', arb); }
+    function getBookieColor(bookie) {
+        const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
+        return map[bookie.toLowerCase()] || '#444';
     }
-    if history is not None:
-        response['history'] = history
 
-    return jsonify(response)
+    document.getElementById('dashboardFilterTabs').addEventListener('click', function(e) {
+        if (e.target.classList.contains('filter-tab')) {
+            this.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+            renderOpportunities(e.target.dataset.filter || 'all');
+        }
+    });
 
+    function filterOpportunities() {
+        const active = document.querySelector('#dashboardFilterTabs .filter-tab.active');
+        renderOpportunities(active ? active.dataset.filter : 'all');
+    }
 
-# ---- Entry Point ----
-if __name__ == "__main__":
-    if os.environ.get("GITHUB_ACTION") == "1":
-        run_scan()
-    else:
-        app.run(host='0.0.0.0', port=5000, debug=True)
+    function populateDetailPage(arb) {
+        currentDetailArb = arb;
+        const historyHtml = (arb.history && arb.history.length)
+            ? `<div style="margin-bottom:12px;font-size:12px;color:var(--text3);">
+                   <strong>History:</strong>
+                   <ul style="margin-top:4px;padding-left:18px;">
+                       ${arb.history.map(h => `<li>${h.timestamp} – ${h.profitPercent.toFixed(2)}% (UGX ${h.profitUGX})</li>`).join('')}
+                   </ul>
+               </div>`
+            : "";
+        document.getElementById('page-detail').innerHTML = `
+            <div class="detail-header">
+                <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
+                <div>
+                    <div class="detail-sport">⚽ ${arb.sport} · ${arb.type}</div>
+                    <div class="detail-event">${arb.match}</div>
+                    <div class="detail-timer">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
+                </div>
+            </div>
+            ${historyHtml}
+            <div class="outcome-cards">
+                ${arb.bets.map(b => `
+                    <div class="outcome-card highlight">
+                        <div class="outcome-label">${b.outcome}</div>
+                        <div class="outcome-odds">${b.odds}</div>
+                        <div class="outcome-bookie">${b.bookie}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="stake-input-group">
+                <label>Total Stake (UGX)</label>
+                <div class="stake-input-row">
+                    <span class="currency">UGX</span>
+                    <input type="number" id="detailStake" value="100000" oninput="updateDetailCalc()">
+                </div>
+            </div>
+            <div class="breakdown-table" id="detailBreakdown"></div>
+            <div class="cta-row" id="ctaRow">
+                ${arb.bets.map(b => `<button class="cta-btn primary" onclick="showToast('Copy: ${b.bookie} ${b.outcome} @ ${b.odds}')">📋 ${b.bookie}</button>`).join('')}
+            </div>
+            <button class="cta-btn secondary" style="width:100%;margin-top:8px;" onclick="addCurrentDetailToSlip()">➕ Add to Bet Slip</button>
+        `;
+        updateDetailCalc();
+    }
+
+    function updateDetailCalc() {
+        if (!currentDetailArb) return;
+        const arb = currentDetailArb;
+        const saved = localStorage.getItem(getUserSettingsKey());
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
+        const odds = arb.bets.map(b => b.odds);
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
+        const profit = minPayout - stake;
+        const roi = (profit / stake) * 100;
+        const breakdown = document.getElementById('detailBreakdown');
+        if (breakdown) {
+            breakdown.innerHTML = stakes.map((s, i) => `
+                <div class="breakdown-row"><span>Stake on ${arb.bets[i].outcome} (${arb.bets[i].bookie})</span><span class="val">UGX ${s.toFixed(2)}</span></div>
+            `).join('') + `
+                <div class="breakdown-row"><span>Total Invested</span><span class="val">UGX ${stake.toFixed(2)}</span></div>
+                <div class="breakdown-row"><span>Guaranteed Profit</span><span class="val">+UGX ${profit.toFixed(2)} (${roi.toFixed(2)}%)</span></div>
+            `;
+        }
+    }
+
+    function addCurrentDetailToSlip() {
+        if (!currentDetailArb) return;
+        const arb = currentDetailArb;
+        const saved = localStorage.getItem(getUserSettingsKey());
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
+        const odds = arb.bets.map(b => b.odds);
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
+        slipBets.push({
+            id: Date.now(),
+            match: arb.match,
+            sport: arb.sport,
+            type: arb.type,
+            bets: arb.bets.map((b, i) => ({ ...b, stake: stakes[i] })),
+            totalStake: stake,
+            profit,
+            placedStatus: arb.bets.map(() => false)
+        });
+        renderSlip();
+        navigateTo('slip');
+        showToast('Added to slip');
+    }
+
+    function updateCalculator() {
+        const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
+        const odds = [
+            parseFloat(document.getElementById('calcOdds1').value) || 3.6,
+            parseFloat(document.getElementById('calcOdds2').value) || 3.82
+        ];
+        if (document.getElementById('calcOdds3Container').style.display !== 'none') {
+            odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
+        }
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
+        const profit = minPayout - stake;
+        const roi = (profit / stake) * 100;
+        document.getElementById('calcResult').innerHTML = `
+            <div class="profit-ring">${roi.toFixed(2)}%</div>
+            <div class="details">
+                ${stakes.map((s, i) => `<strong>Bet ${i+1}:</strong> UGX ${s.toFixed(2)}`).join(' | ')}<br>
+                <strong>Profit:</strong> UGX ${profit.toFixed(2)}
+            </div>
+        `;
+    }
+
+    function toggleThirdOdds() {
+        const cont = document.getElementById('calcOdds3Container');
+        cont.style.display = cont.style.display === 'none' ? 'block' : 'none';
+        updateCalculator();
+    }
+
+    function addCurrentCalcToSlip() {
+        const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
+        const odds = [
+            parseFloat(document.getElementById('calcOdds1').value) || 3.6,
+            parseFloat(document.getElementById('calcOdds2').value) || 3.82
+        ];
+        const bets = [
+            { bookie: 'Bookie1', outcome: 'Outcome 1', odds: odds[0] },
+            { bookie: 'Bookie2', outcome: 'Outcome 2', odds: odds[1] }
+        ];
+        if (document.getElementById('calcOdds3Container').style.display !== 'none') {
+            odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
+            bets.push({ bookie: 'Bookie3', outcome: 'Outcome 3', odds: odds[2] });
+        }
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
+        slipBets.push({
+            id: Date.now(),
+            match: 'Custom Calculation',
+            sport: 'Custom',
+            type: odds.length === 3 ? '3-way' : '2-way',
+            bets: bets.map((b, i) => ({ ...b, stake: stakes[i] })),
+            totalStake: stake,
+            profit,
+            placedStatus: bets.map(() => false)
+        });
+        renderSlip();
+        navigateTo('slip');
+        showToast('Calculation added to slip');
+    }
+
+    function renderSlip() {
+        const container = document.getElementById('slipItems');
+        if (slipBets.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No bets in slip</p></div>';
+            document.getElementById('slipSummary').style.display = 'none';
+            document.getElementById('slipCount').textContent = '0 bets';
+            return;
+        }
+        document.getElementById('slipSummary').style.display = 'block';
+        document.getElementById('slipCount').textContent = slipBets.length + ' bets';
+        container.innerHTML = slipBets.map((item, idx) => `
+            <div class="slip-item">
+                <div class="slip-bookie" style="background:#027a48;">${item.bets[0].bookie.charAt(0)}</div>
+                <div class="slip-info">
+                    <div class="slip-event">${item.match}</div>
+                    <div class="slip-detail">${item.type} · Total stake UGX ${item.totalStake.toFixed(2)}</div>
+                </div>
+                <div class="slip-stake">+UGX ${item.profit.toFixed(2)}</div>
+                <div class="slip-actions">
+                    <button class="btn-copy" onclick="copySlip(${idx})">📋</button>
+                    <button class="btn-open" onclick="openSlip(${idx})">↗</button>
+                </div>
+            </div>
+        `).join('');
+        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
+        document.getElementById('slipProfit').textContent = '+UGX ' + totalProfit.toFixed(2);
+    }
+
+    function copySlip(idx) { showToast('Slip copied'); }
+    function openSlip(idx) { showToast('Open bet on bookmaker'); }
+
+    function completeArb() {
+        if (slipBets.length === 0) return;
+        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
+        const record = {
+            id: Date.now(),
+            matches: slipBets.map(b => b.match),
+            sport: slipBets[0].sport || 'Football',
+            type: slipBets[0].type || '3-way',
+            totalStake: slipBets.reduce((s, b) => s + b.totalStake, 0),
+            profit: totalProfit,
+            timestamp: new Date().toISOString().slice(0,19).replace('T',' ')
+        };
+        completedArbs.push(record);
+        localStorage.setItem('arbiHistory', JSON.stringify(completedArbs));
+        slipBets = [];
+        renderSlip();
+        showToast('Arb completed');
+    }
+
+    function renderHistory() {
+        const totalArbsEl = document.getElementById('totalArbs');
+        const totalProfitEl = document.getElementById('totalProfit');
+        const chart = document.getElementById('profitChart');
+        const list = document.getElementById('historyList');
+        const entries = Object.values(allHistory)
+            .filter(e => e.versions && e.versions.length > 0)
+            .sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
+        totalArbsEl.textContent = entries.length;
+        let totalProfit = 0;
+        entries.forEach(e => {
+            const latest = e.versions[e.versions.length - 1];
+            if (e.valid && latest) totalProfit += latest.profit_ugx || 0;
+        });
+        totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(2);
+        chart.innerHTML = entries.map(e => {
+            const latest = e.versions[e.versions.length - 1];
+            if (latest) {
+                const h = Math.max(8, Math.min(100, Math.abs(latest.profit_ugx) / 1000));
+                return `<div class="chart-bar" style="height:${h}px;"></div>`;
+            }
+            return '';
+        }).join('');
+        list.innerHTML = entries.map(e => {
+            const latest = e.versions[e.versions.length - 1];
+            const profit = latest ? latest.profit_ugx : 0;
+            const timestamp = latest ? latest.timestamp : e.last_seen || '-';
+            return `
+                <div class="hist-item">
+                    <div class="hist-info">
+                        <div class="hist-event">${e.match || 'Unknown'}</div>
+                        <div class="hist-date">${timestamp}</div>
+                    </div>
+                    <div class="status-chip ${e.valid ? 'status-placed' : 'status-invalid'}">
+                        ${e.valid ? '+UGX ' + profit.toFixed(2) : 'Invalid'}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function renderAlerts() {
+        const alertsList = document.getElementById('alertsList');
+        const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
+        if (highProfit.length === 0) {
+            alertsList.innerHTML = '<div class="empty-state"><p>No high profit alerts</p></div>';
+            return;
+        }
+        alertsList.innerHTML = highProfit.map(a => `
+            <div class="alert-card" onclick="handleCardClick(${JSON.stringify(a).replace(/'/g, '&#39;').replace(/"/g, '&quot;')})">
+                <div class="alert-icon">⚡</div>
+                <div class="alert-info">
+                    <div class="alert-event">${a.match}</div>
+                    <div class="alert-meta">${a.sport} · ${a.type} · Last ${a.last_seen || ''}</div>
+                </div>
+                <div class="alert-profit">+${a.profitPercent.toFixed(2)}%</div>
+            </div>
+        `).join('');
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1500);
+    }
+
+    // ============================================================
+    // 6. INIT
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        loadUserSettings();
+        loadFromLuxuryBackend();
+        updateCalculator();
+        renderSlip();
+    });
+
+    // Expose functions globally
+    window.switchAuthTab = switchAuthTab;
+    window.signUpWithEmail = signUpWithEmail;
+    window.loginWithEmail = loginWithEmail;
+    window.signInWithGoogle = signInWithGoogle;
+    window.logoutUser = logoutUser;
+    window.navigateTo = navigateTo;
+    window.handleCardClick = handleCardClick;
+    window.showToast = showToast;
+    window.addCurrentDetailToSlip = addCurrentDetailToSlip;
+    window.addCurrentCalcToSlip = addCurrentCalcToSlip;
+    window.completeArb = completeArb;
+    window.copySlip = copySlip;
+    window.openSlip = openSlip;
+    window.toggleThirdOdds = toggleThirdOdds;
+    window.updateCalculator = updateCalculator;
+    window.saveUserSettings = saveUserSettings;
+    window.filterOpportunities = filterOpportunities;
+    window.renderAlerts = renderAlerts;
+    window.renderHistory = renderHistory;
+</script>
+</body>
+</html>
