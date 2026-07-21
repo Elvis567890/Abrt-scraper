@@ -1,3 +1,7 @@
+# ============================================================================
+#                           ARBITRAGE SCANNER (UNCHANGED)
+# ============================================================================
+
 import json
 import re
 import time
@@ -954,5 +958,445 @@ def run_scan():
     print(f"Scan complete: {len(opportunities)} opportunities, history updated.")
 
 
-if __name__ == "__main__":
-    run_scan()
+# ============================================================================
+#                              FLASK BILLING API
+# ============================================================================
+
+import uuid
+import jwt
+import bcrypt
+from flask import Flask, request, jsonify, g
+from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# ---- Flask app ----
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///users.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
+app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
+CORS(app)
+
+db = SQLAlchemy(app)
+
+# ---- Tier Configuration ----
+TIERS = {
+    'free': {
+        'label': 'Free Trial',
+        'price': 0,
+        'duration_days': None,
+        'scanner_speed_seconds': 1800,
+        'max_profit_percent': 5.0,
+        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'],
+        'market_types': ['1x2'],
+        'daily_matches': 3,
+        'telegram_alerts': False,
+        'historical_data': False,
+        'value_rating': 'Poor Value',
+    },
+    'day': {
+        'label': 'Day Pass',
+        'price': 2500,
+        'duration_days': 1,
+        'scanner_speed_seconds': 120,
+        'max_profit_percent': 15.0,
+        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'],
+        'market_types': ['1x2', 'Over/Under 2.5'],
+        'daily_matches': None,
+        'telegram_alerts': False,
+        'historical_data': False,
+        'value_rating': 'Best Value',
+    },
+    'monthly': {
+        'label': 'Monthly VIP',
+        'price': 15000,
+        'duration_days': 30,
+        'scanner_speed_seconds': 0,
+        'max_profit_percent': 50.0,
+        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
+        'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
+        'daily_matches': None,
+        'telegram_alerts': True,
+        'historical_data': True,
+        'value_rating': 'High Saver',
+    },
+    'quarterly': {
+        'label': 'Quarterly Pro',
+        'price': 40000,
+        'duration_days': 90,
+        'scanner_speed_seconds': 0,
+        'max_profit_percent': 50.0,
+        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
+        'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
+        'daily_matches': None,
+        'telegram_alerts': True,
+        'historical_data': True,
+        'value_rating': 'High Saver',
+    }
+}
+
+# ---- Database Models ----
+class User(db.Model):
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    phone = db.Column(db.String(20), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
+
+    tier = db.Column(db.String(20), default='free')
+    is_subscribed = db.Column(db.Boolean, default=False)
+    subscription_expires = db.Column(db.DateTime, nullable=True)
+
+    flutterwave_customer_id = db.Column(db.String(100), nullable=True)
+
+    last_arbitrage_date = db.Column(db.DateTime, nullable=True)
+    arbitrage_today_count = db.Column(db.Integer, default=0)
+
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def set_password(self, password):
+        self.password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+    def check_password(self, password):
+        return bcrypt.checkpw(password.encode('utf-8'), self.password_hash.encode('utf-8'))
+
+
+class Transaction(db.Model):
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)
+    tx_ref = db.Column(db.String(100), unique=True, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    currency = db.Column(db.String(10), default='UGX')
+    status = db.Column(db.String(20), default='pending')
+    provider = db.Column(db.String(20))
+    plan = db.Column(db.String(20))
+    flutterwave_transaction_id = db.Column(db.String(100))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+with app.app_context():
+    db.create_all()
+
+# ---- JWT Helpers ----
+def generate_token(user_id):
+    payload = {
+        'user_id': user_id,
+        'exp': datetime.utcnow() + timedelta(days=7)
+    }
+    return jwt.encode(payload, os.getenv('JWT_SECRET', 'dev-jwt-secret'), algorithm='HS256')
+
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        if not token or not token.startswith('Bearer '):
+            return jsonify({'error': 'Token missing'}), 401
+        token = token.split(' ')[1]
+        try:
+            data = jwt.decode(token, os.getenv('JWT_SECRET', 'dev-jwt-secret'), algorithms=['HS256'])
+            g.user_id = data['user_id']
+        except:
+            return jsonify({'error': 'Invalid token'}), 401
+        return f(*args, **kwargs)
+    return decorated
+
+
+# ---- Auth Endpoints ----
+@app.route('/api/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    email = data.get('email')
+    phone = data.get('phone')
+    password = data.get('password')
+
+    if not email or not phone or not password:
+        return jsonify({'error': 'Missing fields'}), 400
+    if User.query.filter_by(email=email).first():
+        return jsonify({'error': 'Email already exists'}), 400
+
+    user = User(email=email, phone=phone, tier='free')
+    user.set_password(password)
+    db.session.add(user)
+    db.session.commit()
+
+    token = generate_token(user.id)
+    return jsonify({'token': token, 'user_id': user.id}), 201
+
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    user = User.query.filter_by(email=email).first()
+    if not user or not user.check_password(password):
+        return jsonify({'error': 'Invalid credentials'}), 401
+
+    token = generate_token(user.id)
+    return jsonify({
+        'token': token,
+        'user_id': user.id,
+        'tier': user.tier,
+        'subscribed': user.is_subscribed,
+        'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
+    })
+
+
+# ---- Payment Initiation ----
+@app.route('/api/pay', methods=['POST'])
+@token_required
+def initiate_payment():
+    user = User.query.get(g.user_id)
+    data = request.get_json()
+    plan = data.get('plan')
+    provider = data.get('provider')
+
+    if plan not in ['day', 'monthly', 'quarterly']:
+        return jsonify({'error': 'Invalid plan. Choose: day, monthly, quarterly'}), 400
+    if provider not in ['MTN', 'AIRTEL']:
+        return jsonify({'error': 'Provider must be MTN or AIRTEL'}), 400
+
+    amount = TIERS[plan]['price']
+    phone = user.phone
+    if not phone.startswith('256'):
+        phone = '256' + phone.lstrip('0')
+
+    tx_ref = f"tx-{uuid.uuid4().hex[:10]}"
+
+    payload = {
+        "tx_ref": tx_ref,
+        "amount": amount,
+        "currency": "UGX",
+        "payment_options": "mobilemoneyuganda",
+        "redirect_url": "https://yourapp.com/redirect",
+        "customer": {
+            "email": user.email,
+            "phonenumber": phone,
+        },
+        "meta": {
+            "user_id": user.id,
+            "plan": plan
+        },
+        "customizations": {
+            "title": "Arbitrage Access",
+            "description": f"{TIERS[plan]['label']} - {amount} UGX via {provider}"
+        }
+    }
+
+    headers = {
+        "Authorization": f"Bearer {os.getenv('FLUTTERWAVE_SECRET_KEY')}",
+        "Content-Type": "application/json"
+    }
+
+    transaction = Transaction(
+        user_id=user.id,
+        tx_ref=tx_ref,
+        amount=amount,
+        currency='UGX',
+        provider=provider,
+        status='pending',
+        plan=plan
+    )
+    db.session.add(transaction)
+    db.session.commit()
+
+    url = "https://api.flutterwave.com/v3/charges?type=mobilemoneyuganda"
+    try:
+        resp = requests.post(url, json=payload, headers=headers, timeout=30)
+        data = resp.json()
+    except Exception as e:
+        transaction.status = 'failed'
+        db.session.commit()
+        return jsonify({'error': str(e)}), 500
+
+    if data.get('status') == 'success':
+        return jsonify({
+            'tx_ref': tx_ref,
+            'message': 'Payment prompt sent to your phone. Enter your PIN.',
+            'flutterwave_ref': data.get('data', {}).get('flw_ref')
+        })
+    else:
+        transaction.status = 'failed'
+        db.session.commit()
+        return jsonify({'error': data.get('message', 'Payment initiation failed')}), 400
+
+
+# ---- Flutterwave Webhook ----
+@app.route('/webhook/flutterwave', methods=['POST'])
+def flutterwave_webhook():
+    signature = request.headers.get('verif-hash')
+    expected = os.getenv('FLUTTERWAVE_WEBHOOK_SECRET')
+    if signature != expected:
+        return jsonify({'error': 'Invalid signature'}), 401
+
+    data = request.get_json()
+    event = data.get('event')
+    if event == 'charge.completed':
+        tx_ref = data.get('data', {}).get('tx_ref')
+        status = data.get('data', {}).get('status')
+        flw_ref = data.get('data', {}).get('flw_ref')
+
+        transaction = Transaction.query.filter_by(tx_ref=tx_ref).first()
+        if not transaction:
+            return jsonify({'error': 'Transaction not found'}), 404
+
+        if status == 'successful':
+            transaction.status = 'success'
+            transaction.flutterwave_transaction_id = flw_ref
+            db.session.commit()
+
+            user = User.query.get(transaction.user_id)
+            if user:
+                plan = transaction.plan
+                duration_days = TIERS[plan]['duration_days']
+                now = datetime.utcnow()
+                if user.subscription_expires and user.subscription_expires > now:
+                    new_expiry = user.subscription_expires + timedelta(days=duration_days)
+                else:
+                    new_expiry = now + timedelta(days=duration_days)
+
+                user.tier = plan
+                user.is_subscribed = True
+                user.subscription_expires = new_expiry
+                user.arbitrage_today_count = 0
+                db.session.commit()
+
+        elif status in ['failed', 'cancelled']:
+            transaction.status = 'failed'
+            db.session.commit()
+
+    return jsonify({'status': 'ok'}), 200
+
+
+# ---- Filtering Helper ----
+def filter_opportunities(opportunities, tier_config):
+    allowed_bookmakers = set(tier_config['bookmakers'])
+    allowed_markets = set(tier_config['market_types'])
+    max_profit = tier_config['max_profit_percent']
+    daily_limit = tier_config['daily_matches']
+
+    filtered = []
+    for opp in opportunities:
+        bets = opp.get('bets', [])
+        bookmakers_in_opp = set(b.get('bookmaker') for b in bets)
+        if not bookmakers_in_opp.issubset(allowed_bookmakers):
+            continue
+
+        market_map = {
+            '3-way': '1x2',
+            '2-way': '1x2',
+            'Over/Under 2.5': 'Over/Under 2.5',
+            'Asian Handicap': 'Asian Handicap',
+            'Double Chance': 'Double Chance',
+            'BTTS': 'BTTS'
+        }
+        opp_market = market_map.get(opp.get('type', ''), opp.get('type', ''))
+        if opp_market not in allowed_markets:
+            continue
+
+        if opp.get('profit_percent', 0) > max_profit:
+            continue
+
+        filtered.append(opp)
+
+    if daily_limit is not None:
+        filtered.sort(key=lambda x: x.get('profit_percent', 0), reverse=True)
+        filtered = filtered[:daily_limit]
+
+    return filtered
+
+
+# ---- Main Arbitrage Endpoint ----
+@app.route('/api/arbitrage', methods=['GET'])
+@token_required
+def get_arbitrage():
+    user = User.query.get(g.user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    # Check expiry for paid tiers
+    if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
+        user.is_subscribed = False
+        user.tier = 'free'
+        db.session.commit()
+        return jsonify({'error': 'Subscription expired. Please renew.'}), 403
+
+    # Free tier daily limit
+    if user.tier == 'free':
+        today = datetime.utcnow().date()
+        if user.last_arbitrage_date:
+            last_date = user.last_arbitrage_date.date()
+            if last_date != today:
+                user.arbitrage_today_count = 0
+                user.last_arbitrage_date = datetime.utcnow()
+        else:
+            user.last_arbitrage_date = datetime.utcnow()
+
+        if user.arbitrage_today_count >= 3:
+            return jsonify({
+                'error': 'Daily limit reached (3 matches). Upgrade to continue.',
+                'tier': 'free'
+            }), 403
+
+    tier_config = TIERS[user.tier]
+    cache_file = 'current_opportunities.json'
+    run_scanner = False
+
+    # Decide whether to refresh cache based on tier speed
+    if os.path.exists(cache_file):
+        file_age = time.time() - os.path.getmtime(cache_file)
+        if tier_config['scanner_speed_seconds'] == 0:
+            run_scanner = True
+        elif file_age >= tier_config['scanner_speed_seconds']:
+            run_scanner = True
+    else:
+        run_scanner = True
+
+    if run_scanner:
+        print("Running fresh scan... (20-30 sec)")
+        try:
+            run_scan()
+        except Exception as e:
+            if not os.path.exists(cache_file):
+                return jsonify({'error': 'Scanner failed and no cache available.'}), 500
+
+    try:
+        with open(cache_file, 'r', encoding='utf-8') as f:
+            all_opportunities = json.load(f)
+    except:
+        all_opportunities = []
+
+    filtered_opps = filter_opportunities(all_opportunities, tier_config)
+
+    if user.tier == 'free':
+        user.arbitrage_today_count += 1
+        user.last_arbitrage_date = datetime.utcnow()
+        db.session.commit()
+
+    history = None
+    if tier_config['historical_data']:
+        history = load_arbitrage_history()
+
+    response = {
+        'opportunities': filtered_opps,
+        'count': len(filtered_opps),
+        'tier': user.tier,
+        'tier_label': tier_config['label'],
+        'value_rating': tier_config['value_rating'],
+        'scan_time': datetime.utcnow().isoformat(),
+        'cached': not run_scanner,
+        'remaining_daily': tier_config['daily_matches'] - user.arbitrage_today_count if tier_config['daily_matches'] else None
+    }
+    if history is not None:
+        response['history'] = history
+
+    return jsonify(response)
+
+
+# ---- Run Flask App ----
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
