@@ -346,34 +346,68 @@
     "market_specifier": ""
   },
   {
-    "match": "flora w vs mgarr utd w",
+    "match": "dila gori vs apollon",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 47.44,
-    "profit_ugx": 47438,
+    "profit_percent": 14.83,
+    "profit_ugx": 14831,
     "total_stake": 100000,
-    "arb_sum": 0.5256,
+    "arb_sum": 0.8517,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 6.4,
-        "stake": 29727,
-        "win": 190253
+        "odd": 4.15,
+        "stake": 28293,
+        "win": 117416
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "ChampionBet",
         "outcome": "Draw",
-        "odd": 5.25,
-        "stake": 36239,
-        "win": 190255
+        "odd": 3.25,
+        "stake": 36127,
+        "win": 117413
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 5.59,
-        "stake": 34034,
-        "win": 190250
+        "odd": 3.3,
+        "stake": 35580,
+        "win": 117414
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "paide vs zira",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 46.88,
+    "profit_ugx": 46877,
+    "total_stake": 100000,
+    "arb_sum": 0.5312,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 7.2,
+        "stake": 26145,
+        "win": 188244
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Draw",
+        "odd": 4.75,
+        "stake": 39630,
+        "win": 188242
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 5.5,
+        "stake": 34226,
+        "win": 188243
       }
     ],
     "market_type": "1x2",
