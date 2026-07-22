@@ -946,7 +946,6 @@ from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-# Replaced bcrypt with passlib (pure Python, no Rust needed)
 from passlib.hash import bcrypt as bcrypt_hash
 
 load_dotenv()
