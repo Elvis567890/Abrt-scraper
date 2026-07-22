@@ -24,7 +24,6 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install requests beautifulsoup4 passlib
-          # playwright is no longer needed
 
       - name: Run Python scraper
         run: python scraper.py
