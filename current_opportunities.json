@@ -1,5 +1,39 @@
 [
   {
+    "match": "bohemians vs ballkani",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.78,
+    "profit_ugx": 780,
+    "total_stake": 100000,
+    "arb_sum": 0.9922,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.65,
+        "stake": 61083,
+        "win": 100787
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 4.35,
+        "stake": 23169,
+        "win": 100785
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Away",
+        "odd": 6.4,
+        "stake": 15748,
+        "win": 100787
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "vardar vs riga",
     "sport": "Football",
     "type": "3-way",
