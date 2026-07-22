@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abrimax - Live Arbitrage</title>
-
-    <!-- Firebase SDKs (compat v9) -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abrimax – Live Arbitrage</title>
     <style>
-        /* ===== YOUR EXISTING STYLES ===== */
+        /* ===== GLOBAL STYLES (same as before) ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -20,7 +15,7 @@
             --text2: #a0a4b0;
             --text3: #6b6f7c;
             --green: #00e676;
-            --green-glow: rgba(0, 230, 118, 0.25);
+            --green-glow: rgba(0,230,118,0.25);
             --red: #ff5252;
             --blue: #448aff;
             --yellow: #ffc107;
@@ -32,118 +27,748 @@
             --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
             --nav-height: 72px;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font); background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; -webkit-font-smoothing: antialiased; user-select: none; }
-        .phone-frame { width: 390px; height: 844px; background: var(--bg); border-radius: 36px; overflow: hidden; position: relative; box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 8px #2a2a2a, 0 20px 60px rgba(0,0,0,0.7); display: flex; flex-direction: column; }
-        @media (max-width: 430px) { .phone-frame { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; } }
-        .status-bar { height: 44px; background: var(--bg); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; color: #fff; font-size: 12px; font-weight: 600; flex-shrink: 0; }
-        .main-content { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
-        .main-content::-webkit-scrollbar { width: 0; }
-        .page { display: none; padding: 0 16px 20px; animation: fadeSlideIn 0.3s ease; }
-        .page.active { display: block; }
-        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes glowPulse { 0%,100% { box-shadow: 0 0 12px var(--green-glow); } 50% { box-shadow: 0 0 24px var(--green-glow), 0 0 40px rgba(0,230,118,0.15); } }
-        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 0 14px; }
-        .page-header h1 { font-size: 22px; font-weight: 700; color: var(--text); }
-        .filter-tabs { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; }
-        .filter-tab { padding: 9px 18px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; border: 1.5px solid var(--surface3); background: transparent; color: var(--text2); }
-        .filter-tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; box-shadow: 0 2px 12px var(--green-glow); }
-        .opp-card { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
-        .opp-card:active { transform: scale(0.985); border-color: var(--surface3); }
-        .opp-card .top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-        .event-info { flex: 1; }
-        .sport-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 4px; }
-        .event-name { font-size: 15px; font-weight: 700; color: var(--text); text-transform: capitalize; }
-        .market-type { font-size: 12px; color: var(--text2); margin-top: 2px; }
-        .profit-badge { background: rgba(0,230,118,0.12); color: var(--green); font-weight: 700; font-size: 16px; padding: 8px 14px; border-radius: 20px; animation: glowPulse 2.5s infinite; }
-        .bookie-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
-        .bookie-tag { display: flex; align-items: center; gap: 6px; background: var(--surface2); padding: 7px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--text); }
-        .bookie-dot { width: 18px; height: 18px; border-radius: 50%; font-weight: 700; font-size: 9px; display: flex; align-items: center; justify-content: center; color: #fff; }
-        .stake-preview { font-size: 11px; color: var(--text3); margin-top: 6px; }
-        .arb-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
-
-        .detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-        .back-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; border: none; color: var(--text); }
-        .detail-sport { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); }
-        .detail-event { font-size: 18px; font-weight: 700; color: var(--text); text-transform: capitalize; }
-        .detail-timer { font-size: 13px; color: var(--orange); font-weight: 600; }
-        .outcome-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-        .outcome-card { background: var(--surface); border-radius: var(--radius); padding: 16px; text-align: center; border: 2px solid transparent; transition: all 0.2s; }
-        .outcome-card.highlight { border-color: var(--green); box-shadow: 0 0 20px var(--green-glow); }
-        .outcome-label { font-size: 12px; color: var(--text2); margin-bottom: 6px; font-weight: 600; text-transform: capitalize; }
-        .outcome-odds { font-size: 36px; font-weight: 800; color: var(--text); letter-spacing: -1px; }
-        .outcome-bookie { font-size: 11px; color: var(--text3); margin-top: 2px; }
-        .stake-input-group { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px; }
-        .stake-input-group label { font-size: 12px; color: var(--text2); font-weight: 600; display: block; margin-bottom: 6px; }
-        .stake-input-row { display: flex; align-items: center; gap: 8px; }
-        .stake-input-row input { flex: 1; background: var(--surface2); border: 2px solid var(--surface3); color: var(--text); font-size: 20px; font-weight: 700; padding: 12px 14px; border-radius: var(--radius-xs); outline: none; font-family: var(--font); }
-        .stake-input-row .currency { font-size: 18px; font-weight: 700; color: var(--text2); }
-        .breakdown-table { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px; }
-        .breakdown-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; color: var(--text2); border-bottom: 1px solid var(--surface2); }
-        .breakdown-row:last-child { border-bottom: none; font-weight: 700; color: var(--green); font-size: 15px; }
-        .breakdown-row .val { color: var(--text); font-weight: 600; }
-        .breakdown-row:last-child .val { color: var(--green); }
-        .cta-row { display: flex; gap: 10px; }
-        .cta-btn { flex: 1; padding: 14px; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px; cursor: pointer; text-align: center; border: none; transition: all 0.2s; font-family: var(--font); }
-        .cta-btn.primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px var(--green-glow); }
-        .cta-btn.secondary { background: var(--surface2); color: var(--text); border: 1.5px solid var(--surface3); }
-        .cta-btn:active { transform: scale(0.95); }
-        .calc-card { background: var(--surface); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
-        .calc-input { margin-bottom: 14px; }
-        .calc-input label { font-size: 12px; font-weight: 600; color: var(--text2); display: block; margin-bottom: 5px; }
-        .calc-input input { width: 100%; background: var(--surface2); border: 2px solid var(--surface3); color: var(--text); font-size: 17px; padding: 12px 14px; border-radius: var(--radius-xs); outline: none; }
-        .calc-result { background: var(--surface2); border-radius: var(--radius-sm); padding: 16px; text-align: center; margin-top: 8px; }
-        .profit-ring { width: 80px; height: 80px; border-radius: 50%; border: 6px solid var(--green); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: var(--green); box-shadow: 0 0 24px var(--green-glow); }
-        .slip-item { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
-        .slip-bookie { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; color: #fff; }
-        .slip-info { flex: 1; }
-        .slip-event { font-weight: 600; color: var(--text); font-size: 13px; text-transform: capitalize; }
-        .slip-detail { font-size: 11px; color: var(--text2); }
-        .slip-stake { font-weight: 700; color: var(--text); font-size: 14px; }
-        .slip-actions { display: flex; gap: 6px; }
-        .slip-actions button { width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer; font-size: 14px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: var(--font);
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            background: var(--bg);
+            border-radius: 36px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 8px #2a2a2a, 0 20px 60px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+        }
+        @media (max-width: 430px) {
+            .phone-frame {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+        .status-bar {
+            height: 44px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 16px 20px;
+            scroll-behavior: smooth;
+        }
+        .main-content::-webkit-scrollbar {
+            width: 0;
+        }
+        .page {
+            display: none;
+            animation: fadeSlideIn 0.3s ease;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glowPulse {
+            0%,100% { box-shadow: 0 0 12px var(--green-glow); }
+            50% { box-shadow: 0 0 24px var(--green-glow), 0 0 40px rgba(0,230,118,0.15); }
+        }
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0 14px;
+        }
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        /* ---- Filter Tabs ---- */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            overflow-x: auto;
+        }
+        .filter-tab {
+            padding: 9px 18px;
+            border-radius: 22px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            border: 1.5px solid var(--surface3);
+            background: transparent;
+            color: var(--text2);
+        }
+        .filter-tab.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            font-weight: 700;
+            box-shadow: 0 2px 12px var(--green-glow);
+        }
+        /* ---- Opportunity Card ---- */
+        .opp-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .opp-card:active {
+            transform: scale(0.985);
+            border-color: var(--surface3);
+        }
+        .opp-card .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .event-info {
+            flex: 1;
+        }
+        .sport-badge {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--blue);
+            margin-bottom: 4px;
+        }
+        .event-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            text-transform: capitalize;
+        }
+        .market-type {
+            font-size: 12px;
+            color: var(--text2);
+            margin-top: 2px;
+        }
+        .profit-badge {
+            background: rgba(0,230,118,0.12);
+            color: var(--green);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            animation: glowPulse 2.5s infinite;
+        }
+        .bookie-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+        .bookie-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface2);
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .bookie-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .stake-preview {
+            font-size: 11px;
+            color: var(--text3);
+            margin-top: 6px;
+        }
+        .arb-meta {
+            font-size: 11px;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+        /* ---- Detail ---- */
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .back-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            border: none;
+            color: var(--text);
+        }
+        .detail-sport {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--blue);
+        }
+        .detail-event {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            text-transform: capitalize;
+        }
+        .detail-timer {
+            font-size: 13px;
+            color: var(--orange);
+            font-weight: 600;
+        }
+        .outcome-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .outcome-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .outcome-card.highlight {
+            border-color: var(--green);
+            box-shadow: 0 0 20px var(--green-glow);
+        }
+        .outcome-label {
+            font-size: 12px;
+            color: var(--text2);
+            margin-bottom: 6px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .outcome-odds {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+        .outcome-bookie {
+            font-size: 11px;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+        .stake-input-group {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+        .stake-input-group label {
+            font-size: 12px;
+            color: var(--text2);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .stake-input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stake-input-row input {
+            flex: 1;
+            background: var(--surface2);
+            border: 2px solid var(--surface3);
+            color: var(--text);
+            font-size: 20px;
+            font-weight: 700;
+            padding: 12px 14px;
+            border-radius: var(--radius-xs);
+            outline: none;
+            font-family: var(--font);
+        }
+        .stake-input-row .currency {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text2);
+        }
+        .breakdown-table {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--text2);
+            border-bottom: 1px solid var(--surface2);
+        }
+        .breakdown-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--green);
+            font-size: 15px;
+        }
+        .breakdown-row .val {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .breakdown-row:last-child .val {
+            color: var(--green);
+        }
+        .cta-row {
+            display: flex;
+            gap: 10px;
+        }
+        .cta-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            transition: all 0.2s;
+            font-family: var(--font);
+        }
+        .cta-btn.primary {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 4px 16px var(--green-glow);
+        }
+        .cta-btn.secondary {
+            background: var(--surface2);
+            color: var(--text);
+            border: 1.5px solid var(--surface3);
+        }
+        .cta-btn:active {
+            transform: scale(0.95);
+        }
+        /* ---- Calculator ---- */
+        .calc-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+        .calc-input {
+            margin-bottom: 14px;
+        }
+        .calc-input label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text2);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .calc-input input {
+            width: 100%;
+            background: var(--surface2);
+            border: 2px solid var(--surface3);
+            color: var(--text);
+            font-size: 17px;
+            padding: 12px 14px;
+            border-radius: var(--radius-xs);
+            outline: none;
+        }
+        .calc-result {
+            background: var(--surface2);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+            margin-top: 8px;
+        }
+        .profit-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 6px solid var(--green);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--green);
+            box-shadow: 0 0 24px var(--green-glow);
+        }
+        /* ---- Bet Slip ---- */
+        .slip-item {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .slip-bookie {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 11px;
+            color: #fff;
+        }
+        .slip-info {
+            flex: 1;
+        }
+        .slip-event {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 13px;
+            text-transform: capitalize;
+        }
+        .slip-detail {
+            font-size: 11px;
+            color: var(--text2);
+        }
+        .slip-stake {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 14px;
+        }
+        .slip-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .slip-actions button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
         .btn-copy { background: var(--surface2); color: var(--text); }
         .btn-open { background: var(--blue); color: #fff; }
-        .bookie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .bookie-card { background: var(--surface); border-radius: var(--radius); padding: 16px; text-align: center; border: 2px solid transparent; }
-        .bookie-card.connected { border-color: rgba(0,230,118,0.3); }
-        .bookie-logo { width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: #fff; }
-        .bookie-name { font-weight: 700; color: var(--text); font-size: 14px; }
-        .bookie-status { font-size: 10px; font-weight: 700; color: var(--green); margin-top: 4px; text-transform: uppercase; }
-        .summary-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-        .summary-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
-        .summary-val { font-size: 22px; font-weight: 800; color: var(--text); }
-        .summary-label { font-size: 10px; color: var(--text3); text-transform: uppercase; }
-        .profit-chart { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; height: 120px; display: flex; align-items: flex-end; gap: 6px; }
-        .chart-bar { flex: 1; background: var(--green); border-radius: 4px 4px 0 0; min-height: 8px; opacity: 0.8; }
-        .hist-item { background: var(--surface); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
-        .hist-info { flex: 1; }
-        .hist-event { font-weight: 600; color: var(--text); font-size: 13px; }
-        .hist-date { font-size: 11px; color: var(--text3); }
-        .status-chip { font-size: 10px; font-weight: 700; padding: 5px 10px; border-radius: 12px; text-transform: uppercase; }
-        .status-placed { background: rgba(0,230,118,0.15); color: var(--green); }
-        .status-invalid { background: rgba(255,82,82,0.15); color: var(--red); }
-        .alert-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
-        .alert-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,230,118,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; }
-        .alert-info { flex: 1; }
-        .alert-event { font-weight: 600; color: var(--text); font-size: 13px; text-transform: capitalize; }
-        .alert-meta { font-size: 11px; color: var(--text3); }
-        .alert-profit { font-weight: 700; color: var(--green); font-size: 14px; }
-        .bottom-nav { height: 72px; background: var(--surface); display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--surface3); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 6px 12px; background: none; border: none; color: var(--text3); font-family: var(--font); font-size: 10px; font-weight: 600; }
-        .nav-item.active { color: var(--accent); }
-        .toast { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-        .toast.show { opacity: 1; }
-        .empty-state { text-align: center; padding: 50px 20px; color: var(--text3); }
-        .settings-section { margin-bottom: 18px; }
-        .settings-section h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 10px; }
-        .slider-container { background: var(--surface); border-radius: var(--radius-sm); padding: 14px 16px; }
-        .slider-container input[type="range"] { width: 100%; accent-color: var(--accent); margin-top: 6px; }
-        .fab { position: absolute; bottom: 100px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: #000; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 28px var(--green-glow); z-index: 20; border: none; }
-        .icon-btn { background: var(--surface2); border: none; color: var(--text); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; position: relative; }
-        .badge-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; top: 6px; right: 6px; border: 2px solid var(--surface2); }
-
-        /* ===== AUTH PAGE STYLES ===== */
+        .slip-summary {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .summary-profit {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--green);
+            margin: 8px 0;
+        }
+        /* ---- Bookmakers ---- */
+        .bookie-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .bookie-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+        .bookie-card.connected {
+            border-color: rgba(0,230,118,0.3);
+        }
+        .bookie-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            color: #fff;
+        }
+        .bookie-name {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 14px;
+        }
+        .bookie-status {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--green);
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+        /* ---- History ---- */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .summary-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            text-align: center;
+        }
+        .summary-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+        }
+        .summary-label {
+            font-size: 10px;
+            color: var(--text3);
+            text-transform: uppercase;
+        }
+        .profit-chart {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 14px;
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            overflow-x: auto;
+        }
+        .chart-bar {
+            flex: 1;
+            background: var(--green);
+            border-radius: 4px 4px 0 0;
+            min-height: 8px;
+            opacity: 0.8;
+        }
+        .hist-item {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .hist-info {
+            flex: 1;
+        }
+        .hist-event {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 13px;
+        }
+        .hist-date {
+            font-size: 11px;
+            color: var(--text3);
+        }
+        .status-chip {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+        .status-placed {
+            background: rgba(0,230,118,0.15);
+            color: var(--green);
+        }
+        .status-invalid {
+            background: rgba(255,82,82,0.15);
+            color: var(--red);
+        }
+        /* ---- Alerts ---- */
+        .alert-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0,230,118,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .alert-info {
+            flex: 1;
+        }
+        .alert-event {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 13px;
+            text-transform: capitalize;
+        }
+        .alert-meta {
+            font-size: 11px;
+            color: var(--text3);
+        }
+        .alert-profit {
+            font-weight: 700;
+            color: var(--green);
+            font-size: 14px;
+        }
+        /* ---- Bottom Nav ---- */
+        .bottom-nav {
+            height: 72px;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            border-top: 1px solid var(--surface3);
+            flex-shrink: 0;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 6px 12px;
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-family: var(--font);
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .nav-item.active {
+            color: var(--accent);
+        }
+        .toast {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text3);
+        }
+        /* ---- Settings ---- */
+        .settings-section {
+            margin-bottom: 18px;
+        }
+        .settings-section h3 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text3);
+            margin-bottom: 10px;
+        }
+        .slider-container {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+        }
+        .slider-container input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent);
+            margin-top: 6px;
+        }
+        .fab {
+            position: absolute;
+            bottom: 100px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #000;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 28px var(--green-glow);
+            z-index: 20;
+            border: none;
+        }
+        .icon-btn {
+            background: var(--surface2);
+            border: none;
+            color: var(--text);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+        }
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            border: 2px solid var(--surface2);
+        }
+        /* ---- Auth ---- */
         .auth-container {
             display: flex;
             flex-direction: column;
@@ -160,24 +785,128 @@
             max-width: 360px;
             margin: 0 auto;
         }
-        .auth-box h2 { color: var(--text); font-size: 24px; margin-bottom: 8px; text-align: center; }
-        .auth-box p { color: var(--text2); text-align: center; font-size: 14px; margin-bottom: 20px; }
-        .auth-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
-        .auth-tab { flex:1; padding: 10px; border: 2px solid var(--surface3); border-radius: var(--radius-xs); background: transparent; color: var(--text2); font-weight: 700; cursor: pointer; text-align: center; }
-        .auth-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(0,230,118,0.08); }
-        .auth-input { width: 100%; padding: 14px; background: var(--surface2); border: 2px solid var(--surface3); border-radius: var(--radius-xs); color: var(--text); font-size: 15px; margin-bottom: 12px; outline: none; }
-        .auth-input:focus { border-color: var(--accent); }
-        .auth-btn { width: 100%; padding: 14px; border: none; border-radius: var(--radius-xs); font-weight: 700; font-size: 16px; cursor: pointer; }
-        .auth-btn.primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px var(--green-glow); }
-        .auth-btn.google { background: #fff; color: #000; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
-        .auth-error { color: var(--red); font-size: 13px; margin: 6px 0; text-align: center; min-height: 20px; }
-        .auth-divider { display: flex; align-items: center; gap: 12px; color: var(--text3); font-size: 12px; margin: 12px 0; }
-        .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--surface3); }
-        .user-email { color: var(--text2); font-size: 13px; margin-bottom: 12px; text-align: center; }
+        .auth-box h2 {
+            color: var(--text);
+            font-size: 24px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .auth-box p {
+            color: var(--text2);
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .auth-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid var(--surface3);
+            border-radius: var(--radius-xs);
+            background: transparent;
+            color: var(--text2);
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
+        .auth-tab.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(0,230,118,0.08);
+        }
+        .auth-input {
+            width: 100%;
+            padding: 14px;
+            background: var(--surface2);
+            border: 2px solid var(--surface3);
+            border-radius: var(--radius-xs);
+            color: var(--text);
+            font-size: 15px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+        .auth-input:focus {
+            border-color: var(--accent);
+        }
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-xs);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .auth-btn.primary {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 4px 16px var(--green-glow);
+        }
+        .auth-error {
+            color: var(--red);
+            font-size: 13px;
+            margin: 6px 0;
+            text-align: center;
+            min-height: 20px;
+        }
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text3);
+            font-size: 12px;
+            margin: 12px 0;
+        }
+        .auth-divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid var(--surface3);
+        }
+        .user-email {
+            color: var(--text2);
+            font-size: 13px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .plan-select,
+        .provider-select {
+            width: 100%;
+            padding: 12px;
+            background: var(--surface2);
+            color: var(--text);
+            border: 2px solid var(--surface3);
+            border-radius: var(--radius-xs);
+            margin-bottom: 8px;
+        }
+        .settings-input,
+        .settings-select {
+            width: 100%;
+            padding: 10px;
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--surface3);
+            border-radius: var(--radius-xs);
+            margin-top: 6px;
+        }
+        #payMessage {
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--text2);
+            text-align: center;
+        }
+        /* scrollable container for history chart */
+        .profit-chart {
+            overflow-x: auto;
+        }
     </style>
 </head>
 <body>
 <div class="phone-frame" id="app">
+    <!-- Status Bar -->
     <div class="status-bar">
         <span class="time">9:41</span>
         <div class="status-icons">5G ▮▮▮▮ 🔋</div>
@@ -196,32 +925,27 @@
                         <button class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</button>
                     </div>
                     <div id="authForm">
-                        <!-- Login form -->
                         <div id="loginForm">
                             <input type="email" id="loginEmail" class="auth-input" placeholder="Email" required>
                             <input type="password" id="loginPassword" class="auth-input" placeholder="Password" required>
                             <div id="authError" class="auth-error"></div>
                             <button class="auth-btn primary" onclick="loginWithEmail()">Log In</button>
                         </div>
-                        <!-- Signup form (hidden by default) -->
                         <div id="signupForm" style="display:none;">
                             <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
+                            <input type="tel" id="signupPhone" class="auth-input" placeholder="Phone (e.g., 25678xxxxxx)" required>
                             <input type="password" id="signupPassword" class="auth-input" placeholder="Password (min 6 chars)" required>
                             <div id="authErrorSignup" class="auth-error"></div>
                             <button class="auth-btn primary" onclick="signUpWithEmail()">Create Account</button>
                         </div>
                     </div>
                     <div class="auth-divider"><hr><span>or</span><hr></div>
-                    <button class="auth-btn google" onclick="signInWithGoogle()">
-                        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-                        Sign in with Google
-                    </button>
+                    <button class="auth-btn primary" style="background:#fff;color:#000;display:flex;align-items:center;justify-content:center;gap:10px;" onclick="demoLogin()">🚀 Demo Login (Free Trial)</button>
                 </div>
             </div>
         </div>
 
-        <!-- ===== REST OF YOUR PAGES ===== -->
-        <!-- Dashboard -->
+        <!-- ===== DASHBOARD ===== -->
         <div class="page" id="page-dashboard">
             <div class="page-header">
                 <h1>🔍 Abrimax</h1>
@@ -238,9 +962,11 @@
             <div id="oppList"></div>
             <button class="fab" onclick="navigateTo('calculator')">🧮</button>
         </div>
-        <!-- Detail (injected) -->
+
+        <!-- ===== DETAIL ===== -->
         <div class="page" id="page-detail"></div>
-        <!-- Calculator -->
+
+        <!-- ===== CALCULATOR ===== -->
         <div class="page" id="page-calculator">
             <div class="detail-header">
                 <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
@@ -256,7 +982,8 @@
             </div>
             <button class="cta-btn primary" style="width:100%;" onclick="addCurrentCalcToSlip()">📋 Save to Bet Slip</button>
         </div>
-        <!-- Bet Slip -->
+
+        <!-- ===== BET SLIP ===== -->
         <div class="page" id="page-slip">
             <div class="page-header"><h1>📋 Bet Slip</h1><span id="slipCount">0 bets</span></div>
             <div id="slipItems"></div>
@@ -266,7 +993,8 @@
                 <button class="cta-btn primary" style="width:100%;margin-top:10px;" onclick="completeArb()">✅ Complete Arb</button>
             </div>
         </div>
-        <!-- Bookmakers -->
+
+        <!-- ===== BOOKMAKERS ===== -->
         <div class="page" id="page-bookies">
             <div class="page-header"><h1>🏦 Bookmakers</h1></div>
             <div class="bookie-grid">
@@ -277,7 +1005,7 @@
             </div>
         </div>
 
-        <!-- Settings -->
+        <!-- ===== SETTINGS ===== -->
         <div class="page" id="page-settings">
             <div class="page-header">
                 <h1>⚙️ Settings</h1>
@@ -288,7 +1016,25 @@
                 <h3>👤 Account</h3>
                 <div class="slider-container" style="text-align:center;">
                     <div id="settingsUserEmail" class="user-email">Not logged in</div>
-                    <button class="cta-btn secondary" style="width:100%;" onclick="logoutUser()">🚪 Log Out</button>
+                    <div id="settingsUserTier" style="font-size:12px;color:var(--text2);">Tier: free</div>
+                    <button class="cta-btn secondary" style="width:100%;margin-top:8px;" onclick="logoutUser()">🚪 Log Out</button>
+                </div>
+            </div>
+
+            <div class="settings-section" id="paySection">
+                <h3>💳 Upgrade Plan</h3>
+                <div class="slider-container">
+                    <select id="planSelect" class="plan-select">
+                        <option value="day">Day Pass – 2,500 UGX</option>
+                        <option value="monthly">Monthly VIP – 15,000 UGX</option>
+                        <option value="quarterly">Quarterly Pro – 40,000 UGX</option>
+                    </select>
+                    <select id="providerSelect" class="provider-select">
+                        <option value="MTN">MTN Mobile Money</option>
+                        <option value="AIRTEL">Airtel Money</option>
+                    </select>
+                    <button class="auth-btn primary" onclick="initiatePayment()">💰 Pay Now</button>
+                    <div id="payMessage" style="margin-top:8px;font-size:13px;color:var(--text2);text-align:center;"></div>
                 </div>
             </div>
 
@@ -296,12 +1042,11 @@
                 <h3>📊 Arbitrage Preferences</h3>
                 <div class="slider-container">
                     <label>Default Stake (UGX)</label>
-                    <input type="number" id="defaultStake" class="settings-input" value="100000" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                    <input type="number" id="defaultStake" class="settings-input" value="100000">
                 </div>
-
                 <div class="slider-container" style="margin-top:8px;">
                     <label>Min Profit Filter (%)</label>
-                    <select id="minProfit" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                    <select id="minProfit" class="settings-select">
                         <option value="0.5">0.5%</option>
                         <option value="1.0" selected>1.0%</option>
                         <option value="2.0">2.0%</option>
@@ -309,29 +1054,27 @@
                         <option value="5.0">5.0%</option>
                     </select>
                 </div>
-
                 <div class="slider-container" style="margin-top:8px;">
-                    <label>Max Profit Filter (Avoid Glitches)</label>
-                    <select id="maxProfit" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                    <label>Max Profit Filter</label>
+                    <select id="maxProfit" class="settings-select">
                         <option value="8.0">Safe (< 8%)</option>
                         <option value="15.0" selected>Moderate (< 15%)</option>
                         <option value="99.0">Degenerate (Show All)</option>
                     </select>
                 </div>
-
                 <div class="slider-container" style="margin-top:8px;">
                     <label>Show Market Types</label>
-                    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;">
-                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+                        <label style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px;">
                             <input type="checkbox" id="mkt_1x2" checked> 1x2
                         </label>
-                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                        <label style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px;">
                             <input type="checkbox" id="mkt_ou" checked> Over/Under
                         </label>
-                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                        <label style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px;">
                             <input type="checkbox" id="mkt_ah" checked> Asian Handicap
                         </label>
-                        <label style="font-size:12px; color:var(--text2); display:flex; align-items:center; gap:4px;">
+                        <label style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px;">
                             <input type="checkbox" id="mkt_btts" checked> BTTS
                         </label>
                     </div>
@@ -339,26 +1082,26 @@
             </div>
 
             <div class="settings-section">
-                <h3>🔔 Alerts & Notifications</h3>
-                <div class="slider-container" style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>🔔 Alerts</h3>
+                <div class="slider-container" style="display:flex;justify-content:space-between;align-items:center;">
                     <label>Enable Push Alerts</label>
-                    <input type="checkbox" id="alertToggle" checked style="accent-color:var(--accent); transform:scale(1.2);">
+                    <input type="checkbox" id="alertToggle" checked style="accent-color:var(--accent);transform:scale(1.2);">
                 </div>
                 <div class="slider-container" style="margin-top:8px;">
                     <label>Alert Minimum Profit (%)</label>
-                    <input type="number" id="alertThreshold" value="5.0" class="settings-input" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;" step="0.5">
+                    <input type="number" id="alertThreshold" class="settings-input" value="5.0" step="0.5">
                 </div>
             </div>
 
             <div class="settings-section">
                 <h3>🎨 Display</h3>
-                <div class="slider-container" style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="slider-container" style="display:flex;justify-content:space-between;align-items:center;">
                     <label>Dark Mode</label>
-                    <input type="checkbox" id="darkModeToggle" checked style="accent-color:var(--accent); transform:scale(1.2);">
+                    <input type="checkbox" id="darkModeToggle" checked style="accent-color:var(--accent);transform:scale(1.2);">
                 </div>
                 <div class="slider-container" style="margin-top:8px;">
                     <label>Card Layout</label>
-                    <select id="cardLayout" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
+                    <select id="cardLayout" class="settings-select">
                         <option value="comfortable">Comfortable (Expanded)</option>
                         <option value="compact">Compact (Tight)</option>
                     </select>
@@ -366,7 +1109,7 @@
             </div>
         </div>
 
-        <!-- History -->
+        <!-- ===== HISTORY ===== -->
         <div class="page" id="page-history">
             <div class="page-header"><h1>📊 History</h1></div>
             <div class="summary-cards">
@@ -376,15 +1119,16 @@
             <div class="profit-chart" id="profitChart"></div>
             <div id="historyList"></div>
         </div>
-        <!-- Alerts -->
+
+        <!-- ===== ALERTS ===== -->
         <div class="page" id="page-alerts">
             <div class="page-header"><h1>🔔 Alerts</h1></div>
             <div id="alertsList"></div>
         </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
-    <div class="bottom-nav" id="bottomNav">
+    <!-- Bottom Nav -->
+    <div class="bottom-nav" id="bottomNav" style="display:none;">
         <button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">🏠 Home</button>
         <button class="nav-item" data-page="slip" onclick="navigateTo('slip')">📋 Slip</button>
         <button class="nav-item" data-page="calculator" onclick="navigateTo('calculator')">🧮 Calc</button>
@@ -395,77 +1139,56 @@
 
 <script>
     // ============================================================
-    // 1. FIREBASE CONFIG – YOUR CONFIG
+    // 1. BACKEND API CONFIG
     // ============================================================
-    const firebaseConfig = {
-        apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw",
-        authDomain: "arbimax-auth.firebaseapp.com",
-        projectId: "arbimax-auth",
-        storageBucket: "arbimax-auth.firebasestorage.app",
-        messagingSenderId: "985163289771",
-        appId: "1:985163289771:web:798f8b55bab13d7d2353ee",
-        measurementId: "G-ZFXKEY2QL7"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    // ============================================================
-    // 2. AUTH STATE LISTENER
-    // ============================================================
+    const API_BASE = 'https://abrt-scraper-production.up.railway.app'; // Change if your URL is different
     let currentUser = null;
-
-    auth.onAuthStateChanged(user => {
-        const authPage = document.getElementById('page-auth');
-        const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
-        const bottomNav = document.getElementById('bottomNav');
-        const fab = document.querySelector('.fab');
-
-        if (user) {
-            currentUser = user;
-            authPage.classList.remove('active');
-            mainPages.forEach(p => p.classList.add('active'));
-            bottomNav.style.display = 'flex';
-            if (fab) fab.style.display = 'flex';
-            document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + user.email;
-            loadUserSettings();
-            navigateTo('dashboard');
-        } else {
-            currentUser = null;
-            authPage.classList.add('active');
-            mainPages.forEach(p => p.classList.remove('active'));
-            bottomNav.style.display = 'none';
-            if (fab) fab.style.display = 'none';
-            document.getElementById('settingsUserEmail').textContent = 'Not logged in';
-        }
-    });
+    let authToken = localStorage.getItem('abi_token') || null;
+    let opportunitiesData = [];
+    let allHistory = {};
+    let currentPage = 'dashboard';
+    let currentDetailArb = null;
+    let slipBets = [];
+    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
     // ============================================================
-    // 3. AUTH FUNCTIONS
+    // 2. AUTH FUNCTIONS
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
         document.querySelector(`.auth-tab[data-tab="${tab}"]`).classList.add('active');
-        if (tab === 'login') {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('signupForm').style.display = 'none';
-        } else {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('signupForm').style.display = 'block';
-        }
+        document.getElementById('loginForm').style.display = (tab === 'login') ? 'block' : 'none';
+        document.getElementById('signupForm').style.display = (tab === 'signup') ? 'block' : 'none';
         document.getElementById('authError').textContent = '';
         document.getElementById('authErrorSignup').textContent = '';
     }
 
     function signUpWithEmail() {
         const email = document.getElementById('signupEmail').value.trim();
+        const phone = document.getElementById('signupPhone').value.trim();
         const password = document.getElementById('signupPassword').value;
         const errorEl = document.getElementById('authErrorSignup');
         errorEl.textContent = '';
-        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+        if (!email || !phone || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
         if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(() => showToast('Account created! Welcome.'))
-            .catch(err => errorEl.textContent = err.message);
+        fetch(API_BASE + '/api/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, phone, password })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.token) {
+                authToken = data.token;
+                localStorage.setItem('abi_token', authToken);
+                currentUser = { id: data.user_id, email };
+                showToast('✅ Account created!');
+                afterLogin();
+            } else {
+                errorEl.textContent = data.error || 'Signup failed.';
+            }
+        })
+        .catch(err => errorEl.textContent = 'Network error: ' + err.message);
     }
 
     function loginWithEmail() {
@@ -474,260 +1197,226 @@
         const errorEl = document.getElementById('authError');
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
-        auth.signInWithEmailAndPassword(email, password)
-            .then(() => showToast('Logged in successfully!'))
-            .catch(err => errorEl.textContent = err.message);
+        fetch(API_BASE + '/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.token) {
+                authToken = data.token;
+                localStorage.setItem('abi_token', authToken);
+                currentUser = { id: data.user_id, email, tier: data.tier, subscribed: data.subscribed };
+                showToast('✅ Logged in!');
+                afterLogin();
+            } else {
+                errorEl.textContent = data.error || 'Login failed.';
+            }
+        })
+        .catch(err => errorEl.textContent = 'Network error: ' + err.message);
     }
 
-    function signInWithGoogle() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider)
-            .then(() => showToast('Google sign-in successful!'))
-            .catch(err => showToast('Google error: ' + err.message));
+    function demoLogin() {
+        const email = 'demo@abrimax.com';
+        const password = 'demopass123';
+        fetch(API_BASE + '/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })
+            .then(res => res.json())
+            .then(data => {
+                if (data.token) {
+                    authToken = data.token;
+                    localStorage.setItem('abi_token', authToken);
+                    currentUser = { id: data.user_id, email, tier: data.tier, subscribed: data.subscribed };
+                    showToast('✅ Demo login successful');
+                    afterLogin();
+                } else {
+                    // create demo account
+                    fetch(API_BASE + '/api/signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, phone: '256700000000', password })
+                    })
+                    .then(res => res.json())
+                    .then(signupData => {
+                        if (signupData.token) {
+                            authToken = signupData.token;
+                            localStorage.setItem('abi_token', authToken);
+                            currentUser = { id: signupData.user_id, email };
+                            showToast('✅ Demo account created!');
+                            afterLogin();
+                        } else {
+                            showToast('❌ Demo login failed: ' + (signupData.error || 'unknown error'));
+                        }
+                    });
+                }
+            })
+            .catch(err => showToast('❌ Network error: ' + err.message));
     }
 
     function logoutUser() {
-        auth.signOut().then(() => showToast('Logged out.'));
+        authToken = null;
+        localStorage.removeItem('abi_token');
+        currentUser = null;
+        showToast('Logged out.');
+        location.reload();
     }
 
-    // ============================================================
-    // 4. USER-SPECIFIC SETTINGS (localStorage)
-    // ============================================================
-    function getUserSettingsKey() {
-        return currentUser ? 'arbi_settings_' + currentUser.uid : 'arbi_settings_guest';
+    function afterLogin() {
+        document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + (currentUser ? currentUser.email : '');
+        document.getElementById('settingsUserTier').textContent = 'Tier: ' + (currentUser ? currentUser.tier : 'free');
+        document.getElementById('page-auth').classList.remove('active');
+        document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts').forEach(p => p.classList.add('active'));
+        document.getElementById('bottomNav').style.display = 'flex';
+        document.querySelector('.fab').style.display = 'flex';
+        loadUserSettings();
+        fetchOpportunities();
+        navigateTo('dashboard');
     }
 
-    function getDefaultSettings() {
-        return {
-            default_stake: 100000,
-            min_profit: 1.0,
-            max_profit: 15.0,
-            markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true },
-            alert_threshold: 5.0,
-            dark_mode: true,
-            card_layout: 'comfortable',
-            plan: 'free'
-        };
-    }
-
-    function loadUserSettings() {
-        try {
-            const saved = localStorage.getItem(getUserSettingsKey());
-            saved ? applySettingsToUI(JSON.parse(saved)) : applySettingsToUI(getDefaultSettings());
-        } catch (e) {
-            localStorage.removeItem(getUserSettingsKey());
-            applySettingsToUI(getDefaultSettings());
-        }
-    }
-
-    function applySettingsToUI(settings) {
-        document.getElementById('defaultStake').value = settings.default_stake;
-        document.getElementById('minProfit').value = settings.min_profit;
-        document.getElementById('maxProfit').value = settings.max_profit;
-        document.getElementById('mkt_1x2').checked = settings.markets['1x2'];
-        document.getElementById('mkt_ou').checked = settings.markets['ou'];
-        document.getElementById('mkt_ah').checked = settings.markets['ah'];
-        document.getElementById('mkt_btts').checked = settings.markets['btts'];
-        document.getElementById('alertToggle').checked = settings.alert_toggle !== undefined ? settings.alert_toggle : true;
-        document.getElementById('alertThreshold').value = settings.alert_threshold;
-        document.getElementById('darkModeToggle').checked = settings.dark_mode;
-        document.getElementById('cardLayout').value = settings.card_layout;
-        document.documentElement.style.setProperty('--bg', settings.dark_mode ? '#0d0f13' : '#ffffff');
-    }
-
-    function saveUserSettings() {
-        const settings = {
-            default_stake: parseInt(document.getElementById('defaultStake').value) || 100000,
-            min_profit: parseFloat(document.getElementById('minProfit').value) || 1.0,
-            max_profit: parseFloat(document.getElementById('maxProfit').value) || 15.0,
-            markets: {
-                '1x2': document.getElementById('mkt_1x2').checked,
-                'ou': document.getElementById('mkt_ou').checked,
-                'ah': document.getElementById('mkt_ah').checked,
-                'btts': document.getElementById('mkt_btts').checked
-            },
-            alert_toggle: document.getElementById('alertToggle').checked,
-            alert_threshold: parseFloat(document.getElementById('alertThreshold').value) || 5.0,
-            dark_mode: document.getElementById('darkModeToggle').checked,
-            card_layout: document.getElementById('cardLayout').value,
-            plan: 'free'
-        };
-        localStorage.setItem(getUserSettingsKey(), JSON.stringify(settings));
-        showToast('✅ Settings Saved!');
-        filterOpportunities();
-    }
-
-    // ============================================================
-    // 5. YOUR EXISTING APP LOGIC (unchanged)
-    // ============================================================
-    let opportunitiesData = [];
-    let allHistory = {};
-    let currentPage = 'dashboard';
-    let currentDetailArb = null;
-    let slipBets = [];
-    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
-
-    async function loadFromLuxuryBackend() {
-        try {
-            const [oppsRes, histRes] = await Promise.all([
-                fetch('current_opportunities.json?t=' + Date.now()),
-                fetch('arb_history.json?t=' + Date.now())
-            ]);
-            if (!oppsRes.ok) throw new Error('Failed to load JSON');
-            const currentOpps = await oppsRes.json();
-            if (histRes.ok) allHistory = await histRes.json();
-            opportunitiesData = currentOpps.map(o => {
-                const key = `${o.sport || 'Football'}::${o.type || '3-way'}::${o.match}`;
-                const histEntry = allHistory[key] || {};
-                const versions = histEntry.versions || [];
-                const latest = versions.length ? versions[versions.length - 1] : null;
-                return {
-                    match: o.match,
-                    sport: o.sport || 'Football',
-                    type: o.type || '3-way',
-                    profitPercent: latest ? Number(latest.profit_percent) : Number(o.profit_percent || 0),
-                    profitUGX: latest ? Number(latest.profit_ugx) : Number(o.profit_ugx || 0),
-                    bets: (o.bets || []).map(b => ({
-                        bookie: b.bookmaker,
-                        outcome: b.outcome,
-                        odds: Number(b.odd || 0),
-                        stake: Number(b.stake || 0),
-                        win: Number(b.win || 0)
-                    })),
-                    valid: histEntry.valid !== undefined ? histEntry.valid : true,
-                    first_seen: histEntry.first_seen || null,
-                    last_seen: histEntry.last_seen || null,
-                    history: versions.map(v => ({
-                        timestamp: v.timestamp,
-                        profitPercent: Number(v.profit_percent || 0),
-                        profitUGX: Number(v.profit_ugx || 0)
-                    }))
-                };
+    // Check existing token on load
+    if (authToken) {
+        fetch(API_BASE + '/api/arbitrage', { headers: { 'Authorization': 'Bearer ' + authToken } })
+            .then(res => {
+                if (res.ok) return res.json();
+                else throw new Error('Token invalid');
+            })
+            .then(() => {
+                currentUser = { email: 'user@example.com' };
+                afterLogin();
+            })
+            .catch(() => {
+                localStorage.removeItem('abi_token');
+                authToken = null;
+                showToast('Session expired, please login again.');
             });
+    }
+
+    // ============================================================
+    // 3. FETCH ARBITRAGE DATA
+    // ============================================================
+    function fetchOpportunities() {
+        if (!authToken) return;
+        fetch(API_BASE + '/api/arbitrage', {
+            headers: { 'Authorization': 'Bearer ' + authToken }
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('Failed to fetch data');
+            return res.json();
+        })
+        .then(data => {
+            const opps = data.opportunities || [];
+            opportunitiesData = opps.map(o => ({
+                match: o.match || 'Unknown',
+                sport: o.sport || 'Football',
+                type: o.type || '3-way',
+                profitPercent: o.profit_percent || 0,
+                profitUGX: o.profit_ugx || 0,
+                bets: (o.bets || []).map(b => ({
+                    bookie: b.bookmaker,
+                    outcome: b.outcome,
+                    odds: b.odd || 0,
+                    stake: b.stake || 0,
+                    win: b.win || 0
+                })),
+                valid: true,
+                first_seen: null,
+                last_seen: null,
+                history: []
+            }));
+            if (data.tier) {
+                if (currentUser) currentUser.tier = data.tier;
+                document.getElementById('settingsUserTier').textContent = 'Tier: ' + data.tier;
+            }
             renderOpportunities();
             renderAlerts();
             renderHistory();
-        } catch (e) {
-            console.error('LOAD ERROR:', e);
-            document.getElementById('oppList').innerHTML = `<div class="empty-state">⚠️ Network error or JSON missing.<br>Check your scraper.</div>`;
-        }
+        })
+        .catch(err => {
+            console.error('Fetch error:', err);
+            document.getElementById('oppList').innerHTML = `<div class="empty-state">⚠️ Error loading data: ${err.message}<br>Please ensure you are subscribed.</div>`;
+        });
     }
 
-    function navigateTo(pageName, data) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const target = document.getElementById('page-' + pageName);
-        if (target) {
-            target.classList.add('active');
-            currentPage = pageName;
-            document.getElementById('mainContent').scrollTop = 0;
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            const navBtn = document.querySelector(`.nav-item[data-page="${pageName}"]`);
-            if (navBtn) navBtn.classList.add('active');
-            if (pageName === 'detail' && data) populateDetailPage(data);
-            if (pageName === 'history') renderHistory();
-            if (pageName === 'alerts') renderAlerts();
-            const fab = document.querySelector('.fab');
-            if (fab) fab.style.display = pageName === 'dashboard' ? 'flex' : 'none';
+    // ============================================================
+    // 4. PAYMENT
+    // ============================================================
+    function initiatePayment() {
+        const plan = document.getElementById('planSelect').value;
+        const provider = document.getElementById('providerSelect').value;
+        const payMsg = document.getElementById('payMessage');
+        payMsg.textContent = 'Processing...';
+        if (!authToken) {
+            payMsg.textContent = '❌ Please login first.';
+            return;
         }
+        fetch(API_BASE + '/api/pay', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            },
+            body: JSON.stringify({ plan, provider })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.redirect_url) {
+                payMsg.textContent = '🔁 Redirecting to Pesapal...';
+                window.location.href = data.redirect_url;
+            } else {
+                payMsg.textContent = '❌ Error: ' + (data.error || 'Payment initiation failed');
+            }
+        })
+        .catch(err => {
+            payMsg.textContent = '❌ Network error: ' + err.message;
+        });
     }
 
-    function renderOpportunities(filter = 'all') {
-        try {
-            let settings = getDefaultSettings();
-            const saved = localStorage.getItem(getUserSettingsKey());
-            if (saved) {
-                try { settings = { ...settings, ...JSON.parse(saved) }; } catch (e) { localStorage.removeItem(getUserSettingsKey()); }
-            }
-            const minProfit = settings.minProfit || 1.0;
-            const maxProfit = settings.maxProfit || 99.0;
-            const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
-            const container = document.getElementById('oppList');
-            if (!container) return;
-            if (!opportunitiesData || opportunitiesData.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
-                return;
-            }
-            let filtered = opportunitiesData.filter(a => {
-                if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
-                const type = a.type || '3-way';
-                if (type.includes('1x2') && !markets['1x2']) return false;
-                if (type.includes('Over/Under') && !markets['ou']) return false;
-                if (type.includes('Asian Handicap') && !markets['ah']) return false;
-                if (type.includes('BTTS') && !markets['btts']) return false;
-                if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
-                if (filter === 'high' && a.profitPercent <= 5) return false;
-                return true;
-            });
-            if (filtered.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
-                return;
-            }
-            container.innerHTML = filtered.map(arb => {
-                const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
-                return `
-                <div class="opp-card" onclick='handleCardClick(${arbStr})'>
-                    <div class="top-row">
-                        <div class="event-info">
-                            <div class="sport-badge">⚽ ${arb.sport}</div>
-                            <div class="event-name">${arb.match}</div>
-                            <div class="market-type">${arb.type} · Pre-match</div>
-                        </div>
-                        <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
-                    </div>
-                    <div class="bookie-row">
-                        ${arb.bets.map(b => `
-                            <span class="bookie-tag">
-                                <span class="bookie-dot" style="background:${getBookieColor(b.bookie)}">${b.bookie.charAt(0)}</span>
-                                ${b.bookie} ${b.outcome} @ ${b.odds}
-                            </span>
-                        `).join('')}
-                    </div>
-                    <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
-                    <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
-                </div>`;
-            }).join('');
-        } catch (error) {
-            console.error("Render error:", error);
-            document.getElementById('oppList').innerHTML = '<div class="empty-state"><p>⚠️ Error displaying opportunities.</p></div>';
-        }
-    }
-
-    function handleCardClick(arb) { navigateTo('detail', arb); }
+    // ============================================================
+    // 5. UI RENDERING
+    // ============================================================
     function getBookieColor(bookie) {
         const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
         return map[bookie.toLowerCase()] || '#444';
     }
 
-    document.getElementById('dashboardFilterTabs').addEventListener('click', function(e) {
-        if (e.target.classList.contains('filter-tab')) {
-            this.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-            e.target.classList.add('active');
-            renderOpportunities(e.target.dataset.filter || 'all');
-        }
-    });
-
-    function filterOpportunities() {
-        const active = document.querySelector('#dashboardFilterTabs .filter-tab.active');
-        renderOpportunities(active ? active.dataset.filter : 'all');
+    function navigateTo(page, data) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('page-' + page);
+        if (!target) return;
+        target.classList.add('active');
+        currentPage = page;
+        document.getElementById('mainContent').scrollTop = 0;
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        const navBtn = document.querySelector(`.nav-item[data-page="${page}"]`);
+        if (navBtn) navBtn.classList.add('active');
+        if (page === 'detail' && data) populateDetail(data);
+        if (page === 'history') renderHistory();
+        if (page === 'alerts') renderAlerts();
+        const fab = document.querySelector('.fab');
+        if (fab) fab.style.display = (page === 'dashboard') ? 'flex' : 'none';
     }
 
-    function populateDetailPage(arb) {
+    function handleCardClick(arb) {
+        navigateTo('detail', arb);
+    }
+
+    function populateDetail(arb) {
         currentDetailArb = arb;
         const historyHtml = (arb.history && arb.history.length)
             ? `<div style="margin-bottom:12px;font-size:12px;color:var(--text3);">
-                   <strong>History:</strong>
-                   <ul style="margin-top:4px;padding-left:18px;">
-                       ${arb.history.map(h => `<li>${h.timestamp} – ${h.profitPercent.toFixed(2)}% (UGX ${h.profitUGX})</li>`).join('')}
-                   </ul>
+                 <strong>History:</strong>
+                 <ul style="margin-top:4px;padding-left:18px;">
+                     ${arb.history.map(h => `<li>${h.timestamp} – ${h.profitPercent.toFixed(2)}% (UGX ${h.profitUGX})</li>`).join('')}
+                 </ul>
                </div>`
-            : "";
+            : '';
         document.getElementById('page-detail').innerHTML = `
             <div class="detail-header">
                 <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
                 <div>
                     <div class="detail-sport">⚽ ${arb.sport} · ${arb.type}</div>
                     <div class="detail-event">${arb.match}</div>
-                    <div class="detail-timer">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
+                    <div class="detail-timer">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div>
                 </div>
             </div>
             ${historyHtml}
@@ -748,7 +1437,7 @@
                 </div>
             </div>
             <div class="breakdown-table" id="detailBreakdown"></div>
-            <div class="cta-row" id="ctaRow">
+            <div class="cta-row">
                 ${arb.bets.map(b => `<button class="cta-btn primary" onclick="showToast('Copy: ${b.bookie} ${b.outcome} @ ${b.odds}')">📋 ${b.bookie}</button>`).join('')}
             </div>
             <button class="cta-btn secondary" style="width:100%;margin-top:8px;" onclick="addCurrentDetailToSlip()">➕ Add to Bet Slip</button>
@@ -763,6 +1452,7 @@
         const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
         const odds = arb.bets.map(b => b.odds);
+        if (odds.some(o => o <= 0)) return;
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
         const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
@@ -804,6 +1494,7 @@
         showToast('Added to slip');
     }
 
+    // ===== Calculator =====
     function updateCalculator() {
         const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
         const odds = [
@@ -813,6 +1504,7 @@
         if (document.getElementById('calcOdds3Container').style.display !== 'none') {
             odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
         }
+        if (odds.some(o => o <= 0)) return;
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
         const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
@@ -839,7 +1531,7 @@
             parseFloat(document.getElementById('calcOdds1').value) || 3.6,
             parseFloat(document.getElementById('calcOdds2').value) || 3.82
         ];
-        const bets = [
+        let bets = [
             { bookie: 'Bookie1', outcome: 'Outcome 1', odds: odds[0] },
             { bookie: 'Bookie2', outcome: 'Outcome 2', odds: odds[1] }
         ];
@@ -847,6 +1539,7 @@
             odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
             bets.push({ bookie: 'Bookie3', outcome: 'Outcome 3', odds: odds[2] });
         }
+        if (odds.some(o => o <= 0)) { showToast('Invalid odds'); return; }
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
         const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
@@ -865,6 +1558,7 @@
         showToast('Calculation added to slip');
     }
 
+    // ===== Slip =====
     function renderSlip() {
         const container = document.getElementById('slipItems');
         if (slipBets.length === 0) {
@@ -915,47 +1609,32 @@
         showToast('Arb completed');
     }
 
+    // ===== History =====
     function renderHistory() {
         const totalArbsEl = document.getElementById('totalArbs');
         const totalProfitEl = document.getElementById('totalProfit');
         const chart = document.getElementById('profitChart');
         const list = document.getElementById('historyList');
-        const entries = Object.values(allHistory)
-            .filter(e => e.versions && e.versions.length > 0)
-            .sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
+        const entries = completedArbs; // or from backend if you have it
         totalArbsEl.textContent = entries.length;
-        let totalProfit = 0;
-        entries.forEach(e => {
-            const latest = e.versions[e.versions.length - 1];
-            if (e.valid && latest) totalProfit += latest.profit_ugx || 0;
-        });
+        let totalProfit = entries.reduce((s, e) => s + (e.profit || 0), 0);
         totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(2);
         chart.innerHTML = entries.map(e => {
-            const latest = e.versions[e.versions.length - 1];
-            if (latest) {
-                const h = Math.max(8, Math.min(100, Math.abs(latest.profit_ugx) / 1000));
-                return `<div class="chart-bar" style="height:${h}px;"></div>`;
-            }
-            return '';
+            const h = Math.max(8, Math.min(100, Math.abs(e.profit || 0) / 1000));
+            return `<div class="chart-bar" style="height:${h}px;"></div>`;
         }).join('');
-        list.innerHTML = entries.map(e => {
-            const latest = e.versions[e.versions.length - 1];
-            const profit = latest ? latest.profit_ugx : 0;
-            const timestamp = latest ? latest.timestamp : e.last_seen || '-';
-            return `
-                <div class="hist-item">
-                    <div class="hist-info">
-                        <div class="hist-event">${e.match || 'Unknown'}</div>
-                        <div class="hist-date">${timestamp}</div>
-                    </div>
-                    <div class="status-chip ${e.valid ? 'status-placed' : 'status-invalid'}">
-                        ${e.valid ? '+UGX ' + profit.toFixed(2) : 'Invalid'}
-                    </div>
+        list.innerHTML = entries.map(e => `
+            <div class="hist-item">
+                <div class="hist-info">
+                    <div class="hist-event">${e.matches ? e.matches.join(', ') : 'Custom'}</div>
+                    <div class="hist-date">${e.timestamp || ''}</div>
                 </div>
-            `;
-        }).join('');
+                <div class="status-chip status-placed">+UGX ${(e.profit || 0).toFixed(2)}</div>
+            </div>
+        `).join('');
     }
 
+    // ===== Alerts =====
     function renderAlerts() {
         const alertsList = document.getElementById('alertsList');
         const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
@@ -968,13 +1647,134 @@
                 <div class="alert-icon">⚡</div>
                 <div class="alert-info">
                     <div class="alert-event">${a.match}</div>
-                    <div class="alert-meta">${a.sport} · ${a.type} · Last ${a.last_seen || ''}</div>
+                    <div class="alert-meta">${a.sport} · ${a.type}</div>
                 </div>
                 <div class="alert-profit">+${a.profitPercent.toFixed(2)}%</div>
             </div>
         `).join('');
     }
 
+    // ===== Settings / Local Storage =====
+    function getUserSettingsKey() {
+        return currentUser ? 'abi_settings_' + currentUser.id : 'abi_settings_guest';
+    }
+
+    function getDefaultSettings() {
+        return {
+            default_stake: 100000,
+            min_profit: 1.0,
+            max_profit: 15.0,
+            markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true },
+            alert_toggle: true,
+            alert_threshold: 5.0,
+            dark_mode: true,
+            card_layout: 'comfortable'
+        };
+    }
+
+    function loadUserSettings() {
+        try {
+            const saved = localStorage.getItem(getUserSettingsKey());
+            if (saved) applySettingsToUI(JSON.parse(saved));
+            else applySettingsToUI(getDefaultSettings());
+        } catch (e) {
+            localStorage.removeItem(getUserSettingsKey());
+            applySettingsToUI(getDefaultSettings());
+        }
+    }
+
+    function applySettingsToUI(settings) {
+        document.getElementById('defaultStake').value = settings.default_stake;
+        document.getElementById('minProfit').value = settings.min_profit;
+        document.getElementById('maxProfit').value = settings.max_profit;
+        document.getElementById('mkt_1x2').checked = settings.markets['1x2'];
+        document.getElementById('mkt_ou').checked = settings.markets['ou'];
+        document.getElementById('mkt_ah').checked = settings.markets['ah'];
+        document.getElementById('mkt_btts').checked = settings.markets['btts'];
+        document.getElementById('alertToggle').checked = settings.alert_toggle !== undefined ? settings.alert_toggle : true;
+        document.getElementById('alertThreshold').value = settings.alert_threshold;
+        document.getElementById('darkModeToggle').checked = settings.dark_mode;
+        document.getElementById('cardLayout').value = settings.card_layout;
+        document.documentElement.style.setProperty('--bg', settings.dark_mode ? '#0d0f13' : '#ffffff');
+    }
+
+    function saveUserSettings() {
+        const settings = {
+            default_stake: parseInt(document.getElementById('defaultStake').value) || 100000,
+            min_profit: parseFloat(document.getElementById('minProfit').value) || 1.0,
+            max_profit: parseFloat(document.getElementById('maxProfit').value) || 15.0,
+            markets: {
+                '1x2': document.getElementById('mkt_1x2').checked,
+                'ou': document.getElementById('mkt_ou').checked,
+                'ah': document.getElementById('mkt_ah').checked,
+                'btts': document.getElementById('mkt_btts').checked
+            },
+            alert_toggle: document.getElementById('alertToggle').checked,
+            alert_threshold: parseFloat(document.getElementById('alertThreshold').value) || 5.0,
+            dark_mode: document.getElementById('darkModeToggle').checked,
+            card_layout: document.getElementById('cardLayout').value
+        };
+        localStorage.setItem(getUserSettingsKey(), JSON.stringify(settings));
+        showToast('✅ Settings Saved!');
+        filterOpportunities();
+    }
+
+    function filterOpportunities() {
+        const active = document.querySelector('#dashboardFilterTabs .filter-tab.active');
+        renderOpportunities(active ? active.dataset.filter : 'all');
+    }
+
+    function renderOpportunities(filter = 'all') {
+        let settings = getDefaultSettings();
+        const saved = localStorage.getItem(getUserSettingsKey());
+        if (saved) try { settings = { ...settings, ...JSON.parse(saved) }; } catch(e) {}
+        const minProfit = settings.minProfit || 1.0;
+        const maxProfit = settings.maxProfit || 99.0;
+        const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
+        const container = document.getElementById('oppList');
+        if (!container) return;
+        let filtered = opportunitiesData.filter(a => {
+            if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
+            const type = a.type || '3-way';
+            if (type.includes('1x2') && !markets['1x2']) return false;
+            if (type.includes('Over/Under') && !markets['ou']) return false;
+            if (type.includes('Asian Handicap') && !markets['ah']) return false;
+            if (type.includes('BTTS') && !markets['btts']) return false;
+            if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
+            if (filter === 'high' && a.profitPercent <= 5) return false;
+            return true;
+        });
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+            return;
+        }
+        container.innerHTML = filtered.map(arb => {
+            const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+            return `
+            <div class="opp-card" onclick='handleCardClick(${arbStr})'>
+                <div class="top-row">
+                    <div class="event-info">
+                        <div class="sport-badge">⚽ ${arb.sport}</div>
+                        <div class="event-name">${arb.match}</div>
+                        <div class="market-type">${arb.type} · Pre-match</div>
+                    </div>
+                    <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
+                </div>
+                <div class="bookie-row">
+                    ${arb.bets.map(b => `
+                        <span class="bookie-tag">
+                            <span class="bookie-dot" style="background:${getBookieColor(b.bookie)}">${b.bookie.charAt(0)}</span>
+                            ${b.bookie} ${b.outcome} @ ${b.odds}
+                        </span>
+                    `).join('')}
+                </div>
+                <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
+                <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div>
+            </div>`;
+        }).join('');
+    }
+
+    // ===== Toast =====
     function showToast(msg) {
         const toast = document.getElementById('toast');
         toast.textContent = msg;
@@ -987,17 +1787,19 @@
     // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
         loadUserSettings();
-        loadFromLuxuryBackend();
-        updateCalculator();
         renderSlip();
+        updateCalculator();
+        // if token was not validated earlier, auth state may be handled.
+        // For missing token case, page remains on auth.
     });
 
-    // Expose functions globally
+    // Expose functions globally for inline onclick
     window.switchAuthTab = switchAuthTab;
     window.signUpWithEmail = signUpWithEmail;
     window.loginWithEmail = loginWithEmail;
-    window.signInWithGoogle = signInWithGoogle;
+    window.demoLogin = demoLogin;
     window.logoutUser = logoutUser;
+    window.initiatePayment = initiatePayment;
     window.navigateTo = navigateTo;
     window.handleCardClick = handleCardClick;
     window.showToast = showToast;
@@ -1012,6 +1814,7 @@
     window.filterOpportunities = filterOpportunities;
     window.renderAlerts = renderAlerts;
     window.renderHistory = renderHistory;
+    window.fetchOpportunities = fetchOpportunities;
 </script>
 </body>
     </html>
