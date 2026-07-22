@@ -3,31 +3,31 @@
     "match": "malisheva vs hibernian",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 33.37,
-    "profit_ugx": 33375,
+    "profit_percent": 33.68,
+    "profit_ugx": 33677,
     "total_stake": 100000,
-    "arb_sum": 0.6663,
+    "arb_sum": 0.6632,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 5.7,
-        "stake": 26332,
-        "win": 150092
+        "odd": 5.8,
+        "stake": 25996,
+        "win": 150777
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.1,
-        "stake": 36608,
-        "win": 150093
+        "stake": 36775,
+        "win": 150778
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 4.05,
-        "stake": 37060,
-        "win": 150093
+        "stake": 37229,
+        "win": 150777
       }
     ],
     "market_type": "1x2",
@@ -77,7 +77,61 @@
         "win": 116499
       },
       {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.34,
+        "stake": 49785,
+        "win": 116497
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "malisheva vs hibernian",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 14.16,
+    "profit_ugx": 14162,
+    "total_stake": 100000,
+    "arb_sum": 0.8584,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.32,
+        "stake": 50215,
+        "win": 116499
+      },
+      {
         "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.34,
+        "stake": 49785,
+        "win": 116497
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "malisheva vs hibernian",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 14.16,
+    "profit_ugx": 14162,
+    "total_stake": 100000,
+    "arb_sum": 0.8584,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.32,
+        "stake": 50215,
+        "win": 116499
+      },
+      {
+        "bookmaker": "22Bet",
         "outcome": "AH -0.5 (Away)",
         "odd": 2.34,
         "stake": 49785,
@@ -462,6 +516,176 @@
     "market_specifier": ""
   },
   {
+    "match": "vaduz vs atletic descaldes",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.4,
+    "profit_ugx": 1399,
+    "total_stake": 100000,
+    "arb_sum": 0.986,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.3,
+        "stake": 78014,
+        "win": 101418
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 9.95,
+        "stake": 10193,
+        "win": 101420
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 8.6,
+        "stake": 11793,
+        "win": 101420
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "fcsb vs auda",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.67,
+    "profit_ugx": 2674,
+    "total_stake": 100000,
+    "arb_sum": 0.9733,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.2,
+        "stake": 85623,
+        "win": 102748
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 14.6,
+        "stake": 7038,
+        "win": 102755
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 14.0,
+        "stake": 7339,
+        "win": 102746
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "varazdin vs jablonec",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.4,
+    "profit_ugx": 6399,
+    "total_stake": 100000,
+    "arb_sum": 0.936,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.83,
+        "stake": 37751,
+        "win": 106835
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 29677,
+        "win": 106837
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.28,
+        "stake": 32572,
+        "win": 106836
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "aluminij vs dinamo tirana",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.34,
+    "profit_ugx": 2341,
+    "total_stake": 100000,
+    "arb_sum": 0.9766,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.66,
+        "stake": 38495,
+        "win": 102397
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.3,
+        "stake": 31029,
+        "win": 102396
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.36,
+        "stake": 30475,
+        "win": 102396
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vojvodina vs ajax",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 32.11,
+    "profit_ugx": 32112,
+    "total_stake": 100000,
+    "arb_sum": 0.6789,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.6,
+        "stake": 26304,
+        "win": 147302
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 37769,
+        "win": 147299
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 35927,
+        "win": 147301
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "st gallen vs benfica",
     "sport": "Football",
     "type": "3-way",
@@ -524,108 +748,6 @@
         "odd": 4.7,
         "stake": 38671,
         "win": 181754
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "cincinnati vs vancouver whitecaps",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 20.59,
-    "profit_ugx": 20588,
-    "total_stake": 100000,
-    "arb_sum": 0.7941,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.4,
-        "stake": 37037,
-        "win": 125926
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 31481,
-        "win": 125924
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Away",
-        "odd": 4.0,
-        "stake": 31481,
-        "win": 125924
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "inter miami vs chicago fire",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 10.0,
-    "profit_ugx": 10000,
-    "total_stake": 100000,
-    "arb_sum": 0.9,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.5,
-        "stake": 44444,
-        "win": 111110
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 27778,
-        "win": 111112
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Away",
-        "odd": 4.0,
-        "stake": 27778,
-        "win": 111112
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "columbus crew vs new york",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.71,
-    "profit_ugx": 710,
-    "total_stake": 100000,
-    "arb_sum": 0.9929,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.32,
-        "stake": 43412,
-        "win": 100716
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 27976,
-        "win": 100714
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Away",
-        "odd": 3.52,
-        "stake": 28612,
-        "win": 100714
       }
     ],
     "market_type": "1x2",
@@ -768,108 +890,34 @@
     "market_specifier": ""
   },
   {
-    "match": "cincinnati vs vancouver whitecaps",
+    "match": "home special bets vs away special bets",
     "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 13.05,
-    "profit_ugx": 13051,
+    "type": "3-way",
+    "profit_percent": 4.89,
+    "profit_ugx": 4895,
     "total_stake": 100000,
-    "arb_sum": 0.8695,
+    "arb_sum": 0.9511,
     "bets": [
       {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.85,
-        "stake": 62168,
-        "win": 115011
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.166,
+        "stake": 48544,
+        "win": 105146
       },
       {
         "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 3.04,
-        "stake": 37832,
-        "win": 115009
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "cincinnati vs vancouver whitecaps",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 13.05,
-    "profit_ugx": 13051,
-    "total_stake": 100000,
-    "arb_sum": 0.8695,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.85,
-        "stake": 62168,
-        "win": 115011
+        "outcome": "Draw",
+        "odd": 2.891,
+        "stake": 36370,
+        "win": 105146
       },
       {
         "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 3.04,
-        "stake": 37832,
-        "win": 115009
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "inter miami vs chicago fire",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 7.26,
-    "profit_ugx": 7256,
-    "total_stake": 100000,
-    "arb_sum": 0.9274,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.59,
-        "stake": 67814,
-        "win": 107824
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 3.35,
-        "stake": 32186,
-        "win": 107823
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "inter miami vs chicago fire",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 7.26,
-    "profit_ugx": 7256,
-    "total_stake": 100000,
-    "arb_sum": 0.9274,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.59,
-        "stake": 67814,
-        "win": 107824
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 3.35,
-        "stake": 32186,
-        "win": 107823
+        "outcome": "Away",
+        "odd": 6.97,
+        "stake": 15086,
+        "win": 105149
       }
     ],
     "market_type": "1x2",
@@ -1032,6 +1080,114 @@
         "odd": 1.956,
         "stake": 59216,
         "win": 115826
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 18.49,
+    "profit_ugx": 18493,
+    "total_stake": 100000,
+    "arb_sum": 0.8151,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.103,
+        "stake": 58340,
+        "win": 122689
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.945,
+        "stake": 41660,
+        "win": 122689
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 18.49,
+    "profit_ugx": 18493,
+    "total_stake": 100000,
+    "arb_sum": 0.8151,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.103,
+        "stake": 58340,
+        "win": 122689
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.945,
+        "stake": 41660,
+        "win": 122689
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "malisheva vs hibernian",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.14,
+    "profit_ugx": 5144,
+    "total_stake": 100000,
+    "arb_sum": 0.9486,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.41,
+        "stake": 43744,
+        "win": 105423
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 56256,
+        "win": 105424
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "malisheva vs hibernian",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.14,
+    "profit_ugx": 5144,
+    "total_stake": 100000,
+    "arb_sum": 0.9486,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.41,
+        "stake": 43744,
+        "win": 105423
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 56256,
+        "win": 105424
       }
     ],
     "market_type": "1x2",
