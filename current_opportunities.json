@@ -414,6 +414,40 @@
     "market_specifier": ""
   },
   {
+    "match": "dunkerque vs samsunspor",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 22.2,
+    "profit_ugx": 22200,
+    "total_stake": 100000,
+    "arb_sum": 0.778,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.92,
+        "stake": 32789,
+        "win": 128533
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 33825,
+        "win": 128535
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.85,
+        "stake": 33386,
+        "win": 128536
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "algeria w vs zambia w",
     "sport": "Football",
     "type": "3-way",
@@ -550,60 +584,6 @@
         "odd": 2.097,
         "stake": 60412,
         "win": 126684
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "tigers canberra vs western sydney wanderers",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 25.7,
-    "profit_ugx": 25702,
-    "total_stake": 100000,
-    "arb_sum": 0.743,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 6.15,
-        "stake": 21885,
-        "win": 134593
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.723,
-        "stake": 78115,
-        "win": 134592
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "tigers canberra vs western sydney wanderers",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 25.7,
-    "profit_ugx": 25702,
-    "total_stake": 100000,
-    "arb_sum": 0.743,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 6.15,
-        "stake": 21885,
-        "win": 134593
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 1.723,
-        "stake": 78115,
-        "win": 134592
       }
     ],
     "market_type": "1x2",
