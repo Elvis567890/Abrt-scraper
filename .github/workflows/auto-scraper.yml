@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install requests beautifulsoup4 passlib Flask Flask-CORS Flask-SQLAlchemy PyJWT python-dotenv
+          pip install -r requirements.txt
 
       - name: Run Python scraper
         run: python scraper.py
