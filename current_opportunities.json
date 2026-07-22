@@ -312,6 +312,40 @@
     "market_specifier": ""
   },
   {
+    "match": "fk panevezys vs tobol",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 7.52,
+    "profit_ugx": 7523,
+    "total_stake": 100000,
+    "arb_sum": 0.9248,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.25,
+        "stake": 33272,
+        "win": 108134
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Draw",
+        "odd": 3.08,
+        "stake": 35109,
+        "win": 108136
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.42,
+        "stake": 31619,
+        "win": 108137
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "flora w vs mgarr utd w",
     "sport": "Football",
     "type": "3-way",
@@ -851,24 +885,24 @@
     "match": "chapecoense vs flamengo",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 5.95,
-    "profit_ugx": 5945,
+    "profit_percent": 5.58,
+    "profit_ugx": 5576,
     "total_stake": 100000,
-    "arb_sum": 0.9405,
+    "arb_sum": 0.9442,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
         "odd": 2.756,
-        "stake": 38578,
-        "win": 106321
+        "stake": 38427,
+        "win": 105905
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 1.731,
-        "stake": 61422,
-        "win": 106321
+        "odd": 1.72,
+        "stake": 61573,
+        "win": 105906
       }
     ],
     "market_type": "1x2",
@@ -878,24 +912,24 @@
     "match": "chapecoense vs flamengo",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 5.95,
-    "profit_ugx": 5945,
+    "profit_percent": 5.58,
+    "profit_ugx": 5576,
     "total_stake": 100000,
-    "arb_sum": 0.9405,
+    "arb_sum": 0.9442,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 2.756,
-        "stake": 38578,
-        "win": 106321
+        "stake": 38427,
+        "win": 105905
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.731,
-        "stake": 61422,
-        "win": 106321
+        "odd": 1.72,
+        "stake": 61573,
+        "win": 105906
       }
     ],
     "market_type": "1x2",
