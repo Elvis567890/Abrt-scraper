@@ -3,31 +3,31 @@
     "match": "vardar vs riga",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 8.65,
-    "profit_ugx": 8653,
+    "profit_percent": 9.03,
+    "profit_ugx": 9035,
     "total_stake": 100000,
-    "arb_sum": 0.9135,
+    "arb_sum": 0.9097,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 3.215,
-        "stake": 34050,
-        "win": 109471
+        "odd": 3.255,
+        "stake": 33773,
+        "win": 109931
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.3,
-        "stake": 33173,
-        "win": 109471
+        "stake": 33313,
+        "win": 109933
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.34,
-        "stake": 32776,
-        "win": 109472
+        "stake": 32914,
+        "win": 109933
       }
     ],
     "market_type": "1x2",
@@ -408,6 +408,40 @@
         "odd": 22.25,
         "stake": 4528,
         "win": 100748
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "istanbul bb vs inter turku",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.55,
+    "profit_ugx": 552,
+    "total_stake": 100000,
+    "arb_sum": 0.9945,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.208,
+        "stake": 83241,
+        "win": 100555
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 15.0,
+        "stake": 6704,
+        "win": 100560
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 10.0,
+        "stake": 10055,
+        "win": 100550
       }
     ],
     "market_type": "1x2",
