@@ -14,7 +14,6 @@ from functools import wraps
 
 import requests
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
 
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
