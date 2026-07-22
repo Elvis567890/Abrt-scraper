@@ -210,74 +210,6 @@
     "market_specifier": ""
   },
   {
-    "match": "sydney utd vs central coast mariners",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.19,
-    "profit_ugx": 1190,
-    "total_stake": 100000,
-    "arb_sum": 0.9881,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.4,
-        "stake": 42169,
-        "win": 101206
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 28916,
-        "win": 101206
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.5,
-        "stake": 28916,
-        "win": 101206
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "tuggeranong utd vs canberra white eagles",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 6.02,
-    "profit_ugx": 6018,
-    "total_stake": 100000,
-    "arb_sum": 0.9398,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.37,
-        "stake": 77667,
-        "win": 106404
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 9.1,
-        "stake": 11693,
-        "win": 106406
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 10.0,
-        "stake": 10640,
-        "win": 106400
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "neftchi baku w vs buducnost podgorica w",
     "sport": "Football",
     "type": "3-way",
@@ -380,6 +312,40 @@
     "market_specifier": ""
   },
   {
+    "match": "lillestrom sk vs viking",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 12.38,
+    "profit_ugx": 12379,
+    "total_stake": 100000,
+    "arb_sum": 0.8762,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 3.075,
+        "stake": 37115,
+        "win": 114129
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 31702,
+        "win": 114127
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.66,
+        "stake": 31183,
+        "win": 114130
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "seoul vs pohang",
     "sport": "Football",
     "type": "3-way",
@@ -451,31 +417,31 @@
     "match": "dunkerque vs samsunspor",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 15.55,
-    "profit_ugx": 15548,
+    "profit_percent": 16.82,
+    "profit_ugx": 16820,
     "total_stake": 100000,
-    "arb_sum": 0.8445,
+    "arb_sum": 0.8318,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 3.935,
-        "stake": 30092,
-        "win": 118412
+        "odd": 3.6,
+        "stake": 33395,
+        "win": 120222
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 35882,
-        "win": 118411
+        "odd": 3.75,
+        "stake": 32059,
+        "win": 120221
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.48,
-        "stake": 34026,
-        "win": 118410
+        "stake": 34546,
+        "win": 120220
       }
     ],
     "market_type": "1x2",
@@ -564,6 +530,60 @@
         "odd": 1.71,
         "stake": 66139,
         "win": 113098
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lillestrom vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.5,
+    "profit_ugx": 497,
+    "total_stake": 100000,
+    "arb_sum": 0.995,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.666,
+        "stake": 60324,
+        "win": 100500
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.533,
+        "stake": 39676,
+        "win": 100499
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lillestrom vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.5,
+    "profit_ugx": 497,
+    "total_stake": 100000,
+    "arb_sum": 0.995,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.666,
+        "stake": 60324,
+        "win": 100500
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.533,
+        "stake": 39676,
+        "win": 100499
       }
     ],
     "market_type": "1x2",
