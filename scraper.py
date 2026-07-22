@@ -1,5 +1,5 @@
 # ============================================================================
-#                           ARBITRAGE SCANNER (UNCHANGED)
+#                           ARBITRAGE SCANNER
 # ============================================================================
 
 import json
@@ -481,7 +481,6 @@ def scrape_sportybet():
     return odds
 
 
-# ========== RESTORED ORIGINAL 1xBET FAMILY SCRAPERS ==========
 def scrape_1xbet():
     odds = []
     try:
@@ -511,7 +510,6 @@ def scrape_1xbet():
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team: continue
-                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
                 if home_team.strip() == "Home" and away_team.strip() == "Away":
                     continue
                 home_odd = draw_odd = away_odd = None
@@ -554,7 +552,6 @@ def scrape_22bet():
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team: continue
-                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
                 if home_team.strip() == "Home" and away_team.strip() == "Away":
                     continue
                 home_odd = draw_odd = away_odd = None
@@ -603,7 +600,6 @@ def scrape_melbet():
                 home_team = match.get("O1")
                 away_team = match.get("O2")
                 if not home_team or not away_team: continue
-                # --- ADDED FILTER: skip "Home vs Away" placeholders ---
                 if home_team.strip() == "Home" and away_team.strip() == "Away":
                     continue
                 home_odd = draw_odd = away_odd = None
@@ -650,12 +646,10 @@ def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
     return odds
 
 
-# ========== NEW: EXTRA MARKETS SCRAPER (AH, DC, BTTS) - NO DUPLICATION ==========
 def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
     odds = []
     try:
         print(f"Fetching {bookmaker_name} AH, DC, BTTS...")
-        # Use the proven endpoint, but only extract AH, DC, and BTTS markets
         url = f"{base_url}/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner={partner_id}&getEmpty=true"
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
         with urllib.request.urlopen(req, timeout=30) as resp:
@@ -664,7 +658,6 @@ def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
             home = match.get("O1")
             away = match.get("O2")
             if not home or not away: continue
-            # --- ADDED FILTER: skip "Home vs Away" placeholders ---
             if home.strip() == "Home" and away.strip() == "Away":
                 continue
 
@@ -678,13 +671,10 @@ def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
                 if not c: continue
                 p = e.get("P")
 
-                # Asian Handicap
                 if t == "7" and p is not None: ah_home = c
                 elif t == "8" and p is not None: ah_away = c
-                # Double Chance
                 elif t == "4" or t == "180": dc_home = c
                 elif t == "181": dc_away = c
-                # BTTS
                 elif t == "19": btts_yes = c
                 elif t == "20": btts_no = c
 
@@ -701,7 +691,6 @@ def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
     return odds
 
 
-# ========== CALCULATE ARBITRAGE (UPDATED TO 50% CAP) ==========
 def find_arbitrage(all_odds):
     opportunities = []
     sports_odds = {}
@@ -878,7 +867,6 @@ def find_arbitrage(all_odds):
     return opportunities
 
 
-# ===== TELEGRAM ALERT FUNCTION =====
 def send_telegram_alert(opp):
     token = os.getenv('TELEGRAM_BOT_TOKEN')
     chat = os.getenv('TELEGRAM_CHAT_ID')
@@ -905,11 +893,8 @@ def send_telegram_alert(opp):
         print(f"❌ Telegram error: {e}")
 
 
-# ========== RUN SCAN WITH ALL ORIGINAL + NEW MARKETS ==========
 def run_scan():
     all_odds = []
-    
-    # EXACT ORIGINAL SCRAPERS (100% restored)
     all_odds.extend(scrape_sportybet())
     all_odds.extend(scrape_championbet())
     all_odds.extend(scrape_ababet())
@@ -917,21 +902,15 @@ def run_scan():
     all_odds.extend(scrape_1xbet())
     all_odds.extend(scrape_22bet())
     all_odds.extend(scrape_melbet())
-    
-    # EXACT ORIGINAL OVER/UNDER
     for name, config in SHARED_BOOKMAKERS_1X.items():
         all_odds.extend(scrape_1x_over_under(name, config["base_url"], config["partner"]))
-
-    # NEWLY ADDED EXTRA MARKETS (No deletions, purely added on top)
     for name, config in SHARED_BOOKMAKERS_1X.items():
         all_odds.extend(scrape_1x_ah_dc_btts(name, config["base_url"], config["partner"]))
 
     opportunities = find_arbitrage(all_odds)
     arb_history = load_arbitrage_history()
     timestamp_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-    
-    # ===== TELEGRAM ALERT LOOP =====
-    print("📨 Checking for new high‑profit opportunities...")
+
     for opp in opportunities:
         key = opportunity_key(opp)
         is_new = (key in arb_history and arb_history[key]['first_seen'] == timestamp_str)
@@ -941,7 +920,6 @@ def run_scan():
     update_arbitrage_history(opportunities, arb_history, timestamp_str)
     save_arbitrage_history(arb_history)
 
-    # Fallback Cache
     if len(opportunities) == 0 and os.path.exists("current_opportunities.json"):
         try:
             with open("current_opportunities.json", "r") as f:
@@ -964,17 +942,15 @@ def run_scan():
 
 import uuid
 import jwt
-import bcrypt
 from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-
-# --- DO NOT import PesapalClientV3 globally – it's lazy‑loaded inside the /api/pay route ---
+# Replaced bcrypt with passlib (pure Python, no Rust needed)
+from passlib.hash import bcrypt as bcrypt_hash
 
 load_dotenv()
 
-# ---- Flask app ----
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///users.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -1057,10 +1033,10 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def set_password(self, password):
-        self.password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        self.password_hash = bcrypt_hash.hash(password)
 
     def check_password(self, password):
-        return bcrypt.checkpw(password.encode('utf-8'), self.password_hash.encode('utf-8'))
+        return bcrypt_hash.verify(password, self.password_hash)
 
 
 class Transaction(db.Model):
@@ -1149,12 +1125,11 @@ def login():
 @app.route('/api/pay', methods=['POST'])
 @token_required
 def initiate_payment():
-    # Import Pesapal client only when this endpoint is called
     from pesapal_client.client import PesapalClientV3
 
     user = User.query.get(g.user_id)
     data = request.get_json()
-    plan = data.get('plan')  # 'day', 'monthly', 'quarterly'
+    plan = data.get('plan')
 
     if plan not in ['day', 'monthly', 'quarterly']:
         return jsonify({'error': 'Invalid plan. Choose: day, monthly, quarterly'}), 400
@@ -1166,14 +1141,12 @@ def initiate_payment():
 
     merchant_reference = f"ORDER-{uuid.uuid4().hex[:10].upper()}"
 
-    # Initialize Pesapal client
     client = PesapalClientV3(
         consumer_key=os.getenv('PESAPAL_CONSUMER_KEY'),
         consumer_secret=os.getenv('PESAPAL_CONSUMER_SECRET'),
         is_sandbox=os.getenv('PESAPAL_ENVIRONMENT', 'sandbox') == 'sandbox',
     )
 
-    # Build payment data
     payment_data = {
         "currency": "UGX",
         "amount": amount,
@@ -1185,10 +1158,7 @@ def initiate_payment():
     }
 
     try:
-        # Submit order to Pesapal
         response = client.one_time_payment.initiate_payment_order(payment_data)
-
-        # Save transaction in DB
         transaction = Transaction(
             user_id=user.id,
             tx_ref=merchant_reference,
@@ -1205,7 +1175,6 @@ def initiate_payment():
             'merchant_reference': merchant_reference,
             'message': 'Redirect user to Pesapal checkout page.'
         })
-
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -1213,10 +1182,14 @@ def initiate_payment():
 # ---- Pesapal IPN (Webhook) ----
 @app.route('/pesapal/ipn', methods=['GET', 'POST'])
 def pesapal_ipn():
-    # Pesapal sends a GET request with query parameters
-    merchant_reference = request.args.get('merchant_reference')
-    status = request.args.get('status')  # 'COMPLETED', 'FAILED', 'PENDING', etc.
-    pesapal_tracking_id = request.args.get('pesapal_transaction_tracking_id')
+    if request.method == 'POST':
+        data = request.form.to_dict() or request.get_json() or {}
+    else:
+        data = request.args.to_dict()
+
+    merchant_reference = data.get('merchant_reference')
+    status = data.get('status')
+    tracking_id = data.get('pesapal_transaction_tracking_id')
 
     if not merchant_reference or not status:
         return 'Missing parameters', 400
@@ -1225,34 +1198,105 @@ def pesapal_ipn():
     if not transaction:
         return 'Transaction not found', 404
 
-    if status == 'COMPLETED':
-        transaction.status = 'success'
-        transaction.pesapal_tracking_id = pesapal_tracking_id
-        db.session.commit()
+    if transaction.status == 'success':
+        return 'Already processed', 200
 
-        # Grant subscription
-        user = User.query.get(transaction.user_id)
-        if user:
-            plan = transaction.plan
-            duration_days = TIERS[plan]['duration_days']
-            now = datetime.utcnow()
-            if user.subscription_expires and user.subscription_expires > now:
-                new_expiry = user.subscription_expires + timedelta(days=duration_days)
-            else:
-                new_expiry = now + timedelta(days=duration_days)
-            user.tier = plan
-            user.is_subscribed = True
-            user.subscription_expires = new_expiry
-            user.arbitrage_today_count = 0
-            db.session.commit()
-    else:
+    if status.upper() != 'COMPLETED':
         transaction.status = 'failed'
+        transaction.pesapal_tracking_id = tracking_id
+        db.session.commit()
+        return 'OK', 200
+
+    # Verify with Pesapal before granting access
+    try:
+        from pesapal_client.client import PesapalClientV3
+        client = PesapalClientV3(
+            consumer_key=os.getenv('PESAPAL_CONSUMER_KEY'),
+            consumer_secret=os.getenv('PESAPAL_CONSUMER_SECRET'),
+            is_sandbox=os.getenv('PESAPAL_ENVIRONMENT', 'sandbox') == 'sandbox',
+        )
+        txn_status = client.get_transaction_status(
+            tracking_id=tracking_id,
+            merchant_reference=merchant_reference
+        )
+        if txn_status.get('payment_status_description', '').upper() != 'COMPLETED':
+            transaction.status = 'failed'
+            transaction.pesapal_tracking_id = tracking_id
+            db.session.commit()
+            return 'OK', 200
+    except Exception as e:
+        transaction.status = 'pending'
+        transaction.pesapal_tracking_id = tracking_id
+        db.session.commit()
+        return 'Internal error', 500
+
+    # Grant access
+    transaction.status = 'success'
+    transaction.pesapal_tracking_id = tracking_id
+
+    user = User.query.get(transaction.user_id)
+    if user:
+        plan = transaction.plan
+        duration_days = TIERS[plan]['duration_days']
+        now = datetime.utcnow()
+        if user.subscription_expires and user.subscription_expires > now:
+            new_expiry = user.subscription_expires + timedelta(days=duration_days)
+        else:
+            new_expiry = now + timedelta(days=duration_days)
+
+        user.tier = plan
+        user.is_subscribed = True
+        user.subscription_expires = new_expiry
+        user.arbitrage_today_count = 0
         db.session.commit()
 
     return 'OK', 200
 
 
-# ---- Filtering Helper (unchanged) ----
+# ---- Admin Credit Endpoint ----
+@app.route('/admin/credit', methods=['POST'])
+def admin_credit():
+    admin_secret = request.headers.get('X-Admin-Secret')
+    if admin_secret != os.getenv('ADMIN_SECRET', 'supersecret'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    data = request.get_json()
+    user_id = data.get('user_id')
+    plan = data.get('plan')
+    if not user_id or plan not in ['day', 'monthly', 'quarterly']:
+        return jsonify({'error': 'Invalid request'}), 400
+
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    duration_days = TIERS[plan]['duration_days']
+    now = datetime.utcnow()
+    if user.subscription_expires and user.subscription_expires > now:
+        new_expiry = user.subscription_expires + timedelta(days=duration_days)
+    else:
+        new_expiry = now + timedelta(days=duration_days)
+
+    user.tier = plan
+    user.is_subscribed = True
+    user.subscription_expires = new_expiry
+    user.arbitrage_today_count = 0
+
+    manual_tx = Transaction(
+        user_id=user.id,
+        tx_ref=f"MANUAL-{uuid.uuid4().hex[:10].upper()}",
+        amount=0,
+        currency='UGX',
+        status='success',
+        plan=plan,
+        pesapal_tracking_id='manual'
+    )
+    db.session.add(manual_tx)
+    db.session.commit()
+
+    return jsonify({'message': f'User {user.email} upgraded to {plan} until {new_expiry.isoformat()}'})
+
+
 def filter_opportunities(opportunities, tier_config):
     allowed_bookmakers = set(tier_config['bookmakers'])
     allowed_markets = set(tier_config['market_types'])
@@ -1290,7 +1334,6 @@ def filter_opportunities(opportunities, tier_config):
     return filtered
 
 
-# ---- Main Arbitrage Endpoint (unchanged) ----
 @app.route('/api/arbitrage', methods=['GET'])
 @token_required
 def get_arbitrage():
@@ -1298,14 +1341,12 @@ def get_arbitrage():
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    # Check expiry for paid tiers
     if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
         user.is_subscribed = False
         user.tier = 'free'
         db.session.commit()
         return jsonify({'error': 'Subscription expired. Please renew.'}), 403
 
-    # Free tier daily limit
     if user.tier == 'free':
         today = datetime.utcnow().date()
         if user.last_arbitrage_date:
@@ -1376,9 +1417,7 @@ def get_arbitrage():
     return jsonify(response)
 
 
-# ---- Entry Point ----
 if __name__ == "__main__":
-    # Detect GitHub Actions environment
     if os.environ.get("GITHUB_ACTION") == "1" or os.environ.get("CI") == "true":
         print("🚀 Running in GitHub Actions - executing scanner...")
         run_scan()
