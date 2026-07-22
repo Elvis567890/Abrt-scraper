@@ -3,31 +3,31 @@
     "match": "vardar vs riga",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.48,
-    "profit_ugx": 9475,
+    "profit_percent": 9.58,
+    "profit_ugx": 9576,
     "total_stake": 100000,
-    "arb_sum": 0.9052,
+    "arb_sum": 0.9042,
     "bets": [
       {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 3.235,
-        "stake": 34148,
-        "win": 110469
-      },
-      {
         "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.35,
-        "stake": 32975,
-        "win": 110466
+        "outcome": "Home",
+        "odd": 3.2,
+        "stake": 34560,
+        "win": 110592
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 32527,
+        "win": 110592
+      },
+      {
+        "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.36,
-        "stake": 32877,
-        "win": 110467
+        "stake": 32914,
+        "win": 110591
       }
     ],
     "market_type": "1x2",
@@ -150,6 +150,94 @@
         "odd": 8.55,
         "stake": 12088,
         "win": 103352
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "malisheva vs hibernian",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 32.56,
+    "profit_ugx": 32556,
+    "total_stake": 100000,
+    "arb_sum": 0.6744,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.7,
+        "stake": 26012,
+        "win": 148268
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Draw",
+        "odd": 3.92,
+        "stake": 37824,
+        "win": 148270
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 36164,
+        "win": 148272
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "malisheva vs hibernian",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 14.16,
+    "profit_ugx": 14162,
+    "total_stake": 100000,
+    "arb_sum": 0.8584,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.32,
+        "stake": 50215,
+        "win": 116499
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.34,
+        "stake": 49785,
+        "win": 116497
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "malisheva vs hibernian",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 14.16,
+    "profit_ugx": 14162,
+    "total_stake": 100000,
+    "arb_sum": 0.8584,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.32,
+        "stake": 50215,
+        "win": 116499
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.34,
+        "stake": 49785,
+        "win": 116497
       }
     ],
     "market_type": "1x2",
@@ -524,6 +612,40 @@
         "odd": 5.8,
         "stake": 17440,
         "win": 101152
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "portland vs dallas",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.37,
+    "profit_ugx": 3367,
+    "total_stake": 100000,
+    "arb_sum": 0.9663,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.31,
+        "stake": 44798,
+        "win": 103483
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 27233,
+        "win": 103485
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.7,
+        "stake": 27969,
+        "win": 103485
       }
     ],
     "market_type": "1x2",
