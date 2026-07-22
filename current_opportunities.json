@@ -380,34 +380,68 @@
     "market_specifier": ""
   },
   {
+    "match": "bucheon 1995 vs anyang",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.71,
+    "profit_ugx": 708,
+    "total_stake": 100000,
+    "arb_sum": 0.9929,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.05,
+        "stake": 33021,
+        "win": 100714
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.1,
+        "stake": 32488,
+        "win": 100713
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 2.92,
+        "stake": 34491,
+        "win": 100714
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "moreirense vs santa clara",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 10.16,
-    "profit_ugx": 10160,
+    "profit_percent": 9.85,
+    "profit_ugx": 9851,
     "total_stake": 100000,
-    "arb_sum": 0.8984,
+    "arb_sum": 0.9015,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.62,
-        "stake": 30748,
-        "win": 111308
+        "odd": 3.58,
+        "stake": 30985,
+        "win": 110926
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.25,
-        "stake": 34249,
-        "win": 111309
+        "stake": 34132,
+        "win": 110929
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.18,
-        "stake": 35003,
-        "win": 111310
+        "stake": 34883,
+        "win": 110928
       }
     ],
     "market_type": "1x2",
@@ -442,40 +476,6 @@
         "odd": 3.44,
         "stake": 34480,
         "win": 118611
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "duisburg vs beerschot wilrijk",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.48,
-    "profit_ugx": 2481,
-    "total_stake": 100000,
-    "arb_sum": 0.9752,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.11,
-        "stake": 48599,
-        "win": 102544
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.2,
-        "stake": 24415,
-        "win": 102543
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.8,
-        "stake": 26985,
-        "win": 102543
       }
     ],
     "market_type": "1x2",
