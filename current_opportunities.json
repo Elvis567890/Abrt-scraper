@@ -210,40 +210,6 @@
     "market_specifier": ""
   },
   {
-    "match": "neftchi baku w vs buducnost podgorica w",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 11.19,
-    "profit_ugx": 11185,
-    "total_stake": 100000,
-    "arb_sum": 0.8881,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 2.38,
-        "stake": 47308,
-        "win": 112593
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.2,
-        "stake": 26808,
-        "win": 112594
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.35,
-        "stake": 25884,
-        "win": 112595
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "glentoran w vs riga w",
     "sport": "Football",
     "type": "3-way",
@@ -482,6 +448,40 @@
     "market_specifier": ""
   },
   {
+    "match": "sv wienerberger vs wiener viktoria",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 14.85,
+    "profit_ugx": 14848,
+    "total_stake": 100000,
+    "arb_sum": 0.8515,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.0,
+        "stake": 39146,
+        "win": 117438
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 30112,
+        "win": 117437
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.82,
+        "stake": 30743,
+        "win": 117438
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "algeria w vs zambia w",
     "sport": "Football",
     "type": "3-way",
@@ -672,6 +672,60 @@
         "odd": 2.031,
         "stake": 59143,
         "win": 120119
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ipswich vs brisbane roar",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.1,
+    "profit_ugx": 21104,
+    "total_stake": 100000,
+    "arb_sum": 0.789,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.84,
+        "stake": 33008,
+        "win": 126751
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.892,
+        "stake": 66992,
+        "win": 126749
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ipswich vs brisbane roar",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.1,
+    "profit_ugx": 21104,
+    "total_stake": 100000,
+    "arb_sum": 0.789,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.84,
+        "stake": 33008,
+        "win": 126751
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.892,
+        "stake": 66992,
+        "win": 126749
       }
     ],
     "market_type": "1x2",
