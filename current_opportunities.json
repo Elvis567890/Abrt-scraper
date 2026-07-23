@@ -220,7 +220,7 @@
         "win": 102056
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 6.56,
         "stake": 15557,
@@ -232,40 +232,6 @@
         "odd": 5.25,
         "stake": 19439,
         "win": 102055
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "walter ferreti vs diriangen",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 18.9,
-    "profit_ugx": 18895,
-    "total_stake": 100000,
-    "arb_sum": 0.811,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 4.28,
-        "stake": 28808,
-        "win": 123298
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 36264,
-        "win": 123298
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.53,
-        "stake": 34928,
-        "win": 123296
       }
     ],
     "market_type": "1x2",
@@ -300,6 +266,40 @@
         "odd": 3.35,
         "stake": 30602,
         "win": 102517
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "swansea vs udinese",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 21.87,
+    "profit_ugx": 21865,
+    "total_stake": 100000,
+    "arb_sum": 0.7813,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 3.9,
+        "stake": 32816,
+        "win": 127982
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 33680,
+        "win": 127984
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.82,
+        "stake": 33504,
+        "win": 127985
       }
     ],
     "market_type": "1x2",
@@ -550,6 +550,60 @@
         "odd": 1.829,
         "stake": 63775,
         "win": 116644
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "skakhabarovsk youth vs krylia sovetov youth",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.63,
+    "profit_ugx": 18634,
+    "total_stake": 100000,
+    "arb_sum": 0.8137,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.68,
+        "stake": 45859,
+        "win": 122902
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.27,
+        "stake": 54141,
+        "win": 122900
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "skakhabarovsk youth vs krylia sovetov youth",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.63,
+    "profit_ugx": 18634,
+    "total_stake": 100000,
+    "arb_sum": 0.8137,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.68,
+        "stake": 45859,
+        "win": 122902
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.27,
+        "stake": 54141,
+        "win": 122900
       }
     ],
     "market_type": "1x2",
