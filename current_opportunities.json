@@ -346,6 +346,40 @@
     "market_specifier": ""
   },
   {
+    "match": "aek larnaca vs beitar jerusalem",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.28,
+    "profit_ugx": 1283,
+    "total_stake": 100000,
+    "arb_sum": 0.9872,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.2,
+        "stake": 46045,
+        "win": 101299
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 28943,
+        "win": 101300
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Away",
+        "odd": 4.05,
+        "stake": 25012,
+        "win": 101299
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "rakow vs valletta",
     "sport": "Football",
     "type": "3-way",
@@ -757,31 +791,31 @@
     "match": "zilina vs gks katowice",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.12,
-    "profit_ugx": 3120,
+    "profit_percent": 2.23,
+    "profit_ugx": 2225,
     "total_stake": 100000,
-    "arb_sum": 0.9688,
+    "arb_sum": 0.9777,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.62,
-        "stake": 39397,
-        "win": 103220
+        "odd": 2.56,
+        "stake": 39952,
+        "win": 102277
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.3,
-        "stake": 31279,
-        "win": 103221
+        "stake": 30993,
+        "win": 102277
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.52,
-        "stake": 29324,
-        "win": 103220
+        "stake": 29056,
+        "win": 102277
       }
     ],
     "market_type": "1x2",
