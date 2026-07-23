@@ -856,34 +856,68 @@
     "market_specifier": ""
   },
   {
-    "match": "portland timbers vs dallas",
+    "match": "austin vs seattle sounders",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.54,
-    "profit_ugx": 3538,
+    "profit_percent": 4.37,
+    "profit_ugx": 4373,
     "total_stake": 100000,
-    "arb_sum": 0.9646,
+    "arb_sum": 0.9563,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.35,
-        "stake": 44114,
-        "win": 103668
+        "odd": 2.68,
+        "stake": 39020,
+        "win": 104574
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 30757,
+        "win": 104574
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Away",
+        "odd": 3.46,
+        "stake": 30223,
+        "win": 104572
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "portland timbers vs dallas",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.9,
+    "profit_ugx": 3897,
+    "total_stake": 100000,
+    "arb_sum": 0.961,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.37,
+        "stake": 43905,
+        "win": 104055
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.7,
-        "stake": 28018,
-        "win": 103667
+        "stake": 28123,
+        "win": 104055
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Away",
         "odd": 3.72,
-        "stake": 27868,
-        "win": 103669
+        "stake": 27972,
+        "win": 104056
       }
     ],
     "market_type": "1x2",
