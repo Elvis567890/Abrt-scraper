@@ -37,31 +37,31 @@
     "match": "tromso vs hradec kralove",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.08,
-    "profit_ugx": 2077,
+    "profit_percent": 3.6,
+    "profit_ugx": 3602,
     "total_stake": 100000,
-    "arb_sum": 0.9792,
+    "arb_sum": 0.964,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.36,
-        "stake": 75089,
-        "win": 102121
+        "odd": 1.45,
+        "stake": 71542,
+        "win": 103736
       },
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 8.3,
-        "stake": 12304,
-        "win": 102123
+        "stake": 12498,
+        "win": 103733
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 8.1,
-        "stake": 12608,
-        "win": 102125
+        "odd": 6.5,
+        "stake": 15959,
+        "win": 103734
       }
     ],
     "market_type": "1x2",
@@ -794,40 +794,6 @@
     "market_specifier": ""
   },
   {
-    "match": "hnk rijeka vs derry",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.71,
-    "profit_ugx": 3711,
-    "total_stake": 100000,
-    "arb_sum": 0.9629,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.17,
-        "stake": 88764,
-        "win": 103854
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 18.0,
-        "stake": 5770,
-        "win": 103860
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 19.0,
-        "stake": 5466,
-        "win": 103854
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "shelbourne vs kalju",
     "sport": "Football",
     "type": "3-way",
@@ -856,6 +822,40 @@
         "odd": 8.2,
         "stake": 12778,
         "win": 104780
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hnk rijeka vs derry",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.71,
+    "profit_ugx": 3711,
+    "total_stake": 100000,
+    "arb_sum": 0.9629,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.17,
+        "stake": 88764,
+        "win": 103854
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 18.0,
+        "stake": 5770,
+        "win": 103860
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 19.0,
+        "stake": 5466,
+        "win": 103854
       }
     ],
     "market_type": "1x2",
