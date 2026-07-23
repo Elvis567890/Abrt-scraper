@@ -635,31 +635,65 @@
     "match": "chapecoense vs flamengo rj",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 45.9,
-    "profit_ugx": 45902,
+    "profit_percent": 44.79,
+    "profit_ugx": 44787,
     "total_stake": 100000,
-    "arb_sum": 0.541,
+    "arb_sum": 0.5521,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 9.0,
-        "stake": 20539,
-        "win": 184851
+        "odd": 8.3,
+        "stake": 21821,
+        "win": 181114
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.55,
-        "stake": 40627,
-        "win": 184853
+        "stake": 39806,
+        "win": 181117
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 4.76,
-        "stake": 38834,
-        "win": 184850
+        "odd": 4.72,
+        "stake": 38372,
+        "win": 181116
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "internacional vs cruzeiro mg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.98,
+    "profit_ugx": 977,
+    "total_stake": 100000,
+    "arb_sum": 0.9902,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.465,
+        "stake": 40968,
+        "win": 100986
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.35,
+        "stake": 30145,
+        "win": 100986
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.496,
+        "stake": 28886,
+        "win": 100985
       }
     ],
     "market_type": "1x2",
@@ -694,40 +728,6 @@
         "odd": 6.0,
         "stake": 16796,
         "win": 100776
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sporting kc vs minnesota utd",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 18.52,
-    "profit_ugx": 18525,
-    "total_stake": 100000,
-    "arb_sum": 0.8148,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 3.46,
-        "stake": 35473,
-        "win": 122737
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 32730,
-        "win": 122738
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.86,
-        "stake": 31797,
-        "win": 122736
       }
     ],
     "market_type": "1x2",
@@ -802,6 +802,40 @@
     "market_specifier": ""
   },
   {
+    "match": "kansas vs minnesota",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 12.48,
+    "profit_ugx": 12478,
+    "total_stake": 100000,
+    "arb_sum": 0.8752,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.975,
+        "stake": 38406,
+        "win": 114258
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 30880,
+        "win": 114256
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.72,
+        "stake": 30714,
+        "win": 114256
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "home special bets vs away special bets",
     "sport": "Football",
     "type": "3-way",
@@ -836,60 +870,6 @@
     "market_specifier": ""
   },
   {
-    "match": "sporting kansas vs minnesota utd",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 6.44,
-    "profit_ugx": 6438,
-    "total_stake": 100000,
-    "arb_sum": 0.9356,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.849,
-        "stake": 57805,
-        "win": 106881
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.533,
-        "stake": 42195,
-        "win": 106880
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sporting kansas vs minnesota utd",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 6.44,
-    "profit_ugx": 6438,
-    "total_stake": 100000,
-    "arb_sum": 0.9356,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.849,
-        "stake": 57805,
-        "win": 106881
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.533,
-        "stake": 42195,
-        "win": 106880
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "home special bets vs away special bets",
     "sport": "Football",
     "type": "Asian Handicap -0.5",
@@ -947,24 +927,24 @@
     "match": "chapecoense vs flamengo",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 12.12,
-    "profit_ugx": 12125,
+    "profit_percent": 10.66,
+    "profit_ugx": 10664,
     "total_stake": 100000,
-    "arb_sum": 0.8788,
+    "arb_sum": 0.8934,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 3.155,
-        "stake": 36069,
-        "win": 113798
+        "odd": 3.016,
+        "stake": 37114,
+        "win": 111936
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
         "odd": 1.78,
-        "stake": 63931,
-        "win": 113797
+        "stake": 62886,
+        "win": 111937
       }
     ],
     "market_type": "1x2",
@@ -974,24 +954,24 @@
     "match": "chapecoense vs flamengo",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 12.12,
-    "profit_ugx": 12125,
+    "profit_percent": 10.66,
+    "profit_ugx": 10664,
     "total_stake": 100000,
-    "arb_sum": 0.8788,
+    "arb_sum": 0.8934,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 3.155,
-        "stake": 36069,
-        "win": 113798
+        "odd": 3.016,
+        "stake": 37114,
+        "win": 111936
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
         "odd": 1.78,
-        "stake": 63931,
-        "win": 113797
+        "stake": 62886,
+        "win": 111937
       }
     ],
     "market_type": "1x2",
