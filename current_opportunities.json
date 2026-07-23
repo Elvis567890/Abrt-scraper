@@ -1,5 +1,39 @@
 [
   {
+    "match": "rakow vs valletta",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.03,
+    "profit_ugx": 1032,
+    "total_stake": 100000,
+    "arb_sum": 0.9897,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.11,
+        "stake": 91029,
+        "win": 101042
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 25.0,
+        "stake": 4042,
+        "win": 101050
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Away",
+        "odd": 20.5,
+        "stake": 4929,
+        "win": 101044
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "sheriff tiraspol vs maccabi tel aviv",
     "sport": "Football",
     "type": "3-way",
@@ -777,31 +811,31 @@
     "match": "stjarnan vs ilves",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 8.3,
-    "profit_ugx": 8297,
+    "profit_percent": 8.36,
+    "profit_ugx": 8364,
     "total_stake": 100000,
-    "arb_sum": 0.917,
+    "arb_sum": 0.9164,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.56,
-        "stake": 42597,
-        "win": 109048
+        "stake": 42628,
+        "win": 109128
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.75,
-        "stake": 29079,
-        "win": 109046
+        "stake": 29101,
+        "win": 109129
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.85,
-        "stake": 28324,
-        "win": 109047
+        "odd": 3.86,
+        "stake": 28271,
+        "win": 109126
       }
     ],
     "market_type": "1x2",
