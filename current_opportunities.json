@@ -448,6 +448,40 @@
     "market_specifier": ""
   },
   {
+    "match": "tromso vs hradec kralove",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.07,
+    "profit_ugx": 1069,
+    "total_stake": 100000,
+    "arb_sum": 0.9893,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.38,
+        "stake": 73247,
+        "win": 101081
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 7.95,
+        "stake": 12714,
+        "win": 101076
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 7.2,
+        "stake": 14039,
+        "win": 101081
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "zimbru chisinau vs noah",
     "sport": "Football",
     "type": "3-way",
@@ -918,40 +952,6 @@
         "odd": 13.0,
         "stake": 7762,
         "win": 100906
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "tromso il vs hradec kralove",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.07,
-    "profit_ugx": 1069,
-    "total_stake": 100000,
-    "arb_sum": 0.9893,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.38,
-        "stake": 73247,
-        "win": 101081
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 7.95,
-        "stake": 12714,
-        "win": 101076
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 7.2,
-        "stake": 14039,
-        "win": 101081
       }
     ],
     "market_type": "1x2",
