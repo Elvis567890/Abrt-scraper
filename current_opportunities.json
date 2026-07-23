@@ -37,31 +37,31 @@
     "match": "boca juniors vs ohiggins",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.08,
-    "profit_ugx": 4082,
+    "profit_percent": 4.01,
+    "profit_ugx": 4015,
     "total_stake": 100000,
-    "arb_sum": 0.9592,
+    "arb_sum": 0.9599,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.33,
-        "stake": 78387,
-        "win": 104255
+        "odd": 1.325,
+        "stake": 78629,
+        "win": 104183
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 9.5,
-        "stake": 10974,
-        "win": 104253
+        "odd": 9.7,
+        "stake": 10741,
+        "win": 104188
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 9.8,
-        "stake": 10638,
-        "win": 104252
+        "stake": 10631,
+        "win": 104184
       }
     ],
     "market_type": "1x2",
@@ -436,6 +436,60 @@
         "odd": 4.4,
         "stake": 23537,
         "win": 103563
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "flacara moreni vs chindia targoviste",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 25.59,
+    "profit_ugx": 25593,
+    "total_stake": 100000,
+    "arb_sum": 0.7441,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.92,
+        "stake": 46026,
+        "win": 134396
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.49,
+        "stake": 53974,
+        "win": 134395
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "flacara moreni vs chindia targoviste",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 25.59,
+    "profit_ugx": 25593,
+    "total_stake": 100000,
+    "arb_sum": 0.7441,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.92,
+        "stake": 46026,
+        "win": 134396
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.49,
+        "stake": 53974,
+        "win": 134395
       }
     ],
     "market_type": "1x2",
