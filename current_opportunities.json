@@ -703,31 +703,65 @@
     "match": "nashville vs montreal impact",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.77,
-    "profit_ugx": 768,
+    "profit_percent": 1.04,
+    "profit_ugx": 1043,
     "total_stake": 100000,
-    "arb_sum": 0.9923,
+    "arb_sum": 0.9896,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.5,
-        "stake": 67183,
-        "win": 100774
+        "odd": 1.552,
+        "stake": 65112,
+        "win": 101054
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 6.29,
-        "stake": 16021,
-        "win": 100772
+        "odd": 6.0,
+        "stake": 16842,
+        "win": 101052
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.6,
+        "stake": 18045,
+        "win": 101052
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sporting kc vs minnesota utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 12.84,
+    "profit_ugx": 12838,
+    "total_stake": 100000,
+    "arb_sum": 0.8716,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.975,
+        "stake": 38564,
+        "win": 114728
       },
       {
         "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.75,
+        "stake": 30594,
+        "win": 114728
+      },
+      {
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 6.0,
-        "stake": 16796,
-        "win": 100776
+        "odd": 3.72,
+        "stake": 30841,
+        "win": 114729
       }
     ],
     "market_type": "1x2",
@@ -796,40 +830,6 @@
         "odd": 3.72,
         "stake": 27972,
         "win": 104056
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "kansas vs minnesota",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 12.48,
-    "profit_ugx": 12478,
-    "total_stake": 100000,
-    "arb_sum": 0.8752,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 2.975,
-        "stake": 38406,
-        "win": 114258
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 30880,
-        "win": 114256
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.72,
-        "stake": 30714,
-        "win": 114256
       }
     ],
     "market_type": "1x2",
