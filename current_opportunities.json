@@ -105,31 +105,31 @@
     "match": "sarmiento vs argentinos jrs",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.15,
-    "profit_ugx": 9148,
+    "profit_percent": 9.14,
+    "profit_ugx": 9137,
     "total_stake": 100000,
-    "arb_sum": 0.9085,
+    "arb_sum": 0.9086,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 4.42,
-        "stake": 24903,
-        "win": 110071
+        "stake": 24899,
+        "win": 110054
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 2.95,
-        "stake": 37312,
-        "win": 110070
+        "stake": 37307,
+        "win": 110056
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 2.913,
-        "stake": 37786,
-        "win": 110071
+        "odd": 2.912,
+        "stake": 37794,
+        "win": 110056
       }
     ],
     "market_type": "1x2",
@@ -349,7 +349,7 @@
     "arb_sum": 0.963,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 2.841,
         "stake": 36551,
@@ -363,7 +363,7 @@
         "win": 103843
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.35,
         "stake": 30998,
@@ -383,14 +383,14 @@
     "arb_sum": 0.9615,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.957,
         "stake": 53146,
         "win": 104007
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 4.48,
         "stake": 23216,
@@ -456,6 +456,60 @@
         "odd": 2.49,
         "stake": 53974,
         "win": 134395
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "penafiel vs leganes",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.97,
+    "profit_ugx": 4975,
+    "total_stake": 100000,
+    "arb_sum": 0.9503,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.08,
+        "stake": 50594,
+        "win": 105236
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.13,
+        "stake": 49406,
+        "win": 105235
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "penafiel vs leganes",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.97,
+    "profit_ugx": 4975,
+    "total_stake": 100000,
+    "arb_sum": 0.9503,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.08,
+        "stake": 50594,
+        "win": 105236
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.13,
+        "stake": 49406,
+        "win": 105235
       }
     ],
     "market_type": "1x2",
