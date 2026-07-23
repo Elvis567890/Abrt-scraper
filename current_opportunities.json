@@ -703,65 +703,31 @@
     "match": "nashville vs montreal impact",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.04,
-    "profit_ugx": 1043,
+    "profit_percent": 2.23,
+    "profit_ugx": 2234,
     "total_stake": 100000,
-    "arb_sum": 0.9896,
+    "arb_sum": 0.9777,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.552,
-        "stake": 65112,
-        "win": 101054
+        "stake": 65905,
+        "win": 102285
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 6.0,
-        "stake": 16842,
-        "win": 101052
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.6,
-        "stake": 18045,
-        "win": 101052
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sporting kc vs minnesota utd",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 12.84,
-    "profit_ugx": 12838,
-    "total_stake": 100000,
-    "arb_sum": 0.8716,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 2.975,
-        "stake": 38564,
-        "win": 114728
+        "stake": 17047,
+        "win": 102282
       },
       {
         "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 30594,
-        "win": 114728
-      },
-      {
-        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.72,
-        "stake": 30841,
-        "win": 114729
+        "odd": 6.0,
+        "stake": 17047,
+        "win": 102282
       }
     ],
     "market_type": "1x2",
@@ -836,6 +802,40 @@
     "market_specifier": ""
   },
   {
+    "match": "kansas vs minnesota",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 12.48,
+    "profit_ugx": 12478,
+    "total_stake": 100000,
+    "arb_sum": 0.8752,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.975,
+        "stake": 38406,
+        "win": 114258
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 30880,
+        "win": 114256
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.72,
+        "stake": 30714,
+        "win": 114256
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "home special bets vs away special bets",
     "sport": "Football",
     "type": "3-way",
@@ -864,60 +864,6 @@
         "odd": 9.4,
         "stake": 13022,
         "win": 122407
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sporting kansas vs minnesota utd",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.3,
-    "profit_ugx": 1297,
-    "total_stake": 100000,
-    "arb_sum": 0.987,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.66,
-        "stake": 61033,
-        "win": 101315
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.6,
-        "stake": 38967,
-        "win": 101314
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sporting kansas vs minnesota utd",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.3,
-    "profit_ugx": 1297,
-    "total_stake": 100000,
-    "arb_sum": 0.987,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.66,
-        "stake": 61033,
-        "win": 101315
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.6,
-        "stake": 38967,
-        "win": 101314
       }
     ],
     "market_type": "1x2",
