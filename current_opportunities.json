@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "horn vs floridsdorfer",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 30.87,
+    "profit_ugx": 30874,
+    "total_stake": 100000,
+    "arb_sum": 0.6913,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.0,
+        "stake": 28933,
+        "win": 144665
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 34444,
+        "win": 144665
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.95,
+        "stake": 36624,
+        "win": 144665
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "guatemala u20 vs costa rica u20",
     "sport": "Football",
     "type": "3-way",
@@ -130,40 +164,6 @@
         "odd": 3.2,
         "stake": 31958,
         "win": 102266
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "gleisdorf vs sturm graz ii",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 17.39,
-    "profit_ugx": 17392,
-    "total_stake": 100000,
-    "arb_sum": 0.8261,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.984,
-        "stake": 40567,
-        "win": 121052
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 30263,
-        "win": 121052
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.15,
-        "stake": 29169,
-        "win": 121051
       }
     ],
     "market_type": "1x2",
@@ -411,31 +411,31 @@
     "match": "racing vs gimnasia lp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.33,
-    "profit_ugx": 5331,
+    "profit_percent": 5.2,
+    "profit_ugx": 5200,
     "total_stake": 100000,
-    "arb_sum": 0.9467,
+    "arb_sum": 0.948,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.923,
-        "stake": 54930,
-        "win": 105630
+        "odd": 1.902,
+        "stake": 55460,
+        "win": 105485
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 4.58,
-        "stake": 23063,
-        "win": 105629
+        "odd": 4.675,
+        "stake": 22564,
+        "win": 105487
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.8,
-        "stake": 22006,
-        "win": 105629
+        "stake": 21976,
+        "win": 105485
       }
     ],
     "market_type": "1x2",
@@ -646,222 +646,6 @@
         "odd": 1.895,
         "stake": 54502,
         "win": 103281
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "gleisdorf 09 vs sturm graz ii",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 15.92,
-    "profit_ugx": 15923,
-    "total_stake": 100000,
-    "arb_sum": 0.8408,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.744,
-        "stake": 68198,
-        "win": 118937
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 3.74,
-        "stake": 31802,
-        "win": 118939
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "gleisdorf 09 vs sturm graz ii",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 15.92,
-    "profit_ugx": 15923,
-    "total_stake": 100000,
-    "arb_sum": 0.8408,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.744,
-        "stake": 68198,
-        "win": 118937
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 3.74,
-        "stake": 31802,
-        "win": 118939
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "heracles almelo vs excelsior",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 41.58,
-    "profit_ugx": 41578,
-    "total_stake": 100000,
-    "arb_sum": 0.5842,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.33,
-        "stake": 73462,
-        "win": 171166
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 6.45,
-        "stake": 26538,
-        "win": 171170
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "heracles almelo vs excelsior",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 41.58,
-    "profit_ugx": 41578,
-    "total_stake": 100000,
-    "arb_sum": 0.5842,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.33,
-        "stake": 73462,
-        "win": 171166
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 6.45,
-        "stake": 26538,
-        "win": 171170
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "lacinter vs favoritner",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 33.69,
-    "profit_ugx": 33695,
-    "total_stake": 100000,
-    "arb_sum": 0.6631,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.32,
-        "stake": 65008,
-        "win": 150819
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 4.31,
-        "stake": 34992,
-        "win": 150816
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "lacinter vs favoritner",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 33.69,
-    "profit_ugx": 33695,
-    "total_stake": 100000,
-    "arb_sum": 0.6631,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.32,
-        "stake": 65008,
-        "win": 150819
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 4.31,
-        "stake": 34992,
-        "win": 150816
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "langenrohr vs twl elektra",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 13.89,
-    "profit_ugx": 13894,
-    "total_stake": 100000,
-    "arb_sum": 0.8611,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.51,
-        "stake": 76911,
-        "win": 116136
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 5.03,
-        "stake": 23089,
-        "win": 116138
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "langenrohr vs twl elektra",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 13.89,
-    "profit_ugx": 13894,
-    "total_stake": 100000,
-    "arb_sum": 0.8611,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.51,
-        "stake": 76911,
-        "win": 116136
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 5.03,
-        "stake": 23089,
-        "win": 116138
       }
     ],
     "market_type": "1x2",
