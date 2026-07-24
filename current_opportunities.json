@@ -241,31 +241,65 @@
     "match": "rosenborg vs manchester utd",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 34.03,
-    "profit_ugx": 34029,
+    "profit_percent": 34.34,
+    "profit_ugx": 34338,
     "total_stake": 100000,
-    "arb_sum": 0.6597,
+    "arb_sum": 0.6566,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 4.45,
-        "stake": 34063,
-        "win": 151580
+        "odd": 4.86,
+        "stake": 31336,
+        "win": 152293
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 4.5,
-        "stake": 33685,
-        "win": 151582
+        "odd": 4.2,
+        "stake": 36261,
+        "win": 152296
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.7,
-        "stake": 32252,
-        "win": 151584
+        "stake": 32403,
+        "win": 152294
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "cremonese vs giana erminio",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.11,
+    "profit_ugx": 1108,
+    "total_stake": 100000,
+    "arb_sum": 0.9889,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.27,
+        "stake": 79622,
+        "win": 101120
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 9.85,
+        "stake": 10266,
+        "win": 101120
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 10.0,
+        "stake": 10112,
+        "win": 101120
       }
     ],
     "market_type": "1x2",
@@ -377,31 +411,31 @@
     "match": "racing vs gimnasia lp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.17,
-    "profit_ugx": 5166,
+    "profit_percent": 5.57,
+    "profit_ugx": 5574,
     "total_stake": 100000,
-    "arb_sum": 0.9483,
+    "arb_sum": 0.9443,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.935,
-        "stake": 54495,
-        "win": 105448
+        "odd": 1.942,
+        "stake": 54533,
+        "win": 105903
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 4.48,
-        "stake": 23537,
-        "win": 105446
+        "odd": 4.525,
+        "stake": 23404,
+        "win": 105903
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.8,
-        "stake": 21968,
-        "win": 105446
+        "stake": 22063,
+        "win": 105902
       }
     ],
     "market_type": "1x2",
@@ -476,40 +510,6 @@
     "market_specifier": ""
   },
   {
-    "match": "derby vs freiburg",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 22.43,
-    "profit_ugx": 22429,
-    "total_stake": 100000,
-    "arb_sum": 0.7757,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.69,
-        "stake": 34936,
-        "win": 128914
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 33925,
-        "win": 128915
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.14,
-        "stake": 31139,
-        "win": 128915
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "akron tolyatti vs zenit saint petersburg",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -672,60 +672,6 @@
     "market_specifier": ""
   },
   {
-    "match": "derby county vs freiburg",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 20.33,
-    "profit_ugx": 20326,
-    "total_stake": 100000,
-    "arb_sum": 0.7967,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.96,
-        "stake": 64037,
-        "win": 125513
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 3.49,
-        "stake": 35963,
-        "win": 125511
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "derby county vs freiburg",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 20.33,
-    "profit_ugx": 20326,
-    "total_stake": 100000,
-    "arb_sum": 0.7967,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.96,
-        "stake": 64037,
-        "win": 125513
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 3.49,
-        "stake": 35963,
-        "win": 125511
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "gloggnitz vs rapid wien ii",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -774,6 +720,60 @@
         "odd": 3.05,
         "stake": 37755,
         "win": 115153
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rosenborg vs manchester utd",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 22.6,
+    "profit_ugx": 22603,
+    "total_stake": 100000,
+    "arb_sum": 0.774,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.42,
+        "stake": 53390,
+        "win": 129204
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.772,
+        "stake": 46610,
+        "win": 129203
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rosenborg vs manchester utd",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 22.6,
+    "profit_ugx": 22603,
+    "total_stake": 100000,
+    "arb_sum": 0.774,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.42,
+        "stake": 53390,
+        "win": 129204
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.772,
+        "stake": 46610,
+        "win": 129203
       }
     ],
     "market_type": "1x2",
