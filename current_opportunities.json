@@ -238,6 +238,40 @@
     "market_specifier": ""
   },
   {
+    "match": "groningen vs volendam",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.44,
+    "profit_ugx": 2442,
+    "total_stake": 100000,
+    "arb_sum": 0.9756,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.04,
+        "stake": 50247,
+        "win": 102504
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.5,
+        "stake": 22779,
+        "win": 102506
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.8,
+        "stake": 26975,
+        "win": 102505
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "vfl wolfsburg vs lyonnais",
     "sport": "Football",
     "type": "3-way",
@@ -698,54 +732,27 @@
     "market_specifier": ""
   },
   {
-    "match": "nxt vs oudheverlee leuven",
+    "match": "zweigen kanazawa vs gamba osaka",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 0.86,
-    "profit_ugx": 859,
+    "profit_percent": 11.52,
+    "profit_ugx": 11519,
     "total_stake": 100000,
-    "arb_sum": 0.9914,
+    "arb_sum": 0.8848,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 1.97,
-        "stake": 51201,
-        "win": 100866
+        "odd": 3.04,
+        "stake": 37177,
+        "win": 113018
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 2.067,
-        "stake": 48799,
-        "win": 100868
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "nxt vs oudheverlee leuven",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 0.86,
-    "profit_ugx": 859,
-    "total_stake": 100000,
-    "arb_sum": 0.9914,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.97,
-        "stake": 51201,
-        "win": 100866
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.067,
-        "stake": 48799,
-        "win": 100868
+        "odd": 1.799,
+        "stake": 62823,
+        "win": 113019
       }
     ],
     "market_type": "1x2",
@@ -755,51 +762,24 @@
     "match": "zweigen kanazawa vs gamba osaka",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 10.83,
-    "profit_ugx": 10831,
+    "profit_percent": 11.52,
+    "profit_ugx": 11519,
     "total_stake": 100000,
-    "arb_sum": 0.8917,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 3.04,
-        "stake": 36890,
-        "win": 112146
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.777,
-        "stake": 63110,
-        "win": 112146
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "zweigen kanazawa vs gamba osaka",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 10.83,
-    "profit_ugx": 10831,
-    "total_stake": 100000,
-    "arb_sum": 0.8917,
+    "arb_sum": 0.8848,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 3.04,
-        "stake": 36890,
-        "win": 112146
+        "stake": 37177,
+        "win": 113018
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.777,
-        "stake": 63110,
-        "win": 112146
+        "odd": 1.799,
+        "stake": 62823,
+        "win": 113019
       }
     ],
     "market_type": "1x2",
