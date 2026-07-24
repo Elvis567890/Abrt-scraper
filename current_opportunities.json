@@ -204,6 +204,40 @@
     "market_specifier": ""
   },
   {
+    "match": "limavady utd vs linfield",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 34.89,
+    "profit_ugx": 34893,
+    "total_stake": 100000,
+    "arb_sum": 0.6511,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 6.24,
+        "stake": 24614,
+        "win": 153591
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.1,
+        "stake": 37462,
+        "win": 153594
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.05,
+        "stake": 37924,
+        "win": 153592
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "enfield town vs worthing",
     "sport": "Football",
     "type": "3-way",
@@ -309,31 +343,31 @@
     "match": "racing vs gimnasia lp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.97,
-    "profit_ugx": 4973,
+    "profit_percent": 5.05,
+    "profit_ugx": 5047,
     "total_stake": 100000,
-    "arb_sum": 0.9503,
+    "arb_sum": 0.9495,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.893,
-        "stake": 55591,
-        "win": 105234
+        "odd": 1.904,
+        "stake": 55313,
+        "win": 105316
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 4.68,
-        "stake": 22486,
-        "win": 105234
+        "odd": 4.63,
+        "stake": 22746,
+        "win": 105314
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.8,
-        "stake": 21924,
-        "win": 105235
+        "stake": 21941,
+        "win": 105317
       }
     ],
     "market_type": "1x2",
@@ -672,6 +706,60 @@
         "odd": 2.098,
         "stake": 50843,
         "win": 106669
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "limavady utd vs linfield",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.35,
+    "profit_ugx": 7354,
+    "total_stake": 100000,
+    "arb_sum": 0.9265,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.43,
+        "stake": 44419,
+        "win": 107938
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.942,
+        "stake": 55581,
+        "win": 107938
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "limavady utd vs linfield",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.35,
+    "profit_ugx": 7354,
+    "total_stake": 100000,
+    "arb_sum": 0.9265,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.43,
+        "stake": 44419,
+        "win": 107938
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.942,
+        "stake": 55581,
+        "win": 107938
       }
     ],
     "market_type": "1x2",
