@@ -139,65 +139,31 @@
     "match": "eltham redbacks vs melbourne srbija",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 12.12,
-    "profit_ugx": 12120,
+    "profit_percent": 14.12,
+    "profit_ugx": 14125,
     "total_stake": 100000,
-    "arb_sum": 0.8788,
+    "arb_sum": 0.8588,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.91,
-        "stake": 59576,
-        "win": 113790
+        "stake": 60967,
+        "win": 116447
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 6.91,
-        "stake": 16468,
-        "win": 113794
+        "stake": 16852,
+        "win": 116447
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 4.75,
-        "stake": 23956,
-        "win": 113791
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "herediano vs puntarenas",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.9,
-    "profit_ugx": 2901,
-    "total_stake": 100000,
-    "arb_sum": 0.971,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.584,
-        "stake": 65017,
-        "win": 102987
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.78,
-        "stake": 17818,
-        "win": 102988
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 6.0,
-        "stake": 17165,
-        "win": 102990
+        "odd": 5.25,
+        "stake": 22181,
+        "win": 116450
       }
     ],
     "market_type": "1x2",
@@ -658,6 +624,60 @@
         "odd": 3.315,
         "stake": 42197,
         "win": 139883
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "derby county vs freiburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.05,
+    "profit_ugx": 17047,
+    "total_stake": 100000,
+    "arb_sum": 0.8295,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.8,
+        "stake": 66972,
+        "win": 120550
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.65,
+        "stake": 33028,
+        "win": 120552
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "derby county vs freiburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.05,
+    "profit_ugx": 17047,
+    "total_stake": 100000,
+    "arb_sum": 0.8295,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.8,
+        "stake": 66972,
+        "win": 120550
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.65,
+        "stake": 33028,
+        "win": 120552
       }
     ],
     "market_type": "1x2",
