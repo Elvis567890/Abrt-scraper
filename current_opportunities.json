@@ -272,6 +272,40 @@
     "market_specifier": ""
   },
   {
+    "match": "sv gloggnitz vs rapid wien ii",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 21.61,
+    "profit_ugx": 21610,
+    "total_stake": 100000,
+    "arb_sum": 0.7839,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.395,
+        "stake": 37575,
+        "win": 127567
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 30373,
+        "win": 127567
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.98,
+        "stake": 32052,
+        "win": 127567
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "lommel vs den haag",
     "sport": "Football",
     "type": "3-way",
@@ -786,6 +820,60 @@
         "odd": 3.415,
         "stake": 34516,
         "win": 117872
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gloggnitz vs rapid wien ii",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 9.58,
+    "profit_ugx": 9581,
+    "total_stake": 100000,
+    "arb_sum": 0.9042,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.82,
+        "stake": 60767,
+        "win": 110596
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.819,
+        "stake": 39233,
+        "win": 110598
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gloggnitz vs rapid wien ii",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 9.58,
+    "profit_ugx": 9581,
+    "total_stake": 100000,
+    "arb_sum": 0.9042,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.82,
+        "stake": 60767,
+        "win": 110596
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.819,
+        "stake": 39233,
+        "win": 110598
       }
     ],
     "market_type": "1x2",
