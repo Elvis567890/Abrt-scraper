@@ -1,73 +1,5 @@
 [
   {
-    "match": "boca juniors vs ohiggins",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.21,
-    "profit_ugx": 4206,
-    "total_stake": 100000,
-    "arb_sum": 0.9579,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.37,
-        "stake": 76198,
-        "win": 104391
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.95,
-        "stake": 11664,
-        "win": 104393
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 8.6,
-        "stake": 12138,
-        "win": 104387
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "santa fe vs caracas",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 7.48,
-    "profit_ugx": 7484,
-    "total_stake": 100000,
-    "arb_sum": 0.9252,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.425,
-        "stake": 75852,
-        "win": 108089
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.17,
-        "stake": 13230,
-        "win": 108089
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 9.9,
-        "stake": 10918,
-        "win": 108088
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "cambodia vs singapore",
     "sport": "Football",
     "type": "3-way",
@@ -105,31 +37,31 @@
     "match": "manly utd vs sydney olympic",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.7,
-    "profit_ugx": 6695,
+    "profit_percent": 27.05,
+    "profit_ugx": 27048,
     "total_stake": 100000,
-    "arb_sum": 0.933,
+    "arb_sum": 0.7295,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.94,
-        "stake": 55245,
-        "win": 107175
+        "stake": 70658,
+        "win": 137077
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 9.1,
+        "stake": 15063,
+        "win": 137073
       },
       {
         "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 9.1,
-        "stake": 11778,
-        "win": 107180
-      },
-      {
-        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 3.25,
-        "stake": 32977,
-        "win": 107175
+        "odd": 9.6,
+        "stake": 14279,
+        "win": 137078
       }
     ],
     "market_type": "1x2",
@@ -672,6 +604,60 @@
         "odd": 3.335,
         "stake": 41594,
         "win": 138716
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "skakhabarovsk youth vs krylia sovetov youth",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.63,
+    "profit_ugx": 18634,
+    "total_stake": 100000,
+    "arb_sum": 0.8137,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.68,
+        "stake": 45859,
+        "win": 122902
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.27,
+        "stake": 54141,
+        "win": 122900
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "skakhabarovsk youth vs krylia sovetov youth",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.63,
+    "profit_ugx": 18634,
+    "total_stake": 100000,
+    "arb_sum": 0.8137,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.68,
+        "stake": 45859,
+        "win": 122902
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.27,
+        "stake": 54141,
+        "win": 122900
       }
     ],
     "market_type": "1x2",
