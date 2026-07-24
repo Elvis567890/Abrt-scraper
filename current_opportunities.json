@@ -411,31 +411,31 @@
     "match": "lommel vs den haag",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.88,
-    "profit_ugx": 6883,
+    "profit_percent": 6.74,
+    "profit_ugx": 6739,
     "total_stake": 100000,
-    "arb_sum": 0.9312,
+    "arb_sum": 0.9326,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.64,
-        "stake": 40679,
-        "win": 107393
+        "odd": 2.63,
+        "stake": 40770,
+        "win": 107225
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 30683,
-        "win": 107390
+        "stake": 30636,
+        "win": 107226
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.75,
-        "stake": 28638,
-        "win": 107392
+        "stake": 28594,
+        "win": 107228
       }
     ],
     "market_type": "1x2",
@@ -712,60 +712,6 @@
     "market_specifier": ""
   },
   {
-    "match": "penafiel vs leganes",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 4.97,
-    "profit_ugx": 4975,
-    "total_stake": 100000,
-    "arb_sum": 0.9503,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.08,
-        "stake": 50594,
-        "win": 105236
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.13,
-        "stake": 49406,
-        "win": 105235
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "penafiel vs leganes",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 4.97,
-    "profit_ugx": 4975,
-    "total_stake": 100000,
-    "arb_sum": 0.9503,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.08,
-        "stake": 50594,
-        "win": 105236
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.13,
-        "stake": 49406,
-        "win": 105235
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "cambuur vs utrecht",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -814,6 +760,60 @@
         "odd": 2.18,
         "stake": 54393,
         "win": 118577
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "penafiel vs leganes",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.97,
+    "profit_ugx": 4975,
+    "total_stake": 100000,
+    "arb_sum": 0.9503,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.08,
+        "stake": 50594,
+        "win": 105236
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.13,
+        "stake": 49406,
+        "win": 105235
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "penafiel vs leganes",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.97,
+    "profit_ugx": 4975,
+    "total_stake": 100000,
+    "arb_sum": 0.9503,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.08,
+        "stake": 50594,
+        "win": 105236
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.13,
+        "stake": 49406,
+        "win": 105235
       }
     ],
     "market_type": "1x2",
