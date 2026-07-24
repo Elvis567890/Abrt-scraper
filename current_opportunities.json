@@ -1,39 +1,5 @@
 [
   {
-    "match": "horn vs floridsdorfer",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 32.49,
-    "profit_ugx": 32494,
-    "total_stake": 100000,
-    "arb_sum": 0.6751,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 5.0,
-        "stake": 29627,
-        "win": 148135
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.2,
-        "stake": 35270,
-        "win": 148134
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.22,
-        "stake": 35103,
-        "win": 148135
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "guatemala u20 vs costa rica u20",
     "sport": "Football",
     "type": "3-way",
@@ -130,40 +96,6 @@
         "odd": 3.8,
         "stake": 32811,
         "win": 124682
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "galatasaray vs monza",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.98,
-    "profit_ugx": 1978,
-    "total_stake": 100000,
-    "arb_sum": 0.9802,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.46,
-        "stake": 69875,
-        "win": 102018
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 7.07,
-        "stake": 14430,
-        "win": 102020
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 6.5,
-        "stake": 15695,
-        "win": 102018
       }
     ],
     "market_type": "1x2",
@@ -295,7 +227,7 @@
         "win": 130421
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.9,
         "stake": 33441,
@@ -377,31 +309,31 @@
     "match": "racing vs gimnasia lp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.2,
-    "profit_ugx": 5200,
+    "profit_percent": 5.05,
+    "profit_ugx": 5052,
     "total_stake": 100000,
-    "arb_sum": 0.948,
+    "arb_sum": 0.9495,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.902,
-        "stake": 55460,
-        "win": 105485
+        "odd": 1.895,
+        "stake": 55578,
+        "win": 105320
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 4.675,
-        "stake": 22564,
-        "win": 105487
+        "odd": 4.685,
+        "stake": 22480,
+        "win": 105319
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.8,
-        "stake": 21976,
-        "win": 105485
+        "stake": 21942,
+        "win": 105322
       }
     ],
     "market_type": "1x2",
@@ -686,6 +618,60 @@
         "odd": 2.411,
         "stake": 42057,
         "win": 101399
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "enfield town vs worthing",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.31,
+    "profit_ugx": 10310,
+    "total_stake": 100000,
+    "arb_sum": 0.8969,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 51858,
+        "win": 111495
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.316,
+        "stake": 48142,
+        "win": 111497
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "enfield town vs worthing",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.31,
+    "profit_ugx": 10310,
+    "total_stake": 100000,
+    "arb_sum": 0.8969,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 51858,
+        "win": 111495
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.316,
+        "stake": 48142,
+        "win": 111497
       }
     ],
     "market_type": "1x2",
