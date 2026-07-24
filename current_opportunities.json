@@ -1,33 +1,67 @@
 [
   {
-    "match": "fjolnir vs haukar",
+    "match": "haukar w vs hk kopavogur w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 20.84,
-    "profit_ugx": 20844,
+    "profit_percent": 2.91,
+    "profit_ugx": 2908,
     "total_stake": 100000,
-    "arb_sum": 0.7916,
+    "arb_sum": 0.9709,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.2,
-        "stake": 39479,
-        "win": 126333
+        "odd": 2.22,
+        "stake": 46394,
+        "win": 102995
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 4.2,
-        "stake": 30079,
-        "win": 126332
+        "odd": 3.75,
+        "stake": 27465,
+        "win": 102994
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.94,
+        "stake": 26141,
+        "win": 102996
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "fjolnir vs haukar",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 20.23,
+    "profit_ugx": 20233,
+    "total_stake": 100000,
+    "arb_sum": 0.7977,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.33,
+        "stake": 37647,
+        "win": 125365
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 32145,
+        "win": 125366
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.15,
-        "stake": 30442,
-        "win": 126334
+        "stake": 30208,
+        "win": 125363
       }
     ],
     "market_type": "1x2",
@@ -102,34 +136,34 @@
     "market_specifier": ""
   },
   {
-    "match": "odra opole vs arka gdynia",
+    "match": "njardvik vs kopavogur",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.14,
-    "profit_ugx": 4142,
+    "profit_percent": 3.48,
+    "profit_ugx": 3481,
     "total_stake": 100000,
-    "arb_sum": 0.9586,
+    "arb_sum": 0.9652,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.856,
-        "stake": 36527,
-        "win": 104321
+        "odd": 2.15,
+        "stake": 48189,
+        "win": 103606
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.25,
-        "stake": 32099,
-        "win": 104322
+        "odd": 3.95,
+        "stake": 26229,
+        "win": 103605
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.325,
-        "stake": 31375,
-        "win": 104322
+        "odd": 4.05,
+        "stake": 25582,
+        "win": 103607
       }
     ],
     "market_type": "1x2",
@@ -428,6 +462,168 @@
         "odd": 1.806,
         "stake": 59741,
         "win": 107892
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ungmennafelag njardvikur vs hk kopavogur",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.71,
+    "profit_ugx": 709,
+    "total_stake": 100000,
+    "arb_sum": 0.9929,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.41,
+        "stake": 71429,
+        "win": 100715
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.525,
+        "stake": 28571,
+        "win": 100713
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ungmennafelag njardvikur vs hk kopavogur",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.71,
+    "profit_ugx": 709,
+    "total_stake": 100000,
+    "arb_sum": 0.9929,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.41,
+        "stake": 71429,
+        "win": 100715
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.525,
+        "stake": 28571,
+        "win": 100713
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "fjolnir vs haukar",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 16.29,
+    "profit_ugx": 16285,
+    "total_stake": 100000,
+    "arb_sum": 0.8371,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.83,
+        "stake": 65275,
+        "win": 119453
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.44,
+        "stake": 34725,
+        "win": 119454
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "fjolnir vs haukar",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 16.29,
+    "profit_ugx": 16285,
+    "total_stake": 100000,
+    "arb_sum": 0.8371,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.83,
+        "stake": 65275,
+        "win": 119453
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.44,
+        "stake": 34725,
+        "win": 119454
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ymir kopavogur vs hlarendi",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.94,
+    "profit_ugx": 7937,
+    "total_stake": 100000,
+    "arb_sum": 0.9206,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.57,
+        "stake": 69185,
+        "win": 108620
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.525,
+        "stake": 30815,
+        "win": 108623
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ymir kopavogur vs hlarendi",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.94,
+    "profit_ugx": 7937,
+    "total_stake": 100000,
+    "arb_sum": 0.9206,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.57,
+        "stake": 69185,
+        "win": 108620
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.525,
+        "stake": 30815,
+        "win": 108623
       }
     ],
     "market_type": "1x2",
