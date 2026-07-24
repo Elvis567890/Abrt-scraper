@@ -204,6 +204,40 @@
     "market_specifier": ""
   },
   {
+    "match": "sokol kolbuszowa dolna vs czarni polaniec",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.1,
+    "profit_ugx": 1103,
+    "total_stake": 100000,
+    "arb_sum": 0.989,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.45,
+        "stake": 41271,
+        "win": 101114
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 28088,
+        "win": 101117
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.3,
+        "stake": 30641,
+        "win": 101115
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "rosenborg vs manchester utd",
     "sport": "Football",
     "type": "3-way",
@@ -275,31 +309,65 @@
     "match": "gleisdorf vs sturm graz ii",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 28.0,
-    "profit_ugx": 27998,
+    "profit_percent": 27.09,
+    "profit_ugx": 27094,
     "total_stake": 100000,
-    "arb_sum": 0.72,
+    "arb_sum": 0.7291,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 4.15,
-        "stake": 33466,
-        "win": 138884
+        "stake": 33051,
+        "win": 137162
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.2,
-        "stake": 33068,
-        "win": 138886
+        "stake": 32658,
+        "win": 137164
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.15,
-        "stake": 33466,
-        "win": 138884
+        "odd": 4.0,
+        "stake": 34291,
+        "win": 137164
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "braunschweig vs southampton",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 23.65,
+    "profit_ugx": 23653,
+    "total_stake": 100000,
+    "arb_sum": 0.7635,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.9,
+        "stake": 33585,
+        "win": 130982
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 34469,
+        "win": 130982
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 31947,
+        "win": 130983
       }
     ],
     "market_type": "1x2",
@@ -598,60 +666,6 @@
         "odd": 2.338,
         "stake": 51574,
         "win": 120580
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "east timor vs vietnam",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 24.88,
-    "profit_ugx": 24879,
-    "total_stake": 100000,
-    "arb_sum": 0.7512,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 16.5,
-        "stake": 8068,
-        "win": 133122
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.448,
-        "stake": 91932,
-        "win": 133118
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "east timor vs vietnam",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 24.88,
-    "profit_ugx": 24879,
-    "total_stake": 100000,
-    "arb_sum": 0.7512,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 16.5,
-        "stake": 8068,
-        "win": 133122
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 1.448,
-        "stake": 91932,
-        "win": 133118
       }
     ],
     "market_type": "1x2",
