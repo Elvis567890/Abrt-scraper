@@ -340,6 +340,40 @@
     "market_specifier": ""
   },
   {
+    "match": "benfica vs os belenenses",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.42,
+    "profit_ugx": 2423,
+    "total_stake": 100000,
+    "arb_sum": 0.9758,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.45,
+        "stake": 70678,
+        "win": 102483
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.85,
+        "stake": 13055,
+        "win": 102482
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 6.3,
+        "stake": 16267,
+        "win": 102482
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "kravare vs bospor bohumin",
     "sport": "Football",
     "type": "Double Chance 1X",
