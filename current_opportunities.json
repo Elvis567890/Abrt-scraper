@@ -207,31 +207,65 @@
     "match": "vfl wolfsburg vs lyonnais",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 36.71,
-    "profit_ugx": 36708,
+    "profit_percent": 35.78,
+    "profit_ugx": 35783,
     "total_stake": 100000,
-    "arb_sum": 0.6329,
+    "arb_sum": 0.6422,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 4.72,
-        "stake": 33474,
-        "win": 157997
+        "stake": 32992,
+        "win": 155722
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 4.75,
-        "stake": 33263,
-        "win": 157999
+        "odd": 4.55,
+        "stake": 34225,
+        "win": 155724
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.75,
-        "stake": 33263,
-        "win": 157999
+        "stake": 32784,
+        "win": 155724
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sv gloggnitz vs rapid wien ii",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 19.91,
+    "profit_ugx": 19911,
+    "total_stake": 100000,
+    "arb_sum": 0.8009,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.25,
+        "stake": 38419,
+        "win": 124862
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 29729,
+        "win": 124862
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.92,
+        "stake": 31852,
+        "win": 124860
       }
     ],
     "market_type": "1x2",
