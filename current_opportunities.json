@@ -68,40 +68,6 @@
     "market_specifier": ""
   },
   {
-    "match": "green gully vs dandenong",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 8.68,
-    "profit_ugx": 8683,
-    "total_stake": 100000,
-    "arb_sum": 0.9132,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.0,
-        "stake": 36503,
-        "win": 109509
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 31288,
-        "win": 109508
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.4,
-        "stake": 32209,
-        "win": 109511
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "eltham redbacks vs melbourne srbija",
     "sport": "Football",
     "type": "3-way",
@@ -422,6 +388,60 @@
         "odd": 3.785,
         "stake": 30868,
         "win": 116835
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "tatran vsechovice vs hlubina",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 12.69,
+    "profit_ugx": 12692,
+    "total_stake": 100000,
+    "arb_sum": 0.8731,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.4,
+        "stake": 47724,
+        "win": 114538
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.191,
+        "stake": 52276,
+        "win": 114537
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "tatran vsechovice vs hlubina",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 12.69,
+    "profit_ugx": 12692,
+    "total_stake": 100000,
+    "arb_sum": 0.8731,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.4,
+        "stake": 47724,
+        "win": 114538
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.191,
+        "stake": 52276,
+        "win": 114537
       }
     ],
     "market_type": "1x2",
