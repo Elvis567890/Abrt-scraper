@@ -1,5 +1,73 @@
 [
   {
+    "match": "fjolnir vs haukar",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 20.55,
+    "profit_ugx": 20550,
+    "total_stake": 100000,
+    "arb_sum": 0.7945,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.2,
+        "stake": 39333,
+        "win": 125866
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 29968,
+        "win": 125866
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 30699,
+        "win": 125866
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hviti riddarinn vs kari",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 13.71,
+    "profit_ugx": 13709,
+    "total_stake": 100000,
+    "arb_sum": 0.8629,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.71,
+        "stake": 42763,
+        "win": 115888
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 28972,
+        "win": 115888
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 28265,
+        "win": 115886
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "guatemala u20 vs costa rica u20",
     "sport": "Football",
     "type": "3-way",
@@ -68,40 +136,6 @@
     "market_specifier": ""
   },
   {
-    "match": "pogon szczecin vs legia",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.04,
-    "profit_ugx": 5044,
-    "total_stake": 100000,
-    "arb_sum": 0.9496,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.805,
-        "stake": 37544,
-        "win": 105311
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.35,
-        "stake": 31436,
-        "win": 105311
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.395,
-        "stake": 31020,
-        "win": 105313
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "cobh ramblers vs bray",
     "sport": "Football",
     "type": "3-way",
@@ -136,204 +170,68 @@
     "market_specifier": ""
   },
   {
-    "match": "st patricks vs dundalk",
+    "match": "kerry vs finn harps",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.5,
-    "profit_ugx": 497,
+    "profit_percent": 1.59,
+    "profit_ugx": 1590,
     "total_stake": 100000,
-    "arb_sum": 0.995,
+    "arb_sum": 0.9841,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Home",
-        "odd": 1.46,
-        "stake": 68835,
-        "win": 100499
+        "odd": 1.6,
+        "stake": 63510,
+        "win": 101616
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
+        "odd": 5.75,
+        "stake": 17672,
+        "win": 101614
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.4,
+        "stake": 18818,
+        "win": 101617
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "st patricks vs dundalk",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.88,
+    "profit_ugx": 1876,
+    "total_stake": 100000,
+    "arb_sum": 0.9812,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.49,
+        "stake": 68397,
+        "win": 101912
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
         "odd": 6.4,
-        "stake": 15703,
-        "win": 100499
+        "stake": 15924,
+        "win": 101914
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 6.5,
-        "stake": 15461,
-        "win": 100496
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "arges pitesti vs petrolul ploiesti",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.59,
-    "profit_ugx": 1593,
-    "total_stake": 100000,
-    "arb_sum": 0.9841,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.97,
-        "stake": 51583,
-        "win": 101619
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 4.3,
-        "stake": 23632,
-        "win": 101618
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 4.1,
-        "stake": 24785,
-        "win": 101618
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "felixstowe walton utd vs needham market",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 17.22,
-    "profit_ugx": 17215,
-    "total_stake": 100000,
-    "arb_sum": 0.8278,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.35,
-        "stake": 36058,
-        "win": 120794
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 32647,
-        "win": 120794
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.86,
-        "stake": 31294,
-        "win": 120795
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "rushden diamonds vs banbury utd",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 14.99,
-    "profit_ugx": 14988,
-    "total_stake": 100000,
-    "arb_sum": 0.8501,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.45,
-        "stake": 34096,
-        "win": 117631
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 32675,
-        "win": 117630
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.54,
-        "stake": 33229,
-        "win": 117631
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "enfield town vs worthing",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 19.88,
-    "profit_ugx": 19879,
-    "total_stake": 100000,
-    "arb_sum": 0.8012,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.95,
-        "stake": 31598,
-        "win": 124812
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 34670,
-        "win": 124812
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.7,
-        "stake": 33733,
-        "win": 124812
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "limavady utd vs linfield",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 33.05,
-    "profit_ugx": 33053,
-    "total_stake": 100000,
-    "arb_sum": 0.6695,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 5.54,
-        "stake": 26962,
-        "win": 149369
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 38300,
-        "win": 149370
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.3,
-        "stake": 34737,
-        "win": 149369
+        "stake": 15679,
+        "win": 101914
       }
     ],
     "market_type": "1x2",
@@ -368,6 +266,108 @@
         "odd": 3.88,
         "stake": 34683,
         "win": 134570
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "limavady utd vs linfield",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 33.21,
+    "profit_ugx": 33214,
+    "total_stake": 100000,
+    "arb_sum": 0.6679,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 5.54,
+        "stake": 27027,
+        "win": 149730
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 38393,
+        "win": 149733
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.33,
+        "stake": 34580,
+        "win": 149731
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "enfield town vs worthing",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 20.17,
+    "profit_ugx": 20168,
+    "total_stake": 100000,
+    "arb_sum": 0.7983,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.95,
+        "stake": 31712,
+        "win": 125262
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 34795,
+        "win": 125262
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.74,
+        "stake": 33493,
+        "win": 125264
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rushden diamonds vs banbury utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 14.99,
+    "profit_ugx": 14988,
+    "total_stake": 100000,
+    "arb_sum": 0.8501,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.45,
+        "stake": 34096,
+        "win": 117631
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 32675,
+        "win": 117630
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.54,
+        "stake": 33229,
+        "win": 117631
       }
     ],
     "market_type": "1x2",
@@ -411,31 +411,31 @@
     "match": "racing vs gimnasia lp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.97,
-    "profit_ugx": 4973,
+    "profit_percent": 4.77,
+    "profit_ugx": 4772,
     "total_stake": 100000,
-    "arb_sum": 0.9503,
+    "arb_sum": 0.9523,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.893,
-        "stake": 55591,
-        "win": 105234
+        "odd": 1.885,
+        "stake": 55709,
+        "win": 105011
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 4.68,
-        "stake": 22486,
-        "win": 105234
+        "odd": 4.685,
+        "stake": 22414,
+        "win": 105010
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.8,
-        "stake": 21924,
-        "win": 105235
+        "stake": 21877,
+        "win": 105010
       }
     ],
     "market_type": "1x2",
@@ -479,31 +479,31 @@
     "match": "huracan vs banfield",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.23,
-    "profit_ugx": 7226,
+    "profit_percent": 7.05,
+    "profit_ugx": 7048,
     "total_stake": 100000,
-    "arb_sum": 0.9277,
+    "arb_sum": 0.9295,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.005,
-        "stake": 53760,
-        "win": 107789
+        "odd": 1.997,
+        "stake": 53872,
+        "win": 107582
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 4.78,
-        "stake": 22550,
-        "win": 107789
+        "odd": 4.785,
+        "stake": 22483,
+        "win": 107581
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.55,
-        "stake": 23690,
-        "win": 107790
+        "stake": 23645,
+        "win": 107585
       }
     ],
     "market_type": "1x2",
@@ -621,24 +621,24 @@
     "match": "enfield town vs worthing",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 5.51,
-    "profit_ugx": 5510,
+    "profit_percent": 6.6,
+    "profit_ugx": 6595,
     "total_stake": 100000,
-    "arb_sum": 0.9449,
+    "arb_sum": 0.934,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 1.9,
-        "stake": 55701,
-        "win": 105832
+        "odd": 1.94,
+        "stake": 55186,
+        "win": 107061
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
         "odd": 2.389,
-        "stake": 44299,
-        "win": 105830
+        "stake": 44814,
+        "win": 107061
       }
     ],
     "market_type": "1x2",
@@ -648,24 +648,24 @@
     "match": "enfield town vs worthing",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 5.51,
-    "profit_ugx": 5510,
+    "profit_percent": 6.6,
+    "profit_ugx": 6595,
     "total_stake": 100000,
-    "arb_sum": 0.9449,
+    "arb_sum": 0.934,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 1.9,
-        "stake": 55701,
-        "win": 105832
+        "odd": 1.94,
+        "stake": 55186,
+        "win": 107061
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
         "odd": 2.389,
-        "stake": 44299,
-        "win": 105830
+        "stake": 44814,
+        "win": 107061
       }
     ],
     "market_type": "1x2",
@@ -729,24 +729,24 @@
     "match": "limavady utd vs linfield",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 7.24,
-    "profit_ugx": 7242,
+    "profit_percent": 7.42,
+    "profit_ugx": 7417,
     "total_stake": 100000,
-    "arb_sum": 0.9276,
+    "arb_sum": 0.9258,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 2.39,
-        "stake": 45108,
-        "win": 107808
+        "odd": 2.4,
+        "stake": 45005,
+        "win": 108012
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
         "odd": 1.964,
-        "stake": 54892,
-        "win": 107808
+        "stake": 54995,
+        "win": 108010
       }
     ],
     "market_type": "1x2",
@@ -756,24 +756,24 @@
     "match": "limavady utd vs linfield",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 7.24,
-    "profit_ugx": 7242,
+    "profit_percent": 7.42,
+    "profit_ugx": 7417,
     "total_stake": 100000,
-    "arb_sum": 0.9276,
+    "arb_sum": 0.9258,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 2.39,
-        "stake": 45108,
-        "win": 107808
+        "odd": 2.4,
+        "stake": 45005,
+        "win": 108012
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
         "odd": 1.964,
-        "stake": 54892,
-        "win": 107808
+        "stake": 54995,
+        "win": 108010
       }
     ],
     "market_type": "1x2",
@@ -882,60 +882,6 @@
         "odd": 1.806,
         "stake": 59741,
         "win": 107892
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "seekirchen 1945 vs sturm graz",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 20.74,
-    "profit_ugx": 20745,
-    "total_stake": 100000,
-    "arb_sum": 0.7926,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 12.0,
-        "stake": 10515,
-        "win": 126180
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.41,
-        "stake": 89485,
-        "win": 126174
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "seekirchen 1945 vs sturm graz",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 20.74,
-    "profit_ugx": 20745,
-    "total_stake": 100000,
-    "arb_sum": 0.7926,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 12.0,
-        "stake": 10515,
-        "win": 126180
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 1.41,
-        "stake": 89485,
-        "win": 126174
       }
     ],
     "market_type": "1x2",
