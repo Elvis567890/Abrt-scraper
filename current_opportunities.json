@@ -139,31 +139,31 @@
     "match": "herediano vs puntarenas",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.61,
-    "profit_ugx": 1606,
+    "profit_percent": 0.77,
+    "profit_ugx": 773,
     "total_stake": 100000,
-    "arb_sum": 0.9839,
+    "arb_sum": 0.9923,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.56,
-        "stake": 65149,
-        "win": 101632
+        "odd": 1.54,
+        "stake": 65441,
+        "win": 100779
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 6.56,
-        "stake": 15493,
-        "win": 101634
+        "stake": 15363,
+        "win": 100781
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 5.25,
-        "stake": 19358,
-        "win": 101630
+        "stake": 19196,
+        "win": 100779
       }
     ],
     "market_type": "1x2",
@@ -604,6 +604,60 @@
         "odd": 3.335,
         "stake": 41848,
         "win": 139563
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "veraguas utd ii vs deportivo universitario panama ii",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.58,
+    "profit_ugx": 1579,
+    "total_stake": 100000,
+    "arb_sum": 0.9842,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.74,
+        "stake": 58393,
+        "win": 101604
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.442,
+        "stake": 41607,
+        "win": 101604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "veraguas utd ii vs deportivo universitario panama ii",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.58,
+    "profit_ugx": 1579,
+    "total_stake": 100000,
+    "arb_sum": 0.9842,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.74,
+        "stake": 58393,
+        "win": 101604
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.442,
+        "stake": 41607,
+        "win": 101604
       }
     ],
     "market_type": "1x2",
