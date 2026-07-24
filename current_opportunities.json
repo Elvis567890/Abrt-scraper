@@ -309,31 +309,31 @@
     "match": "racing vs gimnasia lp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.79,
-    "profit_ugx": 5794,
+    "profit_percent": 5.84,
+    "profit_ugx": 5840,
     "total_stake": 100000,
-    "arb_sum": 0.9421,
+    "arb_sum": 0.9416,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.854,
-        "stake": 57255,
-        "win": 106151
+        "odd": 1.842,
+        "stake": 57656,
+        "win": 106202
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 4.84,
-        "stake": 21932,
-        "win": 106151
+        "odd": 4.935,
+        "stake": 21520,
+        "win": 106201
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 5.1,
-        "stake": 20814,
-        "win": 106151
+        "stake": 20824,
+        "win": 106202
       }
     ],
     "market_type": "1x2",
@@ -377,31 +377,31 @@
     "match": "lommel vs den haag",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 8.16,
-    "profit_ugx": 8162,
+    "profit_percent": 11.21,
+    "profit_ugx": 11213,
     "total_stake": 100000,
-    "arb_sum": 0.9184,
+    "arb_sum": 0.8879,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.737,
-        "stake": 39784,
-        "win": 108889
+        "odd": 3.0,
+        "stake": 37543,
+        "win": 112629
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.45,
-        "stake": 31562,
-        "win": 108889
+        "odd": 3.4,
+        "stake": 33126,
+        "win": 112628
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.8,
-        "stake": 28655,
-        "win": 108889
+        "odd": 3.84,
+        "stake": 29331,
+        "win": 112631
       }
     ],
     "market_type": "1x2",
@@ -686,6 +686,60 @@
         "odd": 3.415,
         "stake": 41474,
         "win": 141634
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lommel sk vs ado den haag",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.7,
+    "profit_ugx": 1705,
+    "total_stake": 100000,
+    "arb_sum": 0.983,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.69,
+        "stake": 60198,
+        "win": 101735
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.556,
+        "stake": 39802,
+        "win": 101734
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lommel sk vs ado den haag",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.7,
+    "profit_ugx": 1705,
+    "total_stake": 100000,
+    "arb_sum": 0.983,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.69,
+        "stake": 60198,
+        "win": 101735
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.556,
+        "stake": 39802,
+        "win": 101734
       }
     ],
     "market_type": "1x2",
