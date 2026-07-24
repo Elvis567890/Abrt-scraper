@@ -111,7 +111,7 @@
     "arb_sum": 0.97,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 2.65,
         "stake": 38904,
@@ -125,7 +125,7 @@
         "win": 103095
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.35,
         "stake": 30774,
@@ -164,40 +164,6 @@
         "odd": 3.125,
         "stake": 32774,
         "win": 102419
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "vfl wolfsburg vs lyonnais",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 35.45,
-    "profit_ugx": 35453,
-    "total_stake": 100000,
-    "arb_sum": 0.6455,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 4.765,
-        "stake": 32513,
-        "win": 154924
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 4.4,
-        "stake": 35210,
-        "win": 154924
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.8,
-        "stake": 32276,
-        "win": 154925
       }
     ],
     "market_type": "1x2",
@@ -436,6 +402,40 @@
         "odd": 3.8,
         "stake": 28242,
         "win": 107320
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "wolfsburg vs lyon",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 35.45,
+    "profit_ugx": 35453,
+    "total_stake": 100000,
+    "arb_sum": 0.6455,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 4.765,
+        "stake": 32513,
+        "win": 154924
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 4.4,
+        "stake": 35210,
+        "win": 154924
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.8,
+        "stake": 32276,
+        "win": 154925
       }
     ],
     "market_type": "1x2",
