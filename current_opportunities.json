@@ -306,6 +306,40 @@
     "market_specifier": ""
   },
   {
+    "match": "rosenborg vs manchester utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 34.52,
+    "profit_ugx": 34523,
+    "total_stake": 100000,
+    "arb_sum": 0.6548,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.55,
+        "stake": 33566,
+        "win": 152725
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.5,
+        "stake": 33939,
+        "win": 152726
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.7,
+        "stake": 32495,
+        "win": 152726
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "lommel vs den haag",
     "sport": "Football",
     "type": "3-way",
@@ -457,14 +491,14 @@
     "arb_sum": 0.7247,
     "bets": [
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 12.5,
         "stake": 11038,
         "win": 137975
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "X2",
         "odd": 1.551,
         "stake": 88962,
