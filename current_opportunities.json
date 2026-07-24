@@ -340,6 +340,40 @@
     "market_specifier": ""
   },
   {
+    "match": "braunschweig vs southampton",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 23.68,
+    "profit_ugx": 23676,
+    "total_stake": 100000,
+    "arb_sum": 0.7632,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.95,
+        "stake": 33170,
+        "win": 131022
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 34479,
+        "win": 131020
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.05,
+        "stake": 32351,
+        "win": 131022
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "lommel vs den haag",
     "sport": "Football",
     "type": "3-way",
@@ -789,24 +823,24 @@
     "match": "zweigen kanazawa vs gamba osaka",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 11.08,
-    "profit_ugx": 11080,
+    "profit_percent": 11.39,
+    "profit_ugx": 11388,
     "total_stake": 100000,
-    "arb_sum": 0.8892,
+    "arb_sum": 0.8861,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
         "odd": 3.0,
-        "stake": 37487,
-        "win": 112461
+        "stake": 37617,
+        "win": 112851
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 1.799,
-        "stake": 62513,
-        "win": 112461
+        "odd": 1.809,
+        "stake": 62383,
+        "win": 112851
       }
     ],
     "market_type": "1x2",
@@ -816,24 +850,24 @@
     "match": "zweigen kanazawa vs gamba osaka",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 11.08,
-    "profit_ugx": 11080,
+    "profit_percent": 11.39,
+    "profit_ugx": 11388,
     "total_stake": 100000,
-    "arb_sum": 0.8892,
+    "arb_sum": 0.8861,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 3.0,
-        "stake": 37487,
-        "win": 112461
+        "stake": 37617,
+        "win": 112851
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.799,
-        "stake": 62513,
-        "win": 112461
+        "odd": 1.809,
+        "stake": 62383,
+        "win": 112851
       }
     ],
     "market_type": "1x2",
