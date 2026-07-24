@@ -1,5 +1,39 @@
 [
   {
+    "match": "arda vs slavia sofia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.08,
+    "profit_ugx": 2085,
+    "total_stake": 100000,
+    "arb_sum": 0.9792,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.76,
+        "stake": 58028,
+        "win": 102129
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.74,
+        "stake": 21546,
+        "win": 102128
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.0,
+        "stake": 20426,
+        "win": 102130
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "guatemala u20 vs costa rica u20",
     "sport": "Football",
     "type": "3-way",
@@ -139,31 +173,31 @@
     "match": "etoile carouge vs aarau",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 11.14,
-    "profit_ugx": 11142,
+    "profit_percent": 12.05,
+    "profit_ugx": 12048,
     "total_stake": 100000,
-    "arb_sum": 0.8886,
+    "arb_sum": 0.8795,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.95,
-        "stake": 38149,
-        "win": 112540
+        "stake": 38542,
+        "win": 113699
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.7,
-        "stake": 30416,
-        "win": 112539
+        "stake": 30729,
+        "win": 113697
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.58,
-        "stake": 31435,
-        "win": 112537
+        "odd": 3.7,
+        "stake": 30729,
+        "win": 113697
       }
     ],
     "market_type": "1x2",
@@ -204,68 +238,34 @@
     "market_specifier": ""
   },
   {
-    "match": "rushden diamonds vs banbury utd",
+    "match": "hyde utd vs chester",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 14.99,
-    "profit_ugx": 14988,
+    "profit_percent": 25.69,
+    "profit_ugx": 25689,
     "total_stake": 100000,
-    "arb_sum": 0.8501,
+    "arb_sum": 0.7431,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 3.45,
-        "stake": 34096,
-        "win": 117631
+        "odd": 4.5,
+        "stake": 29904,
+        "win": 134568
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 32675,
-        "win": 117630
+        "odd": 3.8,
+        "stake": 35413,
+        "win": 134569
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.54,
-        "stake": 33229,
-        "win": 117631
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "enfield town vs worthing",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 23.33,
-    "profit_ugx": 23325,
-    "total_stake": 100000,
-    "arb_sum": 0.7667,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 4.3,
-        "stake": 30331,
-        "win": 130423
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 36228,
-        "win": 130421
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.9,
-        "stake": 33441,
-        "win": 130420
+        "odd": 3.88,
+        "stake": 34683,
+        "win": 134570
       }
     ],
     "market_type": "1x2",
@@ -306,34 +306,68 @@
     "market_specifier": ""
   },
   {
-    "match": "hyde utd vs chester",
+    "match": "enfield town vs worthing",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 25.69,
-    "profit_ugx": 25689,
+    "profit_percent": 23.33,
+    "profit_ugx": 23325,
     "total_stake": 100000,
-    "arb_sum": 0.7431,
+    "arb_sum": 0.7667,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 4.5,
-        "stake": 29904,
-        "win": 134568
+        "odd": 4.3,
+        "stake": 30331,
+        "win": 130423
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 35413,
-        "win": 134569
+        "odd": 3.6,
+        "stake": 36228,
+        "win": 130421
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.88,
-        "stake": 34683,
-        "win": 134570
+        "odd": 3.9,
+        "stake": 33441,
+        "win": 130420
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rushden diamonds vs banbury utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 14.99,
+    "profit_ugx": 14988,
+    "total_stake": 100000,
+    "arb_sum": 0.8501,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.45,
+        "stake": 34096,
+        "win": 117631
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 32675,
+        "win": 117630
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.54,
+        "stake": 33229,
+        "win": 117631
       }
     ],
     "market_type": "1x2",
