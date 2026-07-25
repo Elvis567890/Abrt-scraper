@@ -9,7 +9,7 @@
     "arb_sum": 0.7373,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 4.525,
         "stake": 29973,
@@ -23,11 +23,45 @@
         "win": 135627
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.8,
         "stake": 35691,
         "win": 135626
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mariehamn vs oulu",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 34.31,
+    "profit_ugx": 34308,
+    "total_stake": 100000,
+    "arb_sum": 0.6569,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 5.3,
+        "stake": 28722,
+        "win": 152227
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 4.4,
+        "stake": 34597,
+        "win": 152227
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.15,
+        "stake": 36681,
+        "win": 152226
       }
     ],
     "market_type": "1x2",
@@ -68,68 +102,34 @@
     "market_specifier": ""
   },
   {
-    "match": "luton vs al kholood",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.01,
-    "profit_ugx": 3010,
-    "total_stake": 100000,
-    "arb_sum": 0.9699,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.36,
-        "stake": 75811,
-        "win": 103103
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.55,
-        "stake": 12059,
-        "win": 103104
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 8.5,
-        "stake": 12130,
-        "win": 103105
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "atlante vs america",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 33.37,
-    "profit_ugx": 33365,
+    "profit_percent": 33.35,
+    "profit_ugx": 33350,
     "total_stake": 100000,
-    "arb_sum": 0.6663,
+    "arb_sum": 0.6665,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 5.61,
-        "stake": 26751,
-        "win": 150073
+        "odd": 5.51,
+        "stake": 27230,
+        "win": 150037
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.2,
-        "stake": 35731,
-        "win": 150070
+        "stake": 35723,
+        "win": 150037
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 4.0,
-        "stake": 37518,
-        "win": 150072
+        "odd": 4.05,
+        "stake": 37046,
+        "win": 150036
       }
     ],
     "market_type": "1x2",
@@ -298,6 +298,60 @@
     "market_specifier": ""
   },
   {
+    "match": "mariehamn vs oulu",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.89,
+    "profit_ugx": 7893,
+    "total_stake": 100000,
+    "arb_sum": 0.9211,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.35,
+        "stake": 46200,
+        "win": 108570
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 53800,
+        "win": 108568
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mariehamn vs oulu",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.89,
+    "profit_ugx": 7893,
+    "total_stake": 100000,
+    "arb_sum": 0.9211,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.35,
+        "stake": 46200,
+        "win": 108570
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 53800,
+        "win": 108568
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "myanmar vs malaysia",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -400,60 +454,6 @@
         "odd": 1.463,
         "stake": 83112,
         "win": 121593
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "stubai vs wsg tirol ii",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 29.99,
-    "profit_ugx": 29986,
-    "total_stake": 100000,
-    "arb_sum": 0.7001,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 3.04,
-        "stake": 46983,
-        "win": 142828
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.694,
-        "stake": 53017,
-        "win": 142828
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "stubai vs wsg tirol ii",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 29.99,
-    "profit_ugx": 29986,
-    "total_stake": 100000,
-    "arb_sum": 0.7001,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 3.04,
-        "stake": 46983,
-        "win": 142828
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.694,
-        "stake": 53017,
-        "win": 142828
       }
     ],
     "market_type": "1x2",
