@@ -37,31 +37,31 @@
     "match": "aarhus vs brondby",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.64,
-    "profit_ugx": 635,
+    "profit_percent": 1.15,
+    "profit_ugx": 1153,
     "total_stake": 100000,
-    "arb_sum": 0.9936,
+    "arb_sum": 0.9885,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.26,
-        "stake": 44531,
-        "win": 100640
+        "stake": 44764,
+        "win": 101167
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 27200,
-        "win": 100640
+        "odd": 3.75,
+        "stake": 26978,
+        "win": 101168
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.56,
-        "stake": 28269,
-        "win": 100638
+        "odd": 3.58,
+        "stake": 28259,
+        "win": 101167
       }
     ],
     "market_type": "1x2",
@@ -136,40 +136,6 @@
     "market_specifier": ""
   },
   {
-    "match": "cesena vs carpi",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.48,
-    "profit_ugx": 1483,
-    "total_stake": 100000,
-    "arb_sum": 0.9852,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.33,
-        "stake": 76320,
-        "win": 101506
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.45,
-        "stake": 12013,
-        "win": 101510
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 8.7,
-        "stake": 11667,
-        "win": 101503
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "le mans vs nantes",
     "sport": "Football",
     "type": "3-way",
@@ -207,31 +173,65 @@
     "match": "wycombe vs portsmouth",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.04,
-    "profit_ugx": 6038,
+    "profit_percent": 8.34,
+    "profit_ugx": 8339,
     "total_stake": 100000,
-    "arb_sum": 0.9396,
+    "arb_sum": 0.9166,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.85,
-        "stake": 37342,
-        "win": 106425
+        "odd": 3.05,
+        "stake": 35770,
+        "win": 109098
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.3,
-        "stake": 32250,
-        "win": 106425
+        "stake": 33060,
+        "win": 109098
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.5,
-        "stake": 30407,
-        "win": 106424
+        "stake": 31171,
+        "win": 109098
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "torino vs cittadella",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.74,
+    "profit_ugx": 1736,
+    "total_stake": 100000,
+    "arb_sum": 0.9826,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.27,
+        "stake": 80131,
+        "win": 101766
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 10.5,
+        "stake": 9692,
+        "win": 101766
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 10.0,
+        "stake": 10177,
+        "win": 101770
       }
     ],
     "market_type": "1x2",
@@ -300,6 +300,40 @@
         "odd": 3.22,
         "stake": 32703,
         "win": 105304
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "verona vs dolomiti bellunesi",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.57,
+    "profit_ugx": 570,
+    "total_stake": 100000,
+    "arb_sum": 0.9943,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.22,
+        "stake": 82437,
+        "win": 100573
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 13.4,
+        "stake": 7505,
+        "win": 100567
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 10.0,
+        "stake": 10057,
+        "win": 100570
       }
     ],
     "market_type": "1x2",
