@@ -34,68 +34,34 @@
     "market_specifier": ""
   },
   {
-    "match": "luzern vs thun",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.65,
-    "profit_ugx": 2647,
-    "total_stake": 100000,
-    "arb_sum": 0.9735,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 2.06,
-        "stake": 49863,
-        "win": 102718
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 25680,
-        "win": 102720
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 4.2,
-        "stake": 24457,
-        "win": 102719
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "porto vs aston villa",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.31,
-    "profit_ugx": 2314,
+    "profit_percent": 1.41,
+    "profit_ugx": 1408,
     "total_stake": 100000,
-    "arb_sum": 0.9769,
+    "arb_sum": 0.9859,
     "bets": [
       {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.22,
-        "stake": 46112,
-        "win": 102369
-      },
-      {
         "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 27298,
-        "win": 102368
+        "outcome": "Home",
+        "odd": 2.26,
+        "stake": 44880,
+        "win": 101429
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 28979,
+        "win": 101426
+      },
+      {
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.85,
-        "stake": 26589,
-        "win": 102368
+        "odd": 3.88,
+        "stake": 26141,
+        "win": 101427
       }
     ],
     "market_type": "1x2",
