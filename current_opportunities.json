@@ -1,5 +1,39 @@
 [
   {
+    "match": "guadalajara vs juarez",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.15,
+    "profit_ugx": 1148,
+    "total_stake": 100000,
+    "arb_sum": 0.9885,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.49,
+        "stake": 67894,
+        "win": 101162
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.73,
+        "stake": 17655,
+        "win": 101163
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 7.0,
+        "stake": 14452,
+        "win": 101164
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "columbus vs cincinnati",
     "sport": "Football",
     "type": "3-way",
