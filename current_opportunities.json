@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "genoa vs vicenza calcio",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.66,
+    "profit_ugx": 659,
+    "total_stake": 100000,
+    "arb_sum": 0.9934,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.71,
+        "stake": 58867,
+        "win": 100663
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.705,
+        "stake": 21395,
+        "win": 100663
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.1,
+        "stake": 19738,
+        "win": 100664
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "torino vs cittadella",
     "sport": "Football",
     "type": "3-way",
@@ -241,31 +275,31 @@
     "match": "konyaspor vs hull",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.23,
-    "profit_ugx": 5229,
+    "profit_percent": 1.0,
+    "profit_ugx": 1003,
     "total_stake": 100000,
-    "arb_sum": 0.9477,
+    "arb_sum": 0.99,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.83,
-        "stake": 37285,
-        "win": 105517
+        "odd": 2.54,
+        "stake": 39769,
+        "win": 101013
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 30148,
-        "win": 105518
+        "stake": 28861,
+        "win": 101014
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.24,
-        "stake": 32567,
-        "win": 105517
+        "odd": 3.22,
+        "stake": 31370,
+        "win": 101011
       }
     ],
     "market_type": "1x2",
