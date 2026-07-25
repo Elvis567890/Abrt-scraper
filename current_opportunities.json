@@ -34,68 +34,34 @@
     "market_specifier": ""
   },
   {
-    "match": "cali vs jaguares de cordoba",
+    "match": "degerfors vs djurgarden",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.74,
-    "profit_ugx": 6739,
+    "profit_percent": 23.78,
+    "profit_ugx": 23783,
     "total_stake": 100000,
-    "arb_sum": 0.9326,
+    "arb_sum": 0.7622,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.57,
-        "stake": 68297,
-        "win": 107226
+        "odd": 4.265,
+        "stake": 30763,
+        "win": 131204
       },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 6.16,
-        "stake": 17407,
-        "win": 107227
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 7.5,
-        "stake": 14297,
-        "win": 107228
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "pohang vs jeonbuk",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.23,
-    "profit_ugx": 3226,
-    "total_stake": 100000,
-    "arb_sum": 0.9677,
-    "bets": [
       {
         "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.1,
-        "stake": 33333,
-        "win": 103332
-      },
-      {
-        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.1,
-        "stake": 33333,
-        "win": 103332
+        "odd": 3.8,
+        "stake": 34527,
+        "win": 131203
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.1,
-        "stake": 33333,
-        "win": 103332
+        "odd": 3.78,
+        "stake": 34710,
+        "win": 131204
       }
     ],
     "market_type": "1x2",
@@ -312,6 +278,60 @@
     "market_specifier": ""
   },
   {
+    "match": "degerfors vs djurgardens",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.1,
+    "profit_ugx": 3102,
+    "total_stake": 100000,
+    "arb_sum": 0.969,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.02,
+        "stake": 51090,
+        "win": 103202
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.11,
+        "stake": 48910,
+        "win": 103200
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "degerfors vs djurgardens",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.1,
+    "profit_ugx": 3102,
+    "total_stake": 100000,
+    "arb_sum": 0.969,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.02,
+        "stake": 51090,
+        "win": 103202
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.11,
+        "stake": 48910,
+        "win": 103200
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "myanmar vs malaysia",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -360,6 +380,60 @@
         "odd": 2.036,
         "stake": 49926,
         "win": 101649
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "laos vs thailand",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.84,
+    "profit_ugx": 17842,
+    "total_stake": 100000,
+    "arb_sum": 0.8216,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 7.1,
+        "stake": 17143,
+        "win": 121715
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.469,
+        "stake": 82857,
+        "win": 121717
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "laos vs thailand",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.84,
+    "profit_ugx": 17842,
+    "total_stake": 100000,
+    "arb_sum": 0.8216,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 7.1,
+        "stake": 17143,
+        "win": 121715
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.469,
+        "stake": 82857,
+        "win": 121717
       }
     ],
     "market_type": "1x2",
