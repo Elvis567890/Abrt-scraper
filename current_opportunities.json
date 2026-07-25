@@ -173,31 +173,65 @@
     "match": "fk ulytau vs irtysh pavlodar",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.88,
-    "profit_ugx": 1884,
+    "profit_percent": 1.54,
+    "profit_ugx": 1538,
     "total_stake": 100000,
-    "arb_sum": 0.9812,
+    "arb_sum": 0.9846,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.394,
-        "stake": 42573,
-        "win": 101920
+        "odd": 2.363,
+        "stake": 42980,
+        "win": 101562
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.3,
-        "stake": 30885,
-        "win": 101920
+        "stake": 30776,
+        "win": 101561
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.84,
-        "stake": 26542,
-        "win": 101921
+        "odd": 3.87,
+        "stake": 26243,
+        "win": 101560
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lech poznan vs cracovia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.27,
+    "profit_ugx": 1275,
+    "total_stake": 100000,
+    "arb_sum": 0.9873,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.54,
+        "stake": 65774,
+        "win": 101292
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.84,
+        "stake": 17344,
+        "win": 101289
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.0,
+        "stake": 16882,
+        "win": 101292
       }
     ],
     "market_type": "1x2",
@@ -306,40 +340,6 @@
     "market_specifier": ""
   },
   {
-    "match": "espanyol vs sabadell",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.95,
-    "profit_ugx": 4951,
-    "total_stake": 100000,
-    "arb_sum": 0.9505,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.42,
-        "stake": 74090,
-        "win": 105208
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.47,
-        "stake": 12421,
-        "win": 105206
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 7.8,
-        "stake": 13488,
-        "win": 105206
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "real oviedo ii vs real aviles",
     "sport": "Football",
     "type": "3-way",
@@ -402,6 +402,40 @@
         "odd": 8.5,
         "stake": 12010,
         "win": 102085
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rc lens vs charleroi",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.71,
+    "profit_ugx": 1711,
+    "total_stake": 100000,
+    "arb_sum": 0.9829,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.45,
+        "stake": 70166,
+        "win": 101741
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.65,
+        "stake": 15299,
+        "win": 101738
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 7.0,
+        "stake": 14534,
+        "win": 101738
       }
     ],
     "market_type": "1x2",
