@@ -34,34 +34,68 @@
     "market_specifier": ""
   },
   {
+    "match": "millonarios vs bucaramanga",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.72,
+    "profit_ugx": 721,
+    "total_stake": 100000,
+    "arb_sum": 0.9928,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.85,
+        "stake": 54447,
+        "win": 100727
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.395,
+        "stake": 22918,
+        "win": 100725
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.45,
+        "stake": 22635,
+        "win": 100726
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "new york red bulls vs charlotte",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.01,
-    "profit_ugx": 6006,
+    "profit_percent": 5.04,
+    "profit_ugx": 5036,
     "total_stake": 100000,
-    "arb_sum": 0.9399,
+    "arb_sum": 0.9496,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.248,
-        "stake": 47327,
-        "win": 106391
+        "odd": 2.2,
+        "stake": 47865,
+        "win": 105303
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.0,
-        "stake": 26598,
-        "win": 106392
+        "stake": 26326,
+        "win": 105304
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.08,
-        "stake": 26076,
-        "win": 106390
+        "stake": 25809,
+        "win": 105301
       }
     ],
     "market_type": "1x2",
