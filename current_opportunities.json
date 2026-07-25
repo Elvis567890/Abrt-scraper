@@ -173,31 +173,31 @@
     "match": "orlando vs nashville",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 10.56,
-    "profit_ugx": 10560,
+    "profit_percent": 10.2,
+    "profit_ugx": 10199,
     "total_stake": 100000,
-    "arb_sum": 0.8944,
+    "arb_sum": 0.898,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 2.73,
-        "stake": 40955,
-        "win": 111807
+        "stake": 40790,
+        "win": 111357
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 29815,
-        "win": 111806
+        "odd": 3.7,
+        "stake": 30097,
+        "win": 111359
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.825,
-        "stake": 29230,
-        "win": 111805
+        "stake": 29113,
+        "win": 111357
       }
     ],
     "market_type": "1x2",
@@ -207,31 +207,31 @@
     "match": "new york vs chicago fire",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.83,
-    "profit_ugx": 4834,
+    "profit_percent": 4.68,
+    "profit_ugx": 4684,
     "total_stake": 100000,
-    "arb_sum": 0.9517,
+    "arb_sum": 0.9532,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.45,
-        "stake": 42890,
-        "win": 105081
+        "stake": 42822,
+        "win": 104914
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.7,
-        "stake": 28400,
-        "win": 105080
+        "stake": 28355,
+        "win": 104914
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.66,
-        "stake": 28710,
-        "win": 105079
+        "odd": 3.64,
+        "stake": 28823,
+        "win": 104916
       }
     ],
     "market_type": "1x2",
@@ -558,6 +558,60 @@
         "odd": 2.533,
         "stake": 56723,
         "win": 143679
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "zdirec nad doubravou vs kurim",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 16.24,
+    "profit_ugx": 16244,
+    "total_stake": 100000,
+    "arb_sum": 0.8376,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 55533,
+        "win": 119396
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.685,
+        "stake": 44467,
+        "win": 119394
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "zdirec nad doubravou vs kurim",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 16.24,
+    "profit_ugx": 16244,
+    "total_stake": 100000,
+    "arb_sum": 0.8376,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 55533,
+        "win": 119396
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.685,
+        "stake": 44467,
+        "win": 119394
       }
     ],
     "market_type": "1x2",
