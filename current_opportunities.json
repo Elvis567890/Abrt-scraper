@@ -71,31 +71,65 @@
     "match": "valladolid vs getafe",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.33,
-    "profit_ugx": 9333,
+    "profit_percent": 9.83,
+    "profit_ugx": 9829,
     "total_stake": 100000,
-    "arb_sum": 0.9067,
+    "arb_sum": 0.9017,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 3.44,
-        "stake": 32062,
-        "win": 110293
+        "stake": 32239,
+        "win": 110902
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.15,
-        "stake": 35014,
-        "win": 110294
+        "odd": 3.2,
+        "stake": 34657,
+        "win": 110902
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.35,
-        "stake": 32924,
-        "win": 110295
+        "stake": 33105,
+        "win": 110902
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "cadiz vs cordoba",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.76,
+    "profit_ugx": 2764,
+    "total_stake": 100000,
+    "arb_sum": 0.9724,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.73,
+        "stake": 37671,
+        "win": 102842
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.3,
+        "stake": 31164,
+        "win": 102841
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.3,
+        "stake": 31164,
+        "win": 102841
       }
     ],
     "market_type": "1x2",
