@@ -3,31 +3,65 @@
     "match": "estudiantes rio cuarto vs tigre",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.33,
-    "profit_ugx": 1326,
+    "profit_percent": 1.13,
+    "profit_ugx": 1130,
     "total_stake": 100000,
-    "arb_sum": 0.9867,
+    "arb_sum": 0.9887,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.58,
-        "stake": 28308,
-        "win": 101343
+        "odd": 3.565,
+        "stake": 28371,
+        "win": 101143
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 2.9,
-        "stake": 34946,
-        "win": 101343
+        "stake": 34877,
+        "win": 101143
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 2.758,
-        "stake": 36745,
-        "win": 101343
+        "odd": 2.752,
+        "stake": 36752,
+        "win": 101142
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lech poznan vs cracovia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.11,
+    "profit_ugx": 2107,
+    "total_stake": 100000,
+    "arb_sum": 0.9789,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.56,
+        "stake": 65483,
+        "win": 102153
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.84,
+        "stake": 17492,
+        "win": 102153
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.0,
+        "stake": 17025,
+        "win": 102150
       }
     ],
     "market_type": "1x2",
