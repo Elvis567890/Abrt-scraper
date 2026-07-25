@@ -306,6 +306,40 @@
     "market_specifier": ""
   },
   {
+    "match": "espanyol vs sabadell",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.29,
+    "profit_ugx": 6290,
+    "total_stake": 100000,
+    "arb_sum": 0.9371,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.29,
+        "stake": 82723,
+        "win": 106713
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 10.5,
+        "stake": 10163,
+        "win": 106712
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 15.0,
+        "stake": 7114,
+        "win": 106710
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "real oviedo ii vs real aviles",
     "sport": "Football",
     "type": "3-way",
