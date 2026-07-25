@@ -34,34 +34,34 @@
     "market_specifier": ""
   },
   {
-    "match": "servette vs basel",
+    "match": "aarhus vs brondby",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.27,
-    "profit_ugx": 5271,
+    "profit_percent": 0.54,
+    "profit_ugx": 540,
     "total_stake": 100000,
-    "arb_sum": 0.9473,
+    "arb_sum": 0.9946,
     "bets": [
       {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.38,
-        "stake": 44355,
-        "win": 105565
-      },
-      {
         "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.85,
-        "stake": 27419,
-        "win": 105563
+        "outcome": "Home",
+        "odd": 2.07,
+        "stake": 48571,
+        "win": 100542
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 25780,
+        "win": 100542
+      },
+      {
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.74,
-        "stake": 28226,
-        "win": 105565
+        "odd": 3.92,
+        "stake": 25649,
+        "win": 100544
       }
     ],
     "market_type": "1x2",
