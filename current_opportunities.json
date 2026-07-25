@@ -170,68 +170,34 @@
     "market_specifier": ""
   },
   {
-    "match": "fk ulytau vs irtysh pavlodar",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.08,
-    "profit_ugx": 1082,
-    "total_stake": 100000,
-    "arb_sum": 0.9892,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.347,
-        "stake": 43073,
-        "win": 101092
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 30634,
-        "win": 101092
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.845,
-        "stake": 26292,
-        "win": 101093
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "degerfors vs djurgarden",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 28.61,
-    "profit_ugx": 28615,
+    "profit_percent": 0.66,
+    "profit_ugx": 660,
     "total_stake": 100000,
-    "arb_sum": 0.7139,
+    "arb_sum": 0.9934,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 4.85,
-        "stake": 28884,
-        "win": 140087
+        "odd": 4.925,
+        "stake": 20440,
+        "win": 100667
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 4.1,
+        "stake": 24552,
+        "win": 100663
       },
       {
         "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 35919,
-        "win": 140084
-      },
-      {
-        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.98,
-        "stake": 35197,
-        "win": 140084
+        "odd": 1.83,
+        "stake": 55008,
+        "win": 100665
       }
     ],
     "market_type": "1x2",
@@ -300,6 +266,40 @@
         "odd": 3.74,
         "stake": 28021,
         "win": 104799
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "harrogate vs doncaster rvs",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 18.75,
+    "profit_ugx": 18750,
+    "total_stake": 100000,
+    "arb_sum": 0.8125,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.85,
+        "stake": 31968,
+        "win": 123077
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 33264,
+        "win": 123077
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.54,
+        "stake": 34768,
+        "win": 123079
       }
     ],
     "market_type": "1x2",
