@@ -1,39 +1,5 @@
 [
   {
-    "match": "river plate vs barracas central",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 9.99,
-    "profit_ugx": 9989,
-    "total_stake": 100000,
-    "arb_sum": 0.9001,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.34,
-        "stake": 82908,
-        "win": 111097
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 13.0,
-        "stake": 8546,
-        "win": 111098
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 13.0,
-        "stake": 8546,
-        "win": 111098
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "lanus vs san lorenzo",
     "sport": "Football",
     "type": "3-way",
@@ -241,31 +207,31 @@
     "match": "minnesota utd vs vancouver whitecaps",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 18.8,
-    "profit_ugx": 18801,
+    "profit_percent": 18.19,
+    "profit_ugx": 18192,
     "total_stake": 100000,
-    "arb_sum": 0.812,
+    "arb_sum": 0.8181,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.35,
-        "stake": 36763,
-        "win": 123156
+        "stake": 36489,
+        "win": 122238
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.9,
-        "stake": 31578,
-        "win": 123154
+        "stake": 31343,
+        "win": 122238
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.89,
-        "stake": 31659,
-        "win": 123154
+        "odd": 3.8,
+        "stake": 32168,
+        "win": 122238
       }
     ],
     "market_type": "1x2",
@@ -612,6 +578,60 @@
         "odd": 2.992,
         "stake": 36435,
         "win": 109014
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "minnesota utd vs vancouver whitecaps",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.18,
+    "profit_ugx": 4179,
+    "total_stake": 100000,
+    "arb_sum": 0.9582,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.823,
+        "stake": 57247,
+        "win": 104361
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.441,
+        "stake": 42753,
+        "win": 104360
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "minnesota utd vs vancouver whitecaps",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.18,
+    "profit_ugx": 4179,
+    "total_stake": 100000,
+    "arb_sum": 0.9582,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.823,
+        "stake": 57247,
+        "win": 104361
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.441,
+        "stake": 42753,
+        "win": 104360
       }
     ],
     "market_type": "1x2",
