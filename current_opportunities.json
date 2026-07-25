@@ -68,34 +68,68 @@
     "market_specifier": ""
   },
   {
+    "match": "aarhus vs brondby",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.56,
+    "profit_ugx": 556,
+    "total_stake": 100000,
+    "arb_sum": 0.9944,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.26,
+        "stake": 44495,
+        "win": 100559
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 27178,
+        "win": 100559
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.55,
+        "stake": 28327,
+        "win": 100561
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "paok w vs neftchi baku w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.71,
-    "profit_ugx": 3711,
+    "profit_percent": 3.55,
+    "profit_ugx": 3552,
     "total_stake": 100000,
-    "arb_sum": 0.9629,
+    "arb_sum": 0.9645,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 1.17,
-        "stake": 88764,
-        "win": 103854
+        "stake": 88618,
+        "win": 103683
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 18.0,
-        "stake": 5770,
-        "win": 103860
+        "odd": 17.5,
+        "stake": 5925,
+        "win": 103688
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 19.0,
-        "stake": 5466,
-        "win": 103854
+        "stake": 5457,
+        "win": 103683
       }
     ],
     "market_type": "1x2",
@@ -173,31 +207,31 @@
     "match": "lech poznan vs cracovia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.82,
-    "profit_ugx": 824,
+    "profit_percent": 0.75,
+    "profit_ugx": 746,
     "total_stake": 100000,
-    "arb_sum": 0.9918,
+    "arb_sum": 0.9925,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.54,
-        "stake": 65474,
-        "win": 100830
+        "odd": 1.56,
+        "stake": 64585,
+        "win": 100753
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 5.69,
-        "stake": 17721,
-        "win": 100832
+        "odd": 5.41,
+        "stake": 18623,
+        "win": 100750
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 6.0,
-        "stake": 16805,
-        "win": 100830
+        "stake": 16792,
+        "win": 100752
       }
     ],
     "market_type": "1x2",
