@@ -102,34 +102,68 @@
     "market_specifier": ""
   },
   {
+    "match": "fk ulytau vs irtysh pavlodar",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.67,
+    "profit_ugx": 666,
+    "total_stake": 100000,
+    "arb_sum": 0.9933,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.592,
+        "stake": 38839,
+        "win": 100671
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.25,
+        "stake": 30975,
+        "win": 100669
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.335,
+        "stake": 30186,
+        "win": 100670
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "degerfors vs djurgarden",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 31.2,
-    "profit_ugx": 31202,
+    "profit_percent": 29.53,
+    "profit_ugx": 29533,
     "total_stake": 100000,
-    "arb_sum": 0.688,
+    "arb_sum": 0.7047,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 5.1,
-        "stake": 28501,
-        "win": 145355
+        "odd": 4.7,
+        "stake": 30194,
+        "win": 141912
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.2,
-        "stake": 34608,
-        "win": 145354
+        "stake": 33788,
+        "win": 141910
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.94,
-        "stake": 36892,
-        "win": 145354
+        "stake": 36018,
+        "win": 141911
       }
     ],
     "market_type": "1x2",
