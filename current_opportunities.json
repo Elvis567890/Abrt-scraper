@@ -3,31 +3,65 @@
     "match": "estudiantes rio cuarto vs tigre",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.63,
-    "profit_ugx": 1626,
+    "profit_percent": 1.71,
+    "profit_ugx": 1713,
     "total_stake": 100000,
-    "arb_sum": 0.9837,
+    "arb_sum": 0.9829,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.38,
-        "stake": 30075,
-        "win": 101654
+        "odd": 3.56,
+        "stake": 28579,
+        "win": 101741
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 2.9,
-        "stake": 35053,
-        "win": 101654
+        "odd": 2.8,
+        "stake": 36337,
+        "win": 101744
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 2.915,
-        "stake": 34872,
-        "win": 101652
+        "odd": 2.9,
+        "stake": 35084,
+        "win": 101744
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lech poznan vs cracovia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.21,
+    "profit_ugx": 1210,
+    "total_stake": 100000,
+    "arb_sum": 0.9879,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.58,
+        "stake": 64066,
+        "win": 101224
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.31,
+        "stake": 19063,
+        "win": 101225
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.0,
+        "stake": 16871,
+        "win": 101226
       }
     ],
     "market_type": "1x2",
@@ -232,40 +266,6 @@
         "odd": 4.65,
         "stake": 23327,
         "win": 108471
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "gimnastic vs andorra",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.07,
-    "profit_ugx": 1070,
-    "total_stake": 100000,
-    "arb_sum": 0.9893,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.59,
-        "stake": 39028,
-        "win": 101083
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.2,
-        "stake": 31588,
-        "win": 101082
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.44,
-        "stake": 29384,
-        "win": 101081
       }
     ],
     "market_type": "1x2",
