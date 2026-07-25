@@ -34,40 +34,6 @@
     "market_specifier": ""
   },
   {
-    "match": "paok w vs neftchi baku w",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.53,
-    "profit_ugx": 527,
-    "total_stake": 100000,
-    "arb_sum": 0.9947,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.13,
-        "stake": 88964,
-        "win": 100529
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 17.5,
-        "stake": 5745,
-        "win": 100538
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 19.0,
-        "stake": 5291,
-        "win": 100529
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "kalmar ff vs mjallby aif",
     "sport": "Football",
     "type": "3-way",
@@ -139,31 +105,65 @@
     "match": "konyaspor vs hull",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.77,
-    "profit_ugx": 2772,
+    "profit_percent": 2.34,
+    "profit_ugx": 2340,
     "total_stake": 100000,
-    "arb_sum": 0.9723,
+    "arb_sum": 0.9766,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.78,
-        "stake": 36997,
-        "win": 102852
+        "odd": 2.65,
+        "stake": 38640,
+        "win": 102396
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.25,
-        "stake": 31646,
-        "win": 102850
+        "stake": 31507,
+        "win": 102398
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.28,
-        "stake": 31357,
-        "win": 102851
+        "odd": 3.43,
+        "stake": 29853,
+        "win": 102396
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "trento scsd vs sassuolo",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 39.57,
+    "profit_ugx": 39565,
+    "total_stake": 100000,
+    "arb_sum": 0.6043,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 6.1,
+        "stake": 27126,
+        "win": 165469
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.75,
+        "stake": 34835,
+        "win": 165466
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.35,
+        "stake": 38039,
+        "win": 165470
       }
     ],
     "market_type": "1x2",
