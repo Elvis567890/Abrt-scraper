@@ -71,65 +71,31 @@
     "match": "aarhus vs brondby",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.83,
-    "profit_ugx": 830,
+    "profit_percent": 0.64,
+    "profit_ugx": 635,
     "total_stake": 100000,
-    "arb_sum": 0.9917,
+    "arb_sum": 0.9936,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.27,
-        "stake": 44422,
-        "win": 100838
+        "odd": 2.26,
+        "stake": 44531,
+        "win": 100640
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.7,
-        "stake": 27253,
-        "win": 100836
+        "stake": 27200,
+        "win": 100640
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.56,
-        "stake": 28325,
-        "win": 100837
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "glentoran w vs pyunik yerevan w",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.0,
-    "profit_ugx": 5000,
-    "total_stake": 100000,
-    "arb_sum": 0.95,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.6,
-        "stake": 65789,
-        "win": 105262
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 8.0,
-        "stake": 13158,
-        "win": 105264
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 5.0,
-        "stake": 21053,
-        "win": 105265
+        "stake": 28269,
+        "win": 100638
       }
     ],
     "market_type": "1x2",
@@ -275,31 +241,31 @@
     "match": "degerfors vs djurgarden",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 28.36,
-    "profit_ugx": 28360,
+    "profit_percent": 28.7,
+    "profit_ugx": 28701,
     "total_stake": 100000,
-    "arb_sum": 0.7164,
+    "arb_sum": 0.713,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 4.85,
-        "stake": 28781,
-        "win": 139588
+        "odd": 4.645,
+        "stake": 30195,
+        "win": 140256
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 35791,
-        "win": 139585
+        "odd": 4.1,
+        "stake": 34208,
+        "win": 140253
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.94,
-        "stake": 35428,
-        "win": 139586
+        "stake": 35597,
+        "win": 140252
       }
     ],
     "market_type": "1x2",
@@ -368,6 +334,40 @@
         "odd": 3.74,
         "stake": 28021,
         "win": 104799
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "real oviedo ii vs real aviles",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.06,
+    "profit_ugx": 4055,
+    "total_stake": 100000,
+    "arb_sum": 0.9594,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.99,
+        "stake": 34858,
+        "win": 104225
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.2,
+        "stake": 32571,
+        "win": 104227
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.2,
+        "stake": 32571,
+        "win": 104227
       }
     ],
     "market_type": "1x2",
@@ -456,6 +456,60 @@
         "odd": 1.881,
         "stake": 63554,
         "win": 119545
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "degerfors vs djurgardens",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.41,
+    "profit_ugx": 5411,
+    "total_stake": 100000,
+    "arb_sum": 0.9459,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 49173,
+        "win": 105722
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.08,
+        "stake": 50827,
+        "win": 105720
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "degerfors vs djurgardens",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.41,
+    "profit_ugx": 5411,
+    "total_stake": 100000,
+    "arb_sum": 0.9459,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 49173,
+        "win": 105722
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.08,
+        "stake": 50827,
+        "win": 105720
       }
     ],
     "market_type": "1x2",
