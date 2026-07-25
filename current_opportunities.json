@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "luzern vs thun",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.47,
+    "profit_ugx": 1469,
+    "total_stake": 100000,
+    "arb_sum": 0.9853,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.06,
+        "stake": 49267,
+        "win": 101490
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 24164,
+        "win": 101489
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.82,
+        "stake": 26568,
+        "win": 101490
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "cadiz vs cordoba",
     "sport": "Football",
     "type": "3-way",
@@ -437,24 +471,24 @@
     "match": "aguilas vs ud almeria",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 5.24,
-    "profit_ugx": 5242,
+    "profit_percent": 4.92,
+    "profit_ugx": 4925,
     "total_stake": 100000,
-    "arb_sum": 0.9476,
+    "arb_sum": 0.9508,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
         "odd": 2.59,
-        "stake": 40746,
-        "win": 105532
+        "stake": 40610,
+        "win": 105180
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 1.781,
-        "stake": 59254,
-        "win": 105531
+        "odd": 1.771,
+        "stake": 59390,
+        "win": 105180
       }
     ],
     "market_type": "1x2",
@@ -464,24 +498,24 @@
     "match": "aguilas vs ud almeria",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 5.24,
-    "profit_ugx": 5242,
+    "profit_percent": 4.92,
+    "profit_ugx": 4925,
     "total_stake": 100000,
-    "arb_sum": 0.9476,
+    "arb_sum": 0.9508,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 2.59,
-        "stake": 40746,
-        "win": 105532
+        "stake": 40610,
+        "win": 105180
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.781,
-        "stake": 59254,
-        "win": 105531
+        "odd": 1.771,
+        "stake": 59390,
+        "win": 105180
       }
     ],
     "market_type": "1x2",
