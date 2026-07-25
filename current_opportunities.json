@@ -37,31 +37,65 @@
     "match": "myanmar vs malaysia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 33.86,
-    "profit_ugx": 33862,
+    "profit_percent": 33.58,
+    "profit_ugx": 33576,
     "total_stake": 100000,
-    "arb_sum": 0.6614,
+    "arb_sum": 0.6642,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 5.4,
-        "stake": 28000,
-        "win": 151200
+        "stake": 27879,
+        "win": 150547
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.2,
-        "stake": 36000,
-        "win": 151200
+        "stake": 35845,
+        "win": 150549
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.2,
-        "stake": 36000,
-        "win": 151200
+        "odd": 4.15,
+        "stake": 36276,
+        "win": 150545
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "aarhus vs brondby",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.56,
+    "profit_ugx": 556,
+    "total_stake": 100000,
+    "arb_sum": 0.9944,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.26,
+        "stake": 44495,
+        "win": 100559
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 27178,
+        "win": 100559
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.55,
+        "stake": 28327,
+        "win": 100561
       }
     ],
     "market_type": "1x2",
