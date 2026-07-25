@@ -275,31 +275,31 @@
     "match": "houston dynamo vs austin",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 17.66,
-    "profit_ugx": 17660,
+    "profit_percent": 13.57,
+    "profit_ugx": 13572,
     "total_stake": 100000,
-    "arb_sum": 0.8234,
+    "arb_sum": 0.8643,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.45,
-        "stake": 49571,
-        "win": 121449
+        "stake": 47226,
+        "win": 115704
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.78,
+        "stake": 24206,
+        "win": 115705
       },
       {
         "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 4.885,
-        "stake": 24861,
-        "win": 121446
-      },
-      {
-        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 4.75,
-        "stake": 25568,
-        "win": 121448
+        "odd": 4.05,
+        "stake": 28569,
+        "win": 115704
       }
     ],
     "market_type": "1x2",
@@ -368,6 +368,74 @@
         "odd": 3.9,
         "stake": 27632,
         "win": 107765
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "brooklyn vs san antonio",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.87,
+    "profit_ugx": 865,
+    "total_stake": 100000,
+    "arb_sum": 0.9913,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.41,
+        "stake": 41856,
+        "win": 100873
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 28821,
+        "win": 100874
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.44,
+        "stake": 29323,
+        "win": 100871
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "miami vs tampa bay rowdies",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 27.99,
+    "profit_ugx": 27990,
+    "total_stake": 100000,
+    "arb_sum": 0.7201,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.75,
+        "stake": 29236,
+        "win": 138871
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 35608,
+        "win": 138871
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.95,
+        "stake": 35157,
+        "win": 138870
       }
     ],
     "market_type": "1x2",
