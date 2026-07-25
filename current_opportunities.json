@@ -139,31 +139,31 @@
     "match": "degerfors vs djurgarden",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 29.32,
-    "profit_ugx": 29315,
+    "profit_percent": 28.1,
+    "profit_ugx": 28103,
     "total_stake": 100000,
-    "arb_sum": 0.7068,
+    "arb_sum": 0.719,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 4.8,
-        "stake": 29474,
-        "win": 141475
+        "odd": 4.795,
+        "stake": 29007,
+        "win": 139089
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 4.2,
-        "stake": 33684,
-        "win": 141473
+        "odd": 4.0,
+        "stake": 34772,
+        "win": 139088
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.84,
-        "stake": 36842,
-        "win": 141473
+        "stake": 36221,
+        "win": 139089
       }
     ],
     "market_type": "1x2",
@@ -374,6 +374,74 @@
     "market_specifier": ""
   },
   {
+    "match": "boston utd vs peterborough",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 9.85,
+    "profit_ugx": 9847,
+    "total_stake": 100000,
+    "arb_sum": 0.9015,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.0,
+        "stake": 36974,
+        "win": 110922
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 31692,
+        "win": 110922
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.54,
+        "stake": 31334,
+        "win": 110922
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bromley vs crystal palace",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 40.65,
+    "profit_ugx": 40647,
+    "total_stake": 100000,
+    "arb_sum": 0.5935,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 6.7,
+        "stake": 25147,
+        "win": 168485
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 40115,
+        "win": 168483
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.85,
+        "stake": 34739,
+        "win": 168484
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "river plate vs barracas",
     "sport": "Football",
     "type": "3-way",
@@ -490,6 +558,60 @@
         "odd": 1.796,
         "stake": 64195,
         "win": 115294
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "degerfors vs djurgardens",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.39,
+    "profit_ugx": 3388,
+    "total_stake": 100000,
+    "arb_sum": 0.9661,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 48143,
+        "win": 103507
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.996,
+        "stake": 51857,
+        "win": 103507
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "degerfors vs djurgardens",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.39,
+    "profit_ugx": 3388,
+    "total_stake": 100000,
+    "arb_sum": 0.9661,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 48143,
+        "win": 103507
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.996,
+        "stake": 51857,
+        "win": 103507
       }
     ],
     "market_type": "1x2",
