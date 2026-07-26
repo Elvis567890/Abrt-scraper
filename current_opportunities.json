@@ -71,31 +71,31 @@
     "match": "ilves vs lahti",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.36,
-    "profit_ugx": 2362,
+    "profit_percent": 2.16,
+    "profit_ugx": 2165,
     "total_stake": 100000,
-    "arb_sum": 0.9764,
+    "arb_sum": 0.9784,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.33,
-        "stake": 43957,
-        "win": 102420
+        "odd": 2.34,
+        "stake": 43681,
+        "win": 102214
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.65,
-        "stake": 28060,
-        "win": 102419
+        "odd": 3.6,
+        "stake": 28392,
+        "win": 102211
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.66,
-        "stake": 27983,
-        "win": 102418
+        "stake": 27927,
+        "win": 102213
       }
     ],
     "market_type": "1x2",
@@ -204,6 +204,40 @@
     "market_specifier": ""
   },
   {
+    "match": "aalesunds vs viking",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 35.96,
+    "profit_ugx": 35955,
+    "total_stake": 100000,
+    "arb_sum": 0.6404,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.3,
+        "stake": 29460,
+        "win": 156138
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 37176,
+        "win": 156139
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Away",
+        "odd": 4.68,
+        "stake": 33363,
+        "win": 156139
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "rakow vs wisla plock",
     "sport": "Football",
     "type": "3-way",
@@ -213,14 +247,14 @@
     "arb_sum": 0.9865,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.58,
         "stake": 64158,
         "win": 101370
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 5.52,
         "stake": 18364,
@@ -578,6 +612,60 @@
         "odd": 2.234,
         "stake": 59189,
         "win": 132228
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "aalesunds vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.84,
+    "profit_ugx": 18840,
+    "total_stake": 100000,
+    "arb_sum": 0.8116,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.488,
+        "stake": 49523,
+        "win": 123213
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.441,
+        "stake": 50477,
+        "win": 123214
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "aalesunds vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.84,
+    "profit_ugx": 18840,
+    "total_stake": 100000,
+    "arb_sum": 0.8116,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.488,
+        "stake": 49523,
+        "win": 123213
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.441,
+        "stake": 50477,
+        "win": 123214
       }
     ],
     "market_type": "1x2",
