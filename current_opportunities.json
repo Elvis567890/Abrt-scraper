@@ -272,6 +272,40 @@
     "market_specifier": ""
   },
   {
+    "match": "lugano vs vaduz",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.26,
+    "profit_ugx": 1258,
+    "total_stake": 100000,
+    "arb_sum": 0.9874,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.57,
+        "stake": 64506,
+        "win": 101274
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 6.25,
+        "stake": 16204,
+        "win": 101275
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.25,
+        "stake": 19290,
+        "win": 101272
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "rangers vs west ham",
     "sport": "Football",
     "type": "3-way",
