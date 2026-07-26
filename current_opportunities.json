@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "slavia prague vs slovacko",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.61,
+    "profit_ugx": 1613,
+    "total_stake": 100000,
+    "arb_sum": 0.9839,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.17,
+        "stake": 86872,
+        "win": 101640
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 15.0,
+        "stake": 6776,
+        "win": 101640
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 16.0,
+        "stake": 6352,
+        "win": 101632
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "sonderjyske vs midtjylland",
     "sport": "Football",
     "type": "3-way",
@@ -96,6 +130,40 @@
         "odd": 4.4,
         "stake": 35146,
         "win": 154642
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "copenhagen vs lyngby",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.5,
+    "profit_ugx": 497,
+    "total_stake": 100000,
+    "arb_sum": 0.995,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.44,
+        "stake": 69791,
+        "win": 100499
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 6.34,
+        "stake": 15852,
+        "win": 100502
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 7.0,
+        "stake": 14357,
+        "win": 100499
       }
     ],
     "market_type": "1x2",
