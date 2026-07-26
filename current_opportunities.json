@@ -71,31 +71,31 @@
     "match": "flamengo rj vs sao paulo",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.45,
-    "profit_ugx": 2451,
+    "profit_percent": 2.43,
+    "profit_ugx": 2435,
     "total_stake": 100000,
-    "arb_sum": 0.9755,
+    "arb_sum": 0.9757,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.43,
-        "stake": 71687,
-        "win": 102512
+        "odd": 1.416,
+        "stake": 72384,
+        "win": 102496
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 7.5,
-        "stake": 13668,
-        "win": 102510
+        "odd": 7.9,
+        "stake": 12974,
+        "win": 102495
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 7.0,
-        "stake": 14645,
-        "win": 102515
+        "stake": 14642,
+        "win": 102494
       }
     ],
     "market_type": "1x2",
@@ -309,31 +309,31 @@
     "match": "guarani asuncion vs sportivo luqueno",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.91,
-    "profit_ugx": 3914,
+    "profit_percent": 3.9,
+    "profit_ugx": 3898,
     "total_stake": 100000,
-    "arb_sum": 0.9609,
+    "arb_sum": 0.961,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.025,
-        "stake": 51394,
-        "win": 104073
+        "odd": 1.97,
+        "stake": 52820,
+        "win": 104055
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 3.64,
-        "stake": 28592,
-        "win": 104075
+        "odd": 3.83,
+        "stake": 27169,
+        "win": 104057
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 5.2,
-        "stake": 20014,
-        "win": 104073
+        "stake": 20011,
+        "win": 104057
       }
     ],
     "market_type": "1x2",
@@ -470,6 +470,60 @@
         "odd": 3.34,
         "stake": 33565,
         "win": 112107
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "audax italiano vs universidad de chile",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.87,
+    "profit_ugx": 871,
+    "total_stake": 100000,
+    "arb_sum": 0.9913,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.83,
+        "stake": 55125,
+        "win": 100879
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.248,
+        "stake": 44875,
+        "win": 100879
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "audax italiano vs universidad de chile",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.87,
+    "profit_ugx": 871,
+    "total_stake": 100000,
+    "arb_sum": 0.9913,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.83,
+        "stake": 55125,
+        "win": 100879
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.248,
+        "stake": 44875,
+        "win": 100879
       }
     ],
     "market_type": "1x2",
