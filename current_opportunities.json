@@ -139,31 +139,31 @@
     "match": "sandefjord vs bodoglimt",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 48.76,
-    "profit_ugx": 48764,
+    "profit_percent": 48.95,
+    "profit_ugx": 48945,
     "total_stake": 100000,
-    "arb_sum": 0.5124,
+    "arb_sum": 0.5105,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 6.8,
-        "stake": 28702,
-        "win": 195174
+        "stake": 28804,
+        "win": 195867
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 5.25,
-        "stake": 37176,
-        "win": 195174
+        "stake": 37308,
+        "win": 195867
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 5.72,
-        "stake": 34122,
-        "win": 195178
+        "odd": 5.78,
+        "stake": 33887,
+        "win": 195867
       }
     ],
     "market_type": "1x2",
@@ -436,6 +436,40 @@
         "odd": 3.32,
         "stake": 34000,
         "win": 112880
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "once caldas vs cucuta",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.44,
+    "profit_ugx": 2438,
+    "total_stake": 100000,
+    "arb_sum": 0.9756,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.42,
+        "stake": 72182,
+        "win": 102498
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.44,
+        "stake": 13777,
+        "win": 102501
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 7.3,
+        "stake": 14041,
+        "win": 102499
       }
     ],
     "market_type": "1x2",
