@@ -102,40 +102,6 @@
     "market_specifier": ""
   },
   {
-    "match": "abc vs luverdense ec",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.15,
-    "profit_ugx": 2149,
-    "total_stake": 100000,
-    "arb_sum": 0.9785,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.43,
-        "stake": 71466,
-        "win": 102196
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.3,
-        "stake": 12313,
-        "win": 102198
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 6.3,
-        "stake": 16222,
-        "win": 102199
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "ferroviario vs goiatuba",
     "sport": "Football",
     "type": "3-way",
@@ -164,6 +130,40 @@
         "odd": 4.2,
         "stake": 24286,
         "win": 102001
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "abc vs luverdense ec",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.15,
+    "profit_ugx": 2149,
+    "total_stake": 100000,
+    "arb_sum": 0.9785,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.43,
+        "stake": 71466,
+        "win": 102196
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 8.3,
+        "stake": 12313,
+        "win": 102198
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 6.3,
+        "stake": 16222,
+        "win": 102199
       }
     ],
     "market_type": "1x2",
