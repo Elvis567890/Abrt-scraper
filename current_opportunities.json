@@ -374,6 +374,40 @@
     "market_specifier": ""
   },
   {
+    "match": "gais vs halmstads",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.7,
+    "profit_ugx": 1698,
+    "total_stake": 100000,
+    "arb_sum": 0.983,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.37,
+        "stake": 74253,
+        "win": 101727
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 8.35,
+        "stake": 12183,
+        "win": 101728
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 7.5,
+        "stake": 13564,
+        "win": 101730
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "lugano vs vaduz",
     "sport": "Football",
     "type": "3-way",
