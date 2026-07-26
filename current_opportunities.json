@@ -1,5 +1,73 @@
 [
   {
+    "match": "criciuma vs nautico",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.64,
+    "profit_ugx": 636,
+    "total_stake": 100000,
+    "arb_sum": 0.9936,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.73,
+        "stake": 58173,
+        "win": 100639
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.775,
+        "stake": 21076,
+        "win": 100638
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.85,
+        "stake": 20750,
+        "win": 100637
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sao bernardo vs ceara",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.91,
+    "profit_ugx": 909,
+    "total_stake": 100000,
+    "arb_sum": 0.9909,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.42,
+        "stake": 41701,
+        "win": 100916
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.425,
+        "stake": 29465,
+        "win": 100918
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.5,
+        "stake": 28834,
+        "win": 100919
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "sonderjyske vs midtjylland",
     "sport": "Football",
     "type": "3-way",
@@ -173,31 +241,31 @@
     "match": "aalesunds vs viking",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 35.96,
-    "profit_ugx": 35955,
+    "profit_percent": 36.09,
+    "profit_ugx": 36091,
     "total_stake": 100000,
-    "arb_sum": 0.6404,
+    "arb_sum": 0.6391,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 5.3,
-        "stake": 29460,
-        "win": 156138
+        "stake": 29523,
+        "win": 156472
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.2,
-        "stake": 37176,
-        "win": 156139
+        "stake": 37255,
+        "win": 156471
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.68,
-        "stake": 33363,
-        "win": 156139
+        "odd": 4.71,
+        "stake": 33221,
+        "win": 156471
       }
     ],
     "market_type": "1x2",
@@ -207,99 +275,31 @@
     "match": "rakow vs wisla plock",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.35,
-    "profit_ugx": 1352,
+    "profit_percent": 0.72,
+    "profit_ugx": 725,
     "total_stake": 100000,
-    "arb_sum": 0.9865,
+    "arb_sum": 0.9928,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.58,
-        "stake": 64158,
-        "win": 101370
+        "odd": 1.61,
+        "stake": 62565,
+        "win": 100730
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 5.52,
-        "stake": 18364,
-        "win": 101369
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.8,
-        "stake": 17478,
-        "win": 101372
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "incheon utd vs bucheon 1995",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.59,
-    "profit_ugx": 3589,
-    "total_stake": 100000,
-    "arb_sum": 0.9641,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.75,
-        "stake": 59270,
-        "win": 103722
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.19,
-        "stake": 19985,
-        "win": 103722
+        "stake": 18248,
+        "win": 100729
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 5.0,
-        "stake": 20745,
-        "win": 103725
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "anyang vs gangwon",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 11.99,
-    "profit_ugx": 11995,
-    "total_stake": 100000,
-    "arb_sum": 0.8801,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 4.05,
-        "stake": 28057,
-        "win": 113631
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.1,
-        "stake": 36655,
-        "win": 113630
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.22,
-        "stake": 35289,
-        "win": 113631
+        "odd": 5.25,
+        "stake": 19187,
+        "win": 100732
       }
     ],
     "market_type": "1x2",
@@ -368,74 +368,6 @@
         "odd": 7.5,
         "stake": 13564,
         "win": 101730
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sundsvall vs falkenberg",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 12.3,
-    "profit_ugx": 12302,
-    "total_stake": 100000,
-    "arb_sum": 0.877,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.45,
-        "stake": 33052,
-        "win": 114029
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 34554,
-        "win": 114028
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.52,
-        "stake": 32394,
-        "win": 114027
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "norrby vs ostersunds",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.8,
-    "profit_ugx": 4796,
-    "total_stake": 100000,
-    "arb_sum": 0.952,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.94,
-        "stake": 35727,
-        "win": 105037
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.2,
-        "stake": 32824,
-        "win": 105037
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.34,
-        "stake": 31448,
-        "win": 105036
       }
     ],
     "market_type": "1x2",
@@ -578,60 +510,6 @@
         "odd": 2.276,
         "stake": 58399,
         "win": 132916
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "aalesunds vs viking",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 18.84,
-    "profit_ugx": 18840,
-    "total_stake": 100000,
-    "arb_sum": 0.8116,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.488,
-        "stake": 49523,
-        "win": 123213
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.441,
-        "stake": 50477,
-        "win": 123214
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "aalesunds vs viking",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 18.84,
-    "profit_ugx": 18840,
-    "total_stake": 100000,
-    "arb_sum": 0.8116,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.488,
-        "stake": 49523,
-        "win": 123213
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.441,
-        "stake": 50477,
-        "win": 123214
       }
     ],
     "market_type": "1x2",
