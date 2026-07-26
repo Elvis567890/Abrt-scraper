@@ -136,34 +136,68 @@
     "market_specifier": ""
   },
   {
+    "match": "houston dynamo ii vs austin ii",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.41,
+    "profit_ugx": 1405,
+    "total_stake": 100000,
+    "arb_sum": 0.9859,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.56,
+        "stake": 39619,
+        "win": 101425
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 29831,
+        "win": 101425
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.32,
+        "stake": 30550,
+        "win": 101426
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "necaxa vs monterrey",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.7,
-    "profit_ugx": 9698,
+    "profit_percent": 8.95,
+    "profit_ugx": 8947,
     "total_stake": 100000,
-    "arb_sum": 0.903,
+    "arb_sum": 0.9105,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 2.855,
-        "stake": 38788,
-        "win": 110740
+        "stake": 38468,
+        "win": 109826
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 29930,
-        "win": 110741
+        "odd": 3.6,
+        "stake": 30507,
+        "win": 109825
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.54,
-        "stake": 31282,
-        "win": 110738
+        "stake": 31024,
+        "win": 109825
       }
     ],
     "market_type": "1x2",
