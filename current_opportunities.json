@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "crvena zvezda vs vojvodina",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.75,
+    "profit_ugx": 745,
+    "total_stake": 100000,
+    "arb_sum": 0.9925,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.22,
+        "stake": 82583,
+        "win": 100751
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 12.2,
+        "stake": 8258,
+        "win": 100748
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 11.0,
+        "stake": 9159,
+        "win": 100749
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "sambenedettese vs avellino",
     "sport": "Football",
     "type": "3-way",
@@ -309,31 +343,31 @@
     "match": "bragantino vs coritiba",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.81,
-    "profit_ugx": 1808,
+    "profit_percent": 1.97,
+    "profit_ugx": 1975,
     "total_stake": 100000,
-    "arb_sum": 0.9819,
+    "arb_sum": 0.9803,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.64,
-        "stake": 62098,
-        "win": 101841
+        "stake": 62204,
+        "win": 102015
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 5.45,
-        "stake": 18686,
-        "win": 101839
+        "odd": 5.5,
+        "stake": 18548,
+        "win": 102014
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 5.3,
-        "stake": 19215,
-        "win": 101840
+        "stake": 19248,
+        "win": 102014
       }
     ],
     "market_type": "1x2",
