@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "rakow vs wisla plock",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.64,
+    "profit_ugx": 1644,
+    "total_stake": 100000,
+    "arb_sum": 0.9836,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.58,
+        "stake": 64349,
+        "win": 101671
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.52,
+        "stake": 18419,
+        "win": 101673
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.9,
+        "stake": 17232,
+        "win": 101669
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "incheon utd vs bucheon 1995",
     "sport": "Football",
     "type": "3-way",
@@ -266,40 +300,6 @@
         "odd": 3.97,
         "stake": 27278,
         "win": 108294
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "north texas vs los angeles ii",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 9.82,
-    "profit_ugx": 9824,
-    "total_stake": 100000,
-    "arb_sum": 0.9018,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.69,
-        "stake": 41225,
-        "win": 110895
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 29971,
-        "win": 110893
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.85,
-        "stake": 28804,
-        "win": 110895
       }
     ],
     "market_type": "1x2",
@@ -550,60 +550,6 @@
         "odd": 3.03,
         "stake": 36211,
         "win": 109719
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "zdirec nad doubravou vs kurim",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 5.11,
-    "profit_ugx": 5105,
-    "total_stake": 100000,
-    "arb_sum": 0.9489,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.8,
-        "stake": 58544,
-        "win": 105379
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.542,
-        "stake": 41456,
-        "win": 105381
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "zdirec nad doubravou vs kurim",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 5.11,
-    "profit_ugx": 5105,
-    "total_stake": 100000,
-    "arb_sum": 0.9489,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.8,
-        "stake": 58544,
-        "win": 105379
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.542,
-        "stake": 41456,
-        "win": 105381
       }
     ],
     "market_type": "1x2",
