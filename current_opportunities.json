@@ -1,5 +1,39 @@
 [
   {
+    "match": "gimnasia jujuy vs atletico guemes",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 9.95,
+    "profit_ugx": 9949,
+    "total_stake": 100000,
+    "arb_sum": 0.9005,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.45,
+        "stake": 76585,
+        "win": 111048
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 9.47,
+        "stake": 11726,
+        "win": 111045
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 9.5,
+        "stake": 11689,
+        "win": 111046
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "racing de cordoba vs san telmo",
     "sport": "Football",
     "type": "3-way",
@@ -105,31 +139,31 @@
     "match": "sao bernardo vs ceara",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.45,
-    "profit_ugx": 1449,
+    "profit_percent": 1.35,
+    "profit_ugx": 1345,
     "total_stake": 100000,
-    "arb_sum": 0.9855,
+    "arb_sum": 0.9865,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 2.26,
-        "stake": 44898,
-        "win": 101469
+        "odd": 2.312,
+        "stake": 43842,
+        "win": 101363
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 3.77,
-        "stake": 26915,
-        "win": 101470
+        "odd": 3.62,
+        "stake": 28001,
+        "win": 101364
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 3.6,
-        "stake": 28186,
-        "win": 101470
+        "stake": 28157,
+        "win": 101365
       }
     ],
     "market_type": "1x2",
@@ -232,40 +266,6 @@
         "odd": 4.05,
         "stake": 25652,
         "win": 103891
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "macva sabac vs partizan beograd",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 40.87,
-    "profit_ugx": 40873,
-    "total_stake": 100000,
-    "arb_sum": 0.5913,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 5.8,
-        "stake": 29160,
-        "win": 169128
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.75,
-        "stake": 35606,
-        "win": 169128
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.8,
-        "stake": 35235,
-        "win": 169128
       }
     ],
     "market_type": "1x2",
