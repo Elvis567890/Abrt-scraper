@@ -1,5 +1,39 @@
 [
   {
+    "match": "estudiantes vs independiente",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.02,
+    "profit_ugx": 1021,
+    "total_stake": 100000,
+    "arb_sum": 0.9898,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.179,
+        "stake": 46366,
+        "win": 101032
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.785,
+        "stake": 26693,
+        "win": 101033
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 3.75,
+        "stake": 26942,
+        "win": 101032
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "criciuma vs nautico",
     "sport": "Football",
     "type": "3-way",
@@ -173,31 +207,31 @@
     "match": "sandefjord vs bodoglimt",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 49.1,
-    "profit_ugx": 49096,
+    "profit_percent": 48.58,
+    "profit_ugx": 48583,
     "total_stake": 100000,
-    "arb_sum": 0.509,
+    "arb_sum": 0.5142,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 7.8,
-        "stake": 25186,
-        "win": 196451
+        "odd": 7.5,
+        "stake": 25932,
+        "win": 194490
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 5.0,
-        "stake": 39290,
-        "win": 196450
+        "stake": 38898,
+        "win": 194490
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 5.53,
-        "stake": 35524,
-        "win": 196448
+        "stake": 35170,
+        "win": 194490
       }
     ],
     "market_type": "1x2",
@@ -340,40 +374,6 @@
     "market_specifier": ""
   },
   {
-    "match": "gais vs halmstads",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.7,
-    "profit_ugx": 1698,
-    "total_stake": 100000,
-    "arb_sum": 0.983,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.37,
-        "stake": 74253,
-        "win": 101727
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.35,
-        "stake": 12183,
-        "win": 101728
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 7.5,
-        "stake": 13564,
-        "win": 101730
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "lugano vs vaduz",
     "sport": "Football",
     "type": "3-way",
@@ -456,60 +456,6 @@
         "odd": 2.337,
         "stake": 50403,
         "win": 117792
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sandefjord vs bodoglimt",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 23.94,
-    "profit_ugx": 23938,
-    "total_stake": 100000,
-    "arb_sum": 0.7606,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 3.195,
-        "stake": 41149,
-        "win": 131471
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.234,
-        "stake": 58851,
-        "win": 131473
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sandefjord vs bodoglimt",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 23.94,
-    "profit_ugx": 23938,
-    "total_stake": 100000,
-    "arb_sum": 0.7606,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 3.195,
-        "stake": 41149,
-        "win": 131471
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.234,
-        "stake": 58851,
-        "win": 131473
       }
     ],
     "market_type": "1x2",
