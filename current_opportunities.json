@@ -139,31 +139,31 @@
     "match": "horsens vs nordsjaelland",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 17.22,
-    "profit_ugx": 17223,
+    "profit_percent": 16.19,
+    "profit_ugx": 16192,
     "total_stake": 100000,
-    "arb_sum": 0.8278,
+    "arb_sum": 0.8381,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 3.575,
-        "stake": 33792,
-        "win": 120806
+        "odd": 3.495,
+        "stake": 34140,
+        "win": 119319
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.7,
-        "stake": 32650,
-        "win": 120805
+        "stake": 32249,
+        "win": 119321
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.6,
-        "stake": 33557,
-        "win": 120805
+        "odd": 3.55,
+        "stake": 33611,
+        "win": 119319
       }
     ],
     "market_type": "1x2",
@@ -300,6 +300,40 @@
         "odd": 4.71,
         "stake": 33597,
         "win": 158242
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rakow vs wisla plock",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.19,
+    "profit_ugx": 1186,
+    "total_stake": 100000,
+    "arb_sum": 0.9881,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.63,
+        "stake": 62086,
+        "win": 101200
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.43,
+        "stake": 18637,
+        "win": 101199
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.25,
+        "stake": 19276,
+        "win": 101199
       }
     ],
     "market_type": "1x2",
