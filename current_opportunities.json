@@ -136,34 +136,68 @@
     "market_specifier": ""
   },
   {
+    "match": "sandefjord vs bodoglimt",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 47.12,
+    "profit_ugx": 47118,
+    "total_stake": 100000,
+    "arb_sum": 0.5288,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 7.6,
+        "stake": 24882,
+        "win": 189103
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 5.0,
+        "stake": 37820,
+        "win": 189100
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 5.07,
+        "stake": 37298,
+        "win": 189101
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "kfum vs molde",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 11.89,
-    "profit_ugx": 11891,
+    "profit_percent": 11.19,
+    "profit_ugx": 11193,
     "total_stake": 100000,
-    "arb_sum": 0.8811,
+    "arb_sum": 0.8881,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.98,
-        "stake": 38086,
-        "win": 113496
+        "stake": 37786,
+        "win": 112602
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 31527,
-        "win": 113497
+        "stake": 31279,
+        "win": 112604
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.735,
-        "stake": 30387,
-        "win": 113495
+        "odd": 3.64,
+        "stake": 30935,
+        "win": 112603
       }
     ],
     "market_type": "1x2",
