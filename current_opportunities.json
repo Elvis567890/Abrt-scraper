@@ -68,34 +68,68 @@
     "market_specifier": ""
   },
   {
-    "match": "sikkim vs northerners",
+    "match": "suruchi sangha vs rainbow",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.75,
-    "profit_ugx": 3751,
+    "profit_percent": 6.74,
+    "profit_ugx": 6742,
     "total_stake": 100000,
-    "arb_sum": 0.9625,
+    "arb_sum": 0.9326,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.904,
-        "stake": 54568,
-        "win": 103897
+        "odd": 2.39,
+        "stake": 44866,
+        "win": 107230
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.1,
+        "stake": 26153,
+        "win": 107227
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.7,
+        "stake": 28981,
+        "win": 107230
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kalighat ls vs coal india",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 38.5,
+    "profit_ugx": 38496,
+    "total_stake": 100000,
+    "arb_sum": 0.615,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 6.24,
+        "stake": 26056,
+        "win": 162589
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.5,
-        "stake": 23088,
-        "win": 103896
+        "stake": 36132,
+        "win": 162594
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.65,
-        "stake": 22344,
-        "win": 103900
+        "odd": 4.3,
+        "stake": 37812,
+        "win": 162592
       }
     ],
     "market_type": "1x2",
@@ -422,6 +456,60 @@
         "odd": 2.073,
         "stake": 53551,
         "win": 111011
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kalighat lovers vs coal india spb",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.44,
+    "profit_ugx": 10442,
+    "total_stake": 100000,
+    "arb_sum": 0.8956,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.52,
+        "stake": 44309,
+        "win": 111659
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.005,
+        "stake": 55691,
+        "win": 111660
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kalighat lovers vs coal india spb",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.44,
+    "profit_ugx": 10442,
+    "total_stake": 100000,
+    "arb_sum": 0.8956,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.52,
+        "stake": 44309,
+        "win": 111659
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.005,
+        "stake": 55691,
+        "win": 111660
       }
     ],
     "market_type": "1x2",
