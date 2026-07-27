@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "rosenborg vs fredrikstad",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.73,
+    "profit_ugx": 735,
+    "total_stake": 100000,
+    "arb_sum": 0.9927,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.63,
+        "stake": 61804,
+        "win": 100741
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 5.3,
+        "stake": 19008,
+        "win": 100742
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.25,
+        "stake": 19189,
+        "win": 100742
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "zaglebie vs piast gliwice",
     "sport": "Football",
     "type": "3-way",
