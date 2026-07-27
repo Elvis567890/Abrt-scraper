@@ -34,34 +34,68 @@
     "market_specifier": ""
   },
   {
+    "match": "the strongest u19 vs universitario de vinto u19",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.18,
+    "profit_ugx": 2184,
+    "total_stake": 100000,
+    "arb_sum": 0.9782,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.06,
+        "stake": 49628,
+        "win": 102234
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 25558,
+        "win": 102232
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.12,
+        "stake": 24814,
+        "win": 102234
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "internacional de bogota w vs fortaleza w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.9,
-    "profit_ugx": 6896,
+    "profit_percent": 6.29,
+    "profit_ugx": 6288,
     "total_stake": 100000,
-    "arb_sum": 0.931,
+    "arb_sum": 0.9371,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.61,
-        "stake": 66712,
-        "win": 107406
+        "stake": 66279,
+        "win": 106709
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 6.67,
-        "stake": 16103,
-        "win": 107407
+        "odd": 6.41,
+        "stake": 16647,
+        "win": 106707
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 6.25,
-        "stake": 17185,
-        "win": 107406
+        "stake": 17074,
+        "win": 106712
       }
     ],
     "market_type": "1x2",
