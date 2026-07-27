@@ -1,5 +1,39 @@
 [
   {
+    "match": "ivory coast w vs burkina faso w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.13,
+    "profit_ugx": 1127,
+    "total_stake": 100000,
+    "arb_sum": 0.9887,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.66,
+        "stake": 60928,
+        "win": 101140
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.89,
+        "stake": 20683,
+        "win": 101140
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.5,
+        "stake": 18389,
+        "win": 101140
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "cska sofia vs botev plovdiv",
     "sport": "Football",
     "type": "3-way",
@@ -62,40 +96,6 @@
         "odd": 6.25,
         "stake": 17185,
         "win": 107406
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "mushuc runa vs libertad loja",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.33,
-    "profit_ugx": 1325,
-    "total_stake": 100000,
-    "arb_sum": 0.9867,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.51,
-        "stake": 67115,
-        "win": 101344
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.86,
-        "stake": 17294,
-        "win": 101343
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 6.5,
-        "stake": 15591,
-        "win": 101342
       }
     ],
     "market_type": "1x2",
