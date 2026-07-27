@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "ready vs frigg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.89,
+    "profit_ugx": 2892,
+    "total_stake": 100000,
+    "arb_sum": 0.9711,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.02,
+        "stake": 50979,
+        "win": 102978
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.5,
+        "stake": 22884,
+        "win": 102978
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.94,
+        "stake": 26137,
+        "win": 102980
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fk union carl berner vs asker",
     "sport": "Football",
     "type": "3-way",
@@ -102,34 +136,68 @@
     "market_specifier": ""
   },
   {
-    "match": "ready vs frigg",
+    "match": "rosenborg vs fredrikstad",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.89,
-    "profit_ugx": 2892,
+    "profit_percent": 0.62,
+    "profit_ugx": 625,
     "total_stake": 100000,
-    "arb_sum": 0.9711,
+    "arb_sum": 0.9938,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 2.02,
-        "stake": 50979,
-        "win": 102978
+        "odd": 1.555,
+        "stake": 64713,
+        "win": 100629
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 4.5,
-        "stake": 22884,
-        "win": 102978
+        "odd": 5.61,
+        "stake": 17937,
+        "win": 100627
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 3.94,
-        "stake": 26137,
-        "win": 102980
+        "odd": 5.8,
+        "stake": 17350,
+        "win": 100630
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "zaglebie vs piast gliwice",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.38,
+    "profit_ugx": 2379,
+    "total_stake": 100000,
+    "arb_sum": 0.9762,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.725,
+        "stake": 37592,
+        "win": 102438
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.2,
+        "stake": 32012,
+        "win": 102438
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.37,
+        "stake": 30397,
+        "win": 102438
       }
     ],
     "market_type": "1x2",
@@ -170,75 +238,7 @@
     "market_specifier": ""
   },
   {
-    "match": "osters vs varberg",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 8.18,
-    "profit_ugx": 8182,
-    "total_stake": 100000,
-    "arb_sum": 0.9182,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.926,
-        "stake": 37222,
-        "win": 108912
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 31118,
-        "win": 108913
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.44,
-        "stake": 31660,
-        "win": 108910
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "rosenborg vs fredrikstad",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.68,
-    "profit_ugx": 677,
-    "total_stake": 100000,
-    "arb_sum": 0.9932,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.536,
-        "stake": 65548,
-        "win": 100682
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 5.89,
-        "stake": 17094,
-        "win": 100684
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.8,
-        "stake": 17359,
-        "win": 100682
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "orebro vs oddevold",
+    "match": "orebro sk vs oddevold",
     "sport": "Football",
     "type": "3-way",
     "profit_percent": 3.29,
@@ -266,6 +266,74 @@
         "odd": 3.416,
         "stake": 30270,
         "win": 103402
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "osters vs varberg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 9.73,
+    "profit_ugx": 9732,
+    "total_stake": 100000,
+    "arb_sum": 0.9027,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.065,
+        "stake": 36144,
+        "win": 110781
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 31652,
+        "win": 110782
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.44,
+        "stake": 32204,
+        "win": 110782
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ifk skovde fk vs jonkopings",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 27.13,
+    "profit_ugx": 27129,
+    "total_stake": 100000,
+    "arb_sum": 0.7287,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 4.69,
+        "stake": 29260,
+        "win": 137229
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.85,
+        "stake": 35644,
+        "win": 137229
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.91,
+        "stake": 35097,
+        "win": 137229
       }
     ],
     "market_type": "1x2",
@@ -334,40 +402,6 @@
         "odd": 4.585,
         "stake": 36237,
         "win": 166147
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "ifk skovde vs jonkopings",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 27.13,
-    "profit_ugx": 27129,
-    "total_stake": 100000,
-    "arb_sum": 0.7287,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 4.69,
-        "stake": 29260,
-        "win": 137229
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.85,
-        "stake": 35644,
-        "win": 137229
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.91,
-        "stake": 35097,
-        "win": 137229
       }
     ],
     "market_type": "1x2",
