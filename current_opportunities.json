@@ -71,31 +71,31 @@
     "match": "bulleen lions vs langwarrin",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.69,
-    "profit_ugx": 3689,
+    "profit_percent": 4.8,
+    "profit_ugx": 4800,
     "total_stake": 100000,
-    "arb_sum": 0.9631,
+    "arb_sum": 0.952,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.56,
-        "stake": 66558,
-        "win": 103830
+        "stake": 67335,
+        "win": 105043
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 4.74,
-        "stake": 21905,
-        "win": 103830
+        "stake": 22161,
+        "win": 105043
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 9.0,
-        "stake": 11537,
-        "win": 103833
+        "odd": 10.0,
+        "stake": 10504,
+        "win": 105040
       }
     ],
     "market_type": "1x2",
@@ -198,6 +198,40 @@
         "odd": 4.55,
         "stake": 36042,
         "win": 163991
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rosenborg vs fredrikstad",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.56,
+    "profit_ugx": 555,
+    "total_stake": 100000,
+    "arb_sum": 0.9944,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.63,
+        "stake": 61692,
+        "win": 100558
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 5.25,
+        "stake": 19154,
+        "win": 100558
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.25,
+        "stake": 19154,
+        "win": 100558
       }
     ],
     "market_type": "1x2",
