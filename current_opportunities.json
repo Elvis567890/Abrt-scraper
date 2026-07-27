@@ -105,31 +105,31 @@
     "match": "gneist vs brann bergen ii",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 19.73,
-    "profit_ugx": 19728,
+    "profit_percent": 17.79,
+    "profit_ugx": 17793,
     "total_stake": 100000,
-    "arb_sum": 0.8027,
+    "arb_sum": 0.8221,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 3.05,
-        "stake": 40845,
-        "win": 124577
+        "odd": 2.88,
+        "stake": 42237,
+        "win": 121643
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.33,
-        "stake": 28771,
-        "win": 124578
+        "stake": 28093,
+        "win": 121643
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.1,
-        "stake": 30385,
-        "win": 124578
+        "stake": 29669,
+        "win": 121643
       }
     ],
     "market_type": "1x2",
@@ -530,6 +530,60 @@
         "odd": 1.688,
         "stake": 64928,
         "win": 109598
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bomik vs broke boys",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 28.67,
+    "profit_ugx": 28667,
+    "total_stake": 100000,
+    "arb_sum": 0.7133,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.54,
+        "stake": 39601,
+        "win": 140188
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.321,
+        "stake": 60399,
+        "win": 140186
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bomik vs broke boys",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 28.67,
+    "profit_ugx": 28667,
+    "total_stake": 100000,
+    "arb_sum": 0.7133,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.54,
+        "stake": 39601,
+        "win": 140188
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.321,
+        "stake": 60399,
+        "win": 140186
       }
     ],
     "market_type": "1x2",
