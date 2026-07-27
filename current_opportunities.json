@@ -3,31 +3,31 @@
     "match": "south africa w vs tanzania w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.67,
-    "profit_ugx": 1672,
+    "profit_percent": 2.15,
+    "profit_ugx": 2146,
     "total_stake": 100000,
-    "arb_sum": 0.9833,
+    "arb_sum": 0.9785,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.23,
-        "stake": 82683,
-        "win": 101700
+        "stake": 83083,
+        "win": 102192
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 12.6,
-        "stake": 8071,
-        "win": 101695
+        "odd": 13.4,
+        "stake": 7626,
+        "win": 102188
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 11.0,
-        "stake": 9245,
-        "win": 101695
+        "stake": 9290,
+        "win": 102190
       }
     ],
     "market_type": "1x2",
@@ -105,31 +105,31 @@
     "match": "gneist vs brann bergen ii",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 18.65,
-    "profit_ugx": 18654,
+    "profit_percent": 18.37,
+    "profit_ugx": 18374,
     "total_stake": 100000,
-    "arb_sum": 0.8135,
+    "arb_sum": 0.8163,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.88,
-        "stake": 42684,
-        "win": 122930
+        "stake": 42538,
+        "win": 122509
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.33,
-        "stake": 28391,
-        "win": 122933
+        "stake": 28293,
+        "win": 122509
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.25,
-        "stake": 28925,
-        "win": 122931
+        "odd": 4.2,
+        "stake": 29169,
+        "win": 122510
       }
     ],
     "market_type": "1x2",
@@ -530,6 +530,60 @@
         "odd": 1.688,
         "stake": 64928,
         "win": 109598
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "costa rica u20 vs mexico u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.62,
+    "profit_ugx": 7624,
+    "total_stake": 100000,
+    "arb_sum": 0.9238,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.3,
+        "stake": 32804,
+        "win": 108253
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.611,
+        "stake": 67196,
+        "win": 108253
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "costa rica u20 vs mexico u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.62,
+    "profit_ugx": 7624,
+    "total_stake": 100000,
+    "arb_sum": 0.9238,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.3,
+        "stake": 32804,
+        "win": 108253
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.611,
+        "stake": 67196,
+        "win": 108253
       }
     ],
     "market_type": "1x2",
