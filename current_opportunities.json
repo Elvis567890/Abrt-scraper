@@ -3,31 +3,31 @@
     "match": "south africa w vs tanzania w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.74,
-    "profit_ugx": 1742,
+    "profit_percent": 2.02,
+    "profit_ugx": 2025,
     "total_stake": 100000,
-    "arb_sum": 0.9826,
+    "arb_sum": 0.9798,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.187,
-        "stake": 85739,
-        "win": 101772
+        "odd": 1.191,
+        "stake": 85698,
+        "win": 102066
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 12.3,
-        "stake": 8274,
-        "win": 101770
+        "stake": 8298,
+        "win": 102065
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 17.0,
-        "stake": 5987,
-        "win": 101779
+        "stake": 6004,
+        "win": 102068
       }
     ],
     "market_type": "1x2",
@@ -173,31 +173,31 @@
     "match": "vittsjo gik w vs malmo ff w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 41.47,
-    "profit_ugx": 41468,
+    "profit_percent": 41.23,
+    "profit_ugx": 41229,
     "total_stake": 100000,
-    "arb_sum": 0.5853,
+    "arb_sum": 0.5877,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 7.3,
-        "stake": 23403,
-        "win": 170842
+        "stake": 23308,
+        "win": 170148
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.33,
-        "stake": 39456,
-        "win": 170844
+        "stake": 39296,
+        "win": 170152
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.6,
-        "stake": 37140,
-        "win": 170844
+        "odd": 4.55,
+        "stake": 37396,
+        "win": 170152
       }
     ],
     "market_type": "1x2",
@@ -207,31 +207,31 @@
     "match": "orebro sk vs oddevold",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.83,
-    "profit_ugx": 3835,
+    "profit_percent": 3.52,
+    "profit_ugx": 3517,
     "total_stake": 100000,
-    "arb_sum": 0.9617,
+    "arb_sum": 0.9648,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.66,
-        "stake": 39093,
-        "win": 103987
+        "odd": 2.65,
+        "stake": 39111,
+        "win": 103644
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.45,
-        "stake": 30141,
-        "win": 103986
+        "stake": 30042,
+        "win": 103645
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.38,
-        "stake": 30766,
-        "win": 103989
+        "odd": 3.36,
+        "stake": 30847,
+        "win": 103646
       }
     ],
     "market_type": "1x2",
@@ -706,6 +706,60 @@
         "odd": 2.321,
         "stake": 60399,
         "win": 140186
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "anzhi makhachkala vs neftyanik izberbash",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 35.11,
+    "profit_ugx": 35108,
+    "total_stake": 100000,
+    "arb_sum": 0.6489,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.54,
+        "stake": 43532,
+        "win": 154103
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.729,
+        "stake": 56468,
+        "win": 154101
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "anzhi makhachkala vs neftyanik izberbash",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 35.11,
+    "profit_ugx": 35108,
+    "total_stake": 100000,
+    "arb_sum": 0.6489,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.54,
+        "stake": 43532,
+        "win": 154103
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.729,
+        "stake": 56468,
+        "win": 154101
       }
     ],
     "market_type": "1x2",
