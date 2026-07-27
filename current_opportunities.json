@@ -1,33 +1,67 @@
 [
   {
+    "match": "south africa w vs tanzania w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.27,
+    "profit_ugx": 1275,
+    "total_stake": 100000,
+    "arb_sum": 0.9873,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.23,
+        "stake": 82351,
+        "win": 101292
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 12.0,
+        "stake": 8441,
+        "win": 101292
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 11.0,
+        "stake": 9208,
+        "win": 101288
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "qingdao red lions vs beijing it",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.02,
-    "profit_ugx": 1017,
+    "profit_percent": 2.94,
+    "profit_ugx": 2944,
     "total_stake": 100000,
-    "arb_sum": 0.9898,
+    "arb_sum": 0.9706,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.67,
-        "stake": 60495,
-        "win": 101027
+        "odd": 1.68,
+        "stake": 61330,
+        "win": 103034
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 5.41,
-        "stake": 18674,
-        "win": 101026
+        "stake": 19045,
+        "win": 103033
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 4.85,
-        "stake": 20830,
-        "win": 101025
+        "odd": 5.25,
+        "stake": 19625,
+        "win": 103031
       }
     ],
     "market_type": "1x2",
@@ -68,40 +102,6 @@
     "market_specifier": ""
   },
   {
-    "match": "suruchi sangha vs rainbow",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 6.74,
-    "profit_ugx": 6742,
-    "total_stake": 100000,
-    "arb_sum": 0.9326,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.39,
-        "stake": 44866,
-        "win": 107230
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.1,
-        "stake": 26153,
-        "win": 107227
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.7,
-        "stake": 28981,
-        "win": 107230
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "sikkim vs northerners",
     "sport": "Football",
     "type": "3-way",
@@ -130,40 +130,6 @@
         "odd": 4.5,
         "stake": 23080,
         "win": 103860
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "hegelmann litauen vs zalgiris",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 15.14,
-    "profit_ugx": 15141,
-    "total_stake": 100000,
-    "arb_sum": 0.8486,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.95,
-        "stake": 29833,
-        "win": 117840
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 35710,
-        "win": 117843
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.42,
-        "stake": 34457,
-        "win": 117843
       }
     ],
     "market_type": "1x2",
@@ -272,34 +238,102 @@
     "market_specifier": ""
   },
   {
-    "match": "olimpia areserves vs libertad r",
+    "match": "zaglebie vs piast gliwice",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.48,
-    "profit_ugx": 2480,
+    "profit_percent": 1.8,
+    "profit_ugx": 1796,
     "total_stake": 100000,
-    "arb_sum": 0.9752,
+    "arb_sum": 0.982,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.81,
+        "stake": 36238,
+        "win": 101829
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.25,
+        "stake": 31332,
+        "win": 101829
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.14,
+        "stake": 32430,
+        "win": 101830
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orebro sk vs oddevold",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.28,
+    "profit_ugx": 4276,
+    "total_stake": 100000,
+    "arb_sum": 0.9572,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.71,
+        "stake": 38549,
+        "win": 104468
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 30726,
+        "win": 104468
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.4,
+        "stake": 30726,
+        "win": 104468
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ifk skovde fk vs jonkopings",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 33.33,
+    "profit_ugx": 33328,
+    "total_stake": 100000,
+    "arb_sum": 0.6667,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.41,
-        "stake": 42549,
-        "win": 102543
+        "odd": 6.12,
+        "stake": 24508,
+        "win": 149989
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 28484,
-        "win": 102542
+        "odd": 3.9,
+        "stake": 38458,
+        "win": 149986
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.54,
-        "stake": 28967,
-        "win": 102543
+        "odd": 4.05,
+        "stake": 37034,
+        "win": 149988
       }
     ],
     "market_type": "1x2",
@@ -334,6 +368,60 @@
         "odd": 3.56,
         "stake": 33946,
         "win": 120848
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ifk skovde vs jonkopings sodra",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.27,
+    "profit_ugx": 10267,
+    "total_stake": 100000,
+    "arb_sum": 0.8973,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.41,
+        "stake": 46241,
+        "win": 111441
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.073,
+        "stake": 53759,
+        "win": 111442
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ifk skovde vs jonkopings sodra",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.27,
+    "profit_ugx": 10267,
+    "total_stake": 100000,
+    "arb_sum": 0.8973,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.41,
+        "stake": 46241,
+        "win": 111441
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.073,
+        "stake": 53759,
+        "win": 111442
       }
     ],
     "market_type": "1x2",
