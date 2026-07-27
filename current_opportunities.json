@@ -170,68 +170,34 @@
     "market_specifier": ""
   },
   {
-    "match": "sao paulo w vs mirassol w",
+    "match": "philippines vs myanmar",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.56,
-    "profit_ugx": 1559,
+    "profit_percent": 3.27,
+    "profit_ugx": 3266,
     "total_stake": 100000,
-    "arb_sum": 0.9844,
+    "arb_sum": 0.9673,
     "bets": [
       {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.225,
-        "stake": 82926,
-        "win": 101584
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 11.8,
-        "stake": 8609,
-        "win": 101586
-      },
-      {
         "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 12.0,
-        "stake": 8465,
-        "win": 101580
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "bahia w vs botafogo rj w",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.52,
-    "profit_ugx": 2524,
-    "total_stake": 100000,
-    "arb_sum": 0.9748,
-    "bets": [
+        "outcome": "Home",
+        "odd": 1.36,
+        "stake": 76012,
+        "win": 103376
+      },
       {
         "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.325,
-        "stake": 77426,
-        "win": 102589
-      },
-      {
-        "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 9.18,
-        "stake": 11175,
-        "win": 102586
+        "odd": 8.85,
+        "stake": 11681,
+        "win": 103377
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 9.0,
-        "stake": 11399,
-        "win": 102591
+        "odd": 8.4,
+        "stake": 12307,
+        "win": 103379
       }
     ],
     "market_type": "1x2",
@@ -275,31 +241,31 @@
     "match": "atletico go vs operario pr",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.57,
-    "profit_ugx": 1574,
+    "profit_percent": 1.4,
+    "profit_ugx": 1405,
     "total_stake": 100000,
-    "arb_sum": 0.9843,
+    "arb_sum": 0.986,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 2.15,
-        "stake": 47255,
-        "win": 101598
+        "stake": 47174,
+        "win": 101424
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 3.855,
-        "stake": 26355,
-        "win": 101599
+        "odd": 3.83,
+        "stake": 26482,
+        "win": 101426
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 3.85,
-        "stake": 26389,
-        "win": 101598
+        "stake": 26344,
+        "win": 101424
       }
     ],
     "market_type": "1x2",
@@ -368,6 +334,60 @@
         "odd": 4.6,
         "stake": 39219,
         "win": 180407
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "portimonense vs alahli jeddah",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.32,
+    "profit_ugx": 15316,
+    "total_stake": 100000,
+    "arb_sum": 0.8468,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 52954,
+        "win": 118087
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.51,
+        "stake": 47046,
+        "win": 118085
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "portimonense vs alahli jeddah",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.32,
+    "profit_ugx": 15316,
+    "total_stake": 100000,
+    "arb_sum": 0.8468,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 52954,
+        "win": 118087
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.51,
+        "stake": 47046,
+        "win": 118085
       }
     ],
     "market_type": "1x2",
