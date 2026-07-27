@@ -1,5 +1,39 @@
 [
   {
+    "match": "south africa w vs tanzania w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.82,
+    "profit_ugx": 2823,
+    "total_stake": 100000,
+    "arb_sum": 0.9718,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.27,
+        "stake": 81028,
+        "win": 102906
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 10.7,
+        "stake": 9617,
+        "win": 102902
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 11.0,
+        "stake": 9355,
+        "win": 102905
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "ivory coast w vs burkina faso w",
     "sport": "Football",
     "type": "3-way",
@@ -62,6 +96,40 @@
         "odd": 18.0,
         "stake": 5601,
         "win": 100818
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rosenborg vs fredrikstad",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.64,
+    "profit_ugx": 644,
+    "total_stake": 100000,
+    "arb_sum": 0.9936,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.59,
+        "stake": 63300,
+        "win": 100647
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.47,
+        "stake": 18400,
+        "win": 100648
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.5,
+        "stake": 18300,
+        "win": 100650
       }
     ],
     "market_type": "1x2",
