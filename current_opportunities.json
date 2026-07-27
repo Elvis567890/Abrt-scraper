@@ -204,34 +204,68 @@
     "market_specifier": ""
   },
   {
+    "match": "sport recife vs cuiaba",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.55,
+    "profit_ugx": 548,
+    "total_stake": 100000,
+    "arb_sum": 0.9945,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.94,
+        "stake": 51830,
+        "win": 100550
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.15,
+        "stake": 24229,
+        "win": 100550
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.2,
+        "stake": 23941,
+        "win": 100552
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "artis brno vs mlada boleslav",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 18.39,
-    "profit_ugx": 18386,
+    "profit_percent": 18.37,
+    "profit_ugx": 18369,
     "total_stake": 100000,
-    "arb_sum": 0.8161,
+    "arb_sum": 0.8163,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 3.815,
-        "stake": 32117,
-        "win": 122526
+        "odd": 3.835,
+        "stake": 31943,
+        "win": 122501
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 34035,
-        "win": 122526
+        "stake": 34028,
+        "win": 122501
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.62,
-        "stake": 33847,
-        "win": 122526
+        "odd": 3.6,
+        "stake": 34028,
+        "win": 122501
       }
     ],
     "market_type": "1x2",
