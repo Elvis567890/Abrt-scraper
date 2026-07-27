@@ -34,34 +34,68 @@
     "market_specifier": ""
   },
   {
+    "match": "ivory coast w vs burkina faso w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.54,
+    "profit_ugx": 1540,
+    "total_stake": 100000,
+    "arb_sum": 0.9846,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.75,
+        "stake": 58037,
+        "win": 101565
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.99,
+        "stake": 20354,
+        "win": 101566
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.7,
+        "stake": 21609,
+        "win": 101562
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "qingdao red lions vs beijing it",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 6.37,
-    "profit_ugx": 6370,
+    "profit_percent": 6.2,
+    "profit_ugx": 6197,
     "total_stake": 100000,
-    "arb_sum": 0.9363,
+    "arb_sum": 0.938,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.71,
-        "stake": 62458,
-        "win": 106803
+        "stake": 62343,
+        "win": 106607
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 5.41,
-        "stake": 19742,
-        "win": 106804
+        "odd": 5.36,
+        "stake": 19889,
+        "win": 106605
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 6.0,
-        "stake": 17800,
-        "win": 106800
+        "stake": 17768,
+        "win": 106608
       }
     ],
     "market_type": "1x2",
