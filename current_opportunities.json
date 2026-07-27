@@ -68,34 +68,68 @@
     "market_specifier": ""
   },
   {
+    "match": "indonesia vs cambodia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.99,
+    "profit_ugx": 992,
+    "total_stake": 100000,
+    "arb_sum": 0.9901,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.12,
+        "stake": 90180,
+        "win": 101002
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 24.0,
+        "stake": 4208,
+        "win": 100992
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 18.0,
+        "stake": 5611,
+        "win": 100998
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "rosenborg vs fredrikstad",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.73,
-    "profit_ugx": 735,
+    "profit_percent": 1.08,
+    "profit_ugx": 1084,
     "total_stake": 100000,
-    "arb_sum": 0.9927,
+    "arb_sum": 0.9892,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.63,
-        "stake": 61804,
-        "win": 100741
+        "stake": 62022,
+        "win": 101096
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
-        "odd": 5.3,
-        "stake": 19008,
-        "win": 100742
+        "odd": 5.4,
+        "stake": 18721,
+        "win": 101093
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 5.25,
-        "stake": 19189,
-        "win": 100742
+        "stake": 19256,
+        "win": 101094
       }
     ],
     "market_type": "1x2",
@@ -354,6 +388,60 @@
         "odd": 2.104,
         "stake": 52333,
         "win": 110109
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "antigua and barbuda u20 vs guatemala u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.92,
+    "profit_ugx": 10920,
+    "total_stake": 100000,
+    "arb_sum": 0.8908,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.94,
+        "stake": 38183,
+        "win": 112258
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.816,
+        "stake": 61817,
+        "win": 112260
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "antigua and barbuda u20 vs guatemala u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.92,
+    "profit_ugx": 10920,
+    "total_stake": 100000,
+    "arb_sum": 0.8908,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.94,
+        "stake": 38183,
+        "win": 112258
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.816,
+        "stake": 61817,
+        "win": 112260
       }
     ],
     "market_type": "1x2",
