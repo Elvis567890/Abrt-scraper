@@ -142,34 +142,34 @@
     "market_specifier": ""
   },
   {
-    "match": "apollon vs dila gori",
+    "match": "riga vs vardar",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.64,
-    "profit_ugx": 637,
+    "profit_percent": 0.62,
+    "profit_ugx": 618,
     "total_stake": 100000,
-    "arb_sum": 0.9936,
+    "arb_sum": 0.9938,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "ChampionBet",
         "outcome": "Home",
-        "odd": 1.36,
-        "stake": 74001,
-        "win": 100641
+        "odd": 1.4,
+        "stake": 71873,
+        "win": 100622
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
-        "odd": 7.5,
-        "stake": 13419,
-        "win": 100642
+        "odd": 7.11,
+        "stake": 14152,
+        "win": 100621
       },
       {
-        "bookmaker": "ChampionBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 8.0,
-        "stake": 12580,
-        "win": 100640
+        "odd": 7.2,
+        "stake": 13975,
+        "win": 100620
       }
     ],
     "market_type": "1x2",
@@ -204,6 +204,40 @@
         "odd": 3.54,
         "stake": 32251,
         "win": 114169
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "cagliari vs modena",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.32,
+    "profit_ugx": 1318,
+    "total_stake": 100000,
+    "arb_sum": 0.9868,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.71,
+        "stake": 59261,
+        "win": 101336
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.95,
+        "stake": 20472,
+        "win": 101336
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.0,
+        "stake": 20267,
+        "win": 101335
       }
     ],
     "market_type": "1x2",
