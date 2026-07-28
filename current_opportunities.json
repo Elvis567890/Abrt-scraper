@@ -142,34 +142,68 @@
     "market_specifier": ""
   },
   {
+    "match": "riga vs vardar",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.25,
+    "profit_ugx": 1247,
+    "total_stake": 100000,
+    "arb_sum": 0.9875,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.42,
+        "stake": 71312,
+        "win": 101263
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 7.12,
+        "stake": 14222,
+        "win": 101261
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 7.0,
+        "stake": 14466,
+        "win": 101262
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "drita vs floriana",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.41,
-    "profit_ugx": 1408,
+    "profit_percent": 2.15,
+    "profit_ugx": 2154,
     "total_stake": 100000,
-    "arb_sum": 0.9859,
+    "arb_sum": 0.9785,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.48,
-        "stake": 68532,
-        "win": 101427
+        "odd": 1.51,
+        "stake": 67683,
+        "win": 102201
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 6.6,
-        "stake": 15368,
-        "win": 101429
+        "odd": 6.35,
+        "stake": 16095,
+        "win": 102203
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 6.3,
-        "stake": 16100,
-        "win": 101430
+        "stake": 16222,
+        "win": 102199
       }
     ],
     "market_type": "1x2",
@@ -491,24 +525,24 @@
     "match": "virtus lanciano 1924 vs bari",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 17.92,
-    "profit_ugx": 17915,
+    "profit_percent": 17.22,
+    "profit_ugx": 17223,
     "total_stake": 100000,
-    "arb_sum": 0.8208,
+    "arb_sum": 0.8278,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 8.8,
-        "stake": 13844,
-        "win": 121827
+        "odd": 9.1,
+        "stake": 13276,
+        "win": 120812
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 1.414,
-        "stake": 86156,
-        "win": 121825
+        "odd": 1.393,
+        "stake": 86724,
+        "win": 120807
       }
     ],
     "market_type": "1x2",
@@ -518,24 +552,24 @@
     "match": "virtus lanciano 1924 vs bari",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 17.92,
-    "profit_ugx": 17915,
+    "profit_percent": 17.22,
+    "profit_ugx": 17223,
     "total_stake": 100000,
-    "arb_sum": 0.8208,
+    "arb_sum": 0.8278,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 8.8,
-        "stake": 13844,
-        "win": 121827
+        "odd": 9.1,
+        "stake": 13276,
+        "win": 120812
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.414,
-        "stake": 86156,
-        "win": 121825
+        "odd": 1.393,
+        "stake": 86724,
+        "win": 120807
       }
     ],
     "market_type": "1x2",
