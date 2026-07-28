@@ -1,11 +1,93 @@
 {
+  "Football::1x2::tigres bogota vs atletico nacional::": {
+    "match": "tigres bogota vs atletico nacional",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-28 20:40:23",
+    "last_seen": "2026-07-28 20:40:23",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 34.08,
+        "profit_ugx": 34081,
+        "arb_sum": 0.6592,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "Home",
+            "odd": 6.44,
+            "stake": 23556,
+            "win": 151701
+          },
+          {
+            "bookmaker": "AbaBet",
+            "outcome": "Draw",
+            "odd": 4.5,
+            "stake": 33711,
+            "win": 151700
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Away",
+            "odd": 3.55,
+            "stake": 42733,
+            "win": 151702
+          }
+        ]
+      }
+    ]
+  },
+  "Football::1x2::dukagjini fk vs lugano::": {
+    "match": "dukagjini fk vs lugano",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-28 20:40:23",
+    "last_seen": "2026-07-28 20:40:23",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 29.58,
+        "profit_ugx": 29581,
+        "arb_sum": 0.7042,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 5.19,
+            "stake": 27362,
+            "win": 142009
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Draw",
+            "odd": 3.9,
+            "stake": 36412,
+            "win": 142007
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Away",
+            "odd": 3.92,
+            "stake": 36226,
+            "win": 142006
+          }
+        ]
+      }
+    ]
+  },
   "Football::1x2::el salvador u20 vs usa u20::": {
     "match": "el salvador u20 vs usa u20",
     "sport": "Football",
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 18:46:36",
-    "last_seen": "2026-07-28 20:38:23",
+    "last_seen": "2026-07-28 20:40:23",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -2497,6 +2579,50 @@
       },
       {
         "timestamp": "2026-07-28 20:38:23",
+        "profit_percent": 29.14,
+        "profit_ugx": 29137,
+        "arb_sum": 0.7086,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 6.9,
+            "stake": 20452,
+            "win": 141119
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.774,
+            "stake": 79548,
+            "win": 141118
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 29.14,
+        "profit_ugx": 29137,
+        "arb_sum": 0.7086,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 6.9,
+            "stake": 20452,
+            "win": 141119
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.774,
+            "stake": 79548,
+            "win": 141118
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
         "profit_percent": 29.14,
         "profit_ugx": 29137,
         "arb_sum": 0.7086,
@@ -2525,7 +2651,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 14:30:44",
-    "last_seen": "2026-07-28 20:38:23",
+    "last_seen": "2026-07-28 20:40:23",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -10668,6 +10794,91 @@
             "win": 128857
           }
         ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 22.39,
+        "profit_ugx": 22395,
+        "arb_sum": 0.7761,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.47,
+            "stake": 52169,
+            "win": 128857
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 2.694,
+            "stake": 47831,
+            "win": 128857
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 22.39,
+        "profit_ugx": 22395,
+        "arb_sum": 0.7761,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.47,
+            "stake": 52169,
+            "win": 128857
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 2.694,
+            "stake": 47831,
+            "win": 128857
+          }
+        ]
+      }
+    ]
+  },
+  "Football::1x2::argentinos jrs vs estudiantes rio cuarto::": {
+    "match": "argentinos jrs vs estudiantes rio cuarto",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-28 20:40:23",
+    "last_seen": "2026-07-28 20:40:23",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 9.59,
+        "profit_ugx": 9590,
+        "arb_sum": 0.9041,
+        "bets": [
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Home",
+            "odd": 1.36,
+            "stake": 81329,
+            "win": 110607
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "Draw",
+            "odd": 11.7,
+            "stake": 9454,
+            "win": 110612
+          },
+          {
+            "bookmaker": "AbaBet",
+            "outcome": "Away",
+            "odd": 12.0,
+            "stake": 9217,
+            "win": 110604
+          }
+        ]
       }
     ]
   },
@@ -10677,7 +10888,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 10:32:39",
-    "last_seen": "2026-07-28 20:38:23",
+    "last_seen": "2026-07-28 20:40:23",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -19554,6 +19765,35 @@
             "win": 108516
           }
         ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 7.85,
+        "profit_ugx": 7848,
+        "arb_sum": 0.9215,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Home",
+            "odd": 3.765,
+            "stake": 28822,
+            "win": 108515
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Draw",
+            "odd": 3.0,
+            "stake": 36172,
+            "win": 108516
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "Away",
+            "odd": 3.1,
+            "stake": 35005,
+            "win": 108516
+          }
+        ]
       }
     ]
   },
@@ -19563,7 +19803,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 18:00:51",
-    "last_seen": "2026-07-28 20:38:23",
+    "last_seen": "2026-07-28 20:40:23",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -25387,6 +25627,79 @@
       },
       {
         "timestamp": "2026-07-28 20:38:23",
+        "profit_percent": 7.03,
+        "profit_ugx": 7031,
+        "arb_sum": 0.9297,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.562,
+            "stake": 41984,
+            "win": 107563
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.854,
+            "stake": 58016,
+            "win": 107562
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 38.52,
+        "profit_ugx": 38523,
+        "arb_sum": 0.6148,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 6.6,
+            "stake": 24646,
+            "win": 162664
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Draw",
+            "odd": 4.35,
+            "stake": 37394,
+            "win": 162664
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Away",
+            "odd": 4.285,
+            "stake": 37961,
+            "win": 162663
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 7.03,
+        "profit_ugx": 7031,
+        "arb_sum": 0.9297,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.562,
+            "stake": 41984,
+            "win": 107563
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.854,
+            "stake": 58016,
+            "win": 107562
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
         "profit_percent": 7.03,
         "profit_ugx": 7031,
         "arb_sum": 0.9297,
@@ -25415,7 +25728,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 18:46:36",
-    "last_seen": "2026-07-28 20:38:23",
+    "last_seen": "2026-07-28 20:40:23",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -27045,6 +27358,35 @@
       },
       {
         "timestamp": "2026-07-28 20:38:23",
+        "profit_percent": 4.63,
+        "profit_ugx": 4632,
+        "arb_sum": 0.9537,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Home",
+            "odd": 2.089,
+            "stake": 50195,
+            "win": 104857
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "Draw",
+            "odd": 4.125,
+            "stake": 25420,
+            "win": 104858
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Away",
+            "odd": 4.3,
+            "stake": 24385,
+            "win": 104856
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
         "profit_percent": 4.63,
         "profit_ugx": 4632,
         "arb_sum": 0.9537,
@@ -27082,7 +27424,7 @@
     "first_seen": "2026-07-28 10:32:39",
     "last_seen": "2026-07-28 20:38:23",
     "valid": true,
-    "cycles_missed": 0,
+    "cycles_missed": 1,
     "versions": [
       {
         "timestamp": "2026-07-28 10:32:39",
@@ -35960,13 +36302,54 @@
       }
     ]
   },
+  "Football::1x2::rosario central vs racing::": {
+    "match": "rosario central vs racing",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-28 20:40:23",
+    "last_seen": "2026-07-28 20:40:23",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 4.41,
+        "profit_ugx": 4406,
+        "arb_sum": 0.9559,
+        "bets": [
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Home",
+            "odd": 2.07,
+            "stake": 50536,
+            "win": 104610
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "Draw",
+            "odd": 3.99,
+            "stake": 26218,
+            "win": 104610
+          },
+          {
+            "bookmaker": "AbaBet",
+            "outcome": "Away",
+            "odd": 4.5,
+            "stake": 23246,
+            "win": 104607
+          }
+        ]
+      }
+    ]
+  },
   "Football::1x2::dukagjini vs lugano::": {
     "match": "dukagjini vs lugano",
     "sport": "Football",
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 14:30:44",
-    "last_seen": "2026-07-28 20:38:23",
+    "last_seen": "2026-07-28 20:40:23",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -43460,6 +43843,50 @@
             "win": 101944
           }
         ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 1.91,
+        "profit_ugx": 1907,
+        "arb_sum": 0.9809,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.25,
+            "stake": 45309,
+            "win": 101945
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.864,
+            "stake": 54691,
+            "win": 101944
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 1.91,
+        "profit_ugx": 1907,
+        "arb_sum": 0.9809,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.25,
+            "stake": 45309,
+            "win": 101945
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.864,
+            "stake": 54691,
+            "win": 101944
+          }
+        ]
       }
     ]
   },
@@ -43471,7 +43898,7 @@
     "first_seen": "2026-07-28 17:40:35",
     "last_seen": "2026-07-28 20:38:23",
     "valid": true,
-    "cycles_missed": 0,
+    "cycles_missed": 1,
     "versions": [
       {
         "timestamp": "2026-07-28 17:40:35",
@@ -46114,13 +46541,54 @@
       }
     ]
   },
+  "Football::1x2::fortaleza ec vs botafogo sp::": {
+    "match": "fortaleza ec vs botafogo sp",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-28 20:40:23",
+    "last_seen": "2026-07-28 20:40:23",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
+      {
+        "timestamp": "2026-07-28 20:40:23",
+        "profit_percent": 1.23,
+        "profit_ugx": 1226,
+        "arb_sum": 0.9877,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Home",
+            "odd": 1.81,
+            "stake": 55934,
+            "win": 101241
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "Draw",
+            "odd": 4.59,
+            "stake": 22057,
+            "win": 101242
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Away",
+            "odd": 4.6,
+            "stake": 22009,
+            "win": 101241
+          }
+        ]
+      }
+    ]
+  },
   "Football::1x2::slovan bratislava vs iberia 1999::": {
     "match": "slovan bratislava vs iberia 1999",
     "sport": "Football",
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 18:16:41",
-    "last_seen": "2026-07-28 20:38:23",
+    "last_seen": "2026-07-28 20:40:23",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -48185,6 +48653,35 @@
       },
       {
         "timestamp": "2026-07-28 20:38:23",
+        "profit_percent": 0.62,
+        "profit_ugx": 619,
+        "arb_sum": 0.9938,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 1.331,
+            "stake": 75600,
+            "win": 100624
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Draw",
+            "odd": 8.75,
+            "stake": 11500,
+            "win": 100625
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Away",
+            "odd": 7.8,
+            "stake": 12900,
+            "win": 100620
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-28 20:40:23",
         "profit_percent": 0.62,
         "profit_ugx": 619,
         "arb_sum": 0.9938,
