@@ -213,31 +213,31 @@
     "match": "celje vs egnatia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.33,
-    "profit_ugx": 1326,
+    "profit_percent": 0.79,
+    "profit_ugx": 788,
     "total_stake": 100000,
-    "arb_sum": 0.9867,
+    "arb_sum": 0.9921,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.496,
-        "stake": 67743,
-        "win": 101344
+        "odd": 1.465,
+        "stake": 68802,
+        "win": 100795
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 5.7,
-        "stake": 17780,
-        "win": 101346
+        "odd": 6.0,
+        "stake": 16799,
+        "win": 100794
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 7.0,
-        "stake": 14478,
-        "win": 101346
+        "stake": 14399,
+        "win": 100793
       }
     ],
     "market_type": "1x2",
@@ -272,6 +272,40 @@
         "odd": 3.58,
         "stake": 31866,
         "win": 114080
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rizespor vs hull",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 14.14,
+    "profit_ugx": 14141,
+    "total_stake": 100000,
+    "arb_sum": 0.8586,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.3,
+        "stake": 35294,
+        "win": 116470
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 32353,
+        "win": 116471
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 32353,
+        "win": 116471
       }
     ],
     "market_type": "1x2",
