@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install requests beautifulsoup4 passlib
+          pip install requests beautifulsoup4 passlib PyJWT Flask Flask-CORS Flask-SQLAlchemy python-dotenv
 
       - name: Run Python scraper
         run: python scraper.py
@@ -32,7 +32,6 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GITHUB_ACTION: 1
 
-      # 👇 NEW STEP: Filter the history file to keep only the best opportunities
       - name: Filter history to keep best opportunities
         run: python filter_history.py
 
