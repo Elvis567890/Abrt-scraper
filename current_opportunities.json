@@ -306,27 +306,34 @@
     "market_specifier": ""
   },
   {
-    "match": "gornik zabrze vs fenerbahce",
+    "match": "celta vigo vs academico viseu",
     "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 6.71,
-    "profit_ugx": 6709,
+    "type": "3-way",
+    "profit_percent": 1.72,
+    "profit_ugx": 1717,
     "total_stake": 100000,
-    "arb_sum": 0.9329,
+    "arb_sum": 0.9828,
     "bets": [
       {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.562,
-        "stake": 41839,
-        "win": 107192
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.55,
+        "stake": 65643,
+        "win": 101747
       },
       {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.843,
-        "stake": 58161,
-        "win": 107191
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.44,
+        "stake": 18703,
+        "win": 101744
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.5,
+        "stake": 15653,
+        "win": 101744
       }
     ],
     "market_type": "1x2",
@@ -336,24 +343,51 @@
     "match": "gornik zabrze vs fenerbahce",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 6.71,
-    "profit_ugx": 6709,
+    "profit_percent": 7.03,
+    "profit_ugx": 7031,
     "total_stake": 100000,
-    "arb_sum": 0.9329,
+    "arb_sum": 0.9297,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.562,
+        "stake": 41984,
+        "win": 107563
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.854,
+        "stake": 58016,
+        "win": 107562
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gornik zabrze vs fenerbahce",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.03,
+    "profit_ugx": 7031,
+    "total_stake": 100000,
+    "arb_sum": 0.9297,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 2.562,
-        "stake": 41839,
-        "win": 107192
+        "stake": 41984,
+        "win": 107563
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.843,
-        "stake": 58161,
-        "win": 107191
+        "odd": 1.854,
+        "stake": 58016,
+        "win": 107562
       }
     ],
     "market_type": "1x2",
