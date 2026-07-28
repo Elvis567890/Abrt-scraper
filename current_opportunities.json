@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "banfield vs sarmiento",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.07,
+    "profit_ugx": 3075,
+    "total_stake": 100000,
+    "arb_sum": 0.9693,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.325,
+        "stake": 44375,
+        "win": 103172
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.67,
+        "stake": 28112,
+        "win": 103171
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 3.75,
+        "stake": 27513,
+        "win": 103174
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "rosario central vs racing",
     "sport": "Football",
     "type": "3-way",
@@ -266,40 +300,6 @@
         "odd": 4.1,
         "stake": 40327,
         "win": 165341
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "banfield vs sarmiento",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.25,
-    "profit_ugx": 3245,
-    "total_stake": 100000,
-    "arb_sum": 0.9675,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.24,
-        "stake": 46140,
-        "win": 103354
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 3.93,
-        "stake": 26299,
-        "win": 103355
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 3.75,
-        "stake": 27561,
-        "win": 103354
       }
     ],
     "market_type": "1x2",
