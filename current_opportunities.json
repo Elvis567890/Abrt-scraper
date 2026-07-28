@@ -3,31 +3,31 @@
     "match": "lincoln red imps vs mjallby",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 34.85,
-    "profit_ugx": 34846,
+    "profit_percent": 36.33,
+    "profit_ugx": 36327,
     "total_stake": 100000,
-    "arb_sum": 0.6515,
+    "arb_sum": 0.6367,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 5.0,
-        "stake": 30696,
-        "win": 153480
+        "odd": 5.4,
+        "stake": 29084,
+        "win": 157054
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.2,
-        "stake": 36543,
-        "win": 153481
+        "stake": 37394,
+        "win": 157055
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Away",
         "odd": 4.685,
-        "stake": 32760,
-        "win": 153481
+        "stake": 33523,
+        "win": 157055
       }
     ],
     "market_type": "1x2",
@@ -176,6 +176,40 @@
     "market_specifier": ""
   },
   {
+    "match": "riga vs vardar",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.44,
+    "profit_ugx": 1444,
+    "total_stake": 100000,
+    "arb_sum": 0.9856,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.42,
+        "stake": 71454,
+        "win": 101465
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 7.02,
+        "stake": 14454,
+        "win": 101467
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 7.2,
+        "stake": 14092,
+        "win": 101462
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "drita vs floriana",
     "sport": "Football",
     "type": "3-way",
@@ -204,40 +238,6 @@
         "odd": 6.3,
         "stake": 16100,
         "win": 101430
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "celje vs egnatia",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.79,
-    "profit_ugx": 788,
-    "total_stake": 100000,
-    "arb_sum": 0.9921,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.465,
-        "stake": 68802,
-        "win": 100795
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 6.0,
-        "stake": 16799,
-        "win": 100794
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 7.0,
-        "stake": 14399,
-        "win": 100793
       }
     ],
     "market_type": "1x2",
