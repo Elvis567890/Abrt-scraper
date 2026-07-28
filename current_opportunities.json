@@ -142,34 +142,68 @@
     "market_specifier": ""
   },
   {
+    "match": "apollon vs dila gori",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.97,
+    "profit_ugx": 971,
+    "total_stake": 100000,
+    "arb_sum": 0.9903,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.343,
+        "stake": 75190,
+        "win": 100980
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 7.5,
+        "stake": 13464,
+        "win": 100980
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 8.9,
+        "stake": 11346,
+        "win": 100979
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "riga vs vardar",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.34,
-    "profit_ugx": 1341,
+    "profit_percent": 0.74,
+    "profit_ugx": 738,
     "total_stake": 100000,
-    "arb_sum": 0.9866,
+    "arb_sum": 0.9926,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 1.42,
-        "stake": 71380,
-        "win": 101360
+        "stake": 70946,
+        "win": 100743
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
         "odd": 6.97,
-        "stake": 14542,
-        "win": 101358
+        "stake": 14454,
+        "win": 100744
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 7.2,
-        "stake": 14078,
-        "win": 101362
+        "odd": 6.9,
+        "stake": 14600,
+        "win": 100740
       }
     ],
     "market_type": "1x2",
@@ -247,31 +281,31 @@
     "match": "cagliari vs modena",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.16,
-    "profit_ugx": 1156,
+    "profit_percent": 1.14,
+    "profit_ugx": 1136,
     "total_stake": 100000,
-    "arb_sum": 0.9884,
+    "arb_sum": 0.9886,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.7,
-        "stake": 59512,
-        "win": 101170
+        "stake": 59500,
+        "win": 101150
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 4.995,
-        "stake": 20254,
-        "win": 101169
+        "odd": 4.99,
+        "stake": 20270,
+        "win": 101147
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 5.0,
-        "stake": 20234,
-        "win": 101170
+        "stake": 20230,
+        "win": 101150
       }
     ],
     "market_type": "1x2",
