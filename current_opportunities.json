@@ -142,6 +142,40 @@
     "market_specifier": ""
   },
   {
+    "match": "riga vs vardar",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.77,
+    "profit_ugx": 768,
+    "total_stake": 100000,
+    "arb_sum": 0.9923,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Home",
+        "odd": 1.35,
+        "stake": 74647,
+        "win": 100773
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 8.0,
+        "stake": 12597,
+        "win": 100776
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 7.9,
+        "stake": 12756,
+        "win": 100772
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "celje vs fk egnatia",
     "sport": "Football",
     "type": "3-way",
@@ -244,6 +278,40 @@
     "market_specifier": ""
   },
   {
+    "match": "morecambe vs afc fylde",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 7.78,
+    "profit_ugx": 7779,
+    "total_stake": 100000,
+    "arb_sum": 0.9222,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.65,
+        "stake": 40919,
+        "win": 108435
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 28536,
+        "win": 108437
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.55,
+        "stake": 30545,
+        "win": 108435
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "lincoln red imps vs mjallby",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -460,60 +528,6 @@
     "market_specifier": ""
   },
   {
-    "match": "portimonense vs alahli jeddah",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 10.09,
-    "profit_ugx": 10090,
-    "total_stake": 100000,
-    "arb_sum": 0.8991,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.82,
-        "stake": 61111,
-        "win": 111222
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.86,
-        "stake": 38889,
-        "win": 111223
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "portimonense vs alahli jeddah",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 10.09,
-    "profit_ugx": 10090,
-    "total_stake": 100000,
-    "arb_sum": 0.8991,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.82,
-        "stake": 61111,
-        "win": 111222
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.86,
-        "stake": 38889,
-        "win": 111223
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "derby county vs valencia",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -562,6 +576,60 @@
         "odd": 2.38,
         "stake": 43602,
         "win": 103773
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "virtus lanciano 1924 vs bari",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.48,
+    "profit_ugx": 21482,
+    "total_stake": 100000,
+    "arb_sum": 0.7852,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 8.6,
+        "stake": 14809,
+        "win": 127357
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.495,
+        "stake": 85191,
+        "win": 127361
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "virtus lanciano 1924 vs bari",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.48,
+    "profit_ugx": 21482,
+    "total_stake": 100000,
+    "arb_sum": 0.7852,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 8.6,
+        "stake": 14809,
+        "win": 127357
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.495,
+        "stake": 85191,
+        "win": 127361
       }
     ],
     "market_type": "1x2",
