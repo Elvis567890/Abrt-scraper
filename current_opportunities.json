@@ -3,31 +3,31 @@
     "match": "copenhagen vs polissya zhytomyr",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.21,
-    "profit_ugx": 1209,
+    "profit_percent": 0.61,
+    "profit_ugx": 609,
     "total_stake": 100000,
-    "arb_sum": 0.9879,
+    "arb_sum": 0.9939,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.744,
-        "stake": 58041,
-        "win": 101224
+        "odd": 1.76,
+        "stake": 57167,
+        "win": 100614
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Draw",
         "odd": 4.8,
-        "stake": 21088,
-        "win": 101222
+        "stake": 20961,
+        "win": 100613
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 4.85,
-        "stake": 20871,
-        "win": 101224
+        "odd": 4.6,
+        "stake": 21872,
+        "win": 100611
       }
     ],
     "market_type": "1x2",
@@ -170,40 +170,6 @@
     "market_specifier": ""
   },
   {
-    "match": "farnborough vs portsmouth",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 40.3,
-    "profit_ugx": 40299,
-    "total_stake": 100000,
-    "arb_sum": 0.597,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 5.3,
-        "stake": 31604,
-        "win": 167501
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 5.0,
-        "stake": 33500,
-        "win": 167500
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.8,
-        "stake": 34896,
-        "win": 167501
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "boston utd vs grimsby town",
     "sport": "Football",
     "type": "3-way",
@@ -232,6 +198,40 @@
         "odd": 3.38,
         "stake": 30384,
         "win": 102698
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "farnborough vs portsmouth",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 40.3,
+    "profit_ugx": 40299,
+    "total_stake": 100000,
+    "arb_sum": 0.597,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.3,
+        "stake": 31604,
+        "win": 167501
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 5.0,
+        "stake": 33500,
+        "win": 167500
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.8,
+        "stake": 34896,
+        "win": 167501
       }
     ],
     "market_type": "1x2",
