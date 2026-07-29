@@ -312,6 +312,40 @@
     "market_specifier": ""
   },
   {
+    "match": "real oviedo vs ponferradina",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.61,
+    "profit_ugx": 606,
+    "total_stake": 100000,
+    "arb_sum": 0.9939,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.69,
+        "stake": 59532,
+        "win": 100609
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.945,
+        "stake": 20346,
+        "win": 100611
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.0,
+        "stake": 20122,
+        "win": 100610
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "gornik zabrze vs fenerbahce",
     "sport": "Football",
     "type": "Double Chance 1X",
