@@ -281,31 +281,31 @@
     "match": "yeoju citizen vs dangjin citizen",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.24,
-    "profit_ugx": 1240,
+    "profit_percent": 3.48,
+    "profit_ugx": 3479,
     "total_stake": 100000,
-    "arb_sum": 0.9876,
+    "arb_sum": 0.9652,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.57,
-        "stake": 39399,
-        "win": 101255
+        "odd": 2.64,
+        "stake": 39244,
+        "win": 103604
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.45,
-        "stake": 29349,
-        "win": 101254
+        "odd": 3.6,
+        "stake": 28779,
+        "win": 103604
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.24,
-        "stake": 31252,
-        "win": 101256
+        "stake": 31977,
+        "win": 103605
       }
     ],
     "market_type": "1x2",
@@ -590,6 +590,60 @@
         "odd": 3.105,
         "stake": 44104,
         "win": 136943
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "inter stars sibiu vs medias",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.61,
+    "profit_ugx": 15614,
+    "total_stake": 100000,
+    "arb_sum": 0.8439,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.05,
+        "stake": 38853,
+        "win": 118502
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.938,
+        "stake": 61147,
+        "win": 118503
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "inter stars sibiu vs medias",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.61,
+    "profit_ugx": 15614,
+    "total_stake": 100000,
+    "arb_sum": 0.8439,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.05,
+        "stake": 38853,
+        "win": 118502
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.938,
+        "stake": 61147,
+        "win": 118503
       }
     ],
     "market_type": "1x2",
