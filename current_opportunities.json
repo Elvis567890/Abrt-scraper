@@ -37,31 +37,31 @@
     "match": "rapid vienna vs santa coloma",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.9,
-    "profit_ugx": 1897,
+    "profit_percent": 0.98,
+    "profit_ugx": 981,
     "total_stake": 100000,
-    "arb_sum": 0.981,
+    "arb_sum": 0.9902,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.11,
-        "stake": 91832,
-        "win": 101934
+        "odd": 1.112,
+        "stake": 90819,
+        "win": 100991
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
-        "odd": 24.0,
-        "stake": 4247,
-        "win": 101928
+        "odd": 22.0,
+        "stake": 4590,
+        "win": 100980
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 26.0,
-        "stake": 3921,
-        "win": 101946
+        "odd": 22.0,
+        "stake": 4590,
+        "win": 100980
       }
     ],
     "market_type": "1x2",
@@ -136,40 +136,6 @@
     "market_specifier": ""
   },
   {
-    "match": "bradford vs preston",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.92,
-    "profit_ugx": 3922,
-    "total_stake": 100000,
-    "arb_sum": 0.9608,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.75,
-        "stake": 37848,
-        "win": 104082
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30612,
-        "win": 104081
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.3,
-        "stake": 31540,
-        "win": 104082
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "watford vs fiorentina",
     "sport": "Football",
     "type": "3-way",
@@ -198,6 +164,40 @@
         "odd": 3.28,
         "stake": 31644,
         "win": 103792
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bradford vs preston",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.92,
+    "profit_ugx": 3922,
+    "total_stake": 100000,
+    "arb_sum": 0.9608,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.75,
+        "stake": 37848,
+        "win": 104082
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 30612,
+        "win": 104081
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.3,
+        "stake": 31540,
+        "win": 104082
       }
     ],
     "market_type": "1x2",
