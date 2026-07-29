@@ -136,40 +136,6 @@
     "market_specifier": ""
   },
   {
-    "match": "bradford vs preston",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.92,
-    "profit_ugx": 3922,
-    "total_stake": 100000,
-    "arb_sum": 0.9608,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.75,
-        "stake": 37848,
-        "win": 104082
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30612,
-        "win": 104081
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.3,
-        "stake": 31540,
-        "win": 104082
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "bristol vs newcastle",
     "sport": "Football",
     "type": "3-way",
@@ -198,6 +164,40 @@
         "odd": 3.68,
         "stake": 32640,
         "win": 120115
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bradford vs preston",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.92,
+    "profit_ugx": 3922,
+    "total_stake": 100000,
+    "arb_sum": 0.9608,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.75,
+        "stake": 37848,
+        "win": 104082
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 30612,
+        "win": 104081
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.3,
+        "stake": 31540,
+        "win": 104082
       }
     ],
     "market_type": "1x2",
