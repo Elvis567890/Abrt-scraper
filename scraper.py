@@ -15,6 +15,10 @@ from functools import wraps
 import requests
 from bs4 import BeautifulSoup
 
+# ---------- Firebase Admin ----------
+import firebase_admin
+from firebase_admin import credentials, auth as firebase_auth
+
 SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 CHAMPIONBET_MATCH_API = "https://www.championbet.ug/restapi/offer/en/match/{match_id}?annex=13&mobileVersion=2.47.4.3&locale=en"
@@ -937,7 +941,7 @@ def run_scan():
 
 
 # ============================================================================
-#                              FLASK BILLING API (KEY-BASED + SMS + ADS)
+#                              FLASK BILLING API (FIREBASE + SMS)
 # ============================================================================
 
 import uuid
@@ -949,6 +953,10 @@ from dotenv import load_dotenv
 from passlib.hash import bcrypt as bcrypt_hash
 import re
 
+# ---------- Firebase Admin ----------
+import firebase_admin
+from firebase_admin import credentials, auth as firebase_auth
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -957,6 +965,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
 app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
 CORS(app)
+
+# Initialize Firebase Admin
+firebase_cred_json = os.getenv('FIREBASE_SERVICE_ACCOUNT')
+if firebase_cred_json:
+    cred = credentials.Certificate(json.loads(firebase_cred_json))
+    firebase_admin.initialize_app(cred)
+    print("✅ Firebase Admin initialized")
+else:
+    print("⚠️ FIREBASE_SERVICE_ACCOUNT not set. Firebase auth disabled.")
 
 db = SQLAlchemy(app)
 
@@ -1022,6 +1039,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
+    firebase_uid = db.Column(db.String(128), unique=True, nullable=True)
 
     tier = db.Column(db.String(20), default='free')
     is_subscribed = db.Column(db.Boolean, default=False)
@@ -1068,6 +1086,7 @@ def generate_token(user_id):
     return jwt.encode(payload, os.getenv('JWT_SECRET', 'dev-jwt-secret'), algorithm='HS256')
 
 
+# ---- Firebase Token Verification ----
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -1076,10 +1095,21 @@ def token_required(f):
             return jsonify({'error': 'Token missing'}), 401
         token = token.split(' ')[1]
         try:
-            data = jwt.decode(token, os.getenv('JWT_SECRET', 'dev-jwt-secret'), algorithms=['HS256'])
-            g.user_id = data['user_id']
-        except:
-            return jsonify({'error': 'Invalid token'}), 401
+            # Verify Firebase ID token
+            decoded_token = firebase_auth.verify_id_token(token)
+            uid = decoded_token['uid']
+            # Find or create user
+            user = User.query.filter_by(firebase_uid=uid).first()
+            if not user:
+                email = decoded_token.get('email')
+                phone = decoded_token.get('phone_number') or ''
+                user = User(email=email, phone=phone, firebase_uid=uid, tier='free')
+                db.session.add(user)
+                db.session.commit()
+            g.user_id = user.id
+            g.user = user
+        except Exception as e:
+            return jsonify({'error': 'Invalid token: ' + str(e)}), 401
         return f(*args, **kwargs)
     return decorated
 
@@ -1138,7 +1168,7 @@ def send_admin_notification(message):
 @app.route('/api/manual-payment', methods=['POST'])
 @token_required
 def manual_payment():
-    user = User.query.get(g.user_id)
+    user = g.user  # now we have the user from token_required
     data = request.get_json()
     plan = data.get('plan')
     transaction_id = data.get('transaction_id')  # the key
@@ -1274,7 +1304,7 @@ def _activate_subscription(transaction):
 @app.route('/api/unlock-with-ad', methods=['POST'])
 @token_required
 def unlock_with_ad():
-    user = User.query.get(g.user_id)
+    user = g.user
 
     # Only free tier users can use this
     if user.tier != 'free':
@@ -1306,7 +1336,7 @@ def unlock_with_ad():
 
 
 # ============================================================
-# AUTH ENDPOINTS
+# AUTH ENDPOINTS (kept for compatibility)
 # ============================================================
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -1387,9 +1417,7 @@ def filter_opportunities(opportunities, tier_config):
 @app.route('/api/arbitrage', methods=['GET'])
 @token_required
 def get_arbitrage():
-    user = User.query.get(g.user_id)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
+    user = g.user
 
     # Check if subscription expired
     if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
@@ -1415,8 +1443,6 @@ def get_arbitrage():
                 # They have an extra unlock – allow one extra, and consume it
                 user.free_opportunities_remaining -= 1
                 db.session.commit()
-                # We'll increase the daily limit by 1 for this request only
-                # We'll handle this after filtering
                 extra_allowed = 1
             else:
                 return jsonify({
@@ -1457,23 +1483,11 @@ def get_arbitrage():
 
     # If free tier with extra unlock, add one extra opportunity (the next best)
     if user.tier == 'free' and 'extra_allowed' in locals() and extra_allowed > 0:
-        # We already consumed the unlock, now we need to return one extra opportunity beyond the base daily limit
-        # We'll re‑filter without the daily limit to get the next best ones
-        # Since we already limited to 3, we need to get the full list again and add the best one that wasn't included
-        # Easiest: re‑filter without applying the daily limit, then take the top 4
-        temp_filtered = filter_opportunities(all_opportunities, tier_config)
-        # Now we have up to 3 (or whatever daily_limit is). We need to add one more.
-        # We'll take the top 4 from the full list, but we need to avoid duplicates.
-        # Simpler: just grab the next best opportunity from the full list
-        full_list = filter_opportunities(all_opportunities, tier_config)  # already limited to 3
-        # We'll take the top 4 from the original unfiltered list with limit 4
-        # Let's re‑filter with a temporary increased limit
         temp_limit = tier_config['daily_matches'] + 1
         tier_config_temp = tier_config.copy()
         tier_config_temp['daily_matches'] = temp_limit
         extended_opps = filter_opportunities(all_opportunities, tier_config_temp)
         filtered_opps = extended_opps
-        # Now we have 4 opportunities, and we've already consumed the unlock.
 
     # Update free tier daily count
     if user.tier == 'free':
