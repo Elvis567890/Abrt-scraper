@@ -1,39 +1,5 @@
 [
   {
-    "match": "rapid vienna vs santa coloma",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.41,
-    "profit_ugx": 1407,
-    "total_stake": 100000,
-    "arb_sum": 0.9859,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.12,
-        "stake": 90560,
-        "win": 101427
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 21.0,
-        "stake": 4830,
-        "win": 101430
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 22.0,
-        "stake": 4610,
-        "win": 101420
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "atletic escaldes vs vaduz",
     "sport": "Football",
     "type": "3-way",
@@ -96,108 +62,6 @@
         "odd": 10.0,
         "stake": 10131,
         "win": 101310
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "watford vs fiorentina",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.01,
-    "profit_ugx": 5013,
-    "total_stake": 100000,
-    "arb_sum": 0.9499,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.85,
-        "stake": 36939,
-        "win": 105276
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 30964,
-        "win": 105278
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.28,
-        "stake": 32097,
-        "win": 105278
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "bradford vs preston",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 7.78,
-    "profit_ugx": 7783,
-    "total_stake": 100000,
-    "arb_sum": 0.9222,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.55,
-        "stake": 42526,
-        "win": 108441
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 29308,
-        "win": 108440
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.85,
-        "stake": 28166,
-        "win": 108439
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "bristol vs newcastle",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 16.75,
-    "profit_ugx": 16748,
-    "total_stake": 100000,
-    "arb_sum": 0.8325,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.4,
-        "stake": 35328,
-        "win": 120115
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 32031,
-        "win": 120116
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.68,
-        "stake": 32640,
-        "win": 120115
       }
     ],
     "market_type": "1x2",
@@ -794,6 +658,60 @@
         "odd": 1.905,
         "stake": 58524,
         "win": 111488
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vestri vs rigas futbola skola",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 22.08,
+    "profit_ugx": 22080,
+    "total_stake": 100000,
+    "arb_sum": 0.7792,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.12,
+        "stake": 31150,
+        "win": 128338
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.864,
+        "stake": 68850,
+        "win": 128336
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vestri vs rigas futbola skola",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 22.08,
+    "profit_ugx": 22080,
+    "total_stake": 100000,
+    "arb_sum": 0.7792,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.12,
+        "stake": 31150,
+        "win": 128338
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.864,
+        "stake": 68850,
+        "win": 128336
       }
     ],
     "market_type": "1x2",
