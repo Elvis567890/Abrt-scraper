@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "rapid vienna vs santa coloma",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.57,
+    "profit_ugx": 569,
+    "total_stake": 100000,
+    "arb_sum": 0.9943,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.12,
+        "stake": 89797,
+        "win": 100573
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 23.0,
+        "stake": 4373,
+        "win": 100579
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Away",
+        "odd": 17.25,
+        "stake": 5830,
+        "win": 100568
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "racing santander vs athletic bilbao",
     "sport": "Football",
     "type": "3-way",
@@ -96,6 +130,40 @@
         "odd": 3.72,
         "stake": 32592,
         "win": 121242
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "boston utd vs grimsby town",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.36,
+    "profit_ugx": 2362,
+    "total_stake": 100000,
+    "arb_sum": 0.9764,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 2.55,
+        "stake": 40164,
+        "win": 102418
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 29263,
+        "win": 102420
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.35,
+        "stake": 30573,
+        "win": 102420
       }
     ],
     "market_type": "1x2",
