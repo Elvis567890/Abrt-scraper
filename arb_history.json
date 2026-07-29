@@ -7,7 +7,7 @@
     "first_seen": "2026-07-29 15:30:32",
     "last_seen": "2026-07-29 15:58:45",
     "valid": true,
-    "cycles_missed": 0,
+    "cycles_missed": 1,
     "versions": [
       {
         "timestamp": "2026-07-29 15:30:32",
@@ -452,7 +452,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-29 07:00:44",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -8343,6 +8343,35 @@
             "win": 162418
           }
         ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 37.13,
+        "profit_ugx": 37127,
+        "arb_sum": 0.6287,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 5.9,
+            "stake": 26958,
+            "win": 159052
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Draw",
+            "odd": 4.35,
+            "stake": 36563,
+            "win": 159049
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Away",
+            "odd": 4.36,
+            "stake": 36479,
+            "win": 159048
+          }
+        ]
       }
     ]
   },
@@ -8352,7 +8381,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-29 14:00:50",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -10098,6 +10127,35 @@
       },
       {
         "timestamp": "2026-07-29 15:58:45",
+        "profit_percent": 32.69,
+        "profit_ugx": 32692,
+        "arb_sum": 0.6731,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 5.6,
+            "stake": 26531,
+            "win": 148574
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Draw",
+            "odd": 3.9,
+            "stake": 38095,
+            "win": 148570
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Away",
+            "odd": 4.2,
+            "stake": 35374,
+            "win": 148571
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
         "profit_percent": 32.69,
         "profit_ugx": 32692,
         "arb_sum": 0.6731,
@@ -10133,7 +10191,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-29 09:30:39",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -18741,6 +18799,50 @@
       },
       {
         "timestamp": "2026-07-29 15:58:45",
+        "profit_percent": 26.83,
+        "profit_ugx": 26835,
+        "arb_sum": 0.7317,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 3.24,
+            "stake": 42184,
+            "win": 136676
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 2.364,
+            "stake": 57816,
+            "win": 136677
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 26.83,
+        "profit_ugx": 26835,
+        "arb_sum": 0.7317,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 3.24,
+            "stake": 42184,
+            "win": 136676
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 2.364,
+            "stake": 57816,
+            "win": 136677
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
         "profit_percent": 26.83,
         "profit_ugx": 26835,
         "arb_sum": 0.7317,
@@ -18769,7 +18871,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-29 12:00:38",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -24096,422 +24198,48 @@
             "win": 133164
           }
         ]
-      }
-    ]
-  },
-  "Football::1x2::bristol vs newcastle::": {
-    "match": "bristol vs newcastle",
-    "sport": "Football",
-    "market_type": "1x2",
-    "market_specifier": "",
-    "first_seen": "2026-07-29 15:30:32",
-    "last_seen": "2026-07-29 15:56:46",
-    "valid": true,
-    "cycles_missed": 1,
-    "versions": [
+      },
       {
-        "timestamp": "2026-07-29 15:30:32",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 24.9,
+        "profit_ugx": 24904,
+        "arb_sum": 0.751,
         "bets": [
           {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
             "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
+            "outcome": "1X",
+            "odd": 3.18,
+            "stake": 41875,
+            "win": 133162
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 2.291,
+            "stake": 58125,
+            "win": 133164
           }
         ]
       },
       {
-        "timestamp": "2026-07-29 15:32:49",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 24.9,
+        "profit_ugx": 24904,
+        "arb_sum": 0.751,
         "bets": [
           {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 3.18,
+            "stake": 41875,
+            "win": 133162
           },
           {
             "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:34:34",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:36:38",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:38:29",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:40:44",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:42:38",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:44:39",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:46:49",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:48:40",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:50:30",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:52:58",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:54:39",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:56:46",
-        "profit_percent": 16.29,
-        "profit_ugx": 16292,
-        "arb_sum": 0.8371,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 3.3,
-            "stake": 36201,
-            "win": 119463
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Draw",
-            "odd": 3.75,
-            "stake": 31857,
-            "win": 119464
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Away",
-            "odd": 3.74,
-            "stake": 31942,
-            "win": 119463
+            "outcome": "X2",
+            "odd": 2.291,
+            "stake": 58125,
+            "win": 133164
           }
         ]
       }
@@ -24525,7 +24253,7 @@
     "first_seen": "2026-07-29 10:30:51",
     "last_seen": "2026-07-29 15:58:45",
     "valid": true,
-    "cycles_missed": 0,
+    "cycles_missed": 1,
     "versions": [
       {
         "timestamp": "2026-07-29 10:30:51",
@@ -29349,7 +29077,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-29 07:28:33",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -36834,6 +36562,35 @@
             "win": 114346
           }
         ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 12.55,
+        "profit_ugx": 12546,
+        "arb_sum": 0.8745,
+        "bets": [
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Home",
+            "odd": 3.1,
+            "stake": 36886,
+            "win": 114347
+          },
+          {
+            "bookmaker": "AbaBet",
+            "outcome": "Draw",
+            "odd": 3.7,
+            "stake": 30904,
+            "win": 114345
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "Away",
+            "odd": 3.55,
+            "stake": 32210,
+            "win": 114346
+          }
+        ]
       }
     ]
   },
@@ -36845,7 +36602,7 @@
     "first_seen": "2026-07-29 14:30:36",
     "last_seen": "2026-07-29 15:58:45",
     "valid": true,
-    "cycles_missed": 0,
+    "cycles_missed": 1,
     "versions": [
       {
         "timestamp": "2026-07-29 14:30:36",
@@ -38183,13 +37940,2794 @@
       }
     ]
   },
+  "Football::1x2::kalju vs shelbourne::": {
+    "match": "kalju vs shelbourne",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-29 16:00:46",
+    "last_seen": "2026-07-29 16:00:46",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 11.73,
+        "profit_ugx": 11732,
+        "arb_sum": 0.8827,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 3.32,
+            "stake": 34124,
+            "win": 113292
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Draw",
+            "odd": 3.4,
+            "stake": 33321,
+            "win": 113291
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Away",
+            "odd": 3.48,
+            "stake": 32555,
+            "win": 113291
+          }
+        ]
+      }
+    ]
+  },
+  "Football::1x2::atletic descaldes vs vaduz::": {
+    "match": "atletic descaldes vs vaduz",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-29 14:00:50",
+    "last_seen": "2026-07-29 16:00:46",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
+      {
+        "timestamp": "2026-07-29 14:00:50",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:00:50",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:02:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:02:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:04:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:04:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:06:47",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:06:47",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:08:50",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:08:50",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:10:48",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:10:48",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:12:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:12:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:14:41",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:14:41",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:16:47",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:16:47",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:18:41",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:18:41",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:20:37",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:20:37",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:22:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:22:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:24:44",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:24:44",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:26:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:26:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:28:37",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:28:37",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:30:36",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:30:36",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:32:48",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:32:48",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:34:33",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:34:33",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:36:50",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:36:50",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:38:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:38:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:40:45",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:40:45",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:42:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:42:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:44:49",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:44:49",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:46:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:46:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:48:50",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:48:50",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:50:36",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:50:36",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:52:53",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:52:53",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:53:54",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:53:54",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:54:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:54:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:56:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:56:43",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:58:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 14:58:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:00:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:00:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:02:35",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:02:35",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:04:41",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:04:41",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:06:39",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:06:39",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:08:36",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:08:36",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:10:49",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:10:49",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:12:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:12:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:14:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:14:42",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:16:31",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:16:31",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:19:05",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:19:05",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:20:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:20:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:22:37",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:22:37",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:24:48",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:24:48",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:26:46",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:26:46",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:28:32",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:28:32",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:30:32",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:30:32",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:32:49",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:32:49",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:34:34",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:34:34",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:36:38",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:36:38",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:38:29",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:38:29",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:40:44",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:40:44",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:42:38",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:42:38",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:44:39",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:44:39",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:46:49",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:46:49",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:48:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:48:40",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:50:30",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:50:30",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:52:58",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:52:58",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:54:39",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:54:39",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:56:46",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:56:46",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:58:45",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 15:58:45",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 7.24,
+        "profit_ugx": 7243,
+        "arb_sum": 0.9276,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.402,
+            "stake": 44883,
+            "win": 107809
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.956,
+            "stake": 55117,
+            "win": 107809
+          }
+        ]
+      }
+    ]
+  },
   "Football::1x2::gornik zabrze vs fenerbahce::": {
     "match": "gornik zabrze vs fenerbahce",
     "sport": "Football",
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 18:00:51",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -77060,2700 +79598,189 @@
             "win": 108051
           }
         ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 6.73,
+        "profit_ugx": 6734,
+        "arb_sum": 0.9327,
+        "bets": [
+          {
+            "bookmaker": "1xBet",
+            "outcome": "1X",
+            "odd": 2.506,
+            "stake": 42785,
+            "win": 107219
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "X2",
+            "odd": 1.874,
+            "stake": 57215,
+            "win": 107221
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 6.73,
+        "profit_ugx": 6734,
+        "arb_sum": 0.9327,
+        "bets": [
+          {
+            "bookmaker": "22Bet",
+            "outcome": "1X",
+            "odd": 2.506,
+            "stake": 42785,
+            "win": 107219
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "X2",
+            "odd": 1.874,
+            "stake": 57215,
+            "win": 107221
+          }
+        ]
       }
     ]
   },
-  "Football::1x2::atletic descaldes vs vaduz::": {
-    "match": "atletic descaldes vs vaduz",
+  "Football::1x2::auda vs fcsb::": {
+    "match": "auda vs fcsb",
     "sport": "Football",
     "market_type": "1x2",
     "market_specifier": "",
-    "first_seen": "2026-07-29 14:00:50",
-    "last_seen": "2026-07-29 15:58:45",
+    "first_seen": "2026-07-29 16:00:46",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
       {
-        "timestamp": "2026-07-29 14:00:50",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 28.63,
+        "profit_ugx": 28632,
+        "arb_sum": 0.7137,
         "bets": [
           {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:00:50",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:02:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:02:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:04:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:04:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:06:47",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:06:47",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:08:50",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:08:50",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:10:48",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:10:48",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:12:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:12:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:14:41",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:14:41",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:16:47",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:16:47",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:18:41",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:18:41",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:20:37",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:20:37",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:22:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:22:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:24:44",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:24:44",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:26:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:26:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:28:37",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:28:37",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:30:36",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:30:36",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:32:48",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:32:48",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:34:33",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:34:33",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:36:50",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:36:50",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:38:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:38:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:40:45",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:40:45",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:42:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:42:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:44:49",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:44:49",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:46:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:46:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:48:50",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:48:50",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:50:36",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:50:36",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:52:53",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:52:53",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:53:54",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:53:54",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:54:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:54:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:56:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:56:43",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:58:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 14:58:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:00:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:00:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:02:35",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:02:35",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:04:41",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:04:41",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:06:39",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:06:39",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:08:36",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:08:36",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:10:49",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:10:49",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:12:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:12:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:14:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:14:42",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:16:31",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:16:31",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:19:05",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:19:05",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:20:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:20:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:22:37",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:22:37",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:24:48",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:24:48",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:26:46",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:26:46",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:28:32",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:28:32",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:30:32",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:30:32",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:32:49",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:32:49",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:34:34",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:34:34",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:36:38",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:36:38",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:38:29",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:38:29",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:40:44",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:40:44",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:42:38",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:42:38",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:44:39",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:44:39",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:46:49",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:46:49",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:48:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:48:40",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:50:30",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:50:30",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:52:58",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:52:58",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
-          {
-            "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 4.44,
+            "stake": 31558,
+            "win": 140118
           },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:54:39",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
           {
-            "bookmaker": "1xBet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
+            "bookmaker": "Fortebet",
+            "outcome": "Draw",
+            "odd": 4.05,
+            "stake": 34597,
+            "win": 140118
           },
-          {
-            "bookmaker": "22Bet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:54:39",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
-        "bets": [
           {
             "bookmaker": "22Bet",
-            "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
+            "outcome": "Away",
+            "odd": 4.14,
+            "stake": 33845,
+            "win": 140118
           }
         ]
       },
       {
-        "timestamp": "2026-07-29 15:56:46",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 4.62,
+        "profit_ugx": 4619,
+        "arb_sum": 0.9538,
         "bets": [
           {
             "bookmaker": "1xBet",
             "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
+            "odd": 2.147,
+            "stake": 48832,
+            "win": 104842
           },
           {
             "bookmaker": "22Bet",
             "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
+            "odd": 2.049,
+            "stake": 51168,
+            "win": 104843
           }
         ]
       },
       {
-        "timestamp": "2026-07-29 15:56:46",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 4.62,
+        "profit_ugx": 4619,
+        "arb_sum": 0.9538,
         "bets": [
           {
             "bookmaker": "22Bet",
             "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
+            "odd": 2.147,
+            "stake": 48832,
+            "win": 104842
           },
           {
             "bookmaker": "1xBet",
             "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
+            "odd": 2.049,
+            "stake": 51168,
+            "win": 104843
           }
         ]
-      },
+      }
+    ]
+  },
+  "Football::1x2::inter turku vs istanbul bfk::": {
+    "match": "inter turku vs istanbul bfk",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-29 16:00:46",
+    "last_seen": "2026-07-29 16:00:46",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
       {
-        "timestamp": "2026-07-29 15:58:45",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 3.71,
+        "profit_ugx": 3713,
+        "arb_sum": 0.9629,
         "bets": [
           {
             "bookmaker": "1xBet",
             "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
+            "odd": 2.254,
+            "stake": 46077,
+            "win": 103858
           },
           {
             "bookmaker": "22Bet",
             "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
+            "odd": 1.926,
+            "stake": 53923,
+            "win": 103856
           }
         ]
       },
       {
-        "timestamp": "2026-07-29 15:58:45",
-        "profit_percent": 7.24,
-        "profit_ugx": 7243,
-        "arb_sum": 0.9276,
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 3.71,
+        "profit_ugx": 3713,
+        "arb_sum": 0.9629,
         "bets": [
           {
             "bookmaker": "22Bet",
             "outcome": "1X",
-            "odd": 2.402,
-            "stake": 44883,
-            "win": 107809
+            "odd": 2.254,
+            "stake": 46077,
+            "win": 103858
           },
           {
             "bookmaker": "1xBet",
             "outcome": "X2",
-            "odd": 1.956,
-            "stake": 55117,
-            "win": 107809
+            "odd": 1.926,
+            "stake": 53923,
+            "win": 103856
           }
         ]
       }
@@ -79765,7 +79792,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-29 15:10:49",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -80491,6 +80518,76 @@
             "odd": 3.35,
             "stake": 30573,
             "win": 102420
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 2.36,
+        "profit_ugx": 2362,
+        "arb_sum": 0.9764,
+        "bets": [
+          {
+            "bookmaker": "AbaBet",
+            "outcome": "Home",
+            "odd": 2.55,
+            "stake": 40164,
+            "win": 102418
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Draw",
+            "odd": 3.5,
+            "stake": 29263,
+            "win": 102420
+          },
+          {
+            "bookmaker": "1xBet",
+            "outcome": "Away",
+            "odd": 3.35,
+            "stake": 30573,
+            "win": 102420
+          }
+        ]
+      }
+    ]
+  },
+  "Football::1x2::noah vs zimbru::": {
+    "match": "noah vs zimbru",
+    "sport": "Football",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "first_seen": "2026-07-29 16:00:46",
+    "last_seen": "2026-07-29 16:00:46",
+    "valid": true,
+    "cycles_missed": 0,
+    "versions": [
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 2.2,
+        "profit_ugx": 2205,
+        "arb_sum": 0.978,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 1.296,
+            "stake": 78900,
+            "win": 102254
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Draw",
+            "odd": 10.5,
+            "stake": 9739,
+            "win": 102260
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Away",
+            "odd": 9.0,
+            "stake": 11362,
+            "win": 102258
           }
         ]
       }
@@ -80504,7 +80601,7 @@
     "first_seen": "2026-07-29 14:30:36",
     "last_seen": "2026-07-29 15:58:45",
     "valid": true,
-    "cycles_missed": 0,
+    "cycles_missed": 1,
     "versions": [
       {
         "timestamp": "2026-07-29 14:30:36",
@@ -81850,7 +81947,7 @@
     "first_seen": "2026-07-29 15:00:40",
     "last_seen": "2026-07-29 15:58:45",
     "valid": true,
-    "cycles_missed": 0,
+    "cycles_missed": 1,
     "versions": [
       {
         "timestamp": "2026-07-29 15:00:40",
@@ -82730,7 +82827,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-29 14:00:50",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -84502,625 +84599,74 @@
             "win": 101606
           }
         ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 1.58,
+        "profit_ugx": 1583,
+        "arb_sum": 0.9842,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 1.25,
+            "stake": 81287,
+            "win": 101609
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Draw",
+            "odd": 12.5,
+            "stake": 8129,
+            "win": 101612
+          },
+          {
+            "bookmaker": "Fortebet",
+            "outcome": "Away",
+            "odd": 9.6,
+            "stake": 10584,
+            "win": 101606
+          }
+        ]
       }
     ]
   },
-  "Football::1x2::valladolid vs cd coria::": {
-    "match": "valladolid vs cd coria",
+  "Football::1x2::zira vs paide::": {
+    "match": "zira vs paide",
     "sport": "Football",
     "market_type": "1x2",
     "market_specifier": "",
-    "first_seen": "2026-07-29 15:14:42",
-    "last_seen": "2026-07-29 15:56:46",
+    "first_seen": "2026-07-29 16:00:46",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
-    "cycles_missed": 1,
+    "cycles_missed": 0,
     "versions": [
       {
-        "timestamp": "2026-07-29 15:14:42",
-        "profit_percent": 1.9,
-        "profit_ugx": 1901,
-        "arb_sum": 0.981,
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 1.32,
+        "profit_ugx": 1318,
+        "arb_sum": 0.9868,
         "bets": [
           {
-            "bookmaker": "Fortebet",
+            "bookmaker": "Melbet",
             "outcome": "Home",
-            "odd": 1.36,
-            "stake": 74955,
-            "win": 101939
+            "odd": 1.195,
+            "stake": 84800,
+            "win": 101336
           },
           {
-            "bookmaker": "1xBet",
+            "bookmaker": "22Bet",
             "outcome": "Draw",
-            "odd": 8.9,
-            "stake": 11454,
-            "win": 101941
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13592,
-            "win": 101940
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:16:31",
-        "profit_percent": 1.9,
-        "profit_ugx": 1901,
-        "arb_sum": 0.981,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.36,
-            "stake": 74955,
-            "win": 101939
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 8.9,
-            "stake": 11454,
-            "win": 101941
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13592,
-            "win": 101940
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:19:05",
-        "profit_percent": 1.9,
-        "profit_ugx": 1901,
-        "arb_sum": 0.981,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.36,
-            "stake": 74955,
-            "win": 101939
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 8.9,
-            "stake": 11454,
-            "win": 101941
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13592,
-            "win": 101940
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:20:40",
-        "profit_percent": 1.9,
-        "profit_ugx": 1901,
-        "arb_sum": 0.981,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.36,
-            "stake": 74955,
-            "win": 101939
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 8.9,
-            "stake": 11454,
-            "win": 101941
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13592,
-            "win": 101940
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:22:37",
-        "profit_percent": 1.9,
-        "profit_ugx": 1901,
-        "arb_sum": 0.981,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.36,
-            "stake": 74955,
-            "win": 101939
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 8.9,
-            "stake": 11454,
-            "win": 101941
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13592,
-            "win": 101940
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:24:48",
-        "profit_percent": 1.9,
-        "profit_ugx": 1901,
-        "arb_sum": 0.981,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.36,
-            "stake": 74955,
-            "win": 101939
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 8.9,
-            "stake": 11454,
-            "win": 101941
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13592,
-            "win": 101940
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:26:46",
-        "profit_percent": 2.44,
-        "profit_ugx": 2438,
-        "arb_sum": 0.9756,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.37,
-            "stake": 74817,
-            "win": 102499
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 8.9,
-            "stake": 11517,
-            "win": 102501
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13667,
-            "win": 102502
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:30:32",
-        "profit_percent": 1.21,
-        "profit_ugx": 1211,
-        "arb_sum": 0.9879,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.39,
-            "stake": 72824,
-            "win": 101225
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13679,
-            "win": 101225
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13497,
-            "win": 101228
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:32:49",
-        "profit_percent": 1.72,
-        "profit_ugx": 1725,
-        "arb_sum": 0.9828,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.4,
-            "stake": 72682,
-            "win": 101755
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13751,
-            "win": 101757
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13567,
-            "win": 101752
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:34:34",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:36:38",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:38:29",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:40:44",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:42:38",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:44:39",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:46:49",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:48:40",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:50:30",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:52:58",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:54:39",
-        "profit_percent": 2.73,
-        "profit_ugx": 2731,
-        "arb_sum": 0.9727,
-        "bets": [
-          {
-            "bookmaker": "Fortebet",
-            "outcome": "Home",
-            "odd": 1.42,
-            "stake": 72399,
-            "win": 102807
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13893,
-            "win": 102808
-          },
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Away",
-            "odd": 7.5,
-            "stake": 13708,
-            "win": 102810
-          }
-        ]
-      },
-      {
-        "timestamp": "2026-07-29 15:56:46",
-        "profit_percent": 0.85,
-        "profit_ugx": 854,
-        "arb_sum": 0.9915,
-        "bets": [
-          {
-            "bookmaker": "AbaBet",
-            "outcome": "Home",
-            "odd": 1.45,
-            "stake": 69560,
-            "win": 100862
-          },
-          {
-            "bookmaker": "1xBet",
-            "outcome": "Draw",
-            "odd": 7.4,
-            "stake": 13630,
-            "win": 100862
+            "odd": 15.0,
+            "stake": 6756,
+            "win": 101340
           },
           {
             "bookmaker": "Fortebet",
             "outcome": "Away",
-            "odd": 6.0,
-            "stake": 16810,
-            "win": 100860
+            "odd": 12.0,
+            "stake": 8445,
+            "win": 101340
           }
         ]
       }
@@ -85132,7 +84678,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-28 18:16:41",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -104101,6 +103647,35 @@
             "win": 100824
           }
         ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
+        "profit_percent": 0.63,
+        "profit_ugx": 626,
+        "arb_sum": 0.9937,
+        "bets": [
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Home",
+            "odd": 1.315,
+            "stake": 76525,
+            "win": 100630
+          },
+          {
+            "bookmaker": "22Bet",
+            "outcome": "Draw",
+            "odd": 8.7,
+            "stake": 11567,
+            "win": 100633
+          },
+          {
+            "bookmaker": "ChampionBet",
+            "outcome": "Away",
+            "odd": 8.45,
+            "stake": 11909,
+            "win": 100631
+          }
+        ]
       }
     ]
   },
@@ -104110,7 +103685,7 @@
     "market_type": "1x2",
     "market_specifier": "",
     "first_seen": "2026-07-29 15:10:49",
-    "last_seen": "2026-07-29 15:58:45",
+    "last_seen": "2026-07-29 16:00:46",
     "valid": true,
     "cycles_missed": 0,
     "versions": [
@@ -104812,6 +104387,35 @@
       },
       {
         "timestamp": "2026-07-29 15:58:45",
+        "profit_percent": 0.57,
+        "profit_ugx": 569,
+        "arb_sum": 0.9943,
+        "bets": [
+          {
+            "bookmaker": "AbaBet",
+            "outcome": "Home",
+            "odd": 1.12,
+            "stake": 89797,
+            "win": 100573
+          },
+          {
+            "bookmaker": "Melbet",
+            "outcome": "Draw",
+            "odd": 23.0,
+            "stake": 4373,
+            "win": 100579
+          },
+          {
+            "bookmaker": "ChampionBet",
+            "outcome": "Away",
+            "odd": 17.25,
+            "stake": 5830,
+            "win": 100568
+          }
+        ]
+      },
+      {
+        "timestamp": "2026-07-29 16:00:46",
         "profit_percent": 0.57,
         "profit_ugx": 569,
         "arb_sum": 0.9943,
