@@ -142,6 +142,40 @@
     "market_specifier": ""
   },
   {
+    "match": "lech poznan vs aarhus",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.63,
+    "profit_ugx": 627,
+    "total_stake": 100000,
+    "arb_sum": 0.9937,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Home",
+        "odd": 1.71,
+        "stake": 58848,
+        "win": 100630
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 5.04,
+        "stake": 19966,
+        "win": 100629
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 4.75,
+        "stake": 21185,
+        "win": 100629
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "gornik z vs fenerbahce",
     "sport": "Football",
     "type": "3-way",
@@ -247,31 +281,31 @@
     "match": "racing santander vs athletic bilbao",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 15.87,
-    "profit_ugx": 15873,
+    "profit_percent": 16.91,
+    "profit_ugx": 16913,
     "total_stake": 100000,
-    "arb_sum": 0.8413,
+    "arb_sum": 0.8309,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.5,
-        "stake": 33962,
-        "win": 118867
+        "stake": 34387,
+        "win": 120354
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 33019,
-        "win": 118868
+        "stake": 33432,
+        "win": 120355
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.6,
-        "stake": 33019,
-        "win": 118868
+        "odd": 3.74,
+        "stake": 32181,
+        "win": 120357
       }
     ],
     "market_type": "1x2",
