@@ -10,7 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
     <style>
-        /* ===== YOUR EXISTING STYLES – UNCHANGED ===== */
+        /* ===== ORIGINAL STYLES ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -57,8 +57,33 @@
         .market-type { font-size: 12px; color: var(--text2); margin-top: 2px; }
         .profit-badge { background: rgba(0,230,118,0.12); color: var(--green); font-weight: 700; font-size: 16px; padding: 8px 14px; border-radius: 20px; animation: glowPulse 2.5s infinite; }
         .bookie-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
-        .bookie-tag { display: flex; align-items: center; gap: 6px; background: var(--surface2); padding: 7px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--text); }
-        .bookie-dot { width: 18px; height: 18px; border-radius: 50%; font-weight: 700; font-size: 9px; display: flex; align-items: center; justify-content: center; color: #fff; }
+        .bookie-link {
+            color: var(--text);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface2);
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .bookie-link:hover { background: var(--surface3); color: var(--accent); }
+        .bookie-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 9px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            flex-shrink: 0;
+        }
         .stake-preview { font-size: 11px; color: var(--text3); margin-top: 6px; }
         .arb-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
 
@@ -114,7 +139,7 @@
         .summary-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
         .summary-val { font-size: 22px; font-weight: 800; color: var(--text); }
         .summary-label { font-size: 10px; color: var(--text3); text-transform: uppercase; }
-        .profit-chart { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; height: 120px; display: flex; align-items: flex-end; gap: 6px; }
+        .profit-chart { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; height: 120px; display: flex; align-items: flex-end; gap: 6px; overflow-x: auto; }
         .chart-bar { flex: 1; background: var(--green); border-radius: 4px 4px 0 0; min-height: 8px; opacity: 0.8; }
         .hist-item { background: var(--surface); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
         .hist-info { flex: 1; }
@@ -129,7 +154,7 @@
         .alert-event { font-weight: 600; color: var(--text); font-size: 13px; text-transform: capitalize; }
         .alert-meta { font-size: 11px; color: var(--text3); }
         .alert-profit { font-weight: 700; color: var(--green); font-size: 14px; }
-        .bottom-nav { height: 72px; background: var(--surface); display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--surface3); }
+        .bottom-nav { height: 72px; background: var(--surface); display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--surface3); flex-shrink: 0; }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 6px 12px; background: none; border: none; color: var(--text3); font-family: var(--font); font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--accent); }
         .toast { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
@@ -175,7 +200,7 @@
         .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--surface3); }
         .user-email { color: var(--text2); font-size: 13px; margin-bottom: 12px; text-align: center; }
 
-        /* ===== PAYMENT UI (new) ===== */
+        /* ===== PAYMENT UI ===== */
         .plan-select, .provider-select {
             width: 100%;
             padding: 12px;
@@ -191,6 +216,54 @@
             color: var(--text2);
             text-align: center;
             min-height: 24px;
+        }
+
+        /* ===== AD UNLOCK UI ===== */
+        #adUnlockSection {
+            display: none;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .ad-unlock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ad-unlock-header h3 {
+            font-size: 16px;
+            color: var(--text);
+            margin: 0;
+        }
+        .ad-unlock-header p {
+            font-size: 12px;
+            color: var(--text2);
+            margin: 4px 0;
+        }
+        .ad-unlock-status {
+            font-size: 11px;
+            color: var(--text3);
+            margin: 6px 0;
+        }
+        .ad-unlock-count {
+            font-size: 12px;
+            color: var(--text3);
+        }
+        .ad-unlock-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: var(--radius-xs);
+            padding: 10px 20px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .ad-unlock-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -214,14 +287,12 @@
                         <button class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</button>
                     </div>
                     <div id="authForm">
-                        <!-- Login form -->
                         <div id="loginForm">
                             <input type="email" id="loginEmail" class="auth-input" placeholder="Email" required>
                             <input type="password" id="loginPassword" class="auth-input" placeholder="Password" required>
                             <div id="authError" class="auth-error"></div>
                             <button class="auth-btn primary" onclick="loginWithEmail()">Log In</button>
                         </div>
-                        <!-- Signup form (hidden by default) -->
                         <div id="signupForm" style="display:none;">
                             <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
                             <input type="password" id="signupPassword" class="auth-input" placeholder="Password (min 6 chars)" required>
@@ -238,8 +309,7 @@
             </div>
         </div>
 
-        <!-- ===== REST OF YOUR PAGES ===== -->
-        <!-- Dashboard -->
+        <!-- ===== DASHBOARD ===== -->
         <div class="page" id="page-dashboard">
             <div class="page-header">
                 <h1>🔍 Abrimax</h1>
@@ -253,12 +323,28 @@
                 <button class="filter-tab" data-filter="football">Football</button>
                 <button class="filter-tab" data-filter="high">High Profit (>5%)</button>
             </div>
+
+            <!-- ===== AD UNLOCK SECTION ===== -->
+            <div id="adUnlockSection">
+                <div class="ad-unlock-header">
+                    <div>
+                        <h3>🎯 Watch an Ad</h3>
+                        <p>Unlock <strong>one extra opportunity</strong> for free</p>
+                    </div>
+                    <button class="ad-unlock-btn" id="adUnlockBtn" onclick="unlockWithAd()">▶ Watch Ad</button>
+                </div>
+                <div class="ad-unlock-status" id="adUnlockStatus">Next unlock available in: 4h 0m</div>
+                <div class="ad-unlock-count">Unlocks remaining: <span id="adUnlockCount">0</span></div>
+            </div>
+
             <div id="oppList"></div>
             <button class="fab" onclick="navigateTo('calculator')">🧮</button>
         </div>
-        <!-- Detail (injected) -->
+
+        <!-- ===== DETAIL ===== -->
         <div class="page" id="page-detail"></div>
-        <!-- Calculator -->
+
+        <!-- ===== CALCULATOR ===== -->
         <div class="page" id="page-calculator">
             <div class="detail-header">
                 <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
@@ -274,7 +360,8 @@
             </div>
             <button class="cta-btn primary" style="width:100%;" onclick="addCurrentCalcToSlip()">📋 Save to Bet Slip</button>
         </div>
-        <!-- Bet Slip -->
+
+        <!-- ===== BET SLIP ===== -->
         <div class="page" id="page-slip">
             <div class="page-header"><h1>📋 Bet Slip</h1><span id="slipCount">0 bets</span></div>
             <div id="slipItems"></div>
@@ -284,7 +371,8 @@
                 <button class="cta-btn primary" style="width:100%;margin-top:10px;" onclick="completeArb()">✅ Complete Arb</button>
             </div>
         </div>
-        <!-- Bookmakers -->
+
+        <!-- ===== BOOKMAKERS ===== -->
         <div class="page" id="page-bookies">
             <div class="page-header"><h1>🏦 Bookmakers</h1></div>
             <div class="bookie-grid">
@@ -295,7 +383,7 @@
             </div>
         </div>
 
-        <!-- Settings -->
+        <!-- ===== SETTINGS ===== -->
         <div class="page" id="page-settings">
             <div class="page-header">
                 <h1>⚙️ Settings</h1>
@@ -310,7 +398,7 @@
                 </div>
             </div>
 
-            <!-- ===== NEW PAYMENT SECTION ===== -->
+            <!-- ===== PAYMENT SECTION ===== -->
             <div class="settings-section" id="paySection">
                 <h3>💳 Upgrade Plan</h3>
                 <div class="slider-container">
@@ -347,7 +435,7 @@
                 </div>
 
                 <div class="slider-container" style="margin-top:8px;">
-                    <label>Max Profit Filter (Avoid Glitches)</label>
+                    <label>Max Profit Filter</label>
                     <select id="maxProfit" class="settings-select" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
                         <option value="8.0">Safe (< 8%)</option>
                         <option value="15.0" selected>Moderate (< 15%)</option>
@@ -375,14 +463,14 @@
             </div>
 
             <div class="settings-section">
-                <h3>🔔 Alerts & Notifications</h3>
+                <h3>🔔 Alerts</h3>
                 <div class="slider-container" style="display:flex; justify-content:space-between; align-items:center;">
                     <label>Enable Push Alerts</label>
                     <input type="checkbox" id="alertToggle" checked style="accent-color:var(--accent); transform:scale(1.2);">
                 </div>
                 <div class="slider-container" style="margin-top:8px;">
                     <label>Alert Minimum Profit (%)</label>
-                    <input type="number" id="alertThreshold" value="5.0" class="settings-input" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;" step="0.5">
+                    <input type="number" id="alertThreshold" class="settings-input" value="5.0" step="0.5" style="width:100%; padding:10px; background:var(--surface2); color:var(--text); border:1px solid var(--surface3); border-radius:8px; margin-top:6px;">
                 </div>
             </div>
 
@@ -402,7 +490,7 @@
             </div>
         </div>
 
-        <!-- History -->
+        <!-- ===== HISTORY ===== -->
         <div class="page" id="page-history">
             <div class="page-header"><h1>📊 History</h1></div>
             <div class="summary-cards">
@@ -412,15 +500,17 @@
             <div class="profit-chart" id="profitChart"></div>
             <div id="historyList"></div>
         </div>
-        <!-- Alerts -->
+
+        <!-- ===== ALERTS ===== -->
         <div class="page" id="page-alerts">
             <div class="page-header"><h1>🔔 Alerts</h1></div>
             <div id="alertsList"></div>
         </div>
+
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
-    <div class="bottom-nav" id="bottomNav">
+    <!-- ===== BOTTOM NAV ===== -->
+    <div class="bottom-nav" id="bottomNav" style="display:none;">
         <button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">🏠 Home</button>
         <button class="nav-item" data-page="slip" onclick="navigateTo('slip')">📋 Slip</button>
         <button class="nav-item" data-page="calculator" onclick="navigateTo('calculator')">🧮 Calc</button>
@@ -431,7 +521,7 @@
 
 <script>
     // ============================================================
-    // 1. FIREBASE CONFIG – YOUR CONFIG
+    // 1. FIREBASE CONFIG
     // ============================================================
     const firebaseConfig = {
         apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw",
@@ -449,6 +539,7 @@
     // 2. AUTH STATE LISTENER
     // ============================================================
     let currentUser = null;
+    let userTier = 'free';
 
     auth.onAuthStateChanged(user => {
         const authPage = document.getElementById('page-auth');
@@ -465,6 +556,7 @@
             document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + user.email;
             loadUserSettings();
             navigateTo('dashboard');
+            fetchUserStatus();
         } else {
             currentUser = null;
             authPage.classList.add('active');
@@ -472,6 +564,7 @@
             bottomNav.style.display = 'none';
             if (fab) fab.style.display = 'none';
             document.getElementById('settingsUserEmail').textContent = 'Not logged in';
+            document.getElementById('adUnlockSection').style.display = 'none';
         }
     });
 
@@ -481,13 +574,8 @@
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
         document.querySelector(`.auth-tab[data-tab="${tab}"]`).classList.add('active');
-        if (tab === 'login') {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('signupForm').style.display = 'none';
-        } else {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('signupForm').style.display = 'block';
-        }
+        document.getElementById('loginForm').style.display = (tab === 'login') ? 'block' : 'none';
+        document.getElementById('signupForm').style.display = (tab === 'signup') ? 'block' : 'none';
         document.getElementById('authError').textContent = '';
         document.getElementById('authErrorSignup').textContent = '';
     }
@@ -527,7 +615,7 @@
     }
 
     // ============================================================
-    // 4. USER-SPECIFIC SETTINGS (localStorage)
+    // 4. USER SETTINGS (localStorage)
     // ============================================================
     function getUserSettingsKey() {
         return currentUser ? 'arbi_settings_' + currentUser.uid : 'arbi_settings_guest';
@@ -594,7 +682,25 @@
     }
 
     // ============================================================
-    // 5. YOUR EXISTING APP LOGIC (unchanged)
+    // 5. BOOKMAKER URL MAPPING (CLICKABLE LINKS)
+    // ============================================================
+    const BOOKMAKER_URLS = {
+        'sportybet': 'https://sportybet.ug',
+        'championbet': 'https://championbet.ug',
+        'ababet': 'https://ababet.ug',
+        'fortebet': 'https://fortebet.ug',
+        '1xbet': 'https://1xbet.ug',
+        '22bet': 'https://22bet.ug',
+        'melbet': 'https://melbet.ug',
+    };
+
+    function getBookmakerUrl(bookieName) {
+        const key = bookieName.toLowerCase().replace(/\s/g, '');
+        return BOOKMAKER_URLS[key] || '#';
+    }
+
+    // ============================================================
+    // 6. CORE APP LOGIC
     // ============================================================
     let opportunitiesData = [];
     let allHistory = {};
@@ -602,6 +708,7 @@
     let currentDetailArb = null;
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
+    let adUnlockCooldown = null;
 
     async function loadFromLuxuryBackend() {
         try {
@@ -667,6 +774,11 @@
         }
     }
 
+    function getBookieColor(bookie) {
+        const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
+        return map[bookie.toLowerCase()] || '#444';
+    }
+
     function renderOpportunities(filter = 'all') {
         try {
             let settings = getDefaultSettings();
@@ -711,12 +823,16 @@
                         <div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div>
                     </div>
                     <div class="bookie-row">
-                        ${arb.bets.map(b => `
-                            <span class="bookie-tag">
-                                <span class="bookie-dot" style="background:${getBookieColor(b.bookie)}">${b.bookie.charAt(0)}</span>
-                                ${b.bookie} ${b.outcome} @ ${b.odds}
-                            </span>
-                        `).join('')}
+                        ${arb.bets.map(b => {
+                            const url = getBookmakerUrl(b.bookie);
+                            const color = getBookieColor(b.bookie);
+                            return `
+                                <a href="${url}" target="_blank" rel="noopener noreferrer" class="bookie-link" onclick="event.stopPropagation();">
+                                    <span class="bookie-dot" style="background:${color}">${b.bookie.charAt(0)}</span>
+                                    <span>${b.bookie} ${b.outcome} @ ${b.odds}</span>
+                                </a>
+                            `;
+                        }).join('')}
                     </div>
                     <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
                     <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
@@ -729,10 +845,6 @@
     }
 
     function handleCardClick(arb) { navigateTo('detail', arb); }
-    function getBookieColor(bookie) {
-        const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
-        return map[bookie.toLowerCase()] || '#444';
-    }
 
     document.getElementById('dashboardFilterTabs').addEventListener('click', function(e) {
         if (e.target.classList.contains('filter-tab')) {
@@ -799,6 +911,7 @@
         const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
         const odds = arb.bets.map(b => b.odds);
+        if (odds.some(o => o <= 0)) return;
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
         const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
@@ -822,6 +935,7 @@
         const settings = saved ? JSON.parse(saved) : getDefaultSettings();
         const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
         const odds = arb.bets.map(b => b.odds);
+        if (odds.some(o => o <= 0)) return;
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
         const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
@@ -840,6 +954,7 @@
         showToast('Added to slip');
     }
 
+    // ===== Calculator =====
     function updateCalculator() {
         const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
         const odds = [
@@ -849,6 +964,7 @@
         if (document.getElementById('calcOdds3Container').style.display !== 'none') {
             odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
         }
+        if (odds.some(o => o <= 0)) return;
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
         const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
@@ -875,7 +991,7 @@
             parseFloat(document.getElementById('calcOdds1').value) || 3.6,
             parseFloat(document.getElementById('calcOdds2').value) || 3.82
         ];
-        const bets = [
+        let bets = [
             { bookie: 'Bookie1', outcome: 'Outcome 1', odds: odds[0] },
             { bookie: 'Bookie2', outcome: 'Outcome 2', odds: odds[1] }
         ];
@@ -883,6 +999,7 @@
             odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
             bets.push({ bookie: 'Bookie3', outcome: 'Outcome 3', odds: odds[2] });
         }
+        if (odds.some(o => o <= 0)) { showToast('Invalid odds'); return; }
         const invSum = odds.reduce((s, o) => s + 1/o, 0);
         const stakes = odds.map(o => (stake / o) / invSum);
         const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
@@ -901,6 +1018,7 @@
         showToast('Calculation added to slip');
     }
 
+    // ===== Slip =====
     function renderSlip() {
         const container = document.getElementById('slipItems');
         if (slipBets.length === 0) {
@@ -951,6 +1069,7 @@
         showToast('Arb completed');
     }
 
+    // ===== History =====
     function renderHistory() {
         const totalArbsEl = document.getElementById('totalArbs');
         const totalProfitEl = document.getElementById('totalProfit');
@@ -992,6 +1111,7 @@
         }).join('');
     }
 
+    // ===== Alerts =====
     function renderAlerts() {
         const alertsList = document.getElementById('alertsList');
         const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
@@ -1019,7 +1139,7 @@
     }
 
     // ============================================================
-    // 6. PAYMENT – NEW FUNCTION
+    // 7. PAYMENT (Pesapal)
     // ============================================================
     function initiatePayment() {
         const plan = document.getElementById('planSelect').value;
@@ -1030,10 +1150,9 @@
             msg.textContent = '❌ Please login first.';
             return;
         }
-        // Get Firebase ID token
         currentUser.getIdToken()
             .then(idToken => {
-                return fetch('https://abrt-scraper-production.up.railway.app/api/pay', { // ← change to your Railway URL
+                return fetch('https://abrt-scraper-production.up.railway.app/api/pay', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1057,7 +1176,122 @@
     }
 
     // ============================================================
-    // 7. INIT
+    // 8. AD UNLOCK
+    // ============================================================
+    function unlockWithAd() {
+        const btn = document.getElementById('adUnlockBtn');
+        if (btn.disabled) return;
+        btn.disabled = true;
+        btn.textContent = '⏳ Watching...';
+
+        if (!currentUser) {
+            showToast('❌ Please login first.');
+            btn.disabled = false;
+            btn.textContent = '▶ Watch Ad';
+            return;
+        }
+
+        currentUser.getIdToken()
+            .then(idToken => {
+                return fetch('https://abrt-scraper-production.up.railway.app/api/unlock-with-ad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + idToken
+                    }
+                });
+            })
+            .then(res => {
+                if (!res.ok) {
+                    if (res.status === 429) {
+                        return res.json().then(data => {
+                            throw new Error(data.error || 'Cooldown active');
+                        });
+                    }
+                    throw new Error('HTTP ' + res.status);
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data.message) {
+                    showToast('✅ ' + data.message);
+                    document.getElementById('adUnlockCount').textContent = data.opportunities_remaining || 0;
+                    if (data.next_unlock_at) {
+                        const next = new Date(data.next_unlock_at);
+                        startCooldown(next);
+                    }
+                    loadFromLuxuryBackend();
+                } else {
+                    showToast('❌ ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(err => {
+                if (err.message.includes('Cooldown')) {
+                    showToast('⏳ ' + err.message);
+                } else {
+                    showToast('❌ Error: ' + err.message);
+                }
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.textContent = '▶ Watch Ad';
+            });
+    }
+
+    function fetchUserStatus() {
+        if (!currentUser) return;
+        currentUser.getIdToken()
+            .then(idToken => {
+                return fetch('https://abrt-scraper-production.up.railway.app/api/arbitrage', {
+                    headers: { 'Authorization': 'Bearer ' + idToken }
+                });
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.tier) {
+                    userTier = data.tier;
+                    document.getElementById('settingsUserTier')?.textContent = 'Tier: ' + userTier;
+                    if (data.ad_unlocks_remaining !== undefined) {
+                        document.getElementById('adUnlockCount').textContent = data.ad_unlocks_remaining || 0;
+                    }
+                    // Show ad section only for free tier
+                    const section = document.getElementById('adUnlockSection');
+                    if (userTier === 'free') {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                }
+            })
+            .catch(err => console.error('Failed to fetch user status:', err));
+    }
+
+    function startCooldown(nextTime) {
+        const statusEl = document.getElementById('adUnlockStatus');
+        const btn = document.getElementById('adUnlockBtn');
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = nextTime - now;
+            if (diff <= 0) {
+                statusEl.textContent = 'Next unlock available now!';
+                btn.disabled = false;
+                clearInterval(adUnlockCooldown);
+                return;
+            }
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            statusEl.textContent = `Next unlock available in: ${hours}h ${minutes}m`;
+            btn.disabled = true;
+        }
+
+        if (adUnlockCooldown) clearInterval(adUnlockCooldown);
+        updateCountdown();
+        adUnlockCooldown = setInterval(updateCountdown, 60000);
+    }
+
+    // ============================================================
+    // 9. INIT
     // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
         loadUserSettings();
@@ -1087,6 +1321,8 @@
     window.renderAlerts = renderAlerts;
     window.renderHistory = renderHistory;
     window.initiatePayment = initiatePayment;
+    window.unlockWithAd = unlockWithAd;
+    window.fetchUserStatus = fetchUserStatus;
 </script>
 </body>
     </html>
