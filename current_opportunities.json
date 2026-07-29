@@ -210,6 +210,40 @@
     "market_specifier": ""
   },
   {
+    "match": "palermo vs iraklis",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.05,
+    "profit_ugx": 1049,
+    "total_stake": 100000,
+    "arb_sum": 0.9895,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.42,
+        "stake": 71169,
+        "win": 101060
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.75,
+        "stake": 13040,
+        "win": 101060
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 6.4,
+        "stake": 15791,
+        "win": 101062
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "racing santander vs athletic bilbao",
     "sport": "Football",
     "type": "3-way",
