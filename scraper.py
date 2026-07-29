@@ -937,7 +937,7 @@ def run_scan():
 
 
 # ============================================================================
-#                              FLASK BILLING API (PESAPAL)
+#                              FLASK BILLING API (KEY-BASED + SMS + ADS)
 # ============================================================================
 
 import uuid
@@ -947,6 +947,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from passlib.hash import bcrypt as bcrypt_hash
+import re
 
 load_dotenv()
 
@@ -1026,6 +1027,10 @@ class User(db.Model):
     is_subscribed = db.Column(db.Boolean, default=False)
     subscription_expires = db.Column(db.DateTime, nullable=True)
 
+    # Free ad‑based unlocks
+    free_opportunities_remaining = db.Column(db.Integer, default=0)
+    last_free_unlock_at = db.Column(db.DateTime, nullable=True)
+
     last_arbitrage_date = db.Column(db.DateTime, nullable=True)
     arbitrage_today_count = db.Column(db.Integer, default=0)
 
@@ -1041,12 +1046,13 @@ class User(db.Model):
 class Transaction(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)
-    tx_ref = db.Column(db.String(100), unique=True, nullable=False)   # merchant_reference
+    tx_ref = db.Column(db.String(100), unique=True, nullable=False)
     amount = db.Column(db.Float, nullable=False)
     currency = db.Column(db.String(10), default='UGX')
-    status = db.Column(db.String(20), default='pending')
-    plan = db.Column(db.String(20))          # day, monthly, quarterly
-    pesapal_tracking_id = db.Column(db.String(100), nullable=True)   # instead of flutterwave_transaction_id
+    status = db.Column(db.String(20), default='pending')  # pending, success, used, failed
+    plan = db.Column(db.String(20))
+    manual_transaction_id = db.Column(db.String(100), nullable=True)   # the key (transaction ID)
+    amount_received = db.Column(db.Float, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
@@ -1078,24 +1084,244 @@ def token_required(f):
     return decorated
 
 
-# ---- Auth Endpoints ----
+# ============================================================
+# SMS PARSING HELPERS
+# ============================================================
+def extract_transaction_id(sms_text):
+    patterns = [
+        r'Ref[:\s]+([A-Z0-9\-]+)',
+        r'TXN[:\s]+([A-Z0-9\-]+)',
+        r'Transaction[:\s]+([A-Z0-9\-]+)',
+        r'Reference[:\s]+([A-Z0-9\-]+)',
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, sms_text, re.IGNORECASE)
+        if match:
+            return match.group(1)
+    return None
+
+
+def extract_amount(sms_text):
+    match = re.search(r'UGX\s*([\d,]+\.?\d*)', sms_text, re.IGNORECASE)
+    if match:
+        return float(match.group(1).replace(',', ''))
+    match = re.search(r'([\d,]+\.?\d*)\s*UGX', sms_text, re.IGNORECASE)
+    if match:
+        return float(match.group(1).replace(',', ''))
+    return None
+
+
+def normalize_phone(phone):
+    phone = re.sub(r'[^0-9]', '', phone)
+    if phone.startswith('0'):
+        phone = '256' + phone[1:]
+    elif not phone.startswith('256'):
+        phone = '256' + phone
+    return phone
+
+
+def send_admin_notification(message):
+    token = os.getenv('TELEGRAM_BOT_TOKEN')
+    chat_id = os.getenv('TELEGRAM_CHAT_ID')
+    if not token or not chat_id:
+        return
+    try:
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        requests.post(url, json={'chat_id': chat_id, 'text': message, 'parse_mode': 'Markdown'}, timeout=10)
+    except Exception as e:
+        app.logger.error(f"Telegram error: {e}")
+
+
+# ============================================================
+# KEY-BASED MANUAL PAYMENT ENDPOINT (USER SUBMITS KEY)
+# ============================================================
+@app.route('/api/manual-payment', methods=['POST'])
+@token_required
+def manual_payment():
+    user = User.query.get(g.user_id)
+    data = request.get_json()
+    plan = data.get('plan')
+    transaction_id = data.get('transaction_id')  # the key
+
+    if not plan or not transaction_id:
+        return jsonify({'error': 'Missing fields'}), 400
+
+    if plan not in ['day', 'monthly', 'quarterly']:
+        return jsonify({'error': 'Invalid plan'}), 400
+
+    # Check if this key has already been used
+    existing = Transaction.query.filter_by(
+        manual_transaction_id=transaction_id,
+        status='success'
+    ).first()
+
+    if existing:
+        return jsonify({
+            'error': 'This transaction ID has already been used.',
+            'status': 'rejected'
+        }), 400
+
+    amount = TIERS[plan]['price']
+    tx_ref = f"KEY-{uuid.uuid4().hex[:10].upper()}"
+
+    transaction = Transaction(
+        user_id=user.id,
+        tx_ref=tx_ref,
+        amount=amount,
+        currency='UGX',
+        status='pending',
+        plan=plan,
+        manual_transaction_id=transaction_id
+    )
+    db.session.add(transaction)
+    db.session.commit()
+
+    return jsonify({
+        'status': 'pending',
+        'message': 'Payment submitted. We will verify when the SMS arrives.',
+        'transaction_id': tx_ref
+    }), 200
+
+
+# ============================================================
+# SMS WEBHOOK – RECEIVES FORWARDED SMS, ACTIVATES SUBSCRIPTION
+# ============================================================
+@app.route('/webhooks/sms', methods=['POST'])
+def sms_webhook():
+    data = request.get_json() or request.form.to_dict()
+    sms_text = data.get('text') or data.get('body') or data.get('message')
+    sender = data.get('from') or data.get('sender') or data.get('phone_number')
+
+    if not sms_text or not sender:
+        return 'Missing SMS data', 400
+
+    app.logger.info(f"SMS received: {sms_text[:200]}...")
+
+    transaction_id = extract_transaction_id(sms_text)
+    amount = extract_amount(sms_text)
+    sender_phone = normalize_phone(sender)
+
+    if not transaction_id or not amount:
+        app.logger.warning(f"Could not parse SMS: {sms_text}")
+        return 'Could not parse SMS', 400
+
+    transaction = Transaction.query.filter_by(
+        manual_transaction_id=transaction_id,
+        status='pending'
+    ).first()
+
+    if not transaction:
+        app.logger.warning(f"No pending transaction found for ID: {transaction_id}")
+        return 'No pending transaction found', 404
+
+    # Double-check if key was already used (should not happen)
+    used_check = Transaction.query.filter_by(
+        manual_transaction_id=transaction_id,
+        status='success'
+    ).first()
+    if used_check:
+        transaction.status = 'failed'
+        db.session.commit()
+        app.logger.warning(f"Key {transaction_id} already used.")
+        return 'Key already used', 400
+
+    # Verify amount
+    expected = transaction.amount
+    if abs(amount - expected) > 0.01:
+        if amount < expected:
+            transaction.status = 'underpaid'
+            db.session.commit()
+            app.logger.info(f"Underpayment: {transaction_id}")
+            return 'Underpayment', 200
+        else:
+            # overpayment – still activate
+            pass
+
+    # Activate subscription
+    return _activate_subscription(transaction)
+
+
+def _activate_subscription(transaction):
+    user = User.query.get(transaction.user_id)
+    if not user:
+        app.logger.error(f"User not found for transaction {transaction.id}")
+        return 'User not found', 404
+
+    plan = transaction.plan
+    duration_days = TIERS[plan]['duration_days']
+    now = datetime.utcnow()
+
+    if user.subscription_expires and user.subscription_expires > now:
+        new_expiry = user.subscription_expires + timedelta(days=duration_days)
+    else:
+        new_expiry = now + timedelta(days=duration_days)
+
+    user.tier = plan
+    user.is_subscribed = True
+    user.subscription_expires = new_expiry
+
+    transaction.status = 'success'
+    db.session.commit()
+
+    app.logger.info(f"✅ Subscription activated for {user.email} | Plan: {plan} | Expires: {new_expiry}")
+    send_admin_notification(f"✅ Payment confirmed\nUser: {user.email}\nPlan: {plan}\nExpires: {new_expiry}")
+    return 'Subscription activated', 200
+
+
+# ============================================================
+# AD‑BASED UNLOCK ENDPOINT (FREE USERS WATCH ADS)
+# ============================================================
+@app.route('/api/unlock-with-ad', methods=['POST'])
+@token_required
+def unlock_with_ad():
+    user = User.query.get(g.user_id)
+
+    # Only free tier users can use this
+    if user.tier != 'free':
+        return jsonify({'error': 'Only free tier users can unlock with ads'}), 400
+
+    now = datetime.utcnow()
+    cooldown_hours = 4  # one unlock every 4 hours
+
+    if user.last_free_unlock_at:
+        seconds_since = (now - user.last_free_unlock_at).total_seconds()
+        if seconds_since < cooldown_hours * 3600:
+            remaining_hours = int((cooldown_hours * 3600 - seconds_since) / 3600)
+            remaining_minutes = int(((cooldown_hours * 3600 - seconds_since) % 3600) / 60)
+            return jsonify({
+                'error': f'Please wait {remaining_hours}h {remaining_minutes}m before unlocking again.',
+                'can_unlock_at': (user.last_free_unlock_at + timedelta(hours=cooldown_hours)).isoformat()
+            }), 429
+
+    # Grant one additional opportunity
+    user.free_opportunities_remaining = (user.free_opportunities_remaining or 0) + 1
+    user.last_free_unlock_at = now
+    db.session.commit()
+
+    return jsonify({
+        'message': 'You have unlocked one free opportunity!',
+        'opportunities_remaining': user.free_opportunities_remaining,
+        'next_unlock_at': (now + timedelta(hours=cooldown_hours)).isoformat()
+    }), 200
+
+
+# ============================================================
+# AUTH ENDPOINTS
+# ============================================================
 @app.route('/api/signup', methods=['POST'])
 def signup():
     data = request.get_json()
     email = data.get('email')
     phone = data.get('phone')
     password = data.get('password')
-
     if not email or not phone or not password:
         return jsonify({'error': 'Missing fields'}), 400
     if User.query.filter_by(email=email).first():
         return jsonify({'error': 'Email already exists'}), 400
-
     user = User(email=email, phone=phone, tier='free')
     user.set_password(password)
     db.session.add(user)
     db.session.commit()
-
     token = generate_token(user.id)
     return jsonify({'token': token, 'user_id': user.id}), 201
 
@@ -1105,11 +1331,9 @@ def login():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
-
     user = User.query.filter_by(email=email).first()
     if not user or not user.check_password(password):
         return jsonify({'error': 'Invalid credentials'}), 401
-
     token = generate_token(user.id)
     return jsonify({
         'token': token,
@@ -1120,182 +1344,9 @@ def login():
     })
 
 
-# ---- Payment Initiation with Pesapal (lazy import) ----
-@app.route('/api/pay', methods=['POST'])
-@token_required
-def initiate_payment():
-    from pesapal_client.client import PesapalClientV3
-
-    user = User.query.get(g.user_id)
-    data = request.get_json()
-    plan = data.get('plan')
-
-    if plan not in ['day', 'monthly', 'quarterly']:
-        return jsonify({'error': 'Invalid plan. Choose: day, monthly, quarterly'}), 400
-
-    amount = TIERS[plan]['price']
-    phone = user.phone
-    if not phone.startswith('256'):
-        phone = '256' + phone.lstrip('0')
-
-    merchant_reference = f"ORDER-{uuid.uuid4().hex[:10].upper()}"
-
-    client = PesapalClientV3(
-        consumer_key=os.getenv('PESAPAL_CONSUMER_KEY'),
-        consumer_secret=os.getenv('PESAPAL_CONSUMER_SECRET'),
-        is_sandbox=os.getenv('PESAPAL_ENVIRONMENT', 'sandbox') == 'sandbox',
-    )
-
-    payment_data = {
-        "currency": "UGX",
-        "amount": amount,
-        "description": f"{TIERS[plan]['label']} - {amount} UGX",
-        "email": user.email,
-        "phone_number": phone,
-        "callback_url": os.getenv('PESAPAL_CALLBACK_URL'),
-        "merchant_reference": merchant_reference,
-    }
-
-    try:
-        response = client.one_time_payment.initiate_payment_order(payment_data)
-        transaction = Transaction(
-            user_id=user.id,
-            tx_ref=merchant_reference,
-            amount=amount,
-            currency='UGX',
-            status='pending',
-            plan=plan
-        )
-        db.session.add(transaction)
-        db.session.commit()
-
-        return jsonify({
-            'redirect_url': response.redirect_url,
-            'merchant_reference': merchant_reference,
-            'message': 'Redirect user to Pesapal checkout page.'
-        })
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-
-# ---- Pesapal IPN (Webhook) ----
-@app.route('/pesapal/ipn', methods=['GET', 'POST'])
-def pesapal_ipn():
-    if request.method == 'POST':
-        data = request.form.to_dict() or request.get_json() or {}
-    else:
-        data = request.args.to_dict()
-
-    merchant_reference = data.get('merchant_reference')
-    status = data.get('status')
-    tracking_id = data.get('pesapal_transaction_tracking_id')
-
-    if not merchant_reference or not status:
-        return 'Missing parameters', 400
-
-    transaction = Transaction.query.filter_by(tx_ref=merchant_reference).first()
-    if not transaction:
-        return 'Transaction not found', 404
-
-    if transaction.status == 'success':
-        return 'Already processed', 200
-
-    if status.upper() != 'COMPLETED':
-        transaction.status = 'failed'
-        transaction.pesapal_tracking_id = tracking_id
-        db.session.commit()
-        return 'OK', 200
-
-    # Verify with Pesapal before granting access
-    try:
-        from pesapal_client.client import PesapalClientV3
-        client = PesapalClientV3(
-            consumer_key=os.getenv('PESAPAL_CONSUMER_KEY'),
-            consumer_secret=os.getenv('PESAPAL_CONSUMER_SECRET'),
-            is_sandbox=os.getenv('PESAPAL_ENVIRONMENT', 'sandbox') == 'sandbox',
-        )
-        txn_status = client.get_transaction_status(
-            tracking_id=tracking_id,
-            merchant_reference=merchant_reference
-        )
-        if txn_status.get('payment_status_description', '').upper() != 'COMPLETED':
-            transaction.status = 'failed'
-            transaction.pesapal_tracking_id = tracking_id
-            db.session.commit()
-            return 'OK', 200
-    except Exception as e:
-        transaction.status = 'pending'
-        transaction.pesapal_tracking_id = tracking_id
-        db.session.commit()
-        return 'Internal error', 500
-
-    # Grant access
-    transaction.status = 'success'
-    transaction.pesapal_tracking_id = tracking_id
-
-    user = User.query.get(transaction.user_id)
-    if user:
-        plan = transaction.plan
-        duration_days = TIERS[plan]['duration_days']
-        now = datetime.utcnow()
-        if user.subscription_expires and user.subscription_expires > now:
-            new_expiry = user.subscription_expires + timedelta(days=duration_days)
-        else:
-            new_expiry = now + timedelta(days=duration_days)
-
-        user.tier = plan
-        user.is_subscribed = True
-        user.subscription_expires = new_expiry
-        user.arbitrage_today_count = 0
-        db.session.commit()
-
-    return 'OK', 200
-
-
-# ---- Admin Credit Endpoint ----
-@app.route('/admin/credit', methods=['POST'])
-def admin_credit():
-    admin_secret = request.headers.get('X-Admin-Secret')
-    if admin_secret != os.getenv('ADMIN_SECRET', 'supersecret'):
-        return jsonify({'error': 'Unauthorized'}), 401
-
-    data = request.get_json()
-    user_id = data.get('user_id')
-    plan = data.get('plan')
-    if not user_id or plan not in ['day', 'monthly', 'quarterly']:
-        return jsonify({'error': 'Invalid request'}), 400
-
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-
-    duration_days = TIERS[plan]['duration_days']
-    now = datetime.utcnow()
-    if user.subscription_expires and user.subscription_expires > now:
-        new_expiry = user.subscription_expires + timedelta(days=duration_days)
-    else:
-        new_expiry = now + timedelta(days=duration_days)
-
-    user.tier = plan
-    user.is_subscribed = True
-    user.subscription_expires = new_expiry
-    user.arbitrage_today_count = 0
-
-    manual_tx = Transaction(
-        user_id=user.id,
-        tx_ref=f"MANUAL-{uuid.uuid4().hex[:10].upper()}",
-        amount=0,
-        currency='UGX',
-        status='success',
-        plan=plan,
-        pesapal_tracking_id='manual'
-    )
-    db.session.add(manual_tx)
-    db.session.commit()
-
-    return jsonify({'message': f'User {user.email} upgraded to {plan} until {new_expiry.isoformat()}'})
-
-
+# ============================================================
+# ARBITRAGE ENDPOINT (checks subscription + ad unlocks)
+# ============================================================
 def filter_opportunities(opportunities, tier_config):
     allowed_bookmakers = set(tier_config['bookmakers'])
     allowed_markets = set(tier_config['market_types'])
@@ -1340,12 +1391,14 @@ def get_arbitrage():
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
+    # Check if subscription expired
     if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
         user.is_subscribed = False
         user.tier = 'free'
         db.session.commit()
         return jsonify({'error': 'Subscription expired. Please renew.'}), 403
 
+    # Free tier daily limit (base)
     if user.tier == 'free':
         today = datetime.utcnow().date()
         if user.last_arbitrage_date:
@@ -1357,10 +1410,21 @@ def get_arbitrage():
             user.last_arbitrage_date = datetime.utcnow()
 
         if user.arbitrage_today_count >= 3:
-            return jsonify({
-                'error': 'Daily limit reached (3 matches). Upgrade to continue.',
-                'tier': 'free'
-            }), 403
+            # Check if they have unlocked extra opportunities from ads
+            if user.free_opportunities_remaining > 0:
+                # They have an extra unlock – allow one extra, and consume it
+                user.free_opportunities_remaining -= 1
+                db.session.commit()
+                # We'll increase the daily limit by 1 for this request only
+                # We'll handle this after filtering
+                extra_allowed = 1
+            else:
+                return jsonify({
+                    'error': 'Daily limit reached (3 matches). Upgrade or watch an ad to unlock more.',
+                    'tier': 'free'
+                }), 403
+        else:
+            extra_allowed = 0
 
     tier_config = TIERS[user.tier]
     cache_file = 'current_opportunities.json'
@@ -1391,6 +1455,27 @@ def get_arbitrage():
 
     filtered_opps = filter_opportunities(all_opportunities, tier_config)
 
+    # If free tier with extra unlock, add one extra opportunity (the next best)
+    if user.tier == 'free' and 'extra_allowed' in locals() and extra_allowed > 0:
+        # We already consumed the unlock, now we need to return one extra opportunity beyond the base daily limit
+        # We'll re‑filter without the daily limit to get the next best ones
+        # Since we already limited to 3, we need to get the full list again and add the best one that wasn't included
+        # Easiest: re‑filter without applying the daily limit, then take the top 4
+        temp_filtered = filter_opportunities(all_opportunities, tier_config)
+        # Now we have up to 3 (or whatever daily_limit is). We need to add one more.
+        # We'll take the top 4 from the full list, but we need to avoid duplicates.
+        # Simpler: just grab the next best opportunity from the full list
+        full_list = filter_opportunities(all_opportunities, tier_config)  # already limited to 3
+        # We'll take the top 4 from the original unfiltered list with limit 4
+        # Let's re‑filter with a temporary increased limit
+        temp_limit = tier_config['daily_matches'] + 1
+        tier_config_temp = tier_config.copy()
+        tier_config_temp['daily_matches'] = temp_limit
+        extended_opps = filter_opportunities(all_opportunities, tier_config_temp)
+        filtered_opps = extended_opps
+        # Now we have 4 opportunities, and we've already consumed the unlock.
+
+    # Update free tier daily count
     if user.tier == 'free':
         user.arbitrage_today_count += 1
         user.last_arbitrage_date = datetime.utcnow()
@@ -1408,7 +1493,8 @@ def get_arbitrage():
         'value_rating': tier_config['value_rating'],
         'scan_time': datetime.utcnow().isoformat(),
         'cached': not run_scanner,
-        'remaining_daily': tier_config['daily_matches'] - user.arbitrage_today_count if tier_config['daily_matches'] else None
+        'remaining_daily': tier_config['daily_matches'] - user.arbitrage_today_count if tier_config['daily_matches'] else None,
+        'ad_unlocks_remaining': user.free_opportunities_remaining if user.tier == 'free' else None
     }
     if history is not None:
         response['history'] = history
@@ -1416,6 +1502,55 @@ def get_arbitrage():
     return jsonify(response)
 
 
+# ============================================================
+# ADMIN CREDIT ENDPOINT (optional)
+# ============================================================
+@app.route('/admin/credit', methods=['POST'])
+def admin_credit():
+    admin_secret = request.headers.get('X-Admin-Secret')
+    if admin_secret != os.getenv('ADMIN_SECRET', 'supersecret'):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    data = request.get_json()
+    user_id = data.get('user_id')
+    plan = data.get('plan')
+    if not user_id or plan not in ['day', 'monthly', 'quarterly']:
+        return jsonify({'error': 'Invalid request'}), 400
+
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    duration_days = TIERS[plan]['duration_days']
+    now = datetime.utcnow()
+    if user.subscription_expires and user.subscription_expires > now:
+        new_expiry = user.subscription_expires + timedelta(days=duration_days)
+    else:
+        new_expiry = now + timedelta(days=duration_days)
+
+    user.tier = plan
+    user.is_subscribed = True
+    user.subscription_expires = new_expiry
+    user.arbitrage_today_count = 0
+
+    manual_tx = Transaction(
+        user_id=user.id,
+        tx_ref=f"MANUAL-{uuid.uuid4().hex[:10].upper()}",
+        amount=0,
+        currency='UGX',
+        status='success',
+        plan=plan,
+        manual_transaction_id='admin'
+    )
+    db.session.add(manual_tx)
+    db.session.commit()
+
+    return jsonify({'message': f'User {user.email} upgraded to {plan} until {new_expiry.isoformat()}'})
+
+
+# ============================================================
+# RUN
+# ============================================================
 if __name__ == "__main__":
     if os.environ.get("GITHUB_ACTION") == "1" or os.environ.get("CI") == "true":
         print("🚀 Running in GitHub Actions - executing scanner...")
