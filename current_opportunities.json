@@ -3,31 +3,65 @@
     "match": "slovan bratislava vs iberia 1999",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.27,
-    "profit_ugx": 5271,
+    "profit_percent": 5.56,
+    "profit_ugx": 5556,
     "total_stake": 100000,
-    "arb_sum": 0.9473,
+    "arb_sum": 0.9444,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.384,
-        "stake": 76275,
-        "win": 105565
+        "odd": 1.425,
+        "stake": 74303,
+        "win": 105882
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 8.8,
-        "stake": 11996,
-        "win": 105565
+        "odd": 7.6,
+        "stake": 13932,
+        "win": 105883
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 9.0,
-        "stake": 11729,
-        "win": 105561
+        "stake": 11765,
+        "win": 105885
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "rapid vienna vs santa coloma",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.9,
+    "profit_ugx": 1897,
+    "total_stake": 100000,
+    "arb_sum": 0.981,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.11,
+        "stake": 91832,
+        "win": 101934
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 24.0,
+        "stake": 4247,
+        "win": 101928
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 26.0,
+        "stake": 3921,
+        "win": 101946
       }
     ],
     "market_type": "1x2",
@@ -102,40 +136,6 @@
     "market_specifier": ""
   },
   {
-    "match": "bristol vs newcastle",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 16.89,
-    "profit_ugx": 16895,
-    "total_stake": 100000,
-    "arb_sum": 0.8311,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.4,
-        "stake": 35391,
-        "win": 120329
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 32088,
-        "win": 120330
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.7,
-        "stake": 32521,
-        "win": 120328
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "bradford vs preston",
     "sport": "Football",
     "type": "3-way",
@@ -198,6 +198,40 @@
         "odd": 3.28,
         "stake": 31644,
         "win": 103792
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bristol vs newcastle",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 16.89,
+    "profit_ugx": 16895,
+    "total_stake": 100000,
+    "arb_sum": 0.8311,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.4,
+        "stake": 35391,
+        "win": 120329
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.75,
+        "stake": 32088,
+        "win": 120330
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.7,
+        "stake": 32521,
+        "win": 120328
       }
     ],
     "market_type": "1x2",
