@@ -380,6 +380,40 @@
     "market_specifier": ""
   },
   {
+    "match": "bristol vs newcastle",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 16.35,
+    "profit_ugx": 16354,
+    "total_stake": 100000,
+    "arb_sum": 0.8365,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.3,
+        "stake": 36228,
+        "win": 119552
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 31461,
+        "win": 119552
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.7,
+        "stake": 32311,
+        "win": 119551
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "gornik zabrze vs fenerbahce",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -545,24 +579,24 @@
     "match": "cerezo osaka vs borussia dortmund",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 24.78,
-    "profit_ugx": 24776,
+    "profit_percent": 25.19,
+    "profit_ugx": 25191,
     "total_stake": 100000,
-    "arb_sum": 0.7522,
+    "arb_sum": 0.7481,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
         "odd": 2.24,
-        "stake": 59347,
-        "win": 132937
+        "stake": 59676,
+        "win": 133674
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 3.27,
-        "stake": 40653,
-        "win": 132935
+        "odd": 3.315,
+        "stake": 40324,
+        "win": 133674
       }
     ],
     "market_type": "1x2",
@@ -572,24 +606,24 @@
     "match": "cerezo osaka vs borussia dortmund",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 24.78,
-    "profit_ugx": 24776,
+    "profit_percent": 25.19,
+    "profit_ugx": 25191,
     "total_stake": 100000,
-    "arb_sum": 0.7522,
+    "arb_sum": 0.7481,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 2.24,
-        "stake": 59347,
-        "win": 132937
+        "stake": 59676,
+        "win": 133674
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 3.27,
-        "stake": 40653,
-        "win": 132935
+        "odd": 3.315,
+        "stake": 40324,
+        "win": 133674
       }
     ],
     "market_type": "1x2",
