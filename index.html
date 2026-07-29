@@ -10,7 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
     <style>
-        /* ===== YOUR EXISTING STYLES – COMPLETELY UNCHANGED ===== */
+        /* ===== FULL STYLES ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -57,7 +57,6 @@
         .market-type { font-size: 12px; color: var(--text2); margin-top: 2px; }
         .profit-badge { background: rgba(0,230,118,0.12); color: var(--green); font-weight: 700; font-size: 16px; padding: 8px 14px; border-radius: 20px; animation: glowPulse 2.5s infinite; }
         .bookie-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
-        /* ===== NEW: Clickable bookie link style ===== */
         .bookie-link {
             color: var(--text);
             text-decoration: none;
@@ -87,7 +86,6 @@
         }
         .stake-preview { font-size: 11px; color: var(--text3); margin-top: 6px; }
         .arb-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
-
         .detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
         .back-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; border: none; color: var(--text); }
         .detail-sport { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); }
@@ -140,7 +138,7 @@
         .summary-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
         .summary-val { font-size: 22px; font-weight: 800; color: var(--text); }
         .summary-label { font-size: 10px; color: var(--text3); text-transform: uppercase; }
-        .profit-chart { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; height: 120px; display: flex; align-items: flex-end; gap: 6px; }
+        .profit-chart { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; height: 120px; display: flex; align-items: flex-end; gap: 6px; overflow-x: auto; }
         .chart-bar { flex: 1; background: var(--green); border-radius: 4px 4px 0 0; min-height: 8px; opacity: 0.8; }
         .hist-item { background: var(--surface); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
         .hist-info { flex: 1; }
@@ -155,7 +153,7 @@
         .alert-event { font-weight: 600; color: var(--text); font-size: 13px; text-transform: capitalize; }
         .alert-meta { font-size: 11px; color: var(--text3); }
         .alert-profit { font-weight: 700; color: var(--green); font-size: 14px; }
-        .bottom-nav { height: 72px; background: var(--surface); display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--surface3); }
+        .bottom-nav { height: 72px; background: var(--surface); display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--surface3); flex-shrink: 0; }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 6px 12px; background: none; border: none; color: var(--text3); font-family: var(--font); font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--accent); }
         .toast { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
@@ -169,15 +167,8 @@
         .icon-btn { background: var(--surface2); border: none; color: var(--text); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; position: relative; }
         .badge-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; top: 6px; right: 6px; border: 2px solid var(--surface2); }
 
-        /* ===== AUTH PAGE STYLES ===== */
-        .auth-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 70vh;
-            padding: 20px 0;
-        }
+        /* ===== AUTH PAGE ===== */
+        .auth-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; padding: 20px 0; }
         .auth-box { background: var(--surface); border-radius: var(--radius); padding: 30px 24px; width: 100%; max-width: 360px; margin: 0 auto; }
         .auth-box h2 { color: var(--text); font-size: 24px; margin-bottom: 8px; text-align: center; }
         .auth-box p { color: var(--text2); text-align: center; font-size: 14px; margin-bottom: 20px; }
@@ -194,9 +185,57 @@
         .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--surface3); }
         .user-email { color: var(--text2); font-size: 13px; margin-bottom: 12px; text-align: center; }
 
-        /* ===== PAYMENT UI ===== */
-        .plan-select, .provider-select { width: 100%; padding: 12px; background: var(--surface2); color: var(--text); border: 2px solid var(--surface3); border-radius: var(--radius-xs); margin-bottom: 8px; }
-        #payMessage { margin-top: 8px; font-size: 13px; color: var(--text2); text-align: center; min-height: 24px; }
+        /* ===== MANUAL PAYMENT UI ===== */
+        .plan-select {
+            width: 100%;
+            padding: 12px;
+            background: var(--surface2);
+            color: var(--text);
+            border: 2px solid var(--surface3);
+            border-radius: var(--radius-xs);
+            margin-bottom: 8px;
+        }
+        .manual-payment-input {
+            width: 100%;
+            padding: 12px;
+            background: var(--surface2);
+            color: var(--text);
+            border: 2px solid var(--surface3);
+            border-radius: var(--radius-xs);
+            margin-bottom: 8px;
+        }
+        .manual-payment-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: var(--radius-xs);
+            padding: 12px 20px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            width: 100%;
+        }
+        .manual-payment-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .manual-payment-status {
+            font-size: 12px;
+            color: var(--text2);
+            margin-top: 6px;
+        }
+        .manual-payment-info {
+            font-size: 13px;
+            color: var(--text2);
+            margin-bottom: 8px;
+            padding: 10px;
+            background: var(--surface2);
+            border-radius: var(--radius-xs);
+        }
+        .manual-payment-info strong {
+            color: var(--text);
+        }
     </style>
 </head>
 <body>
@@ -312,24 +351,28 @@
                 <h3>👤 Account</h3>
                 <div class="slider-container" style="text-align:center;">
                     <div id="settingsUserEmail" class="user-email">Not logged in</div>
-                    <button class="cta-btn secondary" style="width:100%;" onclick="logoutUser()">🚪 Log Out</button>
+                    <div id="settingsUserTier" style="font-size:12px;color:var(--text2);">Tier: free</div>
+                    <button class="cta-btn secondary" style="width:100%;margin-top:8px;" onclick="logoutUser()">🚪 Log Out</button>
                 </div>
             </div>
 
-            <div class="settings-section" id="paySection">
-                <h3>💳 Upgrade Plan</h3>
+            <!-- ===== MANUAL PAYMENT (SMS VERIFICATION) ===== -->
+            <div class="settings-section" id="manualPaySection">
+                <h3>💸 Pay with Mobile Money</h3>
                 <div class="slider-container">
-                    <select id="planSelect" class="plan-select">
+                    <div class="manual-payment-info">
+                        <p><strong>Send money to:</strong> <span style="color:var(--accent);">Nakyanzi Daisy (075 640 8723)</span></p>
+                        <p><strong>After sending, enter the transaction ID below.</strong></p>
+                        <p style="font-size:11px;color:var(--text3);margin-top:4px;">⚠️ The SMS from your mobile money provider will be automatically verified.</p>
+                    </div>
+                    <select id="manualPlanSelect" class="plan-select">
                         <option value="day">Day Pass – 2,500 UGX</option>
                         <option value="monthly">Monthly VIP – 15,000 UGX</option>
                         <option value="quarterly">Quarterly Pro – 40,000 UGX</option>
                     </select>
-                    <select id="providerSelect" class="provider-select">
-                        <option value="MTN">MTN Mobile Money</option>
-                        <option value="AIRTEL">Airtel Money</option>
-                    </select>
-                    <button class="auth-btn primary" onclick="initiatePayment()">💰 Pay Now</button>
-                    <div id="payMessage"></div>
+                    <input type="text" id="manualTransactionId" class="manual-payment-input" placeholder="Enter Transaction ID from SMS">
+                    <button class="manual-payment-btn" onclick="submitManualPayment()">✅ Submit Payment</button>
+                    <div id="manualPaymentStatus" class="manual-payment-status"></div>
                 </div>
             </div>
 
@@ -435,7 +478,7 @@
 
 <script>
     // ============================================================
-    // 1. FIREBASE CONFIG – YOUR CONFIG
+    // 1. FIREBASE CONFIG
     // ============================================================
     const firebaseConfig = {
         apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw",
@@ -450,9 +493,10 @@
     const auth = firebase.auth();
 
     // ============================================================
-    // 2. AUTH STATE LISTENER (UNCHANGED)
+    // 2. AUTH STATE LISTENER
     // ============================================================
     let currentUser = null;
+    let userTier = 'free';
 
     auth.onAuthStateChanged(user => {
         const authPage = document.getElementById('page-auth');
@@ -469,6 +513,7 @@
             document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + user.email;
             loadUserSettings();
             navigateTo('dashboard');
+            fetchUserDataFromBackend();
         } else {
             currentUser = null;
             authPage.classList.add('active');
@@ -480,7 +525,7 @@
     });
 
     // ============================================================
-    // 3. AUTH FUNCTIONS (UNCHANGED)
+    // 3. AUTH FUNCTIONS
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
@@ -526,7 +571,7 @@
     }
 
     // ============================================================
-    // 4. USER-SPECIFIC SETTINGS (localStorage) – UNCHANGED
+    // 4. USER SETTINGS (localStorage)
     // ============================================================
     function getUserSettingsKey() {
         return currentUser ? 'arbi_settings_' + currentUser.uid : 'arbi_settings_guest';
@@ -589,11 +634,12 @@
         };
         localStorage.setItem(getUserSettingsKey(), JSON.stringify(settings));
         showToast('✅ Settings Saved!');
-        filterOpportunities();
+        // Re-fetch data to apply new filters
+        fetchUserDataFromBackend();
     }
 
     // ============================================================
-    // 5. BOOKMAKER URL MAPPING (NEW – ONLY ADDITION)
+    // 5. BOOKMAKER URL MAPPING
     // ============================================================
     const BOOKMAKER_URLS = {
         'sportybet': 'https://sportybet.ug',
@@ -611,7 +657,7 @@
     }
 
     // ============================================================
-    // 6. CORE APP LOGIC (MODIFIED renderOpportunities ONLY)
+    // 6. CORE APP LOGIC – FETCH FROM BACKEND API
     // ============================================================
     let opportunitiesData = [];
     let allHistory = {};
@@ -620,52 +666,91 @@
     let slipBets = [];
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
-    async function loadFromLuxuryBackend() {
-        try {
-            const [oppsRes, histRes] = await Promise.all([
-                fetch('current_opportunities.json?t=' + Date.now()),
-                fetch('arb_history.json?t=' + Date.now())
-            ]);
-            if (!oppsRes.ok) throw new Error('Failed to load JSON');
-            const currentOpps = await oppsRes.json();
-            if (histRes.ok) allHistory = await histRes.json();
-            opportunitiesData = currentOpps.map(o => {
-                const key = `${o.sport || 'Football'}::${o.type || '3-way'}::${o.match}`;
-                const histEntry = allHistory[key] || {};
-                const versions = histEntry.versions || [];
-                const latest = versions.length ? versions[versions.length - 1] : null;
-                return {
-                    match: o.match,
+    function fetchUserDataFromBackend() {
+        if (!currentUser) return;
+
+        const listEl = document.getElementById('oppList');
+        listEl.innerHTML = '<div class="empty-state">Loading...</div>';
+
+        currentUser.getIdToken()
+            .then(idToken => {
+                return fetch('https://abrt-scraper-production.up.railway.app/api/arbitrage', {
+                    headers: {
+                        'Authorization': 'Bearer ' + idToken
+                    }
+                });
+            })
+            .then(res => {
+                if (!res.ok) {
+                    if (res.status === 403) {
+                        return res.json().then(data => {
+                            throw new Error(data.error || 'Subscription expired. Please renew.');
+                        });
+                    }
+                    throw new Error('HTTP ' + res.status);
+                }
+                return res.json();
+            })
+            .then(data => {
+                // data: { opportunities, tier, subscribed, expires, ad_unlocks_remaining, remaining_daily, ... }
+                userTier = data.tier || 'free';
+                document.getElementById('settingsUserTier').textContent = 'Tier: ' + userTier;
+
+                // Convert backend opportunities to internal structure
+                opportunitiesData = (data.opportunities || []).map(o => ({
+                    match: o.match || 'Unknown',
                     sport: o.sport || 'Football',
                     type: o.type || '3-way',
-                    profitPercent: latest ? Number(latest.profit_percent) : Number(o.profit_percent || 0),
-                    profitUGX: latest ? Number(latest.profit_ugx) : Number(o.profit_ugx || 0),
+                    profitPercent: o.profit_percent || 0,
+                    profitUGX: o.profit_ugx || 0,
                     bets: (o.bets || []).map(b => ({
                         bookie: b.bookmaker,
                         outcome: b.outcome,
-                        odds: Number(b.odd || 0),
-                        stake: Number(b.stake || 0),
-                        win: Number(b.win || 0)
+                        odds: b.odd || 0,
+                        stake: b.stake || 0,
+                        win: b.win || 0
                     })),
-                    valid: histEntry.valid !== undefined ? histEntry.valid : true,
-                    first_seen: histEntry.first_seen || null,
-                    last_seen: histEntry.last_seen || null,
-                    history: versions.map(v => ({
-                        timestamp: v.timestamp,
-                        profitPercent: Number(v.profit_percent || 0),
-                        profitUGX: Number(v.profit_ugx || 0)
-                    }))
-                };
+                    valid: true,
+                    first_seen: null,
+                    last_seen: null,
+                    history: []
+                }));
+
+                // Optional: handle remaining daily if needed
+                if (data.remaining_daily !== undefined && data.remaining_daily !== null) {
+                    // You can display it if you have a place
+                }
+
+                renderOpportunities();
+                renderAlerts();
+                // History may come from backend too if available; otherwise we keep static fallback
+                if (data.history) {
+                    allHistory = data.history;
+                    renderHistory();
+                } else {
+                    loadHistoryFromStatic();
+                }
+            })
+            .catch(err => {
+                console.error('API Error:', err);
+                listEl.innerHTML = `<div class="empty-state">⚠️ ${err.message}</div>`;
             });
-            renderOpportunities();
-            renderAlerts();
-            renderHistory();
-        } catch (e) {
-            console.error('LOAD ERROR:', e);
-            document.getElementById('oppList').innerHTML = `<div class="empty-state">⚠️ Network error or JSON missing.<br>Check your scraper.</div>`;
-        }
     }
 
+    // Fallback history from static JSON (optional)
+    function loadHistoryFromStatic() {
+        fetch('arb_history.json?t=' + Date.now())
+            .then(res => res.ok ? res.json() : {})
+            .then(data => {
+                if (data && Object.keys(data).length > 0) {
+                    allHistory = data;
+                    renderHistory();
+                }
+            })
+            .catch(() => {});
+    }
+
+    // ===== Navigation =====
     function navigateTo(pageName, data) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const target = document.getElementById('page-' + pageName);
@@ -689,7 +774,6 @@
         return map[bookie.toLowerCase()] || '#444';
     }
 
-    // ===== MODIFIED renderOpportunities – bookie names are now clickable links =====
     function renderOpportunities(filter = 'all') {
         try {
             let settings = getDefaultSettings();
@@ -703,7 +787,7 @@
             const container = document.getElementById('oppList');
             if (!container) return;
             if (!opportunitiesData || opportunitiesData.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+                container.innerHTML = '<div class="empty-state"><p>No opportunities available for your tier.</p></div>';
                 return;
             }
             let filtered = opportunitiesData.filter(a => {
@@ -718,7 +802,7 @@
                 return true;
             });
             if (filtered.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>No opportunities found</p></div>';
+                container.innerHTML = '<div class="empty-state"><p>No opportunities found matching your filters.</p></div>';
                 return;
             }
             container.innerHTML = filtered.map(arb => {
@@ -746,7 +830,7 @@
                         }).join('')}
                     </div>
                     <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
-                    <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
+                    <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div>
                 </div>`;
             }).join('');
         } catch (error) {
@@ -770,6 +854,7 @@
         renderOpportunities(active ? active.dataset.filter : 'all');
     }
 
+    // ===== Detail =====
     function populateDetailPage(arb) {
         currentDetailArb = arb;
         const historyHtml = (arb.history && arb.history.length)
@@ -786,7 +871,7 @@
                 <div>
                     <div class="detail-sport">⚽ ${arb.sport} · ${arb.type}</div>
                     <div class="detail-event">${arb.match}</div>
-                    <div class="detail-timer">${arb.valid ? "✅ Valid" : "❌ Invalid"} · First: ${arb.first_seen || "-"} · Last: ${arb.last_seen || "-"}</div>
+                    <div class="detail-timer">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div>
                 </div>
             </div>
             ${historyHtml}
@@ -1035,7 +1120,7 @@
                 <div class="alert-icon">⚡</div>
                 <div class="alert-info">
                     <div class="alert-event">${a.match}</div>
-                    <div class="alert-meta">${a.sport} · ${a.type} · Last ${a.last_seen || ''}</div>
+                    <div class="alert-meta">${a.sport} · ${a.type}</div>
                 </div>
                 <div class="alert-profit">+${a.profitPercent.toFixed(2)}%</div>
             </div>
@@ -1050,53 +1135,74 @@
     }
 
     // ============================================================
-    // 7. PAYMENT – UNCHANGED
+    // 7. MANUAL PAYMENT
     // ============================================================
-    function initiatePayment() {
-        const plan = document.getElementById('planSelect').value;
-        const provider = document.getElementById('providerSelect').value;
-        const msg = document.getElementById('payMessage');
-        msg.textContent = 'Processing...';
-        if (!currentUser) {
-            msg.textContent = '❌ Please login first.';
+    function submitManualPayment() {
+        const plan = document.getElementById('manualPlanSelect').value;
+        const transactionId = document.getElementById('manualTransactionId').value.trim();
+        const statusDiv = document.getElementById('manualPaymentStatus');
+
+        if (!transactionId) {
+            statusDiv.textContent = '❌ Please enter the transaction ID.';
+            statusDiv.style.color = '#ff5252';
             return;
         }
+
+        if (!currentUser) {
+            statusDiv.textContent = '❌ Please login first.';
+            statusDiv.style.color = '#ff5252';
+            return;
+        }
+
+        statusDiv.textContent = '⏳ Submitting...';
+        statusDiv.style.color = '#a0a4b0';
+
+        const amounts = { day: 2500, monthly: 15000, quarterly: 40000 };
+        const amount = amounts[plan];
+
         currentUser.getIdToken()
             .then(idToken => {
-                return fetch('https://abrt-scraper-production.up.railway.app/api/pay', {
+                return fetch('https://abrt-scraper-production.up.railway.app/api/manual-payment', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + idToken
                     },
-                    body: JSON.stringify({ plan, provider })
+                    body: JSON.stringify({
+                        plan: plan,
+                        transaction_id: transactionId,
+                        amount: amount
+                    })
                 });
             })
             .then(res => res.json())
             .then(data => {
-                if (data.redirect_url) {
-                    msg.textContent = '🔁 Redirecting to Pesapal...';
-                    window.location.href = data.redirect_url;
+                if (data.status === 'pending') {
+                    statusDiv.textContent = '✅ Payment submitted! We will verify the SMS.';
+                    statusDiv.style.color = '#00e676';
+                    document.getElementById('manualTransactionId').value = '';
                 } else {
-                    msg.textContent = '❌ Error: ' + (data.error || 'Payment initiation failed');
+                    statusDiv.textContent = '❌ Error: ' + (data.error || 'Something went wrong');
+                    statusDiv.style.color = '#ff5252';
                 }
             })
             .catch(err => {
-                msg.textContent = '❌ Network error: ' + err.message;
+                statusDiv.textContent = '❌ Network error: ' + err.message;
+                statusDiv.style.color = '#ff5252';
             });
     }
 
     // ============================================================
-    // 8. INIT (UNCHANGED)
+    // 8. INIT
     // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
         loadUserSettings();
-        loadFromLuxuryBackend();
         updateCalculator();
         renderSlip();
+        // If user already logged in, fetchUserDataFromBackend will be triggered by auth state listener
     });
 
-    // Expose functions globally (UNCHANGED)
+    // Expose functions globally
     window.switchAuthTab = switchAuthTab;
     window.signUpWithEmail = signUpWithEmail;
     window.loginWithEmail = loginWithEmail;
@@ -1116,7 +1222,7 @@
     window.filterOpportunities = filterOpportunities;
     window.renderAlerts = renderAlerts;
     window.renderHistory = renderHistory;
-    window.initiatePayment = initiatePayment;
+    window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-                                                                                                                                                                                                                                                                                                                                                                                                  </html>
+    </html>
