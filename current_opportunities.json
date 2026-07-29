@@ -380,6 +380,40 @@
     "market_specifier": ""
   },
   {
+    "match": "cremonese vs cittadella",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.16,
+    "profit_ugx": 1158,
+    "total_stake": 100000,
+    "arb_sum": 0.9884,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.24,
+        "stake": 81590,
+        "win": 101172
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 12.2,
+        "stake": 8293,
+        "win": 101175
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 10.0,
+        "stake": 10117,
+        "win": 101170
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "gornik zabrze vs fenerbahce",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -590,60 +624,6 @@
         "odd": 3.105,
         "stake": 44104,
         "win": 136943
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "inter stars sibiu vs medias",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 15.61,
-    "profit_ugx": 15614,
-    "total_stake": 100000,
-    "arb_sum": 0.8439,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 3.05,
-        "stake": 38853,
-        "win": 118502
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.938,
-        "stake": 61147,
-        "win": 118503
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "inter stars sibiu vs medias",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 15.61,
-    "profit_ugx": 15614,
-    "total_stake": 100000,
-    "arb_sum": 0.8439,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 3.05,
-        "stake": 38853,
-        "win": 118502
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 1.938,
-        "stake": 61147,
-        "win": 118503
       }
     ],
     "market_type": "1x2",
