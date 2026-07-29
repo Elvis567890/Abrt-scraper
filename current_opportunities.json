@@ -247,31 +247,31 @@
     "match": "palermo vs iraklis",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.28,
-    "profit_ugx": 1282,
+    "profit_percent": 1.57,
+    "profit_ugx": 1565,
     "total_stake": 100000,
-    "arb_sum": 0.9872,
+    "arb_sum": 0.9843,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.45,
-        "stake": 69861,
-        "win": 101298
+        "stake": 70062,
+        "win": 101590
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 6.96,
-        "stake": 14554,
-        "win": 101296
+        "odd": 7.1,
+        "stake": 14308,
+        "win": 101587
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 6.5,
-        "stake": 15584,
-        "win": 101296
+        "stake": 15629,
+        "win": 101588
       }
     ],
     "market_type": "1x2",
@@ -312,34 +312,27 @@
     "market_specifier": ""
   },
   {
-    "match": "boston utd vs grimsby town",
+    "match": "gornik zabrze vs fenerbahce",
     "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.52,
-    "profit_ugx": 5520,
+    "type": "Double Chance 1X",
+    "profit_percent": 6.38,
+    "profit_ugx": 6382,
     "total_stake": 100000,
-    "arb_sum": 0.9448,
+    "arb_sum": 0.9362,
     "bets": [
       {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.74,
-        "stake": 38629,
-        "win": 105843
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 30241,
-        "win": 105844
-      },
-      {
         "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.4,
-        "stake": 31130,
-        "win": 105842
+        "outcome": "1X",
+        "odd": 2.56,
+        "stake": 41725,
+        "win": 106816
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.833,
+        "stake": 58275,
+        "win": 106818
       }
     ],
     "market_type": "1x2",
@@ -349,51 +342,24 @@
     "match": "gornik zabrze vs fenerbahce",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 6.68,
-    "profit_ugx": 6678,
+    "profit_percent": 6.38,
+    "profit_ugx": 6382,
     "total_stake": 100000,
-    "arb_sum": 0.9332,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.56,
-        "stake": 41858,
-        "win": 107156
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.843,
-        "stake": 58142,
-        "win": 107156
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "gornik zabrze vs fenerbahce",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 6.68,
-    "profit_ugx": 6678,
-    "total_stake": 100000,
-    "arb_sum": 0.9332,
+    "arb_sum": 0.9362,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 2.56,
-        "stake": 41858,
-        "win": 107156
+        "stake": 41725,
+        "win": 106816
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 1.843,
-        "stake": 58142,
-        "win": 107156
+        "odd": 1.833,
+        "stake": 58275,
+        "win": 106818
       }
     ],
     "market_type": "1x2",
