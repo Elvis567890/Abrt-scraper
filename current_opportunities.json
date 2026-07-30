@@ -1,73 +1,5 @@
 [
   {
-    "match": "braga vs zeleznicar pancevo",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.82,
-    "profit_ugx": 821,
-    "total_stake": 100000,
-    "arb_sum": 0.9918,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.15,
-        "stake": 87677,
-        "win": 100829
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Draw",
-        "odd": 15.0,
-        "stake": 6722,
-        "win": 100830
-      },
-      {
-        "bookmaker": "ChampionBet",
-        "outcome": "Away",
-        "odd": 18.0,
-        "stake": 5602,
-        "win": 100836
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "hibernian vs malisheva",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.81,
-    "profit_ugx": 814,
-    "total_stake": 100000,
-    "arb_sum": 0.9919,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.315,
-        "stake": 76669,
-        "win": 100820
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 8.9,
-        "stake": 11328,
-        "win": 100819
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 8.4,
-        "stake": 12002,
-        "win": 100817
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "morocco w vs algeria w",
     "sport": "Football",
     "type": "3-way",
@@ -84,7 +16,7 @@
         "win": 101779
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 7.85,
         "stake": 12965,
@@ -105,65 +37,65 @@
     "match": "envigado vs once caldas",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 14.54,
-    "profit_ugx": 14541,
+    "profit_percent": 13.55,
+    "profit_ugx": 13554,
     "total_stake": 100000,
-    "arb_sum": 0.8546,
+    "arb_sum": 0.8645,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 5.2,
-        "stake": 22503,
-        "win": 117016
+        "odd": 5.0,
+        "stake": 23136,
+        "win": 115680
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.0,
-        "stake": 39005,
-        "win": 117015
+        "stake": 38560,
+        "win": 115680
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.04,
-        "stake": 38492,
-        "win": 117016
+        "odd": 3.02,
+        "stake": 38304,
+        "win": 115678
       }
     ],
     "market_type": "1x2",
     "market_specifier": ""
   },
   {
-    "match": "san lorenzo vs guarani asuncion",
+    "match": "panama vs colombia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.87,
-    "profit_ugx": 9874,
+    "profit_percent": 45.12,
+    "profit_ugx": 45120,
     "total_stake": 100000,
-    "arb_sum": 0.9013,
+    "arb_sum": 0.5488,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.75,
-        "stake": 29588,
-        "win": 110955
+        "odd": 7.9,
+        "stake": 23065,
+        "win": 182214
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.1,
-        "stake": 35792,
-        "win": 110955
+        "odd": 4.5,
+        "stake": 40492,
+        "win": 182214
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.205,
-        "stake": 34620,
-        "win": 110957
+        "odd": 5.0,
+        "stake": 36443,
+        "win": 182215
       }
     ],
     "market_type": "1x2",
@@ -368,6 +300,60 @@
         "odd": 3.3,
         "stake": 32665,
         "win": 107794
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "panama vs colombia",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.17,
+    "profit_ugx": 14171,
+    "total_stake": 100000,
+    "arb_sum": 0.8583,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.08,
+        "stake": 37828,
+        "win": 116510
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 62172,
+        "win": 116510
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "panama vs colombia",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.17,
+    "profit_ugx": 14171,
+    "total_stake": 100000,
+    "arb_sum": 0.8583,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.08,
+        "stake": 37828,
+        "win": 116510
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 62172,
+        "win": 116510
       }
     ],
     "market_type": "1x2",
