@@ -207,31 +207,31 @@
     "match": "panathinaikos vs paks",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.59,
-    "profit_ugx": 586,
+    "profit_percent": 3.26,
+    "profit_ugx": 3260,
     "total_stake": 100000,
-    "arb_sum": 0.9941,
+    "arb_sum": 0.9674,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 1.28,
-        "stake": 78586,
-        "win": 100590
+        "stake": 80758,
+        "win": 103370
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
         "odd": 10.5,
-        "stake": 9580,
-        "win": 100590
+        "stake": 9845,
+        "win": 103372
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 8.5,
-        "stake": 11834,
-        "win": 100589
+        "odd": 11.0,
+        "stake": 9397,
+        "win": 103367
       }
     ],
     "market_type": "1x2",
@@ -368,6 +368,40 @@
         "odd": 19.25,
         "stake": 5411,
         "win": 104162
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "dinamo tirana vs aluminij",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.52,
+    "profit_ugx": 520,
+    "total_stake": 100000,
+    "arb_sum": 0.9948,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.844,
+        "stake": 54514,
+        "win": 100524
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 4.44,
+        "stake": 22640,
+        "win": 100522
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Away",
+        "odd": 4.4,
+        "stake": 22846,
+        "win": 100522
       }
     ],
     "market_type": "1x2",
