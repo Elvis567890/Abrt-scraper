@@ -37,31 +37,31 @@
     "match": "wisla plock vs widzew lodz",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.92,
-    "profit_ugx": 1916,
+    "profit_percent": 2.04,
+    "profit_ugx": 2039,
     "total_stake": 100000,
-    "arb_sum": 0.9808,
+    "arb_sum": 0.9796,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.15,
-        "stake": 32366,
-        "win": 101953
+        "stake": 32407,
+        "win": 102082
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.2,
-        "stake": 31861,
-        "win": 101955
+        "stake": 31900,
+        "win": 102080
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Away",
-        "odd": 2.85,
-        "stake": 35773,
-        "win": 101953
+        "odd": 2.86,
+        "stake": 35693,
+        "win": 102082
       }
     ],
     "market_type": "1x2",
@@ -130,40 +130,6 @@
         "odd": 4.4,
         "stake": 36278,
         "win": 159623
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "cordoba ii vs sevilla ii",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 10.62,
-    "profit_ugx": 10616,
-    "total_stake": 100000,
-    "arb_sum": 0.8938,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 3.55,
-        "stake": 31515,
-        "win": 111878
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 33902,
-        "win": 111877
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.235,
-        "stake": 34583,
-        "win": 111876
       }
     ],
     "market_type": "1x2",
@@ -309,31 +275,31 @@
     "match": "vis pesaro vs benevento",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 30.94,
-    "profit_ugx": 30942,
+    "profit_percent": 33.88,
+    "profit_ugx": 33879,
     "total_stake": 100000,
-    "arb_sum": 0.6906,
+    "arb_sum": 0.6612,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 5.1,
-        "stake": 28393,
-        "win": 144804
+        "odd": 5.58,
+        "stake": 27104,
+        "win": 151240
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 37129,
-        "win": 144803
+        "odd": 4.1,
+        "stake": 36887,
+        "win": 151237
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.2,
-        "stake": 34477,
-        "win": 144803
+        "stake": 36009,
+        "win": 151238
       }
     ],
     "market_type": "1x2",
@@ -408,6 +374,40 @@
     "market_specifier": ""
   },
   {
+    "match": "ebbsfleet vs gillingham",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 21.1,
+    "profit_ugx": 21096,
+    "total_stake": 100000,
+    "arb_sum": 0.789,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.5,
+        "stake": 36210,
+        "win": 126735
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 32497,
+        "win": 126738
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.05,
+        "stake": 31293,
+        "win": 126737
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "dundee utd vs rangers",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -618,6 +618,60 @@
         "odd": 1.142,
         "stake": 95270,
         "win": 108798
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vis pesaro vs benevento calcio",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 9.12,
+    "profit_ugx": 9124,
+    "total_stake": 100000,
+    "arb_sum": 0.9088,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.42,
+        "stake": 45471,
+        "win": 110040
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 54529,
+        "win": 110040
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vis pesaro vs benevento calcio",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 9.12,
+    "profit_ugx": 9124,
+    "total_stake": 100000,
+    "arb_sum": 0.9088,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.42,
+        "stake": 45471,
+        "win": 110040
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 54529,
+        "win": 110040
       }
     ],
     "market_type": "1x2",
