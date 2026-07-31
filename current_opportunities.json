@@ -204,6 +204,40 @@
     "market_specifier": ""
   },
   {
+    "match": "de graafschap vs excelsior rotterdam",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 23.66,
+    "profit_ugx": 23658,
+    "total_stake": 100000,
+    "arb_sum": 0.7634,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.24,
+        "stake": 40429,
+        "win": 130990
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.5,
+        "stake": 29109,
+        "win": 130990
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.3,
+        "stake": 30463,
+        "win": 130991
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "puebla vs guadalajara",
     "sport": "Football",
     "type": "3-way",
@@ -448,6 +482,60 @@
         "odd": 1.74,
         "stake": 65613,
         "win": 114167
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "de graafschap vs excelsior",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.42,
+    "profit_ugx": 18420,
+    "total_stake": 100000,
+    "arb_sum": 0.8158,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.86,
+        "stake": 65903,
+        "win": 122580
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.595,
+        "stake": 34097,
+        "win": 122579
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "de graafschap vs excelsior",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.42,
+    "profit_ugx": 18420,
+    "total_stake": 100000,
+    "arb_sum": 0.8158,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.86,
+        "stake": 65903,
+        "win": 122580
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.595,
+        "stake": 34097,
+        "win": 122579
       }
     ],
     "market_type": "1x2",
