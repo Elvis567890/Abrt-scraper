@@ -34,6 +34,40 @@
     "market_specifier": ""
   },
   {
+    "match": "lask linz vs grazer ak",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.11,
+    "profit_ugx": 1115,
+    "total_stake": 100000,
+    "arb_sum": 0.9889,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.56,
+        "stake": 64825,
+        "win": 101127
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.75,
+        "stake": 17587,
+        "win": 101125
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.75,
+        "stake": 17587,
+        "win": 101125
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "bodoglimt vs lillestrom sk",
     "sport": "Football",
     "type": "3-way",
@@ -343,31 +377,31 @@
     "match": "birmingham vs barcelona",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 31.96,
-    "profit_ugx": 31956,
+    "profit_percent": 31.71,
+    "profit_ugx": 31706,
     "total_stake": 100000,
-    "arb_sum": 0.6804,
+    "arb_sum": 0.6829,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 4.4,
-        "stake": 33401,
-        "win": 146964
+        "stake": 33279,
+        "win": 146428
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.33,
-        "stake": 33941,
-        "win": 146965
+        "stake": 33817,
+        "win": 146428
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.5,
-        "stake": 32659,
-        "win": 146966
+        "odd": 4.45,
+        "stake": 32905,
+        "win": 146427
       }
     ],
     "market_type": "1x2",
