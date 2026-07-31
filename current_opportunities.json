@@ -136,40 +136,6 @@
     "market_specifier": ""
   },
   {
-    "match": "portimonense vs nottingham",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 27.54,
-    "profit_ugx": 27544,
-    "total_stake": 100000,
-    "arb_sum": 0.7246,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 4.3,
-        "stake": 32097,
-        "win": 138017
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 37301,
-        "win": 138014
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.51,
-        "stake": 30602,
-        "win": 138015
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "fortuna dusseldorf ii vs tsv steinbach",
     "sport": "Football",
     "type": "3-way",
@@ -288,7 +254,7 @@
         "win": 100786
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Draw",
         "odd": 6.1,
         "stake": 16522,
@@ -442,6 +408,40 @@
     "market_specifier": ""
   },
   {
+    "match": "birmingham vs barcelona",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 32.69,
+    "profit_ugx": 32694,
+    "total_stake": 100000,
+    "arb_sum": 0.6731,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.45,
+        "stake": 33388,
+        "win": 148577
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.33,
+        "stake": 34313,
+        "win": 148575
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.6,
+        "stake": 32299,
+        "win": 148575
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "valenciennes vs boulogne",
     "sport": "Football",
     "type": "3-way",
@@ -530,60 +530,6 @@
     "market_specifier": ""
   },
   {
-    "match": "portimonense vs nottingham forest",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 8.5,
-    "profit_ugx": 8501,
-    "total_stake": 100000,
-    "arb_sum": 0.915,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.265,
-        "stake": 48252,
-        "win": 109291
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.112,
-        "stake": 51748,
-        "win": 109292
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "portimonense vs nottingham forest",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 8.5,
-    "profit_ugx": 8501,
-    "total_stake": 100000,
-    "arb_sum": 0.915,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.265,
-        "stake": 48252,
-        "win": 109291
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.112,
-        "stake": 51748,
-        "win": 109292
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "fortuna dusseldorf ii vs tsv steinbach",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -794,6 +740,60 @@
         "odd": 2.194,
         "stake": 50519,
         "win": 110839
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "famalicao vs como",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.91,
+    "profit_ugx": 2913,
+    "total_stake": 100000,
+    "arb_sum": 0.9709,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.06,
+        "stake": 50000,
+        "win": 103000
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.06,
+        "stake": 50000,
+        "win": 103000
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "famalicao vs como",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.91,
+    "profit_ugx": 2913,
+    "total_stake": 100000,
+    "arb_sum": 0.9709,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.06,
+        "stake": 50000,
+        "win": 103000
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.06,
+        "stake": 50000,
+        "win": 103000
       }
     ],
     "market_type": "1x2",
