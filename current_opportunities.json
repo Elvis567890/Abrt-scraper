@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "lublin vs jagiellonia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.64,
+    "profit_ugx": 6644,
+    "total_stake": 100000,
+    "arb_sum": 0.9336,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.827,
+        "stake": 37890,
+        "win": 107115
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 30605,
+        "win": 107118
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.4,
+        "stake": 31505,
+        "win": 107117
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "cordoba ii vs sevilla ii",
     "sport": "Football",
     "type": "3-way",
@@ -213,7 +247,7 @@
     "arb_sum": 0.6283,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 6.15,
         "stake": 25880,
@@ -227,7 +261,7 @@
         "win": 159165
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.45,
         "stake": 35767,
@@ -300,40 +334,6 @@
         "odd": 3.58,
         "stake": 29245,
         "win": 104697
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "ebbsfleet vs gillingham",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 20.59,
-    "profit_ugx": 20588,
-    "total_stake": 100000,
-    "arb_sum": 0.7941,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.4,
-        "stake": 37037,
-        "win": 125926
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 31481,
-        "win": 125924
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.0,
-        "stake": 31481,
-        "win": 125924
       }
     ],
     "market_type": "1x2",
