@@ -207,31 +207,31 @@
     "match": "ebbsfleet vs gillingham",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 19.51,
-    "profit_ugx": 19508,
+    "profit_percent": 19.38,
+    "profit_ugx": 19376,
     "total_stake": 100000,
-    "arb_sum": 0.8049,
+    "arb_sum": 0.8062,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.35,
-        "stake": 37085,
-        "win": 124235
+        "stake": 37025,
+        "win": 124034
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.0,
-        "stake": 31059,
-        "win": 124236
+        "stake": 31008,
+        "win": 124032
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.9,
-        "stake": 31855,
-        "win": 124234
+        "odd": 3.88,
+        "stake": 31967,
+        "win": 124032
       }
     ],
     "market_type": "1x2",
@@ -442,6 +442,60 @@
         "odd": 2.182,
         "stake": 50856,
         "win": 110968
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "barockstadt fuldalehnerz vs havelse",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.74,
+    "profit_ugx": 13741,
+    "total_stake": 100000,
+    "arb_sum": 0.8626,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.909,
+        "stake": 60728,
+        "win": 115930
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.952,
+        "stake": 39272,
+        "win": 115931
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "barockstadt fuldalehnerz vs havelse",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.74,
+    "profit_ugx": 13741,
+    "total_stake": 100000,
+    "arb_sum": 0.8626,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.909,
+        "stake": 60728,
+        "win": 115930
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.952,
+        "stake": 39272,
+        "win": 115931
       }
     ],
     "market_type": "1x2",
