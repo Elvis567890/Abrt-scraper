@@ -1,39 +1,5 @@
 [
   {
-    "match": "lask linz vs grazer ak",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.29,
-    "profit_ugx": 1285,
-    "total_stake": 100000,
-    "arb_sum": 0.9871,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.64,
-        "stake": 61769,
-        "win": 101301
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 5.35,
-        "stake": 18935,
-        "win": 101302
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 5.25,
-        "stake": 19296,
-        "win": 101304
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "sparta prague vs trinity zlin",
     "sport": "Football",
     "type": "3-way",
@@ -130,40 +96,6 @@
         "odd": 4.21,
         "stake": 34608,
         "win": 145700
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "mosta vs balzan youths",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 9.28,
-    "profit_ugx": 9282,
-    "total_stake": 100000,
-    "arb_sum": 0.9072,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.025,
-        "stake": 36440,
-        "win": 110231
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 32421,
-        "win": 110231
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.54,
-        "stake": 31139,
-        "win": 110232
       }
     ],
     "market_type": "1x2",
@@ -476,6 +408,60 @@
         "odd": 2.182,
         "stake": 50856,
         "win": 110968
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "barockstadt fuldalehnerz vs havelse",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.74,
+    "profit_ugx": 13741,
+    "total_stake": 100000,
+    "arb_sum": 0.8626,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.909,
+        "stake": 60728,
+        "win": 115930
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.952,
+        "stake": 39272,
+        "win": 115931
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "barockstadt fuldalehnerz vs havelse",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.74,
+    "profit_ugx": 13741,
+    "total_stake": 100000,
+    "arb_sum": 0.8626,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.909,
+        "stake": 60728,
+        "win": 115930
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.952,
+        "stake": 39272,
+        "win": 115931
       }
     ],
     "market_type": "1x2",
