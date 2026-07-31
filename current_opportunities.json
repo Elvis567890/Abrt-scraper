@@ -247,7 +247,7 @@
     "arb_sum": 0.6612,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 5.58,
         "stake": 27104,
@@ -261,11 +261,45 @@
         "win": 151237
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 4.2,
         "stake": 36009,
         "win": 151238
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "juventus vs nice",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.63,
+    "profit_ugx": 625,
+    "total_stake": 100000,
+    "arb_sum": 0.9937,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.55,
+        "stake": 64922,
+        "win": 100629
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.12,
+        "stake": 16443,
+        "win": 100631
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.4,
+        "stake": 18635,
+        "win": 100629
       }
     ],
     "market_type": "1x2",
