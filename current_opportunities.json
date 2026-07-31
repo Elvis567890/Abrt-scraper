@@ -37,31 +37,31 @@
     "match": "wisla plock vs widzew lodz",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.7,
-    "profit_ugx": 2702,
+    "profit_percent": 2.52,
+    "profit_ugx": 2520,
     "total_stake": 100000,
-    "arb_sum": 0.973,
+    "arb_sum": 0.9748,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.15,
-        "stake": 32628,
-        "win": 102778
+        "stake": 32567,
+        "win": 102586
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.25,
-        "stake": 31624,
-        "win": 102778
+        "stake": 31565,
+        "win": 102586
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Away",
-        "odd": 2.875,
-        "stake": 35749,
-        "win": 102778
+        "odd": 2.86,
+        "stake": 35869,
+        "win": 102585
       }
     ],
     "market_type": "1x2",
@@ -408,40 +408,6 @@
     "market_specifier": ""
   },
   {
-    "match": "birmingham vs barcelona",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 31.94,
-    "profit_ugx": 31939,
-    "total_stake": 100000,
-    "arb_sum": 0.6806,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 4.35,
-        "stake": 33776,
-        "win": 146926
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.33,
-        "stake": 33932,
-        "win": 146926
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.55,
-        "stake": 32292,
-        "win": 146929
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "valenciennes vs boulogne",
     "sport": "Football",
     "type": "3-way",
@@ -695,24 +661,24 @@
     "match": "amiens vs red star saintouen",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 7.34,
-    "profit_ugx": 7345,
+    "profit_percent": 8.07,
+    "profit_ugx": 8067,
     "total_stake": 100000,
-    "arb_sum": 0.9266,
+    "arb_sum": 0.9193,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 2.07,
-        "stake": 52139,
-        "win": 107928
+        "odd": 2.12,
+        "stake": 51309,
+        "win": 108775
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 2.255,
-        "stake": 47861,
-        "win": 107927
+        "odd": 2.234,
+        "stake": 48691,
+        "win": 108776
       }
     ],
     "market_type": "1x2",
@@ -722,24 +688,78 @@
     "match": "amiens vs red star saintouen",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 7.34,
-    "profit_ugx": 7345,
+    "profit_percent": 8.07,
+    "profit_ugx": 8067,
     "total_stake": 100000,
-    "arb_sum": 0.9266,
+    "arb_sum": 0.9193,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 2.07,
-        "stake": 52139,
-        "win": 107928
+        "odd": 2.12,
+        "stake": 51309,
+        "win": 108775
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 2.255,
-        "stake": 47861,
-        "win": 107927
+        "odd": 2.234,
+        "stake": 48691,
+        "win": 108776
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "avranches vs rouen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.24,
+    "profit_ugx": 4240,
+    "total_stake": 100000,
+    "arb_sum": 0.9576,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 46829,
+        "win": 104429
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.964,
+        "stake": 53171,
+        "win": 104428
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "avranches vs rouen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.24,
+    "profit_ugx": 4240,
+    "total_stake": 100000,
+    "arb_sum": 0.9576,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 46829,
+        "win": 104429
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.964,
+        "stake": 53171,
+        "win": 104428
       }
     ],
     "market_type": "1x2",
