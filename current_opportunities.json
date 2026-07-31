@@ -272,6 +272,40 @@
     "market_specifier": ""
   },
   {
+    "match": "juventus vs nice",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.18,
+    "profit_ugx": 1176,
+    "total_stake": 100000,
+    "arb_sum": 0.9882,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.57,
+        "stake": 64452,
+        "win": 101190
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.02,
+        "stake": 16809,
+        "win": 101190
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.4,
+        "stake": 18739,
+        "win": 101191
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "valenciennes vs boulogne",
     "sport": "Football",
     "type": "3-way",
@@ -309,31 +343,31 @@
     "match": "toulouse vs real sociedad",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.49,
-    "profit_ugx": 4487,
+    "profit_percent": 3.44,
+    "profit_ugx": 3440,
     "total_stake": 100000,
-    "arb_sum": 0.9551,
+    "arb_sum": 0.9656,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.62,
-        "stake": 39961,
-        "win": 104698
+        "odd": 2.55,
+        "stake": 40613,
+        "win": 103563
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.4,
-        "stake": 30794,
-        "win": 104700
+        "stake": 30459,
+        "win": 103561
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.58,
-        "stake": 29245,
-        "win": 104697
+        "stake": 28928,
+        "win": 103562
       }
     ],
     "market_type": "1x2",
