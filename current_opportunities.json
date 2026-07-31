@@ -306,6 +306,40 @@
     "market_specifier": ""
   },
   {
+    "match": "valenciennes vs boulogne",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 15.7,
+    "profit_ugx": 15701,
+    "total_stake": 100000,
+    "arb_sum": 0.843,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.5,
+        "stake": 33893,
+        "win": 118626
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 34890,
+        "win": 118626
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.8,
+        "stake": 31217,
+        "win": 118625
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "toulouse vs real sociedad",
     "sport": "Football",
     "type": "3-way",
