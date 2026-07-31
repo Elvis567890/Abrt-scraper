@@ -3,31 +3,31 @@
     "match": "sparta prague vs trinity zlin",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.7,
-    "profit_ugx": 699,
+    "profit_percent": 0.83,
+    "profit_ugx": 825,
     "total_stake": 100000,
-    "arb_sum": 0.993,
+    "arb_sum": 0.9917,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.23,
-        "stake": 81873,
-        "win": 100704
+        "stake": 81977,
+        "win": 100832
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 12.5,
-        "stake": 8056,
-        "win": 100700
+        "odd": 12.7,
+        "stake": 7940,
+        "win": 100838
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 10.0,
-        "stake": 10070,
-        "win": 100700
+        "stake": 10083,
+        "win": 100830
       }
     ],
     "market_type": "1x2",
@@ -91,7 +91,7 @@
         "win": 102586
       },
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 2.86,
         "stake": 35869,
@@ -111,7 +111,7 @@
     "arb_sum": 0.9185,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 2.916,
         "stake": 37336,
@@ -125,7 +125,7 @@
         "win": 108871
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.45,
         "stake": 31557,
@@ -207,31 +207,31 @@
     "match": "vis pesaro vs benevento",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 33.58,
-    "profit_ugx": 33578,
+    "profit_percent": 30.14,
+    "profit_ugx": 30141,
     "total_stake": 100000,
-    "arb_sum": 0.6642,
+    "arb_sum": 0.6986,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 5.58,
-        "stake": 26981,
-        "win": 150554
+        "odd": 4.9,
+        "stake": 29213,
+        "win": 143144
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 4.05,
-        "stake": 37173,
-        "win": 150551
+        "odd": 3.9,
+        "stake": 36704,
+        "win": 143146
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.2,
-        "stake": 35846,
-        "win": 150553
+        "stake": 34082,
+        "win": 143144
       }
     ],
     "market_type": "1x2",
@@ -340,34 +340,88 @@
     "market_specifier": ""
   },
   {
-    "match": "mansfield town vs derby",
+    "match": "puebla vs guadalajara",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.81,
-    "profit_ugx": 3813,
+    "profit_percent": 29.28,
+    "profit_ugx": 29282,
     "total_stake": 100000,
-    "arb_sum": 0.9619,
+    "arb_sum": 0.7072,
     "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 4.56,
+        "stake": 31010,
+        "win": 141406
+      },
       {
         "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.5,
-        "stake": 41586,
-        "win": 103965
-      },
-      {
-        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 28879,
-        "win": 103964
+        "odd": 4.15,
+        "stake": 34074,
+        "win": 141407
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.52,
-        "stake": 29535,
-        "win": 103963
+        "odd": 4.05,
+        "stake": 34915,
+        "win": 141406
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "puebla vs guadalajara",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.86,
+    "profit_ugx": 5857,
+    "total_stake": 100000,
+    "arb_sum": 0.9414,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.16,
+        "stake": 49176,
+        "win": 106220
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.09,
+        "stake": 50824,
+        "win": 106222
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "puebla vs guadalajara",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.86,
+    "profit_ugx": 5857,
+    "total_stake": 100000,
+    "arb_sum": 0.9414,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.16,
+        "stake": 49176,
+        "win": 106220
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.09,
+        "stake": 50824,
+        "win": 106222
       }
     ],
     "market_type": "1x2",
@@ -422,60 +476,6 @@
         "odd": 2.255,
         "stake": 51609,
         "win": 116378
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "vis pesaro vs benevento calcio",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 9.12,
-    "profit_ugx": 9124,
-    "total_stake": 100000,
-    "arb_sum": 0.9088,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.42,
-        "stake": 45471,
-        "win": 110040
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.018,
-        "stake": 54529,
-        "win": 110040
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "vis pesaro vs benevento calcio",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 9.12,
-    "profit_ugx": 9124,
-    "total_stake": 100000,
-    "arb_sum": 0.9088,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.42,
-        "stake": 45471,
-        "win": 110040
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.018,
-        "stake": 54529,
-        "win": 110040
       }
     ],
     "market_type": "1x2",
