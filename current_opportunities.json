@@ -34,40 +34,6 @@
     "market_specifier": ""
   },
   {
-    "match": "lask linz vs grazer ak",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.98,
-    "profit_ugx": 1977,
-    "total_stake": 100000,
-    "arb_sum": 0.9802,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.56,
-        "stake": 65396,
-        "win": 102018
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 6.05,
-        "stake": 16862,
-        "win": 102015
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 5.75,
-        "stake": 17742,
-        "win": 102016
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "bodoglimt vs lillestrom sk",
     "sport": "Football",
     "type": "3-way",
@@ -343,31 +309,31 @@
     "match": "ebbsfleet vs gillingham",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 20.13,
-    "profit_ugx": 20133,
+    "profit_percent": 19.69,
+    "profit_ugx": 19693,
     "total_stake": 100000,
-    "arb_sum": 0.7987,
+    "arb_sum": 0.8031,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.6,
-        "stake": 34780,
-        "win": 125208
+        "odd": 3.685,
+        "stake": 33791,
+        "win": 124520
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 32950,
-        "win": 125210
+        "odd": 3.65,
+        "stake": 34115,
+        "win": 124520
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.88,
-        "stake": 32270,
-        "win": 125208
+        "stake": 32093,
+        "win": 124521
       }
     ],
     "market_type": "1x2",
@@ -431,7 +397,7 @@
         "win": 114682
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.85,
         "stake": 29788,
@@ -672,6 +638,60 @@
     "market_specifier": ""
   },
   {
+    "match": "ebbsfleet utd vs gillingham",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.06,
+    "profit_ugx": 3064,
+    "total_stake": 100000,
+    "arb_sum": 0.9694,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.88,
+        "stake": 54873,
+        "win": 103161
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.286,
+        "stake": 45127,
+        "win": 103160
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ebbsfleet utd vs gillingham",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.06,
+    "profit_ugx": 3064,
+    "total_stake": 100000,
+    "arb_sum": 0.9694,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.88,
+        "stake": 54873,
+        "win": 103161
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.286,
+        "stake": 45127,
+        "win": 103160
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "ud santarem vs academica de coimbra oaf",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -720,6 +740,60 @@
         "odd": 2.286,
         "stake": 44189,
         "win": 101016
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bromley vs queens park rangers",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.9,
+    "profit_ugx": 1904,
+    "total_stake": 100000,
+    "arb_sum": 0.981,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.79,
+        "stake": 56950,
+        "win": 101940
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.368,
+        "stake": 43050,
+        "win": 101942
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bromley vs queens park rangers",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.9,
+    "profit_ugx": 1904,
+    "total_stake": 100000,
+    "arb_sum": 0.981,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.79,
+        "stake": 56950,
+        "win": 101940
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.368,
+        "stake": 43050,
+        "win": 101942
       }
     ],
     "market_type": "1x2",
