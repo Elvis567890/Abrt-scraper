@@ -139,31 +139,65 @@
     "match": "bucaramanga vs llaneros",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.65,
-    "profit_ugx": 4649,
+    "profit_percent": 4.26,
+    "profit_ugx": 4260,
     "total_stake": 100000,
-    "arb_sum": 0.9535,
+    "arb_sum": 0.9574,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.686,
-        "stake": 62204,
-        "win": 104876
+        "odd": 1.675,
+        "stake": 62358,
+        "win": 104450
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.5,
-        "stake": 19068,
-        "win": 104874
+        "stake": 18991,
+        "win": 104450
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 5.6,
-        "stake": 18728,
-        "win": 104877
+        "stake": 18652,
+        "win": 104451
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "herediano vs marathon",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.59,
+    "profit_ugx": 1594,
+    "total_stake": 100000,
+    "arb_sum": 0.9841,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.01,
+        "stake": 50557,
+        "win": 101620
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.79,
+        "stake": 21215,
+        "win": 101620
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 28228,
+        "win": 101621
       }
     ],
     "market_type": "1x2",
