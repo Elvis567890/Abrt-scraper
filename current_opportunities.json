@@ -37,31 +37,31 @@
     "match": "racing vs tigre",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.25,
-    "profit_ugx": 4249,
+    "profit_percent": 4.02,
+    "profit_ugx": 4020,
     "total_stake": 100000,
-    "arb_sum": 0.9575,
+    "arb_sum": 0.9598,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.005,
-        "stake": 52089,
-        "win": 104438
+        "odd": 2.008,
+        "stake": 51886,
+        "win": 104187
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 4.475,
-        "stake": 23338,
-        "win": 104438
+        "odd": 4.415,
+        "stake": 23599,
+        "win": 104190
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.25,
-        "stake": 24574,
-        "win": 104440
+        "stake": 24515,
+        "win": 104189
       }
     ],
     "market_type": "1x2",
@@ -130,6 +130,40 @@
         "odd": 3.64,
         "stake": 31984,
         "win": 116422
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "colombia vs cuba",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.62,
+    "profit_ugx": 624,
+    "total_stake": 100000,
+    "arb_sum": 0.9938,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.25,
+        "stake": 80503,
+        "win": 100629
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 12.1,
+        "stake": 8316,
+        "win": 100624
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 9.0,
+        "stake": 11181,
+        "win": 100629
       }
     ],
     "market_type": "1x2",
