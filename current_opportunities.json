@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "medellin vs cali",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.6,
+    "profit_ugx": 604,
+    "total_stake": 100000,
+    "arb_sum": 0.994,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.29,
+        "stake": 43934,
+        "win": 100609
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 29591,
+        "win": 100609
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.8,
+        "stake": 26476,
+        "win": 100609
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "rancho santana vs sebaco",
     "sport": "Football",
     "type": "3-way",
@@ -567,24 +601,24 @@
     "match": "new york red bulls vs orlando",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 4.97,
-    "profit_ugx": 4971,
+    "profit_percent": 5.52,
+    "profit_ugx": 5518,
     "total_stake": 100000,
-    "arb_sum": 0.9503,
+    "arb_sum": 0.9448,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
         "odd": 1.521,
-        "stake": 69186,
-        "win": 105232
+        "stake": 69586,
+        "win": 105840
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 3.415,
-        "stake": 30814,
-        "win": 105230
+        "odd": 3.48,
+        "stake": 30414,
+        "win": 105841
       }
     ],
     "market_type": "1x2",
@@ -594,24 +628,24 @@
     "match": "new york red bulls vs orlando",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 4.97,
-    "profit_ugx": 4971,
+    "profit_percent": 5.52,
+    "profit_ugx": 5518,
     "total_stake": 100000,
-    "arb_sum": 0.9503,
+    "arb_sum": 0.9448,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 1.521,
-        "stake": 69186,
-        "win": 105232
+        "stake": 69586,
+        "win": 105840
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 3.415,
-        "stake": 30814,
-        "win": 105230
+        "odd": 3.48,
+        "stake": 30414,
+        "win": 105841
       }
     ],
     "market_type": "1x2",
