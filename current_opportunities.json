@@ -71,31 +71,65 @@
     "match": "lyngby vs aarhus",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.99,
-    "profit_ugx": 5988,
+    "profit_percent": 7.79,
+    "profit_ugx": 7790,
     "total_stake": 100000,
-    "arb_sum": 0.9401,
+    "arb_sum": 0.9221,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.765,
-        "stake": 38470,
-        "win": 106370
+        "odd": 2.91,
+        "stake": 37268,
+        "win": 108450
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 30391,
-        "win": 106368
+        "stake": 30985,
+        "win": 108448
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.416,
-        "stake": 31139,
-        "win": 106371
+        "stake": 31747,
+        "win": 108448
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 39.68,
+    "profit_ugx": 39682,
+    "total_stake": 100000,
+    "arb_sum": 0.6032,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.4,
+        "stake": 30701,
+        "win": 165785
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.75,
+        "stake": 34903,
+        "win": 165789
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.82,
+        "stake": 34396,
+        "win": 165789
       }
     ],
     "market_type": "1x2",
@@ -136,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "zurich vs servette",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 23.08,
+    "profit_ugx": 23077,
+    "total_stake": 100000,
+    "arb_sum": 0.7692,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.9,
+        "stake": 33333,
+        "win": 129999
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 33333,
+        "win": 129999
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.9,
+        "stake": 33333,
+        "win": 129999
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "thun vs young boys",
     "sport": "Football",
     "type": "3-way",
@@ -164,40 +232,6 @@
         "odd": 3.94,
         "stake": 28735,
         "win": 113216
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "start vs viking",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 38.72,
-    "profit_ugx": 38717,
-    "total_stake": 100000,
-    "arb_sum": 0.6128,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 5.32,
-        "stake": 30672,
-        "win": 163175
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 4.6,
-        "stake": 35473,
-        "win": 163176
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.82,
-        "stake": 33854,
-        "win": 163176
       }
     ],
     "market_type": "1x2",
