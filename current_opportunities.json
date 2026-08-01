@@ -102,34 +102,68 @@
     "market_specifier": ""
   },
   {
-    "match": "palestino vs coquimbo unido",
+    "match": "rancho santana vs sebaco",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.01,
-    "profit_ugx": 7012,
+    "profit_percent": 13.95,
+    "profit_ugx": 13954,
     "total_stake": 100000,
-    "arb_sum": 0.9299,
+    "arb_sum": 0.8605,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 3.2,
-        "stake": 33607,
-        "win": 107542
+        "odd": 3.35,
+        "stake": 34691,
+        "win": 116215
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.2,
-        "stake": 33607,
-        "win": 107542
+        "odd": 3.5,
+        "stake": 33205,
+        "win": 116218
       },
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.28,
-        "stake": 32787,
-        "win": 107541
+        "odd": 3.62,
+        "stake": 32104,
+        "win": 116216
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "colombia vs cuba",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.96,
+    "profit_ugx": 965,
+    "total_stake": 100000,
+    "arb_sum": 0.9904,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.25,
+        "stake": 80779,
+        "win": 100974
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 13.5,
+        "stake": 7480,
+        "win": 100980
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 8.6,
+        "stake": 11741,
+        "win": 100973
       }
     ],
     "market_type": "1x2",
