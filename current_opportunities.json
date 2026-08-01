@@ -3,31 +3,31 @@
     "match": "tirol vs sturm graz",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 21.04,
-    "profit_ugx": 21042,
+    "profit_percent": 22.17,
+    "profit_ugx": 22175,
     "total_stake": 100000,
-    "arb_sum": 0.7896,
+    "arb_sum": 0.7783,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 4.275,
-        "stake": 29626,
-        "win": 126651
+        "odd": 4.415,
+        "stake": 29104,
+        "win": 128494
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.65,
-        "stake": 34698,
-        "win": 126648
+        "stake": 35204,
+        "win": 128495
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.55,
-        "stake": 35676,
-        "win": 126650
+        "odd": 3.6,
+        "stake": 35693,
+        "win": 128495
       }
     ],
     "market_type": "1x2",
@@ -173,31 +173,31 @@
     "match": "lyngby vs aarhus",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.92,
-    "profit_ugx": 7924,
+    "profit_percent": 7.8,
+    "profit_ugx": 7796,
     "total_stake": 100000,
-    "arb_sum": 0.9208,
+    "arb_sum": 0.922,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.799,
-        "stake": 38802,
-        "win": 108607
+        "odd": 2.789,
+        "stake": 38887,
+        "win": 108456
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 31030,
-        "win": 108605
+        "stake": 30987,
+        "win": 108454
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.6,
-        "stake": 30168,
-        "win": 108605
+        "stake": 30126,
+        "win": 108454
       }
     ],
     "market_type": "1x2",
@@ -275,31 +275,31 @@
     "match": "ks wieczysta krakow vs lech poznan",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 14.86,
-    "profit_ugx": 14857,
+    "profit_percent": 14.57,
+    "profit_ugx": 14571,
     "total_stake": 100000,
-    "arb_sum": 0.8514,
+    "arb_sum": 0.8543,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.25,
-        "stake": 36138,
-        "win": 117448
+        "stake": 36017,
+        "win": 117055
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 32625,
-        "win": 117450
+        "stake": 32516,
+        "win": 117058
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.76,
-        "stake": 31237,
-        "win": 117451
+        "odd": 3.72,
+        "stake": 31467,
+        "win": 117057
       }
     ],
     "market_type": "1x2",
@@ -572,6 +572,222 @@
         "odd": 5.2,
         "stake": 19490,
         "win": 101348
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "wsg tirol vs sturm graz",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.65,
+    "profit_ugx": 1649,
+    "total_stake": 100000,
+    "arb_sum": 0.9835,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.99,
+        "stake": 51094,
+        "win": 101677
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.079,
+        "stake": 48906,
+        "win": 101676
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "wsg tirol vs sturm graz",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.65,
+    "profit_ugx": 1649,
+    "total_stake": 100000,
+    "arb_sum": 0.9835,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.99,
+        "stake": 51094,
+        "win": 101677
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.079,
+        "stake": 48906,
+        "win": 101676
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.61,
+    "profit_ugx": 6613,
+    "total_stake": 100000,
+    "arb_sum": 0.9339,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 48019,
+        "win": 107082
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.06,
+        "stake": 51981,
+        "win": 107081
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.61,
+    "profit_ugx": 6613,
+    "total_stake": 100000,
+    "arb_sum": 0.9339,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 48019,
+        "win": 107082
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.06,
+        "stake": 51981,
+        "win": 107081
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.27,
+    "profit_ugx": 14270,
+    "total_stake": 100000,
+    "arb_sum": 0.8573,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.441,
+        "stake": 47786,
+        "win": 116646
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.234,
+        "stake": 52214,
+        "win": 116646
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.27,
+    "profit_ugx": 14270,
+    "total_stake": 100000,
+    "arb_sum": 0.8573,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.441,
+        "stake": 47786,
+        "win": 116646
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.234,
+        "stake": 52214,
+        "win": 116646
       }
     ],
     "market_type": "1x2",
