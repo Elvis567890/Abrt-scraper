@@ -68,6 +68,74 @@
     "market_specifier": ""
   },
   {
+    "match": "lyngby vs aarhus",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 13.15,
+    "profit_ugx": 13151,
+    "total_stake": 100000,
+    "arb_sum": 0.8685,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 3.22,
+        "stake": 35758,
+        "win": 115141
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.55,
+        "stake": 32434,
+        "win": 115141
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.62,
+        "stake": 31807,
+        "win": 115141
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 38.5,
+    "profit_ugx": 38499,
+    "total_stake": 100000,
+    "arb_sum": 0.615,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.4,
+        "stake": 30111,
+        "win": 162599
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.75,
+        "stake": 34231,
+        "win": 162597
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.56,
+        "stake": 35658,
+        "win": 162600
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "ks wieczysta krakow vs lech poznan",
     "sport": "Football",
     "type": "3-way",
@@ -241,31 +309,65 @@
     "match": "ik brage vs landskrona bois",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.5,
-    "profit_ugx": 2499,
+    "profit_percent": 2.21,
+    "profit_ugx": 2207,
     "total_stake": 100000,
-    "arb_sum": 0.975,
+    "arb_sum": 0.9779,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.43,
-        "stake": 42207,
-        "win": 102563
+        "odd": 2.46,
+        "stake": 41568,
+        "win": 102257
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 28490,
-        "win": 102564
+        "odd": 3.5,
+        "stake": 29216,
+        "win": 102256
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.5,
-        "stake": 29304,
-        "win": 102564
+        "stake": 29216,
+        "win": 102256
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "zurich vs servette",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 19.97,
+    "profit_ugx": 19973,
+    "total_stake": 100000,
+    "arb_sum": 0.8003,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.44,
+        "stake": 36325,
+        "win": 124958
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.95,
+        "stake": 31635,
+        "win": 124958
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.9,
+        "stake": 32040,
+        "win": 124956
       }
     ],
     "market_type": "1x2",
@@ -360,6 +462,60 @@
     "market_specifier": ""
   },
   {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.12,
+    "profit_ugx": 15119,
+    "total_stake": 100000,
+    "arb_sum": 0.8488,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.467,
+        "stake": 47755,
+        "win": 117812
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.255,
+        "stake": 52245,
+        "win": 117812
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.12,
+    "profit_ugx": 15119,
+    "total_stake": 100000,
+    "arb_sum": 0.8488,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.467,
+        "stake": 47755,
+        "win": 117812
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.255,
+        "stake": 52245,
+        "win": 117812
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "wieczysta krakow vs lech poznan",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -408,6 +564,60 @@
         "odd": 2.347,
         "stake": 43405,
         "win": 101872
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "zurich vs servette",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.69,
+    "profit_ugx": 4685,
+    "total_stake": 100000,
+    "arb_sum": 0.9531,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.84,
+        "stake": 57019,
+        "win": 104915
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.441,
+        "stake": 42981,
+        "win": 104917
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "zurich vs servette",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.69,
+    "profit_ugx": 4685,
+    "total_stake": 100000,
+    "arb_sum": 0.9531,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.84,
+        "stake": 57019,
+        "win": 104915
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.441,
+        "stake": 42981,
+        "win": 104917
       }
     ],
     "market_type": "1x2",
