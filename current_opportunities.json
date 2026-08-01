@@ -1,5 +1,107 @@
 [
   {
+    "match": "greenock morton vs partick thistle",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 28.33,
+    "profit_ugx": 28329,
+    "total_stake": 100000,
+    "arb_sum": 0.7167,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.2,
+        "stake": 26832,
+        "win": 139526
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.75,
+        "stake": 37207,
+        "win": 139526
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.88,
+        "stake": 35961,
+        "win": 139529
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "raith rvs vs stenhousemuir",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.59,
+    "profit_ugx": 3593,
+    "total_stake": 100000,
+    "arb_sum": 0.9641,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.49,
+        "stake": 69615,
+        "win": 103726
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.19,
+        "stake": 14427,
+        "win": 103730
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.5,
+        "stake": 15958,
+        "win": 103727
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "livingston vs queens park",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.63,
+    "profit_ugx": 1626,
+    "total_stake": 100000,
+    "arb_sum": 0.9837,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.47,
+        "stake": 69151,
+        "win": 101652
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.97,
+        "stake": 14584,
+        "win": 101650
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.25,
+        "stake": 16264,
+        "win": 101650
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "gangwon vs bucheon 1995",
     "sport": "Football",
     "type": "3-way",
@@ -16,7 +118,7 @@
         "win": 104106
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 6.72,
         "stake": 15492,
@@ -37,31 +139,31 @@
     "match": "kryvbas kryvyi rih vs karpaty lviv",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 8.94,
-    "profit_ugx": 8935,
+    "profit_percent": 9.19,
+    "profit_ugx": 9189,
     "total_stake": 100000,
-    "arb_sum": 0.9106,
+    "arb_sum": 0.9081,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 3.22,
-        "stake": 34103,
-        "win": 109812
+        "stake": 34199,
+        "win": 110121
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.25,
-        "stake": 33788,
-        "win": 109811
+        "stake": 33883,
+        "win": 110120
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.42,
-        "stake": 32109,
-        "win": 109813
+        "odd": 3.45,
+        "stake": 31919,
+        "win": 110121
       }
     ],
     "market_type": "1x2",
@@ -71,65 +173,31 @@
     "match": "kharkiv vs veres rivne",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.79,
-    "profit_ugx": 3789,
+    "profit_percent": 3.92,
+    "profit_ugx": 3922,
     "total_stake": 100000,
-    "arb_sum": 0.9621,
+    "arb_sum": 0.9608,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.552,
-        "stake": 66970,
-        "win": 103937
+        "stake": 67063,
+        "win": 104082
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 6.1,
-        "stake": 17039,
-        "win": 103938
+        "odd": 6.15,
+        "stake": 16924,
+        "win": 104083
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 6.5,
-        "stake": 15990,
-        "win": 103935
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "tokyo vs borussia dortmund",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 19.24,
-    "profit_ugx": 19236,
-    "total_stake": 100000,
-    "arb_sum": 0.8076,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.97,
-        "stake": 41689,
-        "win": 123816
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.75,
-        "stake": 26067,
-        "win": 123818
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.84,
-        "stake": 32244,
-        "win": 123817
+        "stake": 16013,
+        "win": 104084
       }
     ],
     "market_type": "1x2",
