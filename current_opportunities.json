@@ -34,40 +34,6 @@
     "market_specifier": ""
   },
   {
-    "match": "costa rica vs panama",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.52,
-    "profit_ugx": 3523,
-    "total_stake": 100000,
-    "arb_sum": 0.9648,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.87,
-        "stake": 36116,
-        "win": 103653
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.25,
-        "stake": 31893,
-        "win": 103652
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.24,
-        "stake": 31991,
-        "win": 103651
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "venezuela vs guatemala",
     "sport": "Football",
     "type": "3-way",
@@ -96,6 +62,40 @@
         "odd": 11.0,
         "stake": 9664,
         "win": 106304
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "costa rica vs panama",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.52,
+    "profit_ugx": 3523,
+    "total_stake": 100000,
+    "arb_sum": 0.9648,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.87,
+        "stake": 36116,
+        "win": 103653
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.25,
+        "stake": 31893,
+        "win": 103652
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.24,
+        "stake": 31991,
+        "win": 103651
       }
     ],
     "market_type": "1x2",
