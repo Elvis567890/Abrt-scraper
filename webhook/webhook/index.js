@@ -11,25 +11,56 @@ const supabaseUrl = process.env.SUPABASE_URL || 'https://iaruxqgvliyfzpobmbjl.su
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Webhook endpoint
+// Webhook endpoint - accepts ANY format
 app.post('/webhook', async (req, res) => {
-  console.log('📨 SMS received:', req.body);
+  console.log('📨 RAW HEADERS:', req.headers);
+  console.log('📨 RAW BODY:', JSON.stringify(req.body, null, 2));
+  console.log('📨 RAW BODY TYPE:', typeof req.body);
 
-  const { sender, message } = req.body;
+  // Try multiple ways to extract sender and message
+  let sender = req.body.sender || req.body.from || req.body.phone || req.body.number || req.body.Sender || req.body.From;
+  let message = req.body.message || req.body.text || req.body.body || req.body.Message || req.body.Text || req.body.Body;
 
-  if (!sender || !message) {
-    return res.status(400).json({ error: 'Missing sender or message' });
+  // If body is empty, check if the request came as query params
+  if (!sender && !message) {
+    sender = req.query.sender || req.query.from || req.query.phone;
+    message = req.query.message || req.query.text || req.query.body;
   }
 
+  // If still empty, check raw body string
+  if (!sender && !message && typeof req.body === 'string') {
+    try {
+      const parsed = JSON.parse(req.body);
+      sender = parsed.sender || parsed.from || parsed.phone;
+      message = parsed.message || parsed.text || parsed.body;
+    } catch (e) {
+      // Not JSON, try to parse as plain text
+      message = req.body;
+    }
+  }
+
+  if (!sender && !message) {
+    console.error('❌ Could not extract sender or message from:', req.body);
+    return res.status(400).json({ 
+      error: 'Could not extract sender or message',
+      received: req.body,
+      headers: req.headers
+    });
+  }
+
+  console.log(`📱 Sender: ${sender}`);
+  console.log(`💬 Message: ${message}`);
+
   try {
-    // Parse SMS
+    // Parse SMS to extract transaction details
     const parsed = parseSMS(message);
     if (!parsed) {
-      return res.status(400).json({ error: 'Unrecognized SMS format' });
+      console.error('❌ Unrecognized SMS format');
+      return res.status(400).json({ error: 'Unrecognized SMS format', message: message });
     }
 
     const { transactionId, amount } = parsed;
-    console.log('📊 Parsed:', { transactionId, amount, sender });
+    console.log(`🔑 Transaction ID: ${transactionId}, Amount: ${amount}`);
 
     // Check for duplicate transaction
     const { data: existing } = await supabase
@@ -39,6 +70,7 @@ app.post('/webhook', async (req, res) => {
       .maybeSingle();
 
     if (existing) {
+      console.warn(`⚠️ Duplicate transaction: ${transactionId}`);
       return res.status(400).json({ error: 'Duplicate transaction' });
     }
 
@@ -53,6 +85,7 @@ app.post('/webhook', async (req, res) => {
       .limit(1);
 
     if (!pending || pending.length === 0) {
+      console.warn(`❌ No pending payment for sender ${sender}, amount ${amount}`);
       return res.status(404).json({ error: 'No matching pending payment' });
     }
 
@@ -72,7 +105,7 @@ app.post('/webhook', async (req, res) => {
       })
       .eq('id', payment.id);
 
-    // Update user subscription
+    // Update user
     await supabase
       .from('users')
       .update({
@@ -83,19 +116,21 @@ app.post('/webhook', async (req, res) => {
       })
       .eq('id', payment.user_id);
 
-    console.log('✅ Activated for user:', payment.user_id);
+    console.log(`✅ Activated for user: ${payment.user_id}`);
     res.json({ success: true, userId: payment.user_id, transactionId });
 
   } catch (error) {
-    console.error('Error:', error);
+    console.error('❌ Webhook error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
+// Health check
 app.get('/', (req, res) => {
   res.send('SMS Webhook is running!');
 });
 
+// SMS Parser
 function parseSMS(message) {
   const patterns = [
     /received UGX ([\d,]+) from (\d+).*Ref: ([A-Z0-9]+)/i,
