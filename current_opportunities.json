@@ -105,31 +105,31 @@
     "match": "ik start vs viking",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 36.05,
-    "profit_ugx": 36046,
+    "profit_percent": 37.14,
+    "profit_ugx": 37135,
     "total_stake": 100000,
-    "arb_sum": 0.6395,
+    "arb_sum": 0.6286,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 5.1,
-        "stake": 30659,
-        "win": 156361
+        "odd": 5.4,
+        "stake": 29458,
+        "win": 159073
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.5,
-        "stake": 34747,
-        "win": 156362
+        "stake": 35349,
+        "win": 159070
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 4.52,
-        "stake": 34593,
-        "win": 156360
+        "stake": 35193,
+        "win": 159072
       }
     ],
     "market_type": "1x2",
@@ -139,31 +139,31 @@
     "match": "ks wieczysta krakow vs lech poznan",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 15.79,
-    "profit_ugx": 15795,
+    "profit_percent": 15.83,
+    "profit_ugx": 15831,
     "total_stake": 100000,
-    "arb_sum": 0.8421,
+    "arb_sum": 0.8417,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.29,
-        "stake": 36097,
-        "win": 118759
+        "odd": 3.22,
+        "stake": 36897,
+        "win": 118808
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.9,
-        "stake": 30451,
-        "win": 118759
+        "stake": 30464,
+        "win": 118810
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.55,
-        "stake": 33453,
-        "win": 118758
+        "odd": 3.64,
+        "stake": 32640,
+        "win": 118810
       }
     ],
     "market_type": "1x2",
@@ -436,6 +436,168 @@
         "odd": 5.2,
         "stake": 19490,
         "win": 101348
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.87,
+    "profit_ugx": 13866,
+    "total_stake": 100000,
+    "arb_sum": 0.8613,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.441,
+        "stake": 47562,
+        "win": 116099
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.214,
+        "stake": 52438,
+        "win": 116098
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.87,
+    "profit_ugx": 13866,
+    "total_stake": 100000,
+    "arb_sum": 0.8613,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.441,
+        "stake": 47562,
+        "win": 116099
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.214,
+        "stake": 52438,
+        "win": 116098
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "wieczysta krakow vs lech poznan",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.02,
+    "profit_ugx": 2022,
+    "total_stake": 100000,
+    "arb_sum": 0.9798,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.704,
+        "stake": 59896,
+        "win": 102063
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.545,
+        "stake": 40104,
+        "win": 102065
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "wieczysta krakow vs lech poznan",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.02,
+    "profit_ugx": 2022,
+    "total_stake": 100000,
+    "arb_sum": 0.9798,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.704,
+        "stake": 59896,
+        "win": 102063
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.545,
+        "stake": 40104,
+        "win": 102065
       }
     ],
     "market_type": "1x2",
