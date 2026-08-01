@@ -343,31 +343,31 @@
     "match": "zurich vs servette",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 17.1,
-    "profit_ugx": 17095,
+    "profit_percent": 16.74,
+    "profit_ugx": 16745,
     "total_stake": 100000,
-    "arb_sum": 0.829,
+    "arb_sum": 0.8326,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.35,
-        "stake": 36006,
-        "win": 120620
+        "stake": 35854,
+        "win": 120111
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 31742,
-        "win": 120620
+        "odd": 3.75,
+        "stake": 32030,
+        "win": 120112
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.74,
-        "stake": 32252,
-        "win": 120622
+        "stake": 32116,
+        "win": 120114
       }
     ],
     "market_type": "1x2",
@@ -377,31 +377,31 @@
     "match": "thun vs young boys",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 11.94,
-    "profit_ugx": 11942,
+    "profit_percent": 11.59,
+    "profit_ugx": 11591,
     "total_stake": 100000,
-    "arb_sum": 0.8806,
+    "arb_sum": 0.8841,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.77,
-        "stake": 40997,
-        "win": 113562
+        "stake": 40834,
+        "win": 113110
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 29885,
-        "win": 113563
+        "odd": 3.75,
+        "stake": 30163,
+        "win": 113111
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.9,
-        "stake": 29118,
-        "win": 113560
+        "stake": 29003,
+        "win": 113112
       }
     ],
     "market_type": "1x2",
@@ -538,6 +538,168 @@
         "odd": 5.2,
         "stake": 19490,
         "win": 101348
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.14,
+    "profit_ugx": 7143,
+    "total_stake": 100000,
+    "arb_sum": 0.9286,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.27,
+        "stake": 47442,
+        "win": 107693
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.049,
+        "stake": 52558,
+        "win": 107691
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.14,
+    "profit_ugx": 7143,
+    "total_stake": 100000,
+    "arb_sum": 0.9286,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.27,
+        "stake": 47442,
+        "win": 107693
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.049,
+        "stake": 52558,
+        "win": 107691
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.44,
+    "profit_ugx": 13442,
+    "total_stake": 100000,
+    "arb_sum": 0.8656,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.416,
+        "stake": 47819,
+        "win": 115531
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.214,
+        "stake": 52181,
+        "win": 115529
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.44,
+    "profit_ugx": 13442,
+    "total_stake": 100000,
+    "arb_sum": 0.8656,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.416,
+        "stake": 47819,
+        "win": 115531
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.214,
+        "stake": 52181,
+        "win": 115529
       }
     ],
     "market_type": "1x2",
