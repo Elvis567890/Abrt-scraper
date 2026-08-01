@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "liberec vs teplice",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.71,
+    "profit_ugx": 711,
+    "total_stake": 100000,
+    "arb_sum": 0.9929,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.66,
+        "stake": 60673,
+        "win": 100717
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 5.0,
+        "stake": 20143,
+        "win": 100715
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.25,
+        "stake": 19184,
+        "win": 100716
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "ostrava vs slavia prague",
     "sport": "Football",
     "type": "3-way",
@@ -241,31 +275,31 @@
     "match": "porto vs torreense",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.63,
-    "profit_ugx": 2627,
+    "profit_percent": 0.97,
+    "profit_ugx": 967,
     "total_stake": 100000,
-    "arb_sum": 0.9737,
+    "arb_sum": 0.9903,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.2,
-        "stake": 85582,
-        "win": 102698
+        "odd": 1.17,
+        "stake": 86304,
+        "win": 100976
       },
       {
         "bookmaker": "Melbet",
         "outcome": "Draw",
         "odd": 14.5,
-        "stake": 7083,
-        "win": 102704
+        "stake": 6964,
+        "win": 100978
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 14.0,
-        "stake": 7336,
-        "win": 102704
+        "odd": 15.0,
+        "stake": 6732,
+        "win": 100980
       }
     ],
     "market_type": "1x2",
@@ -470,6 +504,40 @@
         "odd": 4.1,
         "stake": 25339,
         "win": 103890
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "mali w vs cape verde w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.33,
+    "profit_ugx": 1332,
+    "total_stake": 100000,
+    "arb_sum": 0.9867,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.86,
+        "stake": 54489,
+        "win": 101350
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 3.895,
+        "stake": 26020,
+        "win": 101348
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.2,
+        "stake": 19490,
+        "win": 101348
       }
     ],
     "market_type": "1x2",
