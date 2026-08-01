@@ -207,31 +207,31 @@
     "match": "ks wieczysta krakow vs lech poznan",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 19.76,
-    "profit_ugx": 19757,
+    "profit_percent": 18.74,
+    "profit_ugx": 18740,
     "total_stake": 100000,
-    "arb_sum": 0.8024,
+    "arb_sum": 0.8126,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 3.64,
-        "stake": 34237,
-        "win": 124623
+        "odd": 3.7,
+        "stake": 33260,
+        "win": 123062
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 32795,
-        "win": 124621
+        "odd": 3.6,
+        "stake": 34184,
+        "win": 123062
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.78,
-        "stake": 32968,
-        "win": 124619
+        "stake": 32556,
+        "win": 123062
       }
     ],
     "market_type": "1x2",
@@ -340,6 +340,40 @@
     "market_specifier": ""
   },
   {
+    "match": "estudiantes lp vs defensa y justicia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.52,
+    "profit_ugx": 5519,
+    "total_stake": 100000,
+    "arb_sum": 0.9448,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.646,
+        "stake": 64302,
+        "win": 105841
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.96,
+        "stake": 17759,
+        "win": 105844
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.9,
+        "stake": 17939,
+        "win": 105840
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "banik ostrava vs slavia prague",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -442,60 +476,6 @@
         "odd": 2.255,
         "stake": 51682,
         "win": 116543
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "wieczysta krakow vs lech poznan",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 3.08,
-    "profit_ugx": 3077,
-    "total_stake": 100000,
-    "arb_sum": 0.9692,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.86,
-        "stake": 55470,
-        "win": 103174
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.317,
-        "stake": 44530,
-        "win": 103176
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "wieczysta krakow vs lech poznan",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 3.08,
-    "profit_ugx": 3077,
-    "total_stake": 100000,
-    "arb_sum": 0.9692,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.86,
-        "stake": 55470,
-        "win": 103174
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.317,
-        "stake": 44530,
-        "win": 103176
       }
     ],
     "market_type": "1x2",
