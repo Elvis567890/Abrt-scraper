@@ -1,5 +1,39 @@
 [
   {
+    "match": "stellenbosch vs amazulu",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.85,
+    "profit_ugx": 846,
+    "total_stake": 100000,
+    "arb_sum": 0.9915,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.57,
+        "stake": 39243,
+        "win": 100855
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Draw",
+        "odd": 2.89,
+        "stake": 34897,
+        "win": 100852
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.9,
+        "stake": 25860,
+        "win": 100854
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "tirol vs sturm graz",
     "sport": "Football",
     "type": "3-way",
@@ -139,31 +173,31 @@
     "match": "lyngby vs aarhus",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.8,
-    "profit_ugx": 7796,
+    "profit_percent": 7.92,
+    "profit_ugx": 7924,
     "total_stake": 100000,
-    "arb_sum": 0.922,
+    "arb_sum": 0.9208,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.789,
-        "stake": 38887,
-        "win": 108456
+        "odd": 2.799,
+        "stake": 38802,
+        "win": 108607
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 30987,
-        "win": 108454
+        "stake": 31030,
+        "win": 108605
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.6,
-        "stake": 30126,
-        "win": 108454
+        "stake": 30168,
+        "win": 108605
       }
     ],
     "market_type": "1x2",
@@ -436,6 +470,114 @@
         "odd": 4.1,
         "stake": 25339,
         "win": 103890
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.14,
+    "profit_ugx": 7143,
+    "total_stake": 100000,
+    "arb_sum": 0.9286,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.27,
+        "stake": 47442,
+        "win": 107693
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.049,
+        "stake": 52558,
+        "win": 107691
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.14,
+    "profit_ugx": 7143,
+    "total_stake": 100000,
+    "arb_sum": 0.9286,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.27,
+        "stake": 47442,
+        "win": 107693
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.049,
+        "stake": 52558,
+        "win": 107691
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.44,
+    "profit_ugx": 13442,
+    "total_stake": 100000,
+    "arb_sum": 0.8656,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.416,
+        "stake": 47819,
+        "win": 115531
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.214,
+        "stake": 52181,
+        "win": 115529
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.44,
+    "profit_ugx": 13442,
+    "total_stake": 100000,
+    "arb_sum": 0.8656,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.416,
+        "stake": 47819,
+        "win": 115531
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.214,
+        "stake": 52181,
+        "win": 115529
       }
     ],
     "market_type": "1x2",
