@@ -105,31 +105,31 @@
     "match": "lyngby vs aarhus",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.37,
-    "profit_ugx": 9369,
+    "profit_percent": 8.95,
+    "profit_ugx": 8953,
     "total_stake": 100000,
-    "arb_sum": 0.9063,
+    "arb_sum": 0.9105,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.917,
-        "stake": 37826,
-        "win": 110338
+        "odd": 2.882,
+        "stake": 38110,
+        "win": 109833
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 31525,
-        "win": 110338
+        "stake": 31381,
+        "win": 109834
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.6,
-        "stake": 30649,
-        "win": 110336
+        "stake": 30509,
+        "win": 109832
       }
     ],
     "market_type": "1x2",
@@ -198,6 +198,40 @@
         "odd": 3.78,
         "stake": 33092,
         "win": 125088
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "porto vs torreense",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.87,
+    "profit_ugx": 868,
+    "total_stake": 100000,
+    "arb_sum": 0.9913,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.16,
+        "stake": 86962,
+        "win": 100876
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Draw",
+        "odd": 14.2,
+        "stake": 7104,
+        "win": 100877
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 17.0,
+        "stake": 5934,
+        "win": 100878
       }
     ],
     "market_type": "1x2",
