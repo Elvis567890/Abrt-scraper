@@ -1219,7 +1219,7 @@ def manual_payment():
 # ============================================================
 # SMS WEBHOOK – RECEIVES FORWARDED SMS, ACTIVATES SUBSCRIPTION
 # ============================================================
-@app.route('/webhooks/sms', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def sms_webhook():
     data = request.get_json() or request.form.to_dict()
     sms_text = data.get('text') or data.get('body') or data.get('message')
@@ -1297,15 +1297,6 @@ def sms_webhook():
     send_admin_notification(f"✅ Payment confirmed\nUser: {user.email}\nPlan: {plan}\nAmount: {amount_received} UGX\nExpires: {new_expiry}")
 
     return 'Subscription activated', 200
-
-
-# ============================================================
-# SMS WEBHOOK REDIRECT – FOR SMS FORWARDER COMPATIBILITY
-# ============================================================
-@app.route('/webhook', methods=['POST'])
-def sms_webhook_redirect():
-    """Redirect from /webhook to /webhooks/sms for SMS Forwarder compatibility"""
-    return sms_webhook()
 
 
 # ============================================================
