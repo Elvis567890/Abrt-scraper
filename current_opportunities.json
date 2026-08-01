@@ -34,6 +34,40 @@
     "market_specifier": ""
   },
   {
+    "match": "salzburg vs hartberg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.24,
+    "profit_ugx": 1245,
+    "total_stake": 100000,
+    "arb_sum": 0.9876,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.29,
+        "stake": 78496,
+        "win": 101260
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 8.9,
+        "stake": 11378,
+        "win": 101264
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 10.0,
+        "stake": 10126,
+        "win": 101260
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "ostrava vs slavia prague",
     "sport": "Football",
     "type": "3-way",
@@ -266,40 +300,6 @@
         "odd": 6.25,
         "stake": 16264,
         "win": 101650
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "gangwon vs bucheon 1995",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 4.53,
-    "profit_ugx": 4533,
-    "total_stake": 100000,
-    "arb_sum": 0.9547,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.57,
-        "stake": 66719,
-        "win": 104749
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 6.34,
-        "stake": 16522,
-        "win": 104749
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 6.25,
-        "stake": 16760,
-        "win": 104750
       }
     ],
     "market_type": "1x2",
