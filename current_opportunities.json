@@ -204,6 +204,40 @@
     "market_specifier": ""
   },
   {
+    "match": "fredrikstad vs sandefjord",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.99,
+    "profit_ugx": 986,
+    "total_stake": 100000,
+    "arb_sum": 0.9901,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.37,
+        "stake": 42614,
+        "win": 100995
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 28856,
+        "win": 100996
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.54,
+        "stake": 28530,
+        "win": 100996
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "ik start vs viking",
     "sport": "Football",
     "type": "3-way",
@@ -275,31 +309,31 @@
     "match": "porto vs torreense",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.6,
-    "profit_ugx": 600,
+    "profit_percent": 0.67,
+    "profit_ugx": 669,
     "total_stake": 100000,
-    "arb_sum": 0.994,
+    "arb_sum": 0.9933,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.165,
-        "stake": 86355,
-        "win": 100604
+        "odd": 1.17,
+        "stake": 86046,
+        "win": 100674
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "Melbet",
         "outcome": "Draw",
-        "odd": 14.5,
-        "stake": 6938,
-        "win": 100601
+        "odd": 13.9,
+        "stake": 7243,
+        "win": 100678
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 15.0,
-        "stake": 6707,
-        "win": 100605
+        "stake": 6712,
+        "win": 100680
       }
     ],
     "market_type": "1x2",
