@@ -139,31 +139,31 @@
     "match": "lyngby vs aarhus",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.92,
-    "profit_ugx": 7924,
+    "profit_percent": 7.8,
+    "profit_ugx": 7796,
     "total_stake": 100000,
-    "arb_sum": 0.9208,
+    "arb_sum": 0.922,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.799,
-        "stake": 38802,
-        "win": 108607
+        "odd": 2.789,
+        "stake": 38887,
+        "win": 108456
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 31030,
-        "win": 108605
+        "stake": 30987,
+        "win": 108454
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.6,
-        "stake": 30168,
-        "win": 108605
+        "stake": 30126,
+        "win": 108454
       }
     ],
     "market_type": "1x2",
@@ -402,6 +402,148 @@
         "odd": 5.9,
         "stake": 17962,
         "win": 105976
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "racing vs tigre",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.74,
+    "profit_ugx": 3744,
+    "total_stake": 100000,
+    "arb_sum": 0.9626,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.076,
+        "stake": 50043,
+        "win": 103889
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.22,
+        "stake": 24618,
+        "win": 103888
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 25339,
+        "win": 103890
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.61,
+    "profit_ugx": 6613,
+    "total_stake": 100000,
+    "arb_sum": 0.9339,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 48019,
+        "win": 107082
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.06,
+        "stake": 51981,
+        "win": 107081
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.61,
+    "profit_ugx": 6613,
+    "total_stake": 100000,
+    "arb_sum": 0.9339,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 48019,
+        "win": 107082
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.06,
+        "stake": 51981,
+        "win": 107081
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.19,
+    "profit_ugx": 14195,
+    "total_stake": 100000,
+    "arb_sum": 0.8581,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.412,
+        "stake": 48318,
+        "win": 116543
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.255,
+        "stake": 51682,
+        "win": 116543
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ik start vs viking",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 14.19,
+    "profit_ugx": 14195,
+    "total_stake": 100000,
+    "arb_sum": 0.8581,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.412,
+        "stake": 48318,
+        "win": 116543
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.255,
+        "stake": 51682,
+        "win": 116543
       }
     ],
     "market_type": "1x2",
