@@ -1,39 +1,5 @@
 [
   {
-    "match": "fortaleza vs pereira",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 8.86,
-    "profit_ugx": 8862,
-    "total_stake": 100000,
-    "arb_sum": 0.9114,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.656,
-        "stake": 66259,
-        "win": 109725
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 6.0,
-        "stake": 18287,
-        "win": 109722
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 7.1,
-        "stake": 15454,
-        "win": 109723
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "lucko vs segesta",
     "sport": "Football",
     "type": "3-way",
@@ -96,6 +62,40 @@
         "odd": 4.9,
         "stake": 38849,
         "win": 190360
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "de graafschap vs excelsior rotterdam",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 23.93,
+    "profit_ugx": 23925,
+    "total_stake": 100000,
+    "arb_sum": 0.7607,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.24,
+        "stake": 40571,
+        "win": 131450
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.5,
+        "stake": 29211,
+        "win": 131450
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.35,
+        "stake": 30218,
+        "win": 131448
       }
     ],
     "market_type": "1x2",
@@ -170,94 +170,6 @@
     "market_specifier": ""
   },
   {
-    "match": "puebla vs guadalajara",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 38.49,
-    "profit_ugx": 38487,
-    "total_stake": 100000,
-    "arb_sum": 0.6151,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 5.45,
-        "stake": 29829,
-        "win": 162568
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 4.55,
-        "stake": 35729,
-        "win": 162567
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.72,
-        "stake": 34442,
-        "win": 162566
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "puebla vs guadalajara",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 14.25,
-    "profit_ugx": 14249,
-    "total_stake": 100000,
-    "arb_sum": 0.8575,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.488,
-        "stake": 46872,
-        "win": 116618
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.195,
-        "stake": 53128,
-        "win": 116616
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "puebla vs guadalajara",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 14.25,
-    "profit_ugx": 14249,
-    "total_stake": 100000,
-    "arb_sum": 0.8575,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.488,
-        "stake": 46872,
-        "win": 116618
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.195,
-        "stake": 53128,
-        "win": 116616
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "lucko vs segesta",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -414,6 +326,60 @@
         "odd": 1.74,
         "stake": 65613,
         "win": 114167
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "de graafschap vs excelsior",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 19.71,
+    "profit_ugx": 19714,
+    "total_stake": 100000,
+    "arb_sum": 0.8029,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.87,
+        "stake": 66607,
+        "win": 124555
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.73,
+        "stake": 33393,
+        "win": 124556
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "de graafschap vs excelsior",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 19.71,
+    "profit_ugx": 19714,
+    "total_stake": 100000,
+    "arb_sum": 0.8029,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.87,
+        "stake": 66607,
+        "win": 124555
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.73,
+        "stake": 33393,
+        "win": 124556
       }
     ],
     "market_type": "1x2",
