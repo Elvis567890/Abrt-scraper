@@ -37,31 +37,31 @@
     "match": "salzburg vs hartberg",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.03,
-    "profit_ugx": 1025,
+    "profit_percent": 0.74,
+    "profit_ugx": 742,
     "total_stake": 100000,
-    "arb_sum": 0.9897,
+    "arb_sum": 0.9926,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.29,
-        "stake": 78322,
-        "win": 101035
+        "odd": 1.28,
+        "stake": 78709,
+        "win": 100748
       },
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 9.15,
-        "stake": 11042,
-        "win": 101034
+        "stake": 11011,
+        "win": 100751
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 9.5,
-        "stake": 10635,
-        "win": 101032
+        "odd": 9.8,
+        "stake": 10280,
+        "win": 100744
       }
     ],
     "market_type": "1x2",
@@ -207,31 +207,31 @@
     "match": "fredrikstad vs sandefjord",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.99,
-    "profit_ugx": 986,
+    "profit_percent": 0.83,
+    "profit_ugx": 825,
     "total_stake": 100000,
-    "arb_sum": 0.9901,
+    "arb_sum": 0.9917,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.37,
-        "stake": 42614,
-        "win": 100995
+        "stake": 42545,
+        "win": 100832
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 28856,
-        "win": 100996
+        "stake": 28809,
+        "win": 100832
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.54,
-        "stake": 28530,
-        "win": 100996
+        "odd": 3.52,
+        "stake": 28646,
+        "win": 100834
       }
     ],
     "market_type": "1x2",
@@ -572,6 +572,114 @@
         "odd": 5.2,
         "stake": 19490,
         "win": 101348
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.91,
+    "profit_ugx": 7906,
+    "total_stake": 100000,
+    "arb_sum": 0.9209,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.31,
+        "stake": 47006,
+        "win": 108584
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.049,
+        "stake": 52994,
+        "win": 108585
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "banik ostrava vs slavia prague",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.91,
+    "profit_ugx": 7906,
+    "total_stake": 100000,
+    "arb_sum": 0.9209,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.31,
+        "stake": 47006,
+        "win": 108584
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.049,
+        "stake": 52994,
+        "win": 108585
       }
     ],
     "market_type": "1x2",
