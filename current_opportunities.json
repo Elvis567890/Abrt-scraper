@@ -136,40 +136,6 @@
     "market_specifier": ""
   },
   {
-    "match": "charleroi vs rayo vallecano",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 8.33,
-    "profit_ugx": 8327,
-    "total_stake": 100000,
-    "arb_sum": 0.9167,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.1,
-        "stake": 35188,
-        "win": 109083
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 33056,
-        "win": 109085
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.435,
-        "stake": 31756,
-        "win": 109082
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "leon vs pachuca",
     "sport": "Football",
     "type": "3-way",
@@ -368,6 +334,114 @@
         "odd": 5.2,
         "stake": 19490,
         "win": 101348
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "orenburg vs zenit saint petersburg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.97,
+    "profit_ugx": 11975,
+    "total_stake": 100000,
+    "arb_sum": 0.8803,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.28,
+        "stake": 34635,
+        "win": 113603
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.738,
+        "stake": 65365,
+        "win": 113604
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "thun vs young boys",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.5,
+    "profit_ugx": 7498,
+    "total_stake": 100000,
+    "arb_sum": 0.925,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.63,
+        "stake": 66322,
+        "win": 108105
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.21,
+        "stake": 33678,
+        "win": 108106
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "thun vs young boys",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.5,
+    "profit_ugx": 7498,
+    "total_stake": 100000,
+    "arb_sum": 0.925,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.63,
+        "stake": 66322,
+        "win": 108105
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.21,
+        "stake": 33678,
+        "win": 108106
       }
     ],
     "market_type": "1x2",
