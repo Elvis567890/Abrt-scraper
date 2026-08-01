@@ -1300,6 +1300,15 @@ def sms_webhook():
 
 
 # ============================================================
+# SMS WEBHOOK REDIRECT – FOR SMS FORWARDER COMPATIBILITY
+# ============================================================
+@app.route('/webhook', methods=['POST'])
+def sms_webhook_redirect():
+    """Redirect from /webhook to /webhooks/sms for SMS Forwarder compatibility"""
+    return sms_webhook()
+
+
+# ============================================================
 # AD‑BASED UNLOCK ENDPOINT (FREE USERS WATCH ADS)
 # ============================================================
 @app.route('/api/unlock-with-ad', methods=['POST'])
