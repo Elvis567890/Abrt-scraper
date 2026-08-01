@@ -170,6 +170,40 @@
     "market_specifier": ""
   },
   {
+    "match": "daejeon vs gwangju",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.74,
+    "profit_ugx": 739,
+    "total_stake": 100000,
+    "arb_sum": 0.9926,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.49,
+        "stake": 67614,
+        "win": 100745
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.46,
+        "stake": 15595,
+        "win": 100744
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.0,
+        "stake": 16791,
+        "win": 100746
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "montreal impact vs new england revolution",
     "sport": "Football",
     "type": "3-way",
