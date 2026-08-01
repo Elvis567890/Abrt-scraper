@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "medellin vs cali",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.96,
+    "profit_ugx": 965,
+    "total_stake": 100000,
+    "arb_sum": 0.9904,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.28,
+        "stake": 44287,
+        "win": 100974
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 3.465,
+        "stake": 29141,
+        "win": 100974
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.8,
+        "stake": 26572,
+        "win": 100974
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "rancho santana vs sebaco",
     "sport": "Football",
     "type": "3-way",
