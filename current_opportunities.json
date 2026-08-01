@@ -34,6 +34,40 @@
     "market_specifier": ""
   },
   {
+    "match": "salzburg vs hartberg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.06,
+    "profit_ugx": 1064,
+    "total_stake": 100000,
+    "arb_sum": 0.9894,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.28,
+        "stake": 78965,
+        "win": 101075
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 9.25,
+        "stake": 10927,
+        "win": 101075
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 10.0,
+        "stake": 10108,
+        "win": 101080
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "ostrava vs slavia prague",
     "sport": "Football",
     "type": "3-way",
@@ -207,31 +241,31 @@
     "match": "zurich vs servette",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 18.87,
-    "profit_ugx": 18867,
+    "profit_percent": 18.6,
+    "profit_ugx": 18601,
     "total_stake": 100000,
-    "arb_sum": 0.8113,
+    "arb_sum": 0.814,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.35,
-        "stake": 36792,
-        "win": 123253
+        "stake": 36672,
+        "win": 122851
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.9,
-        "stake": 31604,
-        "win": 123256
+        "stake": 31501,
+        "win": 122854
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.9,
-        "stake": 31604,
-        "win": 123256
+        "odd": 3.86,
+        "stake": 31827,
+        "win": 122852
       }
     ],
     "market_type": "1x2",
