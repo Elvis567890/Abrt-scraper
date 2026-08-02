@@ -490,39 +490,72 @@
         measurementId: "G-ZFXKEY2QL7"
     };
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    // SMS Payment System Integration
+    const API_BASE = 'https://sms-payment-system-1-yth6.onrender.com';
 
     // ============================================================
-    // 2. AUTH STATE LISTENER
+    // 2. AUTH STATE (SMS Payment System)
     // ============================================================
     let currentUser = null;
-    let userTier = 'free';
+    let authToken = localStorage.getItem('sms_auth_token');
+    let authEmail = localStorage.getItem('sms_auth_email');
+    let userTier = localStorage.getItem('sms_user_tier') || 'free';
 
-    auth.onAuthStateChanged(user => {
+    function checkSMSAuth() {
         const authPage = document.getElementById('page-auth');
         const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
         const bottomNav = document.getElementById('bottomNav');
         const fab = document.querySelector('.fab');
 
-        if (user) {
-            currentUser = user;
-            authPage.classList.remove('active');
-            mainPages.forEach(p => p.classList.add('active'));
-            bottomNav.style.display = 'flex';
-            if (fab) fab.style.display = 'flex';
-            document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + user.email;
-            loadUserSettings();
-            navigateTo('dashboard');
-            fetchUserDataFromBackend();
+        if (authToken && authEmail) {
+            // Verify token by fetching profile
+            fetch(`${API_BASE}/api/profile`, {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            }).then(res => res.json()).then(data => {
+                if (data.success) {
+                    currentUser = { email: authEmail, uid: data.user.id };
+                    userTier = data.user.tier || 'free';
+                    localStorage.setItem('sms_user_tier', userTier);
+                    authPage.classList.remove('active');
+                    mainPages.forEach(p => p.classList.add('active'));
+                    bottomNav.style.display = 'flex';
+                    if (fab) fab.style.display = 'flex';
+                    document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + authEmail;
+                    document.getElementById('settingsUserTier').textContent = 'Tier: ' + userTier;
+                    loadUserSettings();
+                    navigateTo('dashboard');
+                    fetchUserDataFromBackend();
+                } else {
+                    clearSMSAuth();
+                }
+            }).catch(() => clearSMSAuth());
         } else {
-            currentUser = null;
-            authPage.classList.add('active');
-            mainPages.forEach(p => p.classList.remove('active'));
-            bottomNav.style.display = 'none';
-            if (fab) fab.style.display = 'none';
-            document.getElementById('settingsUserEmail').textContent = 'Not logged in';
+            clearSMSAuth();
         }
-    });
+    }
+
+    function clearSMSAuth() {
+        authToken = null;
+        authEmail = null;
+        userTier = 'free';
+        localStorage.removeItem('sms_auth_token');
+        localStorage.removeItem('sms_auth_email');
+        localStorage.removeItem('sms_user_tier');
+        currentUser = null;
+        const authPage = document.getElementById('page-auth');
+        const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
+        const bottomNav = document.getElementById('bottomNav');
+        const fab = document.querySelector('.fab');
+        authPage.classList.add('active');
+        mainPages.forEach(p => p.classList.remove('active'));
+        bottomNav.style.display = 'none';
+        if (fab) fab.style.display = 'none';
+        document.getElementById('settingsUserEmail').textContent = 'Not logged in';
+        document.getElementById('settingsUserTier').textContent = 'Tier: free';
+    }
+
+    // Check auth on load
+    checkSMSAuth();
 
     // ============================================================
     // 3. AUTH FUNCTIONS
@@ -543,9 +576,23 @@
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
         if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(() => showToast('Account created! Welcome.'))
-            .catch(err => errorEl.textContent = err.message);
+        
+        fetch(`${API_BASE}/api/signup`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        }).then(res => res.json()).then(data => {
+            if (data.success) {
+                authToken = data.token;
+                authEmail = data.user.email;
+                localStorage.setItem('sms_auth_token', authToken);
+                localStorage.setItem('sms_auth_email', authEmail);
+                showToast('Account created! Welcome to Abrimax!');
+                checkSMSAuth();
+            } else {
+                errorEl.textContent = data.message || 'Signup failed. Try again.';
+            }
+        }).catch(err => errorEl.textContent = 'Network error. Please try again.');
     }
 
     function loginWithEmail() {
@@ -554,20 +601,32 @@
         const errorEl = document.getElementById('authError');
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
-        auth.signInWithEmailAndPassword(email, password)
-            .then(() => showToast('Logged in successfully!'))
-            .catch(err => errorEl.textContent = err.message);
+        
+        fetch(`${API_BASE}/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        }).then(res => res.json()).then(data => {
+            if (data.success) {
+                authToken = data.token;
+                authEmail = data.user.email;
+                localStorage.setItem('sms_auth_token', authToken);
+                localStorage.setItem('sms_auth_email', authEmail);
+                showToast('Logged in successfully!');
+                checkSMSAuth();
+            } else {
+                errorEl.textContent = data.message || 'Invalid email or password.';
+            }
+        }).catch(err => errorEl.textContent = 'Network error. Please try again.');
     }
 
     function signInWithGoogle() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider)
-            .then(() => showToast('Google sign-in successful!'))
-            .catch(err => showToast('Google error: ' + err.message));
+        showToast('Google sign-in not available. Use email login.');
     }
 
     function logoutUser() {
-        auth.signOut().then(() => showToast('Logged out.'));
+        clearSMSAuth();
+        showToast('Logged out.');
     }
 
     // ============================================================
@@ -672,14 +731,9 @@
         const listEl = document.getElementById('oppList');
         listEl.innerHTML = '<div class="empty-state">Loading...</div>';
 
-        currentUser.getIdToken()
-            .then(idToken => {
-                return fetch('https://abrt-scraper-production.up.railway.app/api/arbitrage', {
-                    headers: {
-                        'Authorization': 'Bearer ' + idToken
-                    }
-                });
-            })
+        fetch('https://sms-payment-system-1-yth6.onrender.com/api/arbitrage', {
+            headers: authToken ? { 'Authorization': 'Bearer ' + authToken } : {}
+        })
             .then(res => {
                 if (!res.ok) {
                     if (res.status === 403) {
@@ -1160,29 +1214,26 @@
         const amounts = { day: 2500, monthly: 15000, quarterly: 40000 };
         const amount = amounts[plan];
 
-        currentUser.getIdToken()
-            .then(idToken => {
-                return fetch('https://abrt-scraper-production.up.railway.app/api/manual-payment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + idToken
-                    },
-                    body: JSON.stringify({
-                        plan: plan,
-                        transaction_id: transactionId,
-                        amount: amount
-                    })
-                });
+        fetch('https://sms-payment-system-1-yth6.onrender.com/api/manual-payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            },
+            body: JSON.stringify({
+                plan: plan,
+                transaction_id: transactionId,
+                amount: amount
             })
+        })
             .then(res => res.json())
             .then(data => {
-                if (data.status === 'pending') {
+                if (data.success) {
                     statusDiv.textContent = '✅ Payment submitted! We will verify the SMS.';
                     statusDiv.style.color = '#00e676';
                     document.getElementById('manualTransactionId').value = '';
                 } else {
-                    statusDiv.textContent = '❌ Error: ' + (data.error || 'Something went wrong');
+                    statusDiv.textContent = '❌ Error: ' + (data.message || 'Something went wrong');
                     statusDiv.style.color = '#ff5252';
                 }
             })
