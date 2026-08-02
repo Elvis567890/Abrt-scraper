@@ -136,6 +136,40 @@
     "market_specifier": ""
   },
   {
+    "match": "la serena vs ohiggins",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.53,
+    "profit_ugx": 1531,
+    "total_stake": 100000,
+    "arb_sum": 0.9847,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.47,
+        "stake": 41115,
+        "win": 101554
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 29016,
+        "win": 101556
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.4,
+        "stake": 29869,
+        "win": 101555
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "bohemians 1905 vs hradec kralove",
     "sport": "Football",
     "type": "3-way",
@@ -198,40 +232,6 @@
         "odd": 7.2,
         "stake": 14336,
         "win": 103219
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "midtjylland vs horsens",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.04,
-    "profit_ugx": 1037,
-    "total_stake": 100000,
-    "arb_sum": 0.9896,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.3,
-        "stake": 77729,
-        "win": 101048
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 9.15,
-        "stake": 11043,
-        "win": 101043
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 9.0,
-        "stake": 11228,
-        "win": 101052
       }
     ],
     "market_type": "1x2",
