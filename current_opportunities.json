@@ -68,102 +68,68 @@
     "market_specifier": ""
   },
   {
-    "match": "costa rica w vs el salvador w",
+    "match": "vestri vs grotta",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 29.73,
-    "profit_ugx": 29728,
+    "profit_percent": 2.5,
+    "profit_ugx": 2498,
     "total_stake": 100000,
-    "arb_sum": 0.7027,
+    "arb_sum": 0.975,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 4.97,
-        "stake": 28633,
-        "win": 142306
+        "odd": 2.14,
+        "stake": 47926,
+        "win": 102562
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 36488,
-        "win": 142303
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 4.08,
-        "stake": 34879,
-        "win": 142306
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "birmingham legion vs rhode island college",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 11.64,
-    "profit_ugx": 11642,
-    "total_stake": 100000,
-    "arb_sum": 0.8836,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.3,
-        "stake": 34296,
-        "win": 113177
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.45,
-        "stake": 32805,
-        "win": 113177
+        "odd": 4.0,
+        "stake": 25640,
+        "win": 102560
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.44,
-        "stake": 32900,
-        "win": 113176
+        "odd": 3.88,
+        "stake": 26433,
+        "win": 102560
       }
     ],
     "market_type": "1x2",
     "market_specifier": ""
   },
   {
-    "match": "america vs santos laguna",
+    "match": "san jose earthquakes ii vs austin ii",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.87,
-    "profit_ugx": 1871,
+    "profit_percent": 7.91,
+    "profit_ugx": 7910,
     "total_stake": 100000,
-    "arb_sum": 0.9813,
+    "arb_sum": 0.9209,
     "bets": [
       {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.408,
-        "stake": 72377,
-        "win": 101907
-      },
-      {
         "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 7.0,
-        "stake": 14558,
-        "win": 101906
+        "outcome": "Home",
+        "odd": 2.932,
+        "stake": 37036,
+        "win": 108590
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 31938,
+        "win": 108589
+      },
+      {
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 7.8,
-        "stake": 13065,
-        "win": 101907
+        "odd": 3.5,
+        "stake": 31026,
+        "win": 108591
       }
     ],
     "market_type": "1x2",
@@ -247,7 +213,7 @@
     "arb_sum": 0.9032,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 3.8,
         "stake": 29136,
@@ -261,11 +227,65 @@
         "win": 110716
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.15,
         "stake": 35148,
         "win": 110716
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sagaing utd u20 vs ayeyawady utd u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.13,
+    "profit_ugx": 2129,
+    "total_stake": 100000,
+    "arb_sum": 0.9787,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.51,
+        "stake": 67666,
+        "win": 102176
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.16,
+        "stake": 32334,
+        "win": 102175
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sagaing utd u20 vs ayeyawady utd u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.13,
+    "profit_ugx": 2129,
+    "total_stake": 100000,
+    "arb_sum": 0.9787,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.51,
+        "stake": 67666,
+        "win": 102176
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.16,
+        "stake": 32334,
+        "win": 102175
       }
     ],
     "market_type": "1x2",
