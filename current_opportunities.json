@@ -275,31 +275,31 @@
     "match": "oulu vs ilves",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.63,
-    "profit_ugx": 627,
+    "profit_percent": 0.81,
+    "profit_ugx": 807,
     "total_stake": 100000,
-    "arb_sum": 0.9937,
+    "arb_sum": 0.9919,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.51,
-        "stake": 40092,
-        "win": 100631
+        "stake": 40165,
+        "win": 100814
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.4,
-        "stake": 29597,
-        "win": 100630
+        "stake": 29651,
+        "win": 100813
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.32,
-        "stake": 30311,
-        "win": 100633
+        "odd": 3.34,
+        "stake": 30184,
+        "win": 100815
       }
     ],
     "market_type": "1x2",
@@ -368,6 +368,40 @@
         "odd": 3.34,
         "stake": 32559,
         "win": 108747
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "aik vs orgryte",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.69,
+    "profit_ugx": 686,
+    "total_stake": 100000,
+    "arb_sum": 0.9931,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.53,
+        "stake": 65811,
+        "win": 100691
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.34,
+        "stake": 15882,
+        "win": 100692
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.5,
+        "stake": 18307,
+        "win": 100688
       }
     ],
     "market_type": "1x2",
