@@ -77,7 +77,7 @@
     "arb_sum": 0.7125,
     "bets": [
       {
-        "bookmaker": "Melbet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 4.45,
         "stake": 31538,
@@ -91,7 +91,7 @@
         "win": 140347
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.1,
         "stake": 34231,
@@ -354,6 +354,60 @@
         "odd": 1.708,
         "stake": 66693,
         "win": 113912
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "aalesunds vs tromso",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.88,
+    "profit_ugx": 876,
+    "total_stake": 100000,
+    "arb_sum": 0.9912,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.812,
+        "stake": 55675,
+        "win": 100883
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.276,
+        "stake": 44325,
+        "win": 100884
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "aalesunds vs tromso",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 0.88,
+    "profit_ugx": 876,
+    "total_stake": 100000,
+    "arb_sum": 0.9912,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.812,
+        "stake": 55675,
+        "win": 100883
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.276,
+        "stake": 44325,
+        "win": 100884
       }
     ],
     "market_type": "1x2",
