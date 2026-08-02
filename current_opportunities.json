@@ -34,6 +34,40 @@
     "market_specifier": ""
   },
   {
+    "match": "almirante brown vs racing de cordoba",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.05,
+    "profit_ugx": 5055,
+    "total_stake": 100000,
+    "arb_sum": 0.9495,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.1,
+        "stake": 50154,
+        "win": 105323
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.36,
+        "stake": 24157,
+        "win": 105325
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 25689,
+        "win": 105325
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "deportivo riestra vs barracas central",
     "sport": "Football",
     "type": "3-way",
@@ -43,14 +77,14 @@
     "arb_sum": 0.9002,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 2.312,
         "stake": 48050,
         "win": 111092
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 4.225,
         "stake": 26294,
@@ -204,68 +238,34 @@
     "market_specifier": ""
   },
   {
-    "match": "kfc komarno vs spartak trnava",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.04,
-    "profit_ugx": 2043,
-    "total_stake": 100000,
-    "arb_sum": 0.9796,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.84,
-        "stake": 35946,
-        "win": 102087
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.2,
-        "stake": 31902,
-        "win": 102086
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.175,
-        "stake": 32153,
-        "win": 102086
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "ascoli vs lazio",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 31.41,
-    "profit_ugx": 31409,
+    "profit_percent": 35.17,
+    "profit_ugx": 35169,
     "total_stake": 100000,
-    "arb_sum": 0.6859,
+    "arb_sum": 0.6483,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.95,
-        "stake": 36909,
-        "win": 145791
+        "odd": 4.81,
+        "stake": 32068,
+        "win": 154247
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 4.5,
-        "stake": 32398,
-        "win": 145791
+        "odd": 4.35,
+        "stake": 35459,
+        "win": 154247
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.75,
-        "stake": 30693,
-        "win": 145792
+        "stake": 32473,
+        "win": 154247
       }
     ],
     "market_type": "1x2",
@@ -300,40 +300,6 @@
         "odd": 3.46,
         "stake": 35980,
         "win": 124491
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "rapid wien vs altach",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.65,
-    "profit_ugx": 647,
-    "total_stake": 100000,
-    "arb_sum": 0.9935,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 1.61,
-        "stake": 62516,
-        "win": 100651
-      },
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Draw",
-        "odd": 5.8,
-        "stake": 17354,
-        "win": 100653
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.0,
-        "stake": 20130,
-        "win": 100650
       }
     ],
     "market_type": "1x2",
@@ -436,6 +402,60 @@
         "odd": 9.5,
         "stake": 10968,
         "win": 104196
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ascoli calcio 1898 vs lazio",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.14,
+    "profit_ugx": 15143,
+    "total_stake": 100000,
+    "arb_sum": 0.8486,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.42,
+        "stake": 48696,
+        "win": 117844
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.297,
+        "stake": 51304,
+        "win": 117845
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ascoli calcio 1898 vs lazio",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.14,
+    "profit_ugx": 15143,
+    "total_stake": 100000,
+    "arb_sum": 0.8486,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.42,
+        "stake": 48696,
+        "win": 117844
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.297,
+        "stake": 51304,
+        "win": 117845
       }
     ],
     "market_type": "1x2",
