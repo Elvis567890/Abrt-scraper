@@ -306,6 +306,40 @@
     "market_specifier": ""
   },
   {
+    "match": "a lustenau vs ried",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.01,
+    "profit_ugx": 2010,
+    "total_stake": 100000,
+    "arb_sum": 0.9799,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.78,
+        "stake": 36709,
+        "win": 102051
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.25,
+        "stake": 31400,
+        "win": 102050
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.2,
+        "stake": 31891,
+        "win": 102051
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "orenburg vs zenit saint petersburg",
     "sport": "Football",
     "type": "Double Chance 1X",
