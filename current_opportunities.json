@@ -139,31 +139,31 @@
     "match": "palmeiras vs fortaleza ec",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.1,
-    "profit_ugx": 1104,
+    "profit_percent": 1.45,
+    "profit_ugx": 1446,
     "total_stake": 100000,
-    "arb_sum": 0.989,
+    "arb_sum": 0.9855,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.282,
-        "stake": 78874,
-        "win": 101116
+        "odd": 1.294,
+        "stake": 78414,
+        "win": 101468
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 11.7,
-        "stake": 8642,
-        "win": 101111
+        "odd": 11.2,
+        "stake": 9060,
+        "win": 101472
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 8.1,
-        "stake": 12484,
-        "win": 101120
+        "stake": 12527,
+        "win": 101469
       }
     ],
     "market_type": "1x2",
@@ -266,6 +266,40 @@
         "odd": 4.2,
         "stake": 34768,
         "win": 146026
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "oulu vs ilves",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.63,
+    "profit_ugx": 627,
+    "total_stake": 100000,
+    "arb_sum": 0.9937,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.51,
+        "stake": 40092,
+        "win": 100631
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 29597,
+        "win": 100630
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.32,
+        "stake": 30311,
+        "win": 100633
       }
     ],
     "market_type": "1x2",
