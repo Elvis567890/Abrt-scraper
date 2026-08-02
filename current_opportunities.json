@@ -309,31 +309,85 @@
     "match": "america de cali vs chico",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.1,
-    "profit_ugx": 3098,
+    "profit_percent": 3.27,
+    "profit_ugx": 3273,
     "total_stake": 100000,
-    "arb_sum": 0.969,
+    "arb_sum": 0.9673,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.29,
-        "stake": 79997,
-        "win": 103196
+        "odd": 1.295,
+        "stake": 79833,
+        "win": 103384
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 9.05,
-        "stake": 11403,
-        "win": 103197
+        "odd": 8.95,
+        "stake": 11551,
+        "win": 103381
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 12.0,
-        "stake": 8600,
-        "win": 103200
+        "stake": 8615,
+        "win": 103380
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "jaguares de cordoba vs atletico nacional sa",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.39,
+    "profit_ugx": 1389,
+    "total_stake": 100000,
+    "arb_sum": 0.9861,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.21,
+        "stake": 45886,
+        "win": 101408
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 54114,
+        "win": 101410
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "jaguares de cordoba vs atletico nacional sa",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.39,
+    "profit_ugx": 1389,
+    "total_stake": 100000,
+    "arb_sum": 0.9861,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.21,
+        "stake": 45886,
+        "win": 101408
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 54114,
+        "win": 101410
       }
     ],
     "market_type": "1x2",
