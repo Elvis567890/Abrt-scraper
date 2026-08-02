@@ -3,31 +3,31 @@
     "match": "mali w vs cape verde w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.38,
-    "profit_ugx": 2381,
+    "profit_percent": 3.32,
+    "profit_ugx": 3321,
     "total_stake": 100000,
-    "arb_sum": 0.9762,
+    "arb_sum": 0.9668,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
         "odd": 1.86,
-        "stake": 55075,
-        "win": 102440
+        "stake": 55610,
+        "win": 103435
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 3.895,
-        "stake": 26300,
-        "win": 102438
+        "stake": 26556,
+        "win": 103436
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 5.5,
-        "stake": 18625,
-        "win": 102438
+        "odd": 5.8,
+        "stake": 17834,
+        "win": 103437
       }
     ],
     "market_type": "1x2",
@@ -105,31 +105,31 @@
     "match": "palmeiras vs fortaleza ec",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.24,
-    "profit_ugx": 2242,
+    "profit_percent": 2.84,
+    "profit_ugx": 2837,
     "total_stake": 100000,
-    "arb_sum": 0.9776,
+    "arb_sum": 0.9716,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.322,
-        "stake": 77377,
-        "win": 102292
+        "stake": 77852,
+        "win": 102920
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 10.4,
-        "stake": 9836,
-        "win": 102294
+        "stake": 9896,
+        "win": 102918
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 8.0,
-        "stake": 12787,
-        "win": 102296
+        "odd": 8.4,
+        "stake": 12252,
+        "win": 102917
       }
     ],
     "market_type": "1x2",
@@ -139,31 +139,31 @@
     "match": "ludogorets vs botev vratsa",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.29,
-    "profit_ugx": 7289,
+    "profit_percent": 1.78,
+    "profit_ugx": 1784,
     "total_stake": 100000,
-    "arb_sum": 0.9271,
+    "arb_sum": 0.9822,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.36,
-        "stake": 79310,
-        "win": 107862
+        "odd": 1.28,
+        "stake": 79544,
+        "win": 101816
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 9.91,
-        "stake": 10884,
-        "win": 107860
+        "stake": 10274,
+        "win": 101815
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 11.0,
-        "stake": 9806,
-        "win": 107866
+        "odd": 10.0,
+        "stake": 10182,
+        "win": 101820
       }
     ],
     "market_type": "1x2",
@@ -572,6 +572,60 @@
         "odd": 9.9,
         "stake": 10601,
         "win": 104950
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "silkeborg vs copenhagen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 22.23,
+    "profit_ugx": 22235,
+    "total_stake": 100000,
+    "arb_sum": 0.7777,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.725,
+        "stake": 47190,
+        "win": 128593
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.435,
+        "stake": 52810,
+        "win": 128592
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "silkeborg vs copenhagen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 22.23,
+    "profit_ugx": 22235,
+    "total_stake": 100000,
+    "arb_sum": 0.7777,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.725,
+        "stake": 47190,
+        "win": 128593
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.435,
+        "stake": 52810,
+        "win": 128592
       }
     ],
     "market_type": "1x2",
