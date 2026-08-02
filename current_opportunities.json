@@ -275,31 +275,31 @@
     "match": "river plate vs rosario central",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.98,
-    "profit_ugx": 2978,
+    "profit_percent": 3.06,
+    "profit_ugx": 3064,
     "total_stake": 100000,
-    "arb_sum": 0.9702,
+    "arb_sum": 0.9694,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 1.863,
-        "stake": 55324,
-        "win": 103069
+        "odd": 1.866,
+        "stake": 55284,
+        "win": 103160
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 4.68,
-        "stake": 22023,
-        "win": 103068
+        "stake": 22043,
+        "win": 103161
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.55,
-        "stake": 22653,
-        "win": 103071
+        "stake": 22673,
+        "win": 103162
       }
     ],
     "market_type": "1x2",
@@ -402,6 +402,60 @@
         "odd": 12.0,
         "stake": 8615,
         "win": 103380
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "jaguares de cordoba vs atletico nacional sa",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.39,
+    "profit_ugx": 1389,
+    "total_stake": 100000,
+    "arb_sum": 0.9861,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.21,
+        "stake": 45886,
+        "win": 101408
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 54114,
+        "win": 101410
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "jaguares de cordoba vs atletico nacional sa",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.39,
+    "profit_ugx": 1389,
+    "total_stake": 100000,
+    "arb_sum": 0.9861,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.21,
+        "stake": 45886,
+        "win": 101408
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.874,
+        "stake": 54114,
+        "win": 101410
       }
     ],
     "market_type": "1x2",
