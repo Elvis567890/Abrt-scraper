@@ -3,31 +3,31 @@
     "match": "lanus vs instituto cordoba",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.27,
-    "profit_ugx": 1272,
+    "profit_percent": 1.48,
+    "profit_ugx": 1483,
     "total_stake": 100000,
-    "arb_sum": 0.9873,
+    "arb_sum": 0.9852,
     "bets": [
       {
         "bookmaker": "Melbet",
         "outcome": "Home",
-        "odd": 2.059,
-        "stake": 49193,
-        "win": 101288
+        "odd": 2.068,
+        "stake": 49084,
+        "win": 101506
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 4.025,
-        "stake": 25165,
-        "win": 101289
+        "stake": 25219,
+        "win": 101506
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 3.95,
-        "stake": 25643,
-        "win": 101290
+        "stake": 25698,
+        "win": 101507
       }
     ],
     "market_type": "1x2",
@@ -232,6 +232,60 @@
         "odd": 3.15,
         "stake": 35148,
         "win": 110716
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sagaing utd u20 vs ayeyawady utd u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.13,
+    "profit_ugx": 2129,
+    "total_stake": 100000,
+    "arb_sum": 0.9787,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.51,
+        "stake": 67666,
+        "win": 102176
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.16,
+        "stake": 32334,
+        "win": 102175
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sagaing utd u20 vs ayeyawady utd u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.13,
+    "profit_ugx": 2129,
+    "total_stake": 100000,
+    "arb_sum": 0.9787,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.51,
+        "stake": 67666,
+        "win": 102176
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.16,
+        "stake": 32334,
+        "win": 102175
       }
     ],
     "market_type": "1x2",
