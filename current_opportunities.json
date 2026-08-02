@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "guarani asuncion r vs libertad r",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.04,
+    "profit_ugx": 5044,
+    "total_stake": 100000,
+    "arb_sum": 0.9496,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.45,
+        "stake": 42985,
+        "win": 105313
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.75,
+        "stake": 28083,
+        "win": 105311
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.64,
+        "stake": 28932,
+        "win": 105312
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "san jose earthquakes ii vs austin ii",
     "sport": "Football",
     "type": "3-way",
@@ -170,60 +204,6 @@
     "market_specifier": ""
   },
   {
-    "match": "sagaing utd u20 vs ayeyawady utd u20",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 2.13,
-    "profit_ugx": 2129,
-    "total_stake": 100000,
-    "arb_sum": 0.9787,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.51,
-        "stake": 67666,
-        "win": 102176
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 3.16,
-        "stake": 32334,
-        "win": 102175
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sagaing utd u20 vs ayeyawady utd u20",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 2.13,
-    "profit_ugx": 2129,
-    "total_stake": 100000,
-    "arb_sum": 0.9787,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.51,
-        "stake": 67666,
-        "win": 102176
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 3.16,
-        "stake": 32334,
-        "win": 102175
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "bss vs east bengal ii",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -272,6 +252,60 @@
         "odd": 2.203,
         "stake": 53650,
         "win": 118191
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hubei istar u20 vs beijing guoan u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 25.54,
+    "profit_ugx": 25536,
+    "total_stake": 100000,
+    "arb_sum": 0.7446,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.5,
+        "stake": 38369,
+        "win": 134292
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.179,
+        "stake": 61631,
+        "win": 134294
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hubei istar u20 vs beijing guoan u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 25.54,
+    "profit_ugx": 25536,
+    "total_stake": 100000,
+    "arb_sum": 0.7446,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.5,
+        "stake": 38369,
+        "win": 134292
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.179,
+        "stake": 61631,
+        "win": 134294
       }
     ],
     "market_type": "1x2",
