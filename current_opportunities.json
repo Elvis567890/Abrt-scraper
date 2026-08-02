@@ -238,68 +238,34 @@
     "market_specifier": ""
   },
   {
-    "match": "minnesota utd vs san diego",
+    "match": "chicago fire vs charlotte",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.75,
-    "profit_ugx": 751,
+    "profit_percent": 0.58,
+    "profit_ugx": 580,
     "total_stake": 100000,
-    "arb_sum": 0.9925,
+    "arb_sum": 0.9942,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.06,
-        "stake": 48911,
-        "win": 100757
+        "odd": 1.54,
+        "stake": 65314,
+        "win": 100584
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.85,
+        "stake": 17194,
+        "win": 100585
       },
       {
         "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 26868,
-        "win": 100755
-      },
-      {
-        "bookmaker": "Melbet",
         "outcome": "Away",
-        "odd": 4.16,
-        "stake": 24220,
-        "win": 100755
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sporting kc vs houston dynamo",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 14.58,
-    "profit_ugx": 14576,
-    "total_stake": 100000,
-    "arb_sum": 0.8542,
-    "bets": [
-      {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 3.075,
-        "stake": 38069,
-        "win": 117062
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 32518,
-        "win": 117065
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.98,
-        "stake": 29413,
-        "win": 117064
+        "odd": 5.75,
+        "stake": 17493,
+        "win": 100585
       }
     ],
     "market_type": "1x2",
@@ -343,31 +309,31 @@
     "match": "leyton orient vs antwerp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.16,
-    "profit_ugx": 5160,
+    "profit_percent": 4.77,
+    "profit_ugx": 4771,
     "total_stake": 100000,
-    "arb_sum": 0.9484,
+    "arb_sum": 0.9523,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.79,
-        "stake": 37792,
-        "win": 105440
+        "odd": 2.76,
+        "stake": 38047,
+        "win": 105010
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.4,
-        "stake": 31012,
-        "win": 105441
+        "stake": 30885,
+        "win": 105009
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.38,
-        "stake": 31196,
-        "win": 105442
+        "stake": 31068,
+        "win": 105010
       }
     ],
     "market_type": "1x2",
@@ -442,6 +408,40 @@
     "market_specifier": ""
   },
   {
+    "match": "kansas vs houston",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 13.19,
+    "profit_ugx": 13194,
+    "total_stake": 100000,
+    "arb_sum": 0.8681,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 3.2,
+        "stake": 36000,
+        "win": 115200
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 32000,
+        "win": 115200
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 32000,
+        "win": 115200
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "orenburg vs zenit saint petersburg",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -490,60 +490,6 @@
         "odd": 1.724,
         "stake": 65548,
         "win": 113005
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sporting kansas vs houston dynamo",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.28,
-    "profit_ugx": 1276,
-    "total_stake": 100000,
-    "arb_sum": 0.9872,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.758,
-        "stake": 57618,
-        "win": 101292
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.39,
-        "stake": 42382,
-        "win": 101293
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sporting kansas vs houston dynamo",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.28,
-    "profit_ugx": 1276,
-    "total_stake": 100000,
-    "arb_sum": 0.9872,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.758,
-        "stake": 57618,
-        "win": 101292
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.39,
-        "stake": 42382,
-        "win": 101293
       }
     ],
     "market_type": "1x2",
