@@ -136,68 +136,102 @@
     "market_specifier": ""
   },
   {
-    "match": "palmeiras vs fortaleza ec",
+    "match": "gimnasia y esgrima vs tucuman central",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.99,
-    "profit_ugx": 3989,
+    "profit_percent": 3.73,
+    "profit_ugx": 3729,
     "total_stake": 100000,
-    "arb_sum": 0.9601,
+    "arb_sum": 0.9627,
     "bets": [
       {
-        "bookmaker": "Melbet",
-        "outcome": "Home",
-        "odd": 1.322,
-        "stake": 78786,
-        "win": 104155
-      },
-      {
         "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 10.4,
-        "stake": 10015,
-        "win": 104156
+        "outcome": "Home",
+        "odd": 1.46,
+        "stake": 71146,
+        "win": 103873
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 9.0,
+        "stake": 11542,
+        "win": 103878
+      },
+      {
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 9.3,
-        "stake": 11199,
-        "win": 104151
+        "odd": 6.0,
+        "stake": 17312,
+        "win": 103872
       }
     ],
     "market_type": "1x2",
     "market_specifier": ""
   },
   {
-    "match": "cska sofia vs dunav ruse",
+    "match": "planaltina u20 vs capital u20",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.96,
-    "profit_ugx": 959,
+    "profit_percent": 25.4,
+    "profit_ugx": 25397,
     "total_stake": 100000,
-    "arb_sum": 0.9904,
+    "arb_sum": 0.746,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.215,
-        "stake": 83101,
-        "win": 100968
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 11.9,
-        "stake": 8485,
-        "win": 100972
+        "odd": 4.22,
+        "stake": 31764,
+        "win": 134044
       },
       {
         "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 33511,
+        "win": 134044
+      },
+      {
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 12.0,
-        "stake": 8414,
-        "win": 100968
+        "odd": 3.86,
+        "stake": 34726,
+        "win": 134042
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "palmeiras vs fortaleza ec",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 4.19,
+    "profit_ugx": 4189,
+    "total_stake": 100000,
+    "arb_sum": 0.9581,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 1.335,
+        "stake": 78181,
+        "win": 104372
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 9.85,
+        "stake": 10596,
+        "win": 104371
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 9.3,
+        "stake": 11223,
+        "win": 104374
       }
     ],
     "market_type": "1x2",
@@ -232,40 +266,6 @@
         "odd": 3.8,
         "stake": 36423,
         "win": 138407
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "nk brinje grosuplje vs koper",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 20.51,
-    "profit_ugx": 20510,
-    "total_stake": 100000,
-    "arb_sum": 0.7949,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 4.1,
-        "stake": 30683,
-        "win": 125800
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 34945,
-        "win": 125802
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.66,
-        "stake": 34372,
-        "win": 125802
       }
     ],
     "market_type": "1x2",
@@ -544,6 +544,114 @@
         "odd": 2.297,
         "stake": 51815,
         "win": 119019
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "planaltina u20 vs capital u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.39,
+    "profit_ugx": 8390,
+    "total_stake": 100000,
+    "arb_sum": 0.9161,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.01,
+        "stake": 54308,
+        "win": 109159
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.389,
+        "stake": 45692,
+        "win": 109158
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "planaltina u20 vs capital u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.39,
+    "profit_ugx": 8390,
+    "total_stake": 100000,
+    "arb_sum": 0.9161,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.01,
+        "stake": 54308,
+        "win": 109159
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.389,
+        "stake": 45692,
+        "win": 109158
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "se santa maria u20 vs brasiliense u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.54,
+    "profit_ugx": 18539,
+    "total_stake": 100000,
+    "arb_sum": 0.8146,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.92,
+        "stake": 42040,
+        "win": 122757
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.118,
+        "stake": 57960,
+        "win": 122759
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "se santa maria u20 vs brasiliense u20",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.54,
+    "profit_ugx": 18539,
+    "total_stake": 100000,
+    "arb_sum": 0.8146,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.92,
+        "stake": 42040,
+        "win": 122757
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.118,
+        "stake": 57960,
+        "win": 122759
       }
     ],
     "market_type": "1x2",
