@@ -275,31 +275,31 @@
     "match": "silkeborg if vs copenhagen",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 40.4,
-    "profit_ugx": 40402,
+    "profit_percent": 41.83,
+    "profit_ugx": 41826,
     "total_stake": 100000,
-    "arb_sum": 0.596,
+    "arb_sum": 0.5817,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 5.81,
-        "stake": 28880,
-        "win": 167793
+        "odd": 6.15,
+        "stake": 27951,
+        "win": 171899
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.9,
-        "stake": 34243,
-        "win": 167791
+        "stake": 35081,
+        "win": 171897
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.55,
-        "stake": 36877,
-        "win": 167790
+        "odd": 4.65,
+        "stake": 36968,
+        "win": 171901
       }
     ],
     "market_type": "1x2",
@@ -309,31 +309,31 @@
     "match": "st patricks vs derry",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.61,
-    "profit_ugx": 1607,
+    "profit_percent": 1.36,
+    "profit_ugx": 1356,
     "total_stake": 100000,
-    "arb_sum": 0.9839,
+    "arb_sum": 0.9864,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.62,
-        "stake": 62737,
-        "win": 101634
+        "odd": 1.68,
+        "stake": 60342,
+        "win": 101375
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 5.23,
-        "stake": 19433,
-        "win": 101635
+        "stake": 19383,
+        "win": 101373
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 5.7,
-        "stake": 17830,
-        "win": 101631
+        "odd": 5.0,
+        "stake": 20275,
+        "win": 101375
       }
     ],
     "market_type": "1x2",
@@ -572,6 +572,60 @@
         "odd": 9.9,
         "stake": 10601,
         "win": 104950
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "silkeborg vs copenhagen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.0,
+    "profit_ugx": 20998,
+    "total_stake": 100000,
+    "arb_sum": 0.79,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.66,
+        "stake": 47586,
+        "win": 126579
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.415,
+        "stake": 52414,
+        "win": 126580
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "silkeborg vs copenhagen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.0,
+    "profit_ugx": 20998,
+    "total_stake": 100000,
+    "arb_sum": 0.79,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.66,
+        "stake": 47586,
+        "win": 126579
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.415,
+        "stake": 52414,
+        "win": 126580
       }
     ],
     "market_type": "1x2",
