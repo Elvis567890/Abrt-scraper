@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "silkeborg if vs copenhagen",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 28.75,
+    "profit_ugx": 28748,
+    "total_stake": 100000,
+    "arb_sum": 0.7125,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 4.45,
+        "stake": 31538,
+        "win": 140344
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 4.1,
+        "stake": 34231,
+        "win": 140347
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 34231,
+        "win": 140347
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "aalesunds vs tromso il",
     "sport": "Football",
     "type": "3-way",
@@ -388,6 +422,60 @@
         "odd": 1.724,
         "stake": 65956,
         "win": 113708
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "silkeborg vs copenhagen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.88,
+    "profit_ugx": 10881,
+    "total_stake": 100000,
+    "arb_sum": 0.8912,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 52190,
+        "win": 112208
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.347,
+        "stake": 47810,
+        "win": 112210
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "silkeborg vs copenhagen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 10.88,
+    "profit_ugx": 10881,
+    "total_stake": 100000,
+    "arb_sum": 0.8912,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.15,
+        "stake": 52190,
+        "win": 112208
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.347,
+        "stake": 47810,
+        "win": 112210
       }
     ],
     "market_type": "1x2",
