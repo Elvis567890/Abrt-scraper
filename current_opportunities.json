@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "halmstads vs sirius",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 45.1,
+    "profit_ugx": 45096,
+    "total_stake": 100000,
+    "arb_sum": 0.549,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 7.0,
+        "stake": 26019,
+        "win": 182133
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 5.0,
+        "stake": 36427,
+        "win": 182135
+      },
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Away",
+        "odd": 4.85,
+        "stake": 37554,
+        "win": 182137
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "shakhtar donetsk vs kudrivka",
     "sport": "Football",
     "type": "3-way",
@@ -150,6 +184,60 @@
         "odd": 2.556,
         "stake": 41322,
         "win": 105619
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "halmstads vs sirius",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 19.62,
+    "profit_ugx": 19617,
+    "total_stake": 100000,
+    "arb_sum": 0.8038,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.93,
+        "stake": 42459,
+        "win": 124405
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.162,
+        "stake": 57541,
+        "win": 124404
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "halmstads vs sirius",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 19.62,
+    "profit_ugx": 19617,
+    "total_stake": 100000,
+    "arb_sum": 0.8038,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.93,
+        "stake": 42459,
+        "win": 124405
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.162,
+        "stake": 57541,
+        "win": 124404
       }
     ],
     "market_type": "1x2",
