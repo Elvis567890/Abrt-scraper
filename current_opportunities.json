@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "ho chi minh w vs ha noi i w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 11.0,
+    "profit_ugx": 11000,
+    "total_stake": 100000,
+    "arb_sum": 0.89,
+    "bets": [
+      {
+        "bookmaker": "Melbet",
+        "outcome": "Home",
+        "odd": 2.12,
+        "stake": 53000,
+        "win": 112360
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.1,
+        "stake": 22031,
+        "win": 112358
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 4.5,
+        "stake": 24969,
+        "win": 112360
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "sagaing utd u20 vs ayeyawady utd u20",
     "sport": "Football",
     "type": "Double Chance 1X",
