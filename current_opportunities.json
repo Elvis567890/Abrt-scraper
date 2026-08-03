@@ -34,6 +34,40 @@
     "market_specifier": ""
   },
   {
+    "match": "york vs crawley town",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.77,
+    "profit_ugx": 768,
+    "total_stake": 100000,
+    "arb_sum": 0.9923,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.67,
+        "stake": 60344,
+        "win": 100774
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.97,
+        "stake": 20277,
+        "win": 100777
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.2,
+        "stake": 19380,
+        "win": 100776
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "senegal w vs morocco w",
     "sport": "Football",
     "type": "3-way",
@@ -139,31 +173,31 @@
     "match": "sarmiento vs independiente rivadavia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.06,
-    "profit_ugx": 5065,
+    "profit_percent": 5.05,
+    "profit_ugx": 5047,
     "total_stake": 100000,
-    "arb_sum": 0.9494,
+    "arb_sum": 0.9495,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.665,
-        "stake": 28741,
-        "win": 105336
+        "odd": 3.685,
+        "stake": 28579,
+        "win": 105314
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 2.9,
-        "stake": 36322,
-        "win": 105334
+        "stake": 36316,
+        "win": 105316
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.015,
-        "stake": 34937,
-        "win": 105335
+        "odd": 3.0,
+        "stake": 35105,
+        "win": 105315
       }
     ],
     "market_type": "1x2",
