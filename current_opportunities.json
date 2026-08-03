@@ -1,5 +1,39 @@
 [
   {
+    "match": "york vs crawley town",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.41,
+    "profit_ugx": 1414,
+    "total_stake": 100000,
+    "arb_sum": 0.9859,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.7,
+        "stake": 59667,
+        "win": 101434
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.06,
+        "stake": 20046,
+        "win": 101433
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.0,
+        "stake": 20287,
+        "win": 101435
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "sarmiento vs independiente rivadavia",
     "sport": "Football",
     "type": "3-way",
@@ -139,31 +173,31 @@
     "match": "potters bar town vs st albans",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 15.12,
-    "profit_ugx": 15118,
+    "profit_percent": 13.95,
+    "profit_ugx": 13945,
     "total_stake": 100000,
-    "arb_sum": 0.8488,
+    "arb_sum": 0.8605,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.754,
-        "stake": 42778,
-        "win": 117811
+        "odd": 2.836,
+        "stake": 40975,
+        "win": 116205
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 5.0,
-        "stake": 23562,
-        "win": 117810
+        "odd": 4.5,
+        "stake": 25823,
+        "win": 116204
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.5,
-        "stake": 33660,
-        "win": 117810
+        "stake": 33202,
+        "win": 116207
       }
     ],
     "market_type": "1x2",
