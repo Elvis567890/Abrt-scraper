@@ -105,31 +105,31 @@
     "match": "ca platense vs talleres cordoba",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.61,
-    "profit_ugx": 614,
+    "profit_percent": 0.67,
+    "profit_ugx": 674,
     "total_stake": 100000,
-    "arb_sum": 0.9939,
+    "arb_sum": 0.9933,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.61,
-        "stake": 38551,
-        "win": 100618
+        "stake": 38574,
+        "win": 100678
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 3.3,
-        "stake": 30490,
-        "win": 100617
+        "odd": 3.36,
+        "stake": 29964,
+        "win": 100679
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 3.25,
-        "stake": 30959,
-        "win": 100617
+        "odd": 3.2,
+        "stake": 31462,
+        "win": 100678
       }
     ],
     "market_type": "1x2",
@@ -300,6 +300,168 @@
         "odd": 3.27,
         "stake": 31372,
         "win": 102586
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hapoel beer sheva vs crvena zvezda",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.92,
+    "profit_ugx": 2916,
+    "total_stake": 100000,
+    "arb_sum": 0.9708,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.031,
+        "stake": 50716,
+        "win": 103004
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.09,
+        "stake": 49284,
+        "win": 103004
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hapoel beer sheva vs crvena zvezda",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.92,
+    "profit_ugx": 2916,
+    "total_stake": 100000,
+    "arb_sum": 0.9708,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.031,
+        "stake": 50716,
+        "win": 103004
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.09,
+        "stake": 49284,
+        "win": 103004
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 9.88,
+    "profit_ugx": 9883,
+    "total_stake": 100000,
+    "arb_sum": 0.9012,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.896,
+        "stake": 38317,
+        "win": 110966
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.799,
+        "stake": 61683,
+        "win": 110968
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 9.88,
+    "profit_ugx": 9883,
+    "total_stake": 100000,
+    "arb_sum": 0.9012,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.896,
+        "stake": 38317,
+        "win": 110966
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.799,
+        "stake": 61683,
+        "win": 110968
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.39,
+    "profit_ugx": 15391,
+    "total_stake": 100000,
+    "arb_sum": 0.8461,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.457,
+        "stake": 81120,
+        "win": 118192
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 6.26,
+        "stake": 18880,
+        "win": 118189
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "home special bets vs away special bets",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.39,
+    "profit_ugx": 15391,
+    "total_stake": 100000,
+    "arb_sum": 0.8461,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.457,
+        "stake": 81120,
+        "win": 118192
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 6.26,
+        "stake": 18880,
+        "win": 118189
       }
     ],
     "market_type": "1x2",
