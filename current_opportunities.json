@@ -204,34 +204,68 @@
     "market_specifier": ""
   },
   {
+    "match": "celtic vs dundee",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.81,
+    "profit_ugx": 812,
+    "total_stake": 100000,
+    "arb_sum": 0.9919,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.18,
+        "stake": 85440,
+        "win": 100819
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 13.7,
+        "stake": 7359,
+        "win": 100818
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 14.0,
+        "stake": 7201,
+        "win": 100814
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "halmstads vs sirius",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 49.26,
-    "profit_ugx": 49264,
+    "profit_percent": 47.72,
+    "profit_ugx": 47724,
     "total_stake": 100000,
-    "arb_sum": 0.5074,
+    "arb_sum": 0.5228,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 7.8,
-        "stake": 25269,
-        "win": 197098
+        "stake": 24525,
+        "win": 191295
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 5.25,
-        "stake": 37543,
-        "win": 197101
+        "stake": 36436,
+        "win": 191289
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 5.3,
-        "stake": 37188,
-        "win": 197096
+        "odd": 4.9,
+        "stake": 39039,
+        "win": 191291
       }
     ],
     "market_type": "1x2",
