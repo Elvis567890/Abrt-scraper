@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "senegal w vs morocco w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 32.36,
+    "profit_ugx": 32356,
+    "total_stake": 100000,
+    "arb_sum": 0.6764,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 5.4,
+        "stake": 27376,
+        "win": 147830
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 35198,
+        "win": 147832
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.95,
+        "stake": 37426,
+        "win": 147833
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "kenya w vs algeria w",
     "sport": "Football",
     "type": "3-way",
@@ -96,40 +130,6 @@
         "odd": 3.58,
         "stake": 36419,
         "win": 130380
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "senegal w vs morocco w",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 33.63,
-    "profit_ugx": 33633,
-    "total_stake": 100000,
-    "arb_sum": 0.6637,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 5.8,
-        "stake": 25979,
-        "win": 150678
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.2,
-        "stake": 35875,
-        "win": 150675
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.95,
-        "stake": 38146,
-        "win": 150677
       }
     ],
     "market_type": "1x2",
