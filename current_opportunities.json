@@ -241,31 +241,65 @@
     "match": "hammarby tff vs arlanda",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.24,
-    "profit_ugx": 1240,
+    "profit_percent": 1.49,
+    "profit_ugx": 1489,
     "total_stake": 100000,
-    "arb_sum": 0.9876,
+    "arb_sum": 0.9851,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.53,
-        "stake": 66180,
-        "win": 101255
+        "odd": 1.54,
+        "stake": 65917,
+        "win": 101512
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 5.88,
-        "stake": 17220,
-        "win": 101254
+        "odd": 5.82,
+        "stake": 17442,
+        "win": 101512
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 6.1,
-        "stake": 16599,
-        "win": 101254
+        "stake": 16641,
+        "win": 101510
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "potters bar town vs st albans",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.65,
+    "profit_ugx": 652,
+    "total_stake": 100000,
+    "arb_sum": 0.9935,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.05,
+        "stake": 49101,
+        "win": 100657
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.33,
+        "stake": 23246,
+        "win": 100655
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.64,
+        "stake": 27653,
+        "win": 100657
       }
     ],
     "market_type": "1x2",
