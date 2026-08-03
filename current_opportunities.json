@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "potters bar town vs st albans",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 31.21,
+    "profit_ugx": 31205,
+    "total_stake": 100000,
+    "arb_sum": 0.6879,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.875,
+        "stake": 37512,
+        "win": 145359
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 5.0,
+        "stake": 29072,
+        "win": 145360
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.35,
+        "stake": 33416,
+        "win": 145360
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "seinajoen jalkapallokerho vs hjk",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -258,6 +292,60 @@
         "odd": 2.2,
         "stake": 50450,
         "win": 110990
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "potters bar town vs st albans",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.86,
+    "profit_ugx": 13861,
+    "total_stake": 100000,
+    "arb_sum": 0.8614,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.04,
+        "stake": 56907,
+        "win": 116090
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.694,
+        "stake": 43093,
+        "win": 116093
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "potters bar town vs st albans",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 13.86,
+    "profit_ugx": 13861,
+    "total_stake": 100000,
+    "arb_sum": 0.8614,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.04,
+        "stake": 56907,
+        "win": 116090
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.694,
+        "stake": 43093,
+        "win": 116093
       }
     ],
     "market_type": "1x2",
