@@ -207,31 +207,31 @@
     "match": "diriangen vs alajuelense",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 28.26,
-    "profit_ugx": 28261,
+    "profit_percent": 28.59,
+    "profit_ugx": 28593,
     "total_stake": 100000,
-    "arb_sum": 0.7174,
+    "arb_sum": 0.7141,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 5.02,
-        "stake": 27768,
-        "win": 139395
+        "odd": 5.07,
+        "stake": 27622,
+        "win": 140044
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.9,
-        "stake": 35742,
-        "win": 139394
+        "stake": 35909,
+        "win": 140045
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.82,
-        "stake": 36490,
-        "win": 139392
+        "odd": 3.84,
+        "stake": 36470,
+        "win": 140045
       }
     ],
     "market_type": "1x2",
@@ -275,31 +275,85 @@
     "match": "carabobo vs trujillanos",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.15,
-    "profit_ugx": 4148,
+    "profit_percent": 4.26,
+    "profit_ugx": 4259,
     "total_stake": 100000,
-    "arb_sum": 0.9585,
+    "arb_sum": 0.9574,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.25,
-        "stake": 83462,
-        "win": 104328
+        "stake": 83559,
+        "win": 104449
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 13.3,
-        "stake": 7844,
-        "win": 104325
+        "odd": 13.5,
+        "stake": 7737,
+        "win": 104450
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 12.0,
-        "stake": 8694,
-        "win": 104328
+        "stake": 8704,
+        "win": 104448
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "diriangen vs alajuelense",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.01,
+    "profit_ugx": 6005,
+    "total_stake": 100000,
+    "arb_sum": 0.9399,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.18,
+        "stake": 48802,
+        "win": 106388
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.078,
+        "stake": 51198,
+        "win": 106389
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "diriangen vs alajuelense",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.01,
+    "profit_ugx": 6005,
+    "total_stake": 100000,
+    "arb_sum": 0.9399,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.18,
+        "stake": 48802,
+        "win": 106388
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.078,
+        "stake": 51198,
+        "win": 106389
       }
     ],
     "market_type": "1x2",
