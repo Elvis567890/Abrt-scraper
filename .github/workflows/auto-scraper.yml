@@ -5,11 +5,6 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
-# 🛡️ ADD THIS TO PREVENT QUEUE PILEUPS
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 permissions:
   contents: write
 
@@ -30,6 +25,7 @@ jobs:
           pip install --upgrade pip
           pip install requests beautifulsoup4 passlib PyJWT Flask Flask-CORS Flask-SQLAlchemy python-dotenv firebase-admin
 
+      # 👇 THIS IS THE ONLY LINE WE CHANGED
       - name: Run Python scraper (No Flask server)
         run: python -c "from scraper import run_scan; run_scan()"
         env:
