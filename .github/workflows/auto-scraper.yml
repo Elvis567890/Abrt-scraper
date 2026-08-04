@@ -25,8 +25,9 @@ jobs:
           pip install --upgrade pip
           pip install requests beautifulsoup4 passlib PyJWT Flask Flask-CORS Flask-SQLAlchemy python-dotenv firebase-admin
 
-      - name: Run Python scraper
-        run: python scraper.py
+      # 👇 THIS IS THE ONLY LINE WE CHANGED
+      - name: Run Python scraper (No Flask server)
+        run: python -c "from scraper import run_scan; run_scan()"
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
