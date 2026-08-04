@@ -1173,7 +1173,7 @@ def send_admin_notification(message):
 def manual_payment():
     user = g.user
     data = request.get_json()
-    plan = data.get('plan')          # user-selected plan (optional, for reference)
+    plan = data.get('plan')
     transaction_id = data.get('transaction_id')
 
     if not plan or not transaction_id:
@@ -1182,7 +1182,6 @@ def manual_payment():
     if plan not in ['day', 'monthly', 'quarterly']:
         return jsonify({'error': 'Invalid plan'}), 400
 
-    # Check if this key has already been used
     existing = Transaction.query.filter_by(
         manual_transaction_id=transaction_id,
         status='success'
@@ -1194,7 +1193,7 @@ def manual_payment():
             'status': 'rejected'
         }), 400
 
-    amount = TIERS[plan]['price']  # expected amount for the plan (for reference)
+    amount = TIERS[plan]['price']
     tx_ref = f"KEY-{uuid.uuid4().hex[:10].upper()}"
 
     transaction = Transaction(
@@ -1203,7 +1202,7 @@ def manual_payment():
         amount=amount,
         currency='UGX',
         status='pending',
-        plan=plan,                      # store the user-selected plan
+        plan=plan,
         manual_transaction_id=transaction_id
     )
     db.session.add(transaction)
@@ -1230,7 +1229,6 @@ def sms_webhook():
 
     app.logger.info(f"SMS received: {sms_text[:200]}...")
 
-    # Parse SMS
     transaction_id = extract_transaction_id(sms_text)
     amount_received = extract_amount(sms_text)
     sender_phone = normalize_phone(sender)
@@ -1239,7 +1237,6 @@ def sms_webhook():
         app.logger.warning(f"Could not parse SMS: {sms_text}")
         return 'Could not parse SMS', 400
 
-    # Find the pending transaction with this manual_transaction_id
     transaction = Transaction.query.filter_by(
         manual_transaction_id=transaction_id,
         status='pending'
@@ -1249,7 +1246,6 @@ def sms_webhook():
         app.logger.warning(f"No pending transaction found for ID: {transaction_id}")
         return 'No pending transaction found', 404
 
-    # Double-check if key was already used (should not happen)
     used_check = Transaction.query.filter_by(
         manual_transaction_id=transaction_id,
         status='success'
@@ -1260,16 +1256,14 @@ def sms_webhook():
         app.logger.warning(f"Key {transaction_id} already used.")
         return 'Key already used', 400
 
-    # Determine which plan the amount corresponds to
     if amount_received not in PLANS_BY_AMOUNT:
         transaction.status = 'failed'
         db.session.commit()
         app.logger.warning(f"Invalid amount: {amount_received}. Must be 2500, 15000, or 40000.")
         return 'Invalid amount', 400
 
-    plan = PLANS_BY_AMOUNT[amount_received]   # 'day', 'monthly', or 'quarterly'
+    plan = PLANS_BY_AMOUNT[amount_received]
 
-    # Activate subscription
     user = User.query.get(transaction.user_id)
     if not user:
         app.logger.error(f"User not found for transaction {transaction.id}")
@@ -1289,7 +1283,7 @@ def sms_webhook():
 
     transaction.status = 'success'
     transaction.amount_received = amount_received
-    transaction.plan = plan   # update with the actual plan determined by amount
+    transaction.plan = plan
 
     db.session.commit()
 
@@ -1300,43 +1294,7 @@ def sms_webhook():
 
 
 # ============================================================
-# AD‑BASED UNLOCK ENDPOINT (FREE USERS WATCH ADS)
-# ============================================================
-@app.route('/api/unlock-with-ad', methods=['POST'])
-@token_required
-def unlock_with_ad():
-    user = g.user
-
-    # Only free tier users can use this
-    if user.tier != 'free':
-        return jsonify({'error': 'Only free tier users can unlock with ads'}), 400
-
-    now = datetime.utcnow()
-    cooldown_hours = 4
-
-    if user.last_free_unlock_at:
-        seconds_since = (now - user.last_free_unlock_at).total_seconds()
-        if seconds_since < cooldown_hours * 3600:
-            remaining_hours = int((cooldown_hours * 3600 - seconds_since) / 3600)
-            remaining_minutes = int(((cooldown_hours * 3600 - seconds_since) % 3600) / 60)
-            return jsonify({
-                'error': f'Please wait {remaining_hours}h {remaining_minutes}m before unlocking again.',
-                'can_unlock_at': (user.last_free_unlock_at + timedelta(hours=cooldown_hours)).isoformat()
-            }), 429
-
-    user.free_opportunities_remaining = (user.free_opportunities_remaining or 0) + 1
-    user.last_free_unlock_at = now
-    db.session.commit()
-
-    return jsonify({
-        'message': 'You have unlocked one free opportunity!',
-        'opportunities_remaining': user.free_opportunities_remaining,
-        'next_unlock_at': (now + timedelta(hours=cooldown_hours)).isoformat()
-    }), 200
-
-
-# ============================================================
-# AUTH ENDPOINTS (kept for compatibility)
+# USER AUTH ENDPOINTS
 # ============================================================
 @app.route('/api/signup', methods=['POST'])
 def signup():
@@ -1374,8 +1332,32 @@ def login():
     })
 
 
+def generate_token(user_id):
+    payload = {
+        'user_id': user_id,
+        'exp': datetime.utcnow() + timedelta(days=30)
+    }
+    return jwt.encode(payload, app.config['JWT_SECRET'], algorithm='HS256')
+
+
+@app.route('/api/profile', methods=['GET'])
+@token_required
+def get_profile():
+    user = g.user
+    return jsonify({
+        'user': {
+            'id': user.id,
+            'email': user.email,
+            'phone': user.phone,
+            'tier': user.tier,
+            'is_subscribed': user.is_subscribed,
+            'subscription_expires': user.subscription_expires.isoformat() if user.subscription_expires else None
+        }
+    })
+
+
 # ============================================================
-# PAYMENT HISTORY (USER VIEWS THEIR TRANSACTIONS)
+# TRANSACTIONS ENDPOINTS
 # ============================================================
 @app.route('/api/transactions', methods=['GET'])
 @token_required
@@ -1406,117 +1388,162 @@ def get_transactions():
     }), 200
 
 
-# ============================================================
-# ADMIN ENDPOINTS
-# ============================================================
-
-@app.route('/admin/users', methods=['GET'])
+@app.route('/api/transactions', methods=['POST'])
 @token_required
-def admin_get_users():
-    user = g.user
-    if not is_admin(user):
-        return jsonify({'error': 'Unauthorized'}), 403
+def create_transaction():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    amount = data.get('amount')
+    plan = data.get('plan')
+    manual_transaction_id = data.get('manual_transaction_id')
 
-    users = User.query.order_by(User.created_at.desc()).all()
-    result = []
-    for u in users:
-        result.append({
-            'id': u.id,
-            'email': u.email,
-            'phone': u.phone,
-            'tier': u.tier,
-            'is_subscribed': u.is_subscribed,
-            'subscription_expires': u.subscription_expires.isoformat() if u.subscription_expires else None,
-            'created_at': u.created_at.isoformat()
-        })
+    if not user_id or not amount or not plan or not manual_transaction_id:
+        return jsonify({'error': 'Missing fields'}), 400
 
-    return jsonify({
-        'users': result,
-        'count': len(result)
-    }), 200
+    if plan not in ['day', 'monthly', 'quarterly']:
+        return jsonify({'error': 'Invalid plan'}), 400
 
-
-@app.route('/admin/transactions', methods=['GET'])
-@token_required
-def admin_get_transactions():
-    user = g.user
-    if not is_admin(user):
-        return jsonify({'error': 'Unauthorized'}), 403
-
-    transactions = Transaction.query.order_by(Transaction.created_at.desc()).all()
-    result = []
-    for tx in transactions:
-        u = User.query.get(tx.user_id)
-        result.append({
-            'id': tx.id,
-            'user_email': u.email if u else 'Unknown',
-            'user_id': tx.user_id,
-            'tx_ref': tx.tx_ref,
-            'amount': tx.amount,
-            'currency': tx.currency,
-            'status': tx.status,
-            'plan': tx.plan,
-            'manual_transaction_id': tx.manual_transaction_id,
-            'amount_received': tx.amount_received,
-            'created_at': tx.created_at.isoformat()
-        })
-
-    return jsonify({
-        'transactions': result,
-        'count': len(result)
-    }), 200
-
-
-@app.route('/admin/verify-transaction/<transaction_id>', methods=['POST'])
-@token_required
-def admin_verify_transaction(transaction_id):
-    user = g.user
-    if not is_admin(user):
-        return jsonify({'error': 'Unauthorized'}), 403
-
-    transaction = Transaction.query.get(transaction_id)
-    if not transaction:
-        return jsonify({'error': 'Transaction not found'}), 404
-
-    if transaction.status == 'success':
-        return jsonify({'error': 'Transaction already verified'}), 400
-
-    # Manually activate subscription using the plan from the transaction
-    return _activate_subscription(transaction)
-
-
-@app.route('/admin/deactivate-user/<user_id>', methods=['POST'])
-@token_required
-def admin_deactivate_user(user_id):
-    admin_user = g.user
-    if not is_admin(admin_user):
-        return jsonify({'error': 'Unauthorized'}), 403
-
-    target_user = User.query.get(user_id)
-    if not target_user:
+    user = User.query.get(user_id)
+    if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    target_user.tier = 'free'
-    target_user.is_subscribed = False
-    target_user.subscription_expires = None
+    existing = Transaction.query.filter_by(
+        manual_transaction_id=manual_transaction_id,
+        status='success'
+    ).first()
+
+    if existing:
+        return jsonify({'error': 'Transaction ID already used'}), 400
+
+    tx_ref = f"TX-{uuid.uuid4().hex[:10].upper()}"
+
+    transaction = Transaction(
+        user_id=user_id,
+        tx_ref=tx_ref,
+        amount=amount,
+        currency='UGX',
+        status='pending',
+        plan=plan,
+        manual_transaction_id=manual_transaction_id
+    )
+    db.session.add(transaction)
     db.session.commit()
 
     return jsonify({
-        'message': f'User {target_user.email} has been deactivated.'
-    }), 200
+        'id': transaction.id,
+        'tx_ref': tx_ref,
+        'status': 'pending'
+    }), 201
 
 
 # ============================================================
-# ARBITRAGE ENDPOINT (checks subscription + ad unlocks)
+# INITIATE PAYMENT ENDPOINT
 # ============================================================
-def filter_opportunities(opportunities, tier_config):
+@app.route('/api/initiate-payment', methods=['POST'])
+@token_required
+def initiate_payment():
+    user = g.user
+    data = request.get_json()
+    plan = data.get('plan')
+
+    if not plan or plan not in ['day', 'monthly', 'quarterly']:
+        return jsonify({'error': 'Invalid plan'}), 400
+
+    amount = TIERS[plan]['price']
+    tx_ref = f"TX-{uuid.uuid4().hex[:10].upper()}"
+
+    # Check for existing pending transaction
+    existing = Transaction.query.filter_by(
+        user_id=user.id,
+        status='pending'
+    ).first()
+
+    if existing:
+        return jsonify({
+            'error': 'You already have a pending transaction',
+            'tx_ref': existing.tx_ref
+        }), 409
+
+    transaction = Transaction(
+        user_id=user.id,
+        tx_ref=tx_ref,
+        amount=amount,
+        currency='UGX',
+        status='pending',
+        plan=plan
+    )
+    db.session.add(transaction)
+    db.session.commit()
+
+    return jsonify({
+        'tx_ref': tx_ref,
+        'amount': amount,
+        'plan': plan,
+        'plan_label': TIERS[plan]['label'],
+        'merchant_phone': os.getenv('MERCHANT_PHONE', '0756408723'),
+        'merchant_name': os.getenv('MERCHANT_NAME', 'Nakyanzi Daisy'),
+        'instructions': f"Send exactly UGX {amount:,} to {os.getenv('MERCHANT_PHONE', '0756408723')} via Mobile Money."
+    }), 201
+
+
+# ============================================================
+# ACTIVE PLANS ENDPOINT
+# ============================================================
+@app.route('/api/active-plans', methods=['GET'])
+def active_plans():
+    plans = []
+    labels = {'day': 'Day Pass', 'monthly': 'Monthly VIP', 'quarterly': 'Quarterly Pro'}
+    for slug, config in TIERS.items():
+        if slug == 'free':
+            continue
+        plans.append({
+            'slug': slug,
+            'label': labels.get(slug, slug),
+            'price_ugx': config['price'],
+            'days': config['duration_days'],
+            'formatted': f"UGX {config['price']:,}"
+        })
+    return jsonify({'plans': plans})
+
+
+# ============================================================
+# ARBITRAGE ENDPOINT
+# ============================================================
+@app.route('/api/arbitrage', methods=['GET'])
+@token_required
+def get_arbitrage():
+    user = g.user
+    tier_config = TIERS[user.tier]
+
+    # Check subscription expiry
+    if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
+        user.is_subscribed = False
+        user.tier = 'free'
+        db.session.commit()
+        return jsonify({'error': 'Subscription expired'}), 403
+
+    cache_file = 'current_opportunities.json'
+    if not os.path.exists(cache_file):
+        return jsonify({
+            'opportunities': [],
+            'tier': user.tier,
+            'message': 'No arbitrage data available. Scanner is running.'
+        }), 200
+
+    try:
+        with open(cache_file, 'r', encoding='utf-8') as f:
+            all_opportunities = json.load(f)
+    except:
+        all_opportunities = []
+
+    # Filter by tier
     allowed_bookmakers = set(tier_config['bookmakers'])
     allowed_markets = set(tier_config['market_types'])
     max_profit = tier_config['max_profit_percent']
     daily_limit = tier_config['daily_matches']
 
     filtered = []
-    for opp in opportunities:
+    for opp in all_opportunities:
         bets = opp.get('bets', [])
         bookmakers_in_opp = set(b.get('bookmaker') for b in bets)
         if not bookmakers_in_opp.issubset(allowed_bookmakers):
@@ -1543,162 +1570,66 @@ def filter_opportunities(opportunities, tier_config):
         filtered.sort(key=lambda x: x.get('profit_percent', 0), reverse=True)
         filtered = filtered[:daily_limit]
 
-    return filtered
-
-
-@app.route('/api/arbitrage', methods=['GET'])
-@token_required
-def get_arbitrage():
-    user = g.user
-
-    # Check if subscription expired
-    if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
-        user.is_subscribed = False
-        user.tier = 'free'
-        db.session.commit()
-        return jsonify({'error': 'Subscription expired. Please renew.'}), 403
-
-    # Free tier daily limit (base)
-    if user.tier == 'free':
-        today = datetime.utcnow().date()
-        if user.last_arbitrage_date:
-            last_date = user.last_arbitrage_date.date()
-            if last_date != today:
-                user.arbitrage_today_count = 0
-                user.last_arbitrage_date = datetime.utcnow()
-        else:
-            user.last_arbitrage_date = datetime.utcnow()
-
-        if user.arbitrage_today_count >= 3:
-            if user.free_opportunities_remaining > 0:
-                user.free_opportunities_remaining -= 1
-                db.session.commit()
-                extra_allowed = 1
-            else:
-                return jsonify({
-                    'error': 'Daily limit reached (3 matches). Upgrade or watch an ad to unlock more.',
-                    'tier': 'free'
-                }), 403
-        else:
-            extra_allowed = 0
-
-    tier_config = TIERS[user.tier]
-    cache_file = 'current_opportunities.json'
-    run_scanner = False
-
-    if os.path.exists(cache_file):
-        file_age = time.time() - os.path.getmtime(cache_file)
-        if tier_config['scanner_speed_seconds'] == 0:
-            run_scanner = True
-        elif file_age >= tier_config['scanner_speed_seconds']:
-            run_scanner = True
-    else:
-        run_scanner = True
-
-    if run_scanner:
-        print("Running fresh scan... (20-30 sec)")
-        try:
-            run_scan()
-        except Exception as e:
-            if not os.path.exists(cache_file):
-                return jsonify({'error': 'Scanner failed and no cache available.'}), 500
-
-    try:
-        with open(cache_file, 'r', encoding='utf-8') as f:
-            all_opportunities = json.load(f)
-    except:
-        all_opportunities = []
-
-    filtered_opps = filter_opportunities(all_opportunities, tier_config)
-
-    # If free tier with extra unlock, add one extra opportunity
-    if user.tier == 'free' and 'extra_allowed' in locals() and extra_allowed > 0:
-        temp_limit = tier_config['daily_matches'] + 1
-        tier_config_temp = tier_config.copy()
-        tier_config_temp['daily_matches'] = temp_limit
-        extended_opps = filter_opportunities(all_opportunities, tier_config_temp)
-        filtered_opps = extended_opps
-
-    # Update free tier daily count
-    if user.tier == 'free':
-        user.arbitrage_today_count += 1
-        user.last_arbitrage_date = datetime.utcnow()
-        db.session.commit()
-
-    history = None
-    if tier_config['historical_data']:
-        history = load_arbitrage_history()
-
-    response = {
-        'opportunities': filtered_opps,
-        'count': len(filtered_opps),
+    return jsonify({
+        'opportunities': filtered,
+        'count': len(filtered),
         'tier': user.tier,
         'tier_label': tier_config['label'],
-        'value_rating': tier_config['value_rating'],
-        'scan_time': datetime.utcnow().isoformat(),
-        'cached': not run_scanner,
-        'remaining_daily': tier_config['daily_matches'] - user.arbitrage_today_count if tier_config['daily_matches'] else None,
-        'ad_unlocks_remaining': user.free_opportunities_remaining if user.tier == 'free' else None
-    }
-    if history is not None:
-        response['history'] = history
-
-    return jsonify(response)
+        'value_rating': tier_config.get('value_rating', 'Standard'),
+        'scan_time': datetime.utcnow().isoformat()
+    })
 
 
 # ============================================================
-# ADMIN CREDIT ENDPOINT (optional)
+# HEALTH CHECK
 # ============================================================
-@app.route('/admin/credit', methods=['POST'])
-def admin_credit():
-    admin_secret = request.headers.get('X-Admin-Secret')
-    if admin_secret != os.getenv('ADMIN_SECRET', 'supersecret'):
-        return jsonify({'error': 'Unauthorized'}), 401
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'ok',
+        'service': 'sms-payment-verification',
+        'timestamp': datetime.utcnow().isoformat()
+    })
 
-    data = request.get_json()
-    user_id = data.get('user_id')
-    plan = data.get('plan')
-    if not user_id or plan not in ['day', 'monthly', 'quarterly']:
-        return jsonify({'error': 'Invalid request'}), 400
 
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        'status': 'ok',
+        'service': 'SMS Payment Verification System',
+        'endpoints': [
+            {'path': '/', 'method': 'GET', 'description': 'Root'},
+            {'path': '/health', 'method': 'GET', 'description': 'Health check'},
+            {'path': '/webhook', 'method': 'POST', 'description': 'SMS webhook'},
+            {'path': '/api/active-plans', 'method': 'GET', 'description': 'Active plans'},
+            {'path': '/api/initiate-payment', 'method': 'POST', 'description': 'Initiate payment'},
+            {'path': '/api/transactions', 'method': 'GET', 'description': 'Get transactions'},
+            {'path': '/api/transactions', 'method': 'POST', 'description': 'Create transaction'},
+            {'path': '/api/arbitrage', 'method': 'GET', 'description': 'Get arbitrage opportunities'},
+            {'path': '/api/signup', 'method': 'POST', 'description': 'Sign up'},
+            {'path': '/api/login', 'method': 'POST', 'description': 'Login'},
+            {'path': '/api/profile', 'method': 'GET', 'description': 'Get profile'}
+        ]
+    })
 
-    duration_days = TIERS[plan]['duration_days']
-    now = datetime.utcnow()
-    if user.subscription_expires and user.subscription_expires > now:
-        new_expiry = user.subscription_expires + timedelta(days=duration_days)
-    else:
-        new_expiry = now + timedelta(days=duration_days)
 
-    user.tier = plan
-    user.is_subscribed = True
-    user.subscription_expires = new_expiry
-    user.arbitrage_today_count = 0
+# ============================================================
+# ERROR HANDLERS
+# ============================================================
+@app.errorhandler(404)
+def not_found(e):
+    return jsonify({'error': 'Endpoint not found'}), 404
 
-    manual_tx = Transaction(
-        user_id=user.id,
-        tx_ref=f"MANUAL-{uuid.uuid4().hex[:10].upper()}",
-        amount=0,
-        currency='UGX',
-        status='success',
-        plan=plan,
-        manual_transaction_id='admin'
-    )
-    db.session.add(manual_tx)
-    db.session.commit()
 
-    return jsonify({'message': f'User {user.email} upgraded to {plan} until {new_expiry.isoformat()}'})
+@app.errorhandler(500)
+def server_error(e):
+    return jsonify({'error': 'Internal server error'}), 500
 
 
 # ============================================================
 # RUN
 # ============================================================
 if __name__ == "__main__":
-    if os.environ.get("GITHUB_ACTION") == "1" or os.environ.get("CI") == "true":
-        print("🚀 Running in GitHub Actions - executing scanner...")
-        run_scan()
-    else:
-        print("🚀 Running locally - starting Flask server...")
-        app.run(host='0.0.0.0', port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    print(f"🚀 Starting server on port {port}")
+    app.run(host='0.0.0.0', port=port, debug=os.environ.get('APP_ENV') == 'development')
