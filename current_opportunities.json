@@ -139,31 +139,31 @@
     "match": "nublense vs rangers",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.8,
-    "profit_ugx": 800,
+    "profit_percent": 0.66,
+    "profit_ugx": 658,
     "total_stake": 100000,
-    "arb_sum": 0.992,
+    "arb_sum": 0.9934,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.3,
-        "stake": 43829,
-        "win": 100807
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 3.485,
-        "stake": 28926,
-        "win": 100807
+        "stake": 43766,
+        "win": 100662
       },
       {
         "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 25165,
+        "win": 100660
+      },
+      {
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.7,
-        "stake": 27245,
-        "win": 100806
+        "odd": 3.24,
+        "stake": 31068,
+        "win": 100660
       }
     ],
     "market_type": "1x2",
