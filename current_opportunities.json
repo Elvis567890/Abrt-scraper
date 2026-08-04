@@ -3,31 +3,31 @@
     "match": "sparta prague vs lyon",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 13.99,
-    "profit_ugx": 13986,
+    "profit_percent": 13.44,
+    "profit_ugx": 13438,
     "total_stake": 100000,
-    "arb_sum": 0.8601,
+    "arb_sum": 0.8656,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 3.3,
-        "stake": 35230,
-        "win": 116259
+        "stake": 35007,
+        "win": 115523
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 32295,
-        "win": 116262
+        "odd": 3.55,
+        "stake": 32542,
+        "win": 115524
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.58,
-        "stake": 32475,
-        "win": 116260
+        "odd": 3.56,
+        "stake": 32451,
+        "win": 115526
       }
     ],
     "market_type": "1x2",
@@ -37,31 +37,31 @@
     "match": "larne vs iberia 1999",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.89,
-    "profit_ugx": 2891,
+    "profit_percent": 3.04,
+    "profit_ugx": 3042,
     "total_stake": 100000,
-    "arb_sum": 0.9711,
+    "arb_sum": 0.9696,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.016,
-        "stake": 34144,
-        "win": 102978
+        "odd": 3.025,
+        "stake": 34095,
+        "win": 103137
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.15,
-        "stake": 32691,
-        "win": 102977
+        "stake": 32742,
+        "win": 103137
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.105,
-        "stake": 33165,
-        "win": 102977
+        "odd": 3.11,
+        "stake": 33163,
+        "win": 103137
       }
     ],
     "market_type": "1x2",
@@ -136,40 +136,6 @@
     "market_specifier": ""
   },
   {
-    "match": "kolding boldklub vs naesby",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 34.8,
-    "profit_ugx": 34804,
-    "total_stake": 100000,
-    "arb_sum": 0.652,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 5.6,
-        "stake": 27390,
-        "win": 153384
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.2,
-        "stake": 36520,
-        "win": 153384
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.25,
-        "stake": 36090,
-        "win": 153382
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "bronshoj bk vs hb koge",
     "sport": "Football",
     "type": "3-way",
@@ -204,34 +170,34 @@
     "market_specifier": ""
   },
   {
-    "match": "tenerife vs ud tamaraceite",
+    "match": "kolding boldklub vs naesby",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.47,
-    "profit_ugx": 3475,
+    "profit_percent": 34.8,
+    "profit_ugx": 34804,
     "total_stake": 100000,
-    "arb_sum": 0.9653,
+    "arb_sum": 0.652,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.28,
-        "stake": 80937,
-        "win": 103599
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 12.7,
-        "stake": 8157,
-        "win": 103594
+        "odd": 5.6,
+        "stake": 27390,
+        "win": 153384
       },
       {
         "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 36520,
+        "win": 153384
+      },
+      {
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 9.5,
-        "stake": 10905,
-        "win": 103598
+        "odd": 4.25,
+        "stake": 36090,
+        "win": 153382
       }
     ],
     "market_type": "1x2",
@@ -266,6 +232,40 @@
         "odd": 4.25,
         "stake": 33966,
         "win": 144356
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "tenerife vs ud tamaraceite",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 3.47,
+    "profit_ugx": 3475,
+    "total_stake": 100000,
+    "arb_sum": 0.9653,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.28,
+        "stake": 80937,
+        "win": 103599
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 12.7,
+        "stake": 8157,
+        "win": 103594
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 9.5,
+        "stake": 10905,
+        "win": 103598
       }
     ],
     "market_type": "1x2",
