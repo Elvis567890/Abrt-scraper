@@ -1091,7 +1091,8 @@ def is_admin(user):
     return user.email == ADMIN_EMAIL
 
 
-# ---- Firebase Token Verification ----
+# ---- Token Verification (SUPER BASE FIX) ----
+# This now handles BOTH Firebase tokens and your custom App JWT tokens
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -1099,20 +1100,35 @@ def token_required(f):
         if not token or not token.startswith('Bearer '):
             return jsonify({'error': 'Token missing'}), 401
         token = token.split(' ')[1]
+        user = None
+        
+        # 1. Try to verify as a FIREBASE TOKEN
         try:
             decoded_token = firebase_auth.verify_id_token(token)
             uid = decoded_token['uid']
+            email = decoded_token.get('email')
+            phone = decoded_token.get('phone_number') or ''
+            
+            # Check if the user exists in our DB by Firebase UID
             user = User.query.filter_by(firebase_uid=uid).first()
             if not user:
-                email = decoded_token.get('email')
-                phone = decoded_token.get('phone_number') or ''
+                # Create a new user if this is their first time logging in with Firebase
                 user = User(email=email, phone=phone, firebase_uid=uid, tier='free')
                 db.session.add(user)
                 db.session.commit()
-            g.user_id = user.id
-            g.user = user
-        except Exception as e:
-            return jsonify({'error': 'Invalid token: ' + str(e)}), 401
+        
+        # 2. If Firebase fails, try to verify as a CUSTOM APP TOKEN (from your frontend)
+        except:
+            try:
+                decoded = jwt.decode(token, app.config['JWT_SECRET'], algorithms=['HS256'])
+                user = User.query.get(decoded['user_id'])
+                if not user:
+                    return jsonify({'error': 'User not found'}), 401
+            except:
+                return jsonify({'error': 'Invalid token'}), 401
+        
+        g.user_id = user.id
+        g.user = user
         return f(*args, **kwargs)
     return decorated
 
@@ -1504,6 +1520,85 @@ def active_plans():
             'formatted': f"UGX {config['price']:,}"
         })
     return jsonify({'plans': plans})
+
+
+# ============================================================
+# [NEW] ADMIN SUPER BASE ENDPOINT
+# ============================================================
+@app.route('/api/admin/create-user', methods=['POST'])
+@token_required
+def admin_create_user():
+    user = g.user
+    if not is_admin(user):
+        return jsonify({'error': 'Access denied. Only the Super Base Admin can create users.'}), 403
+
+    data = request.get_json()
+    email = data.get('email')
+    phone = data.get('phone', '0000000000')
+    password = data.get('password')
+    tier = data.get('tier', 'free')
+
+    if not email or not password:
+        return jsonify({'error': 'Email and password are required'}), 400
+
+    if User.query.filter_by(email=email).first():
+        return jsonify({'error': 'User already exists'}), 400
+
+    new_user = User(email=email, phone=phone, tier=tier)
+    new_user.set_password(password)
+    db.session.add(new_user)
+    db.session.commit()
+    token = generate_token(new_user.id)
+
+    return jsonify({
+        'message': 'User created successfully by Super Base Admin.',
+        'token': token,
+        'user_id': new_user.id,
+        'tier': new_user.tier
+    }), 201
+
+
+# ============================================================
+# [NEW] SUBSCRIPTION STATUS CHECK ENDPOINT (Used by Frontend)
+# ============================================================
+@app.route('/api/subscription-status', methods=['GET'])
+@token_required
+def subscription_status():
+    user = g.user
+    
+    # Check if expired
+    if user.subscription_expires and user.subscription_expires < datetime.utcnow():
+        user.is_subscribed = False
+        user.tier = 'free'
+        db.session.commit()
+        return jsonify({
+            'subscribed': False,
+            'tier': 'free',
+            'expired': True,
+            'days_left': 0,
+            'message': 'Your subscription has expired. Please renew to continue.'
+        })
+    
+    # Active Subscription
+    elif user.subscription_expires and user.is_subscribed:
+        days_left = (user.subscription_expires - datetime.utcnow()).days
+        return jsonify({
+            'subscribed': True,
+            'tier': user.tier,
+            'expired': False,
+            'days_left': days_left,
+            'message': f'Subscription active for {days_left} more days.'
+        })
+    
+    # Free Tier (No Subscription)
+    else:
+        return jsonify({
+            'subscribed': False,
+            'tier': 'free',
+            'expired': False,
+            'days_left': 0,
+            'message': 'Free Trial active.'
+        })
 
 
 # ============================================================
