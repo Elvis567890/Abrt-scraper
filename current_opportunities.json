@@ -3,31 +3,31 @@
     "match": "aarhus vs sabah baku",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.56,
-    "profit_ugx": 556,
+    "profit_percent": 0.79,
+    "profit_ugx": 790,
     "total_stake": 100000,
-    "arb_sum": 0.9944,
+    "arb_sum": 0.9921,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.599,
-        "stake": 62889,
-        "win": 100560
+        "odd": 1.605,
+        "stake": 62801,
+        "win": 100796
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 5.6,
-        "stake": 17957,
-        "win": 100559
+        "stake": 17999,
+        "win": 100794
       },
       {
         "bookmaker": "ChampionBet",
         "outcome": "Away",
         "odd": 5.25,
-        "stake": 19154,
-        "win": 100558
+        "stake": 19199,
+        "win": 100795
       }
     ],
     "market_type": "1x2",
@@ -232,6 +232,60 @@
         "odd": 11.0,
         "stake": 9278,
         "win": 102058
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "diriangen vs alajuelense",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.24,
+    "profit_ugx": 8240,
+    "total_stake": 100000,
+    "arb_sum": 0.9176,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.21,
+        "stake": 49312,
+        "win": 108980
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.15,
+        "stake": 50688,
+        "win": 108979
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "diriangen vs alajuelense",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.24,
+    "profit_ugx": 8240,
+    "total_stake": 100000,
+    "arb_sum": 0.9176,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.21,
+        "stake": 49312,
+        "win": 108980
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.15,
+        "stake": 50688,
+        "win": 108979
       }
     ],
     "market_type": "1x2",
