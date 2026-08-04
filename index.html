@@ -586,6 +586,7 @@
         document.getElementById('authErrorSignup').textContent = '';
     }
 
+    // ✅ FIXED: signUpWithEmail with real error reporting
     function signUpWithEmail() {
         const email = document.getElementById('signupEmail').value.trim();
         const password = document.getElementById('signupPassword').value;
@@ -597,8 +598,15 @@
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, phone: '0000000000', password })
-        }).then(res => res.json()).then(data => {
-            // FIXED: Check for data.token (Backend returns a token, not 'success')
+        })
+        .then(async res => {
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({error: 'Unknown server error'}));
+                throw new Error(`Server Error ${res.status}: ${errData.error || errData.message || 'Unknown'}`);
+            }
+            return res.json();
+        })
+        .then(data => {
             if (data.token) {
                 localStorage.setItem('sms_auth_token', data.token);
                 localStorage.setItem('sms_auth_email', email);
@@ -607,9 +615,13 @@
             } else {
                 errorEl.textContent = data.error || 'Signup failed. Try again.';
             }
-        }).catch(err => errorEl.textContent = 'Network error. Please try again.');
+        })
+        .catch(err => {
+            errorEl.textContent = err.message; 
+        });
     }
 
+    // ✅ FIXED: loginWithEmail with real error reporting
     function loginWithEmail() {
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
@@ -621,8 +633,15 @@
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
-        }).then(res => res.json()).then(data => {
-            // FIXED: Check for data.token (Backend returns a token, not 'success')
+        })
+        .then(async res => {
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({error: 'Unknown server error'}));
+                throw new Error(`Server Error ${res.status}: ${errData.error || errData.message || 'Unknown'}`);
+            }
+            return res.json();
+        })
+        .then(data => {
             if (data.token) {
                 localStorage.setItem('sms_auth_token', data.token);
                 localStorage.setItem('sms_auth_email', email);
@@ -631,7 +650,10 @@
             } else {
                 errorEl.textContent = data.error || 'Invalid email or password.';
             }
-        }).catch(err => errorEl.textContent = 'Network error. Please try again.');
+        })
+        .catch(err => {
+            errorEl.textContent = err.message;
+        });
     }
 
     function signInWithGoogle() {
@@ -1231,7 +1253,6 @@
         })
             .then(res => res.json())
             .then(data => {
-                // FIXED: Backend returns 'status' key, not 'success'
                 if (data.status === 'pending') {
                     statusDiv.textContent = '✅ Payment submitted! We will verify the SMS.';
                     statusDiv.style.color = '#00e676';
