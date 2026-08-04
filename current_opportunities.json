@@ -3,31 +3,31 @@
     "match": "sparta prague vs lyon",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 11.08,
-    "profit_ugx": 11081,
+    "profit_percent": 10.6,
+    "profit_ugx": 10599,
     "total_stake": 100000,
-    "arb_sum": 0.8892,
+    "arb_sum": 0.894,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 3.1,
-        "stake": 36278,
-        "win": 112462
+        "stake": 36082,
+        "win": 111854
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 32132,
-        "win": 112462
+        "stake": 31959,
+        "win": 111856
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.56,
-        "stake": 31590,
-        "win": 112460
+        "odd": 3.5,
+        "stake": 31959,
+        "win": 111856
       }
     ],
     "market_type": "1x2",
@@ -173,31 +173,31 @@
     "match": "tenerife vs ud tamaraceite",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.35,
-    "profit_ugx": 3349,
+    "profit_percent": 3.02,
+    "profit_ugx": 3015,
     "total_stake": 100000,
-    "arb_sum": 0.9665,
+    "arb_sum": 0.9698,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.28,
-        "stake": 80832,
-        "win": 103465
+        "stake": 80554,
+        "win": 103109
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 12.5,
-        "stake": 8277,
-        "win": 103462
+        "odd": 12.0,
+        "stake": 8592,
+        "win": 103104
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 9.5,
-        "stake": 10891,
-        "win": 103464
+        "stake": 10854,
+        "win": 103113
       }
     ],
     "market_type": "1x2",
@@ -340,40 +340,6 @@
     "market_specifier": ""
   },
   {
-    "match": "bracknell town vs dorking wanderers",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 20.67,
-    "profit_ugx": 20665,
-    "total_stake": 100000,
-    "arb_sum": 0.7933,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.7,
-        "stake": 34067,
-        "win": 126048
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 32320,
-        "win": 126048
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.75,
-        "stake": 33613,
-        "win": 126049
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "raynes park vale vs hampton richmond",
     "sport": "Football",
     "type": "3-way",
@@ -402,6 +368,40 @@
         "odd": 4.6,
         "stake": 35653,
         "win": 164004
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bracknell town vs dorking wanderers",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 20.67,
+    "profit_ugx": 20665,
+    "total_stake": 100000,
+    "arb_sum": 0.7933,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.7,
+        "stake": 34067,
+        "win": 126048
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 32320,
+        "win": 126048
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.75,
+        "stake": 33613,
+        "win": 126049
       }
     ],
     "market_type": "1x2",
