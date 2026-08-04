@@ -1630,6 +1630,13 @@ def server_error(e):
 # RUN
 # ============================================================
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    print(f"🚀 Starting server on port {port}")
-    app.run(host='0.0.0.0', port=port, debug=os.environ.get('APP_ENV') == 'development')
+    # Check if we are running inside GitHub Actions
+    if os.getenv('GITHUB_ACTIONS') == 'true':
+        print("🚀 Running in GitHub Actions mode: executing scraper...")
+        run_scan()
+        print("✅ Scraper finished. Exiting.")
+    else:
+        # Run the Flask API server for local development or cloud deployment
+        port = int(os.environ.get('PORT', 5000))
+        print(f"🚀 Starting Flask server on port {port}")
+        app.run(host='0.0.0.0', port=port, debug=os.environ.get('APP_ENV') == 'development')
