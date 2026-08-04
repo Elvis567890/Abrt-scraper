@@ -490,66 +490,83 @@
         measurementId: "G-ZFXKEY2QL7"
     };
     firebase.initializeApp(firebaseConfig);
-    // SMS Payment System Integration
+    
+    // ============================================================
+    // 2. CONNECT TO YOUR BACKEND SUPER BASE
+    // ============================================================
     const API_BASE = 'https://sms-payment-system-9.onrender.com';
 
     // ============================================================
-    // 2. AUTH STATE (SMS Payment System)
+    // 3. AUTH STATE & SUBSCRIPTION IDENTIFICATION
     // ============================================================
-    let currentUser = null;
-    let authToken = localStorage.getItem('sms_auth_token');
-    let authEmail = localStorage.getItem('sms_auth_email');
-    let userTier = localStorage.getItem('sms_user_tier') || 'free';
-
     function checkSMSAuth() {
-        const authPage = document.getElementById('page-auth');
-        const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
-        const bottomNav = document.getElementById('bottomNav');
-        const fab = document.querySelector('.fab');
+        const authToken = localStorage.getItem('sms_auth_token');
+        const authEmail = localStorage.getItem('sms_auth_email');
+        if (!authToken || !authEmail) { clearSMSAuth(); return; }
 
-        if (authToken && authEmail) {
-            // Verify token by fetching profile
-            fetch(`${API_BASE}/api/profile`, {
-                headers: { 'Authorization': `Bearer ${authToken}` }
-            }).then(res => res.json()).then(data => {
-                if (data.success) {
-                    currentUser = { email: authEmail, uid: data.user.id };
-                    userTier = data.user.tier || 'free';
-                    localStorage.setItem('sms_user_tier', userTier);
-                    authPage.classList.remove('active');
-                    mainPages.forEach(p => p.classList.add('active'));
-                    bottomNav.style.display = 'flex';
-                    if (fab) fab.style.display = 'flex';
-                    document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + authEmail;
-                    document.getElementById('settingsUserTier').textContent = 'Tier: ' + userTier;
-                    loadUserSettings();
-                    navigateTo('dashboard');
-                    fetchUserDataFromBackend();
-                } else {
-                    clearSMSAuth();
-                }
-            }).catch(() => clearSMSAuth());
-        } else {
-            clearSMSAuth();
-        }
+        // Verify the user's token with the backend
+        fetch(`${API_BASE}/api/profile`, {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        }).then(res => res.json()).then(data => {
+            if (data.user) {
+                // If valid, immediately check their subscription status
+                checkSubscription(authToken);
+            } else {
+                clearSMSAuth();
+            }
+        }).catch(() => clearSMSAuth());
+    }
+
+    function checkSubscription(authToken) {
+        fetch(`${API_BASE}/api/subscription-status`, {
+            headers: { 'Authorization': `Bearer ${authToken}` }
+        }).then(res => res.json()).then(data => {
+            
+            // EXPIRED - Kick them out with a clear message
+            if (data.expired) {
+                alert("⛔ " + data.message);
+                clearSMSAuth();
+                return;
+            }
+
+            // ACTIVE SUBSCRIPTION / FREE TIER - Show the app
+            const authPage = document.getElementById('page-auth');
+            const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
+            const bottomNav = document.getElementById('bottomNav');
+            const fab = document.querySelector('.fab');
+
+            authPage.classList.remove('active');
+            mainPages.forEach(p => p.classList.add('active'));
+            bottomNav.style.display = 'flex';
+            if (fab) fab.style.display = 'flex';
+
+            const daysText = data.days_left > 0 ? ` (${data.days_left} days left)` : '';
+            document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + localStorage.getItem('sms_auth_email');
+            document.getElementById('settingsUserTier').textContent = 'Tier: ' + data.tier + daysText;
+            
+            localStorage.setItem('sms_user_tier', data.tier);
+            showToast("✅ " + data.message);
+            loadUserSettings();
+            navigateTo('dashboard');
+            fetchUserDataFromBackend();
+        }).catch(() => clearSMSAuth());
     }
 
     function clearSMSAuth() {
-        authToken = null;
-        authEmail = null;
-        userTier = 'free';
         localStorage.removeItem('sms_auth_token');
         localStorage.removeItem('sms_auth_email');
         localStorage.removeItem('sms_user_tier');
-        currentUser = null;
+        
         const authPage = document.getElementById('page-auth');
         const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
         const bottomNav = document.getElementById('bottomNav');
         const fab = document.querySelector('.fab');
+        
         authPage.classList.add('active');
         mainPages.forEach(p => p.classList.remove('active'));
         bottomNav.style.display = 'none';
         if (fab) fab.style.display = 'none';
+        
         document.getElementById('settingsUserEmail').textContent = 'Not logged in';
         document.getElementById('settingsUserTier').textContent = 'Tier: free';
     }
@@ -558,7 +575,7 @@
     checkSMSAuth();
 
     // ============================================================
-    // 3. AUTH FUNCTIONS
+    // 4. AUTH FUNCTIONS (Fixed for Backend Token Handling)
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
@@ -575,22 +592,20 @@
         const errorEl = document.getElementById('authErrorSignup');
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
-        if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
         
         fetch(`${API_BASE}/api/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, phone: '0000000000', password })
         }).then(res => res.json()).then(data => {
-            if (data.success) {
-                authToken = data.token;
-                authEmail = data.user.email;
-                localStorage.setItem('sms_auth_token', authToken);
-                localStorage.setItem('sms_auth_email', authEmail);
+            // FIXED: Check for data.token (Backend returns a token, not 'success')
+            if (data.token) {
+                localStorage.setItem('sms_auth_token', data.token);
+                localStorage.setItem('sms_auth_email', email);
                 showToast('Account created! Welcome to Abrimax!');
                 checkSMSAuth();
             } else {
-                errorEl.textContent = data.message || 'Signup failed. Try again.';
+                errorEl.textContent = data.error || 'Signup failed. Try again.';
             }
         }).catch(err => errorEl.textContent = 'Network error. Please try again.');
     }
@@ -607,15 +622,14 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
         }).then(res => res.json()).then(data => {
-            if (data.success) {
-                authToken = data.token;
-                authEmail = data.user.email;
-                localStorage.setItem('sms_auth_token', authToken);
-                localStorage.setItem('sms_auth_email', authEmail);
+            // FIXED: Check for data.token (Backend returns a token, not 'success')
+            if (data.token) {
+                localStorage.setItem('sms_auth_token', data.token);
+                localStorage.setItem('sms_auth_email', email);
                 showToast('Logged in successfully!');
                 checkSMSAuth();
             } else {
-                errorEl.textContent = data.message || 'Invalid email or password.';
+                errorEl.textContent = data.error || 'Invalid email or password.';
             }
         }).catch(err => errorEl.textContent = 'Network error. Please try again.');
     }
@@ -630,10 +644,10 @@
     }
 
     // ============================================================
-    // 4. USER SETTINGS (localStorage)
+    // 5. USER SETTINGS (localStorage)
     // ============================================================
     function getUserSettingsKey() {
-        return currentUser ? 'arbi_settings_' + currentUser.uid : 'arbi_settings_guest';
+        return localStorage.getItem('sms_auth_email') ? 'arbi_settings_' + localStorage.getItem('sms_auth_email') : 'arbi_settings_guest';
     }
 
     function getDefaultSettings() {
@@ -693,12 +707,11 @@
         };
         localStorage.setItem(getUserSettingsKey(), JSON.stringify(settings));
         showToast('✅ Settings Saved!');
-        // Re-fetch data to apply new filters
         fetchUserDataFromBackend();
     }
 
     // ============================================================
-    // 5. BOOKMAKER URL MAPPING
+    // 6. BOOKMAKER URL MAPPING
     // ============================================================
     const BOOKMAKER_URLS = {
         'sportybet': 'https://sportybet.ug',
@@ -716,7 +729,7 @@
     }
 
     // ============================================================
-    // 6. CORE APP LOGIC – FETCH FROM BACKEND API
+    // 7. CORE APP LOGIC – FETCH FROM BACKEND API
     // ============================================================
     let opportunitiesData = [];
     let allHistory = {};
@@ -726,72 +739,61 @@
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
     function fetchUserDataFromBackend() {
-        if (!currentUser) return;
+        const token = localStorage.getItem('sms_auth_token');
+        if (!token) return;
 
         const listEl = document.getElementById('oppList');
         listEl.innerHTML = '<div class="empty-state">Loading...</div>';
 
         fetch(`${API_BASE}/api/arbitrage`, {
-            headers: authToken ? { 'Authorization': 'Bearer ' + authToken } : {}
-        })
-            .then(res => {
-                if (!res.ok) {
-                    if (res.status === 403) {
-                        return res.json().then(data => {
-                            throw new Error(data.error || 'Subscription expired. Please renew.');
-                        });
-                    }
-                    throw new Error('HTTP ' + res.status);
+            headers: { 'Authorization': 'Bearer ' + token }
+        }).then(res => {
+            if (!res.ok) {
+                if (res.status === 403) {
+                    return res.json().then(data => {
+                        throw new Error(data.error || 'Subscription expired. Please renew.');
+                    });
                 }
-                return res.json();
-            })
-            .then(data => {
-                // data: { opportunities, tier, subscribed, expires, ad_unlocks_remaining, remaining_daily, ... }
-                userTier = data.tier || 'free';
-                document.getElementById('settingsUserTier').textContent = 'Tier: ' + userTier;
+                throw new Error('HTTP ' + res.status);
+            }
+            return res.json();
+        }).then(data => {
+            userTier = data.tier || 'free';
+            document.getElementById('settingsUserTier').textContent = 'Tier: ' + userTier;
 
-                // Convert backend opportunities to internal structure
-                opportunitiesData = (data.opportunities || []).map(o => ({
-                    match: o.match || 'Unknown',
-                    sport: o.sport || 'Football',
-                    type: o.type || '3-way',
-                    profitPercent: o.profit_percent || 0,
-                    profitUGX: o.profit_ugx || 0,
-                    bets: (o.bets || []).map(b => ({
-                        bookie: b.bookmaker,
-                        outcome: b.outcome,
-                        odds: b.odd || 0,
-                        stake: b.stake || 0,
-                        win: b.win || 0
-                    })),
-                    valid: true,
-                    first_seen: null,
-                    last_seen: null,
-                    history: []
-                }));
+            opportunitiesData = (data.opportunities || []).map(o => ({
+                match: o.match || 'Unknown',
+                sport: o.sport || 'Football',
+                type: o.type || '3-way',
+                profitPercent: o.profit_percent || 0,
+                profitUGX: o.profit_ugx || 0,
+                bets: (o.bets || []).map(b => ({
+                    bookie: b.bookmaker,
+                    outcome: b.outcome,
+                    odds: b.odd || 0,
+                    stake: b.stake || 0,
+                    win: b.win || 0
+                })),
+                valid: true,
+                first_seen: null,
+                last_seen: null,
+                history: []
+            }));
 
-                // Optional: handle remaining daily if needed
-                if (data.remaining_daily !== undefined && data.remaining_daily !== null) {
-                    // You can display it if you have a place
-                }
-
-                renderOpportunities();
-                renderAlerts();
-                // History may come from backend too if available; otherwise we keep static fallback
-                if (data.history) {
-                    allHistory = data.history;
-                    renderHistory();
-                } else {
-                    loadHistoryFromStatic();
-                }
-            })
-            .catch(err => {
-                console.error('API Error:', err);
-                listEl.innerHTML = `<div class="empty-state">⚠️ ${err.message}</div>`;
-            });
+            renderOpportunities();
+            renderAlerts();
+            if (data.history) {
+                allHistory = data.history;
+                renderHistory();
+            } else {
+                loadHistoryFromStatic();
+            }
+        }).catch(err => {
+            console.error('API Error:', err);
+            listEl.innerHTML = `<div class="empty-state">⚠️ ${err.message}</div>`;
+        });
     }
 
-    // Fallback history from static JSON (optional)
     function loadHistoryFromStatic() {
         fetch('arb_history.json?t=' + Date.now())
             .then(res => res.ok ? res.json() : {})
@@ -1189,12 +1191,13 @@
     }
 
     // ============================================================
-    // 7. MANUAL PAYMENT
+    // 8. MANUAL PAYMENT (Fixed to handle backend response)
     // ============================================================
     function submitManualPayment() {
         const plan = document.getElementById('manualPlanSelect').value;
         const transactionId = document.getElementById('manualTransactionId').value.trim();
         const statusDiv = document.getElementById('manualPaymentStatus');
+        const token = localStorage.getItem('sms_auth_token');
 
         if (!transactionId) {
             statusDiv.textContent = '❌ Please enter the transaction ID.';
@@ -1202,7 +1205,7 @@
             return;
         }
 
-        if (!currentUser) {
+        if (!token) {
             statusDiv.textContent = '❌ Please login first.';
             statusDiv.style.color = '#ff5252';
             return;
@@ -1218,7 +1221,7 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + authToken
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
                 plan: plan,
@@ -1228,12 +1231,13 @@
         })
             .then(res => res.json())
             .then(data => {
-                if (data.success) {
+                // FIXED: Backend returns 'status' key, not 'success'
+                if (data.status === 'pending') {
                     statusDiv.textContent = '✅ Payment submitted! We will verify the SMS.';
                     statusDiv.style.color = '#00e676';
                     document.getElementById('manualTransactionId').value = '';
                 } else {
-                    statusDiv.textContent = '❌ Error: ' + (data.message || 'Something went wrong');
+                    statusDiv.textContent = '❌ Error: ' + (data.message || data.error || 'Something went wrong');
                     statusDiv.style.color = '#ff5252';
                 }
             })
@@ -1244,13 +1248,12 @@
     }
 
     // ============================================================
-    // 8. INIT
+    // 9. INIT
     // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
         loadUserSettings();
         updateCalculator();
         renderSlip();
-        // If user already logged in, fetchUserDataFromBackend will be triggered by auth state listener
     });
 
     // Expose functions globally
@@ -1276,4 +1279,4 @@
     window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-                                </html>
+    </html>
