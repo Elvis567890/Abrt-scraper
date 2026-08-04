@@ -491,7 +491,7 @@
     };
     firebase.initializeApp(firebaseConfig);
     // SMS Payment System Integration
-    const API_BASE = 'https://sms-payment-system-1-yth6.onrender.com';
+    const API_BASE = 'https://sms-payment-system-9.onrender.com';
 
     // ============================================================
     // 2. AUTH STATE (SMS Payment System)
@@ -731,7 +731,7 @@
         const listEl = document.getElementById('oppList');
         listEl.innerHTML = '<div class="empty-state">Loading...</div>';
 
-        fetch('https://sms-payment-system-1-yth6.onrender.com/api/arbitrage', {
+        fetch(`${API_BASE}/api/arbitrage`, {
             headers: authToken ? { 'Authorization': 'Bearer ' + authToken } : {}
         })
             .then(res => {
@@ -1214,7 +1214,7 @@
         const amounts = { day: 2500, monthly: 15000, quarterly: 40000 };
         const amount = amounts[plan];
 
-        fetch('https://sms-payment-system-1-yth6.onrender.com/api/manual-payment', {
+        fetch(`${API_BASE}/api/manual-payment`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -1276,4 +1276,4 @@
     window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-    </html>
+                                </html>
