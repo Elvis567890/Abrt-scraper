@@ -238,68 +238,34 @@
     "market_specifier": ""
   },
   {
-    "match": "columbus crew vs atlas",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.71,
-    "profit_ugx": 713,
-    "total_stake": 100000,
-    "arb_sum": 0.9929,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.89,
-        "stake": 53290,
-        "win": 100718
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 4.14,
-        "stake": 24328,
-        "win": 100718
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 4.5,
-        "stake": 22382,
-        "win": 100719
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "charlotte vs pumas",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.95,
-    "profit_ugx": 1953,
+    "profit_percent": 1.79,
+    "profit_ugx": 1795,
     "total_stake": 100000,
-    "arb_sum": 0.9805,
+    "arb_sum": 0.9821,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.31,
-        "stake": 44153,
-        "win": 101993
+        "stake": 44081,
+        "win": 101827
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.75,
-        "stake": 27198,
-        "win": 101992
+        "stake": 27154,
+        "win": 101828
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.56,
-        "stake": 28650,
-        "win": 101994
+        "odd": 3.54,
+        "stake": 28765,
+        "win": 101828
       }
     ],
     "market_type": "1x2",
@@ -334,6 +300,60 @@
         "odd": 11.0,
         "stake": 9278,
         "win": 102058
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "diriangen vs alajuelense",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 9.1,
+    "profit_ugx": 9095,
+    "total_stake": 100000,
+    "arb_sum": 0.909,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 49330,
+        "win": 110006
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.171,
+        "stake": 50670,
+        "win": 110005
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "diriangen vs alajuelense",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 9.1,
+    "profit_ugx": 9095,
+    "total_stake": 100000,
+    "arb_sum": 0.909,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.23,
+        "stake": 49330,
+        "win": 110006
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.171,
+        "stake": 50670,
+        "win": 110005
       }
     ],
     "market_type": "1x2",
