@@ -1,39 +1,5 @@
 [
   {
-    "match": "sparta prague vs lyonnais",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 15.92,
-    "profit_ugx": 15921,
-    "total_stake": 100000,
-    "arb_sum": 0.8408,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.48,
-        "stake": 34177,
-        "win": 118936
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.55,
-        "stake": 33503,
-        "win": 118936
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.68,
-        "stake": 32320,
-        "win": 118938
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "royale union sg vs bodoglimt",
     "sport": "Football",
     "type": "3-way",
@@ -62,6 +28,40 @@
         "odd": 3.765,
         "stake": 26920,
         "win": 101354
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sparta prague vs lyon",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 13.59,
+    "profit_ugx": 13589,
+    "total_stake": 100000,
+    "arb_sum": 0.8641,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 3.25,
+        "stake": 35608,
+        "win": 115726
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.55,
+        "stake": 32599,
+        "win": 115726
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.64,
+        "stake": 31793,
+        "win": 115727
       }
     ],
     "market_type": "1x2",
