@@ -71,31 +71,31 @@
     "match": "ferencvaros vs gornik z",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.84,
-    "profit_ugx": 840,
+    "profit_percent": 1.55,
+    "profit_ugx": 1553,
     "total_stake": 100000,
-    "arb_sum": 0.9916,
+    "arb_sum": 0.9845,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.59,
-        "stake": 63426,
-        "win": 100847
+        "stake": 63885,
+        "win": 101577
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 5.87,
-        "stake": 17180,
-        "win": 100847
+        "stake": 17304,
+        "win": 101574
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 5.2,
-        "stake": 19394,
-        "win": 100849
+        "odd": 5.4,
+        "stake": 18811,
+        "win": 101579
       }
     ],
     "market_type": "1x2",
@@ -334,6 +334,60 @@
         "odd": 3.23,
         "stake": 33119,
         "win": 106974
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "paide linnameeskond vs rapid wien",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.87,
+    "profit_ugx": 17870,
+    "total_stake": 100000,
+    "arb_sum": 0.8213,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.92,
+        "stake": 24748,
+        "win": 121760
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.618,
+        "stake": 75252,
+        "win": 121758
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "paide linnameeskond vs rapid wien",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.87,
+    "profit_ugx": 17870,
+    "total_stake": 100000,
+    "arb_sum": 0.8213,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.92,
+        "stake": 24748,
+        "win": 121760
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.618,
+        "stake": 75252,
+        "win": 121758
       }
     ],
     "market_type": "1x2",
