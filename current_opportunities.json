@@ -1,39 +1,5 @@
 [
   {
-    "match": "aarhus vs sabah baku",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.54,
-    "profit_ugx": 541,
-    "total_stake": 100000,
-    "arb_sum": 0.9946,
-    "bets": [
-      {
-        "bookmaker": "ChampionBet",
-        "outcome": "Home",
-        "odd": 1.7,
-        "stake": 59144,
-        "win": 100545
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 5.05,
-        "stake": 19910,
-        "win": 100546
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.8,
-        "stake": 20947,
-        "win": 100546
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "brann vs apollon",
     "sport": "Football",
     "type": "3-way",
@@ -105,31 +71,31 @@
     "match": "ferencvaros vs gornik z",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.53,
-    "profit_ugx": 528,
+    "profit_percent": 0.62,
+    "profit_ugx": 619,
     "total_stake": 100000,
-    "arb_sum": 0.9947,
+    "arb_sum": 0.9938,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.728,
-        "stake": 58177,
-        "win": 100530
+        "odd": 1.729,
+        "stake": 58197,
+        "win": 100623
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 4.92,
-        "stake": 20433,
-        "win": 100530
+        "odd": 4.88,
+        "stake": 20619,
+        "win": 100621
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 4.7,
-        "stake": 21389,
-        "win": 100528
+        "odd": 4.75,
+        "stake": 21184,
+        "win": 100624
       }
     ],
     "market_type": "1x2",
@@ -272,27 +238,54 @@
     "market_specifier": ""
   },
   {
-    "match": "team k league vs manchester",
+    "match": "milan vs internazionale milano",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 40.7,
-    "profit_ugx": 40700,
+    "profit_percent": 1.04,
+    "profit_ugx": 1042,
     "total_stake": 100000,
-    "arb_sum": 0.593,
+    "arb_sum": 0.9896,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 3.2,
-        "stake": 52698,
-        "win": 168634
+        "odd": 1.63,
+        "stake": 61996,
+        "win": 101053
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 3.565,
-        "stake": 47302,
-        "win": 168632
+        "odd": 2.659,
+        "stake": 38004,
+        "win": 101053
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "milan vs internazionale milano",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.04,
+    "profit_ugx": 1042,
+    "total_stake": 100000,
+    "arb_sum": 0.9896,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.63,
+        "stake": 61996,
+        "win": 101053
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.659,
+        "stake": 38004,
+        "win": 101053
       }
     ],
     "market_type": "1x2",
@@ -302,24 +295,51 @@
     "match": "team k league vs manchester",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 40.7,
-    "profit_ugx": 40700,
+    "profit_percent": 41.68,
+    "profit_ugx": 41679,
     "total_stake": 100000,
-    "arb_sum": 0.593,
+    "arb_sum": 0.5832,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.38,
+        "stake": 50729,
+        "win": 171464
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.48,
+        "stake": 49271,
+        "win": 171463
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "team k league vs manchester",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 41.68,
+    "profit_ugx": 41679,
+    "total_stake": 100000,
+    "arb_sum": 0.5832,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 3.2,
-        "stake": 52698,
-        "win": 168634
+        "odd": 3.38,
+        "stake": 50729,
+        "win": 171464
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 3.565,
-        "stake": 47302,
-        "win": 168632
+        "odd": 3.48,
+        "stake": 49271,
+        "win": 171463
       }
     ],
     "market_type": "1x2",
