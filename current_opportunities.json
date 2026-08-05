@@ -34,6 +34,40 @@
     "market_specifier": ""
   },
   {
+    "match": "brann vs apollon",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.59,
+    "profit_ugx": 591,
+    "total_stake": 100000,
+    "arb_sum": 0.9941,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.617,
+        "stake": 62211,
+        "win": 100595
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.4,
+        "stake": 18629,
+        "win": 100597
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.25,
+        "stake": 19161,
+        "win": 100595
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fenerbahce vs sturm graz",
     "sport": "Football",
     "type": "3-way",
@@ -105,31 +139,31 @@
     "match": "remo vs santos",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.02,
-    "profit_ugx": 3015,
+    "profit_percent": 0.92,
+    "profit_ugx": 916,
     "total_stake": 100000,
-    "arb_sum": 0.9698,
+    "arb_sum": 0.9908,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.105,
-        "stake": 33207,
-        "win": 103108
+        "odd": 2.915,
+        "stake": 34623,
+        "win": 100926
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.1,
-        "stake": 33261,
-        "win": 103109
+        "stake": 32556,
+        "win": 100924
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.075,
-        "stake": 33531,
-        "win": 103108
+        "stake": 32821,
+        "win": 100925
       }
     ],
     "market_type": "1x2",
