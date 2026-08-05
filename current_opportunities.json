@@ -168,5 +168,59 @@
     ],
     "market_type": "1x2",
     "market_specifier": ""
+  },
+  {
+    "match": "team k league vs manchester",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 41.03,
+    "profit_ugx": 41029,
+    "total_stake": 100000,
+    "arb_sum": 0.5897,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.45,
+        "stake": 49153,
+        "win": 169578
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.335,
+        "stake": 50847,
+        "win": 169575
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "team k league vs manchester",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 41.03,
+    "profit_ugx": 41029,
+    "total_stake": 100000,
+    "arb_sum": 0.5897,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.45,
+        "stake": 49153,
+        "win": 169578
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.335,
+        "stake": 50847,
+        "win": 169575
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   }
 ]
