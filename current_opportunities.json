@@ -482,6 +482,40 @@
     "market_specifier": ""
   },
   {
+    "match": "lech poznan vs klaksvik",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.79,
+    "profit_ugx": 793,
+    "total_stake": 100000,
+    "arb_sum": 0.9921,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.171,
+        "stake": 86080,
+        "win": 100800
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 15.0,
+        "stake": 6720,
+        "win": 100800
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 14.0,
+        "stake": 7200,
+        "win": 100800
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "lincoln red imps vs omonia",
     "sport": "Football",
     "type": "Double Chance 1X",
