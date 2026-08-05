@@ -3,31 +3,31 @@
     "match": "aarhus vs sabah baku",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.79,
-    "profit_ugx": 794,
+    "profit_percent": 0.53,
+    "profit_ugx": 529,
     "total_stake": 100000,
-    "arb_sum": 0.9921,
+    "arb_sum": 0.9947,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.69,
-        "stake": 59645,
-        "win": 100800
+        "odd": 1.709,
+        "stake": 58825,
+        "win": 100532
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 5.22,
-        "stake": 19311,
-        "win": 100803
+        "odd": 4.98,
+        "stake": 20187,
+        "win": 100531
       },
       {
         "bookmaker": "ChampionBet",
         "outcome": "Away",
         "odd": 4.79,
-        "stake": 21044,
-        "win": 100801
+        "stake": 20988,
+        "win": 100533
       }
     ],
     "market_type": "1x2",
@@ -139,31 +139,31 @@
     "match": "stade briochin vs stade brest",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 47.69,
-    "profit_ugx": 47686,
+    "profit_percent": 45.88,
+    "profit_ugx": 45875,
     "total_stake": 100000,
-    "arb_sum": 0.5231,
+    "arb_sum": 0.5412,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 8.45,
-        "stake": 22622,
-        "win": 191156
+        "odd": 7.8,
+        "stake": 23687,
+        "win": 184759
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.8,
-        "stake": 39824,
-        "win": 191155
+        "stake": 38491,
+        "win": 184757
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 5.09,
-        "stake": 37555,
-        "win": 191155
+        "odd": 4.885,
+        "stake": 37822,
+        "win": 184760
       }
     ],
     "market_type": "1x2",
@@ -232,6 +232,168 @@
         "odd": 3.185,
         "stake": 31710,
         "win": 100996
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "team k league vs manchester",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 40.06,
+    "profit_ugx": 40059,
+    "total_stake": 100000,
+    "arb_sum": 0.5994,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.015,
+        "stake": 55333,
+        "win": 166829
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.735,
+        "stake": 44667,
+        "win": 166831
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "team k league vs manchester",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 40.06,
+    "profit_ugx": 40059,
+    "total_stake": 100000,
+    "arb_sum": 0.5994,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.015,
+        "stake": 55333,
+        "win": 166829
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.735,
+        "stake": 44667,
+        "win": 166831
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ossese vs sef sassari torres 1903",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.91,
+    "profit_ugx": 21907,
+    "total_stake": 100000,
+    "arb_sum": 0.7809,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.16,
+        "stake": 30782,
+        "win": 128053
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.85,
+        "stake": 69218,
+        "win": 128053
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ossese vs sef sassari torres 1903",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.91,
+    "profit_ugx": 21907,
+    "total_stake": 100000,
+    "arb_sum": 0.7809,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.16,
+        "stake": 30782,
+        "win": 128053
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.85,
+        "stake": 69218,
+        "win": 128053
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "stade briochin vs stade brestois 29",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.1,
+    "profit_ugx": 15103,
+    "total_stake": 100000,
+    "arb_sum": 0.849,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.961,
+        "stake": 39780,
+        "win": 117789
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.956,
+        "stake": 60220,
+        "win": 117790
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "stade briochin vs stade brestois 29",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 15.1,
+    "profit_ugx": 15103,
+    "total_stake": 100000,
+    "arb_sum": 0.849,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.961,
+        "stake": 39780,
+        "win": 117789
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.956,
+        "stake": 60220,
+        "win": 117790
       }
     ],
     "market_type": "1x2",
