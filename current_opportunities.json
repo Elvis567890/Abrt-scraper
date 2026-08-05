@@ -1,5 +1,39 @@
 [
   {
+    "match": "aarhus vs sabah baku",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.5,
+    "profit_ugx": 502,
+    "total_stake": 100000,
+    "arb_sum": 0.995,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Home",
+        "odd": 1.69,
+        "stake": 59470,
+        "win": 100504
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.13,
+        "stake": 19592,
+        "win": 100507
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.8,
+        "stake": 20938,
+        "win": 100502
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fenerbahce vs sturm graz",
     "sport": "Football",
     "type": "3-way",
@@ -173,24 +207,24 @@
     "match": "team k league vs manchester",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 41.23,
-    "profit_ugx": 41226,
+    "profit_percent": 42.19,
+    "profit_ugx": 42188,
     "total_stake": 100000,
-    "arb_sum": 0.5877,
+    "arb_sum": 0.5781,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 3.125,
-        "stake": 54446,
-        "win": 170144
+        "odd": 3.36,
+        "stake": 51480,
+        "win": 172973
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 3.735,
-        "stake": 45554,
-        "win": 170144
+        "odd": 3.565,
+        "stake": 48520,
+        "win": 172974
       }
     ],
     "market_type": "1x2",
@@ -200,24 +234,24 @@
     "match": "team k league vs manchester",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 41.23,
-    "profit_ugx": 41226,
+    "profit_percent": 42.19,
+    "profit_ugx": 42188,
     "total_stake": 100000,
-    "arb_sum": 0.5877,
+    "arb_sum": 0.5781,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 3.125,
-        "stake": 54446,
-        "win": 170144
+        "odd": 3.36,
+        "stake": 51480,
+        "win": 172973
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 3.735,
-        "stake": 45554,
-        "win": 170144
+        "odd": 3.565,
+        "stake": 48520,
+        "win": 172974
       }
     ],
     "market_type": "1x2",
