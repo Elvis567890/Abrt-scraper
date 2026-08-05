@@ -346,6 +346,40 @@
     "market_specifier": ""
   },
   {
+    "match": "lech poznan vs klaksvik",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.67,
+    "profit_ugx": 675,
+    "total_stake": 100000,
+    "arb_sum": 0.9933,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.16,
+        "stake": 86793,
+        "win": 100680
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 15.5,
+        "stake": 6495,
+        "win": 100672
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Away",
+        "odd": 15.0,
+        "stake": 6712,
+        "win": 100680
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "monterrey vs orlando",
     "sport": "Football",
     "type": "3-way",
@@ -476,40 +510,6 @@
         "odd": 3.47,
         "stake": 32751,
         "win": 113646
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "lech poznan vs klaksvik",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.79,
-    "profit_ugx": 793,
-    "total_stake": 100000,
-    "arb_sum": 0.9921,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 1.171,
-        "stake": 86080,
-        "win": 100800
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 15.0,
-        "stake": 6720,
-        "win": 100800
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 14.0,
-        "stake": 7200,
-        "win": 100800
       }
     ],
     "market_type": "1x2",
