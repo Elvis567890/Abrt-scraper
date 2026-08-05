@@ -1,33 +1,67 @@
 [
   {
-    "match": "fenerbahce vs sturm graz",
+    "match": "brann vs apollon",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.85,
-    "profit_ugx": 849,
+    "profit_percent": 2.41,
+    "profit_ugx": 2415,
     "total_stake": 100000,
-    "arb_sum": 0.9915,
+    "arb_sum": 0.9759,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.312,
-        "stake": 76872,
-        "win": 100856
+        "odd": 1.7,
+        "stake": 60279,
+        "win": 102474
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 8.55,
-        "stake": 11796,
-        "win": 100856
+        "odd": 5.33,
+        "stake": 19226,
+        "win": 102475
       },
       {
-        "bookmaker": "ChampionBet",
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 8.9,
-        "stake": 11332,
-        "win": 100855
+        "odd": 5.0,
+        "stake": 20495,
+        "win": 102475
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "fenerbahce vs sturm graz",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.65,
+    "profit_ugx": 647,
+    "total_stake": 100000,
+    "arb_sum": 0.9935,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.325,
+        "stake": 75964,
+        "win": 100652
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 8.35,
+        "stake": 12054,
+        "win": 100651
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 8.4,
+        "stake": 11982,
+        "win": 100649
       }
     ],
     "market_type": "1x2",
