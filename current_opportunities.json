@@ -1,5 +1,39 @@
 [
   {
+    "match": "aarhus vs sabah baku",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.58,
+    "profit_ugx": 575,
+    "total_stake": 100000,
+    "arb_sum": 0.9942,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.72,
+        "stake": 58476,
+        "win": 100579
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.9,
+        "stake": 20526,
+        "win": 100577
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Away",
+        "odd": 4.79,
+        "stake": 20998,
+        "win": 100580
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fenerbahce vs sturm graz",
     "sport": "Football",
     "type": "3-way",
@@ -71,31 +105,31 @@
     "match": "stade briochin vs stade brest",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 48.78,
-    "profit_ugx": 48782,
+    "profit_percent": 48.28,
+    "profit_ugx": 48276,
     "total_stake": 100000,
-    "arb_sum": 0.5122,
+    "arb_sum": 0.5172,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 9.15,
-        "stake": 21338,
-        "win": 195243
+        "odd": 9.05,
+        "stake": 21363,
+        "win": 193335
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.8,
-        "stake": 40676,
-        "win": 195245
+        "stake": 40278,
+        "win": 193334
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 5.14,
-        "stake": 37986,
-        "win": 195248
+        "odd": 5.04,
+        "stake": 38360,
+        "win": 193334
       }
     ],
     "market_type": "1x2",
