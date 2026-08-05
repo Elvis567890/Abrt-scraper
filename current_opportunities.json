@@ -1,5 +1,39 @@
 [
   {
+    "match": "aarhus vs sabah baku",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.9,
+    "profit_ugx": 898,
+    "total_stake": 100000,
+    "arb_sum": 0.991,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.769,
+        "stake": 57042,
+        "win": 100907
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.6,
+        "stake": 21936,
+        "win": 100906
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.8,
+        "stake": 21022,
+        "win": 100906
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fenerbahce vs sturm graz",
     "sport": "Football",
     "type": "3-way",
