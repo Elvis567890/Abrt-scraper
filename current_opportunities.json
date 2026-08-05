@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "hjk vs motherwell",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.45,
+    "profit_ugx": 2451,
+    "total_stake": 100000,
+    "arb_sum": 0.9755,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.485,
+        "stake": 41253,
+        "win": 102514
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 29289,
+        "win": 102512
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.48,
+        "stake": 29458,
+        "win": 102514
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "monterrey vs orlando",
     "sport": "Football",
     "type": "3-way",
@@ -164,40 +198,6 @@
         "odd": 3.48,
         "stake": 31345,
         "win": 109081
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "hjk vs motherwell",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.45,
-    "profit_ugx": 2451,
-    "total_stake": 100000,
-    "arb_sum": 0.9755,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.485,
-        "stake": 41253,
-        "win": 102514
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 29289,
-        "win": 102512
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.48,
-        "stake": 29458,
-        "win": 102514
       }
     ],
     "market_type": "1x2",
