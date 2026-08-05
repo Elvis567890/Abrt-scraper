@@ -754,6 +754,40 @@
     "market_specifier": ""
   },
   {
+    "match": "monterrey vs orlando",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 11.88,
+    "profit_ugx": 11883,
+    "total_stake": 100000,
+    "arb_sum": 0.8812,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.725,
+        "stake": 41646,
+        "win": 113485
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.85,
+        "stake": 29477,
+        "win": 113486
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.93,
+        "stake": 28877,
+        "win": 113487
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "toluca vs seattle sounders",
     "sport": "Football",
     "type": "3-way",
@@ -816,40 +850,6 @@
         "odd": 3.5,
         "stake": 30962,
         "win": 108367
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "monterrey vs orlando",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 13.17,
-    "profit_ugx": 13166,
-    "total_stake": 100000,
-    "arb_sum": 0.8683,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.725,
-        "stake": 42261,
-        "win": 115161
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 4.05,
-        "stake": 28435,
-        "win": 115162
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.93,
-        "stake": 29303,
-        "win": 115161
       }
     ],
     "market_type": "1x2",
