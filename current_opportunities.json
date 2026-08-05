@@ -482,40 +482,6 @@
     "market_specifier": ""
   },
   {
-    "match": "jablonec vs rigas fs",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.22,
-    "profit_ugx": 1220,
-    "total_stake": 100000,
-    "arb_sum": 0.9878,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.63,
-        "stake": 62108,
-        "win": 101236
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.44,
-        "stake": 18609,
-        "win": 101233
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 5.25,
-        "stake": 19283,
-        "win": 101236
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "zalgiris vs hajduk split",
     "sport": "Football",
     "type": "3-way",
@@ -544,6 +510,40 @@
         "odd": 3.635,
         "stake": 32330,
         "win": 117520
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "jablonec vs rigas fs",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.22,
+    "profit_ugx": 1220,
+    "total_stake": 100000,
+    "arb_sum": 0.9878,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.63,
+        "stake": 62108,
+        "win": 101236
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.44,
+        "stake": 18609,
+        "win": 101233
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.25,
+        "stake": 19283,
+        "win": 101236
       }
     ],
     "market_type": "1x2",
