@@ -3,31 +3,31 @@
     "match": "aarhus vs sabah baku",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.5,
-    "profit_ugx": 502,
+    "profit_percent": 0.56,
+    "profit_ugx": 563,
     "total_stake": 100000,
-    "arb_sum": 0.995,
+    "arb_sum": 0.9944,
     "bets": [
       {
-        "bookmaker": "ChampionBet",
+        "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.69,
-        "stake": 59470,
-        "win": 100504
+        "odd": 1.731,
+        "stake": 58097,
+        "win": 100566
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 5.13,
-        "stake": 19592,
-        "win": 100507
+        "odd": 4.8,
+        "stake": 20951,
+        "win": 100565
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.8,
-        "stake": 20938,
-        "win": 100502
+        "stake": 20951,
+        "win": 100565
       }
     ],
     "market_type": "1x2",
@@ -170,34 +170,68 @@
     "market_specifier": ""
   },
   {
+    "match": "cd badajoz vs cd coria",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.94,
+    "profit_ugx": 937,
+    "total_stake": 100000,
+    "arb_sum": 0.9906,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.68,
+        "stake": 37666,
+        "win": 100945
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.3,
+        "stake": 30590,
+        "win": 100947
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.18,
+        "stake": 31744,
+        "win": 100946
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "boca juniors vs estudiantes lp",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.89,
-    "profit_ugx": 2892,
+    "profit_percent": 3.0,
+    "profit_ugx": 2995,
     "total_stake": 100000,
-    "arb_sum": 0.9711,
+    "arb_sum": 0.97,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.14,
-        "stake": 48121,
-        "win": 102979
+        "odd": 2.139,
+        "stake": 48194,
+        "win": 103087
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 3.99,
-        "stake": 25809,
-        "win": 102978
+        "odd": 4.01,
+        "stake": 25708,
+        "win": 103089
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 3.95,
-        "stake": 26070,
-        "win": 102976
+        "stake": 26098,
+        "win": 103087
       }
     ],
     "market_type": "1x2",
