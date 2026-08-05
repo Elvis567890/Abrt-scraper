@@ -139,31 +139,31 @@
     "match": "villarreal vs levante",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.79,
-    "profit_ugx": 2794,
+    "profit_percent": 2.5,
+    "profit_ugx": 2500,
     "total_stake": 100000,
-    "arb_sum": 0.9721,
+    "arb_sum": 0.975,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.85,
-        "stake": 55608,
-        "win": 102875
+        "odd": 1.84,
+        "stake": 55741,
+        "win": 102563
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 4.525,
-        "stake": 22735,
-        "win": 102876
+        "stake": 22666,
+        "win": 102564
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.75,
-        "stake": 21658,
-        "win": 102876
+        "stake": 21592,
+        "win": 102562
       }
     ],
     "market_type": "1x2",
@@ -218,6 +218,60 @@
         "odd": 3.415,
         "stake": 50037,
         "win": 170876
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ossese vs sef sassari torres 1903",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 20.25,
+    "profit_ugx": 20250,
+    "total_stake": 100000,
+    "arb_sum": 0.7975,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.68,
+        "stake": 34074,
+        "win": 125392
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.902,
+        "stake": 65926,
+        "win": 125391
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ossese vs sef sassari torres 1903",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 20.25,
+    "profit_ugx": 20250,
+    "total_stake": 100000,
+    "arb_sum": 0.7975,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.68,
+        "stake": 34074,
+        "win": 125392
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.902,
+        "stake": 65926,
+        "win": 125391
       }
     ],
     "market_type": "1x2",
