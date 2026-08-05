@@ -1,33 +1,67 @@
 [
   {
+    "match": "aarhus vs sabah baku",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.5,
+    "profit_ugx": 502,
+    "total_stake": 100000,
+    "arb_sum": 0.995,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Home",
+        "odd": 1.69,
+        "stake": 59470,
+        "win": 100504
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.13,
+        "stake": 19592,
+        "win": 100507
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.8,
+        "stake": 20938,
+        "win": 100502
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fenerbahce vs sturm graz",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.39,
-    "profit_ugx": 1395,
+    "profit_percent": 1.47,
+    "profit_ugx": 1472,
     "total_stake": 100000,
-    "arb_sum": 0.9861,
+    "arb_sum": 0.9853,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.428,
-        "stake": 71019,
-        "win": 101415
+        "odd": 1.418,
+        "stake": 71575,
+        "win": 101493
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 7.1,
-        "stake": 14284,
-        "win": 101416
+        "odd": 7.4,
+        "stake": 13715,
+        "win": 101491
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 6.9,
-        "stake": 14698,
-        "win": 101416
+        "stake": 14709,
+        "win": 101492
       }
     ],
     "market_type": "1x2",
@@ -173,24 +207,24 @@
     "match": "team k league vs manchester",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 41.55,
-    "profit_ugx": 41547,
+    "profit_percent": 40.89,
+    "profit_ugx": 40894,
     "total_stake": 100000,
-    "arb_sum": 0.5845,
+    "arb_sum": 0.5911,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
         "odd": 3.22,
-        "stake": 53130,
-        "win": 171079
+        "stake": 52542,
+        "win": 169185
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
-        "odd": 3.65,
-        "stake": 46870,
-        "win": 171076
+        "odd": 3.565,
+        "stake": 47458,
+        "win": 169188
       }
     ],
     "market_type": "1x2",
@@ -200,24 +234,24 @@
     "match": "team k league vs manchester",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 41.55,
-    "profit_ugx": 41547,
+    "profit_percent": 40.89,
+    "profit_ugx": 40894,
     "total_stake": 100000,
-    "arb_sum": 0.5845,
+    "arb_sum": 0.5911,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
         "odd": 3.22,
-        "stake": 53130,
-        "win": 171079
+        "stake": 52542,
+        "win": 169185
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
-        "odd": 3.65,
-        "stake": 46870,
-        "win": 171076
+        "odd": 3.565,
+        "stake": 47458,
+        "win": 169188
       }
     ],
     "market_type": "1x2",
