@@ -200,6 +200,33 @@
     "match": "lincoln red imps vs omonia",
     "sport": "Football",
     "type": "Asian Handicap -0.5",
+    "profit_percent": 16.56,
+    "profit_ugx": 16559,
+    "total_stake": 100000,
+    "arb_sum": 0.8344,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.36,
+        "stake": 50782,
+        "win": 119846
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.435,
+        "stake": 49218,
+        "win": 119846
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lincoln red imps vs omonia",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
     "profit_percent": 17.03,
     "profit_ugx": 17026,
     "total_stake": 100000,
@@ -218,6 +245,33 @@
         "odd": 2.463,
         "stake": 48932,
         "win": 120520
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lincoln red imps vs omonia",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 16.56,
+    "profit_ugx": 16559,
+    "total_stake": 100000,
+    "arb_sum": 0.8344,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 2.36,
+        "stake": 50782,
+        "win": 119846
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 2.435,
+        "stake": 49218,
+        "win": 119846
       }
     ],
     "market_type": "1x2",
@@ -669,31 +723,31 @@
     "match": "tigre vs belgrano",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.8,
-    "profit_ugx": 4800,
+    "profit_percent": 4.6,
+    "profit_ugx": 4599,
     "total_stake": 100000,
-    "arb_sum": 0.952,
+    "arb_sum": 0.954,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.52,
-        "stake": 41684,
-        "win": 105044
+        "odd": 2.47,
+        "stake": 42438,
+        "win": 104822
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 3.605,
-        "stake": 29138,
-        "win": 105042
+        "odd": 3.685,
+        "stake": 28445,
+        "win": 104820
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 3.6,
-        "stake": 29178,
-        "win": 105041
+        "stake": 29117,
+        "win": 104821
       }
     ],
     "market_type": "1x2",
@@ -737,31 +791,31 @@
     "match": "toluca vs seattle sounders",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.87,
-    "profit_ugx": 1867,
+    "profit_percent": 2.01,
+    "profit_ugx": 2005,
     "total_stake": 100000,
-    "arb_sum": 0.9813,
+    "arb_sum": 0.9799,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.33,
-        "stake": 76618,
-        "win": 101902
+        "stake": 76726,
+        "win": 102046
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 8.45,
-        "stake": 12059,
-        "win": 101899
+        "odd": 8.55,
+        "stake": 11935,
+        "win": 102044
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 9.0,
-        "stake": 11322,
-        "win": 101898
+        "stake": 11338,
+        "win": 102042
       }
     ],
     "market_type": "1x2",
@@ -796,6 +850,168 @@
         "odd": 3.5,
         "stake": 30962,
         "win": 108367
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lincoln red imps vs omonia",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.73,
+    "profit_ugx": 8731,
+    "total_stake": 100000,
+    "arb_sum": 0.9127,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.475,
+        "stake": 44269,
+        "win": 109566
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.966,
+        "stake": 55731,
+        "win": 109567
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "lincoln red imps vs omonia",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.73,
+    "profit_ugx": 8731,
+    "total_stake": 100000,
+    "arb_sum": 0.9127,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.475,
+        "stake": 44269,
+        "win": 109566
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.966,
+        "stake": 55731,
+        "win": 109567
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "paide linnameeskond vs rapid wien",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.17,
+    "profit_ugx": 18167,
+    "total_stake": 100000,
+    "arb_sum": 0.8183,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.9,
+        "stake": 24939,
+        "win": 122201
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.628,
+        "stake": 75061,
+        "win": 122199
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "paide linnameeskond vs rapid wien",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 18.17,
+    "profit_ugx": 18167,
+    "total_stake": 100000,
+    "arb_sum": 0.8183,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.9,
+        "stake": 24939,
+        "win": 122201
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.628,
+        "stake": 75061,
+        "win": 122199
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "debreceni vsc vs copenhagen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.47,
+    "profit_ugx": 2470,
+    "total_stake": 100000,
+    "arb_sum": 0.9753,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.13,
+        "stake": 48137,
+        "win": 102532
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.977,
+        "stake": 51863,
+        "win": 102533
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "debreceni vsc vs copenhagen",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.47,
+    "profit_ugx": 2470,
+    "total_stake": 100000,
+    "arb_sum": 0.9753,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.13,
+        "stake": 48137,
+        "win": 102532
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.977,
+        "stake": 51863,
+        "win": 102533
       }
     ],
     "market_type": "1x2",
