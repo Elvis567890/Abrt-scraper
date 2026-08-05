@@ -3,31 +3,31 @@
     "match": "fenerbahce vs sturm graz",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.77,
-    "profit_ugx": 773,
+    "profit_percent": 0.65,
+    "profit_ugx": 647,
     "total_stake": 100000,
-    "arb_sum": 0.9923,
+    "arb_sum": 0.9935,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.312,
-        "stake": 76813,
-        "win": 100779
+        "odd": 1.325,
+        "stake": 75964,
+        "win": 100652
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 8.45,
-        "stake": 11927,
-        "win": 100783
+        "odd": 8.35,
+        "stake": 12054,
+        "win": 100651
       },
       {
-        "bookmaker": "ChampionBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 8.95,
-        "stake": 11260,
-        "win": 100777
+        "odd": 8.4,
+        "stake": 11982,
+        "win": 100649
       }
     ],
     "market_type": "1x2",
@@ -37,31 +37,31 @@
     "match": "ferencvaros vs gornik z",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.33,
-    "profit_ugx": 1327,
+    "profit_percent": 1.14,
+    "profit_ugx": 1144,
     "total_stake": 100000,
-    "arb_sum": 0.9867,
+    "arb_sum": 0.9886,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.61,
-        "stake": 62947,
-        "win": 101345
+        "stake": 62831,
+        "win": 101158
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 5.71,
-        "stake": 17749,
-        "win": 101347
+        "stake": 17716,
+        "win": 101158
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 5.25,
-        "stake": 19304,
-        "win": 101346
+        "odd": 5.2,
+        "stake": 19453,
+        "win": 101156
       }
     ],
     "market_type": "1x2",
@@ -232,6 +232,60 @@
         "odd": 3.23,
         "stake": 33119,
         "win": 106974
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "paide linnameeskond vs rapid wien",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.87,
+    "profit_ugx": 17870,
+    "total_stake": 100000,
+    "arb_sum": 0.8213,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.92,
+        "stake": 24748,
+        "win": 121760
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.618,
+        "stake": 75252,
+        "win": 121758
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "paide linnameeskond vs rapid wien",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.87,
+    "profit_ugx": 17870,
+    "total_stake": 100000,
+    "arb_sum": 0.8213,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.92,
+        "stake": 24748,
+        "win": 121760
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.618,
+        "stake": 75252,
+        "win": 121758
       }
     ],
     "market_type": "1x2",
