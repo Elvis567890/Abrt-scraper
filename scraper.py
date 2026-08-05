@@ -964,7 +964,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///use
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
 app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
-CORS(app)
+# SINGLE LINE FIX APPLIED BELOW:
+CORS(app, origins=["https://abrt-scraper-5.onrender.com"], supports_credentials=True)
 
 # Initialize Firebase Admin
 firebase_cred_json = os.getenv('FIREBASE_SERVICE_ACCOUNT')
