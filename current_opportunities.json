@@ -3,31 +3,31 @@
     "match": "aarhus vs sabah baku",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.63,
-    "profit_ugx": 633,
+    "profit_percent": 0.57,
+    "profit_ugx": 567,
     "total_stake": 100000,
-    "arb_sum": 0.9937,
+    "arb_sum": 0.9943,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.65,
-        "stake": 60992,
-        "win": 100637
+        "odd": 1.64,
+        "stake": 61323,
+        "win": 100570
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 5.4,
-        "stake": 18636,
-        "win": 100634
+        "odd": 5.49,
+        "stake": 18319,
+        "win": 100571
       },
       {
         "bookmaker": "ChampionBet",
         "outcome": "Away",
         "odd": 4.94,
-        "stake": 20372,
-        "win": 100638
+        "stake": 20358,
+        "win": 100569
       }
     ],
     "market_type": "1x2",
@@ -139,31 +139,31 @@
     "match": "villarreal vs levante",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.84,
-    "profit_ugx": 2838,
+    "profit_percent": 2.55,
+    "profit_ugx": 2547,
     "total_stake": 100000,
-    "arb_sum": 0.9716,
+    "arb_sum": 0.9745,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.86,
-        "stake": 55334,
-        "win": 102921
+        "odd": 1.85,
+        "stake": 55467,
+        "win": 102614
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 4.475,
-        "stake": 22999,
-        "win": 102921
+        "stake": 22930,
+        "win": 102612
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 4.75,
-        "stake": 21667,
-        "win": 102918
+        "stake": 21603,
+        "win": 102614
       }
     ],
     "market_type": "1x2",
@@ -173,31 +173,31 @@
     "match": "nk brinje grosuplje vs prijedor",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.47,
-    "profit_ugx": 2466,
+    "profit_percent": 2.62,
+    "profit_ugx": 2623,
     "total_stake": 100000,
-    "arb_sum": 0.9753,
+    "arb_sum": 0.9738,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 2.25,
-        "stake": 45568,
-        "win": 102528
+        "stake": 45641,
+        "win": 102692
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.0,
-        "stake": 25632,
-        "win": 102528
+        "stake": 25673,
+        "win": 102692
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.56,
-        "stake": 28800,
-        "win": 102528
+        "odd": 3.58,
+        "stake": 28685,
+        "win": 102692
       }
     ],
     "market_type": "1x2",
@@ -232,6 +232,114 @@
         "odd": 8.0,
         "stake": 12649,
         "win": 101192
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "team k league vs manchester",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 39.89,
+    "profit_ugx": 39895,
+    "total_stake": 100000,
+    "arb_sum": 0.6011,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.32,
+        "stake": 50113,
+        "win": 166375
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.335,
+        "stake": 49887,
+        "win": 166373
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "team k league vs manchester",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 39.89,
+    "profit_ugx": 39895,
+    "total_stake": 100000,
+    "arb_sum": 0.6011,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.32,
+        "stake": 50113,
+        "win": 166375
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.335,
+        "stake": 49887,
+        "win": 166373
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ossese vs sef sassari torres 1903",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.17,
+    "profit_ugx": 21172,
+    "total_stake": 100000,
+    "arb_sum": 0.7883,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 3.85,
+        "stake": 32950,
+        "win": 126858
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.892,
+        "stake": 67050,
+        "win": 126859
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ossese vs sef sassari torres 1903",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 21.17,
+    "profit_ugx": 21172,
+    "total_stake": 100000,
+    "arb_sum": 0.7883,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 3.85,
+        "stake": 32950,
+        "win": 126858
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.892,
+        "stake": 67050,
+        "win": 126859
       }
     ],
     "market_type": "1x2",
