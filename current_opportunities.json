@@ -380,6 +380,40 @@
     "market_specifier": ""
   },
   {
+    "match": "goteborg vs gent",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 9.21,
+    "profit_ugx": 9207,
+    "total_stake": 100000,
+    "arb_sum": 0.9079,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.3,
+        "stake": 33376,
+        "win": 110141
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Draw",
+        "odd": 3.2,
+        "stake": 34419,
+        "win": 110141
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.42,
+        "stake": 32205,
+        "win": 110141
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "monterrey vs orlando",
     "sport": "Football",
     "type": "3-way",
@@ -442,40 +476,6 @@
         "odd": 3.48,
         "stake": 31208,
         "win": 108604
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "ifk goteborg vs gent",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 12.01,
-    "profit_ugx": 12008,
-    "total_stake": 100000,
-    "arb_sum": 0.8799,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 3.36,
-        "stake": 33823,
-        "win": 113645
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 33425,
-        "win": 113645
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.47,
-        "stake": 32751,
-        "win": 113646
       }
     ],
     "market_type": "1x2",
