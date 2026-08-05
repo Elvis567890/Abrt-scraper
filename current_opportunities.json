@@ -1,5 +1,39 @@
 [
   {
+    "match": "aarhus vs sabah baku",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.56,
+    "profit_ugx": 564,
+    "total_stake": 100000,
+    "arb_sum": 0.9944,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.771,
+        "stake": 56786,
+        "win": 100568
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.6,
+        "stake": 21862,
+        "win": 100565
+      },
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Away",
+        "odd": 4.71,
+        "stake": 21352,
+        "win": 100568
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "fenerbahce vs sturm graz",
     "sport": "Football",
     "type": "3-way",
@@ -139,31 +173,31 @@
     "match": "tigre vs belgrano",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.59,
-    "profit_ugx": 4586,
+    "profit_percent": 4.44,
+    "profit_ugx": 4438,
     "total_stake": 100000,
-    "arb_sum": 0.9541,
+    "arb_sum": 0.9556,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.608,
-        "stake": 40186,
-        "win": 104805
+        "odd": 2.598,
+        "stake": 40279,
+        "win": 104645
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 3.46,
-        "stake": 30291,
-        "win": 104807
+        "stake": 30244,
+        "win": 104644
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 3.55,
-        "stake": 29523,
-        "win": 104807
+        "stake": 29477,
+        "win": 104643
       }
     ],
     "market_type": "1x2",
