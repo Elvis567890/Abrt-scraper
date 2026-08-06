@@ -448,6 +448,40 @@
     "market_specifier": ""
   },
   {
+    "match": "paok vs anderlecht",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.55,
+    "profit_ugx": 549,
+    "total_stake": 100000,
+    "arb_sum": 0.9945,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.696,
+        "stake": 59288,
+        "win": 100552
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.98,
+        "stake": 20191,
+        "win": 100551
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.9,
+        "stake": 20521,
+        "win": 100553
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "borac banja luka vs ml vitebsk",
     "sport": "Football",
     "type": "3-way",
@@ -729,24 +763,24 @@
     "match": "debreceni vsc vs copenhagen",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 5.12,
-    "profit_ugx": 5121,
+    "profit_percent": 5.51,
+    "profit_ugx": 5505,
     "total_stake": 100000,
-    "arb_sum": 0.9488,
+    "arb_sum": 0.9449,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "1X",
-        "odd": 2.272,
-        "stake": 46390,
-        "win": 105398
+        "odd": 2.292,
+        "stake": 46172,
+        "win": 105826
       },
       {
         "bookmaker": "22Bet",
         "outcome": "X2",
         "odd": 1.966,
-        "stake": 53610,
-        "win": 105397
+        "stake": 53828,
+        "win": 105826
       }
     ],
     "market_type": "1x2",
@@ -756,24 +790,24 @@
     "match": "debreceni vsc vs copenhagen",
     "sport": "Football",
     "type": "Double Chance 1X",
-    "profit_percent": 5.12,
-    "profit_ugx": 5121,
+    "profit_percent": 5.51,
+    "profit_ugx": 5505,
     "total_stake": 100000,
-    "arb_sum": 0.9488,
+    "arb_sum": 0.9449,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "1X",
-        "odd": 2.272,
-        "stake": 46390,
-        "win": 105398
+        "odd": 2.292,
+        "stake": 46172,
+        "win": 105826
       },
       {
         "bookmaker": "1xBet",
         "outcome": "X2",
         "odd": 1.966,
-        "stake": 53610,
-        "win": 105397
+        "stake": 53828,
+        "win": 105826
       }
     ],
     "market_type": "1x2",
