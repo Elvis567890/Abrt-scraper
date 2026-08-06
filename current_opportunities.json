@@ -519,31 +519,31 @@
     "match": "thun vs vikingur reykjavik",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.95,
-    "profit_ugx": 946,
+    "profit_percent": 0.8,
+    "profit_ugx": 801,
     "total_stake": 100000,
-    "arb_sum": 0.9905,
+    "arb_sum": 0.992,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
         "odd": 1.507,
-        "stake": 66991,
-        "win": 100955
+        "stake": 66893,
+        "win": 100808
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 6.35,
-        "stake": 15898,
-        "win": 100952
+        "stake": 15875,
+        "win": 100806
       },
       {
         "bookmaker": "ChampionBet",
         "outcome": "Away",
-        "odd": 5.9,
-        "stake": 17111,
-        "win": 100955
+        "odd": 5.85,
+        "stake": 17232,
+        "win": 100807
       }
     ],
     "market_type": "1x2",
@@ -714,40 +714,6 @@
         "odd": 8.0,
         "stake": 13262,
         "win": 106096
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "zaragoza vs andorra",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 5.0,
-    "profit_ugx": 5003,
-    "total_stake": 100000,
-    "arb_sum": 0.95,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.05,
-        "stake": 34514,
-        "win": 105268
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.2,
-        "stake": 32896,
-        "win": 105267
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.23,
-        "stake": 32590,
-        "win": 105266
       }
     ],
     "market_type": "1x2",
