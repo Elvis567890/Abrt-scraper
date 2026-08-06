@@ -34,34 +34,68 @@
     "market_specifier": ""
   },
   {
+    "match": "cruz azul vs philadelphia union",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.66,
+    "profit_ugx": 2663,
+    "total_stake": 100000,
+    "arb_sum": 0.9734,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.23,
+        "stake": 46070,
+        "win": 102736
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.8,
+        "stake": 27036,
+        "win": 102737
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.82,
+        "stake": 26894,
+        "win": 102735
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "austin vs tijuana",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.76,
-    "profit_ugx": 3761,
+    "profit_percent": 4.26,
+    "profit_ugx": 4263,
     "total_stake": 100000,
-    "arb_sum": 0.9624,
+    "arb_sum": 0.9574,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.68,
-        "stake": 38772,
-        "win": 103909
+        "odd": 2.71,
+        "stake": 38544,
+        "win": 104454
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.45,
-        "stake": 30118,
-        "win": 103907
+        "stake": 30276,
+        "win": 104452
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.34,
-        "stake": 31110,
-        "win": 103907
+        "odd": 3.35,
+        "stake": 31180,
+        "win": 104453
       }
     ],
     "market_type": "1x2",
