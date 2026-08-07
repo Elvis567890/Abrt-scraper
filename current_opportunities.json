@@ -71,31 +71,31 @@
     "match": "brugge vs kortrijk",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.8,
-    "profit_ugx": 802,
+    "profit_percent": 0.5,
+    "profit_ugx": 495,
     "total_stake": 100000,
-    "arb_sum": 0.992,
+    "arb_sum": 0.995,
     "bets": [
       {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.225,
-        "stake": 82293,
-        "win": 100809
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 11.8,
-        "stake": 8543,
-        "win": 100807
-      },
-      {
         "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.24,
+        "stake": 81046,
+        "win": 100497
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 12.0,
+        "stake": 8375,
+        "win": 100500
+      },
+      {
+        "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 11.0,
-        "stake": 9164,
-        "win": 100804
+        "odd": 9.5,
+        "stake": 10579,
+        "win": 100500
       }
     ],
     "market_type": "1x2",
@@ -170,40 +170,6 @@
     "market_specifier": ""
   },
   {
-    "match": "emmen vs roda jc",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.0,
-    "profit_ugx": 2999,
-    "total_stake": 100000,
-    "arb_sum": 0.97,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.29,
-        "stake": 45018,
-        "win": 103091
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.75,
-        "stake": 27491,
-        "win": 103091
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.75,
-        "stake": 27491,
-        "win": 103091
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "vitesse vs waalwijk",
     "sport": "Football",
     "type": "3-way",
@@ -232,6 +198,40 @@
         "odd": 3.58,
         "stake": 28911,
         "win": 103501
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vvvvenlo vs heracles",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 9.72,
+    "profit_ugx": 9716,
+    "total_stake": 100000,
+    "arb_sum": 0.9028,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.85,
+        "stake": 38864,
+        "win": 110762
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 29936,
+        "win": 110763
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.55,
+        "stake": 31201,
+        "win": 110764
       }
     ],
     "market_type": "1x2",
@@ -476,34 +476,34 @@
     "market_specifier": ""
   },
   {
-    "match": "chiclana vs xerez cd",
+    "match": "racing santander vs alaves",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 31.46,
-    "profit_ugx": 31458,
+    "profit_percent": 6.55,
+    "profit_ugx": 6554,
     "total_stake": 100000,
-    "arb_sum": 0.6854,
+    "arb_sum": 0.9345,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 5.43,
-        "stake": 26869,
-        "win": 145899
+        "odd": 2.77,
+        "stake": 38633,
+        "win": 107013
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 4.0,
-        "stake": 36474,
-        "win": 145896
+        "odd": 3.4,
+        "stake": 31475,
+        "win": 107015
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.98,
-        "stake": 36657,
-        "win": 145895
+        "odd": 3.58,
+        "stake": 29892,
+        "win": 107013
       }
     ],
     "market_type": "1x2",
