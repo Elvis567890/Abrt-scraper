@@ -581,31 +581,65 @@
     "match": "rosario central vs ca aldosivi",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 12.04,
-    "profit_ugx": 12038,
+    "profit_percent": 10.06,
+    "profit_ugx": 10065,
     "total_stake": 100000,
-    "arb_sum": 0.8796,
+    "arb_sum": 0.8994,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.58,
-        "stake": 71953,
-        "win": 113686
+        "stake": 70374,
+        "win": 111191
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 7.07,
-        "stake": 16080,
-        "win": 113686
+        "stake": 15727,
+        "win": 111190
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 9.5,
-        "stake": 11967,
-        "win": 113686
+        "odd": 8.0,
+        "stake": 13899,
+        "win": 111192
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "cincinnati vs pumas",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.5,
+    "profit_ugx": 1499,
+    "total_stake": 100000,
+    "arb_sum": 0.985,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.0,
+        "stake": 50761,
+        "win": 101522
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 24172,
+        "win": 101522
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.05,
+        "stake": 25067,
+        "win": 101521
       }
     ],
     "market_type": "1x2",
