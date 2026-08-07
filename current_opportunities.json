@@ -309,31 +309,31 @@
     "match": "racing santander vs gijon",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.49,
-    "profit_ugx": 1494,
+    "profit_percent": 1.36,
+    "profit_ugx": 1364,
     "total_stake": 100000,
-    "arb_sum": 0.9851,
+    "arb_sum": 0.9864,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.363,
-        "stake": 42961,
-        "win": 101517
+        "odd": 2.374,
+        "stake": 42705,
+        "win": 101382
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 28199,
-        "win": 101516
+        "stake": 28162,
+        "win": 101383
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.52,
-        "stake": 28840,
-        "win": 101517
+        "odd": 3.48,
+        "stake": 29133,
+        "win": 101383
       }
     ],
     "market_type": "1x2",
@@ -470,6 +470,114 @@
         "odd": 3.51,
         "stake": 30719,
         "win": 107824
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sonderjyske vs viborg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.59,
+    "profit_ugx": 1590,
+    "total_stake": 100000,
+    "arb_sum": 0.9841,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.78,
+        "stake": 57088,
+        "win": 101617
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.368,
+        "stake": 42912,
+        "win": 101616
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sonderjyske vs viborg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.59,
+    "profit_ugx": 1590,
+    "total_stake": 100000,
+    "arb_sum": 0.9841,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.78,
+        "stake": 57088,
+        "win": 101617
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.368,
+        "stake": 42912,
+        "win": 101616
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "melbourne vs citta di palermo",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.79,
+    "profit_ugx": 8794,
+    "total_stake": 100000,
+    "arb_sum": 0.9121,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.344,
+        "stake": 46776,
+        "win": 109643
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.06,
+        "stake": 53224,
+        "win": 109641
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "melbourne vs citta di palermo",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.79,
+    "profit_ugx": 8794,
+    "total_stake": 100000,
+    "arb_sum": 0.9121,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.344,
+        "stake": 46776,
+        "win": 109643
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.06,
+        "stake": 53224,
+        "win": 109641
       }
     ],
     "market_type": "1x2",
