@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "servette w vs aktobe w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.6,
+    "profit_ugx": 1599,
+    "total_stake": 100000,
+    "arb_sum": 0.984,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.25,
+        "stake": 81300,
+        "win": 101625
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 12.2,
+        "stake": 8330,
+        "win": 101626
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 9.8,
+        "stake": 10370,
+        "win": 101626
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "yokohama f marinos vs kashima antlers",
     "sport": "Football",
     "type": "3-way",
@@ -96,40 +130,6 @@
         "odd": 3.44,
         "stake": 33741,
         "win": 116069
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "america vs san diego",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.93,
-    "profit_ugx": 926,
-    "total_stake": 100000,
-    "arb_sum": 0.9907,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.365,
-        "stake": 73945,
-        "win": 100935
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.13,
-        "stake": 12415,
-        "win": 100934
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 7.4,
-        "stake": 13640,
-        "win": 100936
       }
     ],
     "market_type": "1x2",
