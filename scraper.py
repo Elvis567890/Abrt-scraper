@@ -29,7 +29,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
 app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
 
-# ✅ CORS fixed – allow all origins (change to your domain later)
+# ✅ CORS – allow any origin (safe for GitHub Pages)
 CORS(app, origins="*", supports_credentials=True)
 
 # ---------- Firebase Admin (optional) ----------
