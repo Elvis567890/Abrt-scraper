@@ -1539,22 +1539,6 @@ def server_error(e):
     return jsonify({'error': 'Internal server error'}), 500
 
 # ============================
-#  SCHEDULER (Auto-scan)
-# ============================
-try:
-    from apscheduler.schedulers.background import BackgroundScheduler
-    def scheduled_scan():
-        with app.app_context():
-            run_scan()
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(scheduled_scan, 'interval', minutes=5)
-    scheduler.start()
-    print("✅ Scheduler started – scanning every 5 minutes")
-except ImportError:
-    print("⚠️ APScheduler not installed – scanner will not run automatically.")
-    print("   Install with: pip install apscheduler")
-
-# ============================
 #  RUN
 # ============================
 if __name__ == "__main__":
