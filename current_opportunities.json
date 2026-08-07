@@ -37,31 +37,65 @@
     "match": "singapore vs indonesia",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 20.39,
-    "profit_ugx": 20395,
+    "profit_percent": 20.24,
+    "profit_ugx": 20240,
     "total_stake": 100000,
-    "arb_sum": 0.7961,
+    "arb_sum": 0.7976,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 4.3,
-        "stake": 29214,
-        "win": 125620
+        "stake": 29157,
+        "win": 125375
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 35891,
-        "win": 125618
+        "stake": 35822,
+        "win": 125377
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.6,
-        "stake": 34895,
-        "win": 125622
+        "odd": 3.58,
+        "stake": 35021,
+        "win": 125375
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "brugge vs kortrijk",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.8,
+    "profit_ugx": 802,
+    "total_stake": 100000,
+    "arb_sum": 0.992,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.225,
+        "stake": 82293,
+        "win": 100809
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 11.8,
+        "stake": 8543,
+        "win": 100807
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 11.0,
+        "stake": 9164,
+        "win": 100804
       }
     ],
     "market_type": "1x2",
@@ -204,68 +238,34 @@
     "market_specifier": ""
   },
   {
-    "match": "vvvvenlo vs heracles",
+    "match": "derry vs sligo rvs",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 9.72,
-    "profit_ugx": 9716,
+    "profit_percent": 0.58,
+    "profit_ugx": 578,
     "total_stake": 100000,
-    "arb_sum": 0.9028,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.85,
-        "stake": 38864,
-        "win": 110762
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.7,
-        "stake": 29936,
-        "win": 110763
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.55,
-        "stake": 31201,
-        "win": 110764
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "ostersunds vs sundsvall",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.47,
-    "profit_ugx": 1470,
-    "total_stake": 100000,
-    "arb_sum": 0.9853,
+    "arb_sum": 0.9942,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
-        "odd": 1.42,
-        "stake": 71473,
-        "win": 101492
+        "odd": 1.4,
+        "stake": 71844,
+        "win": 100582
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 6.94,
-        "stake": 14624,
-        "win": 101491
+        "odd": 7.09,
+        "stake": 14186,
+        "win": 100579
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 7.3,
-        "stake": 13903,
-        "win": 101492
+        "odd": 7.2,
+        "stake": 13970,
+        "win": 100584
       }
     ],
     "market_type": "1x2",
@@ -476,40 +476,6 @@
     "market_specifier": ""
   },
   {
-    "match": "racing santander vs alaves",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 6.55,
-    "profit_ugx": 6554,
-    "total_stake": 100000,
-    "arb_sum": 0.9345,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.77,
-        "stake": 38633,
-        "win": 107013
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 31475,
-        "win": 107015
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.58,
-        "stake": 29892,
-        "win": 107013
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "chiclana vs xerez cd",
     "sport": "Football",
     "type": "3-way",
@@ -700,60 +666,6 @@
         "odd": 1.93,
         "stake": 58134,
         "win": 112199
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "chiclana de la frontera vs xerez cd",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.85,
-    "profit_ugx": 1854,
-    "total_stake": 100000,
-    "arb_sum": 0.9815,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.268,
-        "stake": 44925,
-        "win": 101890
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.85,
-        "stake": 55075,
-        "win": 101889
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "chiclana de la frontera vs xerez cd",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.85,
-    "profit_ugx": 1854,
-    "total_stake": 100000,
-    "arb_sum": 0.9815,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.268,
-        "stake": 44925,
-        "win": 101890
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 1.85,
-        "stake": 55075,
-        "win": 101889
       }
     ],
     "market_type": "1x2",
