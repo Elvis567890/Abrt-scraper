@@ -139,31 +139,31 @@
     "match": "servette w vs aktobe w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 5.3,
-    "profit_ugx": 5297,
+    "profit_percent": 5.18,
+    "profit_ugx": 5181,
     "total_stake": 100000,
-    "arb_sum": 0.947,
+    "arb_sum": 0.9482,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 1.3,
-        "stake": 81226,
-        "win": 105594
+        "stake": 81126,
+        "win": 105464
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 13.2,
-        "stake": 7999,
-        "win": 105587
+        "odd": 13.0,
+        "stake": 8113,
+        "win": 105469
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 9.8,
-        "stake": 10775,
-        "win": 105595
+        "stake": 10762,
+        "win": 105468
       }
     ],
     "market_type": "1x2",
@@ -272,68 +272,34 @@
     "market_specifier": ""
   },
   {
-    "match": "bayern munich vs aston villa",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.58,
-    "profit_ugx": 1584,
-    "total_stake": 100000,
-    "arb_sum": 0.9842,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.027,
-        "stake": 50128,
-        "win": 101609
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 4.1,
-        "stake": 24783,
-        "win": 101610
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 4.05,
-        "stake": 25089,
-        "win": 101610
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "huesca vs andorra",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 14.77,
-    "profit_ugx": 14767,
+    "profit_percent": 15.2,
+    "profit_ugx": 15203,
     "total_stake": 100000,
-    "arb_sum": 0.8523,
+    "arb_sum": 0.848,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 3.75,
-        "stake": 31287,
-        "win": 117326
+        "odd": 3.8,
+        "stake": 31034,
+        "win": 117929
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.4,
-        "stake": 34508,
-        "win": 117327
+        "stake": 34685,
+        "win": 117929
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.43,
-        "stake": 34206,
-        "win": 117327
+        "odd": 3.44,
+        "stake": 34281,
+        "win": 117927
       }
     ],
     "market_type": "1x2",
@@ -504,6 +470,60 @@
         "odd": 7.8,
         "stake": 13995,
         "win": 109161
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sonderjyske vs viborg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.97,
+    "profit_ugx": 4968,
+    "total_stake": 100000,
+    "arb_sum": 0.9503,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.88,
+        "stake": 55972,
+        "win": 105227
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.39,
+        "stake": 44028,
+        "win": 105227
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sonderjyske vs viborg",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.97,
+    "profit_ugx": 4968,
+    "total_stake": 100000,
+    "arb_sum": 0.9503,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.88,
+        "stake": 55972,
+        "win": 105227
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.39,
+        "stake": 44028,
+        "win": 105227
       }
     ],
     "market_type": "1x2",
