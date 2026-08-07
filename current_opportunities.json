@@ -578,40 +578,6 @@
     "market_specifier": ""
   },
   {
-    "match": "rosario central vs ca aldosivi",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 10.95,
-    "profit_ugx": 10946,
-    "total_stake": 100000,
-    "arb_sum": 0.8905,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.58,
-        "stake": 71071,
-        "win": 112292
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 7.54,
-        "stake": 14893,
-        "win": 112293
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Away",
-        "odd": 8.0,
-        "stake": 14036,
-        "win": 112288
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "cincinnati vs pumas",
     "sport": "Football",
     "type": "3-way",
@@ -640,6 +606,60 @@
         "odd": 4.05,
         "stake": 25067,
         "win": 101521
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gillingham vs luton town",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.13,
+    "profit_ugx": 1131,
+    "total_stake": 100000,
+    "arb_sum": 0.9887,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.13,
+        "stake": 47485,
+        "win": 101143
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.926,
+        "stake": 52515,
+        "win": 101144
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gillingham vs luton town",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.13,
+    "profit_ugx": 1131,
+    "total_stake": 100000,
+    "arb_sum": 0.9887,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.13,
+        "stake": 47485,
+        "win": 101143
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.926,
+        "stake": 52515,
+        "win": 101144
       }
     ],
     "market_type": "1x2",
