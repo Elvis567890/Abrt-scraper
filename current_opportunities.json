@@ -581,31 +581,119 @@
     "match": "cincinnati vs pumas",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.5,
-    "profit_ugx": 1499,
+    "profit_percent": 1.8,
+    "profit_ugx": 1800,
     "total_stake": 100000,
-    "arb_sum": 0.985,
+    "arb_sum": 0.982,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.0,
-        "stake": 50761,
-        "win": 101522
+        "stake": 50917,
+        "win": 101834
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.2,
-        "stake": 24172,
-        "win": 101522
+        "stake": 24246,
+        "win": 101833
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 4.05,
-        "stake": 25067,
-        "win": 101521
+        "odd": 4.1,
+        "stake": 24837,
+        "win": 101832
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "elche vs toulouse",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.49,
+    "profit_ugx": 1494,
+    "total_stake": 100000,
+    "arb_sum": 0.9851,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.52,
+        "stake": 40284,
+        "win": 101516
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 29858,
+        "win": 101517
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.4,
+        "stake": 29858,
+        "win": 101517
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gillingham vs luton town",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.13,
+    "profit_ugx": 1131,
+    "total_stake": 100000,
+    "arb_sum": 0.9887,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.13,
+        "stake": 47485,
+        "win": 101143
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.926,
+        "stake": 52515,
+        "win": 101144
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gillingham vs luton town",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.13,
+    "profit_ugx": 1131,
+    "total_stake": 100000,
+    "arb_sum": 0.9887,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.13,
+        "stake": 47485,
+        "win": 101143
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.926,
+        "stake": 52515,
+        "win": 101144
       }
     ],
     "market_type": "1x2",
