@@ -34,6 +34,40 @@
     "market_specifier": ""
   },
   {
+    "match": "sonderjyske vs viborg",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 19.56,
+    "profit_ugx": 19562,
+    "total_stake": 100000,
+    "arb_sum": 0.8044,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.51,
+        "stake": 35419,
+        "win": 124321
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.85,
+        "stake": 32291,
+        "win": 124320
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.85,
+        "stake": 32291,
+        "win": 124320
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "yokohama f marinos vs kashima antlers",
     "sport": "Football",
     "type": "3-way",
@@ -62,6 +96,40 @@
         "odd": 3.38,
         "stake": 34136,
         "win": 115380
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "ostersunds vs sundsvall",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.47,
+    "profit_ugx": 1470,
+    "total_stake": 100000,
+    "arb_sum": 0.9853,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.42,
+        "stake": 71473,
+        "win": 101492
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.94,
+        "stake": 14624,
+        "win": 101491
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 7.3,
+        "stake": 13903,
+        "win": 101492
       }
     ],
     "market_type": "1x2",
@@ -204,108 +272,34 @@
     "market_specifier": ""
   },
   {
-    "match": "melbourne vs citta di palermo",
+    "match": "ad ceuta vs malaga",
     "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 8.85,
-    "profit_ugx": 8849,
+    "type": "3-way",
+    "profit_percent": 19.73,
+    "profit_ugx": 19729,
     "total_stake": 100000,
-    "arb_sum": 0.9115,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.347,
-        "stake": 46744,
-        "win": 109708
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.06,
-        "stake": 53256,
-        "win": 109707
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "melbourne vs citta di palermo",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 8.85,
-    "profit_ugx": 8849,
-    "total_stake": 100000,
-    "arb_sum": 0.9115,
+    "arb_sum": 0.8027,
     "bets": [
       {
         "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.347,
-        "stake": 46744,
-        "win": 109708
+        "outcome": "Home",
+        "odd": 3.81,
+        "stake": 32698,
+        "win": 124579
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.6,
+        "stake": 34605,
+        "win": 124578
       },
       {
         "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.06,
-        "stake": 53256,
-        "win": 109707
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "orenburg youth vs vityaz podolsk youth",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.44,
-    "profit_ugx": 1441,
-    "total_stake": 100000,
-    "arb_sum": 0.9856,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.18,
-        "stake": 46542,
-        "win": 101462
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.898,
-        "stake": 53458,
-        "win": 101463
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "orenburg youth vs vityaz podolsk youth",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.44,
-    "profit_ugx": 1441,
-    "total_stake": 100000,
-    "arb_sum": 0.9856,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.18,
-        "stake": 46542,
-        "win": 101462
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 1.898,
-        "stake": 53458,
-        "win": 101463
+        "outcome": "Away",
+        "odd": 3.81,
+        "stake": 32698,
+        "win": 124579
       }
     ],
     "market_type": "1x2",
