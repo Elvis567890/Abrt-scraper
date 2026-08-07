@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "salford vs shrewsbury",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.54,
+    "profit_ugx": 2542,
+    "total_stake": 100000,
+    "arb_sum": 0.9746,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.51,
+        "stake": 67953,
+        "win": 102609
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.31,
+        "stake": 16261,
+        "win": 102607
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 6.5,
+        "stake": 15786,
+        "win": 102609
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "gillingham vs luton",
     "sport": "Football",
     "type": "3-way",
