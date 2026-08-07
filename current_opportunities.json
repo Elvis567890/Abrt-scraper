@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "sandefjord vs kfum",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.55,
+    "profit_ugx": 552,
+    "total_stake": 100000,
+    "arb_sum": 0.9945,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.24,
+        "stake": 44891,
+        "win": 100556
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 27177,
+        "win": 100555
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 27932,
+        "win": 100555
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "estoril praia vs famalicao",
     "sport": "Football",
     "type": "3-way",
