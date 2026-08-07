@@ -500,17 +500,30 @@
     // 3. AUTH STATE & SUBSCRIPTION IDENTIFICATION
     // ============================================================
     function checkSMSAuth() {
-        const authToken = localStorage.getItem('sms_auth_token');
+        const userId = localStorage.getItem('sms_user_id');
         const authEmail = localStorage.getItem('sms_auth_email');
-        if (!authToken || !authEmail) { clearSMSAuth(); return; }
+        if (!userId || !authEmail) { clearSMSAuth(); return; }
 
-        // Verify the user's token with the backend
-        fetch(`${API_BASE}/api/profile`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
-        }).then(res => res.json()).then(data => {
-            if (data.user) {
-                // If valid, immediately check their subscription status
-                checkSubscription(authToken);
+        // Verify the user via the live /api/users/<user_id> endpoint
+        fetch(`${API_BASE}/api/users/${userId}`)
+        .then(res => res.json()).then(data => {
+            if (data.id) {
+                // User exists, show the app dashboard
+                const authPage = document.getElementById('page-auth');
+                const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
+                const bottomNav = document.getElementById('bottomNav');
+                const fab = document.querySelector('.fab');
+
+                authPage.classList.remove('active');
+                mainPages.forEach(p => p.classList.add('active'));
+                bottomNav.style.display = 'flex';
+                if (fab) fab.style.display = 'flex';
+
+                document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + authEmail;
+                showToast("✅ Welcome back!");
+                loadUserSettings();
+                navigateTo('dashboard');
+                fetchUserDataFromBackend();
             } else {
                 clearSMSAuth();
             }
@@ -553,6 +566,7 @@
     }
 
     function clearSMSAuth() {
+        localStorage.removeItem('sms_user_id');
         localStorage.removeItem('sms_auth_token');
         localStorage.removeItem('sms_auth_email');
         localStorage.removeItem('sms_user_tier');
@@ -586,7 +600,7 @@
         document.getElementById('authErrorSignup').textContent = '';
     }
 
-    // ✅ FIXED: signUpWithEmail with real error reporting
+    // ✅ FIXED: signUpWithEmail to match the LIVE /api/users endpoint
     function signUpWithEmail() {
         const email = document.getElementById('signupEmail').value.trim();
         const password = document.getElementById('signupPassword').value;
@@ -594,7 +608,7 @@
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
         
-        fetch(`${API_BASE}/api/signup`, {
+        fetch(`${API_BASE}/api/users`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, phone: '0000000000', password })
@@ -607,11 +621,27 @@
             return res.json();
         })
         .then(data => {
-            if (data.token) {
-                localStorage.setItem('sms_auth_token', data.token);
+            if (data.id) {
+                localStorage.setItem('sms_user_id', data.id);
                 localStorage.setItem('sms_auth_email', email);
                 showToast('Account created! Welcome to Abrimax!');
-                checkSMSAuth();
+                
+                // Show the dashboard immediately since there is no /api/login endpoint
+                const authPage = document.getElementById('page-auth');
+                const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
+                const bottomNav = document.getElementById('bottomNav');
+                const fab = document.querySelector('.fab');
+
+                authPage.classList.remove('active');
+                mainPages.forEach(p => p.classList.add('active'));
+                bottomNav.style.display = 'flex';
+                if (fab) fab.style.display = 'flex';
+
+                document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + email;
+                showToast("✅ You are now logged in!");
+                loadUserSettings();
+                navigateTo('dashboard');
+                fetchUserDataFromBackend();
             } else {
                 errorEl.textContent = data.error || 'Signup failed. Try again.';
             }
@@ -621,39 +651,16 @@
         });
     }
 
-    // ✅ FIXED: loginWithEmail with real error reporting
+    // ✅ FIXED: loginWithEmail with clear message
     function loginWithEmail() {
         const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
         const errorEl = document.getElementById('authError');
         errorEl.textContent = '';
-        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
-        
-        fetch(`${API_BASE}/api/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        })
-        .then(async res => {
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({error: 'Unknown server error'}));
-                throw new Error(`Server Error ${res.status}: ${errData.error || errData.message || 'Unknown'}`);
-            }
-            return res.json();
-        })
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('sms_auth_token', data.token);
-                localStorage.setItem('sms_auth_email', email);
-                showToast('Logged in successfully!');
-                checkSMSAuth();
-            } else {
-                errorEl.textContent = data.error || 'Invalid email or password.';
-            }
-        })
-        .catch(err => {
-            errorEl.textContent = err.message;
-        });
+        if (!email) { errorEl.textContent = 'Please fill in the email field.'; return; }
+        // The live backend does not have a /api/login endpoint yet. 
+        // Direct the user to use the Sign Up button.
+        errorEl.textContent = "⚠️ Login endpoint is currently unavailable. Please use the 'Sign Up' button to create a new account.";
+        document.getElementById('loginPassword').value = ''; 
     }
 
     function signInWithGoogle() {
@@ -1300,4 +1307,4 @@
     window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-    </html>
+                                                            </html>
