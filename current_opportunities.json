@@ -1,5 +1,39 @@
 [
   {
+    "match": "middlesbrough vs wrexham",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.75,
+    "profit_ugx": 752,
+    "total_stake": 100000,
+    "arb_sum": 0.9925,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.68,
+        "stake": 59975,
+        "win": 100758
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 5.07,
+        "stake": 19873,
+        "win": 100756
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 5.0,
+        "stake": 20152,
+        "win": 100760
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "cambuur vs excelsior rotterdam",
     "sport": "Football",
     "type": "3-way",
