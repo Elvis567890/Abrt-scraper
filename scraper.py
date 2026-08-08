@@ -30,7 +30,7 @@ CORS(app, origins=["*"], supports_credentials=True)
 db = SQLAlchemy(app)
 
 # ============================
-# CONSTANTS
+# CONSTANTS & TIERS
 # ============================
 STAKE = 100000
 HISTORY_FILE = "arb_history.json"
@@ -138,7 +138,7 @@ with app.app_context():
     db.create_all()
 
 # ============================
-# SCRAPER FUNCTIONS (ALL)
+# SCRAPER FUNCTIONS (FULL)
 # ============================
 def normalize(name):
     name = (name or "").lower().strip()
@@ -286,7 +286,7 @@ def championbet_extract_1x2_from_betmap(bet_map):
                     odd = clean_odd(item.get("ov"))
                     if odd is not None: return odd
         return None
-    return pick_odd([1, 4, 7]), pick_odd([2, 5, 8]), pick_odd([3, 6, 9])
+    return pick_odd([1,4,7]), pick_odd([2,5,8]), pick_odd([3,6,9])
 
 def championbet_extract_ou_from_betmap(bet_map):
     bet_map = bet_map or {}
@@ -299,7 +299,7 @@ def championbet_extract_ou_from_betmap(bet_map):
                     odd = clean_odd(item.get("ov"))
                     if odd is not None: return odd
         return None
-    return pick_odd([51, 21]), pick_odd([52, 22])
+    return pick_odd([51,21]), pick_odd([52,22])
 
 def championbet_extract_ah_dc_btts_from_betmap(bet_map):
     bet_map = bet_map or {}
@@ -315,9 +315,9 @@ def championbet_extract_ah_dc_btts_from_betmap(bet_map):
                     if odd is not None:
                         odds_dict[k] = odd
         return odds_dict
-    ah_odds = get_odds([5, 6, 7, 8])
-    dc_odds = get_odds([20, 21, 22])
-    btts_odds = get_odds([19, 20])
+    ah_odds = get_odds([5,6,7,8])
+    dc_odds = get_odds([20,21,22])
+    btts_odds = get_odds([19,20])
     return ah_odds, dc_odds, btts_odds
 
 def scrape_championbet():
@@ -332,7 +332,6 @@ def scrape_championbet():
         req = urllib.request.Request(CHAMPIONBET_API, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             top_data = json.loads(resp.read().decode())
-
         matches = top_data.get("esMatches", []) if isinstance(top_data, dict) else []
         print(f"ChampionBet: {len(matches)} matches in top list")
         count = 0
@@ -345,22 +344,18 @@ def scrape_championbet():
                 home_team = m.get("home") or ""
                 away_team = m.get("away") or ""
                 if not home_team or not away_team: continue
-
                 match_url = CHAMPIONBET_MATCH_API.format(match_id=match_id)
                 match_req = urllib.request.Request(match_url, headers=headers)
                 with urllib.request.urlopen(match_req, timeout=30) as r2:
                     match_data = json.loads(r2.read().decode())
                 bet_map = match_data.get("betMap", {}) if isinstance(match_data, dict) else {}
-
                 h, d, a = championbet_extract_1x2_from_betmap(bet_map)
                 if h and a:
                     count += 1
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", h, d, a, competition=m.get("leagueName", ""), market_type="1x2"))
-
                 over, under = championbet_extract_ou_from_betmap(bet_map)
                 if over and under:
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", over, under, None, market_type="Over/Under 2.5"))
-
                 ah_odds, dc_odds, btts_odds = championbet_extract_ah_dc_btts_from_betmap(bet_map)
                 if ah_odds.get(5) and ah_odds.get(6):
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[5], None, ah_odds[6], market_type="Asian Handicap", market_specifier="-1.5"))
@@ -371,7 +366,6 @@ def scrape_championbet():
                 if dc_odds.get(22): odds.append(build_match_record(home_team, away_team, "ChampionBet", dc_odds[22], None, None, market_type="Double Chance", market_specifier="12"))
                 if btts_odds.get(19) and btts_odds.get(20):
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", btts_odds[19], None, btts_odds[20], market_type="BTTS"))
-
                 time.sleep(0.2)
             except:
                 continue
@@ -394,7 +388,6 @@ def scrape_ababet():
         if not tables:
             print("AbaBet: no tables found")
             return odds
-
         for table in tables:
             first_row = table.find("tr")
             if not first_row: continue
@@ -406,15 +399,12 @@ def scrape_ababet():
                 row = dict(zip(headers, cells[:len(headers)]))
                 home, away = row.get("Home"), row.get("Away")
                 if not home or not away or home == "-" or away == "-": continue
-
                 h = row.get("1"); d = row.get("X"); a = row.get("2")
                 if h and a:
                     odds.append(build_match_record(home, away, "AbaBet", h, d, a, competition=row.get("League", ""), market_type="1x2"))
-
                 over = row.get("Over"); under = row.get("Under")
                 if over and under:
                     odds.append(build_match_record(home, away, "AbaBet", over, under, None, market_type="Over/Under 2.5"))
-
         print(f"AbaBet: {len(odds)} matches extracted")
     except Exception as e:
         print(f"AbaBet error: {e}")
@@ -429,7 +419,6 @@ def scrape_fortebet():
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json", "Referer": "https://desktop.fortebet.ug/prematch/landing"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
-
         inner = data.get("data", {})
         events = inner.get("event", {})
         markets = inner.get("markets", {})
@@ -437,7 +426,6 @@ def scrape_fortebet():
         event_markets = {}
         for _, market in markets.items():
             event_markets.setdefault(str(market.get("eventId", "")), []).append(market)
-
         count = 0
         for eid, event in events.items():
             try:
@@ -450,7 +438,6 @@ def scrape_fortebet():
                 ah_home = ah_away = None
                 dc_home = dc_away = None
                 btts_yes = btts_no = None
-
                 for market in event_markets.get(eid, []):
                     mid = market.get("marketId")
                     if mid == 1:
@@ -459,7 +446,7 @@ def scrape_fortebet():
                         for _, v in mkt_odds.items():
                             if isinstance(v, dict) and "odds" in v:
                                 odd_list.append((v.get("outcomeId", 0), clean_odd(v["odds"])))
-                        odd_list = [(i, o) for i, o in odd_list if o is not None]
+                        odd_list = [(i,o) for i,o in odd_list if o is not None]
                         odd_list.sort(key=lambda x: x[0])
                         if len(odd_list) >= 3:
                             h, d, a = odd_list[0][1], odd_list[1][1], odd_list[2][1]
@@ -493,7 +480,6 @@ def scrape_fortebet():
                                 oid = v.get("outcomeId", 0)
                                 if oid == 1: btts_yes = clean_odd(v["odds"])
                                 elif oid == 2: btts_no = clean_odd(v["odds"])
-
                 if h and a:
                     sport_name = "Netball" if d is None else "Football"
                     ev_sport = (event.get("sportName") or event.get("sport") or "").lower()
@@ -501,19 +487,14 @@ def scrape_fortebet():
                     elif "tennis" in ev_sport: sport_name = "Tennis"
                     count += 1
                     odds.append(build_match_record(home, away, "Fortebet", h, d, a, sport=sport_name, market_type="1x2"))
-
                 if over and under:
                     odds.append(build_match_record(home, away, "Fortebet", over, under, None, sport="Football", market_type="Over/Under 2.5"))
-
                 if ah_home and ah_away:
                     odds.append(build_match_record(home, away, "Fortebet", ah_home, None, ah_away, sport="Football", market_type="Asian Handicap", market_specifier="-0.5"))
-
                 if dc_home: odds.append(build_match_record(home, away, "Fortebet", dc_home, None, None, sport="Football", market_type="Double Chance", market_specifier="1X"))
                 if dc_away: odds.append(build_match_record(home, away, "Fortebet", None, None, dc_away, sport="Football", market_type="Double Chance", market_specifier="12"))
-
                 if btts_yes and btts_no:
                     odds.append(build_match_record(home, away, "Fortebet", btts_yes, None, btts_no, sport="Football", market_type="BTTS"))
-
             except: continue
         print(f"Fortebet: {count} matches extracted")
     except Exception as e:
@@ -539,7 +520,6 @@ def scrape_sportybet():
                     a = clean_odd(event.get("away"))
                     if h and a:
                         odds.append(build_match_record(home, away, "SportyBet", h, d, a, sport=sport, market_type="1x2"))
-
                     over = clean_odd(event.get("over_odd"))
                     under = clean_odd(event.get("under_odd"))
                     if over and under:
@@ -550,7 +530,7 @@ def scrape_sportybet():
         print(f"SportyBet error: {e}")
     return odds
 
-# ----- 1xBet, 22Bet, Melbet -----
+# ----- 1xBet -----
 def scrape_1xbet():
     odds = []
     try:
@@ -599,6 +579,7 @@ def scrape_1xbet():
         print(f"1xBet error: {e}")
     return odds
 
+# ----- 22Bet -----
 def scrape_22bet():
     odds = []
     try:
@@ -640,6 +621,7 @@ def scrape_22bet():
         print(f"22Bet error: {e}")
     return odds
 
+# ----- Melbet -----
 def scrape_melbet():
     odds = []
     try:
@@ -687,6 +669,7 @@ def scrape_melbet():
         print(f"Melbet error: {e}")
     return odds
 
+# ----- Over/Under for 1xBet/22Bet/Melbet -----
 def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
     odds = []
     try:
@@ -706,12 +689,12 @@ def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
                 if t == "5": over = c
                 elif t == "6": under = c
             if over and under:
-                record = build_match_record(home, away, bookmaker_name, over, under, None, market_type="Over/Under 2.5")
-                odds.append(record)
+                odds.append(build_match_record(home, away, bookmaker_name, over, under, None, market_type="Over/Under 2.5"))
     except Exception as e:
         print(f"{bookmaker_name} Over/Under error: {e}")
     return odds
 
+# ----- Asian Handicap, Double Chance, BTTS for 1xBet/22Bet/Melbet -----
 def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
     odds = []
     try:
@@ -726,31 +709,26 @@ def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
             if not home or not away: continue
             if home.strip() == "Home" and away.strip() == "Away":
                 continue
-
             ah_home = ah_away = None
             dc_home = dc_away = None
             btts_yes = btts_no = None
-
             for e in match.get("E", []):
                 t = str(e.get("T", "")).strip()
                 c = clean_odd(e.get("C"))
                 if not c: continue
                 p = e.get("P")
-
                 if t == "7" and p is not None: ah_home = c
                 elif t == "8" and p is not None: ah_away = c
                 elif t == "4" or t == "180": dc_home = c
                 elif t == "181": dc_away = c
                 elif t == "19": btts_yes = c
                 elif t == "20": btts_no = c
-
             if ah_home and ah_away:
                 odds.append(build_match_record(home, away, bookmaker_name, ah_home, None, ah_away, market_type="Asian Handicap", market_specifier="-0.5"))
             if dc_home and dc_away:
                 odds.append(build_match_record(home, away, bookmaker_name, dc_home, None, dc_away, market_type="Double Chance", market_specifier="1X"))
             if btts_yes and btts_no:
                 odds.append(build_match_record(home, away, bookmaker_name, btts_yes, None, btts_no, market_type="BTTS"))
-
         print(f"{bookmaker_name} extra markets: {len(odds)} records")
     except Exception as e:
         print(f"{bookmaker_name} extra markets error: {e}")
@@ -938,7 +916,6 @@ def send_telegram_alert(opp):
     chat = os.getenv('TELEGRAM_CHAT_ID')
     if not token or not chat:
         return
-
     match = opp.get('match', 'Unknown')
     profit = opp.get('profit_percent', 0)
     ugx = opp.get('profit_ugx', 0)
@@ -949,7 +926,6 @@ def send_telegram_alert(opp):
         odd = bet.get('odd', 0)
         stake = bet.get('stake', 0)
         message += f"▶ {bookie} ({outcome}) @ {odd} – Stake: UGX {stake:,}\n"
-
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     try:
         requests.post(url, json={'chat_id': chat, 'text': message, 'parse_mode': 'Markdown'}, timeout=10)
@@ -1024,17 +1000,13 @@ def token_required(f):
             return jsonify({'error': 'Token expired'}), 401
         except jwt.InvalidTokenError:
             return jsonify({'error': 'Invalid token'}), 401
-
         g.user_id = user.id
         g.user = user
         return f(*args, **kwargs)
     return decorated
 
 def generate_token(user_id):
-    payload = {
-        'user_id': user_id,
-        'exp': datetime.utcnow() + timedelta(days=30)
-    }
+    payload = {'user_id': user_id, 'exp': datetime.utcnow() + timedelta(days=30)}
     return jwt.encode(payload, app.config['JWT_SECRET'], algorithm='HS256')
 
 # ============================
@@ -1042,11 +1014,7 @@ def generate_token(user_id):
 # ============================
 @app.route('/health', methods=['GET'])
 def health_check():
-    return jsonify({
-        'status': 'ok',
-        'service': 'sms-payment-verification',
-        'timestamp': datetime.utcnow().isoformat()
-    })
+    return jsonify({'status': 'ok', 'service': 'sms-payment-verification', 'timestamp': datetime.utcnow().isoformat()})
 
 @app.route('/', methods=['GET'])
 def home():
@@ -1069,23 +1037,25 @@ def home():
         ]
     })
 
-# ----- Auth -----
 @app.route('/api/signup', methods=['POST'])
 def signup():
-    data = request.get_json()
-    email = data.get('email')
-    phone = data.get('phone')
-    password = data.get('password')
-    if not email or not phone or not password:
-        return jsonify({'error': 'Missing fields'}), 400
-    if User.query.filter_by(email=email).first():
-        return jsonify({'error': 'Email already exists'}), 400
-    user = User(email=email, phone=phone, tier='free')
-    user.set_password(password)
-    db.session.add(user)
-    db.session.commit()
-    token = generate_token(user.id)
-    return jsonify({'token': token, 'user_id': user.id}), 201
+    try:
+        data = request.get_json()
+        email = data.get('email')
+        phone = data.get('phone')
+        password = data.get('password')
+        if not email or not phone or not password:
+            return jsonify({'error': 'Missing fields'}), 400
+        if User.query.filter_by(email=email).first():
+            return jsonify({'error': 'Email already exists'}), 400
+        user = User(email=email, phone=phone, tier='free')
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+        token = generate_token(user.id)
+        return jsonify({'token': token, 'user_id': user.id}), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -1119,7 +1089,6 @@ def get_profile():
         }
     })
 
-# ----- Subscription -----
 @app.route('/api/subscription-status', methods=['GET'])
 @token_required
 def subscription_status():
@@ -1153,7 +1122,6 @@ def subscription_status():
             'message': 'Free Trial active.'
         })
 
-# ----- Plans -----
 @app.route('/api/active-plans', methods=['GET'])
 def active_plans():
     plans = []
@@ -1170,7 +1138,6 @@ def active_plans():
         })
     return jsonify({'plans': plans})
 
-# ----- Transactions -----
 @app.route('/api/transactions', methods=['GET'])
 @token_required
 def get_transactions():
@@ -1286,7 +1253,6 @@ def manual_payment():
     db.session.commit()
     return jsonify({'status': 'pending', 'message': 'Payment submitted. We will verify when the SMS arrives.', 'transaction_id': tx_ref}), 200
 
-# ----- Webhook (SMS) -----
 @app.route('/webhook', methods=['POST'])
 def sms_webhook():
     data = request.get_json() or request.form.to_dict()
@@ -1377,7 +1343,6 @@ def send_admin_notification(message):
     except Exception as e:
         app.logger.error(f"Telegram error: {e}")
 
-# ----- Arbitrage endpoint -----
 @app.route('/api/arbitrage', methods=['GET'])
 @token_required
 def get_arbitrage():
@@ -1391,11 +1356,7 @@ def get_arbitrage():
 
     cache_file = 'current_opportunities.json'
     if not os.path.exists(cache_file):
-        return jsonify({
-            'opportunities': [],
-            'tier': user.tier,
-            'message': 'No arbitrage data available. Scanner is running.'
-        }), 200
+        return jsonify({'opportunities': [], 'tier': user.tier, 'message': 'No arbitrage data available. Scanner is running.'}), 200
 
     try:
         with open(cache_file, 'r', encoding='utf-8') as f:
@@ -1442,7 +1403,6 @@ def get_arbitrage():
         'scan_time': datetime.utcnow().isoformat()
     })
 
-# ----- Admin -----
 @app.route('/api/admin/create-user', methods=['POST'])
 @token_required
 def admin_create_user():
@@ -1463,14 +1423,8 @@ def admin_create_user():
     db.session.add(new_user)
     db.session.commit()
     token = generate_token(new_user.id)
-    return jsonify({
-        'message': 'User created',
-        'token': token,
-        'user_id': new_user.id,
-        'tier': new_user.tier
-    }), 201
+    return jsonify({'message': 'User created', 'token': token, 'user_id': new_user.id, 'tier': new_user.tier}), 201
 
-# ----- Scan trigger (admin only) -----
 @app.route('/api/scan', methods=['POST'])
 @token_required
 def trigger_scan():
@@ -1483,7 +1437,6 @@ def trigger_scan():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# ----- Error handlers -----
 @app.errorhandler(404)
 def not_found(e):
     return jsonify({'error': 'Endpoint not found'}), 404
@@ -1493,7 +1446,7 @@ def server_error(e):
     return jsonify({'error': 'Internal server error'}), 500
 
 # ============================
-# SCHEDULER – Auto-scan every 5 minutes
+# SCHEDULER
 # ============================
 def scheduled_scan():
     with app.app_context():
@@ -1506,12 +1459,7 @@ def scheduled_scan():
 
 if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
     scheduler = BackgroundScheduler()
-    scheduler.add_job(
-        func=scheduled_scan,
-        trigger=IntervalTrigger(minutes=5),
-        id='arbitrage_scanner',
-        replace_existing=True
-    )
+    scheduler.add_job(func=scheduled_scan, trigger=IntervalTrigger(minutes=5), id='arbitrage_scanner', replace_existing=True)
     scheduler.start()
     print("✅ Scheduler started – scanning every 5 minutes.")
 
