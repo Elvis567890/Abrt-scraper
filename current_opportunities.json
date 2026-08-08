@@ -411,31 +411,31 @@
     "match": "fleetwood town vs chesterfield",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.24,
-    "profit_ugx": 3237,
+    "profit_percent": 2.5,
+    "profit_ugx": 2495,
     "total_stake": 100000,
-    "arb_sum": 0.9676,
+    "arb_sum": 0.975,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.77,
-        "stake": 37309,
-        "win": 103346
+        "odd": 2.7,
+        "stake": 37985,
+        "win": 102560
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.4,
-        "stake": 30396,
-        "win": 103346
+        "stake": 30164,
+        "win": 102558
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.2,
-        "stake": 32295,
-        "win": 103344
+        "odd": 3.22,
+        "stake": 31851,
+        "win": 102560
       }
     ],
     "market_type": "1x2",
@@ -612,6 +612,40 @@
     "market_specifier": ""
   },
   {
+    "match": "hartberg vs sturm graz",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 26.54,
+    "profit_ugx": 26538,
+    "total_stake": 100000,
+    "arb_sum": 0.7346,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 4.65,
+        "stake": 29274,
+        "win": 136124
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 34904,
+        "win": 136126
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.8,
+        "stake": 35822,
+        "win": 136124
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "karlsruher vs arminia bielefeld",
     "sport": "Football",
     "type": "3-way",
@@ -640,6 +674,60 @@
         "odd": 3.68,
         "stake": 29069,
         "win": 106974
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hartberg vs sturm graz",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.83,
+    "profit_ugx": 2827,
+    "total_stake": 100000,
+    "arb_sum": 0.9717,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.1,
+        "stake": 49004,
+        "win": 102908
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 50996,
+        "win": 102910
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hartberg vs sturm graz",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.83,
+    "profit_ugx": 2827,
+    "total_stake": 100000,
+    "arb_sum": 0.9717,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.1,
+        "stake": 49004,
+        "win": 102908
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 50996,
+        "win": 102910
       }
     ],
     "market_type": "1x2",
