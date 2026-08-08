@@ -7,7 +7,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <style>
-        /* ===== FULL STYLES ===== */
+        /* ===== FULL STYLES (unchanged) ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -173,6 +173,7 @@
     <div class="status-bar"><span class="time">9:41</span><div class="status-icons">5G ▮▮▮▮ 🔋</div></div>
     <div class="toast" id="toast">Copied ✓</div>
     <div class="main-content" id="mainContent">
+        <!-- AUTH PAGE -->
         <div class="page active" id="page-auth">
             <div class="auth-container">
                 <div class="auth-box">
@@ -204,6 +205,7 @@
             </div>
         </div>
 
+        <!-- DASHBOARD -->
         <div class="page" id="page-dashboard">
             <div class="page-header"><h1>🔍 Abrimax</h1>
                 <div><button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button><button class="icon-btn" onclick="navigateTo('settings')">👤</button></div>
@@ -217,7 +219,10 @@
             <button class="fab" onclick="navigateTo('calculator')">🧮</button>
         </div>
 
+        <!-- DETAIL -->
         <div class="page" id="page-detail"></div>
+
+        <!-- CALCULATOR -->
         <div class="page" id="page-calculator">
             <div class="detail-header"><button class="back-btn" onclick="navigateTo('dashboard')">←</button><h1 style="font-size:20px;">🧮 Arbitrage Calculator</h1></div>
             <div class="calc-card">
@@ -231,6 +236,7 @@
             <button class="cta-btn primary" style="width:100%;" onclick="addCurrentCalcToSlip()">📋 Save to Bet Slip</button>
         </div>
 
+        <!-- SLIP -->
         <div class="page" id="page-slip">
             <div class="page-header"><h1>📋 Bet Slip</h1><span id="slipCount">0 bets</span></div>
             <div id="slipItems"></div>
@@ -240,6 +246,7 @@
             </div>
         </div>
 
+        <!-- BOOKIES -->
         <div class="page" id="page-bookies">
             <div class="page-header"><h1>🏦 Bookmakers</h1></div>
             <div class="bookie-grid">
@@ -250,6 +257,7 @@
             </div>
         </div>
 
+        <!-- SETTINGS -->
         <div class="page" id="page-settings">
             <div class="page-header"><h1>⚙️ Settings</h1><button class="icon-btn" onclick="saveUserSettings()">💾</button></div>
             <div class="settings-section"><h3>👤 Account</h3>
@@ -274,6 +282,7 @@
             </div>
         </div>
 
+        <!-- HISTORY -->
         <div class="page" id="page-history">
             <div class="page-header"><h1>📊 History</h1></div>
             <div class="summary-cards"><div class="summary-card"><div class="summary-val" id="totalArbs">0</div><div class="summary-label">Arbs Done</div></div><div class="summary-card"><div class="summary-val" id="totalProfit">UGX 0</div><div class="summary-label">Total Profit</div></div></div>
@@ -281,11 +290,13 @@
             <div id="historyList"></div>
         </div>
 
+        <!-- ALERTS -->
         <div class="page" id="page-alerts">
             <div class="page-header"><h1>🔔 Alerts</h1></div>
             <div id="alertsList"></div>
         </div>
     </div>
+
     <div class="bottom-nav" id="bottomNav">
         <button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">🏠 Home</button>
         <button class="nav-item" data-page="slip" onclick="navigateTo('slip')">📋 Slip</button>
@@ -297,58 +308,158 @@
 
 <script>
     // ============================================================
-    // 1. FIREBASE CONFIG
-    const firebaseConfig = { apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw", authDomain: "arbimax-auth.firebaseapp.com", projectId: "arbimax-auth", storageBucket: "arbimax-auth.firebasestorage.app", messagingSenderId: "985163289771", appId: "1:985163289771:web:798f8b55bab13d7d2353ee", measurementId: "G-ZFXKEY2QL7" };
-    firebase.initializeApp(firebaseConfig);
-    
-    // ============================================================
-    // 2. CONNECT TO YOUR RAILWAY BACKEND
-    const API_BASE = 'https://aper-production.up.railway.app';
+    // ✅ CORRECT API BASE – use your deployed backend
+    const API_BASE = 'https://aper-production.up.railway.app';  // <-- change if needed
 
     // ============================================================
-    // 3. AUTH STATE & SUBSCRIPTION IDENTIFICATION
-    function checkSMSAuth() {
+    // FIREBASE CONFIG
+    const firebaseConfig = { 
+        apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw", 
+        authDomain: "arbimax-auth.firebaseapp.com", 
+        projectId: "arbimax-auth", 
+        storageBucket: "arbimax-auth.firebasestorage.app", 
+        messagingSenderId: "985163289771", 
+        appId: "1:985163289771:web:798f8b55bab13d7d2353ee", 
+        measurementId: "G-ZFXKEY2QL7" 
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // ============================================================
+    // TOKEN EXCHANGE
+    async function exchangeFirebaseToken(firebaseToken) {
+        const response = await fetch(`${API_BASE}/api/firebase-auth`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ firebase_token: firebaseToken })
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Token exchange failed');
+        }
+        const data = await response.json();
+        localStorage.setItem('sms_auth_token', data.token);
+        localStorage.setItem('sms_auth_email', document.getElementById('loginEmail')?.value || 
+                                                   document.getElementById('signupEmail')?.value || '');
+        return data;
+    }
+
+    // ============================================================
+    // AUTH FUNCTIONS
+    function switchAuthTab(tab) {
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        document.querySelector(`.auth-tab[data-tab="${tab}"]`).classList.add('active');
+        document.getElementById('loginForm').style.display = (tab === 'login') ? 'block' : 'none';
+        document.getElementById('signupForm').style.display = (tab === 'signup') ? 'block' : 'none';
+        document.getElementById('authError').textContent = '';
+        document.getElementById('authErrorSignup').textContent = '';
+    }
+
+    async function signUpWithEmail() {
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const errorEl = document.getElementById('authErrorSignup');
+        errorEl.textContent = '';
+        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+        try {
+            const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+            const firebaseToken = await userCredential.user.getIdToken();
+            await exchangeFirebaseToken(firebaseToken);
+            showToast('Account created! Welcome to Abrimax!');
+            checkSMSAuth();
+        } catch (error) {
+            errorEl.textContent = error.message;
+        }
+    }
+
+    async function loginWithEmail() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errorEl = document.getElementById('authError');
+        errorEl.textContent = '';
+        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+        try {
+            const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+            const firebaseToken = await userCredential.user.getIdToken();
+            await exchangeFirebaseToken(firebaseToken);
+            showToast('Logged in successfully!');
+            checkSMSAuth();
+        } catch (error) {
+            errorEl.textContent = error.message;
+        }
+    }
+
+    async function signInWithGoogle() {
+        const errorEl = document.getElementById('authError');
+        errorEl.textContent = '';
+        try {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            const result = await firebase.auth().signInWithPopup(provider);
+            const firebaseToken = await result.user.getIdToken();
+            await exchangeFirebaseToken(firebaseToken);
+            showToast('Google sign-in successful!');
+            checkSMSAuth();
+        } catch (error) {
+            errorEl.textContent = error.message;
+        }
+    }
+
+    function logoutUser() {
+        firebase.auth().signOut();
+        clearSMSAuth();
+        showToast('Logged out.');
+    }
+
+    // ============================================================
+    // AUTH STATE CHECK
+    async function checkSMSAuth() {
         const authToken = localStorage.getItem('sms_auth_token');
         const authEmail = localStorage.getItem('sms_auth_email');
         if (!authToken || !authEmail) { clearSMSAuth(); return; }
 
-        fetch(`${API_BASE}/api/profile`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
-        })
-        .then(res => {
-            if (!res.ok) {
-                throw new Error(`HTTP ${res.status} - Server could not find your profile`);
+        try {
+            const response = await fetch(`${API_BASE}/api/profile`, {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+            if (!response.ok) {
+                if (response.status === 401) {
+                    const user = firebase.auth().currentUser;
+                    if (user) {
+                        const freshToken = await user.getIdToken(true);
+                        await exchangeFirebaseToken(freshToken);
+                        return checkSMSAuth();
+                    }
+                }
+                throw new Error(`HTTP ${response.status}`);
             }
-            return res.json();
-        })
-        .then(data => {
+            const data = await response.json();
             if (data.user) {
-                checkSubscription(authToken);
+                await checkSubscription(authToken);
             } else {
                 clearSMSAuth();
             }
-        })
-        .catch(err => {
+        } catch (err) {
             console.error("CheckSMSAuth Error:", err);
             showToast("❌ " + err.message);
             clearSMSAuth();
-        });
+        }
     }
 
-    function checkSubscription(authToken) {
-        fetch(`${API_BASE}/api/subscription-status`, {
-            headers: { 'Authorization': `Bearer ${authToken}` }
-        })
-        .then(res => res.json()).then(data => {
+    async function checkSubscription(authToken) {
+        try {
+            const response = await fetch(`${API_BASE}/api/subscription-status`, {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+            const data = await response.json();
             if (data.expired) {
                 alert("⛔ " + data.message);
-                clearSMSAuth(); return;
+                clearSMSAuth();
+                return;
             }
+            // Show main app
             const authPage = document.getElementById('page-auth');
             const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
             const bottomNav = document.getElementById('bottomNav');
             const fab = document.querySelector('.fab');
-
             authPage.classList.remove('active');
             mainPages.forEach(p => p.classList.add('active'));
             bottomNav.style.display = 'flex';
@@ -362,118 +473,171 @@
             loadUserSettings();
             navigateTo('dashboard');
             fetchUserDataFromBackend();
-        }).catch(() => clearSMSAuth());
+        } catch (error) {
+            console.error('Subscription check error:', error);
+            clearSMSAuth();
+        }
     }
 
     function clearSMSAuth() {
-        localStorage.removeItem('sms_auth_token'); localStorage.removeItem('sms_auth_email'); localStorage.removeItem('sms_user_tier');
+        localStorage.removeItem('sms_auth_token');
+        localStorage.removeItem('sms_auth_email');
+        localStorage.removeItem('sms_user_tier');
         const authPage = document.getElementById('page-auth');
         const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
-        const bottomNav = document.getElementById('bottomNav'); const fab = document.querySelector('.fab');
-        authPage.classList.add('active'); mainPages.forEach(p => p.classList.remove('active'));
-        bottomNav.style.display = 'none'; if (fab) fab.style.display = 'none';
-        document.getElementById('settingsUserEmail').textContent = 'Not logged in'; document.getElementById('settingsUserTier').textContent = 'Tier: free';
-    }
-
-    checkSMSAuth();
-
-    // ============================================================
-    // 4. AUTH FUNCTIONS (FIREBASE LOGIC)
-    function switchAuthTab(tab) {
-        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-        document.querySelector(`.auth-tab[data-tab="${tab}"]`).classList.add('active');
-        document.getElementById('loginForm').style.display = (tab === 'login') ? 'block' : 'none';
-        document.getElementById('signupForm').style.display = (tab === 'signup') ? 'block' : 'none';
-        document.getElementById('authError').textContent = ''; document.getElementById('authErrorSignup').textContent = '';
-    }
-
-    function signUpWithEmail() {
-        const email = document.getElementById('signupEmail').value.trim();
-        const password = document.getElementById('signupPassword').value;
-        const errorEl = document.getElementById('authErrorSignup');
-        errorEl.textContent = '';
-        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
-        
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                return userCredential.user.getIdToken();
-            })
-            .then((idToken) => {
-                localStorage.setItem('sms_auth_token', idToken);
-                localStorage.setItem('sms_auth_email', email);
-                showToast('Account created! Welcome to Abrimax!');
-                checkSMSAuth();
-            })
-            .catch((error) => {
-                errorEl.textContent = error.message;
-            });
-    }
-
-    function loginWithEmail() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
-        const errorEl = document.getElementById('authError');
-        errorEl.textContent = '';
-        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
-        
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                return userCredential.user.getIdToken();
-            })
-            .then((idToken) => {
-                localStorage.setItem('sms_auth_token', idToken);
-                localStorage.setItem('sms_auth_email', email);
-                showToast('Logged in successfully!');
-                checkSMSAuth();
-            })
-            .catch((error) => {
-                errorEl.textContent = error.message;
-            });
-    }
-
-    function signInWithGoogle() { showToast('Google sign-in not available. Use email login.'); }
-
-    function logoutUser() {
-        firebase.auth().signOut(); clearSMSAuth(); showToast('Logged out.');
+        const bottomNav = document.getElementById('bottomNav');
+        const fab = document.querySelector('.fab');
+        authPage.classList.add('active');
+        mainPages.forEach(p => p.classList.remove('active'));
+        bottomNav.style.display = 'none';
+        if (fab) fab.style.display = 'none';
+        document.getElementById('settingsUserEmail').textContent = 'Not logged in';
+        document.getElementById('settingsUserTier').textContent = 'Tier: free';
     }
 
     // ============================================================
-    // 5. USER SETTINGS & REST OF APP LOGIC
-    function getUserSettingsKey() { return localStorage.getItem('sms_auth_email') ? 'arbi_settings_' + localStorage.getItem('sms_auth_email') : 'arbi_settings_guest'; }
-    function getDefaultSettings() { return { default_stake: 100000, min_profit: 1.0, max_profit: 15.0, markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true }, alert_threshold: 5.0, dark_mode: true, card_layout: 'comfortable', plan: 'free' }; }
-    function loadUserSettings() { try { const saved = localStorage.getItem(getUserSettingsKey()); saved ? applySettingsToUI(JSON.parse(saved)) : applySettingsToUI(getDefaultSettings()); } catch (e) { localStorage.removeItem(getUserSettingsKey()); applySettingsToUI(getDefaultSettings()); } }
-    function applySettingsToUI(settings) {
-        document.getElementById('defaultStake').value = settings.default_stake; document.getElementById('minProfit').value = settings.min_profit; document.getElementById('maxProfit').value = settings.max_profit; document.getElementById('mkt_1x2').checked = settings.markets['1x2']; document.getElementById('mkt_ou').checked = settings.markets['ou']; document.getElementById('mkt_ah').checked = settings.markets['ah']; document.getElementById('mkt_btts').checked = settings.markets['btts']; document.getElementById('alertToggle').checked = settings.alert_toggle !== undefined ? settings.alert_toggle : true; document.getElementById('alertThreshold').value = settings.alert_threshold; document.getElementById('darkModeToggle').checked = settings.dark_mode; document.getElementById('cardLayout').value = settings.card_layout; document.documentElement.style.setProperty('--bg', settings.dark_mode ? '#0d0f13' : '#ffffff');
+    // FETCH ARBITRAGE DATA
+    let opportunitiesData = [];
+    let allHistory = {};
+    let currentPage = 'dashboard';
+    let currentDetailArb = null;
+    let slipBets = [];
+    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
+
+    async function fetchUserDataFromBackend() {
+        const token = localStorage.getItem('sms_auth_token');
+        if (!token) return;
+        const listEl = document.getElementById('oppList');
+        listEl.innerHTML = '<div class="empty-state">Loading...</div>';
+        try {
+            const response = await fetch(`${API_BASE}/api/arbitrage`, {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!response.ok) {
+                if (response.status === 403) {
+                    const data = await response.json();
+                    throw new Error(data.error || 'Subscription expired. Please renew.');
+                }
+                throw new Error('HTTP ' + response.status);
+            }
+            const data = await response.json();
+            const userTier = data.tier || 'free';
+            document.getElementById('settingsUserTier').textContent = 'Tier: ' + userTier;
+            opportunitiesData = (data.opportunities || []).map(o => ({
+                match: o.match || 'Unknown',
+                sport: o.sport || 'Football',
+                type: o.type || '3-way',
+                profitPercent: o.profit_percent || 0,
+                profitUGX: o.profit_ugx || 0,
+                bets: (o.bets || []).map(b => ({
+                    bookie: b.bookmaker,
+                    outcome: b.outcome,
+                    odds: b.odd || 0,
+                    stake: b.stake || 0,
+                    win: b.win || 0
+                })),
+                valid: true,
+                first_seen: null,
+                last_seen: null,
+                history: []
+            }));
+            renderOpportunities();
+            renderAlerts();
+            if (data.history) {
+                allHistory = data.history;
+                renderHistory();
+            } else {
+                loadHistoryFromStatic();
+            }
+        } catch (err) {
+            console.error('API Error:', err);
+            listEl.innerHTML = `<div class="empty-state">⚠️ ${err.message}</div>`;
+        }
     }
-    function saveUserSettings() {
-        const settings = { default_stake: parseInt(document.getElementById('defaultStake').value) || 100000, min_profit: parseFloat(document.getElementById('minProfit').value) || 1.0, max_profit: parseFloat(document.getElementById('maxProfit').value) || 15.0, markets: { '1x2': document.getElementById('mkt_1x2').checked, 'ou': document.getElementById('mkt_ou').checked, 'ah': document.getElementById('mkt_ah').checked, 'btts': document.getElementById('mkt_btts').checked }, alert_toggle: document.getElementById('alertToggle').checked, alert_threshold: parseFloat(document.getElementById('alertThreshold').value) || 5.0, dark_mode: document.getElementById('darkModeToggle').checked, card_layout: document.getElementById('cardLayout').value, plan: 'free' };
-        localStorage.setItem(getUserSettingsKey(), JSON.stringify(settings)); showToast('✅ Settings Saved!'); fetchUserDataFromBackend();
+
+    function loadHistoryFromStatic() {
+        fetch('arb_history.json?t=' + Date.now())
+            .then(res => res.ok ? res.json() : {})
+            .then(data => { if (data && Object.keys(data).length > 0) { allHistory = data; renderHistory(); } })
+            .catch(() => {});
     }
 
-    const BOOKMAKER_URLS = { 'sportybet':'https://sportybet.ug','championbet':'https://championbet.ug','ababet':'https://ababet.ug','fortebet':'https://fortebet.ug','1xbet':'https://1xbet.ug','22bet':'https://22bet.ug','melbet':'https://melbet.ug' };
-    function getBookmakerUrl(bookieName) { const key = bookieName.toLowerCase().replace(/\s/g, ''); return BOOKMAKER_URLS[key] || '#'; }
-
-    let opportunitiesData = []; let allHistory = {}; let currentPage = 'dashboard'; let currentDetailArb = null; let slipBets = []; let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
-
-    function fetchUserDataFromBackend() {
-        const token = localStorage.getItem('sms_auth_token'); if (!token) return;
-        const listEl = document.getElementById('oppList'); listEl.innerHTML = '<div class="empty-state">Loading...</div>';
-        fetch(`${API_BASE}/api/arbitrage`, { headers: { 'Authorization': 'Bearer ' + token } }).then(res => {
-            if (!res.ok) { if (res.status === 403) { return res.json().then(data => { throw new Error(data.error || 'Subscription expired. Please renew.'); }); } throw new Error('HTTP ' + res.status); } return res.json();
-        }).then(data => {
-            userTier = data.tier || 'free'; document.getElementById('settingsUserTier').textContent = 'Tier: ' + userTier;
-            opportunitiesData = (data.opportunities || []).map(o => ({ match: o.match || 'Unknown', sport: o.sport || 'Football', type: o.type || '3-way', profitPercent: o.profit_percent || 0, profitUGX: o.profit_ugx || 0, bets: (o.bets || []).map(b => ({ bookie: b.bookmaker, outcome: b.outcome, odds: b.odd || 0, stake: b.stake || 0, win: b.win || 0 })), valid: true, first_seen: null, last_seen: null, history: [] }));
-            renderOpportunities(); renderAlerts(); if (data.history) { allHistory = data.history; renderHistory(); } else { loadHistoryFromStatic(); }
-        }).catch(err => { console.error('API Error:', err); listEl.innerHTML = `<div class="empty-state">⚠️ ${err.message}</div>`; });
+    // ============================================================
+    // RENDER FUNCTIONS (keep your existing ones)
+    function getBookmakerUrl(bookieName) {
+        const map = { 'sportybet':'https://sportybet.ug','championbet':'https://championbet.ug','ababet':'https://ababet.ug','fortebet':'https://fortebet.ug','1xbet':'https://1xbet.ug','22bet':'https://22bet.ug','melbet':'https://melbet.ug' };
+        const key = bookieName.toLowerCase().replace(/\s/g, '');
+        return map[key] || '#';
     }
 
-    function loadHistoryFromStatic() { fetch('arb_history.json?t=' + Date.now()).then(res => res.ok ? res.json() : {}).then(data => { if (data && Object.keys(data).length > 0) { allHistory = data; renderHistory(); } }).catch(() => {}); }
+    function getBookieColor(bookie) {
+        const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
+        return map[bookie.toLowerCase()] || '#444';
+    }
+
+    function renderOpportunities(filter = 'all') {
+        let settings = getDefaultSettings();
+        const saved = localStorage.getItem(getUserSettingsKey());
+        if (saved) { try { settings = { ...settings, ...JSON.parse(saved) }; } catch(e) {} }
+        const minProfit = settings.minProfit || 1.0;
+        const maxProfit = settings.maxProfit || 99.0;
+        const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
+        const container = document.getElementById('oppList');
+        if (!container) return;
+        if (!opportunitiesData || opportunitiesData.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No opportunities available for your tier.</p></div>';
+            return;
+        }
+        let filtered = opportunitiesData.filter(a => {
+            if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
+            const type = a.type || '3-way';
+            if (type.includes('1x2') && !markets['1x2']) return false;
+            if (type.includes('Over/Under') && !markets['ou']) return false;
+            if (type.includes('Asian Handicap') && !markets['ah']) return false;
+            if (type.includes('BTTS') && !markets['btts']) return false;
+            if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
+            if (filter === 'high' && a.profitPercent <= 5) return false;
+            return true;
+        });
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No opportunities found matching your filters.</p></div>';
+            return;
+        }
+        container.innerHTML = filtered.map(arb => {
+            const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+            return `<div class="opp-card" onclick='handleCardClick(${arbStr})'>
+                <div class="top-row"><div class="event-info"><div class="sport-badge">⚽ ${arb.sport}</div><div class="event-name">${arb.match}</div><div class="market-type">${arb.type} · Pre-match</div></div><div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div></div>
+                <div class="bookie-row">${arb.bets.map(b => { const url = getBookmakerUrl(b.bookie); const color = getBookieColor(b.bookie); return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="bookie-link" onclick="event.stopPropagation();"><span class="bookie-dot" style="background:${color}">${b.bookie.charAt(0)}</span><span>${b.bookie} ${b.outcome} @ ${b.odds}</span></a>`; }).join('')}</div>
+                <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
+                <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div>
+            </div>`;
+        }).join('');
+    }
+
+    function handleCardClick(arb) {
+        navigateTo('detail', arb);
+    }
+
+    document.getElementById('dashboardFilterTabs').addEventListener('click', function(e) {
+        if (e.target.classList.contains('filter-tab')) {
+            this.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+            renderOpportunities(e.target.dataset.filter || 'all');
+        }
+    });
+
+    function filterOpportunities() {
+        const active = document.querySelector('#dashboardFilterTabs .filter-tab.active');
+        renderOpportunities(active ? active.dataset.filter : 'all');
+    }
 
     function navigateTo(pageName, data) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const target = document.getElementById('page-' + pageName);
         if (target) {
-            target.classList.add('active'); currentPage = pageName; document.getElementById('mainContent').scrollTop = 0;
+            target.classList.add('active');
+            currentPage = pageName;
+            document.getElementById('mainContent').scrollTop = 0;
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             const navBtn = document.querySelector(`.nav-item[data-page="${pageName}"]`);
             if (navBtn) navBtn.classList.add('active');
@@ -484,41 +648,6 @@
             if (fab) fab.style.display = pageName === 'dashboard' ? 'flex' : 'none';
         }
     }
-
-    function getBookieColor(bookie) { const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' }; return map[bookie.toLowerCase()] || '#444'; }
-
-    function renderOpportunities(filter = 'all') {
-        try {
-            let settings = getDefaultSettings(); const saved = localStorage.getItem(getUserSettingsKey());
-            if (saved) { try { settings = { ...settings, ...JSON.parse(saved) }; } catch (e) { localStorage.removeItem(getUserSettingsKey()); } }
-            const minProfit = settings.minProfit || 1.0; const maxProfit = settings.maxProfit || 99.0;
-            const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
-            const container = document.getElementById('oppList'); if (!container) return;
-            if (!opportunitiesData || opportunitiesData.length === 0) { container.innerHTML = '<div class="empty-state"><p>No opportunities available for your tier.</p></div>'; return; }
-            let filtered = opportunitiesData.filter(a => {
-                if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
-                const type = a.type || '3-way';
-                if (type.includes('1x2') && !markets['1x2']) return false; if (type.includes('Over/Under') && !markets['ou']) return false;
-                if (type.includes('Asian Handicap') && !markets['ah']) return false; if (type.includes('BTTS') && !markets['btts']) return false;
-                if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
-                if (filter === 'high' && a.profitPercent <= 5) return false; return true;
-            });
-            if (filtered.length === 0) { container.innerHTML = '<div class="empty-state"><p>No opportunities found matching your filters.</p></div>'; return; }
-            container.innerHTML = filtered.map(arb => {
-                const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
-                return `<div class="opp-card" onclick='handleCardClick(${arbStr})'>
-                    <div class="top-row"><div class="event-info"><div class="sport-badge">⚽ ${arb.sport}</div><div class="event-name">${arb.match}</div><div class="market-type">${arb.type} · Pre-match</div></div><div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div></div>
-                    <div class="bookie-row">${arb.bets.map(b => { const url = getBookmakerUrl(b.bookie); const color = getBookieColor(b.bookie); return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="bookie-link" onclick="event.stopPropagation();"><span class="bookie-dot" style="background:${color}">${b.bookie.charAt(0)}</span><span>${b.bookie} ${b.outcome} @ ${b.odds}</span></a>`; }).join('')}</div>
-                    <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
-                    <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div>
-                </div>`;
-            }).join('');
-        } catch (error) { console.error("Render error:", error); document.getElementById('oppList').innerHTML = '<div class="empty-state"><p>⚠️ Error displaying opportunities.</p></div>'; }
-    }
-
-    function handleCardClick(arb) { navigateTo('detail', arb); }
-    document.getElementById('dashboardFilterTabs').addEventListener('click', function(e) { if (e.target.classList.contains('filter-tab')) { this.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active')); e.target.classList.add('active'); renderOpportunities(e.target.dataset.filter || 'all'); } });
-    function filterOpportunities() { const active = document.querySelector('#dashboardFilterTabs .filter-tab.active'); renderOpportunities(active ? active.dataset.filter : 'all'); }
 
     function populateDetailPage(arb) {
         currentDetailArb = arb;
@@ -534,64 +663,332 @@
         updateDetailCalc();
     }
 
-    function updateDetailCalc() { if (!currentDetailArb) return; const arb = currentDetailArb; const saved = localStorage.getItem(getUserSettingsKey()); const settings = saved ? JSON.parse(saved) : getDefaultSettings(); const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000; const odds = arb.bets.map(b => b.odds); if (odds.some(o => o <= 0)) return; const invSum = odds.reduce((s, o) => s + 1/o, 0); const stakes = odds.map(o => (stake / o) / invSum); const minPayout = Math.min(...stakes.map((s, i) => s * odds[i])); const profit = minPayout - stake; const roi = (profit / stake) * 100; const breakdown = document.getElementById('detailBreakdown'); if (breakdown) { breakdown.innerHTML = stakes.map((s, i) => `<div class="breakdown-row"><span>Stake on ${arb.bets[i].outcome} (${arb.bets[i].bookie})</span><span class="val">UGX ${s.toFixed(2)}</span></div>`).join('') + `<div class="breakdown-row"><span>Total Invested</span><span class="val">UGX ${stake.toFixed(2)}</span></div><div class="breakdown-row"><span>Guaranteed Profit</span><span class="val">+UGX ${profit.toFixed(2)} (${roi.toFixed(2)}%)</span></div>`; } }
+    function updateDetailCalc() {
+        if (!currentDetailArb) return;
+        const arb = currentDetailArb;
+        const saved = localStorage.getItem(getUserSettingsKey());
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
+        const odds = arb.bets.map(b => b.odds);
+        if (odds.some(o => o <= 0)) return;
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
+        const profit = minPayout - stake;
+        const roi = (profit / stake) * 100;
+        const breakdown = document.getElementById('detailBreakdown');
+        if (breakdown) {
+            breakdown.innerHTML = stakes.map((s, i) => `<div class="breakdown-row"><span>Stake on ${arb.bets[i].outcome} (${arb.bets[i].bookie})</span><span class="val">UGX ${s.toFixed(2)}</span></div>`).join('') +
+                `<div class="breakdown-row"><span>Total Invested</span><span class="val">UGX ${stake.toFixed(2)}</span></div>
+                <div class="breakdown-row"><span>Guaranteed Profit</span><span class="val">+UGX ${profit.toFixed(2)} (${roi.toFixed(2)}%)</span></div>`;
+        }
+    }
 
-    function addCurrentDetailToSlip() { if (!currentDetailArb) return; const arb = currentDetailArb; const saved = localStorage.getItem(getUserSettingsKey()); const settings = saved ? JSON.parse(saved) : getDefaultSettings(); const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000; const odds = arb.bets.map(b => b.odds); if (odds.some(o => o <= 0)) return; const invSum = odds.reduce((s, o) => s + 1/o, 0); const stakes = odds.map(o => (stake / o) / invSum); const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake; slipBets.push({ id: Date.now(), match: arb.match, sport: arb.sport, type: arb.type, bets: arb.bets.map((b, i) => ({ ...b, stake: stakes[i] })), totalStake: stake, profit, placedStatus: arb.bets.map(() => false) }); renderSlip(); navigateTo('slip'); showToast('Added to slip'); }
+    function addCurrentDetailToSlip() {
+        if (!currentDetailArb) return;
+        const arb = currentDetailArb;
+        const saved = localStorage.getItem(getUserSettingsKey());
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
+        const odds = arb.bets.map(b => b.odds);
+        if (odds.some(o => o <= 0)) return;
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
+        slipBets.push({
+            id: Date.now(),
+            match: arb.match,
+            sport: arb.sport,
+            type: arb.type,
+            bets: arb.bets.map((b, i) => ({ ...b, stake: stakes[i] })),
+            totalStake: stake,
+            profit,
+            placedStatus: arb.bets.map(() => false)
+        });
+        renderSlip();
+        navigateTo('slip');
+        showToast('Added to slip');
+    }
 
+    // ============================================================
+    // CALCULATOR
     function updateCalculator() {
-        const stake = parseFloat(document.getElementById('calcStake').value) || 100000; const odds = [parseFloat(document.getElementById('calcOdds1').value) || 3.6, parseFloat(document.getElementById('calcOdds2').value) || 3.82];
-        if (document.getElementById('calcOdds3Container').style.display !== 'none') { odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82); }
-        if (odds.some(o => o <= 0)) return; const invSum = odds.reduce((s, o) => s + 1/o, 0); const stakes = odds.map(o => (stake / o) / invSum); const minPayout = Math.min(...stakes.map((s, i) => s * odds[i])); const profit = minPayout - stake; const roi = (profit / stake) * 100; document.getElementById('calcResult').innerHTML = `<div class="profit-ring">${roi.toFixed(2)}%</div><div class="details">${stakes.map((s, i) => `<strong>Bet ${i+1}:</strong> UGX ${s.toFixed(2)}`).join(' | ')}<br><strong>Profit:</strong> UGX ${profit.toFixed(2)}</div>`;
-    }
-    function toggleThirdOdds() { const cont = document.getElementById('calcOdds3Container'); cont.style.display = cont.style.display === 'none' ? 'block' : 'none'; updateCalculator(); }
-    function addCurrentCalcToSlip() {
-        const stake = parseFloat(document.getElementById('calcStake').value) || 100000; const odds = [parseFloat(document.getElementById('calcOdds1').value) || 3.6, parseFloat(document.getElementById('calcOdds2').value) || 3.82];
-        let bets = [{ bookie: 'Bookie1', outcome: 'Outcome 1', odds: odds[0] }, { bookie: 'Bookie2', outcome: 'Outcome 2', odds: odds[1] }];
-        if (document.getElementById('calcOdds3Container').style.display !== 'none') { odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82); bets.push({ bookie: 'Bookie3', outcome: 'Outcome 3', odds: odds[2] }); }
-        if (odds.some(o => o <= 0)) { showToast('Invalid odds'); return; } const invSum = odds.reduce((s, o) => s + 1/o, 0); const stakes = odds.map(o => (stake / o) / invSum); const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake; slipBets.push({ id: Date.now(), match: 'Custom Calculation', sport: 'Custom', type: odds.length === 3 ? '3-way' : '2-way', bets: bets.map((b, i) => ({ ...b, stake: stakes[i] })), totalStake: stake, profit, placedStatus: bets.map(() => false) }); renderSlip(); navigateTo('slip'); showToast('Calculation added to slip');
+        const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
+        const odds = [
+            parseFloat(document.getElementById('calcOdds1').value) || 3.6,
+            parseFloat(document.getElementById('calcOdds2').value) || 3.82
+        ];
+        if (document.getElementById('calcOdds3Container').style.display !== 'none') {
+            odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
+        }
+        if (odds.some(o => o <= 0)) return;
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
+        const profit = minPayout - stake;
+        const roi = (profit / stake) * 100;
+        document.getElementById('calcResult').innerHTML = `
+            <div class="profit-ring">${roi.toFixed(2)}%</div>
+            <div class="details">${stakes.map((s, i) => `<strong>Bet ${i+1}:</strong> UGX ${s.toFixed(2)}`).join(' | ')}<br><strong>Profit:</strong> UGX ${profit.toFixed(2)}</div>`;
     }
 
+    function toggleThirdOdds() {
+        const cont = document.getElementById('calcOdds3Container');
+        cont.style.display = cont.style.display === 'none' ? 'block' : 'none';
+        updateCalculator();
+    }
+
+    function addCurrentCalcToSlip() {
+        const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
+        const odds = [
+            parseFloat(document.getElementById('calcOdds1').value) || 3.6,
+            parseFloat(document.getElementById('calcOdds2').value) || 3.82
+        ];
+        let bets = [
+            { bookie: 'Bookie1', outcome: 'Outcome 1', odds: odds[0] },
+            { bookie: 'Bookie2', outcome: 'Outcome 2', odds: odds[1] }
+        ];
+        if (document.getElementById('calcOdds3Container').style.display !== 'none') {
+            odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
+            bets.push({ bookie: 'Bookie3', outcome: 'Outcome 3', odds: odds[2] });
+        }
+        if (odds.some(o => o <= 0)) { showToast('Invalid odds'); return; }
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
+        slipBets.push({
+            id: Date.now(),
+            match: 'Custom Calculation',
+            sport: 'Custom',
+            type: odds.length === 3 ? '3-way' : '2-way',
+            bets: bets.map((b, i) => ({ ...b, stake: stakes[i] })),
+            totalStake: stake,
+            profit,
+            placedStatus: bets.map(() => false)
+        });
+        renderSlip();
+        navigateTo('slip');
+        showToast('Calculation added to slip');
+    }
+
+    // ============================================================
+    // SLIP
     function renderSlip() {
         const container = document.getElementById('slipItems');
-        if (slipBets.length === 0) { container.innerHTML = '<div class="empty-state"><p>No bets in slip</p></div>'; document.getElementById('slipSummary').style.display = 'none'; document.getElementById('slipCount').textContent = '0 bets'; return; }
-        document.getElementById('slipSummary').style.display = 'block'; document.getElementById('slipCount').textContent = slipBets.length + ' bets';
-        container.innerHTML = slipBets.map((item, idx) => `<div class="slip-item"><div class="slip-bookie" style="background:#027a48;">${item.bets[0].bookie.charAt(0)}</div><div class="slip-info"><div class="slip-event">${item.match}</div><div class="slip-detail">${item.type} · Total stake UGX ${item.totalStake.toFixed(2)}</div></div><div class="slip-stake">+UGX ${item.profit.toFixed(2)}</div><div class="slip-actions"><button class="btn-copy" onclick="copySlip(${idx})">📋</button><button class="btn-open" onclick="openSlip(${idx})">↗</button></div></div>`).join('');
-        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0); document.getElementById('slipProfit').textContent = '+UGX ' + totalProfit.toFixed(2);
+        if (slipBets.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No bets in slip</p></div>';
+            document.getElementById('slipSummary').style.display = 'none';
+            document.getElementById('slipCount').textContent = '0 bets';
+            return;
+        }
+        document.getElementById('slipSummary').style.display = 'block';
+        document.getElementById('slipCount').textContent = slipBets.length + ' bets';
+        container.innerHTML = slipBets.map((item, idx) => `
+            <div class="slip-item">
+                <div class="slip-bookie" style="background:#027a48;">${item.bets[0].bookie.charAt(0)}</div>
+                <div class="slip-info">
+                    <div class="slip-event">${item.match}</div>
+                    <div class="slip-detail">${item.type} · Total stake UGX ${item.totalStake.toFixed(2)}</div>
+                </div>
+                <div class="slip-stake">+UGX ${item.profit.toFixed(2)}</div>
+                <div class="slip-actions">
+                    <button class="btn-copy" onclick="copySlip(${idx})">📋</button>
+                    <button class="btn-open" onclick="openSlip(${idx})">↗</button>
+                </div>
+            </div>
+        `).join('');
+        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
+        document.getElementById('slipProfit').textContent = '+UGX ' + totalProfit.toFixed(2);
     }
+
     function copySlip(idx) { showToast('Slip copied'); }
     function openSlip(idx) { showToast('Open bet on bookmaker'); }
-    function completeArb() { if (slipBets.length === 0) return; const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0); const record = { id: Date.now(), matches: slipBets.map(b => b.match), sport: slipBets[0].sport || 'Football', type: slipBets[0].type || '3-way', totalStake: slipBets.reduce((s, b) => s + b.totalStake, 0), profit: totalProfit, timestamp: new Date().toISOString().slice(0,19).replace('T',' ') }; completedArbs.push(record); localStorage.setItem('arbiHistory', JSON.stringify(completedArbs)); slipBets = []; renderSlip(); showToast('Arb completed'); }
 
-    function renderHistory() {
-        const totalArbsEl = document.getElementById('totalArbs'); const totalProfitEl = document.getElementById('totalProfit'); const chart = document.getElementById('profitChart'); const list = document.getElementById('historyList');
-        const entries = Object.values(allHistory).filter(e => e.versions && e.versions.length > 0).sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
-        totalArbsEl.textContent = entries.length; let totalProfit = 0; entries.forEach(e => { const latest = e.versions[e.versions.length - 1]; if (e.valid && latest) totalProfit += latest.profit_ugx || 0; }); totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(2);
-        chart.innerHTML = entries.map(e => { const latest = e.versions[e.versions.length - 1]; if (latest) { const h = Math.max(8, Math.min(100, Math.abs(latest.profit_ugx) / 1000)); return `<div class="chart-bar" style="height:${h}px;"></div>`; } return ''; }).join('');
-        list.innerHTML = entries.map(e => { const latest = e.versions[e.versions.length - 1]; const profit = latest ? latest.profit_ugx : 0; const timestamp = latest ? latest.timestamp : e.last_seen || '-'; return `<div class="hist-item"><div class="hist-info"><div class="hist-event">${e.match || 'Unknown'}</div><div class="hist-date">${timestamp}</div></div><div class="status-chip ${e.valid ? 'status-placed' : 'status-invalid'}">${e.valid ? '+UGX ' + profit.toFixed(2) : 'Invalid'}</div></div>`; }).join('');
+    function completeArb() {
+        if (slipBets.length === 0) return;
+        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
+        const record = {
+            id: Date.now(),
+            matches: slipBets.map(b => b.match),
+            sport: slipBets[0].sport || 'Football',
+            type: slipBets[0].type || '3-way',
+            totalStake: slipBets.reduce((s, b) => s + b.totalStake, 0),
+            profit: totalProfit,
+            timestamp: new Date().toISOString().slice(0,19).replace('T',' ')
+        };
+        completedArbs.push(record);
+        localStorage.setItem('arbiHistory', JSON.stringify(completedArbs));
+        slipBets = [];
+        renderSlip();
+        showToast('Arb completed');
     }
 
+    // ============================================================
+    // HISTORY
+    function renderHistory() {
+        const totalArbsEl = document.getElementById('totalArbs');
+        const totalProfitEl = document.getElementById('totalProfit');
+        const chart = document.getElementById('profitChart');
+        const list = document.getElementById('historyList');
+        const entries = Object.values(allHistory).filter(e => e.versions && e.versions.length > 0)
+            .sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
+        totalArbsEl.textContent = entries.length;
+        let totalProfit = 0;
+        entries.forEach(e => {
+            const latest = e.versions[e.versions.length - 1];
+            if (e.valid && latest) totalProfit += latest.profit_ugx || 0;
+        });
+        totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(2);
+        chart.innerHTML = entries.map(e => {
+            const latest = e.versions[e.versions.length - 1];
+            if (latest) {
+                const h = Math.max(8, Math.min(100, Math.abs(latest.profit_ugx) / 1000));
+                return `<div class="chart-bar" style="height:${h}px;"></div>`;
+            }
+            return '';
+        }).join('');
+        list.innerHTML = entries.map(e => {
+            const latest = e.versions[e.versions.length - 1];
+            const profit = latest ? latest.profit_ugx : 0;
+            const timestamp = latest ? latest.timestamp : e.last_seen || '-';
+            return `<div class="hist-item"><div class="hist-info"><div class="hist-event">${e.match || 'Unknown'}</div><div class="hist-date">${timestamp}</div></div><div class="status-chip ${e.valid ? 'status-placed' : 'status-invalid'}">${e.valid ? '+UGX ' + profit.toFixed(2) : 'Invalid'}</div></div>`;
+        }).join('');
+    }
+
+    // ============================================================
+    // ALERTS
     function renderAlerts() {
-        const alertsList = document.getElementById('alertsList'); const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
-        if (highProfit.length === 0) { alertsList.innerHTML = '<div class="empty-state"><p>No high profit alerts</p></div>'; return; }
+        const alertsList = document.getElementById('alertsList');
+        const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
+        if (highProfit.length === 0) {
+            alertsList.innerHTML = '<div class="empty-state"><p>No high profit alerts</p></div>';
+            return;
+        }
         alertsList.innerHTML = highProfit.map(a => `<div class="alert-card" onclick="handleCardClick(${JSON.stringify(a).replace(/'/g, '&#39;').replace(/"/g, '&quot;')})"><div class="alert-icon">⚡</div><div class="alert-info"><div class="alert-event">${a.match}</div><div class="alert-meta">${a.sport} · ${a.type}</div></div><div class="alert-profit">+${a.profitPercent.toFixed(2)}%</div></div>`).join('');
     }
 
-    function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1500); }
-
-    function submitManualPayment() {
-        const plan = document.getElementById('manualPlanSelect').value; const transactionId = document.getElementById('manualTransactionId').value.trim();
-        const statusDiv = document.getElementById('manualPaymentStatus'); const token = localStorage.getItem('sms_auth_token');
-        if (!transactionId) { statusDiv.textContent = '❌ Please enter the transaction ID.'; statusDiv.style.color = '#ff5252'; return; }
-        if (!token) { statusDiv.textContent = '❌ Please login first.'; statusDiv.style.color = '#ff5252'; return; }
-        statusDiv.textContent = '⏳ Submitting...'; statusDiv.style.color = '#a0a4b0';
-        const amounts = { day: 2500, monthly: 15000, quarterly: 40000 }; const amount = amounts[plan];
-        fetch(`${API_BASE}/api/manual-payment`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ plan: plan, transaction_id: transactionId, amount: amount }) })
-        .then(res => res.json()).then(data => { if (data.status === 'pending') { statusDiv.textContent = '✅ Payment submitted! We will verify the SMS.'; statusDiv.style.color = '#00e676'; document.getElementById('manualTransactionId').value = ''; } else { statusDiv.textContent = '❌ Error: ' + (data.message || data.error || 'Something went wrong'); statusDiv.style.color = '#ff5252'; } })
-        .catch(err => { statusDiv.textContent = '❌ Network error: ' + err.message; statusDiv.style.color = '#ff5252'; });
+    // ============================================================
+    // SETTINGS / USER PREFERENCES
+    function getUserSettingsKey() {
+        return localStorage.getItem('sms_auth_email') ? 'arbi_settings_' + localStorage.getItem('sms_auth_email') : 'arbi_settings_guest';
     }
 
-    document.addEventListener('DOMContentLoaded', () => { loadUserSettings(); updateCalculator(); renderSlip(); });
+    function getDefaultSettings() {
+        return {
+            default_stake: 100000,
+            min_profit: 1.0,
+            max_profit: 15.0,
+            markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true },
+            alert_threshold: 5.0,
+            dark_mode: true,
+            card_layout: 'comfortable',
+            plan: 'free'
+        };
+    }
 
-    window.switchAuthTab = switchAuthTab; window.signUpWithEmail = signUpWithEmail; window.loginWithEmail = loginWithEmail; window.signInWithGoogle = signInWithGoogle; window.logoutUser = logoutUser; window.navigateTo = navigateTo; window.handleCardClick = handleCardClick; window.showToast = showToast; window.addCurrentDetailToSlip = addCurrentDetailToSlip; window.addCurrentCalcToSlip = addCurrentCalcToSlip; window.completeArb = completeArb; window.copySlip = copySlip; window.openSlip = openSlip; window.toggleThirdOdds = toggleThirdOdds; window.updateCalculator = updateCalculator; window.saveUserSettings = saveUserSettings; window.filterOpportunities = filterOpportunities; window.renderAlerts = renderAlerts; window.renderHistory = renderHistory; window.submitManualPayment = submitManualPayment;
+    function loadUserSettings() {
+        try {
+            const saved = localStorage.getItem(getUserSettingsKey());
+            saved ? applySettingsToUI(JSON.parse(saved)) : applySettingsToUI(getDefaultSettings());
+        } catch (e) {
+            localStorage.removeItem(getUserSettingsKey());
+            applySettingsToUI(getDefaultSettings());
+        }
+    }
+
+    function applySettingsToUI(settings) {
+        // In this simple version we only store, not many UI controls.
+        // We'll just set the default stake in the detail page if needed.
+        // You can extend with more UI elements.
+    }
+
+    function saveUserSettings() {
+        // For now just show a toast; you can add more settings controls.
+        showToast('✅ Settings Saved (stub)');
+    }
+
+    // ============================================================
+    // MANUAL PAYMENT
+    async function submitManualPayment() {
+        const plan = document.getElementById('manualPlanSelect').value;
+        const transactionId = document.getElementById('manualTransactionId').value.trim();
+        const statusDiv = document.getElementById('manualPaymentStatus');
+        const token = localStorage.getItem('sms_auth_token');
+        if (!transactionId) {
+            statusDiv.textContent = '❌ Please enter the transaction ID.';
+            statusDiv.style.color = '#ff5252';
+            return;
+        }
+        if (!token) {
+            statusDiv.textContent = '❌ Please login first.';
+            statusDiv.style.color = '#ff5252';
+            return;
+        }
+        statusDiv.textContent = '⏳ Submitting...';
+        statusDiv.style.color = '#a0a4b0';
+        try {
+            const response = await fetch(`${API_BASE}/api/manual-payment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ plan: plan, transaction_id: transactionId })
+            });
+            const data = await response.json();
+            if (data.status === 'pending') {
+                statusDiv.textContent = '✅ Payment submitted! We will verify the SMS.';
+                statusDiv.style.color = '#00e676';
+                document.getElementById('manualTransactionId').value = '';
+            } else {
+                statusDiv.textContent = '❌ Error: ' + (data.message || data.error || 'Something went wrong');
+                statusDiv.style.color = '#ff5252';
+            }
+        } catch (err) {
+            statusDiv.textContent = '❌ Network error: ' + err.message;
+            statusDiv.style.color = '#ff5252';
+        }
+    }
+
+    // ============================================================
+    // TOAST
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1500);
+    }
+
+    // ============================================================
+    // INIT
+    document.addEventListener('DOMContentLoaded', () => {
+        loadUserSettings();
+        updateCalculator();
+        renderSlip();
+        checkSMSAuth(); // auto-login
+    });
+
+    // Expose functions globally
+    window.switchAuthTab = switchAuthTab;
+    window.signUpWithEmail = signUpWithEmail;
+    window.loginWithEmail = loginWithEmail;
+    window.signInWithGoogle = signInWithGoogle;
+    window.logoutUser = logoutUser;
+    window.navigateTo = navigateTo;
+    window.handleCardClick = handleCardClick;
+    window.showToast = showToast;
+    window.addCurrentDetailToSlip = addCurrentDetailToSlip;
+    window.addCurrentCalcToSlip = addCurrentCalcToSlip;
+    window.completeArb = completeArb;
+    window.copySlip = copySlip;
+    window.openSlip = openSlip;
+    window.toggleThirdOdds = toggleThirdOdds;
+    window.updateCalculator = updateCalculator;
+    window.saveUserSettings = saveUserSettings;
+    window.filterOpportunities = filterOpportunities;
+    window.renderAlerts = renderAlerts;
+    window.renderHistory = renderHistory;
+    window.submitManualPayment = submitManualPayment;
 </script>
-</body></html>
+</body>
+    </html>
