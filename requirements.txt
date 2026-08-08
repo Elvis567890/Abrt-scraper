@@ -4,8 +4,8 @@ flask-sqlalchemy
 python-dotenv
 requests
 beautifulsoup4
-passlib
-bcrypt
+passlib>=1.7.4
+bcrypt>=4.0.0
 pyjwt
 firebase-admin
 apscheduler
