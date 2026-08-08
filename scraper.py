@@ -12,7 +12,7 @@ from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-from passlib.hash import bcrypt as bcrypt_hash
+import bcrypt  # direct import (no passlib)
 import jwt
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
@@ -113,16 +113,14 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def set_password(self, password):
-        # Convert to bytes, truncate to 72 bytes (bcrypt limit), then decode back to string
         if isinstance(password, str):
             password_bytes = password.encode('utf-8')
         else:
             password_bytes = password
         if len(password_bytes) > 72:
             password_bytes = password_bytes[:72]
-        # Decode back to string (ignoring errors from incomplete multibyte chars)
-        password = password_bytes.decode('utf-8', errors='ignore')
-        self.password_hash = bcrypt_hash.hash(password)
+        salt = bcrypt.gensalt()
+        self.password_hash = bcrypt.hashpw(password_bytes, salt).decode('utf-8')
 
     def check_password(self, password):
         if isinstance(password, str):
@@ -131,8 +129,7 @@ class User(db.Model):
             password_bytes = password
         if len(password_bytes) > 72:
             password_bytes = password_bytes[:72]
-        password = password_bytes.decode('utf-8', errors='ignore')
-        return bcrypt_hash.verify(password, self.password_hash)
+        return bcrypt.checkpw(password_bytes, self.password_hash.encode('utf-8'))
 
 class Transaction(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -151,7 +148,7 @@ with app.app_context():
     print("✅ Database tables created/verified.")
 
 # ============================
-# SCRAPER FUNCTIONS (FULL)
+# SCRAPER FUNCTIONS – FULL
 # ============================
 def normalize(name):
     name = (name or "").lower().strip()
@@ -1067,11 +1064,7 @@ def signup():
         db.session.commit()
         token = generate_token(user.id)
         return jsonify({'token': token, 'user_id': user.id}), 201
-    except ValueError as e:
-        # Bcrypt error – already truncated, but catch just in case
-        return jsonify({'error': 'Password too long (max 72 bytes).'}), 400
     except Exception as e:
-        # Return the full error for debugging (remove after fixing)
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/login', methods=['POST'])
