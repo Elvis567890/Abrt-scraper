@@ -1,4 +1,3 @@
-# server.py
 import os
 import json
 import re
@@ -18,6 +17,8 @@ from passlib.hash import bcrypt as bcrypt_hash
 import jwt
 import firebase_admin
 from firebase_admin import credentials, auth as firebase_auth
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.interval import IntervalTrigger
 
 # Load environment variables
 load_dotenv()
@@ -29,17 +30,29 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
 app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
 
-# ✅ Explicit CORS for your GitHub Pages domain
-CORS(app, origins=["https://elvis567890.github.io", "https://elvis567890.github.io/Abrt-scraper"], supports_credentials=True)
+# CORS – allow your GitHub Pages domain and local testing
+CORS(app, origins=[
+    "https://elvis567890.github.io",
+    "https://elvis567890.github.io/Abrt-scraper",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "http://localhost:3000",
+    "*"  # for development – tighten in production
+], supports_credentials=True)
 
 # ---------- Firebase Admin (optional) ----------
 firebase_cred_json = os.getenv('FIREBASE_SERVICE_ACCOUNT')
+firebase_initialized = False
 if firebase_cred_json:
-    cred = credentials.Certificate(json.loads(firebase_cred_json))
-    firebase_admin.initialize_app(cred)
-    print("✅ Firebase Admin initialized")
+    try:
+        cred = credentials.Certificate(json.loads(firebase_cred_json))
+        firebase_admin.initialize_app(cred)
+        firebase_initialized = True
+        print("✅ Firebase Admin initialized")
+    except Exception as e:
+        print(f"⚠️ Firebase init error: {e}")
 else:
-    print("⚠️ FIREBASE_SERVICE_ACCOUNT not set. Firebase auth disabled.")
+    print("⚠️ FIREBASE_SERVICE_ACCOUNT not set. Using custom JWT only.")
 
 db = SQLAlchemy(app)
 
@@ -153,7 +166,7 @@ with app.app_context():
     db.create_all()
 
 # ============================
-#  SCRAPER FUNCTIONS
+#  SCRAPER FUNCTIONS (FULL)
 # ============================
 def normalize(name):
     name = (name or "").lower().strip()
@@ -1055,28 +1068,34 @@ def token_required(f):
         user = None
 
         # 1. Try Firebase token
-        try:
-            if firebase_admin._apps:
+        if firebase_initialized:
+            try:
                 decoded_token = firebase_auth.verify_id_token(token)
                 uid = decoded_token['uid']
                 email = decoded_token.get('email')
                 phone = decoded_token.get('phone_number') or ''
                 user = User.query.filter_by(firebase_uid=uid).first()
-                if not user:
+                if not user and email:
                     user = User(email=email, phone=phone, firebase_uid=uid, tier='free')
                     db.session.add(user)
                     db.session.commit()
-            else:
-                raise ValueError("Firebase not initialized")
-        except Exception:
-            # 2. Try custom JWT
+            except Exception as e:
+                print(f"Firebase verify error: {e}")
+
+        # 2. Try custom JWT
+        if not user:
             try:
                 decoded = jwt.decode(token, app.config['JWT_SECRET'], algorithms=['HS256'])
                 user = User.query.get(decoded['user_id'])
                 if not user:
                     return jsonify({'error': 'User not found'}), 401
-            except:
+            except jwt.ExpiredSignatureError:
+                return jsonify({'error': 'Token expired'}), 401
+            except jwt.InvalidTokenError:
                 return jsonify({'error': 'Invalid token'}), 401
+
+        if not user:
+            return jsonify({'error': 'Authentication failed'}), 401
 
         g.user_id = user.id
         g.user = user
@@ -1094,7 +1113,6 @@ def generate_token(user_id):
 #  ROUTES
 # ============================
 
-# ----- Health & Root -----
 @app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({
@@ -1119,7 +1137,9 @@ def home():
             {'path': '/api/arbitrage', 'method': 'GET', 'description': 'Get arbitrage opportunities'},
             {'path': '/api/signup', 'method': 'POST', 'description': 'Sign up'},
             {'path': '/api/login', 'method': 'POST', 'description': 'Login'},
-            {'path': '/api/profile', 'method': 'GET', 'description': 'Get profile'}
+            {'path': '/api/profile', 'method': 'GET', 'description': 'Get profile'},
+            {'path': '/api/firebase-auth', 'method': 'POST', 'description': 'Exchange Firebase token'},
+            {'path': '/api/scan', 'method': 'POST', 'description': 'Trigger manual scan'}
         ]
     })
 
@@ -1157,6 +1177,43 @@ def login():
         'subscribed': user.is_subscribed,
         'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
     })
+
+@app.route('/api/firebase-auth', methods=['POST'])
+def firebase_auth():
+    """Exchange Firebase ID token for custom JWT"""
+    data = request.get_json()
+    firebase_token = data.get('firebase_token')
+    if not firebase_token:
+        return jsonify({'error': 'Missing firebase_token'}), 400
+    
+    if not firebase_initialized:
+        return jsonify({'error': 'Firebase not configured on server'}), 500
+    
+    try:
+        decoded = firebase_auth.verify_id_token(firebase_token)
+        uid = decoded['uid']
+        email = decoded.get('email')
+        phone = decoded.get('phone_number') or ''
+        
+        user = User.query.filter_by(firebase_uid=uid).first()
+        if not user:
+            user = User(email=email or f"{uid}@firebase.user", phone=phone, firebase_uid=uid, tier='free')
+            db.session.add(user)
+            db.session.commit()
+        elif email and user.email != email:
+            user.email = email
+            db.session.commit()
+        
+        token = generate_token(user.id)
+        return jsonify({
+            'token': token,
+            'user_id': user.id,
+            'tier': user.tier,
+            'subscribed': user.is_subscribed,
+            'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 @app.route('/api/profile', methods=['GET'])
 @token_required
@@ -1311,7 +1368,6 @@ def initiate_payment():
         'instructions': f"Send exactly UGX {amount:,} to {os.getenv('MERCHANT_PHONE', '0756408723')} via Mobile Money."
     }), 201
 
-# ----- Manual Payment (Key-based) -----
 @app.route('/api/manual-payment', methods=['POST'])
 @token_required
 def manual_payment():
@@ -1351,9 +1407,13 @@ def sms_webhook():
         return 'Missing SMS data', 400
     app.logger.info(f"SMS received: {sms_text[:200]}...")
 
-    # Extract transaction ID and amount
     def extract_transaction_id(text):
-        patterns = [r'Ref[:\s]+([A-Z0-9\-]+)', r'TXN[:\s]+([A-Z0-9\-]+)', r'Transaction[:\s]+([A-Z0-9\-]+)', r'Reference[:\s]+([A-Z0-9\-]+)']
+        patterns = [
+            r'Ref[:\s]+([A-Z0-9\-]+)',
+            r'TXN[:\s]+([A-Z0-9\-]+)',
+            r'Transaction[:\s]+([A-Z0-9\-]+)',
+            r'Reference[:\s]+([A-Z0-9\-]+)'
+        ]
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE)
             if match:
@@ -1499,14 +1559,14 @@ def get_arbitrage():
 def admin_create_user():
     user = g.user
     if not is_admin(user):
-        return jsonify({'error': 'Access denied. Only the Super Base Admin can create users.'}), 403
+        return jsonify({'error': 'Access denied'}), 403
     data = request.get_json()
     email = data.get('email')
     phone = data.get('phone', '0000000000')
     password = data.get('password')
     tier = data.get('tier', 'free')
     if not email or not password:
-        return jsonify({'error': 'Email and password are required'}), 400
+        return jsonify({'error': 'Email and password required'}), 400
     if User.query.filter_by(email=email).first():
         return jsonify({'error': 'User already exists'}), 400
     new_user = User(email=email, phone=phone, tier=tier)
@@ -1515,11 +1575,24 @@ def admin_create_user():
     db.session.commit()
     token = generate_token(new_user.id)
     return jsonify({
-        'message': 'User created successfully by Super Base Admin.',
+        'message': 'User created',
         'token': token,
         'user_id': new_user.id,
         'tier': new_user.tier
     }), 201
+
+# ----- Scan trigger (admin only) -----
+@app.route('/api/scan', methods=['POST'])
+@token_required
+def trigger_scan():
+    user = g.user
+    if not is_admin(user):
+        return jsonify({'error': 'Admin only'}), 403
+    try:
+        run_scan()
+        return jsonify({'status': 'Scan completed successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # ----- Error handlers -----
 @app.errorhandler(404)
@@ -1531,7 +1604,31 @@ def server_error(e):
     return jsonify({'error': 'Internal server error'}), 500
 
 # ============================
-#  RUN (Scheduler REMOVED to prevent Railway crash loop)
+#  SCHEDULER – Auto-scan every 5 minutes
+# ============================
+def scheduled_scan():
+    with app.app_context():
+        print(f"[{datetime.utcnow()}] Running scheduled scan...")
+        try:
+            run_scan()
+            print("Scan completed successfully.")
+        except Exception as e:
+            print(f"Scan error: {e}")
+
+# Start scheduler only if not in debug mode (to avoid double runs)
+if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(
+        func=scheduled_scan,
+        trigger=IntervalTrigger(minutes=5),  # adjust as needed
+        id='arbitrage_scanner',
+        replace_existing=True
+    )
+    scheduler.start()
+    print("✅ Scheduler started – scanning every 5 minutes.")
+
+# ============================
+#  RUN
 # ============================
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
