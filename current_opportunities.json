@@ -309,65 +309,31 @@
     "match": "grimsby town vs blackpool",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.14,
-    "profit_ugx": 1143,
+    "profit_percent": 1.49,
+    "profit_ugx": 1489,
     "total_stake": 100000,
-    "arb_sum": 0.9886,
+    "arb_sum": 0.9851,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.41,
-        "stake": 41973,
-        "win": 101155
+        "stake": 42121,
+        "win": 101512
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 28099,
-        "win": 101156
+        "stake": 28198,
+        "win": 101513
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.38,
-        "stake": 29928,
-        "win": 101157
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "leicester vs northampton",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 2.36,
-    "profit_ugx": 2362,
-    "total_stake": 100000,
-    "arb_sum": 0.9764,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.25,
-        "stake": 81935,
-        "win": 102419
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 11.7,
-        "stake": 8754,
-        "win": 102422
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 11.0,
-        "stake": 9311,
-        "win": 102421
+        "odd": 3.42,
+        "stake": 29682,
+        "win": 101512
       }
     ],
     "market_type": "1x2",
@@ -640,6 +606,114 @@
         "odd": 3.65,
         "stake": 29013,
         "win": 105897
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "estrela da amadora vs sporting clube de portugal",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.92,
+    "profit_ugx": 17921,
+    "total_stake": 100000,
+    "arb_sum": 0.8208,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 4.3,
+        "stake": 28333,
+        "win": 121832
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.7,
+        "stake": 71667,
+        "win": 121834
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "estrela da amadora vs sporting clube de portugal",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.92,
+    "profit_ugx": 17921,
+    "total_stake": 100000,
+    "arb_sum": 0.8208,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 4.3,
+        "stake": 28333,
+        "win": 121832
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.7,
+        "stake": 71667,
+        "win": 121834
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hartberg vs sturm graz",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.83,
+    "profit_ugx": 2827,
+    "total_stake": 100000,
+    "arb_sum": 0.9717,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.1,
+        "stake": 49004,
+        "win": 102908
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 50996,
+        "win": 102910
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "hartberg vs sturm graz",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 2.83,
+    "profit_ugx": 2827,
+    "total_stake": 100000,
+    "arb_sum": 0.9717,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.1,
+        "stake": 49004,
+        "win": 102908
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.018,
+        "stake": 50996,
+        "win": 102910
       }
     ],
     "market_type": "1x2",
