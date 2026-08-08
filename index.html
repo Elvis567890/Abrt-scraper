@@ -15,7 +15,7 @@
             --text2: #a0a4b0;
             --text3: #6b6f7c;
             --green: #00e676;
-            --green-glow: rgba(0, 230, 118, 0.25);
+            --green-glow: rgba(0,230,118,0.25);
             --red: #ff5252;
             --blue: #448aff;
             --orange: #ff9100;
@@ -26,7 +26,7 @@
             --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: var(--font); background: #000; display:flex; justify-content:center; align-items:center; min-height:100vh; -webkit-font-smoothing:antialiased; user-select:none; }
+        body { font-family:var(--font); background:#000; display:flex; justify-content:center; align-items:center; min-height:100vh; -webkit-font-smoothing:antialiased; user-select:none; }
         .phone-frame { width:390px; height:844px; background:var(--bg); border-radius:36px; overflow:hidden; position:relative; box-shadow:0 0 0 6px #1a1a1a,0 0 0 8px #2a2a2a,0 20px 60px rgba(0,0,0,0.7); display:flex; flex-direction:column; }
         @media (max-width:430px) { .phone-frame { width:100vw; height:100vh; border-radius:0; box-shadow:none; } }
         .status-bar { height:44px; background:var(--bg); display:flex; align-items:center; justify-content:space-between; padding:0 24px; color:#fff; font-size:12px; font-weight:600; flex-shrink:0; }
@@ -312,7 +312,7 @@
     // ============================================================
     // 🔗 BACKEND URLs – CHANGE THESE TO YOUR ACTUAL ENDPOINTS
     // ============================================================
-    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';      // Main backend (auth + arbitrage)
+    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';      // Main backend
     const SMS_API_BASE = 'https://sms-payment-system-9.onrender.com';   // SMS payment backend (if separate)
 
     // ============================================================
@@ -972,4 +972,4 @@
     window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-                                                                                                                                                          </html>
+    </html>
