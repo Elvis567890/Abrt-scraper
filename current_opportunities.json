@@ -411,31 +411,31 @@
     "match": "bradford vs rochdale",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.06,
-    "profit_ugx": 1060,
+    "profit_percent": 1.18,
+    "profit_ugx": 1185,
     "total_stake": 100000,
-    "arb_sum": 0.9894,
+    "arb_sum": 0.9882,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.55,
-        "stake": 65208,
-        "win": 101072
+        "odd": 1.553,
+        "stake": 65164,
+        "win": 101200
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 5.82,
-        "stake": 17366,
-        "win": 101070
+        "stake": 17388,
+        "win": 101198
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 5.8,
-        "stake": 17426,
-        "win": 101071
+        "stake": 17448,
+        "win": 101198
       }
     ],
     "market_type": "1x2",
@@ -640,6 +640,60 @@
         "odd": 5.01,
         "stake": 33529,
         "win": 167980
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gillingham vs luton town",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.35,
+    "profit_ugx": 1350,
+    "total_stake": 100000,
+    "arb_sum": 0.9865,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.14,
+        "stake": 47368,
+        "win": 101368
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.926,
+        "stake": 52632,
+        "win": 101369
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "gillingham vs luton town",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.35,
+    "profit_ugx": 1350,
+    "total_stake": 100000,
+    "arb_sum": 0.9865,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.14,
+        "stake": 47368,
+        "win": 101368
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.926,
+        "stake": 52632,
+        "win": 101369
       }
     ],
     "market_type": "1x2",
