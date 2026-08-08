@@ -478,7 +478,7 @@
 
 <script>
     // ============================================================
-    // 1. FIREBASE CONFIG (No changes needed here)
+    // 1. FIREBASE CONFIG
     // ============================================================
     const firebaseConfig = {
         apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw",
@@ -494,12 +494,11 @@
     // ============================================================
     // 2. CONNECT TO YOUR NEW RAILWAY BACKEND
     // ============================================================
-    const API_BASE = 'https://stellar-abundance.up.railway.app';
+    const API_BASE = 'https://aper-production.up.railway.app';
 
     // ============================================================
     // 3. AUTH STATE & SUBSCRIPTION IDENTIFICATION
     // ============================================================
-    // Your backend's /api/profile requires a Bearer token
     function checkSMSAuth() {
         const authToken = localStorage.getItem('sms_auth_token');
         const authEmail = localStorage.getItem('sms_auth_email');
@@ -566,7 +565,7 @@
     checkSMSAuth();
 
     // ============================================================
-    // 4. AUTH FUNCTIONS (UPDATED FOR FIREBASE AUTH)
+    // 4. AUTH FUNCTIONS (FIREBASE LOGIC)
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
@@ -577,7 +576,6 @@
         document.getElementById('authErrorSignup').textContent = '';
     }
 
-    // ✅ SIGNUP USING FIREBASE AUTH
     function signUpWithEmail() {
         const email = document.getElementById('signupEmail').value.trim();
         const password = document.getElementById('signupPassword').value;
@@ -585,14 +583,11 @@
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
         
-        // Firebase creates the user
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                // Get the Firebase ID Token
                 return userCredential.user.getIdToken();
             })
             .then((idToken) => {
-                // Store the Firebase token as your auth token
                 localStorage.setItem('sms_auth_token', idToken);
                 localStorage.setItem('sms_auth_email', email);
                 showToast('Account created! Welcome to Abrimax!');
@@ -603,7 +598,6 @@
             });
     }
 
-    // ✅ LOGIN USING FIREBASE AUTH
     function loginWithEmail() {
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
@@ -611,7 +605,6 @@
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
         
-        // Firebase logs the user in
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 return userCredential.user.getIdToken();
@@ -632,13 +625,11 @@
     }
 
     function logoutUser() {
-        firebase.auth().signOut(); // Sign out from Firebase
+        firebase.auth().signOut();
         clearSMSAuth();
         showToast('Logged out.');
     }
 
-    // ... [Rest of your existing code (Settings, Calculator, Slip, etc.) stays exactly the same] ...
-    
     // ============================================================
     // 5. USER SETTINGS (localStorage)
     // ============================================================
@@ -725,7 +716,7 @@
     }
 
     // ============================================================
-    // 7. CORE APP LOGIC (Fetch arbitrage data)
+    // 7. CORE APP LOGIC – FETCH FROM BACKEND API
     // ============================================================
     let opportunitiesData = [];
     let allHistory = {};
@@ -1261,4 +1252,4 @@
     window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-    </html>
+                        </html>
