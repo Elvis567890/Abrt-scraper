@@ -29,8 +29,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
 app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
 
-# ✅ CORS – allow any origin (safe for GitHub Pages)
-CORS(app, origins="*", supports_credentials=True)
+# ✅ Explicit CORS for your GitHub Pages domain
+CORS(app, origins=["https://elvis567890.github.io", "https://elvis567890.github.io/Abrt-scraper"], supports_credentials=True)
 
 # ---------- Firebase Admin (optional) ----------
 firebase_cred_json = os.getenv('FIREBASE_SERVICE_ACCOUNT')
@@ -59,11 +59,56 @@ SHARED_BOOKMAKERS_1X = {
     "Melbet": {"base_url": "https://melbet.ug", "partner": "8"},
 }
 
+# Tier configuration
 TIERS = {
-    'free': { 'label': 'Free Trial', 'price': 0, 'duration_days': None, 'max_profit_percent': 5.0, 'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'], 'market_types': ['1x2'], 'daily_matches': 3, 'telegram_alerts': False, 'historical_data': False, 'value_rating': 'Poor Value' },
-    'day': { 'label': 'Day Pass', 'price': 2500, 'duration_days': 1, 'max_profit_percent': 15.0, 'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'], 'market_types': ['1x2', 'Over/Under 2.5'], 'daily_matches': None, 'telegram_alerts': False, 'historical_data': False, 'value_rating': 'Best Value' },
-    'monthly': { 'label': 'Monthly VIP', 'price': 15000, 'duration_days': 30, 'max_profit_percent': 50.0, 'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'], 'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'], 'daily_matches': None, 'telegram_alerts': True, 'historical_data': True, 'value_rating': 'High Saver' },
-    'quarterly': { 'label': 'Quarterly Pro', 'price': 40000, 'duration_days': 90, 'max_profit_percent': 50.0, 'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'], 'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'], 'daily_matches': None, 'telegram_alerts': True, 'historical_data': True, 'value_rating': 'High Saver' }
+    'free': {
+        'label': 'Free Trial',
+        'price': 0,
+        'duration_days': None,
+        'max_profit_percent': 5.0,
+        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'],
+        'market_types': ['1x2'],
+        'daily_matches': 3,
+        'telegram_alerts': False,
+        'historical_data': False,
+        'value_rating': 'Poor Value',
+    },
+    'day': {
+        'label': 'Day Pass',
+        'price': 2500,
+        'duration_days': 1,
+        'max_profit_percent': 15.0,
+        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'],
+        'market_types': ['1x2', 'Over/Under 2.5'],
+        'daily_matches': None,
+        'telegram_alerts': False,
+        'historical_data': False,
+        'value_rating': 'Best Value',
+    },
+    'monthly': {
+        'label': 'Monthly VIP',
+        'price': 15000,
+        'duration_days': 30,
+        'max_profit_percent': 50.0,
+        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
+        'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
+        'daily_matches': None,
+        'telegram_alerts': True,
+        'historical_data': True,
+        'value_rating': 'High Saver',
+    },
+    'quarterly': {
+        'label': 'Quarterly Pro',
+        'price': 40000,
+        'duration_days': 90,
+        'max_profit_percent': 50.0,
+        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
+        'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
+        'daily_matches': None,
+        'telegram_alerts': True,
+        'historical_data': True,
+        'value_rating': 'High Saver',
+    }
 }
 
 PLANS_BY_AMOUNT = {2500: 'day', 15000: 'monthly', 40000: 'quarterly'}
@@ -323,6 +368,7 @@ def scrape_championbet():
         req = urllib.request.Request(CHAMPIONBET_API, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as resp:
             top_data = json.loads(resp.read().decode())
+
         matches = top_data.get("esMatches", []) if isinstance(top_data, dict) else []
         print(f"ChampionBet: {len(matches)} matches in top list")
         count = 0
@@ -335,18 +381,22 @@ def scrape_championbet():
                 home_team = m.get("home") or ""
                 away_team = m.get("away") or ""
                 if not home_team or not away_team: continue
+
                 match_url = CHAMPIONBET_MATCH_API.format(match_id=match_id)
                 match_req = urllib.request.Request(match_url, headers=headers)
                 with urllib.request.urlopen(match_req, timeout=30) as r2:
                     match_data = json.loads(r2.read().decode())
                 bet_map = match_data.get("betMap", {}) if isinstance(match_data, dict) else {}
+
                 h, d, a = championbet_extract_1x2_from_betmap(bet_map)
                 if h and a:
                     count += 1
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", h, d, a, competition=m.get("leagueName", ""), market_type="1x2"))
+
                 over, under = championbet_extract_ou_from_betmap(bet_map)
                 if over and under:
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", over, under, None, market_type="Over/Under 2.5"))
+
                 ah_odds, dc_odds, btts_odds = championbet_extract_ah_dc_btts_from_betmap(bet_map)
                 if ah_odds.get(5) and ah_odds.get(6):
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[5], None, ah_odds[6], market_type="Asian Handicap", market_specifier="-1.5"))
@@ -357,6 +407,7 @@ def scrape_championbet():
                 if dc_odds.get(22): odds.append(build_match_record(home_team, away_team, "ChampionBet", dc_odds[22], None, None, market_type="Double Chance", market_specifier="12"))
                 if btts_odds.get(19) and btts_odds.get(20):
                     odds.append(build_match_record(home_team, away_team, "ChampionBet", btts_odds[19], None, btts_odds[20], market_type="BTTS"))
+
                 time.sleep(0.2)
             except:
                 continue
@@ -379,6 +430,7 @@ def scrape_ababet():
         if not tables:
             print("AbaBet: no tables found")
             return odds
+
         for table in tables:
             first_row = table.find("tr")
             if not first_row: continue
@@ -390,12 +442,15 @@ def scrape_ababet():
                 row = dict(zip(headers, cells[:len(headers)]))
                 home, away = row.get("Home"), row.get("Away")
                 if not home or not away or home == "-" or away == "-": continue
+
                 h = row.get("1"); d = row.get("X"); a = row.get("2")
                 if h and a:
                     odds.append(build_match_record(home, away, "AbaBet", h, d, a, competition=row.get("League", ""), market_type="1x2"))
+
                 over = row.get("Over"); under = row.get("Under")
                 if over and under:
                     odds.append(build_match_record(home, away, "AbaBet", over, under, None, market_type="Over/Under 2.5"))
+
         print(f"AbaBet: {len(odds)} matches extracted")
     except Exception as e:
         print(f"AbaBet error: {e}")
@@ -410,6 +465,7 @@ def scrape_fortebet():
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json", "Referer": "https://desktop.fortebet.ug/prematch/landing"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
+
         inner = data.get("data", {})
         events = inner.get("event", {})
         markets = inner.get("markets", {})
@@ -417,6 +473,7 @@ def scrape_fortebet():
         event_markets = {}
         for _, market in markets.items():
             event_markets.setdefault(str(market.get("eventId", "")), []).append(market)
+
         count = 0
         for eid, event in events.items():
             try:
@@ -429,6 +486,7 @@ def scrape_fortebet():
                 ah_home = ah_away = None
                 dc_home = dc_away = None
                 btts_yes = btts_no = None
+
                 for market in event_markets.get(eid, []):
                     mid = market.get("marketId")
                     if mid == 1:
@@ -471,6 +529,7 @@ def scrape_fortebet():
                                 oid = v.get("outcomeId", 0)
                                 if oid == 1: btts_yes = clean_odd(v["odds"])
                                 elif oid == 2: btts_no = clean_odd(v["odds"])
+
                 if h and a:
                     sport_name = "Netball" if d is None else "Football"
                     ev_sport = (event.get("sportName") or event.get("sport") or "").lower()
@@ -478,14 +537,19 @@ def scrape_fortebet():
                     elif "tennis" in ev_sport: sport_name = "Tennis"
                     count += 1
                     odds.append(build_match_record(home, away, "Fortebet", h, d, a, sport=sport_name, market_type="1x2"))
+
                 if over and under:
                     odds.append(build_match_record(home, away, "Fortebet", over, under, None, sport="Football", market_type="Over/Under 2.5"))
+
                 if ah_home and ah_away:
                     odds.append(build_match_record(home, away, "Fortebet", ah_home, None, ah_away, sport="Football", market_type="Asian Handicap", market_specifier="-0.5"))
+
                 if dc_home: odds.append(build_match_record(home, away, "Fortebet", dc_home, None, None, sport="Football", market_type="Double Chance", market_specifier="1X"))
                 if dc_away: odds.append(build_match_record(home, away, "Fortebet", None, None, dc_away, sport="Football", market_type="Double Chance", market_specifier="12"))
+
                 if btts_yes and btts_no:
                     odds.append(build_match_record(home, away, "Fortebet", btts_yes, None, btts_no, sport="Football", market_type="BTTS"))
+
             except: continue
         print(f"Fortebet: {count} matches extracted")
     except Exception as e:
@@ -511,6 +575,7 @@ def scrape_sportybet():
                     a = clean_odd(event.get("away"))
                     if h and a:
                         odds.append(build_match_record(home, away, "SportyBet", h, d, a, sport=sport, market_type="1x2"))
+
                     over = clean_odd(event.get("over_odd"))
                     under = clean_odd(event.get("under_odd"))
                     if over and under:
@@ -697,26 +762,31 @@ def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
             if not home or not away: continue
             if home.strip() == "Home" and away.strip() == "Away":
                 continue
+
             ah_home = ah_away = None
             dc_home = dc_away = None
             btts_yes = btts_no = None
+
             for e in match.get("E", []):
                 t = str(e.get("T", "")).strip()
                 c = clean_odd(e.get("C"))
                 if not c: continue
                 p = e.get("P")
+
                 if t == "7" and p is not None: ah_home = c
                 elif t == "8" and p is not None: ah_away = c
                 elif t == "4" or t == "180": dc_home = c
                 elif t == "181": dc_away = c
                 elif t == "19": btts_yes = c
                 elif t == "20": btts_no = c
+
             if ah_home and ah_away:
                 odds.append(build_match_record(home, away, bookmaker_name, ah_home, None, ah_away, market_type="Asian Handicap", market_specifier="-0.5"))
             if dc_home and dc_away:
                 odds.append(build_match_record(home, away, bookmaker_name, dc_home, None, dc_away, market_type="Double Chance", market_specifier="1X"))
             if btts_yes and btts_no:
                 odds.append(build_match_record(home, away, bookmaker_name, btts_yes, None, btts_no, market_type="BTTS"))
+
         print(f"{bookmaker_name} extra markets: {len(odds)} records")
     except Exception as e:
         print(f"{bookmaker_name} extra markets error: {e}")
@@ -729,10 +799,12 @@ def find_arbitrage(all_odds):
     for odd in all_odds:
         sport = odd.get("sport", "Football")
         sports_odds.setdefault(sport, []).append(odd)
+
     for sport, sport_odds in sports_odds.items():
         exact_groups = {}
         for odd in sport_odds:
             exact_groups.setdefault(odd.get("match_key", ""), []).append(odd)
+
         merged_groups, processed_keys = {}, set()
         all_keys = list(exact_groups.keys())
         for i, key1 in enumerate(all_keys):
@@ -745,12 +817,15 @@ def find_arbitrage(all_odds):
                     group.extend(exact_groups[key2])
                     processed_keys.add(key2)
             merged_groups[key1] = group
+
         for match_name, bookmakers in merged_groups.items():
             if not bookmakers: continue
             first = bookmakers[0]
             mtype = first.get("market_type", "1x2")
             spec = first.get("market_specifier", "")
+
             if len(set(b["bookmaker"] for b in bookmakers)) < 2: continue
+
             bk_odds = {}
             for b in bookmakers:
                 bk = b["bookmaker"]
@@ -761,8 +836,10 @@ def find_arbitrage(all_odds):
                 if home is not None and home > bk_odds[bk]["home"]: bk_odds[bk]["home"] = home
                 if draw is not None and draw > bk_odds[bk]["draw"]: bk_odds[bk]["draw"] = draw
                 if away is not None and away > bk_odds[bk]["away"]: bk_odds[bk]["away"] = away
+
             bk_list = list(bk_odds.keys())
-            # 2-way markets
+
+            # 2-way markets: O/U, AH, DC, BTTS
             if mtype in ["Over/Under 2.5", "Asian Handicap", "Double Chance", "BTTS"]:
                 best = None
                 for bk1 in bk_list:
@@ -772,10 +849,12 @@ def find_arbitrage(all_odds):
                         a1 = bk_odds[bk1]["away"]
                         h2 = bk_odds[bk2]["home"]
                         a2 = bk_odds[bk2]["away"]
+
                         candidates = []
                         if h1 and a2: candidates.append((h1, a2, bk1, bk2))
                         if h2 and a1: candidates.append((h2, a1, bk2, bk1))
                         if not candidates: continue
+
                         best_candidate = None
                         best_arb = 2.0
                         for cand in candidates:
@@ -784,8 +863,10 @@ def find_arbitrage(all_odds):
                             if arb < best_arb:
                                 best_arb = arb
                                 best_candidate = (o, u, bk_o, bk_u)
+
                         if not best_candidate: continue
                         over, under, bk_over, bk_under = best_candidate
+
                         arb = (1/over) + (1/under)
                         if arb < 1:
                             profit = round((1 - arb) * 100, 2)
@@ -823,7 +904,8 @@ def find_arbitrage(all_odds):
                                     best["bets"][0]["outcome"] = "BTTS Yes"
                                     best["bets"][1]["outcome"] = "BTTS No"
                                 opportunities.append(best)
-            # 3-way markets
+
+            # 3-way: Football/Rugby/Futsal
             elif mtype == "1x2" and sport in ["Football", "Rugby", "Futsal"]:
                 best = None
                 for bk_h in bk_list:
@@ -854,6 +936,7 @@ def find_arbitrage(all_odds):
                                         ]
                                     }
                 if best: opportunities.append(best)
+
             # 2-way sports
             elif mtype == "1x2" and sport not in ["Football", "Rugby", "Futsal"]:
                 best = None
@@ -882,6 +965,7 @@ def find_arbitrage(all_odds):
                                     ]
                                 }
                 if best: opportunities.append(best)
+
     return opportunities
 
 # ----- Telegram alert -----
@@ -891,6 +975,7 @@ def send_telegram_alert(opp):
     if not token or not chat:
         print("⚠️ Telegram credentials missing – alert not sent.")
         return
+
     match = opp.get('match', 'Unknown')
     profit = opp.get('profit_percent', 0)
     ugx = opp.get('profit_ugx', 0)
@@ -901,6 +986,7 @@ def send_telegram_alert(opp):
         odd = bet.get('odd', 0)
         stake = bet.get('stake', 0)
         message += f"▶ {bookie} ({outcome}) @ {odd} – Stake: UGX {stake:,}\n"
+
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     try:
         requests.post(url, json={'chat_id': chat, 'text': message, 'parse_mode': 'Markdown'}, timeout=10)
@@ -922,16 +1008,20 @@ def run_scan():
         all_odds.extend(scrape_1x_over_under(name, config["base_url"], config["partner"]))
     for name, config in SHARED_BOOKMAKERS_1X.items():
         all_odds.extend(scrape_1x_ah_dc_btts(name, config["base_url"], config["partner"]))
+
     opportunities = find_arbitrage(all_odds)
     arb_history = load_arbitrage_history()
     timestamp_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+
     for opp in opportunities:
         key = opportunity_key(opp)
         is_new = (key in arb_history and arb_history[key]['first_seen'] == timestamp_str)
         if is_new and opp.get('profit_percent', 0) >= 5.0:
             send_telegram_alert(opp)
+
     update_arbitrage_history(opportunities, arb_history, timestamp_str)
     save_arbitrage_history(arb_history)
+
     if len(opportunities) == 0 and os.path.exists("current_opportunities.json"):
         try:
             with open("current_opportunities.json", "r") as f:
@@ -941,14 +1031,17 @@ def run_scan():
                 return
         except:
             pass
+
     with open("current_opportunities.json", "w", encoding="utf-8") as f:
         json.dump(opportunities, f, indent=2)
+
     print(f"Scan complete: {len(opportunities)} opportunities, history updated.")
 
 # ============================
 #  JWT HELPERS & MIDDLEWARE
 # ============================
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'mbaziiraelvis727@gmail.com')
+
 def is_admin(user):
     return user.email == ADMIN_EMAIL
 
@@ -960,6 +1053,7 @@ def token_required(f):
             return jsonify({'error': 'Token missing'}), 401
         token = token.split(' ')[1]
         user = None
+
         # 1. Try Firebase token
         try:
             if firebase_admin._apps:
@@ -983,6 +1077,7 @@ def token_required(f):
                     return jsonify({'error': 'User not found'}), 401
             except:
                 return jsonify({'error': 'Invalid token'}), 401
+
         g.user_id = user.id
         g.user = user
         return f(*args, **kwargs)
@@ -998,6 +1093,8 @@ def generate_token(user_id):
 # ============================
 #  ROUTES
 # ============================
+
+# ----- Health & Root -----
 @app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({
@@ -1026,6 +1123,7 @@ def home():
         ]
     })
 
+# ----- Auth -----
 @app.route('/api/signup', methods=['POST'])
 def signup():
     data = request.get_json()
@@ -1075,6 +1173,7 @@ def get_profile():
         }
     })
 
+# ----- Subscription -----
 @app.route('/api/subscription-status', methods=['GET'])
 @token_required
 def subscription_status():
@@ -1108,6 +1207,7 @@ def subscription_status():
             'message': 'Free Trial active.'
         })
 
+# ----- Plans -----
 @app.route('/api/active-plans', methods=['GET'])
 def active_plans():
     plans = []
@@ -1124,6 +1224,7 @@ def active_plans():
         })
     return jsonify({'plans': plans})
 
+# ----- Transactions -----
 @app.route('/api/transactions', methods=['GET'])
 @token_required
 def get_transactions():
@@ -1210,6 +1311,7 @@ def initiate_payment():
         'instructions': f"Send exactly UGX {amount:,} to {os.getenv('MERCHANT_PHONE', '0756408723')} via Mobile Money."
     }), 201
 
+# ----- Manual Payment (Key-based) -----
 @app.route('/api/manual-payment', methods=['POST'])
 @token_required
 def manual_payment():
@@ -1239,6 +1341,7 @@ def manual_payment():
     db.session.commit()
     return jsonify({'status': 'pending', 'message': 'Payment submitted. We will verify when the SMS arrives.', 'transaction_id': tx_ref}), 200
 
+# ----- Webhook (SMS) -----
 @app.route('/webhook', methods=['POST'])
 def sms_webhook():
     data = request.get_json() or request.form.to_dict()
@@ -1247,6 +1350,8 @@ def sms_webhook():
     if not sms_text or not sender:
         return 'Missing SMS data', 400
     app.logger.info(f"SMS received: {sms_text[:200]}...")
+
+    # Extract transaction ID and amount
     def extract_transaction_id(text):
         patterns = [r'Ref[:\s]+([A-Z0-9\-]+)', r'TXN[:\s]+([A-Z0-9\-]+)', r'Transaction[:\s]+([A-Z0-9\-]+)', r'Reference[:\s]+([A-Z0-9\-]+)']
         for pattern in patterns:
@@ -1254,6 +1359,7 @@ def sms_webhook():
             if match:
                 return match.group(1)
         return None
+
     def extract_amount(text):
         match = re.search(r'UGX\s*([\d,]+\.?\d*)', text, re.IGNORECASE)
         if match:
@@ -1262,36 +1368,43 @@ def sms_webhook():
         if match:
             return float(match.group(1).replace(',', ''))
         return None
+
     transaction_id = extract_transaction_id(sms_text)
     amount_received = extract_amount(sms_text)
     if not transaction_id or not amount_received:
         app.logger.warning(f"Could not parse SMS: {sms_text}")
         return 'Could not parse SMS', 400
+
     transaction = Transaction.query.filter_by(manual_transaction_id=transaction_id, status='pending').first()
     if not transaction:
         app.logger.warning(f"No pending transaction found for ID: {transaction_id}")
         return 'No pending transaction found', 404
+
     if Transaction.query.filter_by(manual_transaction_id=transaction_id, status='success').first():
         transaction.status = 'failed'
         db.session.commit()
         app.logger.warning(f"Key {transaction_id} already used.")
         return 'Key already used', 400
+
     if amount_received not in PLANS_BY_AMOUNT:
         transaction.status = 'failed'
         db.session.commit()
         app.logger.warning(f"Invalid amount: {amount_received}. Must be 2500, 15000, or 40000.")
         return 'Invalid amount', 400
+
     plan = PLANS_BY_AMOUNT[amount_received]
     user = User.query.get(transaction.user_id)
     if not user:
         app.logger.error(f"User not found for transaction {transaction.id}")
         return 'User not found', 404
+
     duration_days = TIERS[plan]['duration_days']
     now = datetime.utcnow()
     if user.subscription_expires and user.subscription_expires > now:
         new_expiry = user.subscription_expires + timedelta(days=duration_days)
     else:
         new_expiry = now + timedelta(days=duration_days)
+
     user.tier = plan
     user.is_subscribed = True
     user.subscription_expires = new_expiry
@@ -1299,6 +1412,7 @@ def sms_webhook():
     transaction.amount_received = amount_received
     transaction.plan = plan
     db.session.commit()
+
     app.logger.info(f"✅ Subscription activated for {user.email} | Plan: {plan} | Expires: {new_expiry}")
     send_admin_notification(f"✅ Payment confirmed\nUser: {user.email}\nPlan: {plan}\nAmount: {amount_received} UGX\nExpires: {new_expiry}")
     return 'Subscription activated', 200
@@ -1314,6 +1428,7 @@ def send_admin_notification(message):
     except Exception as e:
         app.logger.error(f"Telegram error: {e}")
 
+# ----- Arbitrage endpoint -----
 @app.route('/api/arbitrage', methods=['GET'])
 @token_required
 def get_arbitrage():
@@ -1324,6 +1439,7 @@ def get_arbitrage():
         user.tier = 'free'
         db.session.commit()
         return jsonify({'error': 'Subscription expired'}), 403
+
     cache_file = 'current_opportunities.json'
     if not os.path.exists(cache_file):
         return jsonify({
@@ -1331,15 +1447,18 @@ def get_arbitrage():
             'tier': user.tier,
             'message': 'No arbitrage data available. Scanner is running.'
         }), 200
+
     try:
         with open(cache_file, 'r', encoding='utf-8') as f:
             all_opportunities = json.load(f)
     except:
         all_opportunities = []
+
     allowed_bookmakers = set(tier_config['bookmakers'])
     allowed_markets = set(tier_config['market_types'])
     max_profit = tier_config['max_profit_percent']
     daily_limit = tier_config['daily_matches']
+
     filtered = []
     for opp in all_opportunities:
         bets = opp.get('bets', [])
@@ -1360,9 +1479,11 @@ def get_arbitrage():
         if opp.get('profit_percent', 0) > max_profit:
             continue
         filtered.append(opp)
+
     if daily_limit is not None:
         filtered.sort(key=lambda x: x.get('profit_percent', 0), reverse=True)
         filtered = filtered[:daily_limit]
+
     return jsonify({
         'opportunities': filtered,
         'count': len(filtered),
@@ -1372,6 +1493,7 @@ def get_arbitrage():
         'scan_time': datetime.utcnow().isoformat()
     })
 
+# ----- Admin -----
 @app.route('/api/admin/create-user', methods=['POST'])
 @token_required
 def admin_create_user():
@@ -1399,6 +1521,7 @@ def admin_create_user():
         'tier': new_user.tier
     }), 201
 
+# ----- Error handlers -----
 @app.errorhandler(404)
 def not_found(e):
     return jsonify({'error': 'Endpoint not found'}), 404
@@ -1408,7 +1531,7 @@ def server_error(e):
     return jsonify({'error': 'Internal server error'}), 500
 
 # ============================
-#  RUN
+#  RUN (Scheduler REMOVED to prevent Railway crash loop)
 # ============================
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
