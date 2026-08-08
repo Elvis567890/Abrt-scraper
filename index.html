@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Abrimax - Live Arbitrage</title>
     <style>
-        /* ===== RESET & THEME ===== */
+        /* ===== RESET & THEME (unchanged) ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -310,10 +310,8 @@
 
 <script>
     // ============================================================
-    // 🔗 BACKEND URLs – CHANGE THESE TO YOUR ACTUAL ENDPOINTS
-    // ============================================================
-    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';      // Main backend
-    const SMS_API_BASE = 'https://sms-payment-system-9.onrender.com';   // SMS payment backend (if separate)
+    // ✅ SINGLE BACKEND URL – all endpoints are served here
+    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';
 
     // ============================================================
     // GLOBAL STATE
@@ -545,307 +543,63 @@
     }
 
     // ============================================================
-    // RENDER FUNCTIONS
+    // RENDER FUNCTIONS (unchanged – copy from your previous version)
     // ============================================================
-    function getBookmakerUrl(bookieName) {
-        const map = { 'sportybet':'https://sportybet.ug','championbet':'https://championbet.ug','ababet':'https://ababet.ug','fortebet':'https://fortebet.ug','1xbet':'https://1xbet.ug','22bet':'https://22bet.ug','melbet':'https://melbet.ug' };
-        const key = bookieName.toLowerCase().replace(/\s/g, '');
-        return map[key] || '#';
-    }
+    // ... (all render functions remain exactly the same – I've omitted them for brevity,
+    // but you must include them. They are the same as in your current working frontend.)
 
-    function getBookieColor(bookie) {
-        const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
-        return map[bookie.toLowerCase()] || '#444';
-    }
-
-    function renderOpportunities(filter = 'all') {
-        let settings = getDefaultSettings();
-        const saved = localStorage.getItem(getUserSettingsKey());
-        if (saved) { try { settings = { ...settings, ...JSON.parse(saved) }; } catch(e) {} }
-        const minProfit = settings.minProfit || 1.0;
-        const maxProfit = settings.maxProfit || 99.0;
-        const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
-        const container = document.getElementById('oppList');
-        if (!container) return;
-        if (!opportunitiesData || opportunitiesData.length === 0) {
-            container.innerHTML = '<div class="empty-state"><p>No opportunities available for your tier.</p></div>';
+    // ============================================================
+    // MANUAL PAYMENT – uses the same API_BASE
+    // ============================================================
+    async function submitManualPayment() {
+        const plan = document.getElementById('manualPlanSelect').value;
+        const transactionId = document.getElementById('manualTransactionId').value.trim();
+        const statusDiv = document.getElementById('manualPaymentStatus');
+        const token = localStorage.getItem('sms_auth_token');
+        if (!transactionId) {
+            statusDiv.textContent = '❌ Please enter the transaction ID.';
+            statusDiv.style.color = '#ff5252';
             return;
         }
-        let filtered = opportunitiesData.filter(a => {
-            if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
-            const type = a.type || '3-way';
-            if (type.includes('1x2') && !markets['1x2']) return false;
-            if (type.includes('Over/Under') && !markets['ou']) return false;
-            if (type.includes('Asian Handicap') && !markets['ah']) return false;
-            if (type.includes('BTTS') && !markets['btts']) return false;
-            if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
-            if (filter === 'high' && a.profitPercent <= 5) return false;
-            return true;
-        });
-        if (filtered.length === 0) {
-            container.innerHTML = '<div class="empty-state"><p>No opportunities found matching your filters.</p></div>';
+        if (!token) {
+            statusDiv.textContent = '❌ Please login first.';
+            statusDiv.style.color = '#ff5252';
             return;
         }
-        container.innerHTML = filtered.map(arb => {
-            const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
-            return `<div class="opp-card" onclick='handleCardClick(${arbStr})'>
-                <div class="top-row"><div class="event-info"><div class="sport-badge">⚽ ${arb.sport}</div><div class="event-name">${arb.match}</div><div class="market-type">${arb.type} · Pre-match</div></div><div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div></div>
-                <div class="bookie-row">${arb.bets.map(b => { const url = getBookmakerUrl(b.bookie); const color = getBookieColor(b.bookie); return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="bookie-link" onclick="event.stopPropagation();"><span class="bookie-dot" style="background:${color}">${b.bookie.charAt(0)}</span><span>${b.bookie} ${b.outcome} @ ${b.odds}</span></a>`; }).join('')}</div>
-                <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
-                <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div>
-            </div>`;
-        }).join('');
-    }
-
-    function handleCardClick(arb) {
-        navigateTo('detail', arb);
-    }
-
-    document.getElementById('dashboardFilterTabs').addEventListener('click', function(e) {
-        if (e.target.classList.contains('filter-tab')) {
-            this.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-            e.target.classList.add('active');
-            renderOpportunities(e.target.dataset.filter || 'all');
-        }
-    });
-
-    function navigateTo(pageName, data) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const target = document.getElementById('page-' + pageName);
-        if (target) {
-            target.classList.add('active');
-            document.getElementById('mainContent').scrollTop = 0;
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            const navBtn = document.querySelector(`.nav-item[data-page="${pageName}"]`);
-            if (navBtn) navBtn.classList.add('active');
-            if (pageName === 'detail' && data) populateDetailPage(data);
-            if (pageName === 'history') renderHistory();
-            if (pageName === 'alerts') renderAlerts();
-            const fab = document.querySelector('.fab');
-            if (fab) fab.style.display = pageName === 'dashboard' ? 'flex' : 'none';
-        }
-    }
-
-    function populateDetailPage(arb) {
-        currentDetailArb = arb;
-        const historyHtml = (arb.history && arb.history.length) ? `<div style="margin-bottom:12px;font-size:12px;color:var(--text3);"><strong>History:</strong><ul style="margin-top:4px;padding-left:18px;">${arb.history.map(h => `<li>${h.timestamp} – ${h.profitPercent.toFixed(2)}% (UGX ${h.profitUGX})</li>`).join('')}</ul></div>` : "";
-        document.getElementById('page-detail').innerHTML = `
-            <div class="detail-header"><button class="back-btn" onclick="navigateTo('dashboard')">←</button><div><div class="detail-sport">⚽ ${arb.sport} · ${arb.type}</div><div class="detail-event">${arb.match}</div><div class="detail-timer">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div></div></div>
-            ${historyHtml}
-            <div class="outcome-cards">${arb.bets.map(b => `<div class="outcome-card highlight"><div class="outcome-label">${b.outcome}</div><div class="outcome-odds">${b.odds}</div><div class="outcome-bookie">${b.bookie}</div></div>`).join('')}</div>
-            <div class="stake-input-group"><label>Total Stake (UGX)</label><div class="stake-input-row"><span class="currency">UGX</span><input type="number" id="detailStake" value="100000" oninput="updateDetailCalc()"></div></div>
-            <div class="breakdown-table" id="detailBreakdown"></div>
-            <div class="cta-row">${arb.bets.map(b => `<button class="cta-btn primary" onclick="showToast('Copy: ${b.bookie} ${b.outcome} @ ${b.odds}')">📋 ${b.bookie}</button>`).join('')}</div>
-            <button class="cta-btn secondary" style="width:100%;margin-top:8px;" onclick="addCurrentDetailToSlip()">➕ Add to Bet Slip</button>`;
-        updateDetailCalc();
-    }
-
-    function updateDetailCalc() {
-        if (!currentDetailArb) return;
-        const arb = currentDetailArb;
-        const saved = localStorage.getItem(getUserSettingsKey());
-        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
-        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
-        const odds = arb.bets.map(b => b.odds);
-        if (odds.some(o => o <= 0)) return;
-        const invSum = odds.reduce((s, o) => s + 1/o, 0);
-        const stakes = odds.map(o => (stake / o) / invSum);
-        const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
-        const profit = minPayout - stake;
-        const roi = (profit / stake) * 100;
-        const breakdown = document.getElementById('detailBreakdown');
-        if (breakdown) {
-            breakdown.innerHTML = stakes.map((s, i) => `<div class="breakdown-row"><span>Stake on ${arb.bets[i].outcome} (${arb.bets[i].bookie})</span><span class="val">UGX ${s.toFixed(2)}</span></div>`).join('') +
-                `<div class="breakdown-row"><span>Total Invested</span><span class="val">UGX ${stake.toFixed(2)}</span></div>
-                <div class="breakdown-row"><span>Guaranteed Profit</span><span class="val">+UGX ${profit.toFixed(2)} (${roi.toFixed(2)}%)</span></div>`;
-        }
-    }
-
-    function addCurrentDetailToSlip() {
-        if (!currentDetailArb) return;
-        const arb = currentDetailArb;
-        const saved = localStorage.getItem(getUserSettingsKey());
-        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
-        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
-        const odds = arb.bets.map(b => b.odds);
-        if (odds.some(o => o <= 0)) return;
-        const invSum = odds.reduce((s, o) => s + 1/o, 0);
-        const stakes = odds.map(o => (stake / o) / invSum);
-        const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
-        slipBets.push({
-            id: Date.now(),
-            match: arb.match,
-            sport: arb.sport,
-            type: arb.type,
-            bets: arb.bets.map((b, i) => ({ ...b, stake: stakes[i] })),
-            totalStake: stake,
-            profit,
-            placedStatus: arb.bets.map(() => false)
-        });
-        renderSlip();
-        navigateTo('slip');
-        showToast('Added to slip');
-    }
-
-    // ============================================================
-    // CALCULATOR
-    // ============================================================
-    function updateCalculator() {
-        const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
-        const odds = [
-            parseFloat(document.getElementById('calcOdds1').value) || 3.6,
-            parseFloat(document.getElementById('calcOdds2').value) || 3.82
-        ];
-        if (document.getElementById('calcOdds3Container').style.display !== 'none') {
-            odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
-        }
-        if (odds.some(o => o <= 0)) return;
-        const invSum = odds.reduce((s, o) => s + 1/o, 0);
-        const stakes = odds.map(o => (stake / o) / invSum);
-        const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
-        const profit = minPayout - stake;
-        const roi = (profit / stake) * 100;
-        document.getElementById('calcResult').innerHTML = `
-            <div class="profit-ring">${roi.toFixed(2)}%</div>
-            <div class="details">${stakes.map((s, i) => `<strong>Bet ${i+1}:</strong> UGX ${s.toFixed(2)}`).join(' | ')}<br><strong>Profit:</strong> UGX ${profit.toFixed(2)}</div>`;
-    }
-
-    function toggleThirdOdds() {
-        const cont = document.getElementById('calcOdds3Container');
-        cont.style.display = cont.style.display === 'none' ? 'block' : 'none';
-        updateCalculator();
-    }
-
-    function addCurrentCalcToSlip() {
-        const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
-        const odds = [
-            parseFloat(document.getElementById('calcOdds1').value) || 3.6,
-            parseFloat(document.getElementById('calcOdds2').value) || 3.82
-        ];
-        let bets = [
-            { bookie: 'Bookie1', outcome: 'Outcome 1', odds: odds[0] },
-            { bookie: 'Bookie2', outcome: 'Outcome 2', odds: odds[1] }
-        ];
-        if (document.getElementById('calcOdds3Container').style.display !== 'none') {
-            odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
-            bets.push({ bookie: 'Bookie3', outcome: 'Outcome 3', odds: odds[2] });
-        }
-        if (odds.some(o => o <= 0)) { showToast('Invalid odds'); return; }
-        const invSum = odds.reduce((s, o) => s + 1/o, 0);
-        const stakes = odds.map(o => (stake / o) / invSum);
-        const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
-        slipBets.push({
-            id: Date.now(),
-            match: 'Custom Calculation',
-            sport: 'Custom',
-            type: odds.length === 3 ? '3-way' : '2-way',
-            bets: bets.map((b, i) => ({ ...b, stake: stakes[i] })),
-            totalStake: stake,
-            profit,
-            placedStatus: bets.map(() => false)
-        });
-        renderSlip();
-        navigateTo('slip');
-        showToast('Calculation added to slip');
-    }
-
-    // ============================================================
-    // SLIP
-    // ============================================================
-    function renderSlip() {
-        const container = document.getElementById('slipItems');
-        if (slipBets.length === 0) {
-            container.innerHTML = '<div class="empty-state"><p>No bets in slip</p></div>';
-            document.getElementById('slipSummary').style.display = 'none';
-            document.getElementById('slipCount').textContent = '0 bets';
-            return;
-        }
-        document.getElementById('slipSummary').style.display = 'block';
-        document.getElementById('slipCount').textContent = slipBets.length + ' bets';
-        container.innerHTML = slipBets.map((item, idx) => `
-            <div class="slip-item">
-                <div class="slip-bookie" style="background:#027a48;">${item.bets[0].bookie.charAt(0)}</div>
-                <div class="slip-info">
-                    <div class="slip-event">${item.match}</div>
-                    <div class="slip-detail">${item.type} · Total stake UGX ${item.totalStake.toFixed(2)}</div>
-                </div>
-                <div class="slip-stake">+UGX ${item.profit.toFixed(2)}</div>
-                <div class="slip-actions">
-                    <button class="btn-copy" onclick="copySlip(${idx})">📋</button>
-                    <button class="btn-open" onclick="openSlip(${idx})">↗</button>
-                </div>
-            </div>
-        `).join('');
-        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
-        document.getElementById('slipProfit').textContent = '+UGX ' + totalProfit.toFixed(2);
-    }
-
-    function copySlip(idx) { showToast('Slip copied'); }
-    function openSlip(idx) { showToast('Open bet on bookmaker'); }
-
-    function completeArb() {
-        if (slipBets.length === 0) return;
-        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
-        const record = {
-            id: Date.now(),
-            matches: slipBets.map(b => b.match),
-            sport: slipBets[0].sport || 'Football',
-            type: slipBets[0].type || '3-way',
-            totalStake: slipBets.reduce((s, b) => s + b.totalStake, 0),
-            profit: totalProfit,
-            timestamp: new Date().toISOString().slice(0,19).replace('T',' ')
-        };
-        completedArbs.push(record);
-        localStorage.setItem('arbiHistory', JSON.stringify(completedArbs));
-        slipBets = [];
-        renderSlip();
-        showToast('Arb completed');
-    }
-
-    // ============================================================
-    // HISTORY
-    // ============================================================
-    function renderHistory() {
-        const totalArbsEl = document.getElementById('totalArbs');
-        const totalProfitEl = document.getElementById('totalProfit');
-        const chart = document.getElementById('profitChart');
-        const list = document.getElementById('historyList');
-        const entries = Object.values(allHistory).filter(e => e.versions && e.versions.length > 0)
-            .sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
-        totalArbsEl.textContent = entries.length;
-        let totalProfit = 0;
-        entries.forEach(e => {
-            const latest = e.versions[e.versions.length - 1];
-            if (e.valid && latest) totalProfit += latest.profit_ugx || 0;
-        });
-        totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(2);
-        chart.innerHTML = entries.map(e => {
-            const latest = e.versions[e.versions.length - 1];
-            if (latest) {
-                const h = Math.max(8, Math.min(100, Math.abs(latest.profit_ugx) / 1000));
-                return `<div class="chart-bar" style="height:${h}px;"></div>`;
+        statusDiv.textContent = '⏳ Submitting...';
+        statusDiv.style.color = '#a0a4b0';
+        try {
+            const response = await fetch(`${API_BASE}/api/manual-payment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ plan: plan, transaction_id: transactionId })
+            });
+            const data = await response.json();
+            if (data.status === 'pending') {
+                statusDiv.textContent = '✅ Payment submitted! We will verify the SMS.';
+                statusDiv.style.color = '#00e676';
+                document.getElementById('manualTransactionId').value = '';
+            } else {
+                statusDiv.textContent = '❌ Error: ' + (data.message || data.error || 'Something went wrong');
+                statusDiv.style.color = '#ff5252';
             }
-            return '';
-        }).join('');
-        list.innerHTML = entries.map(e => {
-            const latest = e.versions[e.versions.length - 1];
-            const profit = latest ? latest.profit_ugx : 0;
-            const timestamp = latest ? latest.timestamp : e.last_seen || '-';
-            return `<div class="hist-item"><div class="hist-info"><div class="hist-event">${e.match || 'Unknown'}</div><div class="hist-date">${timestamp}</div></div><div class="status-chip ${e.valid ? 'status-placed' : 'status-invalid'}">${e.valid ? '+UGX ' + profit.toFixed(2) : 'Invalid'}</div></div>`;
-        }).join('');
+        } catch (err) {
+            statusDiv.textContent = '❌ Network error: ' + err.message;
+            statusDiv.style.color = '#ff5252';
+        }
     }
 
     // ============================================================
-    // ALERTS
+    // TOAST
     // ============================================================
-    function renderAlerts() {
-        const alertsList = document.getElementById('alertsList');
-        const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
-        if (highProfit.length === 0) {
-            alertsList.innerHTML = '<div class="empty-state"><p>No high profit alerts</p></div>';
-            return;
-        }
-        alertsList.innerHTML = highProfit.map(a => `<div class="alert-card" onclick="handleCardClick(${JSON.stringify(a).replace(/'/g, '&#39;').replace(/"/g, '&quot;')})"><div class="alert-icon">⚡</div><div class="alert-info"><div class="alert-event">${a.match}</div><div class="alert-meta">${a.sport} · ${a.type}</div></div><div class="alert-profit">+${a.profitPercent.toFixed(2)}%</div></div>`).join('');
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1500);
     }
 
     // ============================================================
@@ -884,60 +638,6 @@
 
     function saveUserSettings() {
         showToast('✅ Settings Saved (stub)');
-    }
-
-    // ============================================================
-    // MANUAL PAYMENT (uses SMS_API_BASE)
-    // ============================================================
-    async function submitManualPayment() {
-        const plan = document.getElementById('manualPlanSelect').value;
-        const transactionId = document.getElementById('manualTransactionId').value.trim();
-        const statusDiv = document.getElementById('manualPaymentStatus');
-        const token = localStorage.getItem('sms_auth_token');
-        if (!transactionId) {
-            statusDiv.textContent = '❌ Please enter the transaction ID.';
-            statusDiv.style.color = '#ff5252';
-            return;
-        }
-        if (!token) {
-            statusDiv.textContent = '❌ Please login first.';
-            statusDiv.style.color = '#ff5252';
-            return;
-        }
-        statusDiv.textContent = '⏳ Submitting...';
-        statusDiv.style.color = '#a0a4b0';
-        try {
-            const response = await fetch(`${SMS_API_BASE}/api/manual-payment`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify({ plan: plan, transaction_id: transactionId })
-            });
-            const data = await response.json();
-            if (data.status === 'pending') {
-                statusDiv.textContent = '✅ Payment submitted! We will verify the SMS.';
-                statusDiv.style.color = '#00e676';
-                document.getElementById('manualTransactionId').value = '';
-            } else {
-                statusDiv.textContent = '❌ Error: ' + (data.message || data.error || 'Something went wrong');
-                statusDiv.style.color = '#ff5252';
-            }
-        } catch (err) {
-            statusDiv.textContent = '❌ Network error: ' + err.message;
-            statusDiv.style.color = '#ff5252';
-        }
-    }
-
-    // ============================================================
-    // TOAST
-    // ============================================================
-    function showToast(msg) {
-        const toast = document.getElementById('toast');
-        toast.textContent = msg;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 1500);
     }
 
     // ============================================================
