@@ -23,9 +23,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install requests beautifulsoup4 passlib PyJWT Flask Flask-CORS Flask-SQLAlchemy python-dotenv firebase-admin
+          pip install requests beautifulsoup4 passlib PyJWT Flask Flask-CORS Flask-SQLAlchemy python-dotenv firebase-admin apscheduler
 
-      # 👇 THIS IS THE ONLY LINE WE CHANGED
       - name: Run Python scraper (No Flask server)
         run: python -c "from scraper import run_scan; run_scan()"
         env:
