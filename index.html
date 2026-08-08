@@ -478,7 +478,7 @@
 
 <script>
     // ============================================================
-    // 1. FIREBASE CONFIG
+    // 1. FIREBASE CONFIG (No changes needed here)
     // ============================================================
     const firebaseConfig = {
         apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw",
@@ -499,17 +499,16 @@
     // ============================================================
     // 3. AUTH STATE & SUBSCRIPTION IDENTIFICATION
     // ============================================================
+    // Your backend's /api/profile requires a Bearer token
     function checkSMSAuth() {
         const authToken = localStorage.getItem('sms_auth_token');
         const authEmail = localStorage.getItem('sms_auth_email');
         if (!authToken || !authEmail) { clearSMSAuth(); return; }
 
-        // Verify the user's token with the backend via /api/profile
         fetch(`${API_BASE}/api/profile`, {
             headers: { 'Authorization': `Bearer ${authToken}` }
         }).then(res => res.json()).then(data => {
             if (data.user) {
-                // If valid, immediately check their subscription status
                 checkSubscription(authToken);
             } else {
                 clearSMSAuth();
@@ -521,15 +520,11 @@
         fetch(`${API_BASE}/api/subscription-status`, {
             headers: { 'Authorization': `Bearer ${authToken}` }
         }).then(res => res.json()).then(data => {
-            
-            // EXPIRED - Kick them out with a clear message
             if (data.expired) {
                 alert("⛔ " + data.message);
                 clearSMSAuth();
                 return;
             }
-
-            // ACTIVE SUBSCRIPTION / FREE TIER - Show the app
             const authPage = document.getElementById('page-auth');
             const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
             const bottomNav = document.getElementById('bottomNav');
@@ -543,7 +538,6 @@
             const daysText = data.days_left > 0 ? ` (${data.days_left} days left)` : '';
             document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + localStorage.getItem('sms_auth_email');
             document.getElementById('settingsUserTier').textContent = 'Tier: ' + data.tier + daysText;
-            
             localStorage.setItem('sms_user_tier', data.tier);
             showToast("✅ " + data.message);
             loadUserSettings();
@@ -556,17 +550,14 @@
         localStorage.removeItem('sms_auth_token');
         localStorage.removeItem('sms_auth_email');
         localStorage.removeItem('sms_user_tier');
-        
         const authPage = document.getElementById('page-auth');
         const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
         const bottomNav = document.getElementById('bottomNav');
         const fab = document.querySelector('.fab');
-        
         authPage.classList.add('active');
         mainPages.forEach(p => p.classList.remove('active'));
         bottomNav.style.display = 'none';
         if (fab) fab.style.display = 'none';
-        
         document.getElementById('settingsUserEmail').textContent = 'Not logged in';
         document.getElementById('settingsUserTier').textContent = 'Tier: free';
     }
@@ -575,7 +566,7 @@
     checkSMSAuth();
 
     // ============================================================
-    // 4. AUTH FUNCTIONS (Updated for Railway endpoints)
+    // 4. AUTH FUNCTIONS (UPDATED FOR FIREBASE AUTH)
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
@@ -586,7 +577,7 @@
         document.getElementById('authErrorSignup').textContent = '';
     }
 
-    // ✅ SIGNUP using /api/signup (Railway)
+    // ✅ SIGNUP USING FIREBASE AUTH
     function signUpWithEmail() {
         const email = document.getElementById('signupEmail').value.trim();
         const password = document.getElementById('signupPassword').value;
@@ -594,34 +585,25 @@
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
         
-        fetch(`${API_BASE}/api/signup`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, phone: '0000000000', password })
-        })
-        .then(async res => {
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({error: 'Unknown server error'}));
-                throw new Error(`Server Error ${res.status}: ${errData.error || errData.message || 'Unknown'}`);
-            }
-            return res.json();
-        })
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('sms_auth_token', data.token);
+        // Firebase creates the user
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Get the Firebase ID Token
+                return userCredential.user.getIdToken();
+            })
+            .then((idToken) => {
+                // Store the Firebase token as your auth token
+                localStorage.setItem('sms_auth_token', idToken);
                 localStorage.setItem('sms_auth_email', email);
                 showToast('Account created! Welcome to Abrimax!');
                 checkSMSAuth();
-            } else {
-                errorEl.textContent = data.error || 'Signup failed. Try again.';
-            }
-        })
-        .catch(err => {
-            errorEl.textContent = err.message; 
-        });
+            })
+            .catch((error) => {
+                errorEl.textContent = error.message;
+            });
     }
 
-    // ✅ LOGIN using /api/login (Railway)
+    // ✅ LOGIN USING FIREBASE AUTH
     function loginWithEmail() {
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
@@ -629,31 +611,20 @@
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
         
-        fetch(`${API_BASE}/api/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        })
-        .then(async res => {
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({error: 'Unknown server error'}));
-                throw new Error(`Server Error ${res.status}: ${errData.error || errData.message || 'Unknown'}`);
-            }
-            return res.json();
-        })
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('sms_auth_token', data.token);
+        // Firebase logs the user in
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                return userCredential.user.getIdToken();
+            })
+            .then((idToken) => {
+                localStorage.setItem('sms_auth_token', idToken);
                 localStorage.setItem('sms_auth_email', email);
                 showToast('Logged in successfully!');
                 checkSMSAuth();
-            } else {
-                errorEl.textContent = data.error || 'Invalid email or password.';
-            }
-        })
-        .catch(err => {
-            errorEl.textContent = err.message;
-        });
+            })
+            .catch((error) => {
+                errorEl.textContent = error.message;
+            });
     }
 
     function signInWithGoogle() {
@@ -661,10 +632,13 @@
     }
 
     function logoutUser() {
+        firebase.auth().signOut(); // Sign out from Firebase
         clearSMSAuth();
         showToast('Logged out.');
     }
 
+    // ... [Rest of your existing code (Settings, Calculator, Slip, etc.) stays exactly the same] ...
+    
     // ============================================================
     // 5. USER SETTINGS (localStorage)
     // ============================================================
@@ -751,7 +725,7 @@
     }
 
     // ============================================================
-    // 7. CORE APP LOGIC – FETCH FROM BACKEND API
+    // 7. CORE APP LOGIC (Fetch arbitrage data)
     // ============================================================
     let opportunitiesData = [];
     let allHistory = {};
@@ -828,7 +802,6 @@
             .catch(() => {});
     }
 
-    // ===== Navigation =====
     function navigateTo(pageName, data) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const target = document.getElementById('page-' + pageName);
@@ -932,7 +905,6 @@
         renderOpportunities(active ? active.dataset.filter : 'all');
     }
 
-    // ===== Detail =====
     function populateDetailPage(arb) {
         currentDetailArb = arb;
         const historyHtml = (arb.history && arb.history.length)
@@ -1028,7 +1000,6 @@
         showToast('Added to slip');
     }
 
-    // ===== Calculator =====
     function updateCalculator() {
         const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
         const odds = [
@@ -1092,7 +1063,6 @@
         showToast('Calculation added to slip');
     }
 
-    // ===== Slip =====
     function renderSlip() {
         const container = document.getElementById('slipItems');
         if (slipBets.length === 0) {
@@ -1143,7 +1113,6 @@
         showToast('Arb completed');
     }
 
-    // ===== History =====
     function renderHistory() {
         const totalArbsEl = document.getElementById('totalArbs');
         const totalProfitEl = document.getElementById('totalProfit');
@@ -1185,7 +1154,6 @@
         }).join('');
     }
 
-    // ===== Alerts =====
     function renderAlerts() {
         const alertsList = document.getElementById('alertsList');
         const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
@@ -1212,9 +1180,6 @@
         setTimeout(() => toast.classList.remove('show'), 1500);
     }
 
-    // ============================================================
-    // 8. MANUAL PAYMENT (Fixed to handle backend response)
-    // ============================================================
     function submitManualPayment() {
         const plan = document.getElementById('manualPlanSelect').value;
         const transactionId = document.getElementById('manualTransactionId').value.trim();
@@ -1268,16 +1233,12 @@
             });
     }
 
-    // ============================================================
-    // 9. INIT
-    // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
         loadUserSettings();
         updateCalculator();
         renderSlip();
     });
 
-    // Expose functions globally
     window.switchAuthTab = switchAuthTab;
     window.signUpWithEmail = signUpWithEmail;
     window.loginWithEmail = loginWithEmail;
