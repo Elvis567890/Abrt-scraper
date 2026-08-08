@@ -136,9 +136,10 @@ class Transaction(db.Model):
 
 with app.app_context():
     db.create_all()
+    print("✅ Database tables created/verified.")
 
 # ============================
-# SCRAPER FUNCTIONS (FULL)
+# SCRAPER FUNCTIONS
 # ============================
 def normalize(name):
     name = (name or "").lower().strip()
@@ -1055,6 +1056,7 @@ def signup():
         token = generate_token(user.id)
         return jsonify({'token': token, 'user_id': user.id}), 201
     except Exception as e:
+        # Return the full error for debugging
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/login', methods=['POST'])
