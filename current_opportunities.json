@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "west ham vs portsmouth",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.68,
+    "profit_ugx": 684,
+    "total_stake": 100000,
+    "arb_sum": 0.9932,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.48,
+        "stake": 68033,
+        "win": 100689
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 6.35,
+        "stake": 15857,
+        "win": 100692
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.25,
+        "stake": 16110,
+        "win": 100688
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "salford vs shrewsbury town",
     "sport": "Football",
     "type": "3-way",
