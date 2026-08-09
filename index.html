@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Abrimax - Live Arbitrage</title>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <!-- Firebase (commented out because we now use custom JWT) -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script> -->
     <style>
-        /* ===== FULL STYLES (unchanged – same as your original) ===== */
+        /* ===== FULL STYLES (unchanged – your original CSS) ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -173,6 +174,7 @@
     <div class="status-bar"><span class="time">9:41</span><div class="status-icons">5G ▮▮▮▮ 🔋</div></div>
     <div class="toast" id="toast">Copied ✓</div>
     <div class="main-content" id="mainContent">
+
         <!-- AUTH PAGE -->
         <div class="page active" id="page-auth">
             <div class="auth-container">
@@ -192,7 +194,7 @@
                         </div>
                         <div id="signupForm" style="display:none;">
                             <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
-                            <input type="password" id="signupPassword" class="auth-input" placeholder="Password (min 6 chars)" required>
+                            <input type="password" id="signupPassword" class="auth-input" placeholder="Password (max 72 chars)" maxlength="72" required>
                             <div id="authErrorSignup" class="auth-error"></div>
                             <button class="auth-btn primary" onclick="signUpWithEmail()">Create Account</button>
                         </div>
@@ -312,24 +314,17 @@
     const API_BASE = 'https://stellar-abundance-ug.up.railway.app';  // <-- change if needed
 
     // ============================================================
-    // FIREBASE CONFIG (we no longer use Firebase – but keep for compatibility)
-    const firebaseConfig = { 
-        apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw", 
-        authDomain: "arbimax-auth.firebaseapp.com", 
-        projectId: "arbimax-auth", 
-        storageBucket: "arbimax-auth.firebasestorage.app", 
-        messagingSenderId: "985163289771", 
-        appId: "1:985163289771:web:798f8b55bab13d7d2353ee", 
-        measurementId: "G-ZFXKEY2QL7" 
-    };
-    // firebase.initializeApp(firebaseConfig); // Uncomment if you need Firebase
+    // GLOBAL STATE
+    // ============================================================
+    let opportunitiesData = [];
+    let allHistory = {};
+    let currentPage = 'dashboard';
+    let currentDetailArb = null;
+    let slipBets = [];
+    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
     // ============================================================
-    // TOKEN EXCHANGE (we now use custom JWT directly – no Firebase)
-    // ============================================================
-
-    // ============================================================
-    // AUTH FUNCTIONS (using custom JWT)
+    // AUTH FUNCTIONS (using custom JWT, no Firebase)
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
@@ -396,7 +391,7 @@
         }
     }
 
-    async function signInWithGoogle() {
+    function signInWithGoogle() {
         showToast('Google sign-in is not available. Please use email.');
     }
 
@@ -505,15 +500,8 @@
     }
 
     // ============================================================
-    // FETCH ARBITRAGE DATA (unchanged)
+    // FETCH ARBITRAGE DATA
     // ============================================================
-    let opportunitiesData = [];
-    let allHistory = {};
-    let currentPage = 'dashboard';
-    let currentDetailArb = null;
-    let slipBets = [];
-    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
-
     async function fetchUserDataFromBackend() {
         const token = localStorage.getItem('sms_auth_token');
         if (!token) return;
@@ -1007,4 +995,4 @@
     window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-                </html>
+    </html>
