@@ -207,31 +207,31 @@
     "match": "wolfsberger vs salzburg",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 20.0,
-    "profit_ugx": 20000,
+    "profit_percent": 20.21,
+    "profit_ugx": 20212,
     "total_stake": 100000,
-    "arb_sum": 0.8,
+    "arb_sum": 0.7979,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.75,
-        "stake": 33333,
-        "win": 124999
+        "stake": 33422,
+        "win": 125332
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.75,
-        "stake": 33333,
-        "win": 124999
+        "stake": 33422,
+        "win": 125332
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.75,
-        "stake": 33333,
-        "win": 124999
+        "odd": 3.78,
+        "stake": 33156,
+        "win": 125330
       }
     ],
     "market_type": "1x2",
@@ -445,31 +445,31 @@
     "match": "porto vs alverca",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.59,
-    "profit_ugx": 590,
+    "profit_percent": 0.77,
+    "profit_ugx": 768,
     "total_stake": 100000,
-    "arb_sum": 0.9941,
+    "arb_sum": 0.9923,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.16,
-        "stake": 86718,
-        "win": 100593
+        "stake": 86874,
+        "win": 100774
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 16.5,
-        "stake": 6097,
-        "win": 100600
+        "odd": 17.0,
+        "stake": 5928,
+        "win": 100776
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 14.0,
-        "stake": 7185,
-        "win": 100590
+        "stake": 7198,
+        "win": 100772
       }
     ],
     "market_type": "1x2",
@@ -513,31 +513,193 @@
     "match": "moreirense vs braga",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 31.81,
-    "profit_ugx": 31810,
+    "profit_percent": 31.5,
+    "profit_ugx": 31502,
     "total_stake": 100000,
-    "arb_sum": 0.6819,
+    "arb_sum": 0.685,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 5.5,
-        "stake": 26664,
-        "win": 146652
+        "stake": 26543,
+        "win": 145986
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 4.05,
-        "stake": 36210,
-        "win": 146650
+        "odd": 4.0,
+        "stake": 36497,
+        "win": 145988
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.95,
-        "stake": 37127,
-        "win": 146652
+        "stake": 36959,
+        "win": 145988
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sparta rotterdam vs feyenoord",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.34,
+    "profit_ugx": 11339,
+    "total_stake": 100000,
+    "arb_sum": 0.8866,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.216,
+        "stake": 50897,
+        "win": 112788
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.297,
+        "stake": 49103,
+        "win": 112790
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "sparta rotterdam vs feyenoord",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 11.34,
+    "profit_ugx": 11339,
+    "total_stake": 100000,
+    "arb_sum": 0.8866,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.216,
+        "stake": 50897,
+        "win": 112788
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.297,
+        "stake": 49103,
+        "win": 112790
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "pec zwolle vs ajax",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.31,
+    "profit_ugx": 17306,
+    "total_stake": 100000,
+    "arb_sum": 0.8269,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.506,
+        "stake": 48255,
+        "win": 120927
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.337,
+        "stake": 51745,
+        "win": 120928
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "pec zwolle vs ajax",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.31,
+    "profit_ugx": 17306,
+    "total_stake": 100000,
+    "arb_sum": 0.8269,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.506,
+        "stake": 48255,
+        "win": 120927
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.337,
+        "stake": 51745,
+        "win": 120928
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "heerenveen vs twente",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.65,
+    "profit_ugx": 3646,
+    "total_stake": 100000,
+    "arb_sum": 0.9635,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.674,
+        "stake": 61998,
+        "win": 103785
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.731,
+        "stake": 38002,
+        "win": 103783
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "heerenveen vs twente",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 3.65,
+    "profit_ugx": 3646,
+    "total_stake": 100000,
+    "arb_sum": 0.9635,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.674,
+        "stake": 61998,
+        "win": 103785
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.731,
+        "stake": 38002,
+        "win": 103783
       }
     ],
     "market_type": "1x2",
