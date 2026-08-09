@@ -1254,12 +1254,33 @@ if __name__ == "__main__":
 
     @app.route('/webhook', methods=['POST'])
     def sms_webhook():
-        data = request.get_json() or request.form.to_dict()
-        sms_text = data.get('text') or data.get('body') or data.get('message')
-        sender = data.get('from') or data.get('sender') or data.get('phone_number')
+        # Log everything for debugging
+        raw_data = request.get_data(as_text=True)
+        app.logger.info(f"Raw webhook data: {raw_data}")
+        app.logger.info(f"Headers: {dict(request.headers)}")
+        
+        # Try to parse JSON or form data
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form.to_dict()
+        
+        # If still empty, try to parse raw as JSON (some providers send raw JSON)
+        if not data:
+            try:
+                data = json.loads(raw_data)
+            except:
+                data = {}
+        
+        # Extract message and sender using multiple possible keys
+        sms_text = data.get('text') or data.get('body') or data.get('message') or data.get('Body') or data.get('Message')
+        sender = data.get('from') or data.get('sender') or data.get('phone_number') or data.get('From') or data.get('Sender')
+        
         if not sms_text or not sender:
+            app.logger.warning(f"Missing SMS data: {data}")
             return 'Missing SMS data', 400
-        app.logger.info(f"SMS received: {sms_text[:200]}...")
+        
+        app.logger.info(f"SMS received: {sms_text[:200]} from {sender}")
 
         def extract_transaction_id(text):
             patterns = [
