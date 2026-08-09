@@ -612,6 +612,40 @@
     "market_specifier": ""
   },
   {
+    "match": "parma vs sampdoria",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.67,
+    "profit_ugx": 669,
+    "total_stake": 100000,
+    "arb_sum": 0.9933,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.943,
+        "stake": 51813,
+        "win": 100673
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.26,
+        "stake": 23632,
+        "win": 100672
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.1,
+        "stake": 24554,
+        "win": 100671
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "frosinone vs lazio",
     "sport": "Football",
     "type": "3-way",
