@@ -207,31 +207,31 @@
     "match": "brisbane roar vs sydney",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 7.5,
-    "profit_ugx": 7496,
+    "profit_percent": 5.3,
+    "profit_ugx": 5298,
     "total_stake": 100000,
-    "arb_sum": 0.925,
+    "arb_sum": 0.947,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.99,
-        "stake": 36155,
-        "win": 108103
+        "stake": 35316,
+        "win": 105595
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.5,
-        "stake": 30887,
-        "win": 108104
+        "odd": 3.25,
+        "stake": 32491,
+        "win": 105596
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.28,
-        "stake": 32958,
-        "win": 108102
+        "stake": 32193,
+        "win": 105593
       }
     ],
     "market_type": "1x2",
@@ -377,31 +377,31 @@
     "match": "horsens vs brondby",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 24.44,
-    "profit_ugx": 24441,
+    "profit_percent": 24.29,
+    "profit_ugx": 24294,
     "total_stake": 100000,
-    "arb_sum": 0.7556,
+    "arb_sum": 0.7571,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 4.65,
-        "stake": 28462,
-        "win": 132348
+        "stake": 28406,
+        "win": 132088
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.7,
-        "stake": 35769,
-        "win": 132345
+        "stake": 35700,
+        "win": 132090
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.7,
-        "stake": 35769,
-        "win": 132345
+        "odd": 3.68,
+        "stake": 35894,
+        "win": 132090
       }
     ],
     "market_type": "1x2",
@@ -572,222 +572,6 @@
         "odd": 14.0,
         "stake": 7185,
         "win": 100590
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sparta rotterdam vs feyenoord",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 10.59,
-    "profit_ugx": 10593,
-    "total_stake": 100000,
-    "arb_sum": 0.8941,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.18,
-        "stake": 51307,
-        "win": 111849
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.297,
-        "stake": 48693,
-        "win": 111848
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sparta rotterdam vs feyenoord",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 10.59,
-    "profit_ugx": 10593,
-    "total_stake": 100000,
-    "arb_sum": 0.8941,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.18,
-        "stake": 51307,
-        "win": 111849
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.297,
-        "stake": 48693,
-        "win": 111848
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "pec zwolle vs ajax",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 16.94,
-    "profit_ugx": 16937,
-    "total_stake": 100000,
-    "arb_sum": 0.8306,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 2.506,
-        "stake": 48041,
-        "win": 120391
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.317,
-        "stake": 51959,
-        "win": 120389
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "pec zwolle vs ajax",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 16.94,
-    "profit_ugx": 16937,
-    "total_stake": 100000,
-    "arb_sum": 0.8306,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 2.506,
-        "stake": 48041,
-        "win": 120391
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.317,
-        "stake": 51959,
-        "win": 120389
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "heerenveen vs twente",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 3.65,
-    "profit_ugx": 3646,
-    "total_stake": 100000,
-    "arb_sum": 0.9635,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.674,
-        "stake": 61998,
-        "win": 103785
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.731,
-        "stake": 38002,
-        "win": 103783
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "heerenveen vs twente",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 3.65,
-    "profit_ugx": 3646,
-    "total_stake": 100000,
-    "arb_sum": 0.9635,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.674,
-        "stake": 61998,
-        "win": 103785
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.731,
-        "stake": 38002,
-        "win": 103783
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "energie cottbus vs hannover 96",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.0,
-    "profit_ugx": 997,
-    "total_stake": 100000,
-    "arb_sum": 0.99,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 1.68,
-        "stake": 60123,
-        "win": 101007
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 2.533,
-        "stake": 39877,
-        "win": 101008
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "energie cottbus vs hannover 96",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 1.0,
-    "profit_ugx": 997,
-    "total_stake": 100000,
-    "arb_sum": 0.99,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "1X",
-        "odd": 1.68,
-        "stake": 60123,
-        "win": 101007
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "X2",
-        "odd": 2.533,
-        "stake": 39877,
-        "win": 101008
       }
     ],
     "market_type": "1x2",
