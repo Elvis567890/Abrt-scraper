@@ -5,80 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Abrimax</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0d0f13; color: #e8e8ec; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0d0f13; color: #e8e8ec; padding: 20px; margin: 0; }
+        .container { max-width: 1000px; margin: 0 auto; }
         h1 { color: #00e676; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 10px; border: 1px solid #22242e; text-align: left; }
-        th { background: #161820; }
-        .btn { background: #00e676; color: #000; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; }
+        .card { background: #161820; border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px solid #22242e; }
+        .card h3 { margin-top: 0; color: #a0a4b0; }
+        input, select, button { font-family: inherit; }
+        .form-group { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 10px 0; }
+        .form-group input, .form-group select { background: #1c1e26; border: 1px solid #22242e; color: #fff; padding: 10px 14px; border-radius: 6px; flex: 1; min-width: 200px; }
+        .btn { background: #00e676; color: #000; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn:hover { background: #00c853; }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .login-box { max-width: 300px; margin: 100px auto; background: #161820; padding: 30px; border-radius: 8px; }
-        .login-box input { width: 100%; padding: 10px; margin: 10px 0; background: #1c1e26; border: 1px solid #22242e; color: #fff; border-radius: 4px; }
-        .login-box button { width: 100%; padding: 10px; background: #00e676; color: #000; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-danger { background: #ff5252; color: #fff; }
+        .btn-danger:hover { background: #e04848; }
+        .btn-refresh { background: #448aff; color: #fff; }
+        .btn-refresh:hover { background: #3a78d4; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 10px; border: 1px solid #22242e; text-align: left; }
+        th { background: #1c1e26; color: #a0a4b0; }
         .error { color: #ff5252; }
         .success { color: #00e676; }
-        .logout-btn { margin-top: 20px; background: #ff5252; color: #fff; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; }
-        .refresh-btn { margin-left: 10px; background: #448aff; color: #fff; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; }
+        .login-box { max-width: 350px; margin: 100px auto; background: #161820; padding: 30px; border-radius: 12px; border: 1px solid #22242e; }
+        .login-box input { width: 100%; padding: 12px; margin: 10px 0; background: #1c1e26; border: 1px solid #22242e; color: #fff; border-radius: 6px; }
+        .login-box button { width: 100%; padding: 12px; background: #00e676; color: #000; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        .logout-btn { margin-left: 10px; }
+        .flex-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .badge { background: #22242e; padding: 4px 12px; border-radius: 12px; font-size: 12px; color: #a0a4b0; }
     </style>
 </head>
 <body>
 <div class="container" id="app">
+    <!-- LOGIN -->
     <div v-if="!isAdmin">
         <div class="login-box">
-            <h2>🔐 Admin Login</h2>
+            <h2 style="color:#00e676;">🔐 Admin Login</h2>
             <input type="email" v-model="email" placeholder="Admin Email" @keyup.enter="login">
             <input type="password" v-model="password" placeholder="Password" @keyup.enter="login">
             <button @click="login">Login</button>
             <div class="error" v-if="loginError">{{ loginError }}</div>
         </div>
     </div>
+
+    <!-- ADMIN PANEL -->
     <div v-else>
-        <h1>🔐 Admin Panel</h1>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <p>Welcome, {{ email }}</p>
+        <div class="flex-row">
+            <h1>🔐 Admin Panel</h1>
             <div>
-                <button class="refresh-btn" @click="fetchPending">🔄 Refresh</button>
-                <button class="logout-btn" @click="logout">Logout</button>
+                <span class="badge">{{ email }}</span>
+                <button class="btn btn-refresh" @click="fetchPending">🔄 Refresh</button>
+                <button class="btn btn-danger" @click="logout">Logout</button>
             </div>
         </div>
-        <h3>Pending Transactions</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User Email</th>
-                    <th>Plan</th>
-                    <th>Amount</th>
-                    <th>Transaction ID</th>
-                    <th>Created</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="tx in pending" :key="tx.id">
-                    <td>{{ tx.id.substring(0,8) }}</td>
-                    <td>{{ tx.email }}</td>
-                    <td>{{ tx.plan }}</td>
-                    <td>UGX {{ tx.amount }}</td>
-                    <td>{{ tx.manual_transaction_id }}</td>
-                    <td>{{ new Date(tx.created_at).toLocaleString() }}</td>
-                    <td><button class="btn" @click="activate(tx.id)" :disabled="activating">Activate</button></td>
-                </tr>
-                <tr v-if="pending.length === 0">
-                    <td colspan="7" style="text-align:center; color: #6b6f7c;">No pending transactions</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="success" v-if="message">{{ message }}</div>
-        <div class="error" v-if="error">{{ error }}</div>
+
+        <!-- ==== ACTIVATE BY EMAIL ==== -->
+        <div class="card">
+            <h3>📧 Activate User by Email</h3>
+            <div class="form-group">
+                <input type="email" v-model="activateEmail" placeholder="Enter user email">
+                <select v-model="activatePlan">
+                    <option value="day">Day Pass (2,500 UGX)</option>
+                    <option value="monthly">Monthly VIP (15,000 UGX)</option>
+                    <option value="quarterly">Quarterly Pro (40,000 UGX)</option>
+                </select>
+                <button class="btn" @click="activateByEmail" :disabled="activatingEmail">Activate</button>
+            </div>
+            <div class="success" v-if="emailMessage">{{ emailMessage }}</div>
+            <div class="error" v-if="emailError">{{ emailError }}</div>
+        </div>
+
+        <!-- ==== PENDING TRANSACTIONS ==== -->
+        <div class="card">
+            <h3>⏳ Pending Transactions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Plan</th>
+                        <th>Amount</th>
+                        <th>Transaction ID</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="tx in pending" :key="tx.id">
+                        <td>{{ tx.id.substring(0,8) }}</td>
+                        <td>{{ tx.email }}</td>
+                        <td>{{ tx.plan }}</td>
+                        <td>UGX {{ tx.amount }}</td>
+                        <td>{{ tx.manual_transaction_id || 'N/A' }}</td>
+                        <td>{{ new Date(tx.created_at).toLocaleString() }}</td>
+                        <td><button class="btn" @click="activate(tx.id)" :disabled="activating">Activate</button></td>
+                    </tr>
+                    <tr v-if="pending.length === 0">
+                        <td colspan="7" style="text-align:center; color: #6b6f7c;">No pending transactions</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="error" v-if="error">{{ error }}</div>
+            <div class="success" v-if="message">{{ message }}</div>
+        </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
-    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';
+    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';  // ← CHANGE TO YOUR BACKEND URL
 
     new Vue({
         el: '#app',
@@ -90,7 +124,13 @@
             loginError: '',
             message: '',
             error: '',
-            activating: false
+            activating: false,
+            // email activation
+            activateEmail: '',
+            activatePlan: 'monthly',
+            activatingEmail: false,
+            emailMessage: '',
+            emailError: ''
         },
         methods: {
             async login() {
@@ -153,12 +193,44 @@
                         throw new Error(data.error || 'Activation failed');
                     }
                     this.message = '✅ ' + data.message;
-                    // Remove from list
                     this.pending = this.pending.filter(t => t.id !== txId);
                 } catch (e) {
                     this.error = '❌ ' + e.message;
                 } finally {
                     this.activating = false;
+                }
+            },
+            async activateByEmail() {
+                this.activatingEmail = true;
+                this.emailMessage = '';
+                this.emailError = '';
+                const email = this.activateEmail.trim();
+                if (!email) {
+                    this.emailError = 'Please enter an email address.';
+                    this.activatingEmail = false;
+                    return;
+                }
+                try {
+                    const token = localStorage.getItem('admin_token');
+                    const res = await fetch(`${API_BASE}/api/admin/activate-by-email`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ email: email, plan: this.activatePlan })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                        throw new Error(data.error || 'Activation failed');
+                    }
+                    this.emailMessage = '✅ ' + data.message;
+                    this.activateEmail = '';
+                    await this.fetchPending(); // refresh list
+                } catch (e) {
+                    this.emailError = '❌ ' + e.message;
+                } finally {
+                    this.activatingEmail = false;
                 }
             },
             logout() {
@@ -168,6 +240,11 @@
                 this.pending = [];
                 this.email = '';
                 this.password = '';
+                this.activateEmail = '';
+                this.message = '';
+                this.error = '';
+                this.emailMessage = '';
+                this.emailError = '';
             },
             checkAuth() {
                 const token = localStorage.getItem('admin_token');
@@ -185,4 +262,4 @@
     });
 </script>
 </body>
-                      </html>
+</html>
