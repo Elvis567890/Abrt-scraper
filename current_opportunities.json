@@ -343,31 +343,31 @@
     "match": "waregem vs racing genk",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 15.69,
-    "profit_ugx": 15693,
+    "profit_percent": 19.72,
+    "profit_ugx": 19724,
     "total_stake": 100000,
-    "arb_sum": 0.8431,
+    "arb_sum": 0.8028,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.28,
-        "stake": 36163,
-        "win": 118615
+        "odd": 3.58,
+        "stake": 34796,
+        "win": 124570
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 32948,
-        "win": 118613
+        "odd": 3.7,
+        "stake": 33667,
+        "win": 124568
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.84,
-        "stake": 30889,
-        "win": 118614
+        "odd": 3.95,
+        "stake": 31537,
+        "win": 124571
       }
     ],
     "market_type": "1x2",
@@ -674,6 +674,114 @@
         "odd": 3.43,
         "stake": 32646,
         "win": 111976
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "heerenveen vs twente",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.07,
+    "profit_ugx": 5067,
+    "total_stake": 100000,
+    "arb_sum": 0.9493,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.699,
+        "stake": 62000,
+        "win": 105338
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.772,
+        "stake": 38000,
+        "win": 105336
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "heerenveen vs twente",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.07,
+    "profit_ugx": 5067,
+    "total_stake": 100000,
+    "arb_sum": 0.9493,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.699,
+        "stake": 62000,
+        "win": 105338
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.772,
+        "stake": 38000,
+        "win": 105336
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "zulte waregem vs genk",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.81,
+    "profit_ugx": 1809,
+    "total_stake": 100000,
+    "arb_sum": 0.9819,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.864,
+        "stake": 54636,
+        "win": 101842
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.245,
+        "stake": 45364,
+        "win": 101842
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "zulte waregem vs genk",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.81,
+    "profit_ugx": 1809,
+    "total_stake": 100000,
+    "arb_sum": 0.9819,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.864,
+        "stake": 54636,
+        "win": 101842
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.245,
+        "stake": 45364,
+        "win": 101842
       }
     ],
     "market_type": "1x2",
