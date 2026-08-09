@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "maranhao vs brusque",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.58,
+    "profit_ugx": 1579,
+    "total_stake": 100000,
+    "arb_sum": 0.9842,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.29,
+        "stake": 44369,
+        "win": 101605
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.435,
+        "stake": 29579,
+        "win": 101604
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 3.9,
+        "stake": 26052,
+        "win": 101603
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "jaguares de cordoba vs once caldas",
     "sport": "Football",
     "type": "3-way",
@@ -220,7 +254,7 @@
         "win": 106633
       },
       {
-        "bookmaker": "1xBet",
+        "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 7.18,
         "stake": 14851,
@@ -232,6 +266,60 @@
         "odd": 6.9,
         "stake": 15454,
         "win": 106633
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "union la calera vs colocolo",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.1,
+    "profit_ugx": 1099,
+    "total_stake": 100000,
+    "arb_sum": 0.989,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.95,
+        "stake": 51852,
+        "win": 101111
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.1,
+        "stake": 48148,
+        "win": 101111
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "union la calera vs colocolo",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.1,
+    "profit_ugx": 1099,
+    "total_stake": 100000,
+    "arb_sum": 0.989,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.95,
+        "stake": 51852,
+        "win": 101111
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.1,
+        "stake": 48148,
+        "win": 101111
       }
     ],
     "market_type": "1x2",
