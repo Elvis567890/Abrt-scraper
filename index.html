@@ -1,13 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Abrimax - Live Arbitrage</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <style>
-        /* ===== FULL STYLES (same as before, omitted for brevity) ===== */
-        /* Copy your existing styles – they are unchanged. */
-        /* I'll include the essential style block for context. */
+        /* ===== FULL STYLES (unchanged – same as your original) ===== */
+        :root {
+            --bg: #0d0f13;
+            --surface: #161820;
+            --surface2: #1c1e26;
+            --surface3: #22242e;
+            --text: #e8e8ec;
+            --text2: #a0a4b0;
+            --text3: #6b6f7c;
+            --green: #00e676;
+            --green-glow: rgba(0, 230, 118, 0.25);
+            --red: #ff5252;
+            --blue: #448aff;
+            --yellow: #ffc107;
+            --orange: #ff9100;
+            --accent: #00e676;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-xs: 8px;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --nav-height: 72px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; -webkit-font-smoothing: antialiased; user-select: none; }
+        .phone-frame { width: 390px; height: 844px; background: var(--bg); border-radius: 36px; overflow: hidden; position: relative; box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 8px #2a2a2a, 0 20px 60px rgba(0,0,0,0.7); display: flex; flex-direction: column; }
+        @media (max-width: 430px) { .phone-frame { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; } }
+        .status-bar { height: 44px; background: var(--bg); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; color: #fff; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .main-content { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
+        .main-content::-webkit-scrollbar { width: 0; }
+        .page { display: none; padding: 0 16px 20px; animation: fadeSlideIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes glowPulse { 0%,100% { box-shadow: 0 0 12px var(--green-glow); } 50% { box-shadow: 0 0 24px var(--green-glow), 0 0 40px rgba(0,230,118,0.15); } }
+        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 0 14px; }
+        .page-header h1 { font-size: 22px; font-weight: 700; color: var(--text); }
+        .filter-tabs { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; }
+        .filter-tab { padding: 9px 18px; border-radius: 22px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; border: 1.5px solid var(--surface3); background: transparent; color: var(--text2); }
+        .filter-tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; box-shadow: 0 2px 12px var(--green-glow); }
+        .opp-card { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+        .opp-card:active { transform: scale(0.985); border-color: var(--surface3); }
+        .opp-card .top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .event-info { flex: 1; }
+        .sport-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 4px; }
+        .event-name { font-size: 15px; font-weight: 700; color: var(--text); text-transform: capitalize; }
+        .market-type { font-size: 12px; color: var(--text2); margin-top: 2px; }
+        .profit-badge { background: rgba(0,230,118,0.12); color: var(--green); font-weight: 700; font-size: 16px; padding: 8px 14px; border-radius: 20px; animation: glowPulse 2.5s infinite; }
+        .bookie-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+        .bookie-link { color: var(--text); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); padding: 7px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; transition: background 0.2s; cursor: pointer; }
+        .bookie-link:hover { background: var(--surface3); color: var(--accent); }
+        .bookie-dot { width: 18px; height: 18px; border-radius: 50%; font-weight: 700; font-size: 9px; display: inline-flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; }
+        .stake-preview { font-size: 11px; color: var(--text3); margin-top: 6px; }
+        .arb-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+        .detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .back-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; border: none; color: var(--text); }
+        .detail-sport { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); }
+        .detail-event { font-size: 18px; font-weight: 700; color: var(--text); text-transform: capitalize; }
+        .detail-timer { font-size: 13px; color: var(--orange); font-weight: 600; }
+        .outcome-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .outcome-card { background: var(--surface); border-radius: var(--radius); padding: 16px; text-align: center; border: 2px solid transparent; transition: all 0.2s; }
+        .outcome-card.highlight { border-color: var(--green); box-shadow: 0 0 20px var(--green-glow); }
+        .outcome-label { font-size: 12px; color: var(--text2); margin-bottom: 6px; font-weight: 600; text-transform: capitalize; }
+        .outcome-odds { font-size: 36px; font-weight: 800; color: var(--text); letter-spacing: -1px; }
+        .outcome-bookie { font-size: 11px; color: var(--text3); margin-top: 2px; }
+        .stake-input-group { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px; }
+        .stake-input-group label { font-size: 12px; color: var(--text2); font-weight: 600; display: block; margin-bottom: 6px; }
+        .stake-input-row { display: flex; align-items: center; gap: 8px; }
+        .stake-input-row input { flex: 1; background: var(--surface2); border: 2px solid var(--surface3); color: var(--text); font-size: 20px; font-weight: 700; padding: 12px 14px; border-radius: var(--radius-xs); outline: none; font-family: var(--font); }
+        .stake-input-row .currency { font-size: 18px; font-weight: 700; color: var(--text2); }
+        .breakdown-table { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 14px; }
+        .breakdown-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; color: var(--text2); border-bottom: 1px solid var(--surface2); }
+        .breakdown-row:last-child { border-bottom: none; font-weight: 700; color: var(--green); font-size: 15px; }
+        .breakdown-row .val { color: var(--text); font-weight: 600; }
+        .breakdown-row:last-child .val { color: var(--green); }
+        .cta-row { display: flex; gap: 10px; }
+        .cta-btn { flex: 1; padding: 14px; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px; cursor: pointer; text-align: center; border: none; transition: all 0.2s; font-family: var(--font); }
+        .cta-btn.primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px var(--green-glow); }
+        .cta-btn.secondary { background: var(--surface2); color: var(--text); border: 1.5px solid var(--surface3); }
+        .cta-btn:active { transform: scale(0.95); }
+        .calc-card { background: var(--surface); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
+        .calc-input { margin-bottom: 14px; }
+        .calc-input label { font-size: 12px; font-weight: 600; color: var(--text2); display: block; margin-bottom: 5px; }
+        .calc-input input { width: 100%; background: var(--surface2); border: 2px solid var(--surface3); color: var(--text); font-size: 17px; padding: 12px 14px; border-radius: var(--radius-xs); outline: none; }
+        .calc-result { background: var(--surface2); border-radius: var(--radius-sm); padding: 16px; text-align: center; margin-top: 8px; }
+        .profit-ring { width: 80px; height: 80px; border-radius: 50%; border: 6px solid var(--green); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: var(--green); box-shadow: 0 0 24px var(--green-glow); }
+        .slip-item { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+        .slip-bookie { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; color: #fff; }
+        .slip-info { flex: 1; }
+        .slip-event { font-weight: 600; color: var(--text); font-size: 13px; text-transform: capitalize; }
+        .slip-detail { font-size: 11px; color: var(--text2); }
+        .slip-stake { font-weight: 700; color: var(--text); font-size: 14px; }
+        .slip-actions { display: flex; gap: 6px; }
+        .slip-actions button { width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer; font-size: 14px; }
+        .btn-copy { background: var(--surface2); color: var(--text); }
+        .btn-open { background: var(--blue); color: #fff; }
+        .bookie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .bookie-card { background: var(--surface); border-radius: var(--radius); padding: 16px; text-align: center; border: 2px solid transparent; }
+        .bookie-card.connected { border-color: rgba(0,230,118,0.3); }
+        .bookie-logo { width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: #fff; }
+        .bookie-name { font-weight: 700; color: var(--text); font-size: 14px; }
+        .bookie-status { font-size: 10px; font-weight: 700; color: var(--green); margin-top: 4px; text-transform: uppercase; }
+        .summary-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+        .summary-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
+        .summary-val { font-size: 22px; font-weight: 800; color: var(--text); }
+        .summary-label { font-size: 10px; color: var(--text3); text-transform: uppercase; }
+        .profit-chart { background: var(--surface); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; height: 120px; display: flex; align-items: flex-end; gap: 6px; overflow-x: auto; }
+        .chart-bar { flex: 1; background: var(--green); border-radius: 4px 4px 0 0; min-height: 8px; opacity: 0.8; }
+        .hist-item { background: var(--surface); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+        .hist-info { flex: 1; }
+        .hist-event { font-weight: 600; color: var(--text); font-size: 13px; }
+        .hist-date { font-size: 11px; color: var(--text3); }
+        .status-chip { font-size: 10px; font-weight: 700; padding: 5px 10px; border-radius: 12px; text-transform: uppercase; }
+        .status-placed { background: rgba(0,230,118,0.15); color: var(--green); }
+        .status-invalid { background: rgba(255,82,82,0.15); color: var(--red); }
+        .alert-card { background: var(--surface); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .alert-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,230,118,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .alert-info { flex: 1; }
+        .alert-event { font-weight: 600; color: var(--text); font-size: 13px; text-transform: capitalize; }
+        .alert-meta { font-size: 11px; color: var(--text3); }
+        .alert-profit { font-weight: 700; color: var(--green); font-size: 14px; }
+        .bottom-nav { height: 72px; background: var(--surface); display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--surface3); flex-shrink: 0; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 6px 12px; background: none; border: none; color: var(--text3); font-family: var(--font); font-size: 10px; font-weight: 600; }
+        .nav-item.active { color: var(--accent); }
+        .toast { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .toast.show { opacity: 1; }
+        .empty-state { text-align: center; padding: 50px 20px; color: var(--text3); }
+        .settings-section { margin-bottom: 18px; }
+        .settings-section h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 10px; }
+        .slider-container { background: var(--surface); border-radius: var(--radius-sm); padding: 14px 16px; }
+        .slider-container input[type="range"] { width: 100%; accent-color: var(--accent); margin-top: 6px; }
+        .fab { position: absolute; bottom: 100px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: #000; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 28px var(--green-glow); z-index: 20; border: none; }
+        .icon-btn { background: var(--surface2); border: none; color: var(--text); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; position: relative; }
+        .badge-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; position: absolute; top: 6px; right: 6px; border: 2px solid var(--surface2); }
+
+        /* ===== AUTH PAGE ===== */
+        .auth-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; padding: 20px 0; }
+        .auth-box { background: var(--surface); border-radius: var(--radius); padding: 30px 24px; width: 100%; max-width: 360px; margin: 0 auto; }
+        .auth-box h2 { color: var(--text); font-size: 24px; margin-bottom: 8px; text-align: center; }
+        .auth-box p { color: var(--text2); text-align: center; font-size: 14px; margin-bottom: 20px; }
+        .auth-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+        .auth-tab { flex:1; padding: 10px; border: 2px solid var(--surface3); border-radius: var(--radius-xs); background: transparent; color: var(--text2); font-weight: 700; cursor: pointer; text-align: center; }
+        .auth-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(0,230,118,0.08); }
+        .auth-input { width: 100%; padding: 14px; background: var(--surface2); border: 2px solid var(--surface3); border-radius: var(--radius-xs); color: var(--text); font-size: 15px; margin-bottom: 12px; outline: none; }
+        .auth-input:focus { border-color: var(--accent); }
+        .auth-btn { width: 100%; padding: 14px; border: none; border-radius: var(--radius-xs); font-weight: 700; font-size: 16px; cursor: pointer; }
+        .auth-btn.primary { background: var(--accent); color: #000; box-shadow: 0 4px 16px var(--green-glow); }
+        .auth-btn.google { background: #fff; color: #000; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
+        .auth-error { color: var(--red); font-size: 13px; margin: 6px 0; text-align: center; min-height: 20px; }
+        .auth-divider { display: flex; align-items: center; gap: 12px; color: var(--text3); font-size: 12px; margin: 12px 0; }
+        .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--surface3); }
+        .user-email { color: var(--text2); font-size: 13px; margin-bottom: 12px; text-align: center; }
+
+        /* ===== MANUAL PAYMENT UI ===== */
+        .plan-select { width: 100%; padding: 12px; background: var(--surface2); color: var(--text); border: 2px solid var(--surface3); border-radius: var(--radius-xs); margin-bottom: 8px; }
+        .manual-payment-input { width: 100%; padding: 12px; background: var(--surface2); color: var(--text); border: 2px solid var(--surface3); border-radius: var(--radius-xs); margin-bottom: 8px; }
+        .manual-payment-btn { background: var(--accent); color: #000; border: none; border-radius: var(--radius-xs); padding: 12px 20px; font-weight: 700; font-size: 14px; cursor: pointer; transition: opacity 0.2s; width: 100%; }
+        .manual-payment-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .manual-payment-status { font-size: 12px; color: var(--text2); margin-top: 6px; }
+        .manual-payment-info { font-size: 13px; color: var(--text2); margin-bottom: 8px; padding: 10px; background: var(--surface2); border-radius: var(--radius-xs); }
+        .manual-payment-info strong { color: var(--text); }
     </style>
 </head>
 <body>
@@ -15,7 +173,6 @@
     <div class="status-bar"><span class="time">9:41</span><div class="status-icons">5G ▮▮▮▮ 🔋</div></div>
     <div class="toast" id="toast">Copied ✓</div>
     <div class="main-content" id="mainContent">
-
         <!-- AUTH PAGE -->
         <div class="page active" id="page-auth">
             <div class="auth-container">
@@ -35,13 +192,15 @@
                         </div>
                         <div id="signupForm" style="display:none;">
                             <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
-                            <input type="password" id="signupPassword" class="auth-input" placeholder="Password (max 72 chars)" maxlength="72" required>
+                            <input type="password" id="signupPassword" class="auth-input" placeholder="Password (min 6 chars)" required>
                             <div id="authErrorSignup" class="auth-error"></div>
                             <button class="auth-btn primary" onclick="signUpWithEmail()">Create Account</button>
                         </div>
                     </div>
                     <div class="auth-divider"><hr><span>or</span><hr></div>
-                    <button class="auth-btn google" onclick="signInWithGoogle()">Sign in with Google</button>
+                    <button class="auth-btn google" onclick="signInWithGoogle()">
+                        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Sign in with Google
+                    </button>
                 </div>
             </div>
         </div>
@@ -49,10 +208,7 @@
         <!-- DASHBOARD -->
         <div class="page" id="page-dashboard">
             <div class="page-header"><h1>🔍 Abrimax</h1>
-                <div>
-                    <button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button>
-                    <button class="icon-btn" onclick="navigateTo('settings')">👤</button>
-                </div>
+                <div><button class="icon-btn" onclick="navigateTo('alerts')">🔔<span class="badge-dot"></span></button><button class="icon-btn" onclick="navigateTo('settings')">👤</button></div>
             </div>
             <div class="filter-tabs" id="dashboardFilterTabs">
                 <button class="filter-tab active" data-filter="all">All</button>
@@ -63,12 +219,85 @@
             <button class="fab" onclick="navigateTo('calculator')">🧮</button>
         </div>
 
-        <!-- DETAIL, CALCULATOR, SLIP, BOOKIES, SETTINGS, HISTORY, ALERTS -->
-        <!-- (all pages remain unchanged, use your existing HTML) -->
+        <!-- DETAIL -->
+        <div class="page" id="page-detail"></div>
+
+        <!-- CALCULATOR -->
+        <div class="page" id="page-calculator">
+            <div class="detail-header"><button class="back-btn" onclick="navigateTo('dashboard')">←</button><h1 style="font-size:20px;">🧮 Arbitrage Calculator</h1></div>
+            <div class="calc-card">
+                <div class="calc-input"><label>Total Stake (UGX)</label><input type="number" id="calcStake" value="100000" oninput="updateCalculator()"></div>
+                <div class="calc-input"><label>Odds 1</label><input type="number" id="calcOdds1" value="3.6" step="0.01" oninput="updateCalculator()"></div>
+                <div class="calc-input"><label>Odds 2</label><input type="number" id="calcOdds2" value="3.82" step="0.01" oninput="updateCalculator()"></div>
+                <div class="calc-input" id="calcOdds3Container" style="display:block;"><label>Odds 3 (3-way)</label><input type="number" id="calcOdds3" value="3.82" step="0.01" oninput="updateCalculator()"></div>
+                <button class="cta-btn secondary" style="width:100%;font-size:12px;" onclick="toggleThirdOdds()">Toggle 3rd Outcome</button>
+                <div class="calc-result" id="calcResult"></div>
+            </div>
+            <button class="cta-btn primary" style="width:100%;" onclick="addCurrentCalcToSlip()">📋 Save to Bet Slip</button>
+        </div>
+
+        <!-- SLIP -->
+        <div class="page" id="page-slip">
+            <div class="page-header"><h1>📋 Bet Slip</h1><span id="slipCount">0 bets</span></div>
+            <div id="slipItems"></div>
+            <div class="slip-summary" id="slipSummary" style="display:none;">
+                <div>Total Profit</div><div class="summary-profit" id="slipProfit">+UGX 0</div>
+                <button class="cta-btn primary" style="width:100%;margin-top:10px;" onclick="completeArb()">✅ Complete Arb</button>
+            </div>
+        </div>
+
+        <!-- BOOKIES -->
+        <div class="page" id="page-bookies">
+            <div class="page-header"><h1>🏦 Bookmakers</h1></div>
+            <div class="bookie-grid">
+                <div class="bookie-card connected"><div class="bookie-logo" style="background:#027a48;">B365</div><div class="bookie-name">Bet365</div><div class="bookie-status">Connected</div></div>
+                <div class="bookie-card connected"><div class="bookie-logo" style="background:#f5a623;">SP</div><div class="bookie-name">SportyBet</div><div class="bookie-status">Connected</div></div>
+                <div class="bookie-card connected"><div class="bookie-logo" style="background:#1a5ba8;">1XB</div><div class="bookie-name">1xBet</div><div class="bookie-status">Connected</div></div>
+                <div class="bookie-card connected"><div class="bookie-logo" style="background:#e63946;">PIN</div><div class="bookie-name">Pinnacle</div><div class="bookie-status">Connected</div></div>
+            </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="page" id="page-settings">
+            <div class="page-header"><h1>⚙️ Settings</h1><button class="icon-btn" onclick="saveUserSettings()">💾</button></div>
+            <div class="settings-section"><h3>👤 Account</h3>
+                <div class="slider-container" style="text-align:center;">
+                    <div id="settingsUserEmail" class="user-email">Not logged in</div>
+                    <div id="settingsUserTier" style="font-size:12px;color:var(--text2);">Tier: free</div>
+                    <button class="cta-btn secondary" style="width:100%;margin-top:8px;" onclick="logoutUser()">🚪 Log Out</button>
+                </div>
+            </div>
+            <div class="settings-section" id="manualPaySection"><h3>💸 Pay with Mobile Money</h3>
+                <div class="slider-container">
+                    <div class="manual-payment-info"><p><strong>Send money to:</strong> <span style="color:var(--accent);">Nakyanzi Daisy (075 640 8723)</span></p><p><strong>After sending, enter the transaction ID below.</strong></p><p style="font-size:11px;color:var(--text3);margin-top:4px;">⚠️ The SMS from your mobile money provider will be automatically verified.</p></div>
+                    <select id="manualPlanSelect" class="plan-select">
+                        <option value="day">Day Pass – 2,500 UGX</option>
+                        <option value="monthly">Monthly VIP – 15,000 UGX</option>
+                        <option value="quarterly">Quarterly Pro – 40,000 UGX</option>
+                    </select>
+                    <input type="text" id="manualTransactionId" class="manual-payment-input" placeholder="Enter Transaction ID from SMS">
+                    <button class="manual-payment-btn" onclick="submitManualPayment()">✅ Submit Payment</button>
+                    <div id="manualPaymentStatus" class="manual-payment-status"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTORY -->
+        <div class="page" id="page-history">
+            <div class="page-header"><h1>📊 History</h1></div>
+            <div class="summary-cards"><div class="summary-card"><div class="summary-val" id="totalArbs">0</div><div class="summary-label">Arbs Done</div></div><div class="summary-card"><div class="summary-val" id="totalProfit">UGX 0</div><div class="summary-label">Total Profit</div></div></div>
+            <div class="profit-chart" id="profitChart"></div>
+            <div id="historyList"></div>
+        </div>
+
+        <!-- ALERTS -->
+        <div class="page" id="page-alerts">
+            <div class="page-header"><h1>🔔 Alerts</h1></div>
+            <div id="alertsList"></div>
+        </div>
     </div>
 
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav" id="bottomNav" style="display:none;">
+    <div class="bottom-nav" id="bottomNav">
         <button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">🏠 Home</button>
         <button class="nav-item" data-page="slip" onclick="navigateTo('slip')">📋 Slip</button>
         <button class="nav-item" data-page="calculator" onclick="navigateTo('calculator')">🧮 Calc</button>
@@ -79,21 +308,28 @@
 
 <script>
     // ============================================================
-    // BACKEND URL
-    // ============================================================
-    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';
+    // ✅ CORRECT API BASE – use your deployed backend
+    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';  // <-- change if needed
 
     // ============================================================
-    // GLOBAL STATE
-    // ============================================================
-    let opportunitiesData = [];
-    let allHistory = {};
-    let currentDetailArb = null;
-    let slipBets = [];
-    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
+    // FIREBASE CONFIG (we no longer use Firebase – but keep for compatibility)
+    const firebaseConfig = { 
+        apiKey: "AIzaSyD4dm5ThexsbyrRKR4PYcrBMhMsXQ7Qmsw", 
+        authDomain: "arbimax-auth.firebaseapp.com", 
+        projectId: "arbimax-auth", 
+        storageBucket: "arbimax-auth.firebasestorage.app", 
+        messagingSenderId: "985163289771", 
+        appId: "1:985163289771:web:798f8b55bab13d7d2353ee", 
+        measurementId: "G-ZFXKEY2QL7" 
+    };
+    // firebase.initializeApp(firebaseConfig); // Uncomment if you need Firebase
 
     // ============================================================
-    // AUTH FUNCTIONS (custom JWT)
+    // TOKEN EXCHANGE (we now use custom JWT directly – no Firebase)
+    // ============================================================
+
+    // ============================================================
+    // AUTH FUNCTIONS (using custom JWT)
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
@@ -153,14 +389,14 @@
             localStorage.setItem('sms_auth_token', data.token);
             localStorage.setItem('sms_auth_email', email);
             showToast('Logged in successfully!');
-            // 👇 Immediately show the app
+            // ✅ Force UI transition immediately
             checkSMSAuth();
         } catch (error) {
             errorEl.textContent = error.message;
         }
     }
 
-    function signInWithGoogle() {
+    async function signInWithGoogle() {
         showToast('Google sign-in is not available. Please use email.');
     }
 
@@ -177,10 +413,7 @@
     async function checkSMSAuth() {
         const authToken = localStorage.getItem('sms_auth_token');
         const authEmail = localStorage.getItem('sms_auth_email');
-        if (!authToken || !authEmail) {
-            clearSMSAuth();
-            return;
-        }
+        if (!authToken || !authEmail) { clearSMSAuth(); return; }
 
         try {
             const response = await fetch(`${API_BASE}/api/profile`, {
@@ -196,11 +429,10 @@
             }
             const data = await response.json();
             if (data.user) {
-                // ✅ SHOW APP IMMEDIATELY
+                // ✅ Show app immediately
                 showApp(data.user);
-                // Then load subscription details
+                // Then check subscription & load data in background
                 await checkSubscription(authToken);
-                // Load arbitrage data
                 navigateTo('dashboard');
                 fetchUserDataFromBackend();
             } else {
@@ -213,6 +445,7 @@
         }
     }
 
+    // ✅ NEW: showApp() – immediately hides auth and shows main pages
     function showApp(user) {
         const authPage = document.getElementById('page-auth');
         const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
@@ -272,8 +505,15 @@
     }
 
     // ============================================================
-    // FETCH ARBITRAGE DATA (same as before)
+    // FETCH ARBITRAGE DATA (unchanged)
     // ============================================================
+    let opportunitiesData = [];
+    let allHistory = {};
+    let currentPage = 'dashboard';
+    let currentDetailArb = null;
+    let slipBets = [];
+    let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
+
     async function fetchUserDataFromBackend() {
         const token = localStorage.getItem('sms_auth_token');
         if (!token) return;
@@ -333,12 +573,355 @@
     }
 
     // ============================================================
-    // RENDER FUNCTIONS (unchanged – use your existing ones)
+    // RENDER FUNCTIONS (unchanged – your original code)
     // ============================================================
-    // (You already have these functions – keep them as they are.)
+    function getBookmakerUrl(bookieName) {
+        const map = { 'sportybet':'https://sportybet.ug','championbet':'https://championbet.ug','ababet':'https://ababet.ug','fortebet':'https://fortebet.ug','1xbet':'https://1xbet.ug','22bet':'https://22bet.ug','melbet':'https://melbet.ug' };
+        const key = bookieName.toLowerCase().replace(/\s/g, '');
+        return map[key] || '#';
+    }
+
+    function getBookieColor(bookie) {
+        const map = { sportybet:'#f5a623', betpawa:'#7b2cbf', '1xbet':'#1a5ba8', fortebet:'#0f4c81', '22bet':'#d32f2f', melbet:'#2e7d32', ababet:'#d48c34', championbet:'#e65100', gsb:'#0d47a1' };
+        return map[bookie.toLowerCase()] || '#444';
+    }
+
+    function renderOpportunities(filter = 'all') {
+        let settings = getDefaultSettings();
+        const saved = localStorage.getItem(getUserSettingsKey());
+        if (saved) { try { settings = { ...settings, ...JSON.parse(saved) }; } catch(e) {} }
+        const minProfit = settings.minProfit || 1.0;
+        const maxProfit = settings.maxProfit || 99.0;
+        const markets = settings.markets || { '1x2': true, 'ou': true, 'ah': true, 'btts': true };
+        const container = document.getElementById('oppList');
+        if (!container) return;
+        if (!opportunitiesData || opportunitiesData.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No opportunities available for your tier.</p></div>';
+            return;
+        }
+        let filtered = opportunitiesData.filter(a => {
+            if (a.profitPercent < minProfit || a.profitPercent > maxProfit) return false;
+            const type = a.type || '3-way';
+            if (type.includes('1x2') && !markets['1x2']) return false;
+            if (type.includes('Over/Under') && !markets['ou']) return false;
+            if (type.includes('Asian Handicap') && !markets['ah']) return false;
+            if (type.includes('BTTS') && !markets['btts']) return false;
+            if (filter === 'football' && a.sport.toLowerCase() !== 'football') return false;
+            if (filter === 'high' && a.profitPercent <= 5) return false;
+            return true;
+        });
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No opportunities found matching your filters.</p></div>';
+            return;
+        }
+        container.innerHTML = filtered.map(arb => {
+            const arbStr = JSON.stringify(arb).replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+            return `<div class="opp-card" onclick='handleCardClick(${arbStr})'>
+                <div class="top-row"><div class="event-info"><div class="sport-badge">⚽ ${arb.sport}</div><div class="event-name">${arb.match}</div><div class="market-type">${arb.type} · Pre-match</div></div><div class="profit-badge">+${arb.profitPercent.toFixed(2)}%</div></div>
+                <div class="bookie-row">${arb.bets.map(b => { const url = getBookmakerUrl(b.bookie); const color = getBookieColor(b.bookie); return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="bookie-link" onclick="event.stopPropagation();"><span class="bookie-dot" style="background:${color}">${b.bookie.charAt(0)}</span><span>${b.bookie} ${b.outcome} @ ${b.odds}</span></a>`; }).join('')}</div>
+                <div class="stake-preview">Profit: UGX ${arb.profitUGX.toLocaleString()}</div>
+                <div class="arb-meta">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div>
+            </div>`;
+        }).join('');
+    }
+
+    function handleCardClick(arb) {
+        navigateTo('detail', arb);
+    }
+
+    document.getElementById('dashboardFilterTabs').addEventListener('click', function(e) {
+        if (e.target.classList.contains('filter-tab')) {
+            this.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+            renderOpportunities(e.target.dataset.filter || 'all');
+        }
+    });
+
+    function filterOpportunities() {
+        const active = document.querySelector('#dashboardFilterTabs .filter-tab.active');
+        renderOpportunities(active ? active.dataset.filter : 'all');
+    }
+
+    function navigateTo(pageName, data) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('page-' + pageName);
+        if (target) {
+            target.classList.add('active');
+            currentPage = pageName;
+            document.getElementById('mainContent').scrollTop = 0;
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const navBtn = document.querySelector(`.nav-item[data-page="${pageName}"]`);
+            if (navBtn) navBtn.classList.add('active');
+            if (pageName === 'detail' && data) populateDetailPage(data);
+            if (pageName === 'history') renderHistory();
+            if (pageName === 'alerts') renderAlerts();
+            const fab = document.querySelector('.fab');
+            if (fab) fab.style.display = pageName === 'dashboard' ? 'flex' : 'none';
+        }
+    }
+
+    function populateDetailPage(arb) {
+        currentDetailArb = arb;
+        const historyHtml = (arb.history && arb.history.length) ? `<div style="margin-bottom:12px;font-size:12px;color:var(--text3);"><strong>History:</strong><ul style="margin-top:4px;padding-left:18px;">${arb.history.map(h => `<li>${h.timestamp} – ${h.profitPercent.toFixed(2)}% (UGX ${h.profitUGX})</li>`).join('')}</ul></div>` : "";
+        document.getElementById('page-detail').innerHTML = `
+            <div class="detail-header"><button class="back-btn" onclick="navigateTo('dashboard')">←</button><div><div class="detail-sport">⚽ ${arb.sport} · ${arb.type}</div><div class="detail-event">${arb.match}</div><div class="detail-timer">${arb.valid ? "✅ Valid" : "❌ Invalid"}</div></div></div>
+            ${historyHtml}
+            <div class="outcome-cards">${arb.bets.map(b => `<div class="outcome-card highlight"><div class="outcome-label">${b.outcome}</div><div class="outcome-odds">${b.odds}</div><div class="outcome-bookie">${b.bookie}</div></div>`).join('')}</div>
+            <div class="stake-input-group"><label>Total Stake (UGX)</label><div class="stake-input-row"><span class="currency">UGX</span><input type="number" id="detailStake" value="100000" oninput="updateDetailCalc()"></div></div>
+            <div class="breakdown-table" id="detailBreakdown"></div>
+            <div class="cta-row">${arb.bets.map(b => `<button class="cta-btn primary" onclick="showToast('Copy: ${b.bookie} ${b.outcome} @ ${b.odds}')">📋 ${b.bookie}</button>`).join('')}</div>
+            <button class="cta-btn secondary" style="width:100%;margin-top:8px;" onclick="addCurrentDetailToSlip()">➕ Add to Bet Slip</button>`;
+        updateDetailCalc();
+    }
+
+    function updateDetailCalc() {
+        if (!currentDetailArb) return;
+        const arb = currentDetailArb;
+        const saved = localStorage.getItem(getUserSettingsKey());
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
+        const odds = arb.bets.map(b => b.odds);
+        if (odds.some(o => o <= 0)) return;
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
+        const profit = minPayout - stake;
+        const roi = (profit / stake) * 100;
+        const breakdown = document.getElementById('detailBreakdown');
+        if (breakdown) {
+            breakdown.innerHTML = stakes.map((s, i) => `<div class="breakdown-row"><span>Stake on ${arb.bets[i].outcome} (${arb.bets[i].bookie})</span><span class="val">UGX ${s.toFixed(2)}</span></div>`).join('') +
+                `<div class="breakdown-row"><span>Total Invested</span><span class="val">UGX ${stake.toFixed(2)}</span></div>
+                <div class="breakdown-row"><span>Guaranteed Profit</span><span class="val">+UGX ${profit.toFixed(2)} (${roi.toFixed(2)}%)</span></div>`;
+        }
+    }
+
+    function addCurrentDetailToSlip() {
+        if (!currentDetailArb) return;
+        const arb = currentDetailArb;
+        const saved = localStorage.getItem(getUserSettingsKey());
+        const settings = saved ? JSON.parse(saved) : getDefaultSettings();
+        const stake = parseFloat(document.getElementById('detailStake')?.value) || settings.default_stake || 100000;
+        const odds = arb.bets.map(b => b.odds);
+        if (odds.some(o => o <= 0)) return;
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
+        slipBets.push({
+            id: Date.now(),
+            match: arb.match,
+            sport: arb.sport,
+            type: arb.type,
+            bets: arb.bets.map((b, i) => ({ ...b, stake: stakes[i] })),
+            totalStake: stake,
+            profit,
+            placedStatus: arb.bets.map(() => false)
+        });
+        renderSlip();
+        navigateTo('slip');
+        showToast('Added to slip');
+    }
 
     // ============================================================
-    // MANUAL PAYMENT (uses same API_BASE)
+    // CALCULATOR (unchanged)
+    // ============================================================
+    function updateCalculator() {
+        const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
+        const odds = [
+            parseFloat(document.getElementById('calcOdds1').value) || 3.6,
+            parseFloat(document.getElementById('calcOdds2').value) || 3.82
+        ];
+        if (document.getElementById('calcOdds3Container').style.display !== 'none') {
+            odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
+        }
+        if (odds.some(o => o <= 0)) return;
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const minPayout = Math.min(...stakes.map((s, i) => s * odds[i]));
+        const profit = minPayout - stake;
+        const roi = (profit / stake) * 100;
+        document.getElementById('calcResult').innerHTML = `
+            <div class="profit-ring">${roi.toFixed(2)}%</div>
+            <div class="details">${stakes.map((s, i) => `<strong>Bet ${i+1}:</strong> UGX ${s.toFixed(2)}`).join(' | ')}<br><strong>Profit:</strong> UGX ${profit.toFixed(2)}</div>`;
+    }
+
+    function toggleThirdOdds() {
+        const cont = document.getElementById('calcOdds3Container');
+        cont.style.display = cont.style.display === 'none' ? 'block' : 'none';
+        updateCalculator();
+    }
+
+    function addCurrentCalcToSlip() {
+        const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
+        const odds = [
+            parseFloat(document.getElementById('calcOdds1').value) || 3.6,
+            parseFloat(document.getElementById('calcOdds2').value) || 3.82
+        ];
+        let bets = [
+            { bookie: 'Bookie1', outcome: 'Outcome 1', odds: odds[0] },
+            { bookie: 'Bookie2', outcome: 'Outcome 2', odds: odds[1] }
+        ];
+        if (document.getElementById('calcOdds3Container').style.display !== 'none') {
+            odds.push(parseFloat(document.getElementById('calcOdds3').value) || 3.82);
+            bets.push({ bookie: 'Bookie3', outcome: 'Outcome 3', odds: odds[2] });
+        }
+        if (odds.some(o => o <= 0)) { showToast('Invalid odds'); return; }
+        const invSum = odds.reduce((s, o) => s + 1/o, 0);
+        const stakes = odds.map(o => (stake / o) / invSum);
+        const profit = Math.min(...stakes.map((s, i) => s * odds[i])) - stake;
+        slipBets.push({
+            id: Date.now(),
+            match: 'Custom Calculation',
+            sport: 'Custom',
+            type: odds.length === 3 ? '3-way' : '2-way',
+            bets: bets.map((b, i) => ({ ...b, stake: stakes[i] })),
+            totalStake: stake,
+            profit,
+            placedStatus: bets.map(() => false)
+        });
+        renderSlip();
+        navigateTo('slip');
+        showToast('Calculation added to slip');
+    }
+
+    // ============================================================
+    // SLIP (unchanged)
+    // ============================================================
+    function renderSlip() {
+        const container = document.getElementById('slipItems');
+        if (slipBets.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>No bets in slip</p></div>';
+            document.getElementById('slipSummary').style.display = 'none';
+            document.getElementById('slipCount').textContent = '0 bets';
+            return;
+        }
+        document.getElementById('slipSummary').style.display = 'block';
+        document.getElementById('slipCount').textContent = slipBets.length + ' bets';
+        container.innerHTML = slipBets.map((item, idx) => `
+            <div class="slip-item">
+                <div class="slip-bookie" style="background:#027a48;">${item.bets[0].bookie.charAt(0)}</div>
+                <div class="slip-info">
+                    <div class="slip-event">${item.match}</div>
+                    <div class="slip-detail">${item.type} · Total stake UGX ${item.totalStake.toFixed(2)}</div>
+                </div>
+                <div class="slip-stake">+UGX ${item.profit.toFixed(2)}</div>
+                <div class="slip-actions">
+                    <button class="btn-copy" onclick="copySlip(${idx})">📋</button>
+                    <button class="btn-open" onclick="openSlip(${idx})">↗</button>
+                </div>
+            </div>
+        `).join('');
+        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
+        document.getElementById('slipProfit').textContent = '+UGX ' + totalProfit.toFixed(2);
+    }
+
+    function copySlip(idx) { showToast('Slip copied'); }
+    function openSlip(idx) { showToast('Open bet on bookmaker'); }
+
+    function completeArb() {
+        if (slipBets.length === 0) return;
+        const totalProfit = slipBets.reduce((s, b) => s + b.profit, 0);
+        const record = {
+            id: Date.now(),
+            matches: slipBets.map(b => b.match),
+            sport: slipBets[0].sport || 'Football',
+            type: slipBets[0].type || '3-way',
+            totalStake: slipBets.reduce((s, b) => s + b.totalStake, 0),
+            profit: totalProfit,
+            timestamp: new Date().toISOString().slice(0,19).replace('T',' ')
+        };
+        completedArbs.push(record);
+        localStorage.setItem('arbiHistory', JSON.stringify(completedArbs));
+        slipBets = [];
+        renderSlip();
+        showToast('Arb completed');
+    }
+
+    // ============================================================
+    // HISTORY (unchanged)
+    // ============================================================
+    function renderHistory() {
+        const totalArbsEl = document.getElementById('totalArbs');
+        const totalProfitEl = document.getElementById('totalProfit');
+        const chart = document.getElementById('profitChart');
+        const list = document.getElementById('historyList');
+        const entries = Object.values(allHistory).filter(e => e.versions && e.versions.length > 0)
+            .sort((a, b) => (b.last_seen || '').localeCompare(a.last_seen || ''));
+        totalArbsEl.textContent = entries.length;
+        let totalProfit = 0;
+        entries.forEach(e => {
+            const latest = e.versions[e.versions.length - 1];
+            if (e.valid && latest) totalProfit += latest.profit_ugx || 0;
+        });
+        totalProfitEl.textContent = 'UGX ' + totalProfit.toFixed(2);
+        chart.innerHTML = entries.map(e => {
+            const latest = e.versions[e.versions.length - 1];
+            if (latest) {
+                const h = Math.max(8, Math.min(100, Math.abs(latest.profit_ugx) / 1000));
+                return `<div class="chart-bar" style="height:${h}px;"></div>`;
+            }
+            return '';
+        }).join('');
+        list.innerHTML = entries.map(e => {
+            const latest = e.versions[e.versions.length - 1];
+            const profit = latest ? latest.profit_ugx : 0;
+            const timestamp = latest ? latest.timestamp : e.last_seen || '-';
+            return `<div class="hist-item"><div class="hist-info"><div class="hist-event">${e.match || 'Unknown'}</div><div class="hist-date">${timestamp}</div></div><div class="status-chip ${e.valid ? 'status-placed' : 'status-invalid'}">${e.valid ? '+UGX ' + profit.toFixed(2) : 'Invalid'}</div></div>`;
+        }).join('');
+    }
+
+    // ============================================================
+    // ALERTS (unchanged)
+    // ============================================================
+    function renderAlerts() {
+        const alertsList = document.getElementById('alertsList');
+        const highProfit = opportunitiesData.filter(a => a.valid && a.profitPercent > 5);
+        if (highProfit.length === 0) {
+            alertsList.innerHTML = '<div class="empty-state"><p>No high profit alerts</p></div>';
+            return;
+        }
+        alertsList.innerHTML = highProfit.map(a => `<div class="alert-card" onclick="handleCardClick(${JSON.stringify(a).replace(/'/g, '&#39;').replace(/"/g, '&quot;')})"><div class="alert-icon">⚡</div><div class="alert-info"><div class="alert-event">${a.match}</div><div class="alert-meta">${a.sport} · ${a.type}</div></div><div class="alert-profit">+${a.profitPercent.toFixed(2)}%</div></div>`).join('');
+    }
+
+    // ============================================================
+    // SETTINGS / USER PREFERENCES (unchanged)
+    // ============================================================
+    function getUserSettingsKey() {
+        return localStorage.getItem('sms_auth_email') ? 'arbi_settings_' + localStorage.getItem('sms_auth_email') : 'arbi_settings_guest';
+    }
+
+    function getDefaultSettings() {
+        return {
+            default_stake: 100000,
+            min_profit: 1.0,
+            max_profit: 15.0,
+            markets: { '1x2': true, 'ou': true, 'ah': true, 'btts': true },
+            alert_threshold: 5.0,
+            dark_mode: true,
+            card_layout: 'comfortable',
+            plan: 'free'
+        };
+    }
+
+    function loadUserSettings() {
+        try {
+            const saved = localStorage.getItem(getUserSettingsKey());
+            saved ? applySettingsToUI(JSON.parse(saved)) : applySettingsToUI(getDefaultSettings());
+        } catch (e) {
+            localStorage.removeItem(getUserSettingsKey());
+            applySettingsToUI(getDefaultSettings());
+        }
+    }
+
+    function applySettingsToUI(settings) {
+        // extend with UI elements if needed – for now just store
+    }
+
+    function saveUserSettings() {
+        showToast('✅ Settings Saved (stub)');
+    }
+
+    // ============================================================
+    // MANUAL PAYMENT (unchanged)
     // ============================================================
     async function submitManualPayment() {
         const plan = document.getElementById('manualPlanSelect').value;
@@ -382,7 +965,7 @@
     }
 
     // ============================================================
-    // TOAST
+    // TOAST (unchanged)
     // ============================================================
     function showToast(msg) {
         const toast = document.getElementById('toast');
@@ -392,18 +975,13 @@
     }
 
     // ============================================================
-    // SETTINGS / USER PREFERENCES (unchanged)
-    // ============================================================
-    // (Your existing functions remain)
-
-    // ============================================================
     // INIT
     // ============================================================
     document.addEventListener('DOMContentLoaded', () => {
         loadUserSettings();
         updateCalculator();
         renderSlip();
-        checkSMSAuth();
+        checkSMSAuth(); // auto-login
     });
 
     // Expose functions globally
@@ -423,9 +1001,10 @@
     window.toggleThirdOdds = toggleThirdOdds;
     window.updateCalculator = updateCalculator;
     window.saveUserSettings = saveUserSettings;
+    window.filterOpportunities = filterOpportunities;
     window.renderAlerts = renderAlerts;
     window.renderHistory = renderHistory;
     window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-                    </html>
+                </html>
