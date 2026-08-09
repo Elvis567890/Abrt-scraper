@@ -34,6 +34,40 @@
     "market_specifier": ""
   },
   {
+    "match": "bragantino vs corinthians",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.8,
+    "profit_ugx": 796,
+    "total_stake": 100000,
+    "arb_sum": 0.992,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.256,
+        "stake": 44682,
+        "win": 100803
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.69,
+        "stake": 27318,
+        "win": 100803
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 28001,
+        "win": 100804
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "flamengo rj vs vitoria",
     "sport": "Football",
     "type": "3-way",
@@ -241,31 +275,31 @@
     "match": "nacional montevideo vs boston river",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.22,
-    "profit_ugx": 3217,
+    "profit_percent": 3.96,
+    "profit_ugx": 3955,
     "total_stake": 100000,
-    "arb_sum": 0.9678,
+    "arb_sum": 0.9604,
     "bets": [
       {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 1.45,
-        "stake": 71258,
-        "win": 103324
-      },
-      {
         "bookmaker": "22Bet",
-        "outcome": "Draw",
-        "odd": 7.39,
-        "stake": 13982,
-        "win": 103327
+        "outcome": "Home",
+        "odd": 1.475,
+        "stake": 70589,
+        "win": 104119
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.27,
+        "stake": 14322,
+        "win": 104121
+      },
+      {
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 7.0,
-        "stake": 14761,
-        "win": 103327
+        "odd": 6.9,
+        "stake": 15090,
+        "win": 104121
       }
     ],
     "market_type": "1x2",
