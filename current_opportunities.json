@@ -173,31 +173,31 @@
     "match": "austria vienna vs lask linz",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 20.11,
-    "profit_ugx": 20109,
+    "profit_percent": 20.84,
+    "profit_ugx": 20840,
     "total_stake": 100000,
-    "arb_sum": 0.7989,
+    "arb_sum": 0.7916,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 3.65,
-        "stake": 34293,
-        "win": 125169
+        "odd": 3.75,
+        "stake": 33687,
+        "win": 126326
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.8,
-        "stake": 32940,
-        "win": 125172
+        "stake": 33244,
+        "win": 126327
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.82,
-        "stake": 32767,
-        "win": 125170
+        "stake": 33070,
+        "win": 126327
       }
     ],
     "market_type": "1x2",
@@ -470,6 +470,60 @@
         "odd": 3.43,
         "stake": 32760,
         "win": 112367
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "moreirense vs braga",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.2,
+    "profit_ugx": 1197,
+    "total_stake": 100000,
+    "arb_sum": 0.988,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.38,
+        "stake": 42526,
+        "win": 101212
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.761,
+        "stake": 57474,
+        "win": 101212
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "moreirense vs braga",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.2,
+    "profit_ugx": 1197,
+    "total_stake": 100000,
+    "arb_sum": 0.988,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.38,
+        "stake": 42526,
+        "win": 101212
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.761,
+        "stake": 57474,
+        "win": 101212
       }
     ],
     "market_type": "1x2",
