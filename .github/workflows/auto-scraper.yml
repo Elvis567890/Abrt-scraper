@@ -23,14 +23,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install requests beautifulsoup4 passlib PyJWT Flask Flask-CORS Flask-SQLAlchemy python-dotenv firebase-admin apscheduler
+          pip install requests beautifulsoup4 bcrypt PyJWT apscheduler flask flask-cors flask-sqlalchemy python-dotenv
 
-      - name: Run Python scraper (No Flask server)
-        run: python -c "from scraper import run_scan; run_scan()"
+      - name: Run Python scraper (from server.py)
+        run: python -c "from server import run_scan; run_scan()"
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_ACTION: 1
 
       - name: Find and copy JSONs to root + Debug
         run: |
