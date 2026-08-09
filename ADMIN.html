@@ -226,7 +226,7 @@
                     }
                     this.emailMessage = '✅ ' + data.message;
                     this.activateEmail = '';
-                    await this.fetchPending(); // refresh list
+                    await this.fetchPending();
                 } catch (e) {
                     this.emailError = '❌ ' + e.message;
                 } finally {
@@ -262,4 +262,4 @@
     });
 </script>
 </body>
-</html>
+                        </html>
