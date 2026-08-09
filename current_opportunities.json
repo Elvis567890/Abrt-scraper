@@ -1,5 +1,39 @@
 [
   {
+    "match": "plymouth vs exeter",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.52,
+    "profit_ugx": 521,
+    "total_stake": 100000,
+    "arb_sum": 0.9948,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.45,
+        "stake": 69326,
+        "win": 100523
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 6.89,
+        "stake": 14590,
+        "win": 100525
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.25,
+        "stake": 16084,
+        "win": 100525
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "argentinos jrs vs racing",
     "sport": "Football",
     "type": "3-way",
@@ -130,40 +164,6 @@
         "odd": 3.885,
         "stake": 33646,
         "win": 130715
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "cruz azul vs new york",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.59,
-    "profit_ugx": 585,
-    "total_stake": 100000,
-    "arb_sum": 0.9941,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.34,
-        "stake": 42987,
-        "win": 100590
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 27941,
-        "win": 100588
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 3.46,
-        "stake": 29072,
-        "win": 100589
       }
     ],
     "market_type": "1x2",
