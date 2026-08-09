@@ -3,13 +3,12 @@ import json
 import re
 import time
 import urllib.request
-from datetime import datetime, timedelta
-from functools import wraps
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 
 # ============================
-# SCRAPING CONSTANTS
+# CONSTANTS
 # ============================
 STAKE = 100000
 HISTORY_FILE = "arb_history.json"
@@ -22,60 +21,8 @@ SHARED_BOOKMAKERS_1X = {
     "Melbet": {"base_url": "https://melbet.ug", "partner": "8"},
 }
 
-TIERS = {
-    'free': {
-        'label': 'Free Trial',
-        'price': 0,
-        'duration_days': None,
-        'max_profit_percent': 5.0,
-        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'],
-        'market_types': ['1x2'],
-        'daily_matches': 3,
-        'telegram_alerts': False,
-        'historical_data': False,
-        'value_rating': 'Poor Value',
-    },
-    'day': {
-        'label': 'Day Pass',
-        'price': 2500,
-        'duration_days': 1,
-        'max_profit_percent': 15.0,
-        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'],
-        'market_types': ['1x2', 'Over/Under 2.5'],
-        'daily_matches': None,
-        'telegram_alerts': False,
-        'historical_data': False,
-        'value_rating': 'Best Value',
-    },
-    'monthly': {
-        'label': 'Monthly VIP',
-        'price': 15000,
-        'duration_days': 30,
-        'max_profit_percent': 50.0,
-        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
-        'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,
-        'telegram_alerts': True,
-        'historical_data': True,
-        'value_rating': 'High Saver',
-    },
-    'quarterly': {
-        'label': 'Quarterly Pro',
-        'price': 40000,
-        'duration_days': 90,
-        'max_profit_percent': 50.0,
-        'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
-        'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,
-        'telegram_alerts': True,
-        'historical_data': True,
-        'value_rating': 'High Saver',
-    }
-}
-PLANS_BY_AMOUNT = {2500: 'day', 15000: 'monthly', 40000: 'quarterly'}
-
 # ============================
-# SCRAPER HELPERS & FUNCTIONS
+# HELPERS (same as server.py)
 # ============================
 def normalize(name):
     name = (name or "").lower().strip()
@@ -211,7 +158,10 @@ def update_arbitrage_history(current_opportunities, arb_history, timestamp_str):
         if "updated_this_cycle" in entry:
             del entry["updated_this_cycle"]
 
-# ---- ChampionBet ----
+# ============================
+# SCRAPERS (ALL BOOKMAKERS)
+# ============================
+# ChampionBet extractors
 def championbet_extract_1x2_from_betmap(bet_map):
     bet_map = bet_map or {}
     def pick_odd(market_keys):
@@ -311,7 +261,7 @@ def scrape_championbet():
         print(f"ChampionBet error: {e}")
     return odds
 
-# ---- AbaBet ----
+# AbaBet
 def scrape_ababet():
     odds = []
     try:
@@ -347,7 +297,7 @@ def scrape_ababet():
         print(f"AbaBet error: {e}")
     return odds
 
-# ---- Fortebet ----
+# Fortebet
 def scrape_fortebet():
     odds = []
     try:
@@ -438,7 +388,7 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-# ---- SportyBet ----
+# SportyBet
 def scrape_sportybet():
     odds = []
     try:
@@ -467,7 +417,7 @@ def scrape_sportybet():
         print(f"SportyBet error: {e}")
     return odds
 
-# ---- 1xBet ----
+# 1xBet
 def scrape_1xbet():
     odds = []
     try:
@@ -516,7 +466,7 @@ def scrape_1xbet():
         print(f"1xBet error: {e}")
     return odds
 
-# ---- 22Bet ----
+# 22Bet
 def scrape_22bet():
     odds = []
     try:
@@ -558,7 +508,7 @@ def scrape_22bet():
         print(f"22Bet error: {e}")
     return odds
 
-# ---- Melbet ----
+# Melbet
 def scrape_melbet():
     odds = []
     try:
@@ -606,7 +556,7 @@ def scrape_melbet():
         print(f"Melbet error: {e}")
     return odds
 
-# ---- Over/Under for 1xBet/22Bet/Melbet ----
+# Over/Under for 1xBet/22Bet/Melbet
 def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
     odds = []
     try:
@@ -631,7 +581,7 @@ def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
         print(f"{bookmaker_name} Over/Under error: {e}")
     return odds
 
-# ---- Asian Handicap, Double Chance, BTTS for 1xBet/22Bet/Melbet ----
+# AH, DC, BTTS for 1xBet/22Bet/Melbet
 def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
     odds = []
     try:
@@ -671,7 +621,7 @@ def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
         print(f"{bookmaker_name} extra markets error: {e}")
     return odds
 
-# ---- Arbitrage finder ----
+# ----- Arbitrage finder -----
 def find_arbitrage(all_odds):
     opportunities = []
     sports_odds = {}
@@ -847,7 +797,7 @@ def find_arbitrage(all_odds):
 
     return opportunities
 
-# ---- Telegram alert ----
+# ----- Telegram alert (optional) -----
 def send_telegram_alert(opp):
     token = os.getenv('TELEGRAM_BOT_TOKEN')
     chat = os.getenv('TELEGRAM_CHAT_ID')
@@ -870,7 +820,9 @@ def send_telegram_alert(opp):
     except Exception as e:
         print(f"❌ Telegram error: {e}")
 
-# ---- Main scanner ----
+# ============================
+# MAIN SCANNER
+# ============================
 def run_scan():
     all_odds = []
     all_odds.extend(scrape_sportybet())
@@ -913,578 +865,5 @@ def run_scan():
 
     print(f"Scan complete: {len(opportunities)} opportunities, history updated.")
 
-# ============================
-# FLASK SERVER – only runs if executed directly
-# ============================
 if __name__ == "__main__":
-    # Import Flask and dependencies only when running the server
-    from flask import Flask, request, jsonify, g
-    from flask_cors import CORS
-    from flask_sqlalchemy import SQLAlchemy
-    from dotenv import load_dotenv
-    import bcrypt
-    import jwt
-    import uuid
-    from apscheduler.schedulers.background import BackgroundScheduler
-    from apscheduler.triggers.interval import IntervalTrigger
-
-    load_dotenv()
-
-    app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///users.db')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
-    app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
-
-    CORS(app, origins=["*"], supports_credentials=True)
-
-    db = SQLAlchemy(app)
-
-    # ============================
-    # DATABASE MODELS
-    # ============================
-    class User(db.Model):
-        id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-        email = db.Column(db.String(120), unique=True, nullable=False)
-        phone = db.Column(db.String(20), nullable=False)
-        password_hash = db.Column(db.String(128), nullable=False)
-        tier = db.Column(db.String(20), default='free')
-        is_subscribed = db.Column(db.Boolean, default=False)
-        subscription_expires = db.Column(db.DateTime, nullable=True)
-        free_opportunities_remaining = db.Column(db.Integer, default=0)
-        last_free_unlock_at = db.Column(db.DateTime, nullable=True)
-        last_arbitrage_date = db.Column(db.DateTime, nullable=True)
-        arbitrage_today_count = db.Column(db.Integer, default=0)
-        created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-        def set_password(self, password):
-            if isinstance(password, str):
-                password_bytes = password.encode('utf-8')
-            else:
-                password_bytes = password
-            if len(password_bytes) > 72:
-                password_bytes = password_bytes[:72]
-            salt = bcrypt.gensalt()
-            self.password_hash = bcrypt.hashpw(password_bytes, salt).decode('utf-8')
-
-        def check_password(self, password):
-            if isinstance(password, str):
-                password_bytes = password.encode('utf-8')
-            else:
-                password_bytes = password
-            if len(password_bytes) > 72:
-                password_bytes = password_bytes[:72]
-            return bcrypt.checkpw(password_bytes, self.password_hash.encode('utf-8'))
-
-    class Transaction(db.Model):
-        id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-        user_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)
-        tx_ref = db.Column(db.String(100), unique=True, nullable=False)
-        amount = db.Column(db.Float, nullable=False)
-        currency = db.Column(db.String(10), default='UGX')
-        status = db.Column(db.String(20), default='pending')
-        plan = db.Column(db.String(20))
-        manual_transaction_id = db.Column(db.String(100), nullable=True)
-        amount_received = db.Column(db.Float, nullable=True)
-        created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    with app.app_context():
-        db.create_all()
-        print("✅ Database tables created/verified.")
-
-    # ============================
-    # JWT HELPERS & MIDDLEWARE
-    # ============================
-    ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'mbaziiraelvis727@gmail.com')
-
-    def is_admin(user):
-        return user.email == ADMIN_EMAIL
-
-    def token_required(f):
-        @wraps(f)
-        def decorated(*args, **kwargs):
-            token = request.headers.get('Authorization')
-            if not token or not token.startswith('Bearer '):
-                return jsonify({'error': 'Token missing'}), 401
-            token = token.split(' ')[1]
-            try:
-                decoded = jwt.decode(token, app.config['JWT_SECRET'], algorithms=['HS256'])
-                user = User.query.get(decoded['user_id'])
-                if not user:
-                    return jsonify({'error': 'User not found'}), 401
-            except jwt.ExpiredSignatureError:
-                return jsonify({'error': 'Token expired'}), 401
-            except jwt.InvalidTokenError:
-                return jsonify({'error': 'Invalid token'}), 401
-            g.user_id = user.id
-            g.user = user
-            return f(*args, **kwargs)
-        return decorated
-
-    def generate_token(user_id):
-        payload = {'user_id': user_id, 'exp': datetime.utcnow() + timedelta(days=30)}
-        return jwt.encode(payload, app.config['JWT_SECRET'], algorithm='HS256')
-
-    # ============================
-    # ROUTES
-    # ============================
-    @app.route('/health', methods=['GET'])
-    def health_check():
-        return jsonify({'status': 'ok', 'service': 'arbitrage-api', 'timestamp': datetime.utcnow().isoformat()})
-
-    @app.route('/', methods=['GET'])
-    def home():
-        return jsonify({'status': 'ok', 'service': 'Arbitrage API'})
-
-    @app.route('/api/signup', methods=['POST'])
-    def signup():
-        try:
-            data = request.get_json()
-            email = data.get('email')
-            phone = data.get('phone')
-            password = data.get('password')
-            if not email or not phone or not password:
-                return jsonify({'error': 'Missing fields'}), 400
-            if User.query.filter_by(email=email).first():
-                return jsonify({'error': 'Email already exists'}), 400
-            user = User(email=email, phone=phone, tier='free')
-            user.set_password(password)
-            db.session.add(user)
-            db.session.commit()
-            token = generate_token(user.id)
-            return jsonify({'token': token, 'user_id': user.id}), 201
-        except Exception as e:
-            return jsonify({'error': str(e)}), 500
-
-    @app.route('/api/login', methods=['POST'])
-    def login():
-        data = request.get_json()
-        email = data.get('email')
-        password = data.get('password')
-        user = User.query.filter_by(email=email).first()
-        if not user or not user.check_password(password):
-            return jsonify({'error': 'Invalid credentials'}), 401
-        token = generate_token(user.id)
-        return jsonify({
-            'token': token,
-            'user_id': user.id,
-            'tier': user.tier,
-            'subscribed': user.is_subscribed,
-            'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
-        })
-
-    @app.route('/api/profile', methods=['GET'])
-    @token_required
-    def get_profile():
-        user = g.user
-        return jsonify({
-            'user': {
-                'id': user.id,
-                'email': user.email,
-                'phone': user.phone,
-                'tier': user.tier,
-                'is_subscribed': user.is_subscribed,
-                'subscription_expires': user.subscription_expires.isoformat() if user.subscription_expires else None
-            }
-        })
-
-    @app.route('/api/subscription-status', methods=['GET'])
-    @token_required
-    def subscription_status():
-        user = g.user
-        if user.subscription_expires and user.subscription_expires < datetime.utcnow():
-            user.is_subscribed = False
-            user.tier = 'free'
-            db.session.commit()
-            return jsonify({
-                'subscribed': False,
-                'tier': 'free',
-                'expired': True,
-                'days_left': 0,
-                'message': 'Your subscription has expired. Please renew.'
-            })
-        elif user.subscription_expires and user.is_subscribed:
-            days_left = (user.subscription_expires - datetime.utcnow()).days
-            return jsonify({
-                'subscribed': True,
-                'tier': user.tier,
-                'expired': False,
-                'days_left': days_left,
-                'message': f'Subscription active for {days_left} more days.'
-            })
-        else:
-            return jsonify({
-                'subscribed': False,
-                'tier': 'free',
-                'expired': False,
-                'days_left': 0,
-                'message': 'Free Trial active.'
-            })
-
-    @app.route('/api/active-plans', methods=['GET'])
-    def active_plans():
-        plans = []
-        labels = {'day': 'Day Pass', 'monthly': 'Monthly VIP', 'quarterly': 'Quarterly Pro'}
-        for slug, config in TIERS.items():
-            if slug == 'free':
-                continue
-            plans.append({
-                'slug': slug,
-                'label': labels.get(slug, slug),
-                'price_ugx': config['price'],
-                'days': config['duration_days'],
-                'formatted': f"UGX {config['price']:,}"
-            })
-        return jsonify({'plans': plans})
-
-    @app.route('/api/transactions', methods=['GET'])
-    @token_required
-    def get_transactions():
-        user = g.user
-        transactions = Transaction.query.filter_by(user_id=user.id).order_by(Transaction.created_at.desc()).all()
-        result = []
-        for tx in transactions:
-            result.append({
-                'id': tx.id,
-                'tx_ref': tx.tx_ref,
-                'amount': tx.amount,
-                'currency': tx.currency,
-                'status': tx.status,
-                'plan': tx.plan,
-                'manual_transaction_id': tx.manual_transaction_id,
-                'amount_received': tx.amount_received,
-                'created_at': tx.created_at.isoformat(),
-                'plan_label': TIERS[tx.plan]['label'] if tx.plan in TIERS else tx.plan
-            })
-        return jsonify({'transactions': result, 'count': len(result)}), 200
-
-    @app.route('/api/transactions', methods=['POST'])
-    @token_required
-    def create_transaction():
-        data = request.get_json()
-        user_id = data.get('user_id')
-        amount = data.get('amount')
-        plan = data.get('plan')
-        manual_transaction_id = data.get('manual_transaction_id')
-        if not user_id or not amount or not plan or not manual_transaction_id:
-            return jsonify({'error': 'Missing fields'}), 400
-        if plan not in ['day', 'monthly', 'quarterly']:
-            return jsonify({'error': 'Invalid plan'}), 400
-        user = User.query.get(user_id)
-        if not user:
-            return jsonify({'error': 'User not found'}), 404
-        existing = Transaction.query.filter_by(manual_transaction_id=manual_transaction_id, status='success').first()
-        if existing:
-            return jsonify({'error': 'Transaction ID already used'}), 400
-        tx_ref = f"TX-{uuid.uuid4().hex[:10].upper()}"
-        transaction = Transaction(
-            user_id=user_id,
-            tx_ref=tx_ref,
-            amount=amount,
-            currency='UGX',
-            status='pending',
-            plan=plan,
-            manual_transaction_id=manual_transaction_id
-        )
-        db.session.add(transaction)
-        db.session.commit()
-        return jsonify({'id': transaction.id, 'tx_ref': tx_ref, 'status': 'pending'}), 201
-
-    @app.route('/api/initiate-payment', methods=['POST'])
-    @token_required
-    def initiate_payment():
-        user = g.user
-        data = request.get_json()
-        plan = data.get('plan')
-        if not plan or plan not in ['day', 'monthly', 'quarterly']:
-            return jsonify({'error': 'Invalid plan'}), 400
-        amount = TIERS[plan]['price']
-        tx_ref = f"TX-{uuid.uuid4().hex[:10].upper()}"
-        existing = Transaction.query.filter_by(user_id=user.id, status='pending').first()
-        if existing:
-            return jsonify({'error': 'You already have a pending transaction', 'tx_ref': existing.tx_ref}), 409
-        transaction = Transaction(
-            user_id=user.id,
-            tx_ref=tx_ref,
-            amount=amount,
-            currency='UGX',
-            status='pending',
-            plan=plan
-        )
-        db.session.add(transaction)
-        db.session.commit()
-        return jsonify({
-            'tx_ref': tx_ref,
-            'amount': amount,
-            'plan': plan,
-            'plan_label': TIERS[plan]['label'],
-            'merchant_phone': os.getenv('MERCHANT_PHONE', '0756408723'),
-            'merchant_name': os.getenv('MERCHANT_NAME', 'Nakyanzi Daisy'),
-            'instructions': f"Send exactly UGX {amount:,} to {os.getenv('MERCHANT_PHONE', '0756408723')} via Mobile Money."
-        }), 201
-
-    @app.route('/api/manual-payment', methods=['POST'])
-    @token_required
-    def manual_payment():
-        user = g.user
-        data = request.get_json()
-        plan = data.get('plan')
-        transaction_id = data.get('transaction_id')
-        if not plan or not transaction_id:
-            return jsonify({'error': 'Missing fields'}), 400
-        if plan not in ['day', 'monthly', 'quarterly']:
-            return jsonify({'error': 'Invalid plan'}), 400
-        existing = Transaction.query.filter_by(manual_transaction_id=transaction_id, status='success').first()
-        if existing:
-            return jsonify({'error': 'This transaction ID has already been used.', 'status': 'rejected'}), 400
-        amount = TIERS[plan]['price']
-        tx_ref = f"KEY-{uuid.uuid4().hex[:10].upper()}"
-        transaction = Transaction(
-            user_id=user.id,
-            tx_ref=tx_ref,
-            amount=amount,
-            currency='UGX',
-            status='pending',
-            plan=plan,
-            manual_transaction_id=transaction_id
-        )
-        db.session.add(transaction)
-        db.session.commit()
-        return jsonify({'status': 'pending', 'message': 'Payment submitted. We will verify when the SMS arrives.', 'transaction_id': tx_ref}), 200
-
-    @app.route('/webhook', methods=['POST'])
-    def sms_webhook():
-        # Log everything for debugging
-        raw_data = request.get_data(as_text=True)
-        app.logger.info(f"Raw webhook data: {raw_data}")
-        app.logger.info(f"Headers: {dict(request.headers)}")
-        
-        # Try to parse JSON or form data
-        if request.is_json:
-            data = request.get_json()
-        else:
-            data = request.form.to_dict()
-        
-        # If still empty, try to parse raw as JSON (some providers send raw JSON)
-        if not data:
-            try:
-                data = json.loads(raw_data)
-            except:
-                data = {}
-        
-        # Extract message and sender using multiple possible keys
-        sms_text = data.get('text') or data.get('body') or data.get('message') or data.get('Body') or data.get('Message')
-        sender = data.get('from') or data.get('sender') or data.get('phone_number') or data.get('From') or data.get('Sender')
-        
-        if not sms_text or not sender:
-            app.logger.warning(f"Missing SMS data: {data}")
-            return 'Missing SMS data', 400
-        
-        app.logger.info(f"SMS received: {sms_text[:200]} from {sender}")
-
-        def extract_transaction_id(text):
-            patterns = [
-                r'Ref[:\s]+([A-Z0-9\-]+)',
-                r'TXN[:\s]+([A-Z0-9\-]+)',
-                r'Transaction[:\s]+([A-Z0-9\-]+)',
-                r'Reference[:\s]+([A-Z0-9\-]+)'
-            ]
-            for pattern in patterns:
-                match = re.search(pattern, text, re.IGNORECASE)
-                if match:
-                    return match.group(1)
-            return None
-
-        def extract_amount(text):
-            match = re.search(r'UGX\s*([\d,]+\.?\d*)', text, re.IGNORECASE)
-            if match:
-                return float(match.group(1).replace(',', ''))
-            match = re.search(r'([\d,]+\.?\d*)\s*UGX', text, re.IGNORECASE)
-            if match:
-                return float(match.group(1).replace(',', ''))
-            return None
-
-        transaction_id = extract_transaction_id(sms_text)
-        amount_received = extract_amount(sms_text)
-        if not transaction_id or not amount_received:
-            app.logger.warning(f"Could not parse SMS: {sms_text}")
-            return 'Could not parse SMS', 400
-
-        transaction = Transaction.query.filter_by(manual_transaction_id=transaction_id, status='pending').first()
-        if not transaction:
-            app.logger.warning(f"No pending transaction found for ID: {transaction_id}")
-            return 'No pending transaction found', 404
-
-        if Transaction.query.filter_by(manual_transaction_id=transaction_id, status='success').first():
-            transaction.status = 'failed'
-            db.session.commit()
-            app.logger.warning(f"Key {transaction_id} already used.")
-            return 'Key already used', 400
-
-        if amount_received not in PLANS_BY_AMOUNT:
-            transaction.status = 'failed'
-            db.session.commit()
-            app.logger.warning(f"Invalid amount: {amount_received}. Must be 2500, 15000, or 40000.")
-            return 'Invalid amount', 400
-
-        plan = PLANS_BY_AMOUNT[amount_received]
-        user = User.query.get(transaction.user_id)
-        if not user:
-            app.logger.error(f"User not found for transaction {transaction.id}")
-            return 'User not found', 404
-
-        duration_days = TIERS[plan]['duration_days']
-        now = datetime.utcnow()
-        if user.subscription_expires and user.subscription_expires > now:
-            new_expiry = user.subscription_expires + timedelta(days=duration_days)
-        else:
-            new_expiry = now + timedelta(days=duration_days)
-
-        user.tier = plan
-        user.is_subscribed = True
-        user.subscription_expires = new_expiry
-        transaction.status = 'success'
-        transaction.amount_received = amount_received
-        transaction.plan = plan
-        db.session.commit()
-
-        app.logger.info(f"✅ Subscription activated for {user.email} | Plan: {plan} | Expires: {new_expiry}")
-        send_admin_notification(f"✅ Payment confirmed\nUser: {user.email}\nPlan: {plan}\nAmount: {amount_received} UGX\nExpires: {new_expiry}")
-        return 'Subscription activated', 200
-
-    def send_admin_notification(message):
-        token = os.getenv('TELEGRAM_BOT_TOKEN')
-        chat_id = os.getenv('TELEGRAM_CHAT_ID')
-        if not token or not chat_id:
-            return
-        try:
-            url = f"https://api.telegram.org/bot{token}/sendMessage"
-            requests.post(url, json={'chat_id': chat_id, 'text': message, 'parse_mode': 'Markdown'}, timeout=10)
-        except Exception as e:
-            app.logger.error(f"Telegram error: {e}")
-
-    @app.route('/api/arbitrage', methods=['GET'])
-    @token_required
-    def get_arbitrage():
-        user = g.user
-        tier_config = TIERS[user.tier]
-        if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
-            user.is_subscribed = False
-            user.tier = 'free'
-            db.session.commit()
-            return jsonify({'error': 'Subscription expired'}), 403
-
-        cache_file = 'current_opportunities.json'
-        if not os.path.exists(cache_file):
-            return jsonify({'opportunities': [], 'tier': user.tier, 'message': 'No arbitrage data available. Scanner is running.'}), 200
-
-        try:
-            with open(cache_file, 'r', encoding='utf-8') as f:
-                all_opportunities = json.load(f)
-        except:
-            all_opportunities = []
-
-        allowed_bookmakers = set(tier_config['bookmakers'])
-        allowed_markets = set(tier_config['market_types'])
-        max_profit = tier_config['max_profit_percent']
-        daily_limit = tier_config['daily_matches']
-
-        filtered = []
-        for opp in all_opportunities:
-            bets = opp.get('bets', [])
-            bookmakers_in_opp = set(b.get('bookmaker') for b in bets)
-            if not bookmakers_in_opp.issubset(allowed_bookmakers):
-                continue
-            market_map = {
-                '3-way': '1x2',
-                '2-way': '1x2',
-                'Over/Under 2.5': 'Over/Under 2.5',
-                'Asian Handicap': 'Asian Handicap',
-                'Double Chance': 'Double Chance',
-                'BTTS': 'BTTS'
-            }
-            opp_market = market_map.get(opp.get('type', ''), opp.get('type', ''))
-            if opp_market not in allowed_markets:
-                continue
-            if opp.get('profit_percent', 0) > max_profit:
-                continue
-            filtered.append(opp)
-
-        if daily_limit is not None:
-            filtered.sort(key=lambda x: x.get('profit_percent', 0), reverse=True)
-            filtered = filtered[:daily_limit]
-
-        return jsonify({
-            'opportunities': filtered,
-            'count': len(filtered),
-            'tier': user.tier,
-            'tier_label': tier_config['label'],
-            'value_rating': tier_config.get('value_rating', 'Standard'),
-            'scan_time': datetime.utcnow().isoformat()
-        })
-
-    @app.route('/api/admin/create-user', methods=['POST'])
-    @token_required
-    def admin_create_user():
-        user = g.user
-        if not is_admin(user):
-            return jsonify({'error': 'Access denied'}), 403
-        data = request.get_json()
-        email = data.get('email')
-        phone = data.get('phone', '0000000000')
-        password = data.get('password')
-        tier = data.get('tier', 'free')
-        if not email or not password:
-            return jsonify({'error': 'Email and password required'}), 400
-        if User.query.filter_by(email=email).first():
-            return jsonify({'error': 'User already exists'}), 400
-        new_user = User(email=email, phone=phone, tier=tier)
-        new_user.set_password(password)
-        db.session.add(new_user)
-        db.session.commit()
-        token = generate_token(new_user.id)
-        return jsonify({'message': 'User created', 'token': token, 'user_id': new_user.id, 'tier': new_user.tier}), 201
-
-    @app.route('/api/scan', methods=['POST'])
-    @token_required
-    def trigger_scan():
-        user = g.user
-        if not is_admin(user):
-            return jsonify({'error': 'Admin only'}), 403
-        try:
-            run_scan()
-            return jsonify({'status': 'Scan completed successfully'}), 200
-        except Exception as e:
-            return jsonify({'error': str(e)}), 500
-
-    @app.errorhandler(404)
-    def not_found(e):
-        return jsonify({'error': 'Endpoint not found'}), 404
-
-    @app.errorhandler(500)
-    def server_error(e):
-        return jsonify({'error': 'Internal server error'}), 500
-
-    # ============================
-    # SCHEDULER – runs every 5 minutes
-    # ============================
-    def scheduled_scan():
-        with app.app_context():
-            print(f"[{datetime.utcnow()}] Running scheduled scan...")
-            try:
-                run_scan()
-                print("Scan completed successfully.")
-            except Exception as e:
-                print(f"Scan error: {e}")
-
-    if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-        scheduler = BackgroundScheduler()
-        scheduler.add_job(func=scheduled_scan, trigger=IntervalTrigger(minutes=5), id='arbitrage_scanner', replace_existing=True)
-        scheduler.start()
-        print("✅ Scheduler started – scanning every 5 minutes.")
-
-    # ============================
-    # RUN
-    # ============================
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    run_scan()
