@@ -34,40 +34,6 @@
     "market_specifier": ""
   },
   {
-    "match": "bragantino vs corinthians",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 0.94,
-    "profit_ugx": 943,
-    "total_stake": 100000,
-    "arb_sum": 0.9906,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.264,
-        "stake": 44590,
-        "win": 100952
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 3.8,
-        "stake": 26566,
-        "win": 100951
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 3.5,
-        "stake": 28843,
-        "win": 100950
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "flamengo rj vs vitoria",
     "sport": "Football",
     "type": "3-way",
@@ -139,31 +105,31 @@
     "match": "san marcos los canarios vs unan managua",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 13.19,
-    "profit_ugx": 13187,
+    "profit_percent": 14.8,
+    "profit_ugx": 14802,
     "total_stake": 100000,
-    "arb_sum": 0.8681,
+    "arb_sum": 0.852,
     "bets": [
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 3.25,
-        "stake": 35443,
-        "win": 115190
+        "odd": 3.43,
+        "stake": 34220,
+        "win": 117375
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.5,
-        "stake": 32911,
-        "win": 115188
+        "stake": 33535,
+        "win": 117372
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.64,
-        "stake": 31646,
-        "win": 115191
+        "stake": 32245,
+        "win": 117372
       }
     ],
     "market_type": "1x2",
@@ -238,34 +204,88 @@
     "market_specifier": ""
   },
   {
-    "match": "nacional montevideo vs boston river",
+    "match": "sportivo luqueno w vs deportivo recoleta w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.94,
-    "profit_ugx": 3942,
+    "profit_percent": 28.23,
+    "profit_ugx": 28228,
     "total_stake": 100000,
-    "arb_sum": 0.9606,
+    "arb_sum": 0.7177,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.46,
-        "stake": 71304,
-        "win": 104104
+        "odd": 4.355,
+        "stake": 31993,
+        "win": 139330
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 34833,
+        "win": 139332
       },
       {
         "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 7.65,
-        "stake": 13608,
-        "win": 104101
+        "outcome": "Away",
+        "odd": 4.2,
+        "stake": 33174,
+        "win": 139331
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "portsmouth bombers vs dublanc",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 33.45,
+    "profit_ugx": 33447,
+    "total_stake": 100000,
+    "arb_sum": 0.6655,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 7.3,
+        "stake": 20583,
+        "win": 150256
       },
       {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 6.9,
-        "stake": 15088,
-        "win": 104107
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.892,
+        "stake": 79417,
+        "win": 150257
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "portsmouth bombers vs dublanc",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 33.45,
+    "profit_ugx": 33447,
+    "total_stake": 100000,
+    "arb_sum": 0.6655,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 7.3,
+        "stake": 20583,
+        "win": 150256
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.892,
+        "stake": 79417,
+        "win": 150257
       }
     ],
     "market_type": "1x2",
