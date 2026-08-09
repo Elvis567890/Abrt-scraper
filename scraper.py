@@ -12,7 +12,7 @@ from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-import bcrypt  # direct import (no passlib)
+import bcrypt
 import jwt
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
@@ -791,7 +791,7 @@ def find_arbitrage(all_odds):
 
             bk_list = list(bk_odds.keys())
 
-            # 2-way markets: O/U, AH, DC, BTTS
+            # 2-way markets
             if mtype in ["Over/Under 2.5", "Asian Handicap", "Double Chance", "BTTS"]:
                 best = None
                 for bk1 in bk_list:
@@ -857,7 +857,7 @@ def find_arbitrage(all_odds):
                                     best["bets"][1]["outcome"] = "BTTS No"
                                 opportunities.append(best)
 
-            # 3-way: Football/Rugby/Futsal
+            # 3-way
             elif mtype == "1x2" and sport in ["Football", "Rugby", "Futsal"]:
                 best = None
                 for bk_h in bk_list:
@@ -1020,32 +1020,15 @@ def generate_token(user_id):
     return jwt.encode(payload, app.config['JWT_SECRET'], algorithm='HS256')
 
 # ============================
-# ROUTES
+# ROUTES (ALL)
 # ============================
 @app.route('/health', methods=['GET'])
 def health_check():
-    return jsonify({'status': 'ok', 'service': 'sms-payment-verification', 'timestamp': datetime.utcnow().isoformat()})
+    return jsonify({'status': 'ok', 'service': 'arbitrage-api', 'timestamp': datetime.utcnow().isoformat()})
 
 @app.route('/', methods=['GET'])
 def home():
-    return jsonify({
-        'status': 'ok',
-        'service': 'SMS Payment Verification System',
-        'endpoints': [
-            {'path': '/', 'method': 'GET', 'description': 'Root'},
-            {'path': '/health', 'method': 'GET', 'description': 'Health check'},
-            {'path': '/webhook', 'method': 'POST', 'description': 'SMS webhook'},
-            {'path': '/api/active-plans', 'method': 'GET', 'description': 'Active plans'},
-            {'path': '/api/initiate-payment', 'method': 'POST', 'description': 'Initiate payment'},
-            {'path': '/api/transactions', 'method': 'GET', 'description': 'Get transactions'},
-            {'path': '/api/transactions', 'method': 'POST', 'description': 'Create transaction'},
-            {'path': '/api/arbitrage', 'method': 'GET', 'description': 'Get arbitrage opportunities'},
-            {'path': '/api/signup', 'method': 'POST', 'description': 'Sign up'},
-            {'path': '/api/login', 'method': 'POST', 'description': 'Login'},
-            {'path': '/api/profile', 'method': 'GET', 'description': 'Get profile'},
-            {'path': '/api/scan', 'method': 'POST', 'description': 'Trigger manual scan'}
-        ]
-    })
+    return jsonify({'status': 'ok', 'service': 'Arbitrage API'})
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
