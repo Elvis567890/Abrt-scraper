@@ -238,6 +238,40 @@
     "market_specifier": ""
   },
   {
+    "match": "ypiranga vs floresta ec",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.6,
+    "profit_ugx": 597,
+    "total_stake": 100000,
+    "arb_sum": 0.994,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.9,
+        "stake": 52948,
+        "win": 100601
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 4.355,
+        "stake": 23100,
+        "win": 100601
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 4.2,
+        "stake": 23952,
+        "win": 100598
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "seattle sounders vs queretaro",
     "sport": "Football",
     "type": "3-way",
@@ -334,74 +368,6 @@
         "odd": 4.035,
         "stake": 37399,
         "win": 150905
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "bodrumspor vs bursaspor",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 16.7,
-    "profit_ugx": 16699,
-    "total_stake": 100000,
-    "arb_sum": 0.833,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 3.9,
-        "stake": 30781,
-        "win": 120046
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 35308,
-        "win": 120047
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.54,
-        "stake": 33911,
-        "win": 120045
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "belediye vanspor vs kayserispor",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 18.45,
-    "profit_ugx": 18450,
-    "total_stake": 100000,
-    "arb_sum": 0.8155,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 4.2,
-        "stake": 29196,
-        "win": 122623
-      },
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Draw",
-        "odd": 3.4,
-        "stake": 36066,
-        "win": 122624
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.53,
-        "stake": 34738,
-        "win": 122625
       }
     ],
     "market_type": "1x2",
