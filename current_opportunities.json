@@ -207,31 +207,31 @@
     "match": "malawi w vs ghana w",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 12.25,
-    "profit_ugx": 12248,
+    "profit_percent": 12.42,
+    "profit_ugx": 12422,
     "total_stake": 100000,
-    "arb_sum": 0.8775,
+    "arb_sum": 0.8758,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 3.65,
-        "stake": 31221,
-        "win": 113957
+        "stake": 31283,
+        "win": 114183
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.25,
-        "stake": 35064,
-        "win": 113958
+        "stake": 35133,
+        "win": 114182
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.38,
-        "stake": 33715,
-        "win": 113957
+        "odd": 3.4,
+        "stake": 33583,
+        "win": 114182
       }
     ],
     "market_type": "1x2",
@@ -581,31 +581,31 @@
     "match": "marseille vs athletic bilbao",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 8.22,
-    "profit_ugx": 8219,
+    "profit_percent": 8.35,
+    "profit_ugx": 8351,
     "total_stake": 100000,
-    "arb_sum": 0.9178,
+    "arb_sum": 0.9165,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.74,
-        "stake": 39764,
-        "win": 108953
+        "odd": 2.75,
+        "stake": 39677,
+        "win": 109112
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.4,
-        "stake": 32045,
-        "win": 108953
+        "stake": 32092,
+        "win": 109113
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.865,
-        "stake": 28190,
-        "win": 108954
+        "stake": 28231,
+        "win": 109113
       }
     ],
     "market_type": "1x2",
@@ -640,6 +640,168 @@
         "odd": 3.43,
         "stake": 32646,
         "win": 111976
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "pec zwolle vs ajax",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.88,
+    "profit_ugx": 17881,
+    "total_stake": 100000,
+    "arb_sum": 0.8212,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.619,
+        "stake": 46496,
+        "win": 121773
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.276,
+        "stake": 53504,
+        "win": 121775
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "pec zwolle vs ajax",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 17.88,
+    "profit_ugx": 17881,
+    "total_stake": 100000,
+    "arb_sum": 0.8212,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.619,
+        "stake": 46496,
+        "win": 121773
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.276,
+        "stake": 53504,
+        "win": 121775
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "heerenveen vs twente",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.07,
+    "profit_ugx": 4071,
+    "total_stake": 100000,
+    "arb_sum": 0.9593,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.686,
+        "stake": 61829,
+        "win": 104244
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.731,
+        "stake": 38171,
+        "win": 104245
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "heerenveen vs twente",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 4.07,
+    "profit_ugx": 4071,
+    "total_stake": 100000,
+    "arb_sum": 0.9593,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.686,
+        "stake": 61829,
+        "win": 104244
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.731,
+        "stake": 38171,
+        "win": 104245
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "darul takzim vs chelsea",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 24.32,
+    "profit_ugx": 24316,
+    "total_stake": 100000,
+    "arb_sum": 0.7568,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.349,
+        "stake": 56249,
+        "win": 132129
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 3.02,
+        "stake": 43751,
+        "win": 132128
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "darul takzim vs chelsea",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 24.32,
+    "profit_ugx": 24316,
+    "total_stake": 100000,
+    "arb_sum": 0.7568,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.349,
+        "stake": 56249,
+        "win": 132129
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 3.02,
+        "stake": 43751,
+        "win": 132128
       }
     ],
     "market_type": "1x2",
