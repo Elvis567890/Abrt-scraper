@@ -47,6 +47,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -f current_opportunities.json arb_history.json trigger_rebuild.txt
-          git pull --rebase origin main
+          # Commit if there are staged changes
           git diff --staged --quiet || git commit -m "Update arbitrage data and force Pages rebuild [skip ci]"
+          # Now pull (with rebase) – the index is clean because we committed
+          git pull --rebase origin main
           git push origin main
