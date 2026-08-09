@@ -170,34 +170,68 @@
     "market_specifier": ""
   },
   {
+    "match": "septemvri sofia vs cska sofia",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 39.98,
+    "profit_ugx": 39979,
+    "total_stake": 100000,
+    "arb_sum": 0.6002,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 6.8,
+        "stake": 24501,
+        "win": 166607
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.2,
+        "stake": 39669,
+        "win": 166610
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.65,
+        "stake": 35830,
+        "win": 166610
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "seattle sounders vs queretaro",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.42,
-    "profit_ugx": 1422,
+    "profit_percent": 2.01,
+    "profit_ugx": 2006,
     "total_stake": 100000,
-    "arb_sum": 0.9858,
+    "arb_sum": 0.9799,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
         "odd": 2.3,
-        "stake": 44105,
-        "win": 101441
+        "stake": 44368,
+        "win": 102046
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 28178,
-        "win": 101441
+        "stake": 28346,
+        "win": 102046
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 3.66,
-        "stake": 27716,
-        "win": 101441
+        "odd": 3.74,
+        "stake": 27285,
+        "win": 102046
       }
     ],
     "market_type": "1x2",
@@ -266,6 +300,74 @@
         "odd": 4.035,
         "stake": 37399,
         "win": 150905
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "belediye vanspor vs kayserispor",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 18.39,
+    "profit_ugx": 18394,
+    "total_stake": 100000,
+    "arb_sum": 0.8161,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.2,
+        "stake": 29176,
+        "win": 122539
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.25,
+        "stake": 37705,
+        "win": 122541
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.7,
+        "stake": 33119,
+        "win": 122540
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "bodrumspor vs bursaspor",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 19.23,
+    "profit_ugx": 19230,
+    "total_stake": 100000,
+    "arb_sum": 0.8077,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.95,
+        "stake": 31344,
+        "win": 123809
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 35374,
+        "win": 123809
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.72,
+        "stake": 33282,
+        "win": 123809
       }
     ],
     "market_type": "1x2",
