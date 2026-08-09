@@ -377,31 +377,31 @@
     "match": "cruzeiro mg vs mirassol",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.17,
-    "profit_ugx": 3172,
+    "profit_percent": 3.21,
+    "profit_ugx": 3211,
     "total_stake": 100000,
-    "arb_sum": 0.9683,
+    "arb_sum": 0.9679,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.75,
-        "stake": 59015,
-        "win": 103276
+        "stake": 59038,
+        "win": 103316
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 5.08,
-        "stake": 20330,
-        "win": 103276
+        "odd": 5.09,
+        "stake": 20298,
+        "win": 103317
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 5.0,
-        "stake": 20655,
-        "win": 103275
+        "stake": 20663,
+        "win": 103315
       }
     ],
     "market_type": "1x2",
@@ -544,40 +544,6 @@
     "market_specifier": ""
   },
   {
-    "match": "arsenal vs borussia dortmund",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.03,
-    "profit_ugx": 1034,
-    "total_stake": 100000,
-    "arb_sum": 0.9897,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.46,
-        "stake": 69209,
-        "win": 101045
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 6.03,
-        "stake": 16757,
-        "win": 101045
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 7.2,
-        "stake": 14034,
-        "win": 101045
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "marseille vs athletic bilbao",
     "sport": "Football",
     "type": "3-way",
@@ -674,6 +640,60 @@
         "odd": 3.43,
         "stake": 32646,
         "win": 111976
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "heerenveen vs twente",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.07,
+    "profit_ugx": 5067,
+    "total_stake": 100000,
+    "arb_sum": 0.9493,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.699,
+        "stake": 62000,
+        "win": 105338
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.772,
+        "stake": 38000,
+        "win": 105336
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "heerenveen vs twente",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 5.07,
+    "profit_ugx": 5067,
+    "total_stake": 100000,
+    "arb_sum": 0.9493,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.699,
+        "stake": 62000,
+        "win": 105338
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.772,
+        "stake": 38000,
+        "win": 105336
       }
     ],
     "market_type": "1x2",
