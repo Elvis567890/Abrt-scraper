@@ -37,31 +37,31 @@
     "match": "bragantino vs corinthians",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.68,
-    "profit_ugx": 682,
+    "profit_percent": 0.94,
+    "profit_ugx": 943,
     "total_stake": 100000,
-    "arb_sum": 0.9932,
+    "arb_sum": 0.9906,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.185,
-        "stake": 46081,
-        "win": 100687
+        "odd": 2.264,
+        "stake": 44590,
+        "win": 100952
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 3.88,
-        "stake": 25950,
-        "win": 100686
+        "odd": 3.8,
+        "stake": 26566,
+        "win": 100951
       },
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 3.6,
-        "stake": 27969,
-        "win": 100688
+        "odd": 3.5,
+        "stake": 28843,
+        "win": 100950
       }
     ],
     "market_type": "1x2",
@@ -96,40 +96,6 @@
         "odd": 10.0,
         "stake": 10130,
         "win": 101300
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "maranhao vs brusque",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.58,
-    "profit_ugx": 1581,
-    "total_stake": 100000,
-    "arb_sum": 0.9842,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 2.26,
-        "stake": 44958,
-        "win": 101605
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 3.505,
-        "stake": 28989,
-        "win": 101606
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 3.9,
-        "stake": 26053,
-        "win": 101607
       }
     ],
     "market_type": "1x2",
@@ -300,6 +266,60 @@
         "odd": 6.9,
         "stake": 15088,
         "win": 104107
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "union la calera vs colocolo",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.72,
+    "profit_ugx": 1719,
+    "total_stake": 100000,
+    "arb_sum": 0.9828,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.03,
+        "stake": 50123,
+        "win": 101750
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.04,
+        "stake": 49877,
+        "win": 101749
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "union la calera vs colocolo",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 1.72,
+    "profit_ugx": 1719,
+    "total_stake": 100000,
+    "arb_sum": 0.9828,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.03,
+        "stake": 50123,
+        "win": 101750
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.04,
+        "stake": 49877,
+        "win": 101749
       }
     ],
     "market_type": "1x2",
