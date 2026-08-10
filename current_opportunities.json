@@ -3,31 +3,31 @@
     "match": "plymouth vs exeter",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.75,
-    "profit_ugx": 755,
+    "profit_percent": 0.74,
+    "profit_ugx": 736,
     "total_stake": 100000,
-    "arb_sum": 0.9925,
+    "arb_sum": 0.9926,
     "bets": [
       {
-        "bookmaker": "AbaBet",
+        "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.4,
-        "stake": 71972,
-        "win": 100761
+        "stake": 71958,
+        "win": 100741
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 7.18,
-        "stake": 14034,
-        "win": 100764
+        "odd": 7.17,
+        "stake": 14050,
+        "win": 100738
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 7.2,
-        "stake": 13995,
-        "win": 100764
+        "stake": 13992,
+        "win": 100742
       }
     ],
     "market_type": "1x2",
@@ -96,6 +96,40 @@
         "odd": 4.2,
         "stake": 35762,
         "win": 150200
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "america vs portland timbers",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.9,
+    "profit_ugx": 902,
+    "total_stake": 100000,
+    "arb_sum": 0.991,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.28,
+        "stake": 44259,
+        "win": 100911
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.5,
+        "stake": 28832,
+        "win": 100912
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.75,
+        "stake": 26909,
+        "win": 100909
       }
     ],
     "market_type": "1x2",
