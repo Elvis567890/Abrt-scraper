@@ -2,7 +2,7 @@ name: Scrape and Deploy Arbitrage Data
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # Changed to 15 min to avoid IP bans and reduce pressure
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -28,12 +28,18 @@ jobs:
       - name: Run Python scraper
         run: python -c "from scraper import run_scan; run_scan()"
 
+      # ========================================================
+      # DIAGNOSTIC STEP: Forces a change so the commit always runs
+      # ========================================================
+      - name: Diagnostic - Force commit change
+        run: echo "Last scan: $(date -u)" > last_scan_timestamp.txt
+
       - name: Commit and push JSONs
         run: |
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
-          git add current_opportunities.json arb_history.json || true
-          # Only commit if there are actual changes
+          git add current_opportunities.json arb_history.json last_scan_timestamp.txt || true
+          # Check if there is anything to commit, and commit it
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
           git pull --rebase origin main
           git push origin main
