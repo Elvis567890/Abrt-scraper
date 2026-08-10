@@ -15,6 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # NEW STEP: Fetch the latest file from GitHub to ensure we start fresh
+      - name: Pull latest current_opportunities.json
+        run: |
+          curl -o current_opportunities.json -L https://raw.githubusercontent.com/Elvis567890/Abrt-scraper/main/current_opportunities.json || echo "No existing file found"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -34,6 +39,5 @@ jobs:
           git config user.name "GitHub Action"
           git add current_opportunities.json arb_history.json || true
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
-          # FIX: Pull remote changes and rebase to avoid rejection conflicts
           git pull --rebase origin main
           git push origin main
