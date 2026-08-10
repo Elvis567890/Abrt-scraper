@@ -105,31 +105,31 @@
     "match": "queensland lions vs melbourne heart",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 30.95,
-    "profit_ugx": 30946,
+    "profit_percent": 30.99,
+    "profit_ugx": 30987,
     "total_stake": 100000,
-    "arb_sum": 0.6905,
+    "arb_sum": 0.6901,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 4.605,
-        "stake": 31447,
-        "win": 144813
+        "odd": 4.555,
+        "stake": 31811,
+        "win": 144899
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 4.25,
-        "stake": 34074,
-        "win": 144814
+        "stake": 34094,
+        "win": 144900
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.2,
-        "stake": 34479,
-        "win": 144812
+        "odd": 4.25,
+        "stake": 34094,
+        "win": 144900
       }
     ],
     "market_type": "1x2",
@@ -170,40 +170,6 @@
     "market_specifier": ""
   },
   {
-    "match": "goias vs londrina",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 3.62,
-    "profit_ugx": 3618,
-    "total_stake": 100000,
-    "arb_sum": 0.9638,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.72,
-        "stake": 60322,
-        "win": 103754
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 5.26,
-        "stake": 19725,
-        "win": 103754
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 5.2,
-        "stake": 19953,
-        "win": 103756
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "celje vs ararat armenia",
     "sport": "Football",
     "type": "3-way",
@@ -238,6 +204,40 @@
     "market_specifier": ""
   },
   {
+    "match": "gangwon vs gamba osaka",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 8.82,
+    "profit_ugx": 8815,
+    "total_stake": 100000,
+    "arb_sum": 0.9118,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.86,
+        "stake": 38345,
+        "win": 109667
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.55,
+        "stake": 30892,
+        "win": 109667
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.565,
+        "stake": 30762,
+        "win": 109667
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "queensland lions vs melbourne",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -448,6 +448,60 @@
         "odd": 2.234,
         "stake": 46542,
         "win": 103975
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kvant obninsk vs ryazan",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.58,
+    "profit_ugx": 7575,
+    "total_stake": 100000,
+    "arb_sum": 0.9242,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.94,
+        "stake": 36801,
+        "win": 108195
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 1.712,
+        "stake": 63199,
+        "win": 108197
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "kvant obninsk vs ryazan",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 7.58,
+    "profit_ugx": 7575,
+    "total_stake": 100000,
+    "arb_sum": 0.9242,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.94,
+        "stake": 36801,
+        "win": 108195
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 1.712,
+        "stake": 63199,
+        "win": 108197
       }
     ],
     "market_type": "1x2",
