@@ -22,15 +22,18 @@ SHARED_BOOKMAKERS_1X = {
     "Melbet": {"base_url": "https://melbet.ug", "partner": "8"},
 }
 
+# ============================
+# TIER CONFIGURATION (Free trial limited to 2 matches)
+# ============================
 TIERS = {
     'free': {
         'label': 'Free Trial',
         'price': 0,
         'duration_days': None,
-        'max_profit_percent': 5.0,
+        'max_profit_percent': 8.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'],
         'market_types': ['1x2'],
-        'daily_matches': 3,
+        'daily_matches': 2,           # <--- CHANGED FROM 3 TO 2
         'telegram_alerts': False,
         'historical_data': False,
         'value_rating': 'Poor Value',
@@ -42,7 +45,7 @@ TIERS = {
         'max_profit_percent': 15.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'],
         'market_types': ['1x2', 'Over/Under 2.5'],
-        'daily_matches': None,
+        'daily_matches': None,        # Unlimited
         'telegram_alerts': False,
         'historical_data': False,
         'value_rating': 'Best Value',
@@ -54,7 +57,7 @@ TIERS = {
         'max_profit_percent': 50.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
         'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,
+        'daily_matches': None,        # Unlimited
         'telegram_alerts': True,
         'historical_data': True,
         'value_rating': 'High Saver',
@@ -66,7 +69,7 @@ TIERS = {
         'max_profit_percent': 50.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
         'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,
+        'daily_matches': None,        # Unlimited
         'telegram_alerts': True,
         'historical_data': True,
         'value_rating': 'High Saver',
@@ -890,10 +893,14 @@ def run_scan():
     all_odds.extend(scrape_1xbet())
     all_odds.extend(scrape_22bet())
     all_odds.extend(scrape_melbet())
-    for name, config in SHARED_BOOKMAKERS_1X.items():
-        all_odds.extend(scrape_1x_over_under(name, config["base_url"], config["partner"]))
-    for name, config in SHARED_BOOKMAKERS_1X.items():
-        all_odds.extend(scrape_1x_ah_dc_btts(name, config["base_url"], config["partner"]))
+    
+    # ================================================
+    # COMMENTED OUT TO CLEAN UP 404 ERRORS IN LOGS
+    # ================================================
+    # for name, config in SHARED_BOOKMAKERS_1X.items():
+    #     all_odds.extend(scrape_1x_over_under(name, config["base_url"], config["partner"]))
+    # for name, config in SHARED_BOOKMAKERS_1X.items():
+    #     all_odds.extend(scrape_1x_ah_dc_btts(name, config["base_url"], config["partner"]))
 
     opportunities = find_arbitrage(all_odds)
     arb_history = load_arbitrage_history()
