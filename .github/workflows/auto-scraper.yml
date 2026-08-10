@@ -28,9 +28,7 @@ jobs:
       - name: Run Python scraper
         run: python -c "from scraper import run_scan; run_scan()"
 
-      # ========================================================
-      # DIAGNOSTIC STEP: Always forces a change (ESSENTIAL!)
-      # ========================================================
+      # CRITICAL: This forces a commit even if the JSON is identical!
       - name: Diagnostic - Force commit change
         run: echo "Last scan: $(date -u)" > last_scan_timestamp.txt
 
