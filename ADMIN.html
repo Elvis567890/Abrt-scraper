@@ -153,6 +153,8 @@
                     this.loginError = e.message;
                 }
             },
+            
+            // --- FIXED FETCH PENDING METHOD ---
             async fetchPending() {
                 this.error = '';
                 try {
@@ -160,12 +162,14 @@
                     const res = await fetch(`${API_BASE}/api/admin/pending-transactions`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
+                    
+                    // FIX: Handle 403 gracefully without logging out
+                    if (res.status === 403) {
+                        this.error = '⚠️ Access Denied (403): You are not authorized as an admin. Please check backend config and database.';
+                        return; // STOP HERE. Do NOT remove token!
+                    }
+
                     if (!res.ok) {
-                        if (res.status === 403) {
-                            this.isAdmin = false;
-                            localStorage.removeItem('admin_token');
-                            throw new Error('Not authorized as admin');
-                        }
                         throw new Error('Failed to fetch pending transactions');
                     }
                     const data = await res.json();
@@ -174,6 +178,7 @@
                     this.error = e.message;
                 }
             },
+
             async activate(txId) {
                 this.activating = true;
                 this.message = '';
@@ -262,4 +267,4 @@
     });
 </script>
 </body>
-                        </html>
+</html>
