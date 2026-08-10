@@ -1005,9 +1005,12 @@ with app.app_context():
 # ============================
 def create_admin_user():
     admin_email = os.getenv('ADMIN_EMAIL')
+    
+    # FIX: If Railway can't read env var, fallback to hardcoded admin email
     if not admin_email:
-        print("⚠️ ADMIN_EMAIL not set – skipping admin creation.")
-        return
+        print("⚠️ ADMIN_EMAIL not set in Railway env. Falling back to hardcoded admin email.")
+        admin_email = 'mbaziiraelvis727@gmail.com'
+        
     with app.app_context():
         admin = User.query.filter_by(email=admin_email).first()
         if not admin:
@@ -1026,10 +1029,13 @@ create_admin_user()
 # ============================
 # JWT HELPERS & MIDDLEWARE
 # ============================
-ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', '')
-
 def is_admin(user):
-    return user.email == ADMIN_EMAIL
+    # FIX: Read env inside function to allow hot-reloads, 
+    # and fallback to hardcoded email if env var is empty.
+    admin_email = os.getenv('ADMIN_EMAIL')
+    if not admin_email:
+        admin_email = 'mbaziiraelvis727@gmail.com'
+    return user.email == admin_email
 
 def token_required(f):
     @wraps(f)
