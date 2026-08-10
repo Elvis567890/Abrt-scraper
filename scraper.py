@@ -9,7 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # ============================
-# SCRAPING CONSTANTS
+# CONSTANTS & LIMITS (UNLIMITED FOR PAID USERS)
 # ============================
 STAKE = 100000
 HISTORY_FILE = "arb_history.json"
@@ -23,7 +23,7 @@ SHARED_BOOKMAKERS_1X = {
 }
 
 # ============================
-# TIER CONFIGURATION (Free trial limited to 2 matches)
+# TIER CONFIGURATION (FREE LIMIT = 2, PAID LIMIT = UNLIMITED)
 # ============================
 TIERS = {
     'free': {
@@ -33,7 +33,7 @@ TIERS = {
         'max_profit_percent': 8.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'],
         'market_types': ['1x2'],
-        'daily_matches': 2,           # <--- CHANGED FROM 3 TO 2
+        'daily_matches': 2,           # <--- FREE USERS GET EXACTLY 2 MATCHES
         'telegram_alerts': False,
         'historical_data': False,
         'value_rating': 'Poor Value',
@@ -45,7 +45,7 @@ TIERS = {
         'max_profit_percent': 15.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'],
         'market_types': ['1x2', 'Over/Under 2.5'],
-        'daily_matches': None,        # Unlimited
+        'daily_matches': None,        # <--- PAID USERS GET ALL MATCHES (UNLIMITED)
         'telegram_alerts': False,
         'historical_data': False,
         'value_rating': 'Best Value',
@@ -57,7 +57,7 @@ TIERS = {
         'max_profit_percent': 50.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
         'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,        # Unlimited
+        'daily_matches': None,        # <--- PAID USERS GET ALL MATCHES (UNLIMITED)
         'telegram_alerts': True,
         'historical_data': True,
         'value_rating': 'High Saver',
@@ -69,7 +69,7 @@ TIERS = {
         'max_profit_percent': 50.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
         'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,        # Unlimited
+        'daily_matches': None,        # <--- PAID USERS GET ALL MATCHES (UNLIMITED)
         'telegram_alerts': True,
         'historical_data': True,
         'value_rating': 'High Saver',
@@ -613,70 +613,70 @@ def scrape_melbet():
         print(f"Melbet error: {e}")
     return odds
 
-# ---------- Over/Under for 1xBet/22Bet/Melbet ----------
-def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
-    odds = []
-    try:
-        print(f"Fetching {bookmaker_name} Over/Under...")
-        url = f"{base_url}/service-api/LineFeed/GetEvents_VZip?count=1000&lng=en&mode=4&country=191&partner={partner_id}&market=5,6&getEmpty=true&virtualSports=true&eventType=1"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for match in data.get("Value", []):
-            home, away = match.get("O1"), match.get("O2")
-            if not home or not away: continue
-            over = under = None
-            for e in match.get("E", []):
-                t = str(e.get("T", "")).strip()
-                c = clean_odd(e.get("C"))
-                if not c: continue
-                if t == "5": over = c
-                elif t == "6": under = c
-            if over and under:
-                odds.append(build_match_record(home, away, bookmaker_name, over, under, None, market_type="Over/Under 2.5"))
-    except Exception as e:
-        print(f"{bookmaker_name} Over/Under error: {e}")
-    return odds
+# ---------- Over/Under for 1xBet/22Bet/Melbet (Commented out to clean logs) ----------
+# def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
+#     odds = []
+#     try:
+#         print(f"Fetching {bookmaker_name} Over/Under...")
+#         url = f"{base_url}/service-api/LineFeed/GetEvents_VZip?count=1000&lng=en&mode=4&country=191&partner={partner_id}&market=5,6&getEmpty=true&virtualSports=true&eventType=1"
+#         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
+#         with urllib.request.urlopen(req, timeout=30) as resp:
+#             data = json.loads(resp.read().decode())
+#         for match in data.get("Value", []):
+#             home, away = match.get("O1"), match.get("O2")
+#             if not home or not away: continue
+#             over = under = None
+#             for e in match.get("E", []):
+#                 t = str(e.get("T", "")).strip()
+#                 c = clean_odd(e.get("C"))
+#                 if not c: continue
+#                 if t == "5": over = c
+#                 elif t == "6": under = c
+#             if over and under:
+#                 odds.append(build_match_record(home, away, bookmaker_name, over, under, None, market_type="Over/Under 2.5"))
+#     except Exception as e:
+#         print(f"{bookmaker_name} Over/Under error: {e}")
+#     return odds
 
-# ---------- AH, DC, BTTS for 1xBet/22Bet/Melbet ----------
-def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
-    odds = []
-    try:
-        print(f"Fetching {bookmaker_name} AH, DC, BTTS...")
-        url = f"{base_url}/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner={partner_id}&getEmpty=true"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for match in data.get("Value", []):
-            home = match.get("O1")
-            away = match.get("O2")
-            if not home or not away: continue
-            if home.strip() == "Home" and away.strip() == "Away":
-                continue
-            ah_home = ah_away = None
-            dc_home = dc_away = None
-            btts_yes = btts_no = None
-            for e in match.get("E", []):
-                t = str(e.get("T", "")).strip()
-                c = clean_odd(e.get("C"))
-                if not c: continue
-                p = e.get("P")
-                if t == "7" and p is not None: ah_home = c
-                elif t == "8" and p is not None: ah_away = c
-                elif t == "4" or t == "180": dc_home = c
-                elif t == "181": dc_away = c
-                elif t == "19": btts_yes = c
-                elif t == "20": btts_no = c
-            if ah_home and ah_away:
-                odds.append(build_match_record(home, away, bookmaker_name, ah_home, None, ah_away, market_type="Asian Handicap", market_specifier="-0.5"))
-            if dc_home and dc_away:
-                odds.append(build_match_record(home, away, bookmaker_name, dc_home, None, dc_away, market_type="Double Chance", market_specifier="1X"))
-            if btts_yes and btts_no:
-                odds.append(build_match_record(home, away, bookmaker_name, btts_yes, None, btts_no, market_type="BTTS"))
-        print(f"{bookmaker_name} extra markets: {len(odds)} records")
-    except Exception as e:
-        print(f"{bookmaker_name} extra markets error: {e}")
-    return odds
+# ---------- AH, DC, BTTS for 1xBet/22Bet/Melbet (Commented out to clean logs) ----------
+# def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
+#     odds = []
+#     try:
+#         print(f"Fetching {bookmaker_name} AH, DC, BTTS...")
+#         url = f"{base_url}/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner={partner_id}&getEmpty=true"
+#         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
+#         with urllib.request.urlopen(req, timeout=30) as resp:
+#             data = json.loads(resp.read().decode())
+#         for match in data.get("Value", []):
+#             home = match.get("O1")
+#             away = match.get("O2")
+#             if not home or not away: continue
+#             if home.strip() == "Home" and away.strip() == "Away":
+#                 continue
+#             ah_home = ah_away = None
+#             dc_home = dc_away = None
+#             btts_yes = btts_no = None
+#             for e in match.get("E", []):
+#                 t = str(e.get("T", "")).strip()
+#                 c = clean_odd(e.get("C"))
+#                 if not c: continue
+#                 p = e.get("P")
+#                 if t == "7" and p is not None: ah_home = c
+#                 elif t == "8" and p is not None: ah_away = c
+#                 elif t == "4" or t == "180": dc_home = c
+#                 elif t == "181": dc_away = c
+#                 elif t == "19": btts_yes = c
+#                 elif t == "20": btts_no = c
+#             if ah_home and ah_away:
+#                 odds.append(build_match_record(home, away, bookmaker_name, ah_home, None, ah_away, market_type="Asian Handicap", market_specifier="-0.5"))
+#             if dc_home and dc_away:
+#                 odds.append(build_match_record(home, away, bookmaker_name, dc_home, None, dc_away, market_type="Double Chance", market_specifier="1X"))
+#             if btts_yes and btts_no:
+#                 odds.append(build_match_record(home, away, bookmaker_name, btts_yes, None, btts_no, market_type="BTTS"))
+#         print(f"{bookmaker_name} extra markets: {len(odds)} records")
+#     except Exception as e:
+#         print(f"{bookmaker_name} extra markets error: {e}")
+#     return odds
 
 # ============================
 # ARBITRAGE FINDER
@@ -856,9 +856,7 @@ def find_arbitrage(all_odds):
 
     return opportunities
 
-# ============================
-# TELEGRAM ALERT
-# ============================
+# ----- Telegram alert (optional) -----
 def send_telegram_alert(opp):
     token = os.getenv('TELEGRAM_BOT_TOKEN')
     chat = os.getenv('TELEGRAM_CHAT_ID')
@@ -893,10 +891,7 @@ def run_scan():
     all_odds.extend(scrape_1xbet())
     all_odds.extend(scrape_22bet())
     all_odds.extend(scrape_melbet())
-    
-    # ================================================
-    # COMMENTED OUT TO CLEAN UP 404 ERRORS IN LOGS
-    # ================================================
+    # Extra scrapers commented out for clean logs
     # for name, config in SHARED_BOOKMAKERS_1X.items():
     #     all_odds.extend(scrape_1x_over_under(name, config["base_url"], config["partner"]))
     # for name, config in SHARED_BOOKMAKERS_1X.items():
@@ -931,7 +926,7 @@ def run_scan():
     print(f"Scan complete: {len(opportunities)} opportunities, history updated.")
 
 # ============================
-# FLASK APP
+# FLASK APP (WEB SERVER + DATABASE)
 # ============================
 from flask import Flask, request, jsonify, g
 from flask_cors import CORS
@@ -1012,10 +1007,8 @@ with app.app_context():
 # ============================
 def create_admin_user():
     admin_email = os.getenv('ADMIN_EMAIL')
-    
-    # FIX: If Railway can't read env var, fallback to hardcoded admin email
     if not admin_email:
-        print("⚠️ ADMIN_EMAIL not set in Railway env. Falling back to hardcoded admin email.")
+        print("⚠️ ADMIN_EMAIL not set. Falling back to hardcoded admin email.")
         admin_email = 'mbaziiraelvis727@gmail.com'
         
     with app.app_context():
@@ -1037,8 +1030,6 @@ create_admin_user()
 # JWT HELPERS & MIDDLEWARE
 # ============================
 def is_admin(user):
-    # FIX: Read env inside function to allow hot-reloads, 
-    # and fallback to hardcoded email if env var is empty.
     admin_email = os.getenv('ADMIN_EMAIL')
     if not admin_email:
         admin_email = 'mbaziiraelvis727@gmail.com'
