@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "san diego vs tijuana",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.09,
+    "profit_ugx": 1092,
+    "total_stake": 100000,
+    "arb_sum": 0.9891,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.12,
+        "stake": 47691,
+        "win": 101105
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 25276,
+        "win": 101104
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 3.74,
+        "stake": 27033,
+        "win": 101103
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "america vs portland timbers",
     "sport": "Football",
     "type": "3-way",
