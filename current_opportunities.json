@@ -102,6 +102,40 @@
     "market_specifier": ""
   },
   {
+    "match": "sirius vs brommapojkarna",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.35,
+    "profit_ugx": 1348,
+    "total_stake": 100000,
+    "arb_sum": 0.9865,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 1.354,
+        "stake": 74865,
+        "win": 101367
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 8.35,
+        "stake": 12140,
+        "win": 101369
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 7.8,
+        "stake": 12996,
+        "win": 101369
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "vasteras vs djurgarden",
     "sport": "Football",
     "type": "3-way",
@@ -130,40 +164,6 @@
         "odd": 4.0,
         "stake": 33978,
         "win": 135912
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "sirius vs brommapojkarna",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.51,
-    "profit_ugx": 1510,
-    "total_stake": 100000,
-    "arb_sum": 0.9849,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.354,
-        "stake": 74988,
-        "win": 101534
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 8.35,
-        "stake": 12160,
-        "win": 101536
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 7.9,
-        "stake": 12852,
-        "win": 101531
       }
     ],
     "market_type": "1x2",
