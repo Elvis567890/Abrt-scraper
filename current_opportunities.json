@@ -68,6 +68,40 @@
     "market_specifier": ""
   },
   {
+    "match": "silkeborg if vs odense",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 5.82,
+    "profit_ugx": 5823,
+    "total_stake": 100000,
+    "arb_sum": 0.9418,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.53,
+        "stake": 41970,
+        "win": 106184
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 28698,
+        "win": 106183
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.62,
+        "stake": 29332,
+        "win": 106182
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "yadanarbon w vs thitsar arman w",
     "sport": "Football",
     "type": "3-way",
@@ -102,34 +136,122 @@
     "market_specifier": ""
   },
   {
-    "match": "nacional asuncion r vs guarani asuncion r",
+    "match": "sirius vs brommapojkarna",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.0,
-    "profit_ugx": 2000,
+    "profit_percent": 2.81,
+    "profit_ugx": 2810,
     "total_stake": 100000,
-    "arb_sum": 0.98,
+    "arb_sum": 0.9719,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.43,
-        "stake": 41992,
-        "win": 102041
+        "odd": 1.33,
+        "stake": 77362,
+        "win": 102891
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 8.8,
+        "stake": 11692,
+        "win": 102890
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 9.4,
+        "stake": 10946,
+        "win": 102892
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vasteras vs djurgarden",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 20.6,
+    "profit_ugx": 20597,
+    "total_stake": 100000,
+    "arb_sum": 0.794,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 3.785,
+        "stake": 33274,
+        "win": 125942
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.6,
-        "stake": 28345,
-        "win": 102042
+        "odd": 3.75,
+        "stake": 33584,
+        "win": 125940
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.44,
-        "stake": 29663,
-        "win": 102041
+        "odd": 3.8,
+        "stake": 33142,
+        "win": 125940
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vasteras sk vs djurgardens",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.21,
+    "profit_ugx": 6209,
+    "total_stake": 100000,
+    "arb_sum": 0.9379,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.909,
+        "stake": 55851,
+        "win": 106620
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.415,
+        "stake": 44149,
+        "win": 106620
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "vasteras sk vs djurgardens",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.21,
+    "profit_ugx": 6209,
+    "total_stake": 100000,
+    "arb_sum": 0.9379,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.909,
+        "stake": 55851,
+        "win": 106620
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.415,
+        "stake": 44149,
+        "win": 106620
       }
     ],
     "market_type": "1x2",
