@@ -2,7 +2,7 @@ name: Scrape and Deploy Arbitrage Data
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/15 * * * *' # Changed to 15 min to avoid IP bans and reduce pressure
   workflow_dispatch:
 
 permissions:
@@ -14,11 +14,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      # NEW STEP: Fetch the latest file from GitHub to ensure we start fresh
-      - name: Pull latest current_opportunities.json
-        run: |
-          curl -o current_opportunities.json -L https://raw.githubusercontent.com/Elvis567890/Abrt-scraper/main/current_opportunities.json || echo "No existing file found"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -38,6 +33,7 @@ jobs:
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
           git add current_opportunities.json arb_history.json || true
+          # Only commit if there are actual changes
           git diff --staged --quiet || git commit -m "Update arbitrage data [skip ci]"
           git pull --rebase origin main
           git push origin main
