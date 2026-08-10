@@ -23,10 +23,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install requests beautifulsoup4
+          # Added full Flask, DB, and JWT dependencies to prevent import errors
+          pip install requests beautifulsoup4 flask flask-sqlalchemy flask-cors bcrypt pyjwt apscheduler python-dotenv
 
       - name: Run Python scraper
-        run: python -c "from scraper_light import run_scan; run_scan()"
+        # Switched from scraper_light to the unified scraper.py
+        run: python -c "from scraper import run_scan; run_scan()"
 
       - name: Commit and push JSONs
         run: |
