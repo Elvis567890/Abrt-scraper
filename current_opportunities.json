@@ -3,31 +3,31 @@
     "match": "plymouth vs exeter",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.76,
-    "profit_ugx": 1761,
+    "profit_percent": 0.75,
+    "profit_ugx": 755,
     "total_stake": 100000,
-    "arb_sum": 0.9824,
+    "arb_sum": 0.9925,
     "bets": [
       {
         "bookmaker": "AbaBet",
         "outcome": "Home",
-        "odd": 1.42,
-        "stake": 71685,
-        "win": 101793
+        "odd": 1.4,
+        "stake": 71972,
+        "win": 100761
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 7.18,
-        "stake": 14177,
-        "win": 101791
+        "stake": 14034,
+        "win": 100764
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
         "odd": 7.2,
-        "stake": 14138,
-        "win": 101794
+        "stake": 13995,
+        "win": 100764
       }
     ],
     "market_type": "1x2",
@@ -62,6 +62,40 @@
         "odd": 4.5,
         "stake": 24556,
         "win": 110502
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "yadanarbon w vs thitsar arman w",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 33.68,
+    "profit_ugx": 33679,
+    "total_stake": 100000,
+    "arb_sum": 0.6632,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 4.66,
+        "stake": 32356,
+        "win": 150779
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.75,
+        "stake": 31743,
+        "win": 150779
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.2,
+        "stake": 35900,
+        "win": 150780
       }
     ],
     "market_type": "1x2",
