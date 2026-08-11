@@ -2,7 +2,7 @@ name: Scrape and Deploy Arbitrage Data
 
 on:
   schedule:
-    - cron: '*/30 * * * *'   # every 30 minutes
+    - cron: '0 */2 * * *'    # every 2 hours (adjust as needed)
   workflow_dispatch:          # manual trigger
 
 permissions:
@@ -26,9 +26,6 @@ jobs:
           pip install --upgrade pip
           pip install requests beautifulsoup4 tenacity
 
-      - name: List Python files (debug)
-        run: ls -la *.py || echo "No .py files found"
-
       - name: Run Python scraper
         run: python -c "from scraper import run_scan; run_scan()"
         env:
@@ -36,25 +33,47 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GITHUB_ACTIONS: true   # prevents Flask from loading
 
-      - name: Find and copy JSONs to root + Debug
+      - name: Copy JSONs to root for commit
         run: |
-          echo "Searching for JSON files..."
           find . -name "current_opportunities.json" -exec cp {} . \;
           find . -name "arb_history.json" -exec cp {} . \;
-          echo "=== JSON CONTENT PREVIEW ==="
-          head -n 20 current_opportunities.json || echo "FILE NOT FOUND"
-          echo "=== END PREVIEW ==="
-          ls -la *.json
-          echo "Triggering Pages rebuild at $(date)" > trigger_rebuild.txt
 
-      - name: Commit and push updated JSON files
+      - name: Check if any JSON changed
+        id: check_changes
+        run: |
+          # Save current content for comparison
+          if [ -f current_opportunities.json ]; then
+            cp current_opportunities.json /tmp/current_new.json
+          else
+            touch /tmp/current_new.json
+          fi
+          if [ -f arb_history.json ]; then
+            cp arb_history.json /tmp/history_new.json
+          else
+            touch /tmp/history_new.json
+          fi
+
+          # Compare with previously committed versions (if any)
+          git show HEAD:current_opportunities.json > /tmp/current_old.json 2>/dev/null || echo "{}" > /tmp/current_old.json
+          git show HEAD:arb_history.json > /tmp/history_old.json 2>/dev/null || echo "{}" > /tmp/history_old.json
+
+          CHANGED=0
+          if ! cmp -s /tmp/current_old.json /tmp/current_new.json; then
+            CHANGED=1
+          fi
+          if ! cmp -s /tmp/history_old.json /tmp/history_new.json; then
+            CHANGED=1
+          fi
+
+          echo "changed=$CHANGED" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.check_changes.outputs.changed == '1'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # Stash local changes to avoid pull conflicts
-          git stash || true
-          git pull --rebase origin main
-          git stash pop || true
-          git add -f current_opportunities.json arb_history.json trigger_rebuild.txt
-          git diff --staged --quiet || git commit -m "Update arbitrage data and force Pages rebuild [skip ci]"
+          git add -f current_opportunities.json arb_history.json
+          git commit -m "Update arbitrage data [skip ci]"
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
