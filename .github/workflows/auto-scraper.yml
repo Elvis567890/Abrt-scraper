@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install requests beautifulsoup4 tenacity
+          pip install -r requirements.txt   # <-- THIS IS THE FIX
 
       - name: Run Python scraper
         run: python -c "from scraper import run_scan; run_scan()"
@@ -41,7 +41,6 @@ jobs:
       - name: Check if any JSON changed
         id: check_changes
         run: |
-          # Save current content for comparison
           if [ -f current_opportunities.json ]; then
             cp current_opportunities.json /tmp/current_new.json
           else
@@ -53,7 +52,6 @@ jobs:
             touch /tmp/history_new.json
           fi
 
-          # Compare with previously committed versions (if any)
           git show HEAD:current_opportunities.json > /tmp/current_old.json 2>/dev/null || echo "{}" > /tmp/current_old.json
           git show HEAD:arb_history.json > /tmp/history_old.json 2>/dev/null || echo "{}" > /tmp/history_old.json
 
