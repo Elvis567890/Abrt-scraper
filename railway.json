@@ -1,5 +1,9 @@
 {
+  "build": {
+    "builder": "NIXPACKS"
+  },
   "deploy": {
-    "predeployCommand": null
+    "startCommand": "gunicorn -k gthread -w 1 --threads 20 -b 0.0.0.0:$PORT scraper:app",
+    "cronSchedule": "*/5 * * * *"
   }
 }
