@@ -2,8 +2,8 @@ name: Scrape and Deploy Arbitrage Data
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
-  workflow_dispatch:
+    - cron: '*/30 * * * *'   # runs every 30 minutes
+  workflow_dispatch:          # allows manual trigger
 
 permissions:
   contents: write
@@ -11,6 +11,7 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,15 +24,14 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install requests beautifulsoup4
+          pip install requests beautifulsoup4 tenacity
 
       - name: Run Python scraper
-        run: python -c "from scraper import run_scan; run_scan()"
+        run: python -c "from scraper_light import run_scan; run_scan()"
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          # This tells the code to skip Flask imports (optional, but our code already checks it)
-          GITHUB_ACTIONS: true
+          GITHUB_ACTIONS: true   # ensures Flask is not loaded
 
       - name: Find and copy JSONs to root + Debug
         run: |
@@ -48,9 +48,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -f current_opportunities.json arb_history.json trigger_rebuild.txt
-          # Pull latest changes with rebase to avoid merge conflicts
+          # Stash any local changes (e.g., from previous runs) to avoid conflicts
+          git stash || true
           git pull --rebase origin main
-          # Commit only if there are staged changes
+          git stash pop || true
+          git add -f current_opportunities.json arb_history.json trigger_rebuild.txt
           git diff --staged --quiet || git commit -m "Update arbitrage data and force Pages rebuild [skip ci]"
           git push origin main
