@@ -9,7 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # ============================
-# CONSTANTS & LIMITS (UNLIMITED FOR PAID USERS)
+# SCRAPING CONSTANTS
 # ============================
 STAKE = 100000
 HISTORY_FILE = "arb_history.json"
@@ -22,18 +22,15 @@ SHARED_BOOKMAKERS_1X = {
     "Melbet": {"base_url": "https://melbet.ug", "partner": "8"},
 }
 
-# ============================
-# TIER CONFIGURATION (FREE LIMIT = 2, PAID LIMIT = UNLIMITED)
-# ============================
 TIERS = {
     'free': {
         'label': 'Free Trial',
         'price': 0,
         'duration_days': None,
-        'max_profit_percent': 8.0,
+        'max_profit_percent': 5.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'],
         'market_types': ['1x2'],
-        'daily_matches': 3,           # <--- YOUR ORIGINAL FREE LIMIT
+        'daily_matches': 3,
         'telegram_alerts': False,
         'historical_data': False,
         'value_rating': 'Poor Value',
@@ -45,7 +42,7 @@ TIERS = {
         'max_profit_percent': 15.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'],
         'market_types': ['1x2', 'Over/Under 2.5'],
-        'daily_matches': None,        # <--- PAID USERS GET ALL MATCHES (UNLIMITED)
+        'daily_matches': None,
         'telegram_alerts': False,
         'historical_data': False,
         'value_rating': 'Best Value',
@@ -57,7 +54,7 @@ TIERS = {
         'max_profit_percent': 50.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
         'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,        # <--- PAID USERS GET ALL MATCHES (UNLIMITED)
+        'daily_matches': None,
         'telegram_alerts': True,
         'historical_data': True,
         'value_rating': 'High Saver',
@@ -69,7 +66,7 @@ TIERS = {
         'max_profit_percent': 50.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
         'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,        # <--- PAID USERS GET ALL MATCHES (UNLIMITED)
+        'daily_matches': None,
         'telegram_alerts': True,
         'historical_data': True,
         'value_rating': 'High Saver',
@@ -215,10 +212,9 @@ def update_arbitrage_history(current_opportunities, arb_history, timestamp_str):
             del entry["updated_this_cycle"]
 
 # ============================
-# BOOKMAKER SCRAPERS
+# BOOKMAKER SCRAPERS (FULL)
 # ============================
-
-# ---------- ChampionBet ----------
+# ChampionBet
 def championbet_extract_1x2_from_betmap(bet_map):
     bet_map = bet_map or {}
     def pick_odd(market_keys):
@@ -318,7 +314,7 @@ def scrape_championbet():
         print(f"ChampionBet error: {e}")
     return odds
 
-# ---------- AbaBet ----------
+# AbaBet
 def scrape_ababet():
     odds = []
     try:
@@ -354,7 +350,7 @@ def scrape_ababet():
         print(f"AbaBet error: {e}")
     return odds
 
-# ---------- Fortebet ----------
+# Fortebet
 def scrape_fortebet():
     odds = []
     try:
@@ -445,7 +441,7 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-# ---------- SportyBet ----------
+# SportyBet
 def scrape_sportybet():
     odds = []
     try:
@@ -474,7 +470,7 @@ def scrape_sportybet():
         print(f"SportyBet error: {e}")
     return odds
 
-# ---------- 1xBet ----------
+# 1xBet
 def scrape_1xbet():
     odds = []
     try:
@@ -523,7 +519,7 @@ def scrape_1xbet():
         print(f"1xBet error: {e}")
     return odds
 
-# ---------- 22Bet ----------
+# 22Bet
 def scrape_22bet():
     odds = []
     try:
@@ -565,7 +561,7 @@ def scrape_22bet():
         print(f"22Bet error: {e}")
     return odds
 
-# ---------- Melbet ----------
+# Melbet
 def scrape_melbet():
     odds = []
     try:
@@ -613,7 +609,7 @@ def scrape_melbet():
         print(f"Melbet error: {e}")
     return odds
 
-# ---------- Over/Under for 1xBet/22Bet/Melbet ----------
+# Over/Under for 1xBet/22Bet/Melbet
 def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
     odds = []
     try:
@@ -638,7 +634,7 @@ def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
         print(f"{bookmaker_name} Over/Under error: {e}")
     return odds
 
-# ---------- AH, DC, BTTS for 1xBet/22Bet/Melbet ----------
+# AH, DC, BTTS for 1xBet/22Bet/Melbet
 def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
     odds = []
     try:
@@ -679,7 +675,7 @@ def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
     return odds
 
 # ============================
-# ARBITRAGE FINDER
+# ARBITRAGE FINDER (FULL)
 # ============================
 def find_arbitrage(all_odds):
     opportunities = []
@@ -856,7 +852,9 @@ def find_arbitrage(all_odds):
 
     return opportunities
 
-# ----- Telegram alert (optional) -----
+# ============================
+# TELEGRAM ALERT
+# ============================
 def send_telegram_alert(opp):
     token = os.getenv('TELEGRAM_BOT_TOKEN')
     chat = os.getenv('TELEGRAM_CHAT_ID')
@@ -925,7 +923,7 @@ def run_scan():
     print(f"Scan complete: {len(opportunities)} opportunities, history updated.")
 
 # ============================
-# FLASK APP (WEB SERVER + DATABASE)
+# FLASK APP
 # ============================
 from flask import Flask, request, jsonify, g
 from flask_cors import CORS
