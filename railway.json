@@ -3,7 +3,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "gunicorn -k gthread -w 1 --threads 20 -b 0.0.0.0:$PORT scrapper.ap",
+    "startCommand": "gunicorn -k gthread -w 1 --threads 20 -b 0.0.0.0:$PORT scrapper.app",
     "cronSchedule": "*/5 * * * *",
     "preDeployCommand": "python pre_deploy.py"
   }
