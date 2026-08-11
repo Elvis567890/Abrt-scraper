@@ -4,6 +4,6 @@
   },
   "deploy": {
     "predeploy": "python -c \"from scraper import app, db, create_admin_user; with app.app_context(): db.create_all(); create_admin_user()\"",
-    "startCommand": "gunicorn -w 4 --preload -b 0.0.0.0:$PORT scraper:app"
+    "startCommand": "gunicorn --preload -w 4 -b 0.0.0.0:$PORT scraper:app"
   }
 }
