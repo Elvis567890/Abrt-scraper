@@ -192,6 +192,38 @@
     ]
   },
   {
+    "match": "bolivar vs sao paulo",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.17,
+    "profit_ugx": 1172,
+    "total_stake": 100000,
+    "arb_sum": 0.9883,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.848,
+        "stake": 54754,
+        "win": 101185
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Draw",
+        "odd": 4.66,
+        "stake": 21714,
+        "win": 101187
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.3,
+        "stake": 23532,
+        "win": 101188
+      }
+    ]
+  },
+  {
     "match": "celje vs ararat armenia",
     "sport": "Football",
     "type": "3-way",
@@ -323,31 +355,31 @@
     "match": "boca juniors vs recoleta",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.44,
-    "profit_ugx": 3443,
+    "profit_percent": 5.21,
+    "profit_ugx": 5211,
     "total_stake": 100000,
-    "arb_sum": 0.9656,
+    "arb_sum": 0.9479,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
         "odd": 1.286,
-        "stake": 80533,
-        "win": 103565
+        "stake": 82035,
+        "win": 105497
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
         "odd": 11.5,
-        "stake": 9006,
-        "win": 103569
+        "stake": 9174,
+        "win": 105501
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 9.9,
-        "stake": 10461,
-        "win": 103564
+        "odd": 12.0,
+        "stake": 8791,
+        "win": 105492
       }
     ]
   },
@@ -355,31 +387,31 @@
     "match": "boca juniors vs recoleta",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.64,
-    "profit_ugx": 1641,
+    "profit_percent": 3.41,
+    "profit_ugx": 3408,
     "total_stake": 100000,
-    "arb_sum": 0.9836,
+    "arb_sum": 0.9659,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
         "odd": 1.248,
-        "stake": 81465,
-        "win": 101668
+        "stake": 82956,
+        "win": 103529
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
         "odd": 12.3,
-        "stake": 8266,
-        "win": 101672
+        "stake": 8417,
+        "win": 103529
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Away",
-        "odd": 9.9,
-        "stake": 10270,
-        "win": 101673
+        "odd": 12.0,
+        "stake": 8627,
+        "win": 103524
       }
     ]
   },
@@ -430,31 +462,6 @@
         "odd": 2.214,
         "stake": 48089,
         "win": 106469
-      }
-    ]
-  },
-  {
-    "match": "kvant obninsk vs ryazan",
-    "sport": "Football",
-    "type": "Double Chance 1X",
-    "profit_percent": 11.24,
-    "profit_ugx": 11245,
-    "total_stake": 100000,
-    "arb_sum": 0.8876,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "1X",
-        "odd": 3.7,
-        "stake": 30451,
-        "win": 112669
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "X2",
-        "odd": 1.62,
-        "stake": 69549,
-        "win": 112669
       }
     ]
   }
