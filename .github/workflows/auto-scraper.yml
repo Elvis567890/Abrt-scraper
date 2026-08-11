@@ -26,10 +26,12 @@ jobs:
           pip install requests beautifulsoup4
 
       - name: Run Python scraper
-        run: python -c "from scraper_light import run_scan; run_scan()"
+        run: python -c "from scraper import run_scan; run_scan()"
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # This tells the code to skip Flask imports (optional, but our code already checks it)
+          GITHUB_ACTIONS: true
 
       - name: Find and copy JSONs to root + Debug
         run: |
@@ -47,6 +49,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -f current_opportunities.json arb_history.json trigger_rebuild.txt
+          # Pull latest changes with rebase to avoid merge conflicts
           git pull --rebase origin main
+          # Commit only if there are staged changes
           git diff --staged --quiet || git commit -m "Update arbitrage data and force Pages rebuild [skip ci]"
           git push origin main
