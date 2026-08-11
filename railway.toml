@@ -2,5 +2,5 @@
 builder = "NIXPACKS"
 
 [deploy]
-startCommand = "gunicorn -k gthread -w 1 --threads 20 -b 0.0.0.0:$PORT scraper:app"
+startCommand = gunicorn -worker-class gevent --workers 1 --timeout 120 --bind 0.0.0.0:$PORT scraper:app
 cronSchedule = "*/5 * * * *"
