@@ -46,7 +46,7 @@ TIERS = {
         'max_profit_percent': 5.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet'],
         'market_types': ['1x2'],
-        'daily_matches': 3,
+        'daily_matches': 2,                     # ← Free users get only 2 matches per 4 hours
         'telegram_alerts': False,
         'historical_data': False,
         'value_rating': 'Poor Value',
@@ -58,7 +58,7 @@ TIERS = {
         'max_profit_percent': 15.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet'],
         'market_types': ['1x2', 'Over/Under 2.5'],
-        'daily_matches': None,
+        'daily_matches': None,                  # ← Unlimited
         'telegram_alerts': False,
         'historical_data': False,
         'value_rating': 'Best Value',
@@ -70,7 +70,7 @@ TIERS = {
         'max_profit_percent': 50.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
         'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,
+        'daily_matches': None,                  # ← Unlimited
         'telegram_alerts': True,
         'historical_data': True,
         'value_rating': 'High Saver',
@@ -82,7 +82,7 @@ TIERS = {
         'max_profit_percent': 50.0,
         'bookmakers': ['SportyBet', 'ChampionBet', 'AbaBet', 'Fortebet', '1xBet', '22Bet', 'Melbet'],
         'market_types': ['1x2', 'Over/Under 2.5', 'Asian Handicap', 'Double Chance', 'BTTS'],
-        'daily_matches': None,
+        'daily_matches': None,                  # ← Unlimited
         'telegram_alerts': True,
         'historical_data': True,
         'value_rating': 'High Saver',
@@ -965,6 +965,7 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
     import uuid
     from apscheduler.schedulers.background import BackgroundScheduler
     from apscheduler.triggers.interval import IntervalTrigger
+    from sqlalchemy import inspect
 
     load_dotenv()
 
@@ -978,7 +979,7 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
 
     db = SQLAlchemy(app)
 
-    # Database Models (same as original)
+    # Database Models
     class User(db.Model):
         id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
         email = db.Column(db.String(120), unique=True, nullable=False)
@@ -1024,17 +1025,33 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         amount_received = db.Column(db.Float, nullable=True)
         created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # Commented out to prevent race conditions with multiple Gunicorn workers
-    # with app.app_context():
-    #     db.create_all()
-    #     logger.info("Database tables created/verified.")
+    # --------------------------------------------------------------------------
+    # Database migration helper – add missing columns if any
+    # --------------------------------------------------------------------------
+    def add_column_if_not_exists(table_name, column_name, column_type):
+        with app.app_context():
+            inspector = inspect(db.engine)
+            columns = [col['name'] for col in inspector.get_columns(table_name)]
+            if column_name not in columns:
+                logger.info(f"Adding column {column_name} to {table_name}")
+                with db.engine.connect() as conn:
+                    conn.execute(db.text(f"ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}"))
+                    conn.commit()
+
+    with app.app_context():
+        db.create_all()
+        # Ensure the new free‑user columns exist
+        add_column_if_not_exists('user', 'free_opportunities_remaining', 'INTEGER DEFAULT 0')
+        add_column_if_not_exists('user', 'last_free_unlock_at', 'TIMESTAMP')
+        logger.info("Database tables created/verified.")
 
     # Admin user creation
     def create_admin_user():
         admin_email = os.getenv('ADMIN_EMAIL')
         if not admin_email:
-            logger.warning("ADMIN_EMAIL not set – skipping admin creation.")
-            return
+            # Fallback to hardcoded admin email
+            admin_email = 'mbaziiraelvis727@gmail.com'
+            logger.warning(f"ADMIN_EMAIL not set. Using fallback: {admin_email}")
         with app.app_context():
             admin = User.query.filter_by(email=admin_email).first()
             if not admin:
@@ -1048,10 +1065,10 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
             else:
                 logger.info(f"Admin user already exists: {admin_email}")
 
-    # create_admin_user()  # Commented out to prevent race conditions with multiple Gunicorn workers
+    create_admin_user()
 
     # JWT helpers
-    ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', '')
+    ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'mbaziiraelvis727@gmail.com')
 
     def is_admin(user):
         return user.email == ADMIN_EMAIL
@@ -1082,7 +1099,7 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         return jwt.encode(payload, app.config['JWT_SECRET'], algorithm='HS256')
 
     # --------------------------------------------------------------------------
-    # Flask Routes (identical to original, kept for compatibility)
+    # Flask Routes
     # --------------------------------------------------------------------------
     @app.route('/health', methods=['GET'])
     def health_check():
@@ -1408,17 +1425,43 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         except Exception as e:
             logger.error(f"Telegram error: {e}")
 
+    # --------------------------------------------------------------------------
+    # ✅ FIXED: /api/arbitrage with free user 4‑hour limit
+    # --------------------------------------------------------------------------
     @app.route('/api/arbitrage', methods=['GET'])
     @token_required
     def get_arbitrage():
         user = g.user
         tier_config = TIERS[user.tier]
+
+        # Check subscription expiry for paid users
         if user.tier != 'free' and user.subscription_expires and user.subscription_expires < datetime.utcnow():
             user.is_subscribed = False
             user.tier = 'free'
             db.session.commit()
             return jsonify({'error': 'Subscription expired'}), 403
 
+        # --- Free user 4‑hour limit logic ---
+        if user.tier == 'free':
+            now = datetime.utcnow()
+            # Reset if 4 hours have passed since last reset or never reset
+            if user.last_free_unlock_at is None or (now - user.last_free_unlock_at) >= timedelta(hours=4):
+                user.free_opportunities_remaining = 2
+                user.last_free_unlock_at = now
+                db.session.commit()
+                logger.info(f"Free user {user.email} reset to 2 opportunities")
+
+            # If no opportunities left, return empty with message
+            if user.free_opportunities_remaining <= 0:
+                return jsonify({
+                    'opportunities': [],
+                    'count': 0,
+                    'tier': 'free',
+                    'message': 'You have used your 2 free opportunities. Please wait 4 hours for a reset.',
+                    'reset_at': user.last_free_unlock_at.isoformat() if user.last_free_unlock_at else None
+                }), 200
+
+        # Load opportunities from cache
         cache_file = 'current_opportunities.json'
         if not os.path.exists(cache_file):
             return jsonify({'opportunities': [], 'tier': user.tier, 'message': 'No arbitrage data available. Scanner is running.'}), 200
@@ -1429,10 +1472,10 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         except:
             all_opportunities = []
 
+        # Apply tier filters (bookmakers, markets, max profit)
         allowed_bookmakers = set(tier_config['bookmakers'])
         allowed_markets = set(tier_config['market_types'])
         max_profit = tier_config['max_profit_percent']
-        daily_limit = tier_config['daily_matches']
 
         filtered = []
         for opp in all_opportunities:
@@ -1455,9 +1498,23 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
                 continue
             filtered.append(opp)
 
+        # Apply limit
+        daily_limit = tier_config['daily_matches']
         if daily_limit is not None:
+            # For free users, limit to min(daily_limit, remaining)
+            if user.tier == 'free':
+                # We already know remaining > 0
+                limit = min(daily_limit, user.free_opportunities_remaining)
+            else:
+                limit = daily_limit
             filtered.sort(key=lambda x: x.get('profit_percent', 0), reverse=True)
-            filtered = filtered[:daily_limit]
+            filtered = filtered[:limit]
+
+            # Decrement free user's remaining count
+            if user.tier == 'free':
+                user.free_opportunities_remaining -= len(filtered)
+                db.session.commit()
+                logger.info(f"Free user {user.email} now has {user.free_opportunities_remaining} opportunities left")
 
         return jsonify({
             'opportunities': filtered,
@@ -1465,7 +1522,9 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
             'tier': user.tier,
             'tier_label': tier_config['label'],
             'value_rating': tier_config.get('value_rating', 'Standard'),
-            'scan_time': datetime.utcnow().isoformat()
+            'scan_time': datetime.utcnow().isoformat(),
+            'free_remaining': user.free_opportunities_remaining if user.tier == 'free' else None,
+            'free_reset_at': user.last_free_unlock_at.isoformat() if user.tier == 'free' and user.last_free_unlock_at else None
         })
 
     @app.route('/api/admin/create-user', methods=['POST'])
@@ -1554,7 +1613,8 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         u.subscription_expires = new_expiry
         transaction.status = 'success'
         db.session.commit()
-        return jsonify({'message': 'Subscription activated successfully'})
+        logger.info(f"Admin activated user {u.email} to {plan}")
+        return jsonify({'message': f'Subscription activated for {u.email} to {plan} plan'})
 
     @app.route('/api/admin/activate-by-email', methods=['POST'])
     @token_required
@@ -1594,6 +1654,7 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         )
         db.session.add(transaction)
         db.session.commit()
+        logger.info(f"Admin activated {email} to {plan}")
         return jsonify({'message': f'{email} activated with {plan} plan'})
 
     @app.errorhandler(404)
