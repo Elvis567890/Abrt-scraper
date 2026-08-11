@@ -1,6 +1,14 @@
-[build]
-builder = "NIXPACKS"
-
-[deploy]
-startCommand = gunicorn -worker-class gevent --workers 1 --timeout 120 --bind 0.0.0.0:$PORT scraper:app
-cronSchedule = "*/5 * * * *"
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "gunicorn --worker-class gevent --workers 1 --timeout 120 --bind 0.0.0.0:$PORT scraper:app",
+    "cron": [
+      {
+        "schedule": "*/5 * * * *",
+        "command": "python run_scanner.py"
+      }
+    ]
+  }
+}
