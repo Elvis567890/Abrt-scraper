@@ -2,8 +2,8 @@ name: Scrape and Deploy Arbitrage Data
 
 on:
   schedule:
-    - cron: '*/30 * * * *'   # runs every 30 minutes
-  workflow_dispatch:          # allows manual trigger
+    - cron: '*/30 * * * *'   # every 30 minutes
+  workflow_dispatch:          # manual trigger
 
 permissions:
   contents: write
@@ -26,12 +26,15 @@ jobs:
           pip install --upgrade pip
           pip install requests beautifulsoup4 tenacity
 
+      - name: List Python files (debug)
+        run: ls -la *.py || echo "No .py files found"
+
       - name: Run Python scraper
-        run: python -c "from scraper_light import run_scan; run_scan()"
+        run: python -c "from scraper import run_scan; run_scan()"
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_ACTIONS: true   # ensures Flask is not loaded
+          GITHUB_ACTIONS: true   # prevents Flask from loading
 
       - name: Find and copy JSONs to root + Debug
         run: |
@@ -48,7 +51,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # Stash any local changes (e.g., from previous runs) to avoid conflicts
+          # Stash local changes to avoid pull conflicts
           git stash || true
           git pull --rebase origin main
           git stash pop || true
