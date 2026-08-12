@@ -1044,6 +1044,10 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
     # --------------------------------------------------------------------------
     # Flask Routes (Your Payments & Auth System)
     # --------------------------------------------------------------------------
+    @app.route('/ping', methods=['GET'])
+    def ping():
+        return jsonify({'status': 'ok', 'message': 'pong'})
+
     @app.route('/health', methods=['GET'])
     def health_check():
         return jsonify({'status': 'ok', 'service': 'arbitrage-api', 'timestamp': datetime.utcnow().isoformat()})
@@ -1057,10 +1061,11 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         try:
             data = request.get_json()
             email = data.get('email')
-            phone = data.get('phone')
             password = data.get('password')
-            if not email or not phone or not password:
-                return jsonify({'error': 'Missing fields'}), 400
+            # Phone is optional now – default to placeholder if missing
+            phone = data.get('phone', '0000000000')
+            if not email or not password:
+                return jsonify({'error': 'Missing required fields (email and password)'}), 400
             if User.query.filter_by(email=email).first():
                 return jsonify({'error': 'Email already exists'}), 400
             user = User(email=email, phone=phone, tier='free')
@@ -1070,24 +1075,31 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
             token = generate_token(user.id)
             return jsonify({'token': token, 'user_id': user.id}), 201
         except Exception as e:
-            return jsonify({'error': str(e)}), 500
+            logger.error(f"Signup error: {e}")
+            return jsonify({'error': 'Internal server error'}), 500
 
     @app.route('/api/login', methods=['POST'])
     def login():
-        data = request.get_json()
-        email = data.get('email')
-        password = data.get('password')
-        user = User.query.filter_by(email=email).first()
-        if not user or not user.check_password(password):
-            return jsonify({'error': 'Invalid credentials'}), 401
-        token = generate_token(user.id)
-        return jsonify({
-            'token': token,
-            'user_id': user.id,
-            'tier': user.tier,
-            'subscribed': user.is_subscribed,
-            'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
-        })
+        try:
+            data = request.get_json()
+            email = data.get('email')
+            password = data.get('password')
+            if not email or not password:
+                return jsonify({'error': 'Missing email or password'}), 400
+            user = User.query.filter_by(email=email).first()
+            if not user or not user.check_password(password):
+                return jsonify({'error': 'Invalid credentials'}), 401
+            token = generate_token(user.id)
+            return jsonify({
+                'token': token,
+                'user_id': user.id,
+                'tier': user.tier,
+                'subscribed': user.is_subscribed,
+                'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
+            })
+        except Exception as e:
+            logger.error(f"Login error: {e}")
+            return jsonify({'error': 'Internal server error'}), 500
 
     @app.route('/api/profile', methods=['GET'])
     @token_required
@@ -1578,9 +1590,15 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         # 🔥 FIX: Run scanner once immediately so new users get data
         with app.app_context():
             print("⚡ Performing initial scan on startup...")
-            run_scan()
+            try:
+                # Timeout the initial scan to prevent startup hanging
+                run_scan()
+            except Exception as e:
+                logger.error(f"Initial scan failed: {e}")
+                # Even if scan fails, we still start the server (empty JSON will be served)
 
         port = int(os.environ.get('PORT', 5000))
+        logger.info(f"Starting Flask server on port {port}")
         app.run(host='0.0.0.0', port=port)
 
 # ------------------------------------------------------------------------------
