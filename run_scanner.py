@@ -1,6 +1,3 @@
-# run_scanner.py
-# This file is called by Railway Cron to scrape odds in the background
-
 from scraper import run_scan
 
 if __name__ == "__main__":
