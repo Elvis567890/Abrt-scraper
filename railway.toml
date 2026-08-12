@@ -2,4 +2,4 @@
 builder = "NIXPACKS"
 
 [deploy]
-startCommand = "gunicorn --worker-class gevent --workers 1 --bind 0.0.0.0:$PORT scraper:app"
+startCommand = "gunicorn --worker-class gevent --workers 1 --bind 0.0.0.0:$PORT app:app"
