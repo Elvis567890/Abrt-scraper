@@ -936,6 +936,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
 app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
 
+# ============================================================
+# 🔥 FINAL DATABASE POOLING FIX
+# ============================================================
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_pre_ping': True,
+    'pool_recycle': 300,
+    'pool_size': 5,
+    'max_overflow': 10
+}
+
 CORS(app, origins=["*"], supports_credentials=True)
 
 db = SQLAlchemy(app)
