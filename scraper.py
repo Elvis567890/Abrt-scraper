@@ -1572,9 +1572,14 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         return jsonify({'error': 'Internal server error'}), 500
 
     # --------------------------------------------------------------------------
-    # Run Flask (NO SCHEDULER HERE! Cron will handle the scanner)
+    # Run Flask – with initial scan on startup to guarantee JSON exists
     # --------------------------------------------------------------------------
     if __name__ == "__main__":
+        # 🔥 FIX: Run scanner once immediately so new users get data
+        with app.app_context():
+            print("⚡ Performing initial scan on startup...")
+            run_scan()
+
         port = int(os.environ.get('PORT', 5000))
         app.run(host='0.0.0.0', port=port)
 
