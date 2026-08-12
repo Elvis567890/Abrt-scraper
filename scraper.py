@@ -1,5 +1,5 @@
 # =============================================================================
-# 🔥 FIX 1: Gevent monkey-patch MUST be the very first thing (Prevents crashing under load)
+# CRITICAL: gevent monkey-patch MUST be the very first thing
 # =============================================================================
 from gevent import monkey
 monkey.patch_all()
@@ -13,7 +13,6 @@ import time
 import logging
 from datetime import datetime, timedelta
 from functools import wraps
-from urllib.parse import urljoin
 from typing import Dict, List, Optional, Tuple, Any
 
 import requests
@@ -38,7 +37,6 @@ SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 CHAMPIONBET_MATCH_API = "https://www.championbet.ug/restapi/offer/en/match/{match_id}?annex=13&mobileVersion=2.47.4.3&locale=en"
 
-# Shared bookmaker configs (base URL and partner ID)
 SHARED_BOOKMAKERS = {
     "1xBet": {"base_url": "https://1xbet.ug", "partner": "135"},
     "22Bet": {"base_url": "https://22bet.ug", "partner": "151"},
@@ -138,28 +136,23 @@ class HTTPClient:
         resp.raise_for_status()
         return resp.text
 
-# Global client instance
 http = HTTPClient()
 
 # ------------------------------------------------------------------------------
 # Team name normalization & matching
 # ------------------------------------------------------------------------------
 def normalize_team(name: str) -> str:
-    """Normalize team name for matching."""
     if not name:
         return ""
     name = name.lower().strip()
-    # Common abbreviations
     name = re.sub(r"\b(rovers|rvs)\b", "rvs", name)
     name = re.sub(r"\b(united|utd)\b", "utd", name)
-    # Remove common words
     name = re.sub(r"\b(fc|sc|cf|ac|city|sports|club|football|soccer|women|men|u21|u23)\b", "", name)
     name = re.sub(r"[^a-z0-9 ]", "", name)
     name = re.sub(r"\s+", " ", name).strip()
     return name
 
 def teams_match(name1: str, name2: str) -> bool:
-    """Check if two team names refer to the same team."""
     n1 = normalize_team(name1)
     n2 = normalize_team(name2)
     if not n1 or not n2:
@@ -169,7 +162,6 @@ def teams_match(name1: str, name2: str) -> bool:
     if len(n1) > 3 and len(n2) > 3:
         if n1 in n2 or n2 in n1:
             return True
-        # Check first word if long enough
         w1 = n1.split()[0] if n1.split() else ""
         w2 = n2.split()[0] if n2.split() else ""
         if len(w1) > 4 and w1 == w2:
@@ -177,7 +169,6 @@ def teams_match(name1: str, name2: str) -> bool:
     return False
 
 def match_key_similarity(key1: str, key2: str) -> bool:
-    """Compare two match keys (e.g., 'TeamA vs TeamB | market')."""
     if "|" in key1 or "|" in key2:
         return key1 == key2
     parts1 = key1.split(" vs ")
@@ -190,7 +181,6 @@ def match_key_similarity(key1: str, key2: str) -> bool:
 # Record building
 # ------------------------------------------------------------------------------
 def clean_odd(v, min_odd=1.01, max_odd=50.0) -> Optional[float]:
-    """Validate and clean odds."""
     try:
         if v is None:
             return None
@@ -205,7 +195,6 @@ def build_match_record(home_team: str, away_team: str, bookmaker: str,
                        home: Optional[float], draw: Optional[float], away: Optional[float],
                        sport: str = "Football", competition: str = "",
                        market_type: str = "1x2", market_specifier: str = "") -> Dict:
-    """Create a normalized odds record."""
     base_key = f"{normalize_team(home_team)} vs {normalize_team(away_team)}"
     if market_type == "Over/Under 2.5":
         match_key = f"{base_key} | O/U 2.5"
@@ -255,10 +244,8 @@ def opportunity_key(opp: Dict) -> str:
     return f"{opp['sport']}::{mtype}::{opp['match']}::{spec}"
 
 def update_arbitrage_history(current: List[Dict], history: Dict, timestamp: str) -> None:
-    # Mark all as not updated
     for entry in history.values():
         entry["updated_this_cycle"] = False
-
     for opp in current:
         key = opportunity_key(opp)
         if key not in history:
@@ -285,18 +272,15 @@ def update_arbitrage_history(current: List[Dict], history: Dict, timestamp: str)
             "arb_sum": opp["arb_sum"],
             "bets": opp["bets"],
         })
-
-    # Purge stale entries
     for key, entry in list(history.items()):
         if not entry.get("updated_this_cycle"):
             entry["cycles_missed"] = entry.get("cycles_missed", 0) + 1
             if entry["cycles_missed"] >= 2:
                 entry["valid"] = False
-        # Cleanup temporary flag
         entry.pop("updated_this_cycle", None)
 
 # ------------------------------------------------------------------------------
-# Bookmaker Scrapers (each returns list of records)
+# SCRAPER FUNCTIONS
 # ------------------------------------------------------------------------------
 def scrape_sportybet() -> List[Dict]:
     logger.info("Fetching SportyBet...")
@@ -377,7 +361,6 @@ def scrape_championbet() -> List[Dict]:
     return odds
 
 def _extract_championbet_1x2(bet_map: Dict) -> Tuple[Optional[float], Optional[float], Optional[float]]:
-    """Extract 1x2 odds from ChampionBet betMap."""
     def _pick(market_keys):
         for k in market_keys:
             market = bet_map.get(str(k), {})
@@ -392,7 +375,6 @@ def _extract_championbet_1x2(bet_map: Dict) -> Tuple[Optional[float], Optional[f
     return _pick([1,4,7]), _pick([2,5,8]), _pick([3,6,9])
 
 def _extract_championbet_ou(bet_map: Dict) -> Tuple[Optional[float], Optional[float]]:
-    """Extract Over/Under 2.5 odds from ChampionBet."""
     def _pick(market_keys):
         for k in market_keys:
             market = bet_map.get(str(k), {})
@@ -407,7 +389,6 @@ def _extract_championbet_ou(bet_map: Dict) -> Tuple[Optional[float], Optional[fl
     return _pick([51,21]), _pick([52,22])
 
 def _extract_championbet_extra(bet_map: Dict) -> Tuple[Dict, Dict, Dict]:
-    """Extract AH, DC, BTTS odds. Returns dicts mapping market IDs to odds."""
     ah = {}
     dc = {}
     btts = {}
@@ -489,7 +470,6 @@ def scrape_fortebet() -> List[Dict]:
         events = inner.get("event", {})
         markets = inner.get("markets", {})
         competitors = inner.get("competitors", {})
-        # Group markets by event
         event_markets = {}
         for _, market in markets.items():
             eid = str(market.get("eventId", ""))
@@ -589,7 +569,6 @@ def scrape_melbet() -> List[Dict]:
     return _scrape_shared_1x_like("Melbet", SHARED_BOOKMAKERS["Melbet"]["base_url"], SHARED_BOOKMAKERS["Melbet"]["partner"])
 
 def _scrape_shared_1x_like(name: str, base_url: str, partner: str) -> List[Dict]:
-    """Generic scraper for 1xBet/22Bet/Melbet 1x2 markets."""
     logger.info(f"Fetching {name}...")
     odds = []
     try:
@@ -623,7 +602,6 @@ def _scrape_shared_1x_like(name: str, base_url: str, partner: str) -> List[Dict]
     return odds
 
 def scrape_shared_extra_markets() -> List[Dict]:
-    """Scrape Over/Under, AH, DC, BTTS for 1xBet/22Bet/Melbet."""
     all_odds = []
     for name, config in SHARED_BOOKMAKERS.items():
         # Over/Under
@@ -697,20 +675,17 @@ def scrape_shared_extra_markets() -> List[Dict]:
 # ------------------------------------------------------------------------------
 def find_arbitrage(all_odds: List[Dict]) -> List[Dict]:
     opportunities = []
-    # Group by sport
     sports = {}
     for odd in all_odds:
         sport = odd.get("sport", "Football")
         sports.setdefault(sport, []).append(odd)
 
     for sport, sport_odds in sports.items():
-        # Group by exact match_key
         groups = {}
         for odd in sport_odds:
             key = odd.get("match_key", "")
             groups.setdefault(key, []).append(odd)
 
-        # Merge similar keys
         merged = {}
         processed = set()
         keys = list(groups.keys())
@@ -730,12 +705,10 @@ def find_arbitrage(all_odds: List[Dict]) -> List[Dict]:
         for match_key, bookmakers in merged.items():
             if len(bookmakers) < 2:
                 continue
-            # Determine market type from first record
             first = bookmakers[0]
             mtype = first.get("market_type", "1x2")
             spec = first.get("market_specifier", "")
 
-            # Aggregate best odds per bookmaker
             bookmaker_odds = {}
             for rec in bookmakers:
                 bk = rec["bookmaker"]
@@ -754,9 +727,7 @@ def find_arbitrage(all_odds: List[Dict]) -> List[Dict]:
             bk_list = list(bookmaker_odds.keys())
             display_match = match_key.split(" | ")[0] if " | " in match_key else match_key
 
-            # 2-way markets (Over/Under, AH, DC, BTTS)
             if mtype in ["Over/Under 2.5", "Asian Handicap", "Double Chance", "BTTS"]:
-                best = None
                 for i, bk1 in enumerate(bk_list):
                     for bk2 in bk_list[i+1:]:
                         h1 = bookmaker_odds[bk1]["home"]
@@ -791,7 +762,6 @@ def find_arbitrage(all_odds: List[Dict]) -> List[Dict]:
                                         {"bookmaker": bk_under, "outcome": "Outcome 2", "odd": under, "stake": stake_under, "win": round(stake_under * under)}
                                     ]
                                 }
-                                # Label outcomes
                                 if mtype == "Over/Under 2.5":
                                     opp["bets"][0]["outcome"] = "Over 2.5"
                                     opp["bets"][1]["outcome"] = "Under 2.5"
@@ -811,7 +781,6 @@ def find_arbitrage(all_odds: List[Dict]) -> List[Dict]:
                                 opportunities.append(opp)
                                 break
 
-            # 3-way markets (1x2)
             elif mtype == "1x2" and sport in ["Football", "Rugby", "Futsal"]:
                 for bk_h in bk_list:
                     for bk_d in bk_list:
@@ -846,7 +815,6 @@ def find_arbitrage(all_odds: List[Dict]) -> List[Dict]:
                                     }
                                     opportunities.append(opp)
 
-            # 2-way for other sports
             elif mtype == "1x2" and sport not in ["Football", "Rugby", "Futsal"]:
                 for bk_h in bk_list:
                     for bk_a in bk_list:
@@ -913,7 +881,6 @@ def send_telegram_alert(opp: Dict) -> None:
 def run_scan() -> None:
     logger.info("Starting scan...")
     all_odds = []
-    # Scrape all bookmakers
     all_odds.extend(scrape_sportybet())
     all_odds.extend(scrape_championbet())
     all_odds.extend(scrape_ababet())
@@ -926,11 +893,9 @@ def run_scan() -> None:
     opportunities = find_arbitrage(all_odds)
     logger.info(f"Found {len(opportunities)} arbitrage opportunities")
 
-    # History management
     history = load_arbitrage_history()
     timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
-    # Send alerts for new opportunities with profit >= 5%
     for opp in opportunities:
         key = opportunity_key(opp)
         if key not in history or history[key]['first_seen'] == timestamp:
@@ -940,28 +905,15 @@ def run_scan() -> None:
     update_arbitrage_history(opportunities, history, timestamp)
     save_arbitrage_history(history)
 
-    # Write current opportunities to file
-    if not opportunities and os.path.exists("current_opportunities.json"):
-        # Fallback: keep previous data
-        try:
-            with open("current_opportunities.json", "r") as f:
-                old_data = json.load(f)
-            if old_data:
-                logger.info("Fallback active: Keeping previous data to prevent app crash.")
-                return
-        except:
-            pass
-
     with open("current_opportunities.json", "w", encoding="utf-8") as f:
         json.dump(opportunities, f, indent=2)
 
     logger.info("Scan complete.")
 
 # ------------------------------------------------------------------------------
-# Conditional Flask App (only if not in GitHub Actions)
+# Flask App
 # ------------------------------------------------------------------------------
 if os.getenv('GITHUB_ACTIONS') != 'true':
-    # Import Flask dependencies only when needed
     from flask import Flask, request, jsonify, g
     from flask_cors import CORS
     from flask_sqlalchemy import SQLAlchemy
@@ -977,24 +929,22 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///users.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret')
-    app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret')
-    
-    # =====================================================================
-    # 🔥 FIX 2: Database Connection Pooling 
-    # =====================================================================
-    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        'pool_pre_ping': True,
-        'pool_recycle': 300,
-        'pool_size': 5,
-        'max_overflow': 10
-    }
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-me')
+    app.config['JWT_SECRET'] = os.getenv('JWT_SECRET', 'dev-jwt-secret-change-me')
+    # Optional: connection pooling for PostgreSQL
+    if 'postgresql' in app.config['SQLALCHEMY_DATABASE_URI']:
+        app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+            'pool_pre_ping': True,
+            'pool_recycle': 300,
+            'pool_size': 5,
+            'max_overflow': 10
+        }
 
     CORS(app, origins=["*"], supports_credentials=True)
 
     db = SQLAlchemy(app)
 
-    # Database Models (same as original)
+    # --- Database Models ---
     class User(db.Model):
         id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
         email = db.Column(db.String(120), unique=True, nullable=False)
@@ -1040,34 +990,24 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         amount_received = db.Column(db.Float, nullable=True)
         created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # Commented out to prevent race conditions with multiple Gunicorn workers
-    # with app.app_context():
-    #     db.create_all()
-    #     logger.info("Database tables created/verified.")
+    # --- Create tables and admin user on startup ---
+    with app.app_context():
+        db.create_all()
+        logger.info("Database tables created/verified.")
+        admin_email = os.getenv('ADMIN_EMAIL', 'admin@example.com')
+        admin = User.query.filter_by(email=admin_email).first()
+        if not admin:
+            default_password = "admin123"
+            admin = User(email=admin_email, phone="0000000000", tier='free')
+            admin.set_password(default_password)
+            db.session.add(admin)
+            db.session.commit()
+            logger.info(f"Admin user created: {admin_email}")
+        else:
+            logger.info(f"Admin user already exists: {admin_email}")
 
-    # Admin user creation
-    def create_admin_user():
-        admin_email = os.getenv('ADMIN_EMAIL')
-        if not admin_email:
-            logger.warning("ADMIN_EMAIL not set – skipping admin creation.")
-            return
-        with app.app_context():
-            admin = User.query.filter_by(email=admin_email).first()
-            if not admin:
-                default_password = "admin123"
-                logger.info(f"Creating admin user: {admin_email} with password: {default_password}")
-                admin = User(email=admin_email, phone="0000000000", tier='free')
-                admin.set_password(default_password)
-                db.session.add(admin)
-                db.session.commit()
-                logger.info("Admin user created.")
-            else:
-                logger.info(f"Admin user already exists: {admin_email}")
-
-    # create_admin_user()  # Commented out to prevent race conditions with multiple Gunicorn workers
-
-    # JWT helpers
-    ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', '')
+    # --- JWT Helpers ---
+    ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'admin@example.com')
 
     def is_admin(user):
         return user.email == ADMIN_EMAIL
@@ -1097,9 +1037,10 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         payload = {'user_id': user_id, 'exp': datetime.utcnow() + timedelta(days=30)}
         return jwt.encode(payload, app.config['JWT_SECRET'], algorithm='HS256')
 
-    # --------------------------------------------------------------------------
-    # Flask Routes (identical to original, kept for compatibility)
-    # --------------------------------------------------------------------------
+    # ============================================================
+    # ROUTES
+    # ============================================================
+
     @app.route('/health', methods=['GET'])
     def health_check():
         return jsonify({'status': 'ok', 'service': 'arbitrage-api', 'timestamp': datetime.utcnow().isoformat()})
@@ -1113,10 +1054,10 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         try:
             data = request.get_json()
             email = data.get('email')
-            phone = data.get('phone')
+            phone = data.get('phone', '0000000000')
             password = data.get('password')
-            if not email or not phone or not password:
-                return jsonify({'error': 'Missing fields'}), 400
+            if not email or not password:
+                return jsonify({'error': 'Missing required fields (email and password)'}), 400
             if User.query.filter_by(email=email).first():
                 return jsonify({'error': 'Email already exists'}), 400
             user = User(email=email, phone=phone, tier='free')
@@ -1126,24 +1067,31 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
             token = generate_token(user.id)
             return jsonify({'token': token, 'user_id': user.id}), 201
         except Exception as e:
-            return jsonify({'error': str(e)}), 500
+            logger.error(f"Signup error: {e}")
+            return jsonify({'error': 'Internal server error'}), 500
 
     @app.route('/api/login', methods=['POST'])
     def login():
-        data = request.get_json()
-        email = data.get('email')
-        password = data.get('password')
-        user = User.query.filter_by(email=email).first()
-        if not user or not user.check_password(password):
-            return jsonify({'error': 'Invalid credentials'}), 401
-        token = generate_token(user.id)
-        return jsonify({
-            'token': token,
-            'user_id': user.id,
-            'tier': user.tier,
-            'subscribed': user.is_subscribed,
-            'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
-        })
+        try:
+            data = request.get_json()
+            email = data.get('email')
+            password = data.get('password')
+            if not email or not password:
+                return jsonify({'error': 'Missing email or password'}), 400
+            user = User.query.filter_by(email=email).first()
+            if not user or not user.check_password(password):
+                return jsonify({'error': 'Invalid credentials'}), 401
+            token = generate_token(user.id)
+            return jsonify({
+                'token': token,
+                'user_id': user.id,
+                'tier': user.tier,
+                'subscribed': user.is_subscribed,
+                'expires': user.subscription_expires.isoformat() if user.subscription_expires else None
+            })
+        except Exception as e:
+            logger.error(f"Login error: {e}")
+            return jsonify({'error': 'Internal server error'}), 500
 
     @app.route('/api/profile', methods=['GET'])
     @token_required
@@ -1439,10 +1387,17 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         if not os.path.exists(cache_file):
             return jsonify({'opportunities': [], 'tier': user.tier, 'message': 'No arbitrage data available. Scanner is running.'}), 200
 
-        try:
-            with open(cache_file, 'r', encoding='utf-8') as f:
-                all_opportunities = json.load(f)
-        except:
+        all_opportunities = []
+        for attempt in range(3):
+            try:
+                with open(cache_file, 'r', encoding='utf-8') as f:
+                    all_opportunities = json.load(f)
+                break
+            except (json.JSONDecodeError, IOError) as e:
+                logger.warning(f"File read error (attempt {attempt+1}): {e}")
+                time.sleep(0.5)
+                continue
+        if not all_opportunities:
             all_opportunities = []
 
         allowed_bookmakers = set(tier_config['bookmakers'])
@@ -1518,7 +1473,6 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         except Exception as e:
             return jsonify({'error': str(e)}), 500
 
-    # Admin endpoints
     @app.route('/api/admin/pending-transactions', methods=['GET'])
     @token_required
     def admin_pending_transactions():
@@ -1620,36 +1574,35 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
     def server_error(e):
         return jsonify({'error': 'Internal server error'}), 500
 
-    # --------------------------------------------------------------------------
-    # Scheduler
-    # --------------------------------------------------------------------------
-    def scheduled_scan():
+    # ============================================================
+    # Run Flask – with initial scan on startup
+    # ============================================================
+    if __name__ == "__main__":
+        # 🔥 Run scanner once so JSON exists for new users
         with app.app_context():
+            print("⚡ Performing initial scan on startup...")
             try:
                 run_scan()
             except Exception as e:
-                logger.error(f"Scheduled scan error: {e}")
+                logger.error(f"Initial scan failed: {e}")
 
-    # --------------------------------------------------------------------------
-    # Run Flask
-    # --------------------------------------------------------------------------
-    if __name__ == "__main__":
-        # =====================================================================
-        # 🔥 FIX 3: Initial Scan on Startup 
-        # =====================================================================
-        with app.app_context():
-            print("⚡ Performing initial scan on startup...")
-            run_scan()
-
+        # Start background scheduler (for refreshing every 5 min)
         if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+            def scheduled_scan():
+                with app.app_context():
+                    try:
+                        run_scan()
+                    except Exception as e:
+                        logger.error(f"Scheduled scan error: {e}")
             scheduler = BackgroundScheduler()
             scheduler.add_job(func=scheduled_scan, trigger=IntervalTrigger(minutes=5), id='arbitrage_scanner', replace_existing=True)
             scheduler.start()
-            logger.info("Scheduler started – scanning every 5 minutes.")
+            print("✅ Scheduler started – scanning every 5 minutes.")
+
         port = int(os.environ.get('PORT', 5000))
         app.run(host='0.0.0.0', port=port)
 
 else:
-    # When running in GitHub Actions, only the scraper is available
+    # GitHub Actions – only run the scraper
     if __name__ == "__main__":
         run_scan()
