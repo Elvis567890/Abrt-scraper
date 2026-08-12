@@ -906,7 +906,7 @@ def run_scan() -> None:
     logger.info("Scan complete.")
 
 # ------------------------------------------------------------------------------
-# Flask App (Conditional – only runs if not in GitHub Actions)
+# Flask App (only runs if not in GitHub Actions)
 # ------------------------------------------------------------------------------
 if os.getenv('GITHUB_ACTIONS') != 'true':
     from flask import Flask, request, jsonify, g
@@ -1572,21 +1572,36 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         return jsonify({'error': 'Internal server error'}), 500
 
     # --------------------------------------------------------------------------
-    # Run Flask – with initial scan on startup (NO SCHEDULER INSIDE)
+    # Run Flask – with background scan on startup (NO SCHEDULER INSIDE)
     # --------------------------------------------------------------------------
     if __name__ == "__main__":
-        # 🔥 Run scanner once immediately so new users get data
-        with app.app_context():
-            print("⚡ Performing initial scan on startup...")
-            try:
-                run_scan()
-            except Exception as e:
-                logger.error(f"Initial scan failed: {e}")
+        # ✅ Check for critical environment variables
+        if not os.getenv('DATABASE_URL'):
+            logger.warning("⚠️ DATABASE_URL is not set – using SQLite (not recommended for production)")
+        if not os.getenv('SECRET_KEY'):
+            logger.warning("⚠️ SECRET_KEY not set – using default (insecure)")
+        if not os.getenv('JWT_SECRET'):
+            logger.warning("⚠️ JWT_SECRET not set – using default (insecure)")
 
+        # ✅ Start scanner in background to avoid blocking server startup
+        import threading
+
+        def initial_scan():
+            try:
+                logger.info("🔄 Running initial arbitrage scan in background...")
+                run_scan()
+                logger.info("✅ Initial scan completed.")
+            except Exception as e:
+                logger.error(f"❌ Initial scan failed: {e}")
+
+        scan_thread = threading.Thread(target=initial_scan, daemon=True)
+        scan_thread.start()
+
+        # ✅ Start the Flask app
         port = int(os.environ.get('PORT', 5000))
         app.run(host='0.0.0.0', port=port)
 
 else:
-    # GitHub Actions – only run the scraper
+    # GitHub Actions – only run the scraper (no Flask)
     if __name__ == "__main__":
         run_scan()
