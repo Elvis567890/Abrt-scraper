@@ -2,4 +2,4 @@
 builder = "NIXPACKS"
 
 [deploy]
-gunicorn --workers 1 --bind 0.0.0.0:$PORT scraper:app
+startCommand = "gunicorn --workers 1 --bind 0.0.0.0:$PORT scraper:app"
