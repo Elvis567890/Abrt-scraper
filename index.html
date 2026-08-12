@@ -4,11 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Abrimax - Live Arbitrage</title>
-    <!-- Firebase (commented out because we now use custom JWT) -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script> -->
     <style>
-        /* ===== FULL STYLES (unchanged – your original CSS) ===== */
+        /* ===== FULL STYLES (unchanged) ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -324,7 +321,7 @@
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
     // ============================================================
-    // AUTH FUNCTIONS (using custom JWT, no Firebase)
+    // AUTH FUNCTIONS (custom JWT, no Firebase)
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
