@@ -112,7 +112,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
-    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';  // ← CHANGE TO YOUR BACKEND URL
+    // ============================================================
+    // ✅ Use relative URL if served from same domain, else set full URL
+    // ============================================================
+    const API_BASE = '';  // Empty = same origin. Change to full URL if deployed separately.
 
     new Vue({
         el: '#app',
@@ -145,6 +148,9 @@
                     if (!res.ok) {
                         throw new Error(data.error || 'Login failed');
                     }
+                    // Check if this user is an admin (by checking the email against ADMIN_EMAIL)
+                    // The backend's is_admin() function compares to ADMIN_EMAIL env var.
+                    // We'll assume the login succeeded, but later /admin endpoints will return 403 if not admin.
                     localStorage.setItem('admin_token', data.token);
                     localStorage.setItem('admin_email', this.email);
                     this.isAdmin = true;
@@ -153,8 +159,7 @@
                     this.loginError = e.message;
                 }
             },
-            
-            // --- FIXED FETCH PENDING METHOD ---
+
             async fetchPending() {
                 this.error = '';
                 try {
@@ -162,11 +167,11 @@
                     const res = await fetch(`${API_BASE}/api/admin/pending-transactions`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
-                    
-                    // FIX: Handle 403 gracefully without logging out
+
+                    // 403 means user is not admin or token invalid
                     if (res.status === 403) {
-                        this.error = '⚠️ Access Denied (403): You are not authorized as an admin. Please check backend config and database.';
-                        return; // STOP HERE. Do NOT remove token!
+                        this.error = '⚠️ Access Denied – you are not an admin.';
+                        return;
                     }
 
                     if (!res.ok) {
@@ -205,6 +210,7 @@
                     this.activating = false;
                 }
             },
+
             async activateByEmail() {
                 this.activatingEmail = true;
                 this.emailMessage = '';
@@ -238,6 +244,7 @@
                     this.activatingEmail = false;
                 }
             },
+
             logout() {
                 localStorage.removeItem('admin_token');
                 localStorage.removeItem('admin_email');
@@ -251,6 +258,7 @@
                 this.emailMessage = '';
                 this.emailError = '';
             },
+
             checkAuth() {
                 const token = localStorage.getItem('admin_token');
                 const email = localStorage.getItem('admin_email');
@@ -267,4 +275,4 @@
     });
 </script>
 </body>
-</html>
+    </html>
