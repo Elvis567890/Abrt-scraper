@@ -1,0 +1,9 @@
+[builder]
+builder = "NIXPACKS"
+
+[deploy]
+Command = "gunicorn --worker-class eventlet --workers 1 --timeout 120 --bind 0.0.0.0:$PORT scraper:app"
+
+[deploy.cron]
+schedule = "*/5 * * * *"
+command = "python run_scanner.py"
