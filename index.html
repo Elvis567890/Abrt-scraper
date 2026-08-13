@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Abrimax - Live Arbitrage</title>
     <style>
-        /* ===== FULL STYLES ===== */
+        /* ===== FULL STYLES (unchanged from your original) ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -307,8 +307,8 @@
 
 <script>
     // ============================================================
-    // ✅ FINAL API BASE – matches your Railway backend exactly
-    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';
+    // ✅ Use relative URLs (API is on the same origin)
+    // ============================================================
 
     // ============================================================
     // GLOBAL STATE
@@ -321,7 +321,7 @@
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
     // ============================================================
-    // AUTH FUNCTIONS (custom JWT, no Firebase)
+    // AUTH FUNCTIONS (using relative paths)
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
@@ -335,7 +335,6 @@
     async function signUpWithEmail() {
         const email = document.getElementById('signupEmail').value.trim();
         const password = document.getElementById('signupPassword').value;
-        const phone = '0700000000';
         const errorEl = document.getElementById('authErrorSignup');
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
@@ -344,10 +343,10 @@
             return;
         }
         try {
-            const response = await fetch(`${API_BASE}/api/signup`, {
+            const response = await fetch('/api/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, phone, password })
+                body: JSON.stringify({ email, phone: '0700000000', password })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -355,7 +354,7 @@
             }
             localStorage.setItem('sms_auth_token', data.token);
             localStorage.setItem('sms_auth_email', email);
-            showToast('Account created! Welcome to Abrimax!');
+            showToast('Account created!');
             checkSMSAuth();
         } catch (error) {
             errorEl.textContent = error.message;
@@ -369,7 +368,7 @@
         errorEl.textContent = '';
         if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
         try {
-            const response = await fetch(`${API_BASE}/api/login`, {
+            const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -380,8 +379,7 @@
             }
             localStorage.setItem('sms_auth_token', data.token);
             localStorage.setItem('sms_auth_email', email);
-            showToast('Logged in successfully!');
-            // ✅ Force UI transition immediately
+            showToast('Welcome back!');
             checkSMSAuth();
         } catch (error) {
             errorEl.textContent = error.message;
@@ -400,16 +398,14 @@
     }
 
     // ============================================================
-    // AUTH STATE CHECK – SHOW APP INSTANTLY
+    // AUTH STATE CHECK
     // ============================================================
     async function checkSMSAuth() {
-        const authToken = localStorage.getItem('sms_auth_token');
-        const authEmail = localStorage.getItem('sms_auth_email');
-        if (!authToken || !authEmail) { clearSMSAuth(); return; }
-
+        const token = localStorage.getItem('sms_auth_token');
+        if (!token) { clearSMSAuth(); return; }
         try {
-            const response = await fetch(`${API_BASE}/api/profile`, {
-                headers: { 'Authorization': `Bearer ${authToken}` }
+            const response = await fetch('/api/profile', {
+                headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.status === 401) {
                 clearSMSAuth();
@@ -421,10 +417,9 @@
             }
             const data = await response.json();
             if (data.user) {
-                // ✅ Show app immediately
                 showApp(data.user);
-                // Then check subscription & load data in background
-                await checkSubscription(authToken);
+                // Check subscription
+                await checkSubscription(token);
                 navigateTo('dashboard');
                 fetchUserDataFromBackend();
             } else {
@@ -437,7 +432,6 @@
         }
     }
 
-    // ✅ NEW: showApp() – immediately hides auth and shows main pages
     function showApp(user) {
         const authPage = document.getElementById('page-auth');
         const mainPages = document.querySelectorAll('#page-dashboard, #page-detail, #page-calculator, #page-slip, #page-bookies, #page-settings, #page-history, #page-alerts');
@@ -450,13 +444,12 @@
         if (fab) fab.style.display = 'flex';
         
         document.getElementById('settingsUserEmail').textContent = 'Logged in as: ' + localStorage.getItem('sms_auth_email');
-        // Tier will be set by checkSubscription
     }
 
-    async function checkSubscription(authToken) {
+    async function checkSubscription(token) {
         try {
-            const response = await fetch(`${API_BASE}/api/subscription-status`, {
-                headers: { 'Authorization': `Bearer ${authToken}` }
+            const response = await fetch('/api/subscription-status', {
+                headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) {
                 console.warn('Subscription status failed, but user is logged in.');
@@ -472,7 +465,6 @@
             const daysText = data.days_left > 0 ? ` (${data.days_left} days left)` : '';
             document.getElementById('settingsUserTier').textContent = 'Tier: ' + data.tier + daysText;
             localStorage.setItem('sms_user_tier', data.tier);
-            showToast('✅ ' + data.message);
             loadUserSettings();
         } catch (error) {
             console.error('Subscription check error:', error);
@@ -505,7 +497,7 @@
         const listEl = document.getElementById('oppList');
         listEl.innerHTML = '<div class="empty-state">Loading...</div>';
         try {
-            const response = await fetch(`${API_BASE}/api/arbitrage`, {
+            const response = await fetch('/api/arbitrage', {
                 headers: { 'Authorization': 'Bearer ' + token }
             });
             if (!response.ok) {
@@ -558,7 +550,7 @@
     }
 
     // ============================================================
-    // RENDER FUNCTIONS (unchanged – your original code)
+    // RENDER FUNCTIONS
     // ============================================================
     function getBookmakerUrl(bookieName) {
         const map = { 'sportybet':'https://sportybet.ug','championbet':'https://championbet.ug','ababet':'https://ababet.ug','fortebet':'https://fortebet.ug','1xbet':'https://1xbet.ug','22bet':'https://22bet.ug','melbet':'https://melbet.ug' };
@@ -707,7 +699,7 @@
     }
 
     // ============================================================
-    // CALCULATOR (unchanged)
+    // CALCULATOR
     // ============================================================
     function updateCalculator() {
         const stake = parseFloat(document.getElementById('calcStake').value) || 100000;
@@ -769,7 +761,7 @@
     }
 
     // ============================================================
-    // SLIP (unchanged)
+    // SLIP
     // ============================================================
     function renderSlip() {
         const container = document.getElementById('slipItems');
@@ -822,7 +814,7 @@
     }
 
     // ============================================================
-    // HISTORY (unchanged)
+    // HISTORY
     // ============================================================
     function renderHistory() {
         const totalArbsEl = document.getElementById('totalArbs');
@@ -855,7 +847,7 @@
     }
 
     // ============================================================
-    // ALERTS (unchanged)
+    // ALERTS
     // ============================================================
     function renderAlerts() {
         const alertsList = document.getElementById('alertsList');
@@ -868,7 +860,7 @@
     }
 
     // ============================================================
-    // SETTINGS / USER PREFERENCES (unchanged)
+    // SETTINGS / USER PREFERENCES
     // ============================================================
     function getUserSettingsKey() {
         return localStorage.getItem('sms_auth_email') ? 'arbi_settings_' + localStorage.getItem('sms_auth_email') : 'arbi_settings_guest';
@@ -898,7 +890,7 @@
     }
 
     function applySettingsToUI(settings) {
-        // extend with UI elements if needed – for now just store
+        // for now just store
     }
 
     function saveUserSettings() {
@@ -906,7 +898,7 @@
     }
 
     // ============================================================
-    // MANUAL PAYMENT (unchanged)
+    // MANUAL PAYMENT
     // ============================================================
     async function submitManualPayment() {
         const plan = document.getElementById('manualPlanSelect').value;
@@ -926,7 +918,7 @@
         statusDiv.textContent = '⏳ Submitting...';
         statusDiv.style.color = '#a0a4b0';
         try {
-            const response = await fetch(`${API_BASE}/api/manual-payment`, {
+            const response = await fetch('/api/manual-payment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -950,7 +942,7 @@
     }
 
     // ============================================================
-    // TOAST (unchanged)
+    // TOAST
     // ============================================================
     function showToast(msg) {
         const toast = document.getElementById('toast');
@@ -966,7 +958,7 @@
         loadUserSettings();
         updateCalculator();
         renderSlip();
-        checkSMSAuth(); // auto-login
+        checkSMSAuth();
     });
 
     // Expose functions globally
