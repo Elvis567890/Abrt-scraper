@@ -2,7 +2,7 @@
 builder = "NIXPACKS"
 
 [deploy]
-Command = "gunicorn --worker-class eventlet --workers 1 --timeout 120 --bind 0.0.0.0:$PORT scraper:app"
+Command = "gunicorn --worker-class eventlet --workers 1 --timeout 120 --bind 0.0.0.0:8080 scraper:app"
 
 [deploy.cron]
 schedule = "*/5 * * * *"
