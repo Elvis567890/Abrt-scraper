@@ -909,7 +909,7 @@ def run_scan() -> None:
 # Flask App (only runs if not in GitHub Actions)
 # ------------------------------------------------------------------------------
 if os.getenv('GITHUB_ACTIONS') != 'true':
-    from flask import Flask, request, jsonify, g
+    from flask import Flask, request, jsonify, g, send_file
     from flask_cors import CORS
     from flask_sqlalchemy import SQLAlchemy
     from dotenv import load_dotenv
@@ -933,7 +933,6 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
             'max_overflow': 10
         }
 
-    # ✅ FINAL CORS FIX: Allow ANY origin reliably for mobile/desktop, accept credentials
     CORS(app, origins=r'.*', supports_credentials=True, allow_headers=["*"])
 
     db = SQLAlchemy(app)
@@ -1043,9 +1042,14 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
     def health_check():
         return jsonify({'status': 'ok', 'service': 'arbitrage-api', 'timestamp': datetime.utcnow().isoformat()})
 
-    @app.route('/', methods=['GET'])
-    def home():
-        return jsonify({'status': 'ok', 'service': 'Arbitrage API'})
+    @app.route('/')
+    def serve_frontend():
+        """Serve the main HTML page."""
+        try:
+            return send_file('index.html')
+        except Exception as e:
+            logger.error(f"Error serving index.html: {e}")
+            return jsonify({'error': 'Frontend not found'}), 404
 
     @app.route('/api/signup', methods=['POST'])
     def signup():
@@ -1573,10 +1577,9 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         return jsonify({'error': 'Internal server error'}), 500
 
     # --------------------------------------------------------------------------
-    # Run Flask – with background scan on startup (NO SCHEDULER INSIDE)
+    # Run Flask – with background scan on startup
     # --------------------------------------------------------------------------
     if __name__ == "__main__":
-        # ✅ Check for critical environment variables
         if not os.getenv('DATABASE_URL'):
             logger.warning("⚠️ DATABASE_URL is not set – using SQLite (not recommended for production)")
         if not os.getenv('SECRET_KEY'):
@@ -1584,7 +1587,6 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         if not os.getenv('JWT_SECRET'):
             logger.warning("⚠️ JWT_SECRET not set – using default (insecure)")
 
-        # ✅ Start scanner in background to avoid blocking server startup
         import threading
 
         def initial_scan():
@@ -1598,7 +1600,6 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
         scan_thread = threading.Thread(target=initial_scan, daemon=True)
         scan_thread.start()
 
-        # ✅ Start the Flask app
         port = int(os.environ.get('PORT', 5000))
         app.run(host='0.0.0.0', port=port)
 
