@@ -1,8 +1,8 @@
 # =============================================================================
 # CRITICAL: gevent monkey-patch MUST be the very first thing
 # =============================================================================
-from gevent import monkey
-monkey.patch_all()
+import eventlet
+eventlet.monkey_patch()
 
 # =============================================================================
 # Standard imports
