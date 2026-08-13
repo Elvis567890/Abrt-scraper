@@ -156,6 +156,7 @@
         .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--surface3); }
         .user-email { color: var(--text2); font-size: 13px; margin-bottom: 12px; text-align: center; }
 
+        /* ===== MANUAL PAYMENT UI ===== */
         .plan-select { width: 100%; padding: 12px; background: var(--surface2); color: var(--text); border: 2px solid var(--surface3); border-radius: var(--radius-xs); margin-bottom: 8px; }
         .manual-payment-input { width: 100%; padding: 12px; background: var(--surface2); color: var(--text); border: 2px solid var(--surface3); border-radius: var(--radius-xs); margin-bottom: 8px; }
         .manual-payment-btn { background: var(--accent); color: #000; border: none; border-radius: var(--radius-xs); padding: 12px 20px; font-weight: 700; font-size: 14px; cursor: pointer; transition: opacity 0.2s; width: 100%; }
@@ -306,10 +307,13 @@
 
 <script>
     // ============================================================
-    // ✅ COMPLETE FRONTEND – with event listeners and POST requests
+    // ✅ USE ABSOLUTE RAILWAY URL FOR ALL API CALLS
     // ============================================================
+    const API_BASE = 'https://stellar-abundance-ug.up.railway.app';
 
+    // ============================================================
     // GLOBAL STATE
+    // ============================================================
     let opportunitiesData = [];
     let allHistory = {};
     let currentPage = 'dashboard';
@@ -318,7 +322,7 @@
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
     // ============================================================
-    // AUTH FUNCTIONS
+    // AUTH FUNCTIONS – using full API_BASE
     // ============================================================
     async function signUpWithEmail(email, password) {
         const errorEl = document.getElementById('authErrorSignup');
@@ -332,7 +336,7 @@
             return;
         }
         try {
-            const response = await fetch('/api/signup', {
+            const response = await fetch(`${API_BASE}/api/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, phone: '0700000000', password })
@@ -358,7 +362,7 @@
             return;
         }
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch(`${API_BASE}/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -397,13 +401,13 @@
     }
 
     // ============================================================
-    // AUTH STATE CHECK
+    // AUTH STATE CHECK – using absolute URL
     // ============================================================
     async function checkSMSAuth() {
         const token = localStorage.getItem('sms_auth_token');
         if (!token) { clearSMSAuth(); return; }
         try {
-            const response = await fetch('/api/profile', {
+            const response = await fetch(`${API_BASE}/api/profile`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.status === 401) {
@@ -444,7 +448,7 @@
 
     async function checkSubscription(token) {
         try {
-            const response = await fetch('/api/subscription-status', {
+            const response = await fetch(`${API_BASE}/api/subscription-status`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) {
@@ -485,7 +489,7 @@
     }
 
     // ============================================================
-    // FETCH ARBITRAGE DATA
+    // FETCH ARBITRAGE – absolute URL
     // ============================================================
     async function fetchUserDataFromBackend() {
         const token = localStorage.getItem('sms_auth_token');
@@ -493,7 +497,7 @@
         const listEl = document.getElementById('oppList');
         listEl.innerHTML = '<div class="empty-state">Loading...</div>';
         try {
-            const response = await fetch('/api/arbitrage', {
+            const response = await fetch(`${API_BASE}/api/arbitrage`, {
                 headers: { 'Authorization': 'Bearer ' + token }
             });
             if (!response.ok) {
@@ -546,7 +550,7 @@
     }
 
     // ============================================================
-    // RENDER FUNCTIONS
+    // RENDER FUNCTIONS – (these were in your original file, keep them unchanged)
     // ============================================================
     function getBookmakerUrl(bookieName) {
         const map = { 'sportybet':'https://sportybet.ug','championbet':'https://championbet.ug','ababet':'https://ababet.ug','fortebet':'https://fortebet.ug','1xbet':'https://1xbet.ug','22bet':'https://22bet.ug','melbet':'https://melbet.ug' };
@@ -914,7 +918,7 @@
         statusDiv.textContent = '⏳ Submitting...';
         statusDiv.style.color = '#a0a4b0';
         try {
-            const response = await fetch('/api/manual-payment', {
+            const response = await fetch(`${API_BASE}/api/manual-payment`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -948,10 +952,9 @@
     }
 
     // ============================================================
-    // ✅ EVENT BINDINGS – CRITICAL FIX
+    // ✅ EVENT BINDINGS – CRITICAL: prevent default GET
     // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
-        // Auth tabs
         document.getElementById('tabLogin').addEventListener('click', function(e) {
             e.preventDefault();
             switchAuthTab('login');
@@ -961,15 +964,13 @@
             switchAuthTab('signup');
         });
 
-        // Login button
         document.getElementById('loginBtn').addEventListener('click', function(e) {
-            e.preventDefault();  // ✅ Stops default GET behaviour
+            e.preventDefault();
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
             loginWithEmail(email, password);
         });
 
-        // Signup button
         document.getElementById('signupBtn').addEventListener('click', function(e) {
             e.preventDefault();
             const email = document.getElementById('signupEmail').value.trim();
@@ -977,13 +978,11 @@
             signUpWithEmail(email, password);
         });
 
-        // Google button (placeholder)
         document.getElementById('googleBtn').addEventListener('click', function(e) {
             e.preventDefault();
             showToast('Google sign-in is not available. Please use email.');
         });
 
-        // Initialize
         loadUserSettings();
         updateCalculator();
         renderSlip();
@@ -1015,4 +1014,4 @@
     window.submitManualPayment = submitManualPayment;
 </script>
 </body>
-                </html>
+    </html>
