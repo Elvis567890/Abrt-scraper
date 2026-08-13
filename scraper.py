@@ -1574,6 +1574,10 @@ def admin_activate_by_email():
 def not_found(e):
     return jsonify({'error': 'Endpoint not found'}), 404
 
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return jsonify({'error': 'Method not allowed. Please use POST.'}), 405
+
 @app.errorhandler(500)
 def server_error(e):
     return jsonify({'error': 'Internal server error'}), 500
@@ -1602,7 +1606,6 @@ if __name__ == "__main__":
     scan_thread = threading.Thread(target=initial_scan, daemon=True)
     scan_thread.start()
 
-    # The server is started by Gunicorn or by app.run in start.py
-    # This block only runs if the file is executed directly, but we already have start.py.
-    # We'll keep it as a fallback.
+    # The server is started by start.py or Gunicorn, so we don't call app.run() here.
+    # This allows the file to be imported without starting the server.
     pass
