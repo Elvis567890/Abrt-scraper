@@ -1,29 +1,11 @@
 import eventlet
+from eventlet import wsgi
+from scraper import app
+
+# Monkey-patch the standard library for non-blocking I/O
 eventlet.monkey_patch()
 
-from gunicorn.app.base import BaseApplication
-from scraper import app # Your Flask app is named 'app'
-
-class StandaloneApplication(BaseApplication):
-    def __init__(self, app, options=None):
-        self.options = options or {}
-        self.application = app
-        super().__init__()
-
-    def load_config(self):
-        config = {key: value for key, value in self.options.items()
-                  if key in self.cfg.settings and value is not None}
-        for key, value in config.items():
-            self.cfg.set(key.lower(), value)
-
-    def load(self):
-        return self.application
-
-if __name__ == '__main__':
-    options = {
-        'bind': '0.0.0.0:8080',
-        'workers': 1,
-        'worker_class': 'eventlet',
-        'timeout': 120,
-    }
-    StandaloneApplication(app, options).run()
+if __name__ == "__main__":
+    # Run the Flask app using Eventlet's native WSGI server on port 8080
+    # This completely bypasses Gunicorn, avoiding the entry point crash
+    wsgi.server(eventlet.listen(('', 8080)), app)
