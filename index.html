@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Abrimax - Live Arbitrage</title>
     <style>
-        /* ===== FULL STYLES (unchanged from your original) ===== */
+        /* ===== FULL STYLES (original) ===== */
         :root {
             --bg: #0d0f13;
             --surface: #161820;
@@ -187,13 +187,13 @@
                             <input type="email" id="loginEmail" class="auth-input" placeholder="Email" required>
                             <input type="password" id="loginPassword" class="auth-input" placeholder="Password" required>
                             <div id="authError" class="auth-error"></div>
-                            <button class="auth-btn primary" onclick="loginWithEmail()">Log In</button>
+                            <button class="auth-btn primary" onclick="loginWithEmail(event)">Log In</button>
                         </div>
                         <div id="signupForm" style="display:none;">
                             <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
                             <input type="password" id="signupPassword" class="auth-input" placeholder="Password (max 72 chars)" maxlength="72" required>
                             <div id="authErrorSignup" class="auth-error"></div>
-                            <button class="auth-btn primary" onclick="signUpWithEmail()">Create Account</button>
+                            <button class="auth-btn primary" onclick="signUpWithEmail(event)">Create Account</button>
                         </div>
                     </div>
                     <div class="auth-divider"><hr><span>or</span><hr></div>
@@ -307,7 +307,7 @@
 
 <script>
     // ============================================================
-    // ✅ Use relative URLs (API is on the same origin)
+    // ✅ FIXED FRONTEND – prevents default form submission
     // ============================================================
 
     // ============================================================
@@ -321,7 +321,7 @@
     let completedArbs = JSON.parse(localStorage.getItem('arbiHistory') || '[]');
 
     // ============================================================
-    // AUTH FUNCTIONS (using relative paths)
+    // AUTH FUNCTIONS – with event.preventDefault()
     // ============================================================
     function switchAuthTab(tab) {
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
@@ -332,16 +332,23 @@
         document.getElementById('authErrorSignup').textContent = '';
     }
 
-    async function signUpWithEmail() {
+    async function signUpWithEmail(event) {
+        if (event) event.preventDefault();  // ✅ prevents page reload / GET request
+
         const email = document.getElementById('signupEmail').value.trim();
         const password = document.getElementById('signupPassword').value;
         const errorEl = document.getElementById('authErrorSignup');
         errorEl.textContent = '';
-        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+
+        if (!email || !password) {
+            errorEl.textContent = 'Please fill in all fields.';
+            return;
+        }
         if (password.length > 72) {
             errorEl.textContent = 'Password cannot exceed 72 characters.';
             return;
         }
+
         try {
             const response = await fetch('/api/signup', {
                 method: 'POST',
@@ -361,12 +368,19 @@
         }
     }
 
-    async function loginWithEmail() {
+    async function loginWithEmail(event) {
+        if (event) event.preventDefault();  // ✅ prevents page reload / GET request
+
         const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
         const errorEl = document.getElementById('authError');
         errorEl.textContent = '';
-        if (!email || !password) { errorEl.textContent = 'Please fill in all fields.'; return; }
+
+        if (!email || !password) {
+            errorEl.textContent = 'Please fill in all fields.';
+            return;
+        }
+
         try {
             const response = await fetch('/api/login', {
                 method: 'POST',
@@ -403,6 +417,7 @@
     async function checkSMSAuth() {
         const token = localStorage.getItem('sms_auth_token');
         if (!token) { clearSMSAuth(); return; }
+
         try {
             const response = await fetch('/api/profile', {
                 headers: { 'Authorization': `Bearer ${token}` }
@@ -418,7 +433,6 @@
             const data = await response.json();
             if (data.user) {
                 showApp(data.user);
-                // Check subscription
                 await checkSubscription(token);
                 navigateTo('dashboard');
                 fetchUserDataFromBackend();
@@ -550,7 +564,7 @@
     }
 
     // ============================================================
-    // RENDER FUNCTIONS
+    // RENDER FUNCTIONS (original – unchanged)
     // ============================================================
     function getBookmakerUrl(bookieName) {
         const map = { 'sportybet':'https://sportybet.ug','championbet':'https://championbet.ug','ababet':'https://ababet.ug','fortebet':'https://fortebet.ug','1xbet':'https://1xbet.ug','22bet':'https://22bet.ug','melbet':'https://melbet.ug' };
