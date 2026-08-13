@@ -933,7 +933,8 @@ if os.getenv('GITHUB_ACTIONS') != 'true':
             'max_overflow': 10
         }
 
-    CORS(app, origins=["*"], supports_credentials=True)
+    # 🚨 FIXED CORS: Explicitly allowing your GitHub Pages frontend to handle credentials
+    CORS(app, origins=["https://elvis567890.github.io"], supports_credentials=True, allow_headers=["Content-Type", "Authorization"])
 
     db = SQLAlchemy(app)
 
