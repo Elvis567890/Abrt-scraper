@@ -1579,6 +1579,17 @@ def admin_activate_by_email():
     return jsonify({'message': f'{email} activated with {plan} plan'})
 
 # ------------------------------------------------------------------------------
+# CORS preflight handler for all API routes
+# ------------------------------------------------------------------------------
+@app.route('/api/<path:path>', methods=['OPTIONS'])
+def options_handler(path):
+    response = jsonify({'status': 'ok'})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    return response
+
+# ------------------------------------------------------------------------------
 # Catch-all for unmatched API routes – returns JSON instead of HTML
 # ------------------------------------------------------------------------------
 @app.route('/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -1627,6 +1638,3 @@ if __name__ == "__main__":
 
     scan_thread = threading.Thread(target=initial_scan, daemon=True)
     scan_thread.start()
-
-    # The server is started by start.py or Gunicorn, so we don't call app.run() here.
-    pass
