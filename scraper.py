@@ -1615,6 +1615,17 @@ app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "change-this-in-production")
 
+# -----------------------------------------------------------------------------
+# Database engine options to handle connection pool robustly
+# -----------------------------------------------------------------------------
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "pool_pre_ping": True,        # Check connection before using
+    "pool_recycle": 300,          # Recycle connections every 5 minutes
+    "pool_timeout": 30,           # Wait up to 30s for a connection
+    "pool_size": 5,               # Permanent connections per worker
+    "max_overflow": 10,           # Extra connections if pool is full
+}
+
 db = SQLAlchemy(app)
 
 frontend_origin = os.getenv("FRONTEND_ORIGIN", "*")
@@ -1672,6 +1683,31 @@ class Payment(db.Model):
 
 with app.app_context():
     db.create_all()
+
+    # -------------------------------------------------------------------------
+    # Auto-create admin from environment variables (ADMIN_EMAIL, ADMIN_PASSWORD)
+    # -------------------------------------------------------------------------
+    admin_email = os.getenv("ADMIN_EMAIL")
+    admin_password = os.getenv("ADMIN_PASSWORD")
+
+    if admin_email and admin_password:
+        admin_email = admin_email.strip().lower()
+        admin_user = User.query.filter_by(email=admin_email).first()
+        if not admin_user:
+            admin_user = User(
+                email=admin_email,
+                name="Admin",
+                subscription_status="free",
+                is_admin=True,
+            )
+            admin_user.set_password(admin_password)
+            db.session.add(admin_user)
+            db.session.commit()
+            logger.info("Admin user created from environment variables")
+        else:
+            admin_user.is_admin = True
+            db.session.commit()
+            logger.info("Existing user set as admin from environment variables")
 
 
 # =============================================================================
