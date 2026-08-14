@@ -1,14 +1,13 @@
 # =============================================================================
 # scraper.py – Full Flask Application + Arbitrage Scanner
 # =============================================================================
-import eventlet
-eventlet.monkey_patch()
 
 import os
 import json
 import re
 import time
 import logging
+import uuid
 from datetime import datetime, timedelta
 from functools import wraps
 from typing import Dict, List, Optional, Tuple, Any
@@ -16,6 +15,15 @@ from typing import Dict, List, Optional, Tuple, Any
 import requests
 from bs4 import BeautifulSoup
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from flask import Flask, request, jsonify, g, send_file
+from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import bcrypt
+import jwt
+
+# Load environment variables
+load_dotenv()
 
 # ------------------------------------------------------------------------------
 # Logging setup
@@ -849,7 +857,7 @@ def run_scan() -> None:
     logger.info("Scan complete. Output written to current_opportunities.json")
 
 # =============================================================================
-# FLASK APPLICATION (starts here)
+# FLASK APPLICATION
 # =============================================================================
 from flask import Flask, request, jsonify, g, send_file
 from flask_cors import CORS
@@ -925,7 +933,7 @@ class Transaction(db.Model):
     amount_received = db.Column(db.Float, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-# --- Subscription tiers (reused from constants) ---
+# --- Subscription tiers ---
 TIERS = {
     'free': {
         'label': 'Free Trial',
@@ -1570,6 +1578,20 @@ def admin_activate_by_email():
     db.session.commit()
     return jsonify({'message': f'{email} activated with {plan} plan'})
 
+# ------------------------------------------------------------------------------
+# Catch-all for unmatched API routes – returns JSON instead of HTML
+# ------------------------------------------------------------------------------
+@app.route('/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def catch_all_api(path):
+    return jsonify({
+        'error': f'API endpoint not found: /api/{path}',
+        'method': request.method,
+        'path': path
+    }), 404
+
+# ------------------------------------------------------------------------------
+# Custom error handlers to return JSON for all errors
+# ------------------------------------------------------------------------------
 @app.errorhandler(404)
 def not_found(e):
     return jsonify({'error': 'Endpoint not found'}), 404
@@ -1607,5 +1629,4 @@ if __name__ == "__main__":
     scan_thread.start()
 
     # The server is started by start.py or Gunicorn, so we don't call app.run() here.
-    # This allows the file to be imported without starting the server.
     pass
