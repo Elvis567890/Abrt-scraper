@@ -1733,6 +1733,30 @@ def admin_required(function):
     return decorated
 
 
+def subscription_required(function):
+    @wraps(function)
+    @token_required
+    def decorated(*args, **kwargs):
+        user = db.session.get(User, g.user_id)
+        if not user:
+            return jsonify({"ok": False, "error": "User not found"}), 404
+
+        now = datetime.utcnow()
+        if (
+            user.subscription_status == "free"
+            or not user.subscription_expires_at
+            or user.subscription_expires_at < now
+        ):
+            return jsonify({
+                "ok": False,
+                "error": "Active subscription required",
+                "code": "SUBSCRIPTION_REQUIRED"
+            }), 403
+
+        return function(*args, **kwargs)
+    return decorated
+
+
 # =============================================================================
 # Health and preflight
 # =============================================================================
@@ -1946,7 +1970,7 @@ def admin_activate_by_email():
 # =============================================================================
 
 @app.route("/api/arbs", methods=["GET"])
-@token_required
+@subscription_required
 def get_arbitrage_opportunities():
     try:
         with open(OPPORTUNITIES_FILE, "r", encoding="utf-8") as file:
