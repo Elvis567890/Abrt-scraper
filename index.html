@@ -1897,13 +1897,6 @@
     <script>
         "use strict";
 
-        /*
-         * If index.html is served by Flask:
-         * const API_BASE = window.location.origin;
-         *
-         * If index.html is hosted on another domain, replace it with:
-         * const API_BASE = "https://stellar-abundance-ug.up.railway.app";
-         */
         const API_BASE = window.location.origin;
 
         const appState = {
@@ -3754,8 +3747,7 @@
                 `Stake: ${formatUGX(
                     slip.totalStake
                 )}`
-            ].join("
-");
+            ].join("\n");   // FIXED
 
             await copyText(text);
         }
@@ -3779,8 +3771,7 @@
                         `${bet.bookmaker}: ` +
                         `${bet.outcome} @ ${bet.odd}`
                 )
-            ].join("
-");
+            ].join("\n");   // FIXED
 
             await copyText(text);
         }
