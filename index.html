@@ -2752,7 +2752,7 @@
 
         function bookmakerInitials(bookmaker) {
             return String(bookmaker)
-                .split(/s+/)
+                .split(/\s+/)  // FIXED: backslash added
                 .map(
                     (part) =>
                         part.charAt(0)
@@ -4455,11 +4455,6 @@
                 return;
             }
 
-            /*
-             * This sends to /api/payments if your backend has that route.
-             * If your backend does not yet have /api/payments, the request
-             * will show an error and you must add that route in Flask.
-             */
             try {
                 const response = await fetch(
                     `${API_BASE}/api/payments`,
