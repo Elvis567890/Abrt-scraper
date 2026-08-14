@@ -1,7 +1,6 @@
-from gunicorn.app.wsgi import WSGIApplication
+import os
+from scraper import app
 
-app = WSGIApplication()
-app.app_uri = "scraper:app"   # points to your Flask app in scraper.py
-app.cfg.set("bind", "0.0.0.0:8080")
-app.cfg.set("workers", 2)
-app.run()
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port, debug=False)
