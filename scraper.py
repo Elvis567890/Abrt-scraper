@@ -883,7 +883,18 @@ if 'postgresql' in app.config['SQLALCHEMY_DATABASE_URI']:
         'max_overflow': 10
     }
 
-CORS(app, origins=r'.*', supports_credentials=True, allow_headers=["*"])
+# CORS configuration – allow all origins, with credentials
+CORS(app, origins=r'.*', supports_credentials=True, allow_headers=["Content-Type", "Authorization"])
+
+# ------------------------------------------------------------------------------
+# ✅ FORCE CORS HEADERS ON EVERY RESPONSE (including preflight)
+# ------------------------------------------------------------------------------
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    return response
 
 db = SQLAlchemy(app)
 
@@ -1577,17 +1588,6 @@ def admin_activate_by_email():
     db.session.add(transaction)
     db.session.commit()
     return jsonify({'message': f'{email} activated with {plan} plan'})
-
-# ------------------------------------------------------------------------------
-# CORS preflight handler for all API routes
-# ------------------------------------------------------------------------------
-@app.route('/api/<path:path>', methods=['OPTIONS'])
-def options_handler(path):
-    response = jsonify({'status': 'ok'})
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-    return response
 
 # ------------------------------------------------------------------------------
 # Custom error handlers to return JSON for all errors
