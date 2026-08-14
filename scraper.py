@@ -1590,17 +1590,6 @@ def options_handler(path):
     return response
 
 # ------------------------------------------------------------------------------
-# Catch-all for unmatched API routes – returns JSON instead of HTML
-# ------------------------------------------------------------------------------
-@app.route('/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
-def catch_all_api(path):
-    return jsonify({
-        'error': f'API endpoint not found: /api/{path}',
-        'method': request.method,
-        'path': path
-    }), 404
-
-# ------------------------------------------------------------------------------
 # Custom error handlers to return JSON for all errors
 # ------------------------------------------------------------------------------
 @app.errorhandler(404)
@@ -1638,3 +1627,6 @@ if __name__ == "__main__":
 
     scan_thread = threading.Thread(target=initial_scan, daemon=True)
     scan_thread.start()
+
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
