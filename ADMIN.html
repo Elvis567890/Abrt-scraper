@@ -614,9 +614,11 @@
                 const user =
                     data.user || {};
 
+                // FIXED: Strict admin check.
+                // Must explicitly be true, not just not false.
                 if (
-                    user.is_admin === false ||
-                    user.isAdmin === false
+                    user.is_admin !== true &&
+                    user.isAdmin !== true
                 ) {
                     throw new Error(
                         "This account is not an administrator."
@@ -1010,4 +1012,4 @@
         verifyAdmin();
     </script>
 </body>
-</html>
+    </html>
