@@ -1,5 +1,5 @@
-from scraper import app, db, create_admin_user
+from scraper import app, db
 
 with app.app_context():
     db.create_all()
-    create_admin_user()
+    print("✅ Database tables created successfully")
