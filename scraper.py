@@ -1959,90 +1959,40 @@ def submit_payment():
 
 
 # =============================================================================
-# SEO: Sitemap and robots.txt
+# Sitemap and robots.txt - placed BEFORE fallback
 # =============================================================================
 
-# Your public Render URL.
-#
-# You can override this later in Render Environment Variables if you connect
-# a custom domain.
-PUBLIC_BASE_URL = os.getenv(
-    "PUBLIC_BASE_URL",
-    "https://abrt-scraper-1-51d7.onrender.com"
-).rstrip("/")
-
-
-@app.route("/sitemap.xml", methods=["GET"])
+@app.route("/sitemap.xml")
 def sitemap():
-    """
-    Google Search sitemap.
-
-    IMPORTANT:
-    This endpoint returns XML only.
-    It must never fall through to the frontend HTML page.
-    """
-
-    urls = [
-        PUBLIC_BASE_URL + "/",
-    ]
-
-    xml_parts = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ]
-
-    for url in urls:
-        xml_parts.append(
-            "  <url>"
-            f"<loc>{url}</loc>"
-            "</url>"
-        )
-
-    xml_parts.append("</urlset>")
-
-    xml = "\n".join(xml_parts) + "\n"
-
-    response = Response(
-        xml,
-        status=200,
-        mimetype="application/xml",
-    )
-
-    # Explicit XML content type for Google and other crawlers.
-    response.headers["Content-Type"] = "application/xml; charset=utf-8"
-
-    # Prevent an old cached HTML response from being served as the sitemap.
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-
-    return response
+    base_url = request.url_root.rstrip('/')
+    # We include the exact XML with comment and fields as provided
+    # For simplicity, we hardcode the URL, but you can make it dynamic using base_url
+    # Use base_url to build the location
+    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!--
+Created with Free Online Sitemap Generator www.countingcharacters.com/xml-sitemap-generator
+-->
+<url>
+      <loc>{base_url}/</loc>
+      <lastmod>{datetime.utcnow().strftime('%Y-%m-%d')}</lastmod>
+      <changefreq>never</changefreq>
+      <priority>1</priority>
+</url>
+</urlset>"""
+    return Response(xml, mimetype='application/xml')
 
 
-@app.route("/robots.txt", methods=["GET"])
+@app.route("/robots.txt")
 def robots():
-    """
-    Search-engine crawler instructions.
-    """
-
-    sitemap_url = PUBLIC_BASE_URL + "/sitemap.xml"
-
+    sitemap_url = request.url_root.rstrip('/') + "/sitemap.xml"
     content = (
         "User-agent: *\n"
-        "Allow: /\n"
         "Disallow: /api/\n"
         "Disallow: /admin\n"
-        "\n"
         f"Sitemap: {sitemap_url}\n"
     )
-
-    response = Response(
-        content,
-        status=200,
-        mimetype="text/plain",
-    )
-
-    response.headers["Content-Type"] = "text/plain; charset=utf-8"
-
-    return response
+    return Response(content, mimetype='text/plain')
 
 
 # =============================================================================
