@@ -1,6 +1,6 @@
 # =============================================================================
 # scraper.py
-# Full Flask Application + Arbitrage Scanner + Admin + Payments
+# Full Flask Application + Arbitrage Scanner + Admin + Payments + SMS Auto-Verify
 # =============================================================================
 
 import json
@@ -1794,6 +1794,150 @@ def subscription_required(function):
 
 
 # =============================================================================
+# SMS parsing and auto-verification helpers
+# =============================================================================
+
+def parse_mobile_money_sms(sms_text: str) -> Dict[str, Any]:
+    """
+    Extract transaction ID and amount from AirtelMoney / MTN MoMo SMS.
+    Handles common formats like:
+      "You have received UGX 6,000 from SYLIVIA OLIVIA. Your new balance is UGX 18,350. Txn ID: 153365279666"
+      "UGX 5,000 received. Balance: UGX 23,350. ID: 153442902166"
+    """
+    result = {}
+
+    if not sms_text:
+        return result
+
+    # 1. Extract amount: look for "UGX" followed by number with commas or spaces
+    amount_match = re.search(
+        r"UGX\s*([0-9]{1,3}(?:[, ]?[0-9]{3})*(?:\.[0-9]{1,2})?)",
+        sms_text,
+        re.IGNORECASE,
+    )
+    if amount_match:
+        amount_str = amount_match.group(1).replace(",", "").replace(" ", "")
+        try:
+            result["amount"] = int(amount_str)
+        except ValueError:
+            pass
+
+    # 2. Extract transaction ID using several patterns
+    transaction_id = None
+
+    # Pattern 1: "Txn ID: 123456789" or "Transaction ID: 123456789"
+    txn_match = re.search(
+        r"(?:transaction\s*id|txn\s*id|tx\s*id|reference\s*id|ref\s*id)\s*[:#]?\s*([A-Za-z0-9]+)",
+        sms_text,
+        re.IGNORECASE,
+    )
+    if txn_match:
+        transaction_id = txn_match.group(1).strip()
+
+    # Pattern 2: "ID: 123456789" alone
+    if not transaction_id:
+        id_match = re.search(
+            r"\bID\s*[:#]?\s*([0-9]+)\b",
+            sms_text,
+            re.IGNORECASE,
+        )
+        if id_match:
+            transaction_id = id_match.group(1).strip()
+
+    # Pattern 3: A long number (10-15 digits) anywhere in the message
+    if not transaction_id:
+        long_number_match = re.search(
+            r"\b(\d{10,15})\b",
+            sms_text,
+        )
+        if long_number_match:
+            candidate = long_number_match.group(1)
+            if len(candidate) >= 10:
+                transaction_id = candidate
+
+    if transaction_id:
+        result["transaction_id"] = transaction_id
+
+    return result
+
+
+def process_incoming_sms(sms_from: str, sms_text: str) -> bool:
+    """
+    Try to match incoming SMS with a pending payment and auto-activate if valid.
+    Returns True if a payment was activated, False otherwise.
+    """
+    parsed = parse_mobile_money_sms(sms_text)
+    if not parsed:
+        logger.info("Could not parse SMS from %s: %s", sms_from, sms_text)
+        return False
+
+    transaction_id = parsed.get("transaction_id")
+    amount = parsed.get("amount")
+
+    logger.info(
+        "Parsed SMS: from=%s, transaction_id=%s, amount=%s",
+        sms_from,
+        transaction_id,
+        amount,
+    )
+
+    if not transaction_id:
+        logger.warning("No transaction ID found in SMS.")
+        return False
+
+    # First, try to match by transaction ID exactly
+    payment = Payment.query.filter_by(
+        manual_transaction_id=transaction_id,
+        status="pending",
+    ).first()
+
+    # If no exact match, try case-insensitive or trimmed
+    if not payment:
+        payment = Payment.query.filter(
+            Payment.manual_transaction_id.ilike(f"%{transaction_id}%"),
+            Payment.status == "pending",
+        ).first()
+
+    if not payment:
+        logger.warning("No pending payment found for transaction ID: %s", transaction_id)
+        return False
+
+    # Verify amount if both are known and plan price matches
+    if amount and payment.amount_ugx != amount:
+        logger.warning(
+            "Amount mismatch for payment ID %s: expected %s, got %s",
+            payment.id,
+            payment.amount_ugx,
+            amount,
+        )
+        return False
+
+    # Activate the subscription
+    user = db.session.get(User, payment.user_id)
+    if not user:
+        logger.error("User not found for payment ID %s", payment.id)
+        return False
+
+    now = datetime.utcnow()
+    user.subscription_status = payment.plan
+    user.subscription_expires_at = now + PLAN_DURATIONS[payment.plan]
+    payment.status = "activated"
+
+    try:
+        db.session.commit()
+        logger.info(
+            "Auto-activated subscription for user %s (payment ID %s) from SMS",
+            user.email,
+            payment.id,
+        )
+        return True
+    except Exception as exc:
+        db.session.rollback()
+        logger.exception("Auto-activation failed: %s", exc)
+        return False
+
+
+# =============================================================================
 # Health and preflight
 # =============================================================================
 
@@ -1835,10 +1979,14 @@ def sms_webhook():
     timestamp = data.get("timestamp", "")
     logger.info("Received SMS from %s at %s: %s", sms_from, timestamp, sms_text)
 
-    # You can add automatic processing here later
-    # For example, parse mobile money messages to auto-verify payments
+    # Attempt to auto-verify payment
+    activated = process_incoming_sms(sms_from, sms_text)
 
-    return jsonify({"status": "ok", "received": True}), 200
+    return jsonify({
+        "status": "ok",
+        "received": True,
+        "auto_activated": activated,
+    }), 200
 
 
 # =============================================================================
