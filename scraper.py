@@ -1,6 +1,6 @@
 # =============================================================================
 # scraper.py
-# Full Flask Application + Arbitrage Scanner
+# Full Flask Application + Arbitrage Scanner + Payments + History + Sitemap
 # =============================================================================
 
 import json
@@ -1404,9 +1404,7 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
         base_url = config["base_url"]
         partner = config["partner"]
 
-        # ------------------------------------------------------------------
         # Over/Under 2.5
-        # ------------------------------------------------------------------
         try:
             url = (
                 f"{base_url}/service-api/"
@@ -1472,9 +1470,7 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
                 exc,
             )
 
-        # ------------------------------------------------------------------
         # Asian Handicap, Double Chance, BTTS
-        # ------------------------------------------------------------------
         try:
             url = (
                 f"{base_url}/service-api/"
@@ -2765,7 +2761,7 @@ def trigger_scan():
 
 
 # =============================================================================
-# NEW: Complete Arb endpoint
+# Complete Arb endpoint
 # =============================================================================
 
 @app.route("/api/complete", methods=["POST"])
@@ -2800,7 +2796,7 @@ def complete_arb():
 
 
 # =============================================================================
-# NEW: Payment endpoint
+# Payment endpoint
 # =============================================================================
 
 @app.route("/api/payments", methods=["POST"])
@@ -2838,9 +2834,6 @@ def submit_payment():
         db.session.add(payment)
         db.session.commit()
 
-        # Optional: Send admin notification via Telegram
-        # (you can extend this if needed)
-
         return jsonify({
             "ok": True,
             "message": "Payment submitted for review. Your account will be upgraded once the admin verifies the transaction."
@@ -2862,9 +2855,9 @@ def submit_payment():
 @app.route("/sitemap.xml")
 def sitemap():
     base_url = request.url_root.rstrip('/')
+    # Only the main arbitrage frontend
     urls = [
         base_url + "/",
-        base_url + "/admin",
     ]
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -2877,7 +2870,11 @@ def sitemap():
 @app.route("/robots.txt")
 def robots():
     sitemap_url = request.url_root.rstrip('/') + "/sitemap.xml"
-    content = f"User-agent: *\nAllow: /\nSitemap: {sitemap_url}\n"
+    content = (
+        "User-agent: *\n"
+        "Disallow: /admin\n"
+        f"Sitemap: {sitemap_url}\n"
+    )
     return Response(content, mimetype='text/plain')
 
 
@@ -2957,4 +2954,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=port,
         debug=False,
-)
+        )
