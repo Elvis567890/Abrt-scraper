@@ -2,13 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abrimax Admin</title>
-
     <style>
         :root {
             --bg: #0d0f13;
@@ -32,10 +27,7 @@
             padding: 20px;
             background: var(--bg);
             color: var(--text);
-            font-family:
-                "Segoe UI",
-                system-ui,
-                sans-serif;
+            font-family: "Segoe UI", system-ui, sans-serif;
         }
 
         button,
@@ -241,137 +233,46 @@
 
 <body>
     <main class="container">
-
-        <section
-            id="loginView"
-            class="login-wrap"
-        >
+        <section id="loginView" class="login-wrap">
             <div class="login-card">
                 <h1>🔐 Abrimax Admin</h1>
-
-                <p>
-                    Sign in using the administrator account.
-                </p>
-
+                <p>Sign in using the administrator account.</p>
                 <form id="loginForm">
-                    <input
-                        id="email"
-                        class="input"
-                        type="email"
-                        placeholder="Admin email"
-                        autocomplete="email"
-                        required
-                    >
-
-                    <input
-                        id="password"
-                        class="input"
-                        type="password"
-                        placeholder="Password"
-                        autocomplete="current-password"
-                        required
-                    >
-
-                    <button
-                        id="loginButton"
-                        class="btn"
-                        type="submit"
-                        style="width:100%;"
-                    >
-                        Log In
-                    </button>
+                    <input id="email" class="input" type="email" placeholder="Admin email" autocomplete="email" required>
+                    <input id="password" class="input" type="password" placeholder="Password" autocomplete="current-password" required>
+                    <button id="loginButton" class="btn" type="submit" style="width:100%;">Log In</button>
                 </form>
-
-                <div
-                    id="loginMessage"
-                    class="message"
-                ></div>
+                <div id="loginMessage" class="message"></div>
             </div>
         </section>
 
-        <section
-            id="adminView"
-            class="hidden"
-        >
+        <section id="adminView" class="hidden">
             <header class="topbar">
                 <h1>🔐 Admin Panel</h1>
-
                 <div class="topbar-actions">
-                    <span
-                        id="adminEmail"
-                        class="badge"
-                    ></span>
-
-                    <button
-                        id="refreshButton"
-                        class="btn btn-blue"
-                        type="button"
-                    >
-                        Refresh
-                    </button>
-
-                    <button
-                        id="logoutButton"
-                        class="btn btn-red"
-                        type="button"
-                    >
-                        Logout
-                    </button>
+                    <span id="adminEmail" class="badge"></span>
+                    <button id="refreshButton" class="btn btn-blue" type="button">Refresh</button>
+                    <button id="logoutButton" class="btn btn-red" type="button">Logout</button>
                 </div>
             </header>
 
             <section class="card">
                 <h2>📧 Activate User by Email</h2>
-
-                <form
-                    id="activateEmailForm"
-                    class="form-row"
-                >
-                    <input
-                        id="activateEmail"
-                        class="input"
-                        type="email"
-                        placeholder="User email"
-                        required
-                    >
-
+                <form id="activateEmailForm" class="form-row">
+                    <input id="activateEmail" class="input" type="email" placeholder="User email" required>
                     <select id="activatePlan">
-                        <option value="day">
-                            Day Pass — 2,500 UGX
-                        </option>
-
-                        <option value="monthly">
-                            Monthly VIP — 15,000 UGX
-                        </option>
-
-                        <option value="quarterly">
-                            Quarterly Pro — 40,000 UGX
-                        </option>
+                        <option value="day">Day Pass — 2,500 UGX</option>
+                        <option value="monthly">Monthly VIP — 15,000 UGX</option>
+                        <option value="quarterly">Quarterly Pro — 40,000 UGX</option>
                     </select>
-
-                    <button
-                        id="activateEmailButton"
-                        class="btn"
-                        type="submit"
-                    >
-                        Activate
-                    </button>
+                    <button id="activateEmailButton" class="btn" type="submit">Activate</button>
                 </form>
-
-                <div
-                    id="emailMessage"
-                    class="message"
-                ></div>
+                <div id="emailMessage" class="message"></div>
             </section>
 
             <section class="card">
                 <h2>⏳ Pending Transactions</h2>
-
-                <div
-                    id="pendingMessage"
-                    class="message"
-                ></div>
-
+                <div id="pendingMessage" class="message"></div>
                 <table>
                     <thead>
                         <tr>
@@ -384,15 +285,9 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-
                     <tbody id="pendingBody">
                         <tr>
-                            <td
-                                colspan="7"
-                                class="empty"
-                            >
-                                Loading...
-                            </td>
+                            <td colspan="7" class="empty">Loading...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -403,82 +298,44 @@
     <script>
         "use strict";
 
-        const API_BASE =
-            window.location.origin;
-
-        const TOKEN_KEY =
-            "auth_token";
-
-        const EMAIL_KEY =
-            "user_email";
+        const API_BASE = window.location.origin;
+        const TOKEN_KEY = "auth_token";
+        const EMAIL_KEY = "user_email";
 
         function byId(id) {
             return document.getElementById(id);
         }
 
         function getToken() {
-            return localStorage.getItem(
-                TOKEN_KEY
-            );
+            return localStorage.getItem(TOKEN_KEY);
         }
 
         function requestHeaders(json = false) {
             return {
-                ...(json
-                    ? {
-                        "Content-Type":
-                            "application/json"
-                    }
-                    : {}),
+                ...(json ? { "Content-Type": "application/json" } : {}),
                 "Accept": "application/json",
-                ...(getToken()
-                    ? {
-                        "Authorization":
-                            `Bearer ${getToken()}`
-                    }
-                    : {}),
+                ...(getToken() ? { "Authorization": `Bearer ${getToken()}` } : {})
             };
         }
 
         async function parseResponse(response) {
-            const text =
-                await response.text();
-
+            const text = await response.text();
             let data = {};
-
             try {
-                data = text
-                    ? JSON.parse(text)
-                    : {};
+                data = text ? JSON.parse(text) : {};
             } catch {
-                data = {
-                    error:
-                        text ||
-                        "Invalid server response"
-                };
+                data = { error: text || "Invalid server response" };
             }
-
             if (!response.ok) {
-                throw new Error(
-                    data.error ||
-                    data.message ||
-                    `HTTP ${response.status}`
-                );
+                throw new Error(data.error || data.message || `HTTP ${response.status}`);
             }
-
             return data;
         }
 
-        function setMessage(
-            id,
-            text,
-            type = ""
-        ) {
+        function setMessage(id, text, type = "") {
             const element = byId(id);
-
             element.textContent = text;
-            element.className =
-                `message ${type}`;
+            element.className = `message ${type}`;
         }
 
         function escapeHtml(value) {
@@ -491,525 +348,159 @@
         }
 
         function formatDate(value) {
-            if (!value) {
-                return "Unknown";
-            }
-
-            const parsed =
-                new Date(value);
-
-            if (Number.isNaN(
-                parsed.getTime()
-            )) {
-                return escapeHtml(value);
-            }
-
-            return escapeHtml(
-                parsed.toLocaleString()
-            );
+            if (!value) return "Unknown";
+            const parsed = new Date(value);
+            if (Number.isNaN(parsed.getTime())) return escapeHtml(value);
+            return escapeHtml(parsed.toLocaleString());
         }
 
         function formatAmount(value) {
-            return Math.round(
-                Number(value) || 0
-            ).toLocaleString();
+            return Math.round(Number(value) || 0).toLocaleString();
         }
 
         async function login(event) {
             event.preventDefault();
-
-            const button =
-                byId("loginButton");
-
+            const button = byId("loginButton");
             button.disabled = true;
-            button.textContent =
-                "Logging in...";
+            button.textContent = "Logging in...";
+            setMessage("loginMessage", "");
 
-            setMessage(
-                "loginMessage",
-                ""
-            );
-
-            const email =
-                byId("email")
-                    .value
-                    .trim()
-                    .toLowerCase();
-
-            const password =
-                byId("password")
-                    .value;
+            const email = byId("email").value.trim().toLowerCase();
+            const password = byId("password").value;
 
             try {
-                const response =
-                    await fetch(
-                        `${API_BASE}/api/login`,
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type":
-                                    "application/json",
-                                "Accept":
-                                    "application/json",
-                            },
-                            body: JSON.stringify({
-                                email,
-                                password,
-                            }),
-                        }
-                    );
-
-                const data =
-                    await parseResponse(
-                        response
-                    );
-
-                if (!data.token) {
-                    throw new Error(
-                        "The server did not return a token."
-                    );
-                }
-
-                localStorage.setItem(
-                    TOKEN_KEY,
-                    data.token
-                );
-
-                localStorage.setItem(
-                    EMAIL_KEY,
-                    email
-                );
-
+                const response = await fetch(`${API_BASE}/api/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await parseResponse(response);
+                if (!data.token) throw new Error("The server did not return a token.");
+                localStorage.setItem(TOKEN_KEY, data.token);
+                localStorage.setItem(EMAIL_KEY, email);
                 await verifyAdmin();
-
             } catch (error) {
-                setMessage(
-                    "loginMessage",
-                    error.message,
-                    "error"
-                );
+                setMessage("loginMessage", error.message, "error");
             } finally {
                 button.disabled = false;
-                button.textContent =
-                    "Log In";
+                button.textContent = "Log In";
             }
         }
 
         async function verifyAdmin() {
             try {
-                const response =
-                    await fetch(
-                        `${API_BASE}/api/me`,
-                        {
-                            headers:
-                                requestHeaders()
-                        }
-                    );
-
-                const data =
-                    await parseResponse(
-                        response
-                    );
-
-                const user =
-                    data.user || {};
-
-                // FIXED: Strict admin check.
-                // Must explicitly be true, not just not false.
-                if (
-                    user.is_admin !== true &&
-                    user.isAdmin !== true
-                ) {
-                    throw new Error(
-                        "This account is not an administrator."
-                    );
+                const response = await fetch(`${API_BASE}/api/me`, { headers: requestHeaders() });
+                const data = await parseResponse(response);
+                const user = data.user || {};
+                if (user.is_admin !== true && user.isAdmin !== true) {
+                    throw new Error("This account is not an administrator.");
                 }
-
-                byId("loginView")
-                    .classList.add(
-                        "hidden"
-                    );
-
-                byId("adminView")
-                    .classList.remove(
-                        "hidden"
-                    );
-
-                byId("adminEmail")
-                    .textContent =
-                    user.email ||
-                    localStorage.getItem(
-                        EMAIL_KEY
-                    ) ||
-                    "";
-
+                byId("loginView").classList.add("hidden");
+                byId("adminView").classList.remove("hidden");
+                byId("adminEmail").textContent = user.email || localStorage.getItem(EMAIL_KEY) || "";
                 await loadPending();
-
             } catch (error) {
-                localStorage.removeItem(
-                    TOKEN_KEY
-                );
-
-                localStorage.removeItem(
-                    EMAIL_KEY
-                );
-
-                byId("loginView")
-                    .classList.remove(
-                        "hidden"
-                    );
-
-                byId("adminView")
-                    .classList.add(
-                        "hidden"
-                    );
-
-                setMessage(
-                    "loginMessage",
-                    error.message,
-                    "error"
-                );
+                localStorage.removeItem(TOKEN_KEY);
+                localStorage.removeItem(EMAIL_KEY);
+                byId("loginView").classList.remove("hidden");
+                byId("adminView").classList.add("hidden");
+                setMessage("loginMessage", error.message, "error");
             }
         }
 
         async function loadPending() {
-            const body =
-                byId("pendingBody");
-
-            body.innerHTML = `
-                <tr>
-                    <td
-                        colspan="7"
-                        class="empty"
-                    >
-                        Loading...
-                    </td>
-                </tr>
-            `;
-
+            const body = byId("pendingBody");
+            body.innerHTML = `<tr><td colspan="7" class="empty">Loading...</td></tr>`;
             try {
-                const response =
-                    await fetch(
-                        `${API_BASE}/api/admin/pending-transactions`,
-                        {
-                            headers:
-                                requestHeaders()
-                        }
-                    );
-
-                const data =
-                    await parseResponse(
-                        response
-                    );
-
-                const transactions =
-                    Array.isArray(
-                        data.transactions
-                    )
-                        ? data.transactions
-                        : [];
-
-                if (
-                    transactions.length ===
-                    0
-                ) {
-                    body.innerHTML = `
-                        <tr>
-                            <td
-                                colspan="7"
-                                class="empty"
-                            >
-                                No pending transactions.
-                            </td>
-                        </tr>
-                    `;
-
+                const response = await fetch(`${API_BASE}/api/admin/pending-transactions`, { headers: requestHeaders() });
+                const data = await parseResponse(response);
+                const transactions = Array.isArray(data.transactions) ? data.transactions : [];
+                if (transactions.length === 0) {
+                    body.innerHTML = `<tr><td colspan="7" class="empty">No pending transactions.</td></tr>`;
                     return;
                 }
+                body.innerHTML = transactions.map(row => {
+                    const id = row.id || "";
+                    return `
+                        <tr>
+                            <td>${escapeHtml(String(id).slice(0,8))}</td>
+                            <td>${escapeHtml(row.email || "")}</td>
+                            <td>${escapeHtml(row.plan || "")}</td>
+                            <td>UGX ${formatAmount(row.amount)}</td>
+                            <td>${escapeHtml(row.manual_transaction_id || "N/A")}</td>
+                            <td>${formatDate(row.created_at)}</td>
+                            <td><button class="btn" type="button" data-transaction-id="${escapeHtml(id)}">Activate</button></td>
+                        </tr>`;
+                }).join("");
 
-                body.innerHTML =
-                    transactions.map(
-                        (row) => {
-                            const id =
-                                row.id || "";
-
-                            return `
-                                <tr>
-                                    <td>
-                                        ${escapeHtml(
-                                            String(
-                                                id
-                                            ).slice(
-                                                0,
-                                                8
-                                            )
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHtml(
-                                            row.email ||
-                                            ""
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHtml(
-                                            row.plan ||
-                                            ""
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        UGX
-                                        ${formatAmount(
-                                            row.amount
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHtml(
-                                            row.manual_transaction_id ||
-                                            "N/A"
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${formatDate(
-                                            row.created_at
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        <button
-                                            class="btn"
-                                            type="button"
-                                            data-transaction-id="${escapeHtml(
-                                                id
-                                            )}"
-                                        >
-                                            Activate
-                                        </button>
-                                    </td>
-                                </tr>
-                            `;
-                        }
-                    ).join("");
-
-                body.querySelectorAll(
-                    "[data-transaction-id]"
-                ).forEach(
-                    (button) => {
-                        button.addEventListener(
-                            "click",
-                            () =>
-                                activateTransaction(
-                                    button.dataset
-                                        .transactionId,
-                                    button
-                                )
-                        );
-                    }
-                );
-
+                body.querySelectorAll("[data-transaction-id]").forEach(button => {
+                    button.addEventListener("click", () => activateTransaction(button.dataset.transactionId, button));
+                });
             } catch (error) {
-                body.innerHTML = `
-                    <tr>
-                        <td
-                            colspan="7"
-                            class="empty error"
-                        >
-                            ${escapeHtml(
-                                error.message
-                            )}
-                        </td>
-                    </tr>
-                `;
+                body.innerHTML = `<tr><td colspan="7" class="empty error">${escapeHtml(error.message)}</td></tr>`;
             }
         }
 
-        async function activateTransaction(
-            transactionId,
-            button
-        ) {
-            if (
-                !window.confirm(
-                    "Activate this subscription?"
-                )
-            ) {
-                return;
-            }
-
+        async function activateTransaction(transactionId, button) {
+            if (!window.confirm("Activate this subscription?")) return;
             button.disabled = true;
-            button.textContent =
-                "Activating...";
-
+            button.textContent = "Activating...";
             try {
-                const response =
-                    await fetch(
-                        `${API_BASE}/api/admin/activate`,
-                        {
-                            method: "POST",
-                            headers:
-                                requestHeaders(
-                                    true
-                                ),
-                            body: JSON.stringify({
-                                transaction_id:
-                                    transactionId
-                            }),
-                        }
-                    );
-
-                const data =
-                    await parseResponse(
-                        response
-                    );
-
-                setMessage(
-                    "pendingMessage",
-                    data.message ||
-                        "Subscription activated.",
-                    "success"
-                );
-
+                const response = await fetch(`${API_BASE}/api/admin/activate`, {
+                    method: "POST",
+                    headers: requestHeaders(true),
+                    body: JSON.stringify({ transaction_id: transactionId })
+                });
+                const data = await parseResponse(response);
+                setMessage("pendingMessage", data.message || "Subscription activated.", "success");
                 await loadPending();
-
             } catch (error) {
-                setMessage(
-                    "pendingMessage",
-                    error.message,
-                    "error"
-                );
-
+                setMessage("pendingMessage", error.message, "error");
                 button.disabled = false;
-                button.textContent =
-                    "Activate";
+                button.textContent = "Activate";
             }
         }
 
-        async function activateByEmail(
-            event
-        ) {
+        async function activateByEmail(event) {
             event.preventDefault();
-
-            const button =
-                byId(
-                    "activateEmailButton"
-                );
-
-            const email =
-                byId("activateEmail")
-                    .value
-                    .trim()
-                    .toLowerCase();
-
-            const plan =
-                byId("activatePlan")
-                    .value;
-
+            const button = byId("activateEmailButton");
+            const email = byId("activateEmail").value.trim().toLowerCase();
+            const plan = byId("activatePlan").value;
             button.disabled = true;
-            button.textContent =
-                "Activating...";
-
+            button.textContent = "Activating...";
             try {
-                const response =
-                    await fetch(
-                        `${API_BASE}/api/admin/activate-by-email`,
-                        {
-                            method: "POST",
-                            headers:
-                                requestHeaders(
-                                    true
-                                ),
-                            body: JSON.stringify({
-                                email,
-                                plan,
-                            }),
-                        }
-                    );
-
-                const data =
-                    await parseResponse(
-                        response
-                    );
-
-                setMessage(
-                    "emailMessage",
-                    data.message ||
-                        "User activated successfully.",
-                    "success"
-                );
-
-                byId("activateEmail")
-                    .value = "";
-
+                const response = await fetch(`${API_BASE}/api/admin/activate-by-email`, {
+                    method: "POST",
+                    headers: requestHeaders(true),
+                    body: JSON.stringify({ email, plan })
+                });
+                const data = await parseResponse(response);
+                setMessage("emailMessage", data.message || "User activated successfully.", "success");
+                byId("activateEmail").value = "";
                 await loadPending();
-
             } catch (error) {
-                setMessage(
-                    "emailMessage",
-                    error.message,
-                    "error"
-                );
+                setMessage("emailMessage", error.message, "error");
             } finally {
                 button.disabled = false;
-                button.textContent =
-                    "Activate";
+                button.textContent = "Activate";
             }
         }
 
         function logout() {
-            localStorage.removeItem(
-                TOKEN_KEY
-            );
-
-            localStorage.removeItem(
-                EMAIL_KEY
-            );
-
-            byId("loginForm")
-                .reset();
-
-            byId("activateEmailForm")
-                .reset();
-
-            byId("loginView")
-                .classList.remove(
-                    "hidden"
-                );
-
-            byId("adminView")
-                .classList.add(
-                    "hidden"
-                );
+            localStorage.removeItem(TOKEN_KEY);
+            localStorage.removeItem(EMAIL_KEY);
+            byId("loginForm").reset();
+            byId("activateEmailForm").reset();
+            byId("loginView").classList.remove("hidden");
+            byId("adminView").classList.add("hidden");
         }
 
-        byId("loginForm")
-            .addEventListener(
-                "submit",
-                login
-            );
-
-        byId("activateEmailForm")
-            .addEventListener(
-                "submit",
-                activateByEmail
-            );
-
-        byId("refreshButton")
-            .addEventListener(
-                "click",
-                loadPending
-            );
-
-        byId("logoutButton")
-            .addEventListener(
-                "click",
-                logout
-            );
+        byId("loginForm").addEventListener("submit", login);
+        byId("activateEmailForm").addEventListener("submit", activateByEmail);
+        byId("refreshButton").addEventListener("click", loadPending);
+        byId("logoutButton").addEventListener("click", logout);
 
         verifyAdmin();
     </script>
 </body>
-    </html>
+</html>
