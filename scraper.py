@@ -1965,20 +1965,14 @@ def submit_payment():
 @app.route("/sitemap.xml")
 def sitemap():
     base_url = request.url_root.rstrip('/')
-    # We include the exact XML with comment and fields as provided
-    # For simplicity, we hardcode the URL, but you can make it dynamic using base_url
-    # Use base_url to build the location
     xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<!--
-Created with Free Online Sitemap Generator www.countingcharacters.com/xml-sitemap-generator
--->
-<url>
-      <loc>{base_url}/</loc>
-      <lastmod>{datetime.utcnow().strftime('%Y-%m-%d')}</lastmod>
-      <changefreq>never</changefreq>
-      <priority>1</priority>
-</url>
+  <url>
+    <loc>{base_url}/</loc>
+    <lastmod>{datetime.utcnow().strftime('%Y-%m-%d')}</lastmod>
+    <changefreq>never</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>"""
     return Response(xml, mimetype='application/xml')
 
