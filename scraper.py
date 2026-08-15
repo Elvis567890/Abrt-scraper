@@ -1,6 +1,7 @@
 # =============================================================================
 # scraper.py
 # Full Flask Application + Arbitrage Scanner + Admin + Payments + SMS Auto-Verify
+# With parallel scraping and optimized timeouts
 # =============================================================================
 
 import json
@@ -8,6 +9,7 @@ import logging
 import os
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 from functools import wraps
 from typing import Any, Dict, List, Optional, Tuple
@@ -90,12 +92,26 @@ PLAN_DURATIONS = {
     "quarterly": timedelta(days=90),
 }
 
+# Optional environment variable to select which bookmakers to scrape
+ENABLED_BOOKMAKERS = os.getenv("ENABLED_BOOKMAKERS", "").lower()
+if ENABLED_BOOKMAKERS:
+    ENABLED_BOOKMAKERS = set(
+        name.strip().lower() for name in ENABLED_BOOKMAKERS.split(",")
+    )
+
+
+def is_bookmaker_enabled(name: str) -> bool:
+    if not ENABLED_BOOKMAKERS:
+        return True
+    return name.lower() in ENABLED_BOOKMAKERS
+
+
 # =============================================================================
-# HTTP client
+# HTTP client (optimized timeouts and retries)
 # =============================================================================
 
 class HTTPClient:
-    def __init__(self, timeout: int = 30, retries: int = 3):
+    def __init__(self, timeout: int = 15, retries: int = 2):
         self.timeout = timeout
         self.retries = retries
         self.session = requests.Session()
@@ -115,8 +131,8 @@ class HTTPClient:
         )
 
     @retry(
-        stop=stop_after_attempt(3),
-        wait=wait_exponential(multiplier=1, min=2, max=10),
+        stop=stop_after_attempt(2),
+        wait=wait_exponential(multiplier=1, min=1, max=5),
         retry=retry_if_exception_type(
             (requests.RequestException, ConnectionError, TimeoutError)
         ),
@@ -140,8 +156,8 @@ class HTTPClient:
         return response.json()
 
     @retry(
-        stop=stop_after_attempt(3),
-        wait=wait_exponential(multiplier=1, min=2, max=10),
+        stop=stop_after_attempt(2),
+        wait=wait_exponential(multiplier=1, min=1, max=5),
         retry=retry_if_exception_type(
             (requests.RequestException, ConnectionError)
         ),
@@ -163,7 +179,7 @@ class HTTPClient:
         return response.text
 
 
-http = HTTPClient()
+http = HTTPClient(timeout=15, retries=2)
 
 # =============================================================================
 # General helpers
@@ -387,6 +403,9 @@ def update_arbitrage_history(
 # =============================================================================
 
 def scrape_sportybet() -> List[Dict[str, Any]]:
+    if not is_bookmaker_enabled("SportyBet"):
+        logger.info("SportyBet disabled by ENABLED_BOOKMAKERS")
+        return []
     logger.info("Fetching SportyBet...")
     odds = []
 
@@ -451,6 +470,9 @@ def scrape_sportybet() -> List[Dict[str, Any]]:
 # =============================================================================
 
 def scrape_championbet() -> List[Dict[str, Any]]:
+    if not is_bookmaker_enabled("ChampionBet"):
+        logger.info("ChampionBet disabled by ENABLED_BOOKMAKERS")
+        return []
     logger.info("Fetching ChampionBet...")
     odds = []
 
@@ -591,7 +613,7 @@ def scrape_championbet() -> List[Dict[str, Any]]:
                         )
                     )
 
-                time.sleep(0.1)
+                time.sleep(0.02)   # Reduced from 0.1s
 
             except Exception:
                 logger.exception("ChampionBet match failed")
@@ -691,6 +713,9 @@ def extract_championbet_extra(
 # =============================================================================
 
 def scrape_ababet() -> List[Dict[str, Any]]:
+    if not is_bookmaker_enabled("AbaBet"):
+        logger.info("AbaBet disabled by ENABLED_BOOKMAKERS")
+        return []
     logger.info("Fetching AbaBet...")
     odds = []
 
@@ -773,6 +798,9 @@ def scrape_ababet() -> List[Dict[str, Any]]:
 # =============================================================================
 
 def scrape_fortebet() -> List[Dict[str, Any]]:
+    if not is_bookmaker_enabled("Fortebet"):
+        logger.info("Fortebet disabled by ENABLED_BOOKMAKERS")
+        return []
     logger.info("Fetching Fortebet...")
     odds = []
 
@@ -990,16 +1018,25 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
 # =============================================================================
 
 def scrape_1xbet() -> List[Dict[str, Any]]:
+    if not is_bookmaker_enabled("1xBet"):
+        logger.info("1xBet disabled by ENABLED_BOOKMAKERS")
+        return []
     config = SHARED_BOOKMAKERS["1xBet"]
     return scrape_shared_1x_like("1xBet", config["base_url"], config["partner"])
 
 
 def scrape_22bet() -> List[Dict[str, Any]]:
+    if not is_bookmaker_enabled("22Bet"):
+        logger.info("22Bet disabled by ENABLED_BOOKMAKERS")
+        return []
     config = SHARED_BOOKMAKERS["22Bet"]
     return scrape_shared_1x_like("22Bet", config["base_url"], config["partner"])
 
 
 def scrape_melbet() -> List[Dict[str, Any]]:
+    if not is_bookmaker_enabled("Melbet"):
+        logger.info("Melbet disabled by ENABLED_BOOKMAKERS")
+        return []
     config = SHARED_BOOKMAKERS["Melbet"]
     return scrape_shared_1x_like("Melbet", config["base_url"], config["partner"])
 
@@ -1073,6 +1110,8 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
     all_odds = []
 
     for bookmaker, config in SHARED_BOOKMAKERS.items():
+        if not is_bookmaker_enabled(bookmaker):
+            continue
         base_url = config["base_url"]
         partner = config["partner"]
 
@@ -1554,30 +1593,39 @@ def send_telegram_alert(opportunity: Dict[str, Any]) -> None:
 
 
 # =============================================================================
-# Scanner
+# Scanner with parallel execution
 # =============================================================================
 
 def run_scan() -> List[Dict[str, Any]]:
-    logger.info("Starting arbitrage scan...")
+    logger.info("Starting arbitrage scan (parallel)...")
+    start_time = time.time()
 
     all_odds = []
 
+    # Define scrapers and run them concurrently
     scrapers = [
-        scrape_sportybet,
-        scrape_championbet,
-        scrape_ababet,
-        scrape_fortebet,
-        scrape_1xbet,
-        scrape_22bet,
-        scrape_melbet,
-        scrape_shared_extra_markets,
+        ("sportybet", scrape_sportybet),
+        ("championbet", scrape_championbet),
+        ("ababet", scrape_ababet),
+        ("fortebet", scrape_fortebet),
+        ("1xbet", scrape_1xbet),
+        ("22bet", scrape_22bet),
+        ("melbet", scrape_melbet),
+        ("shared_extra", scrape_shared_extra_markets),
     ]
 
-    for scraper in scrapers:
-        try:
-            all_odds.extend(scraper())
-        except Exception as exc:
-            logger.exception("Scraper failed: %s", exc)
+    # Use ThreadPoolExecutor to run all scrapers at the same time
+    with ThreadPoolExecutor(max_workers=len(scrapers)) as executor:
+        future_to_name = {executor.submit(fn): name for name, fn in scrapers}
+        for future in as_completed(future_to_name):
+            name = future_to_name[future]
+            try:
+                odds = future.result()
+                if odds:
+                    all_odds.extend(odds)
+                    logger.info("%s returned %d odds", name, len(odds))
+            except Exception as exc:
+                logger.error("%s failed: %s", name, exc)
 
     opportunities = find_arbitrage(all_odds)
     logger.info("Found %s arbitrage opportunities", len(opportunities))
@@ -1597,7 +1645,8 @@ def run_scan() -> List[Dict[str, Any]]:
     with open(OPPORTUNITIES_FILE, "w", encoding="utf-8") as file:
         json.dump(opportunities, file, indent=2)
 
-    logger.info("Scan complete. Output written to %s", OPPORTUNITIES_FILE)
+    elapsed = time.time() - start_time
+    logger.info("Scan complete in %.1f seconds. Output written to %s", elapsed, OPPORTUNITIES_FILE)
     return opportunities
 
 
