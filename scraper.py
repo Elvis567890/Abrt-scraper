@@ -28,7 +28,7 @@ from tenacity import (
 )
 
 # =============================================================================
-# Added: APScheduler for automatic scans
+# APScheduler for automatic scans
 # =============================================================================
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
@@ -1719,8 +1719,7 @@ def generate_token(user_id: int) -> str:
         "user_id": user_id,
         "exp": datetime.utcnow() + timedelta(days=7),
     }
-    token = jwt.encode(payload, app.config["SECRET_KEY"], algorithm="HS256")
-    return token
+    return jwt.encode(payload, app.config["SECRET_KEY"], algorithm="HS256")
 
 
 def token_required(function):
@@ -1960,7 +1959,7 @@ def submit_payment():
 
 
 # =============================================================================
-# Sitemap and robots.txt - placed before fallback
+# Sitemap and robots.txt - placed BEFORE fallback
 # =============================================================================
 
 @app.route("/sitemap.xml")
@@ -2001,6 +2000,7 @@ def serve_frontend():
     return send_file(INDEX_FILE)
 
 
+# Fallback route must come LAST
 @app.route("/<path:path>", methods=["GET"])
 def frontend_fallback(path: str):
     if path.startswith("api/"):
