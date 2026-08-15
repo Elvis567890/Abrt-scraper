@@ -1812,6 +1812,36 @@ def api_options(path: str):
 
 
 # =============================================================================
+# SMS Webhook (for receiving forwarded SMS from mobile app)
+# =============================================================================
+
+@app.route("/sms-webhook", methods=["POST"])
+def sms_webhook():
+    # Optional: verify a secret header to prevent abuse
+    expected_secret = os.getenv("SMS_WEBHOOK_SECRET")
+    if expected_secret:
+        provided_secret = request.headers.get("X-Secret", "")
+        if provided_secret != expected_secret:
+            logger.warning("SMS webhook: invalid secret")
+            return jsonify({"error": "Unauthorized"}), 401
+
+    data = request.get_json(silent=True)
+    if not data:
+        return jsonify({"error": "No JSON payload"}), 400
+
+    # Log the incoming SMS for now
+    sms_from = data.get("from", "Unknown")
+    sms_text = data.get("message", data.get("text", ""))
+    timestamp = data.get("timestamp", "")
+    logger.info("Received SMS from %s at %s: %s", sms_from, timestamp, sms_text)
+
+    # You can add automatic processing here later
+    # For example, parse mobile money messages to auto-verify payments
+
+    return jsonify({"status": "ok", "received": True}), 200
+
+
+# =============================================================================
 # Authentication routes
 # =============================================================================
 
