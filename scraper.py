@@ -1518,6 +1518,23 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                         if opportunity:
                             opportunities.append(opportunity)
 
+    # ---------------------------------------------------------------
+    # DEDUPLICATE: keep only the highest-profit opportunity per match
+    # ---------------------------------------------------------------
+    best_by_match = {}
+
+    for opp in opportunities:
+        match_key = opp.get("match", "")
+        profit = opp.get("profit_percent", 0)
+
+        if match_key not in best_by_match:
+            best_by_match[match_key] = opp
+        else:
+            if profit > best_by_match[match_key].get("profit_percent", 0):
+                best_by_match[match_key] = opp
+
+    opportunities = list(best_by_match.values())
+
     return opportunities
 
 
@@ -1742,6 +1759,30 @@ def token_required(function):
     return decorated
 
 
+def subscription_required(function):
+    @wraps(function)
+    @token_required
+    def decorated(*args, **kwargs):
+        user = db.session.get(User, g.user_id)
+        if not user:
+            return jsonify({"ok": False, "error": "User not found"}), 404
+
+        now = datetime.utcnow()
+        if (
+            user.subscription_status == "free"
+            or not user.subscription_expires_at
+            or user.subscription_expires_at < now
+        ):
+            return jsonify({
+                "ok": False,
+                "error": "Active subscription required",
+                "code": "SUBSCRIPTION_REQUIRED"
+            }), 403
+
+        return function(*args, **kwargs)
+    return decorated
+
+
 # =============================================================================
 # Health and preflight
 # =============================================================================
@@ -1836,7 +1877,7 @@ def get_current_user():
 # =============================================================================
 
 @app.route("/api/arbs", methods=["GET"])
-@token_required
+@subscription_required
 def get_arbitrage_opportunities():
     try:
         with open(OPPORTUNITIES_FILE, "r", encoding="utf-8") as file:
