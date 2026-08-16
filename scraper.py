@@ -292,56 +292,58 @@ def utc_timestamp() -> str:
     )
 
 
+# ============================================================
+# FIXED: Team name normalisation and matching
+# ============================================================
+
 def normalize_team(name: str) -> str:
+    """
+    Normalise a team name for matching.
+    We keep distinguishing words like 'city', 'sports', 'club',
+    'football', 'soccer' – they help separate teams.
+    Only remove common non‑distinctive suffixes/prefixes.
+    """
     if not name:
         return ""
 
     value = str(name).lower().strip()
 
+    # Keep abbreviations but expand them to a consistent form
     replacements = {
         r"\brovers\b": "rvs",
         r"\brvs\b": "rvs",
         r"\bunited\b": "utd",
         r"\butd\b": "utd",
-        r"\bmanchester\b": "man",
         r"\bmunich\b": "mun",
+        # Remove only these non‑distinctive tokens
+        r"\bfc\b": "",
+        r"\bsc\b": "",
+        r"\bcf\b": "",
+        r"\bac\b": "",
+        r"\breserves\b": "",
+        r"\breserve\b": "",
+        r"\bu21\b": "",
+        r"\bu23\b": "",
+        r"\bwomen\b": "",
+        r"\bmen\b": "",
     }
 
     for pattern, replacement in replacements.items():
-        value = re.sub(
-            pattern,
-            replacement,
-            value,
-        )
+        value = re.sub(pattern, replacement, value)
 
-    value = re.sub(
-        r"\b(fc|sc|cf|ac|city|sports|club|"
-        r"football|soccer|women|men|u21|u23|"
-        r"reserves|reserve)\b",
-        "",
-        value,
-    )
+    # Remove punctuation and extra spaces
+    value = re.sub(r"[^a-z0-9 ]", "", value)
+    value = re.sub(r"\s+", " ", value).strip()
 
-    value = re.sub(
-        r"[^a-z0-9 ]",
-        "",
-        value,
-    )
-
-    value = re.sub(
-        r"\s+",
-        " ",
-        value,
-    )
-
-    return value.strip()
+    return value
 
 
-def teams_match(
-    name1: str,
-    name2: str,
-) -> bool:
-
+def teams_match(name1: str, name2: str) -> bool:
+    """
+    Decide if two team names refer to the same team.
+    Uses stricter rules: for short names (<=2 words) all words must match;
+    for longer names, at least 2 common words are required.
+    """
     one = normalize_team(name1)
     two = normalize_team(name2)
 
@@ -353,32 +355,19 @@ def teams_match(
 
     one_words = set(one.split())
     two_words = set(two.split())
-
     overlap = one_words & two_words
 
-    if overlap:
-        minimum_words = min(
-            len(one_words),
-            len(two_words),
-        )
+    if not overlap:
+        return False
 
-        if (
-            len(overlap) >= 1
-            and minimum_words <= 2
-        ):
-            return True
+    min_words = min(len(one_words), len(two_words))
 
-        if (
-            len(overlap) >= 2
-            and minimum_words <= 4
-        ):
-            return True
-
-    if len(one) > 4 and len(two) > 4:
-        if one in two or two in one:
-            return True
-
-    return False
+    # For short names, require all words to match
+    if min_words <= 2:
+        return len(overlap) >= min_words
+    else:
+        # For longer names, require at least 2 common words
+        return len(overlap) >= 2
 
 
 def market_key(
@@ -4027,7 +4016,10 @@ def find_arbitrage(
                 # IMPORTANT:
                 # We no longer require three different bookmakers.
                 # The only thing that matters is that the three
-                # outcomes are valid.
+                # outcomes are valid. However, we add an extra
+                # safety check to ensure we are not using the same
+                # bookmaker for all three (which would produce
+                # arb_sum >= 1 anyway, but we skip early).
                 for home_bm, home_odd in (
                     best_home.items()
                 ):
@@ -4039,6 +4031,11 @@ def find_arbitrage(
                         for away_bm, away_odd in (
                             best_away.items()
                         ):
+
+                            # Extra safety: ensure at least two
+                            # different bookmakers are involved.
+                            if len({home_bm, draw_bm, away_bm}) < 2:
+                                continue
 
                             opp = (
                                 create_three_outcome_opportunity(
@@ -5562,4 +5559,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=port,
         debug=False,
-)
+    )
