@@ -8,6 +8,7 @@ import logging
 import os
 import re
 import time
+import threading
 from datetime import datetime, timedelta
 from functools import wraps
 from typing import Any, Dict, List, Optional, Tuple
@@ -27,12 +28,8 @@ from tenacity import (
     wait_exponential,
 )
 
-# =============================================================================
-# APScheduler for automatic scans
-# =============================================================================
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
-import threading
 
 # =============================================================================
 # Environment and logging
@@ -69,6 +66,8 @@ CHAMPIONBET_MATCH_API = (
     "https://www.championbet.ug/restapi/offer/en/match/{match_id}"
     "?annex=13&mobileVersion=2.47.4.3&locale=en"
 )
+
+KBET_API_BASE = "https://kbet.ug/api/events"
 
 SHARED_BOOKMAKERS = {
     "1xBet": {
@@ -111,17 +110,9 @@ class HTTPClient:
 
     @retry(
         stop=stop_after_attempt(3),
-        wait=wait_exponential(
-            multiplier=1,
-            min=2,
-            max=10,
-        ),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
         retry=retry_if_exception_type(
-            (
-                requests.RequestException,
-                ConnectionError,
-                TimeoutError,
-            )
+            (requests.RequestException, ConnectionError, TimeoutError)
         ),
     )
     def get_json(
@@ -144,16 +135,9 @@ class HTTPClient:
 
     @retry(
         stop=stop_after_attempt(3),
-        wait=wait_exponential(
-            multiplier=1,
-            min=2,
-            max=10,
-        ),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
         retry=retry_if_exception_type(
-            (
-                requests.RequestException,
-                ConnectionError,
-            )
+            (requests.RequestException, ConnectionError)
         ),
     )
     def get_text(
@@ -997,7 +981,7 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
 
 
 # =============================================================================
-# Shared bookmaker scrapers
+# Shared bookmaker scrapers (1xBet, 22Bet, Melbet)
 # =============================================================================
 
 def scrape_1xbet() -> List[Dict[str, Any]]:
@@ -1037,7 +1021,6 @@ def scrape_shared_1x_like(
         for match in values:
             home = match.get("O1", "")
             away = match.get("O2", "")
-
             if not home or not away:
                 continue
             if home.strip() == "Home" and away.strip() == "Away":
@@ -1047,6 +1030,7 @@ def scrape_shared_1x_like(
             draw_odd = None
             away_odd = None
 
+            # Correct mapping: T=1 home, T=2 draw, T=3 away
             for outcome in match.get("E", []):
                 outcome_type = str(outcome.get("T", "")).strip()
                 odd = clean_odd(outcome.get("C"))
@@ -1056,9 +1040,9 @@ def scrape_shared_1x_like(
                 if outcome_type == "1":
                     home_odd = odd
                 elif outcome_type == "2":
-                    away_odd = odd
-                elif outcome_type == "3":
                     draw_odd = odd
+                elif outcome_type == "3":
+                    away_odd = odd
 
             if home_odd is not None and away_odd is not None:
                 odds.append(
@@ -1111,9 +1095,10 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
                     if odd is None:
                         continue
 
-                    if outcome_type == "5":
+                    # T=9 Over, T=10 Under (with P=2.5)
+                    if outcome_type == "9":
                         over_odd = odd
-                    elif outcome_type == "6":
+                    elif outcome_type == "10":
                         under_odd = odd
 
                 if over_odd and under_odd:
@@ -1163,14 +1148,19 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
 
                     specifier = outcome.get("P")
 
+                    # Asian Handicap: T=7 home, T=8 away
                     if outcome_type == "7" and specifier is not None:
                         ah_home = odd
                     elif outcome_type == "8" and specifier is not None:
                         ah_away = odd
-                    elif outcome_type in {"4", "180"}:
+
+                    # Double Chance: T=4 1X, T=5 12, T=6 X2
+                    elif outcome_type == "4":
                         dc_home = odd
-                    elif outcome_type == "181":
+                    elif outcome_type == "5":
                         dc_away = odd
+
+                    # BTTS: T=19 yes, T=20 no
                     elif outcome_type == "19":
                         btts_yes = odd
                     elif outcome_type == "20":
@@ -1220,6 +1210,66 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
             logger.error("%s extra markets error: %s", bookmaker, exc)
 
     return all_odds
+
+
+# =============================================================================
+# kbet scraper
+# =============================================================================
+
+def scrape_kbet() -> List[Dict[str, Any]]:
+    logger.info("Fetching kbet...")
+    odds = []
+
+    try:
+        params = {
+            "status": "Scheduled",
+            "sport_id": 1,
+            "limit": 100,
+        }
+        data = http.get_json(KBET_API_BASE, params=params)
+
+        if isinstance(data, list):
+            events = data
+        elif isinstance(data, dict):
+            events = data.get("data", [])
+        else:
+            events = []
+
+        for event in events:
+            home = event.get("home_team") or event.get("home") or ""
+            away = event.get("away_team") or event.get("away") or ""
+            if not home or not away:
+                continue
+
+            home_odd = clean_odd(event.get("home_odd") or event.get("odds_1"))
+            draw_odd = clean_odd(event.get("draw_odd") or event.get("odds_x"))
+            away_odd = clean_odd(event.get("away_odd") or event.get("odds_2"))
+
+            if not home_odd and isinstance(event.get("odds"), dict):
+                odds_dict = event["odds"]
+                home_odd = clean_odd(odds_dict.get("1") or odds_dict.get("home"))
+                draw_odd = clean_odd(odds_dict.get("x") or odds_dict.get("draw"))
+                away_odd = clean_odd(odds_dict.get("2") or odds_dict.get("away"))
+
+            if home_odd and away_odd:
+                odds.append(
+                    build_match_record(
+                        home,
+                        away,
+                        "kbet",
+                        home_odd,
+                        draw_odd,
+                        away_odd,
+                        sport="Football",
+                    )
+                )
+
+        logger.info("kbet: %s records", len(odds))
+
+    except Exception as exc:
+        logger.error("kbet error: %s", exc)
+
+    return odds
 
 
 # =============================================================================
@@ -1519,23 +1569,15 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                         if opportunity:
                             opportunities.append(opportunity)
 
-    # ---------------------------------------------------------------
-    # DEDUPLICATE: keep only the highest-profit opportunity per match
-    # ---------------------------------------------------------------
+    # Deduplicate: keep best opportunity per match
     best_by_match = {}
-
     for opp in opportunities:
         match_key = opp.get("match", "")
         profit = opp.get("profit_percent", 0)
-
-        if match_key not in best_by_match:
+        if match_key not in best_by_match or profit > best_by_match[match_key].get("profit_percent", 0):
             best_by_match[match_key] = opp
-        else:
-            if profit > best_by_match[match_key].get("profit_percent", 0):
-                best_by_match[match_key] = opp
 
     opportunities = list(best_by_match.values())
-
     return opportunities
 
 
@@ -1604,6 +1646,7 @@ def run_scan() -> List[Dict[str, Any]]:
         scrape_22bet,
         scrape_melbet,
         scrape_shared_extra_markets,
+        scrape_kbet,
     ]
 
     for scraper in scrapers:
@@ -1659,10 +1702,6 @@ CORS(
 )
 
 
-# =============================================================================
-# Database models
-# =============================================================================
-
 class User(db.Model):
     __tablename__ = "users"
 
@@ -1713,10 +1752,6 @@ class Payment(db.Model):
 with app.app_context():
     db.create_all()
 
-
-# =============================================================================
-# Authentication helpers
-# =============================================================================
 
 def serialize_user(user: User) -> Dict[str, Any]:
     return {
@@ -1784,10 +1819,6 @@ def subscription_required(function):
     return decorated
 
 
-# =============================================================================
-# Health and preflight
-# =============================================================================
-
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
@@ -1801,10 +1832,6 @@ def health():
 def api_options(path: str):
     return ("", 204)
 
-
-# =============================================================================
-# Authentication routes
-# =============================================================================
 
 @app.route("/api/signup", methods=["POST"])
 def signup():
@@ -1873,10 +1900,6 @@ def get_current_user():
     return jsonify({"ok": True, "user": serialize_user(user)})
 
 
-# =============================================================================
-# Arbitrage routes
-# =============================================================================
-
 @app.route("/api/arbs", methods=["GET"])
 @subscription_required
 def get_arbitrage_opportunities():
@@ -1936,10 +1959,6 @@ def trigger_scan():
         return jsonify({"ok": False, "error": "Scan failed"}), 500
 
 
-# =============================================================================
-# Complete Arb endpoint
-# =============================================================================
-
 @app.route("/api/complete", methods=["POST"])
 @token_required
 def complete_arb():
@@ -1961,10 +1980,6 @@ def complete_arb():
         logger.exception("Failed to record completed arb: %s", exc)
         return jsonify({"ok": False, "error": "Failed to record arbitrage"}), 500
 
-
-# =============================================================================
-# Payment endpoint
-# =============================================================================
 
 @app.route("/api/payments", methods=["POST"])
 @token_required
@@ -2000,10 +2015,6 @@ def submit_payment():
         return jsonify({"ok": False, "error": "Payment submission failed"}), 500
 
 
-# =============================================================================
-# Sitemap and robots.txt - placed BEFORE fallback
-# =============================================================================
-
 @app.route("/sitemap.xml")
 def sitemap():
     xml = '''<?xml version="1.0" encoding="UTF-8"?>
@@ -2028,10 +2039,6 @@ def robots():
     return Response(content, mimetype='text/plain')
 
 
-# =============================================================================
-# Frontend serving
-# =============================================================================
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INDEX_FILE = os.path.join(BASE_DIR, "index.html")
 
@@ -2043,7 +2050,6 @@ def serve_frontend():
     return send_file(INDEX_FILE)
 
 
-# Fallback route must come LAST
 @app.route("/<path:path>", methods=["GET"])
 def frontend_fallback(path: str):
     if path.startswith("api/"):
@@ -2052,10 +2058,6 @@ def frontend_fallback(path: str):
         return jsonify({"ok": False, "error": "index.html was not found"}), 404
     return send_file(INDEX_FILE)
 
-
-# =============================================================================
-# Background Scheduler (automated scanning every 2 minutes)
-# =============================================================================
 
 _scheduler_started = False
 _scheduler_lock = threading.Lock()
@@ -2078,13 +2080,8 @@ def start_scheduler():
         logger.info("Background scheduler started – scanning every 2 minutes.")
 
 
-# Start scheduler immediately (works under Gunicorn)
 start_scheduler()
 
-
-# =============================================================================
-# Application startup (for local development)
-# =============================================================================
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "5000"))
