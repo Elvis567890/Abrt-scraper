@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "match": "Bulleen Lions U23 vs North Sunshine Eagles U23",
+    "sport": "Football",
+    "type": "Double Chance",
+    "market_type": "Double Chance",
+    "market_specifier": "1X_X2",
+    "profit_percent": 5.21,
+    "profit_ugx": 5212,
+    "total_stake": 100000,
+    "arb_sum": 0.947877,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.22,
+        "stake": 86475,
+        "win": 105500
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 7.8,
+        "stake": 13525,
+        "win": 105495
+      }
+    ]
+  }
+]
