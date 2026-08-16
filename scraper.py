@@ -1964,22 +1964,21 @@ def submit_payment():
 
 @app.route("/sitemap.xml")
 def sitemap():
-    base_url = request.url_root.rstrip('/')
-    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+    xml = '''<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>{base_url}/</loc>
-    <lastmod>{datetime.utcnow().strftime('%Y-%m-%d')}</lastmod>
+    <loc>https://abrt-scraper-1-51d7.onrender.com/</loc>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-</urlset>"""
+</urlset>'''
     return Response(xml, mimetype='application/xml')
 
 
 @app.route("/robots.txt")
 def robots():
-    sitemap_url = request.url_root.rstrip('/') + "/sitemap.xml"
+    sitemap_url = "https://abrt-scraper-1-51d7.onrender.com/sitemap.xml"
     content = (
         "User-agent: *\n"
         "Disallow: /api/\n"
