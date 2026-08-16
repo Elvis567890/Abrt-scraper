@@ -32,6 +32,7 @@ from tenacity import (
 # =============================================================================
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
+import threading
 
 # =============================================================================
 # Environment and logging
@@ -2056,23 +2057,35 @@ def frontend_fallback(path: str):
 # Background Scheduler (automated scanning every 2 minutes)
 # =============================================================================
 
+_scheduler_started = False
+_scheduler_lock = threading.Lock()
+
+
 def start_scheduler():
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(
-        func=lambda: (app.app_context().__enter__(), run_scan())[1],
-        trigger=IntervalTrigger(minutes=2),
-        id="arbitrage_scanner",
-        replace_existing=True,
-    )
-    scheduler.start()
-    logger.info("Background scheduler started – scanning every 2 minutes.")
+    global _scheduler_started
+    with _scheduler_lock:
+        if _scheduler_started:
+            return
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(
+            func=run_scan,
+            trigger=IntervalTrigger(minutes=2),
+            id="arbitrage_scanner",
+            replace_existing=True,
+        )
+        scheduler.start()
+        _scheduler_started = True
+        logger.info("Background scheduler started – scanning every 2 minutes.")
+
+
+# Start scheduler immediately (works under Gunicorn)
+start_scheduler()
 
 
 # =============================================================================
-# Application startup
+# Application startup (for local development)
 # =============================================================================
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "5000"))
-    start_scheduler()
     app.run(host="0.0.0.0", port=port, debug=False)
