@@ -1978,12 +1978,11 @@ def sitemap():
 
 @app.route("/robots.txt")
 def robots():
-    sitemap_url = "https://abrt-scraper-1-51d7.onrender.com/sitemap.xml"
     content = (
         "User-agent: *\n"
         "Disallow: /api/\n"
         "Disallow: /admin\n"
-        f"Sitemap: {sitemap_url}\n"
+        "Sitemap: https://elvis567890.github.io/Abrt-scraper-26/sitemap.xml\n"
     )
     return Response(content, mimetype='text/plain')
 
