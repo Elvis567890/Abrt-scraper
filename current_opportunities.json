@@ -1,1 +1,90 @@
-[]
+[
+  {
+    "match": "Guadalajara W vs Atl. San Luis W",
+    "sport": "Football",
+    "type": "3-way",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "profit_percent": 28.16,
+    "profit_ugx": 28164,
+    "total_stake": 100000,
+    "arb_sum": 0.718361,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.05,
+        "stake": 45641,
+        "win": 139205
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 4.65,
+        "stake": 29937,
+        "win": 139207
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 5.7,
+        "stake": 24422,
+        "win": 139205
+      }
+    ]
+  },
+  {
+    "match": "Barracas Central vs Rosario Central",
+    "sport": "Football",
+    "type": "Asian Handicap",
+    "market_type": "Asian Handicap",
+    "market_specifier": "",
+    "profit_percent": 13.67,
+    "profit_ugx": 13670,
+    "total_stake": 100000,
+    "arb_sum": 0.863302,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 2.611,
+        "stake": 44364,
+        "win": 115834
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 2.082,
+        "stake": 55636,
+        "win": 115834
+      }
+    ]
+  },
+  {
+    "match": "Home vs Away",
+    "sport": "Football",
+    "type": "Double Chance",
+    "market_type": "Double Chance",
+    "market_specifier": "1X_X2",
+    "profit_percent": 5.98,
+    "profit_ugx": 5975,
+    "total_stake": 100000,
+    "arb_sum": 0.940246,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.593,
+        "stake": 66764,
+        "win": 106355
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.2,
+        "stake": 33236,
+        "win": 106355
+      }
+    ]
+  }
+]
