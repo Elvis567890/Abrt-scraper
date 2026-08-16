@@ -1,5 +1,39 @@
 [
   {
+    "match": "Tijuana vs Cruz Azul",
+    "sport": "Football",
+    "type": "3-way",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "profit_percent": 16.18,
+    "profit_ugx": 16175,
+    "total_stake": 100000,
+    "arb_sum": 0.838247,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.1,
+        "stake": 38483,
+        "win": 119297
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.48,
+        "stake": 34281,
+        "win": 119298
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.38,
+        "stake": 27236,
+        "win": 119294
+      }
+    ]
+  },
+  {
     "match": "Home vs Away",
     "sport": "Football",
     "type": "Double Chance",
