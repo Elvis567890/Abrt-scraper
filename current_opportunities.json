@@ -39,24 +39,24 @@
     "type": "Asian Handicap",
     "market_type": "Asian Handicap",
     "market_specifier": "",
-    "profit_percent": 13.21,
-    "profit_ugx": 13210,
+    "profit_percent": 13.67,
+    "profit_ugx": 13670,
     "total_stake": 100000,
-    "arb_sum": 0.867904,
+    "arb_sum": 0.863302,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 2.58,
-        "stake": 44659,
-        "win": 115220
+        "odd": 2.611,
+        "stake": 44364,
+        "win": 115834
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 2.082,
-        "stake": 55341,
-        "win": 115220
+        "stake": 55636,
+        "win": 115834
       }
     ]
   },
@@ -66,24 +66,58 @@
     "type": "Double Chance",
     "market_type": "Double Chance",
     "market_specifier": "1X_X2",
-    "profit_percent": 4.97,
-    "profit_ugx": 4974,
+    "profit_percent": 4.81,
+    "profit_ugx": 4811,
     "total_stake": 100000,
-    "arb_sum": 0.950255,
+    "arb_sum": 0.951886,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.568,
-        "stake": 67114,
-        "win": 105235
+        "odd": 1.564,
+        "stake": 67170,
+        "win": 105054
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.2,
-        "stake": 32886,
-        "win": 105235
+        "stake": 32830,
+        "win": 105056
+      }
+    ]
+  },
+  {
+    "match": "Besiktas vs Eyupspor",
+    "sport": "Football",
+    "type": "3-way",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "profit_percent": 1.16,
+    "profit_ugx": 1164,
+    "total_stake": 100000,
+    "arb_sum": 0.988362,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.41,
+        "stake": 71757,
+        "win": 101177
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.67,
+        "stake": 17844,
+        "win": 101175
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 9.73,
+        "stake": 10399,
+        "win": 101182
       }
     ]
   }
