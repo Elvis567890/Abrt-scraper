@@ -21,17 +21,27 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Cache pip packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt   # <-- THIS IS THE FIX
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run Python scraper
         run: python -c "from scraper import run_scan; run_scan()"
         env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_ACTIONS: true   # prevents Flask from loading
+          DATABASE_URL: sqlite:////tmp/arb_scraper.db   # Prevent Postgres requirement
+          GITHUB_ACTIONS: true
 
       - name: Copy JSONs to root for commit
         run: |
@@ -41,25 +51,20 @@ jobs:
       - name: Check if any JSON changed
         id: check_changes
         run: |
-          if [ -f current_opportunities.json ]; then
-            cp current_opportunities.json /tmp/current_new.json
-          else
-            touch /tmp/current_new.json
-          fi
-          if [ -f arb_history.json ]; then
-            cp arb_history.json /tmp/history_new.json
-          else
-            touch /tmp/history_new.json
-          fi
+          # Create empty placeholders if files don't exist
+          [ -f current_opportunities.json ] || echo '[]' > current_opportunities.json
+          [ -f arb_history.json ] || echo '{}' > arb_history.json
 
-          git show HEAD:current_opportunities.json > /tmp/current_old.json 2>/dev/null || echo "{}" > /tmp/current_old.json
-          git show HEAD:arb_history.json > /tmp/history_old.json 2>/dev/null || echo "{}" > /tmp/history_old.json
+          # Get previous versions (if any)
+          git show HEAD:current_opportunities.json > /tmp/current_old.json 2>/dev/null || echo '[]' > /tmp/current_old.json
+          git show HEAD:arb_history.json > /tmp/history_old.json 2>/dev/null || echo '{}' > /tmp/history_old.json
 
+          # Compare
           CHANGED=0
-          if ! cmp -s /tmp/current_old.json /tmp/current_new.json; then
+          if ! cmp -s /tmp/current_old.json current_opportunities.json; then
             CHANGED=1
           fi
-          if ! cmp -s /tmp/history_old.json /tmp/history_new.json; then
+          if ! cmp -s /tmp/history_old.json arb_history.json; then
             CHANGED=1
           fi
 
