@@ -1980,9 +1980,8 @@ def sitemap():
 def robots():
     content = (
         "User-agent: *\n"
-        "Disallow: /api/\n"
-        "Disallow: /admin\n"
-        "Sitemap: https://elvis567890.github.io/Abrt-scraper-26/sitemap.xml\n"
+        "Allow: /\n"
+        "Sitemap: https://abrt-scraper-1-51d7.onrender.com/sitemap.xml\n"
     )
     return Response(content, mimetype='text/plain')
 
