@@ -1970,7 +1970,7 @@ def sitemap():
   <url>
     <loc>{base_url}/</loc>
     <lastmod>{datetime.utcnow().strftime('%Y-%m-%d')}</lastmod>
-    <changefreq>never</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 </urlset>"""
