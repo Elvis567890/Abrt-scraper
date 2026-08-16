@@ -69,18 +69,31 @@ CHAMPIONBET_MATCH_API = (
 
 KBET_API_BASE = "https://kbet.ug/api/events"
 
+# Updated shared bookmakers with per-bookmaker URL parameters and Referer
 SHARED_BOOKMAKERS = {
     "1xBet": {
         "base_url": "https://1xbet.ug",
         "partner": "135",
+        "lng": "en",
+        "tz": 3,
+        "gr": 525,
+        "referer": "https://1xbet.ug/line",
     },
     "22Bet": {
         "base_url": "https://22bet.ug",
         "partner": "151",
+        "lng": "en_GB",
+        "tz": 3,
+        "gr": 525,
+        "referer": "https://22bet.ug/line",
     },
     "Melbet": {
         "base_url": "https://melbet.ug",
         "partner": "8",
+        "lng": "en",
+        "tz": 3,
+        "gr": 525,
+        "referer": "https://melbet.ug/line",
     },
 }
 
@@ -986,35 +999,46 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
 
 def scrape_1xbet() -> List[Dict[str, Any]]:
     config = SHARED_BOOKMAKERS["1xBet"]
-    return scrape_shared_1x_like("1xBet", config["base_url"], config["partner"])
+    return scrape_shared_1x_like("1xBet", config)
 
 
 def scrape_22bet() -> List[Dict[str, Any]]:
     config = SHARED_BOOKMAKERS["22Bet"]
-    return scrape_shared_1x_like("22Bet", config["base_url"], config["partner"])
+    return scrape_shared_1x_like("22Bet", config)
 
 
 def scrape_melbet() -> List[Dict[str, Any]]:
     config = SHARED_BOOKMAKERS["Melbet"]
-    return scrape_shared_1x_like("Melbet", config["base_url"], config["partner"])
+    return scrape_shared_1x_like("Melbet", config)
 
 
 def scrape_shared_1x_like(
     bookmaker: str,
-    base_url: str,
-    partner: str,
+    config: Dict[str, Any],
 ) -> List[Dict[str, Any]]:
     logger.info("Fetching %s...", bookmaker)
     odds = []
 
+    base_url = config["base_url"]
+    partner = config["partner"]
+    lng = config.get("lng", "en")
+    tz = config.get("tz", 3)
+    gr = config.get("gr", 525)
+    referer = config.get("referer", base_url)
+
+    headers = {
+        "Referer": referer,
+        "X-Requested-With": "XMLHttpRequest",
+    }
+
     try:
         url = (
             f"{base_url}/service-api/LineFeed/Get1x2_VZip"
-            "?sports=1&count=1000&lng=en&mode=4&country=191"
-            f"&partner={partner}&getEmpty=true&virtualSports=true"
+            f"?count=1000&lng={lng}&tz={tz}&mode=4&country=191"
+            f"&partner={partner}&getEmpty=true&gr={gr}"
         )
 
-        data = http.get_json(url)
+        data = http.get_json(url, headers=headers)
 
         values = data.get("Value", []) if isinstance(data, dict) else []
 
@@ -1070,15 +1094,24 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
     for bookmaker, config in SHARED_BOOKMAKERS.items():
         base_url = config["base_url"]
         partner = config["partner"]
+        lng = config.get("lng", "en")
+        tz = config.get("tz", 3)
+        gr = config.get("gr", 525)
+        referer = config.get("referer", base_url)
+
+        headers = {
+            "Referer": referer,
+            "X-Requested-With": "XMLHttpRequest",
+        }
 
         # Over/Under 2.5
         try:
             url = (
                 f"{base_url}/service-api/LineFeed/GetEvents_VZip"
-                "?count=1000&lng=en&mode=4&country=191"
-                f"&partner={partner}&market=5,6&getEmpty=true&virtualSports=true&eventType=1"
+                f"?count=1000&lng={lng}&tz={tz}&mode=4&country=191"
+                f"&partner={partner}&market=5,6&getEmpty=true&gr={gr}"
             )
-            data = http.get_json(url)
+            data = http.get_json(url, headers=headers)
 
             for match in data.get("Value", []):
                 home = match.get("O1", "")
@@ -1120,10 +1153,10 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
         try:
             url = (
                 f"{base_url}/service-api/LineFeed/Get1x2_VZip"
-                "?sports=1&count=1000&lng=en&mode=4&country=191"
-                f"&partner={partner}&getEmpty=true"
+                f"?count=1000&lng={lng}&tz={tz}&mode=4&country=191"
+                f"&partner={partner}&getEmpty=true&gr={gr}"
             )
-            data = http.get_json(url)
+            data = http.get_json(url, headers=headers)
 
             for match in data.get("Value", []):
                 home = match.get("O1", "")
