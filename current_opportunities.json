@@ -34,6 +34,40 @@
     ]
   },
   {
+    "match": "Philadelphia vs Miami",
+    "sport": "Football",
+    "type": "3-way",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "profit_percent": 1.94,
+    "profit_ugx": 1937,
+    "total_stake": 100000,
+    "arb_sum": 0.980631,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.39,
+        "stake": 42667,
+        "win": 101974
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 26147,
+        "win": 101973
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.27,
+        "stake": 31186,
+        "win": 101978
+      }
+    ]
+  },
+  {
     "match": "Colorado vs Los Angeles",
     "sport": "Football",
     "type": "3-way",
@@ -64,40 +98,6 @@
         "odd": 2.45,
         "stake": 41373,
         "win": 101364
-      }
-    ]
-  },
-  {
-    "match": "Philadelphia vs Miami",
-    "sport": "Football",
-    "type": "3-way",
-    "market_type": "1x2",
-    "market_specifier": "",
-    "profit_percent": 1.32,
-    "profit_ugx": 1317,
-    "total_stake": 100000,
-    "arb_sum": 0.986833,
-    "bets": [
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Home",
-        "odd": 2.39,
-        "stake": 42399,
-        "win": 101334
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.9,
-        "stake": 25983,
-        "win": 101334
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Away",
-        "odd": 3.205,
-        "stake": 31618,
-        "win": 101336
       }
     ]
   }
