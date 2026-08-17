@@ -5,24 +5,24 @@
     "type": "Double Chance",
     "market_type": "Double Chance",
     "market_specifier": "1X_X2",
-    "profit_percent": 14.86,
-    "profit_ugx": 14855,
+    "profit_percent": 15.08,
+    "profit_ugx": 15080,
     "total_stake": 100000,
-    "arb_sum": 0.851448,
+    "arb_sum": 0.849201,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.655,
-        "stake": 70965,
-        "win": 117447
+        "odd": 1.657,
+        "stake": 71067,
+        "win": 117758
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 4.045,
-        "stake": 29035,
-        "win": 117447
+        "odd": 4.07,
+        "stake": 28933,
+        "win": 117757
       }
     ]
   },
@@ -66,24 +66,51 @@
     "type": "Asian Handicap",
     "market_type": "Asian Handicap",
     "market_specifier": "-1.5",
-    "profit_percent": 2.49,
-    "profit_ugx": 2485,
+    "profit_percent": 2.3,
+    "profit_ugx": 2300,
     "total_stake": 100000,
-    "arb_sum": 0.975148,
+    "arb_sum": 0.977001,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 2.748,
-        "stake": 37318,
-        "win": 102550
+        "odd": 2.751,
+        "stake": 37206,
+        "win": 102354
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 1.636,
-        "stake": 62682,
-        "win": 102548
+        "odd": 1.63,
+        "stake": 62794,
+        "win": 102354
+      }
+    ]
+  },
+  {
+    "match": "Home vs Away",
+    "sport": "Football",
+    "type": "Asian Handicap",
+    "market_type": "Asian Handicap",
+    "market_specifier": "-2.5",
+    "profit_percent": 0.98,
+    "profit_ugx": 980,
+    "total_stake": 100000,
+    "arb_sum": 0.9902,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 2.157,
+        "stake": 46820,
+        "win": 100991
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 1.899,
+        "stake": 53180,
+        "win": 100989
       }
     ]
   }
