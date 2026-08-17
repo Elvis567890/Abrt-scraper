@@ -5,24 +5,24 @@
     "type": "Double Chance",
     "market_type": "Double Chance",
     "market_specifier": "1X_X2",
-    "profit_percent": 9.35,
-    "profit_ugx": 9347,
+    "profit_percent": 8.23,
+    "profit_ugx": 8234,
     "total_stake": 100000,
-    "arb_sum": 0.906531,
+    "arb_sum": 0.917658,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.657,
-        "stake": 66573,
-        "win": 110311
+        "odd": 1.627,
+        "stake": 66978,
+        "win": 108973
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.3,
-        "stake": 33427,
-        "win": 110309
+        "stake": 33022,
+        "win": 108973
       }
     ]
   },
@@ -65,25 +65,52 @@
     "sport": "Football",
     "type": "Asian Handicap",
     "market_type": "Asian Handicap",
-    "market_specifier": "-1.5",
-    "profit_percent": 2.01,
-    "profit_ugx": 2012,
+    "market_specifier": "-2.5",
+    "profit_percent": 1.45,
+    "profit_ugx": 1449,
     "total_stake": 100000,
-    "arb_sum": 0.97988,
+    "arb_sum": 0.985511,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 2.755,
-        "stake": 37043,
-        "win": 102053
+        "odd": 2.183,
+        "stake": 46482,
+        "win": 101470
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 1.896,
+        "stake": 53518,
+        "win": 101470
+      }
+    ]
+  },
+  {
+    "match": "Home vs Away",
+    "sport": "Football",
+    "type": "Asian Handicap",
+    "market_type": "Asian Handicap",
+    "market_specifier": "-1.5",
+    "profit_percent": 1.04,
+    "profit_ugx": 1038,
+    "total_stake": 100000,
+    "arb_sum": 0.98962,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 2.683,
+        "stake": 37663,
+        "win": 101050
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 1.621,
-        "stake": 62957,
-        "win": 102053
+        "stake": 62337,
+        "win": 101048
       }
     ]
   }
