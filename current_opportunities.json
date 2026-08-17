@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "match": "Home vs Away",
+    "sport": "Football",
+    "type": "Double Chance",
+    "market_type": "Double Chance",
+    "market_specifier": "1X_X2",
+    "profit_percent": 4.55,
+    "profit_ugx": 4552,
+    "total_stake": 100000,
+    "arb_sum": 0.954479,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 1.391,
+        "stake": 75319,
+        "win": 104769
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.245,
+        "stake": 24681,
+        "win": 104771
+      }
+    ]
+  }
+]
