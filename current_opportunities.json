@@ -5,24 +5,24 @@
     "type": "Double Chance",
     "market_type": "Double Chance",
     "market_specifier": "1X_X2",
-    "profit_percent": 8.23,
-    "profit_ugx": 8234,
+    "profit_percent": 8.38,
+    "profit_ugx": 8385,
     "total_stake": 100000,
-    "arb_sum": 0.917658,
+    "arb_sum": 0.916151,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 1.627,
-        "stake": 66978,
-        "win": 108973
+        "odd": 1.631,
+        "stake": 66924,
+        "win": 109153
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 3.3,
-        "stake": 33022,
-        "win": 108973
+        "stake": 33076,
+        "win": 109151
       }
     ]
   },
@@ -57,33 +57,6 @@
         "odd": 4.2,
         "stake": 24783,
         "win": 104089
-      }
-    ]
-  },
-  {
-    "match": "Home vs Away",
-    "sport": "Football",
-    "type": "Asian Handicap",
-    "market_type": "Asian Handicap",
-    "market_specifier": "-1.5",
-    "profit_percent": 0.54,
-    "profit_ugx": 539,
-    "total_stake": 100000,
-    "arb_sum": 0.994608,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.683,
-        "stake": 37474,
-        "win": 100543
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 1.608,
-        "stake": 62526,
-        "win": 100542
       }
     ]
   }
