@@ -66,5 +66,39 @@
         "win": 101364
       }
     ]
+  },
+  {
+    "match": "Philadelphia vs Miami",
+    "sport": "Football",
+    "type": "3-way",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "profit_percent": 0.72,
+    "profit_ugx": 721,
+    "total_stake": 100000,
+    "arb_sum": 0.992785,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.39,
+        "stake": 42145,
+        "win": 100727
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.9,
+        "stake": 25827,
+        "win": 100725
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.145,
+        "stake": 32028,
+        "win": 100728
+      }
+    ]
   }
 ]
