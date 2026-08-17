@@ -5,24 +5,24 @@
     "type": "Double Chance",
     "market_type": "Double Chance",
     "market_specifier": "1X_X2",
-    "profit_percent": 15.16,
-    "profit_ugx": 15157,
+    "profit_percent": 14.82,
+    "profit_ugx": 14825,
     "total_stake": 100000,
-    "arb_sum": 0.84843,
+    "arb_sum": 0.851754,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
         "odd": 1.655,
-        "stake": 71217,
-        "win": 117864
+        "stake": 70939,
+        "win": 117404
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 4.095,
-        "stake": 28783,
-        "win": 117866
+        "odd": 4.04,
+        "stake": 29061,
+        "win": 117406
       }
     ]
   },
@@ -32,24 +32,51 @@
     "type": "Asian Handicap",
     "market_type": "Asian Handicap",
     "market_specifier": "-1.5",
-    "profit_percent": 2.63,
-    "profit_ugx": 2634,
+    "profit_percent": 2.45,
+    "profit_ugx": 2448,
     "total_stake": 100000,
-    "arb_sum": 0.973657,
+    "arb_sum": 0.975522,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
         "odd": 2.748,
-        "stake": 37375,
-        "win": 102707
+        "stake": 37303,
+        "win": 102509
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 1.64,
-        "stake": 62625,
-        "win": 102705
+        "odd": 1.635,
+        "stake": 62697,
+        "win": 102510
+      }
+    ]
+  },
+  {
+    "match": "Home vs Away",
+    "sport": "Football",
+    "type": "Asian Handicap",
+    "market_type": "Asian Handicap",
+    "market_specifier": "-2.5",
+    "profit_percent": 0.89,
+    "profit_ugx": 894,
+    "total_stake": 100000,
+    "arb_sum": 0.991061,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 2.166,
+        "stake": 46584,
+        "win": 100901
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 1.889,
+        "stake": 53416,
+        "win": 100903
       }
     ]
   }
