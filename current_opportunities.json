@@ -66,5 +66,32 @@
         "win": 101364
       }
     ]
+  },
+  {
+    "match": "Home vs Away",
+    "sport": "Football",
+    "type": "Asian Handicap",
+    "market_type": "Asian Handicap",
+    "market_specifier": "-1.5",
+    "profit_percent": 0.84,
+    "profit_ugx": 836,
+    "total_stake": 100000,
+    "arb_sum": 0.991644,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 2.757,
+        "stake": 36577,
+        "win": 100843
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 1.59,
+        "stake": 63423,
+        "win": 100843
+      }
+    ]
   }
 ]
