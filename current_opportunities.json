@@ -27,6 +27,33 @@
     ]
   },
   {
+    "match": "Home vs Away",
+    "sport": "Football",
+    "type": "Asian Handicap",
+    "market_type": "Asian Handicap",
+    "market_specifier": "",
+    "profit_percent": 2.9,
+    "profit_ugx": 2898,
+    "total_stake": 100000,
+    "arb_sum": 0.971017,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 2.035,
+        "stake": 50607,
+        "win": 102985
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 2.085,
+        "stake": 49393,
+        "win": 102984
+      }
+    ]
+  },
+  {
     "match": "Minnesota vs Atlanta",
     "sport": "Football",
     "type": "3-way",
@@ -57,33 +84,6 @@
         "odd": 4.05,
         "stake": 25139,
         "win": 101813
-      }
-    ]
-  },
-  {
-    "match": "Home vs Away",
-    "sport": "Football",
-    "type": "Asian Handicap",
-    "market_type": "Asian Handicap",
-    "market_specifier": "",
-    "profit_percent": 1.6,
-    "profit_ugx": 1599,
-    "total_stake": 100000,
-    "arb_sum": 0.984011,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.035,
-        "stake": 49938,
-        "win": 101624
-      },
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 2.03,
-        "stake": 50062,
-        "win": 101626
       }
     ]
   }
