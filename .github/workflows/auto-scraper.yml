@@ -1,82 +1,28 @@
-name: Scrape and Deploy Arbitrage Data
+name: Build and Push to ghcr.io
 
 on:
-  schedule:
-    - cron: '0 */2 * * *'    # every 2 hours (adjust as needed)
-  workflow_dispatch:          # manual trigger
-
-permissions:
-  contents: write
+  push:
+    branches: [ main ]
 
 jobs:
-  scrape:
+  build:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
         with:
-          python-version: '3.10'
-
-      - name: Cache pip packages
-        uses: actions/cache@v3
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run Python scraper
-        run: python -c "from scraper import run_scan; run_scan()"
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          DATABASE_URL: sqlite:////tmp/arb_scraper.db   # Prevent Postgres requirement
-          GITHUB_ACTIONS: true
-
-      - name: Copy JSONs to root for commit
-        run: |
-          find . -name "current_opportunities.json" -exec cp {} . \;
-          find . -name "arb_history.json" -exec cp {} . \;
-
-      - name: Check if any JSON changed
-        id: check_changes
-        run: |
-          # Create empty placeholders if files don't exist
-          [ -f current_opportunities.json ] || echo '[]' > current_opportunities.json
-          [ -f arb_history.json ] || echo '{}' > arb_history.json
-
-          # Get previous versions (if any)
-          git show HEAD:current_opportunities.json > /tmp/current_old.json 2>/dev/null || echo '[]' > /tmp/current_old.json
-          git show HEAD:arb_history.json > /tmp/history_old.json 2>/dev/null || echo '{}' > /tmp/history_old.json
-
-          # Compare
-          CHANGED=0
-          if ! cmp -s /tmp/current_old.json current_opportunities.json; then
-            CHANGED=1
-          fi
-          if ! cmp -s /tmp/history_old.json arb_history.json; then
-            CHANGED=1
-          fi
-
-          echo "changed=$CHANGED" >> $GITHUB_OUTPUT
-
-      - name: Commit and push if changed
-        if: steps.check_changes.outputs.changed == '1'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -f current_opportunities.json arb_history.json
-          git commit -m "Update arbitrage data [skip ci]"
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/abrt-scraper:latest
