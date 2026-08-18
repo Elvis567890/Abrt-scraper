@@ -27,6 +27,40 @@
     ]
   },
   {
+    "match": "Minnesota vs Atlanta",
+    "sport": "Football",
+    "type": "3-way",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "profit_percent": 3.6,
+    "profit_ugx": 3603,
+    "total_stake": 100000,
+    "arb_sum": 0.96397,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 2.103,
+        "stake": 49328,
+        "win": 103737
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.95,
+        "stake": 26263,
+        "win": 103739
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.25,
+        "stake": 24409,
+        "win": 103738
+      }
+    ]
+  },
+  {
     "match": "Home vs Away",
     "sport": "Football",
     "type": "Asian Handicap",
@@ -50,40 +84,6 @@
         "odd": 2.16,
         "stake": 47471,
         "win": 102537
-      }
-    ]
-  },
-  {
-    "match": "Minnesota vs Atlanta",
-    "sport": "Football",
-    "type": "3-way",
-    "market_type": "1x2",
-    "market_specifier": "",
-    "profit_percent": 1.78,
-    "profit_ugx": 1783,
-    "total_stake": 100000,
-    "arb_sum": 0.982165,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.103,
-        "stake": 48415,
-        "win": 101817
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.85,
-        "stake": 26446,
-        "win": 101817
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.05,
-        "stake": 25139,
-        "win": 101813
       }
     ]
   }
