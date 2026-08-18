@@ -5,58 +5,24 @@
     "type": "Double Chance",
     "market_type": "Double Chance",
     "market_specifier": "1X_X2",
-    "profit_percent": 23.05,
-    "profit_ugx": 23054,
+    "profit_percent": 23.54,
+    "profit_ugx": 23545,
     "total_stake": 100000,
-    "arb_sum": 0.76946,
+    "arb_sum": 0.76455,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 3.005,
-        "stake": 43248,
-        "win": 129960
+        "odd": 3.05,
+        "stake": 42884,
+        "win": 130796
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
         "odd": 2.29,
-        "stake": 56752,
-        "win": 129962
-      }
-    ]
-  },
-  {
-    "match": "Minnesota vs Atlanta",
-    "sport": "Football",
-    "type": "3-way",
-    "market_type": "1x2",
-    "market_specifier": "",
-    "profit_percent": 1.78,
-    "profit_ugx": 1783,
-    "total_stake": 100000,
-    "arb_sum": 0.982165,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.103,
-        "stake": 48415,
-        "win": 101817
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.85,
-        "stake": 26446,
-        "win": 101817
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.05,
-        "stake": 25139,
-        "win": 101813
+        "stake": 57116,
+        "win": 130796
       }
     ]
   },
@@ -84,6 +50,40 @@
         "odd": 2.03,
         "stake": 50062,
         "win": 101626
+      }
+    ]
+  },
+  {
+    "match": "Minnesota vs Atlanta",
+    "sport": "Football",
+    "type": "3-way",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "profit_percent": 1.12,
+    "profit_ugx": 1119,
+    "total_stake": 100000,
+    "arb_sum": 0.988814,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Home",
+        "odd": 2.074,
+        "stake": 48761,
+        "win": 101130
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.85,
+        "stake": 26268,
+        "win": 101132
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 4.05,
+        "stake": 24971,
+        "win": 101133
       }
     ]
   }
