@@ -1,5 +1,5 @@
 # =============================================================================
-# scraper.py – Full Arbitrage Scanner with Admin Panel, Health Checks, Alerts
+# scraper.py – Full Arbitrage Scanner with Admin Panel
 # =============================================================================
 
 import json
@@ -188,7 +188,6 @@ def normalize_team(name: str) -> str:
     if not name:
         return ""
     value = str(name).lower().strip()
-    # Keep distinguishing words, only remove common non‑distinctive suffixes.
     replacements = {
         r"\brovers\b": "rvs",
         r"\brvs\b": "rvs",
@@ -1386,7 +1385,7 @@ class Payment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False, index=True)
     plan = db.Column(db.String(50), nullable=False)
-    transaction_id = db.Column(db.String(100), unique=True, nullable=False, index=True)  # UNIQUE FIX
+    transaction_id = db.Column(db.String(100), unique=True, nullable=False, index=True)
     status = db.Column(db.String(20), default="pending", nullable=False)
     submitted_at = db.Column(db.DateTime(timezone=True), default=utc_now, nullable=False)
     approved_at = db.Column(db.DateTime(timezone=True), nullable=True)
@@ -1584,65 +1583,80 @@ def submit_payment():
         return jsonify({"ok": False, "error": "Internal server error, please try again later"}), 500
 
 # =============================================================================
-# Admin API endpoints
+# Admin API endpoints (with improved error handling)
 # =============================================================================
 
 @app.route("/api/admin/payments", methods=["GET"])
 @admin_required
 def admin_list_payments():
-    payments = Payment.query.order_by(Payment.submitted_at.desc()).all()
-    result = []
-    for p in payments:
-        user = db.session.get(User, p.user_id)
-        result.append({
-            "id": p.id,
-            "email": user.email if user else "?",
-            "plan": p.plan,
-            "transaction_id": p.transaction_id,
-            "status": p.status,
-            "submitted_at": p.submitted_at.isoformat(),
-            "approved_at": p.approved_at.isoformat() if p.approved_at else None,
-        })
-    return jsonify({"ok": True, "payments": result})
+    try:
+        payments = Payment.query.order_by(Payment.submitted_at.desc()).all()
+        result = []
+        for p in payments:
+            user = db.session.get(User, p.user_id)
+            result.append({
+                "id": p.id,
+                "email": user.email if user else "?",
+                "plan": p.plan,
+                "transaction_id": p.transaction_id,
+                "status": p.status,
+                "submitted_at": p.submitted_at.isoformat(),
+                "approved_at": p.approved_at.isoformat() if p.approved_at else None,
+            })
+        return jsonify({"ok": True, "payments": result})
+    except Exception as e:
+        logger.exception("Admin payments list failed")
+        # Return a clear error message so the frontend can display it
+        return jsonify({"ok": False, "error": str(e)}), 500
 
 @app.route("/api/admin/payments/<int:payment_id>/approve", methods=["POST"])
 @admin_required
 def admin_approve_payment(payment_id):
-    payment = db.session.get(Payment, payment_id)
-    if not payment:
-        return jsonify({"ok": False, "error": "Payment not found"}), 404
-    if payment.status != "pending":
-        return jsonify({"ok": False, "error": "Already processed"}), 409
-    user = db.session.get(User, payment.user_id)
-    if not user:
-        return jsonify({"ok": False, "error": "User not found"}), 404
-    days = {"day": 1, "monthly": 30, "quarterly": 90}.get(payment.plan)
-    if not days:
-        return jsonify({"ok": False, "error": "Invalid payment plan"}), 400
-    now = utc_now()
-    current_expiry = user.subscription_expires_at
-    if current_expiry and current_expiry > now:
-        start = current_expiry
-    else:
-        start = now
-    user.subscription_status = payment.plan
-    user.subscription_expires_at = start + timedelta(days=days)
-    payment.status = "approved"
-    payment.approved_at = now
-    db.session.commit()
-    return jsonify({"ok": True, "message": "Payment approved"})
+    try:
+        payment = db.session.get(Payment, payment_id)
+        if not payment:
+            return jsonify({"ok": False, "error": "Payment not found"}), 404
+        if payment.status != "pending":
+            return jsonify({"ok": False, "error": "Already processed"}), 409
+        user = db.session.get(User, payment.user_id)
+        if not user:
+            return jsonify({"ok": False, "error": "User not found"}), 404
+        days = {"day": 1, "monthly": 30, "quarterly": 90}.get(payment.plan)
+        if not days:
+            return jsonify({"ok": False, "error": "Invalid payment plan"}), 400
+        now = utc_now()
+        current_expiry = user.subscription_expires_at
+        if current_expiry and current_expiry > now:
+            start = current_expiry
+        else:
+            start = now
+        user.subscription_status = payment.plan
+        user.subscription_expires_at = start + timedelta(days=days)
+        payment.status = "approved"
+        payment.approved_at = now
+        db.session.commit()
+        return jsonify({"ok": True, "message": "Payment approved"})
+    except Exception as e:
+        db.session.rollback()
+        logger.exception("Admin approve payment failed")
+        return jsonify({"ok": False, "error": str(e)}), 500
 
 @app.route("/api/admin/payments/<int:payment_id>/reject", methods=["POST"])
 @admin_required
 def admin_reject_payment(payment_id):
-    payment = db.session.get(Payment, payment_id)
-    if not payment:
-        return jsonify({"ok": False, "error": "Payment not found"}), 404
-    if payment.status != "pending":
-        return jsonify({"ok": False, "error": "Already processed"}), 409
-    payment.status = "rejected"
-    db.session.commit()
-    return jsonify({"ok": True, "message": "Payment rejected"})
+    try:
+        payment = db.session.get(Payment, payment_id)
+        if not payment:
+            return jsonify({"ok": False, "error": "Payment not found"}), 404
+        if payment.status != "pending":
+            return jsonify({"ok": False, "error": "Already processed"}), 409
+        payment.status = "rejected"
+        db.session.commit()
+        return jsonify({"ok": True, "message": "Payment rejected"})
+    except Exception as e:
+        db.session.rollback()
+        logger.exception("Admin reject payment failed")
+        return jsonify({"ok": False, "error": str(e)}), 500
 
 # =============================================================================
 # Sitemap & Robots
@@ -1653,8 +1667,8 @@ def sitemap():
     xml = '''<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://abrt-scraper-1-51d7.onrender.com/</loc>
-    <lastmod>2026-08-17</lastmod>
+    <loc>https://abrt-scraper-bsin.onrender.com/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -1663,7 +1677,7 @@ def sitemap():
 
 @app.route("/robots.txt")
 def robots():
-    content = "User-agent: *\nAllow: /\nSitemap: https://abrt-scraper-1-51d7.onrender.com/sitemap.xml\n"
+    content = "User-agent: *\nAllow: /\nSitemap: https://abrt-scraper-bsin.onrender.com/sitemap.xml\n"
     return Response(content, mimetype="text/plain")
 
 # =============================================================================
