@@ -5,79 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel – Arbitrage Scanner</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f4; }
-        .container { max-width: 1000px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
-        h1 { color: #333; }
-        .login-form { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .login-form input { padding: 10px; font-size: 16px; flex: 1; }
-        .login-form button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        .login-form button:hover { background: #0056b3; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-        th { background: #f2f2f2; }
-        .status-pending { color: orange; font-weight: bold; }
-        .status-approved { color: green; font-weight: bold; }
-        .status-rejected { color: red; font-weight: bold; }
-        .btn { padding: 5px 12px; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f0f2f5; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+        .header { background: #1a1a2e; color: white; padding: 20px; border-radius: 12px 12px 0 0; margin-bottom: 0; }
+        .header h1 { margin: 0; font-size: 24px; font-weight: 600; }
+        .header small { opacity: 0.8; }
+        .card { background: white; border-radius: 0 0 12px 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .login-section { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
+        .login-section input { padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; flex: 1; min-width: 200px; }
+        .login-section button { padding: 10px 24px; background: #2d6a9f; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; transition: background 0.2s; }
+        .login-section button:hover { background: #1e4b73; }
+        .login-section .or { margin: 0 8px; color: #888; }
+        .status-msg { margin: 12px 0; padding: 10px 16px; border-radius: 8px; font-weight: 500; display: none; }
+        .status-msg.success { background: #d4edda; color: #155724; display: block; }
+        .status-msg.error { background: #f8d7da; color: #721c24; display: block; }
+        .status-msg.info { background: #d1ecf1; color: #0c5460; display: block; }
+        .table-wrapper { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: #2d6a9f; color: white; padding: 12px 10px; text-align: left; }
+        td { padding: 12px 10px; border-bottom: 1px solid #eee; }
+        tr:hover { background: #f8f9fa; }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-pending { background: #fff3cd; color: #856404; }
+        .badge-approved { background: #d4edda; color: #155724; }
+        .badge-rejected { background: #f8d7da; color: #721c24; }
+        .btn { padding: 6px 14px; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.2s; }
         .btn-approve { background: #28a745; color: white; }
-        .btn-approve:hover { background: #1e7e34; }
+        .btn-approve:hover { background: #218838; }
         .btn-reject { background: #dc3545; color: white; }
         .btn-reject:hover { background: #c82333; }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .error { color: red; margin: 10px 0; }
-        .success { color: green; margin: 10px 0; }
+        .empty { padding: 40px; text-align: center; color: #888; }
+        .loader { display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #2d6a9f; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .flex { display: flex; align-items: center; gap: 10px; }
+        .mt-10 { margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Admin – Payment Approvals</h1>
-
-        <div id="auth-section">
-            <div class="login-form">
-                <input type="email" id="email" placeholder="Admin Email" value="afrinode60@gmail.com">
-                <input type="password" id="password" placeholder="Password">
-                <button id="loginBtn">Login</button>
-                <span style="margin-left: 20px; line-height: 40px;">or</span>
-                <input type="text" id="tokenInput" placeholder="Paste JWT Token" style="flex: 2;">
-                <button id="setTokenBtn">Use Token</button>
-            </div>
-            <div id="authStatus"></div>
+        <div class="header">
+            <h1>⚡ Admin Panel <small>– Payment Approvals</small></h1>
         </div>
+        <div class="card">
+            <!-- Login / Token Section -->
+            <div id="auth-section">
+                <div class="login-section">
+                    <input type="email" id="email" placeholder="Admin Email" value="afrinode60@gmail.com">
+                    <input type="password" id="password" placeholder="Password">
+                    <button id="loginBtn">Login</button>
+                    <span class="or">or</span>
+                    <input type="text" id="tokenInput" placeholder="Paste JWT Token" style="flex: 2;">
+                    <button id="setTokenBtn">Use Token</button>
+                </div>
+                <div id="statusMsg" class="status-msg"></div>
+            </div>
 
-        <div id="payments-section" style="display: none;">
-            <button id="refreshBtn" style="margin-bottom: 10px;">🔄 Refresh</button>
-            <div id="message"></div>
-            <table>
-                <thead>
-                    <tr><th>ID</th><th>User</th><th>Plan</th><th>Transaction ID</th><th>Status</th><th>Submitted</th><th>Actions</th></tr>
-                </thead>
-                <tbody id="paymentsBody"></tbody>
-            </table>
+            <!-- Payments Table -->
+            <div id="payments-section" style="display: none;">
+                <div class="flex mt-10">
+                    <button id="refreshBtn" class="btn" style="background: #6c757d; color: white;">🔄 Refresh</button>
+                    <div id="loader" class="loader" style="display: none;"></div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Plan</th>
+                                <th>Transaction</th>
+                                <th>Status</th>
+                                <th>Submitted</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentsBody"></tbody>
+                    </table>
+                </div>
+                <div id="emptyMsg" class="empty" style="display: none;">No payments found.</div>
+            </div>
         </div>
     </div>
 
     <script>
+        // ---------- Global ----------
         let token = localStorage.getItem('adminToken') || '';
-        const authStatus = document.getElementById('authStatus');
+        const statusMsg = document.getElementById('statusMsg');
         const paymentsSection = document.getElementById('payments-section');
         const paymentsBody = document.getElementById('paymentsBody');
-        const messageDiv = document.getElementById('message');
+        const emptyMsg = document.getElementById('emptyMsg');
+        const loader = document.getElementById('loader');
 
-        function showMessage(text, isError = false) {
-            messageDiv.textContent = text;
-            messageDiv.className = isError ? 'error' : 'success';
-            setTimeout(() => { messageDiv.textContent = ''; }, 5000);
+        function showStatus(text, type = 'info') {
+            statusMsg.textContent = text;
+            statusMsg.className = 'status-msg ' + type;
+            statusMsg.style.display = 'block';
+        }
+
+        function hideStatus() {
+            statusMsg.style.display = 'none';
         }
 
         function setToken(newToken) {
             token = newToken;
             localStorage.setItem('adminToken', token);
-            authStatus.textContent = 'Token set.';
-            authStatus.style.color = 'green';
+            showStatus('✅ Token set. Fetching payments...', 'success');
             fetchPayments();
         }
 
+        // ---------- Login ----------
         async function login(email, password) {
+            hideStatus();
             try {
                 const res = await fetch('/api/login', {
                     method: 'POST',
@@ -88,55 +128,61 @@
                 if (data.ok) {
                     setToken(data.token);
                 } else {
-                    authStatus.textContent = 'Login failed: ' + data.error;
-                    authStatus.style.color = 'red';
+                    showStatus('❌ Login failed: ' + data.error, 'error');
                 }
             } catch (e) {
-                authStatus.textContent = 'Network error: ' + e.message;
-                authStatus.style.color = 'red';
+                showStatus('❌ Network error: ' + e.message, 'error');
             }
         }
 
+        // ---------- Fetch Payments ----------
         async function fetchPayments() {
             if (!token) {
                 paymentsSection.style.display = 'none';
                 return;
             }
+            loader.style.display = 'inline-block';
             try {
                 const res = await fetch('/api/admin/payments', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 });
                 if (res.status === 401 || res.status === 403) {
-                    authStatus.textContent = 'Unauthorized. Please login again.';
-                    authStatus.style.color = 'red';
+                    const data = await res.json();
+                    showStatus('⛔ Unauthorized: ' + (data.error || 'Admin access required. Please check ADMIN_EMAILS env var.'), 'error');
                     paymentsSection.style.display = 'none';
                     localStorage.removeItem('adminToken');
                     token = '';
+                    loader.style.display = 'none';
                     return;
+                }
+                if (!res.ok) {
+                    throw new Error('Server error: ' + res.status);
                 }
                 const data = await res.json();
                 if (data.ok) {
                     renderPayments(data.payments);
                     paymentsSection.style.display = 'block';
-                    authStatus.textContent = '✅ Logged in as admin';
-                    authStatus.style.color = 'green';
+                    showStatus('✅ Logged in as admin', 'success');
                 } else {
-                    showMessage('Error fetching payments: ' + data.error, true);
+                    showStatus('❌ Error: ' + data.error, 'error');
                 }
             } catch (e) {
-                showMessage('Network error: ' + e.message, true);
+                showStatus('❌ Network error: ' + e.message, 'error');
             }
+            loader.style.display = 'none';
         }
 
+        // ---------- Render Table ----------
         function renderPayments(payments) {
             paymentsBody.innerHTML = '';
             if (!payments || payments.length === 0) {
-                paymentsBody.innerHTML = '<tr><td colspan="7">No payments found.</td></tr>';
+                emptyMsg.style.display = 'block';
                 return;
             }
+            emptyMsg.style.display = 'none';
             payments.forEach(p => {
                 const row = document.createElement('tr');
-                const statusClass = 'status-' + p.status;
+                const statusClass = 'badge-' + p.status;
                 let actions = '';
                 if (p.status === 'pending') {
                     actions = `
@@ -151,15 +197,16 @@
                     <td>${p.email || '?'}</td>
                     <td>${p.plan}</td>
                     <td>${p.transaction_id}</td>
-                    <td class="${statusClass}">${p.status}</td>
+                    <td><span class="badge ${statusClass}">${p.status}</span></td>
                     <td>${new Date(p.submitted_at).toLocaleString()}</td>
                     <td>${actions}</td>
                 `;
                 paymentsBody.appendChild(row);
             });
 
+            // Attach event listeners
             document.querySelectorAll('[data-action]').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
+                btn.addEventListener('click', async () => {
                     const id = btn.dataset.id;
                     const action = btn.dataset.action;
                     await handleAction(id, action);
@@ -167,6 +214,7 @@
             });
         }
 
+        // ---------- Approve/Reject ----------
         async function handleAction(id, action) {
             const url = `/api/admin/payments/${id}/${action}`;
             try {
@@ -176,22 +224,22 @@
                 });
                 const data = await res.json();
                 if (data.ok) {
-                    showMessage(`Payment ${action}ed successfully.`);
+                    showStatus(`✅ Payment ${action}ed successfully.`, 'success');
                     fetchPayments();
                 } else {
-                    showMessage('Error: ' + data.error, true);
+                    showStatus('❌ Error: ' + data.error, 'error');
                 }
             } catch (e) {
-                showMessage('Network error: ' + e.message, true);
+                showStatus('❌ Network error: ' + e.message, 'error');
             }
         }
 
+        // ---------- Event Listeners ----------
         document.getElementById('loginBtn').addEventListener('click', () => {
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             if (!email || !password) {
-                authStatus.textContent = 'Please enter email and password.';
-                authStatus.style.color = 'red';
+                showStatus('Please enter email and password.', 'error');
                 return;
             }
             login(email, password);
@@ -204,11 +252,12 @@
 
         document.getElementById('refreshBtn').addEventListener('click', fetchPayments);
 
+        // ---------- Auto‑login if token exists ----------
         if (token) {
             fetchPayments();
         } else {
-            authStatus.textContent = 'Please login or paste a token.';
+            showStatus('Please login or paste a token.', 'info');
         }
     </script>
 </body>
-    </html>
+</html>
