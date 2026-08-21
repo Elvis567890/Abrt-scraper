@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 lxml flask flask-cors apscheduler tenacity python-dotenv
+          pip install requests beautifulsoup4 lxml tenacity python-dotenv
 
       - name: Run scanner
         run: python run_scanner.py
