@@ -1568,13 +1568,50 @@ def run_scan() -> List[Dict[str, Any]]:
     opportunities = find_arbitrage(all_odds)
     logger.info("Found %s arbitrage opportunities", len(opportunities))
 
+    # --- Write opportunities to the shared database ---
+    try:
+        # Delete all existing opportunities
+        db.session.query(Opportunity).delete()
+        # Insert new opportunities
+        for opp in opportunities:
+            db_opp = Opportunity(
+                match=opp["match"],
+                sport=opp["sport"],
+                market_type=opp.get("market_type", opp.get("type", "1x2")),
+                market_specifier=opp.get("market_specifier", ""),
+                profit_percent=opp["profit_percent"],
+                profit_ugx=opp["profit_ugx"],
+                total_stake=opp["total_stake"],
+                arb_sum=opp["arb_sum"],
+                bets=opp["bets"]
+            )
+            db.session.add(db_opp)
+        db.session.commit()
+        logger.info("Opportunities saved to database.")
+    except Exception as e:
+        db.session.rollback()
+        logger.exception("Failed to save opportunities to database: %s", e)
+        # Fallback: still write JSON files
+        try:
+            atomic_json_write(OPPORTUNITIES_FILE, opportunities)
+            logger.info("Opportunities written to JSON fallback.")
+        except Exception as e2:
+            logger.exception("Fallback JSON write also failed: %s", e2)
+
+    # Also write JSON for artifact upload and/or backward compatibility
+    try:
+        atomic_json_write(OPPORTUNITIES_FILE, opportunities)
+    except Exception:
+        logger.exception("Could not write JSON opportunities file (non-critical)")
+
+    # Update history (still using JSON file)
     with history_lock:
         history = load_arbitrage_history()
         timestamp = utc_timestamp()
         update_arbitrage_history(opportunities, history, timestamp)
         save_arbitrage_history(history)
-        atomic_json_write(OPPORTUNITIES_FILE, opportunities)
 
+    # Send Telegram alerts for new opportunities with profit >= 5%
     for opp in opportunities:
         key = opportunity_key(opp)
         if key not in history:
@@ -1668,6 +1705,22 @@ class Payment(db.Model):
     status = db.Column(db.String(20), default="pending", nullable=False)
     submitted_at = db.Column(db.DateTime(timezone=True), default=utc_now, nullable=False)
     approved_at = db.Column(db.DateTime(timezone=True), nullable=True)
+
+# --- NEW: Opportunity model for storing arbitrage opportunities in DB ---
+class Opportunity(db.Model):
+    __tablename__ = "opportunities"
+    id = db.Column(db.Integer, primary_key=True)
+    match = db.Column(db.String(255), nullable=False)
+    sport = db.Column(db.String(50), nullable=False)
+    market_type = db.Column(db.String(50), nullable=False)
+    market_specifier = db.Column(db.String(50), default="")
+    profit_percent = db.Column(db.Float, nullable=False)
+    profit_ugx = db.Column(db.Integer, nullable=False)
+    total_stake = db.Column(db.Integer, nullable=False)
+    arb_sum = db.Column(db.Float, nullable=False)
+    bets = db.Column(db.JSON, nullable=False)  # list of bet dicts
+    created_at = db.Column(db.DateTime(timezone=True), default=utc_now, nullable=False)
+    updated_at = db.Column(db.DateTime(timezone=True), default=utc_now, onupdate=utc_now, nullable=False)
 
 with app.app_context():
     db.create_all()
@@ -1780,11 +1833,28 @@ def get_current_user():
         return jsonify({"ok": False, "error": "User not found"}), 404
     return jsonify({"ok": True, "user": serialize_user(user)})
 
+# --- UPDATED /api/arbs: now reads from database ---
 @app.route("/api/arbs", methods=["GET"])
 @subscription_required
 def get_arbs():
-    arbs = load_current_opportunities()
-    return jsonify({"ok": True, "arbs": arbs, "count": len(arbs)})
+    try:
+        # Order by highest profit first
+        opportunities = Opportunity.query.order_by(Opportunity.profit_percent.desc()).all()
+        arbs = [{
+            "match": o.match,
+            "sport": o.sport,
+            "market_type": o.market_type,
+            "market_specifier": o.market_specifier,
+            "profit_percent": o.profit_percent,
+            "profit_ugx": o.profit_ugx,
+            "total_stake": o.total_stake,
+            "arb_sum": o.arb_sum,
+            "bets": o.bets,
+        } for o in opportunities]
+        return jsonify({"ok": True, "arbs": arbs, "count": len(arbs)})
+    except Exception as e:
+        logger.exception("Error fetching arbs from DB")
+        return jsonify({"ok": False, "error": "Database error"}), 500
 
 @app.route("/api/history", methods=["GET"])
 @token_required
