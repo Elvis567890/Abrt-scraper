@@ -101,14 +101,7 @@ SHARED_BOOKMAKERS = {
         "gr": 525,
         "referer": "https://22bet.ug/line",
     },
-    "Melbet": {
-        "base_url": "https://melbet.ug",
-        "partner": "8",
-        "lng": "en",
-        "tz": 3,
-        "gr": 525,
-        "referer": "https://melbet.ug/line",
-    },
+    # Melbet moved to HTML scraper (API broken)
 }
 
 # =============================================================================
@@ -184,7 +177,7 @@ def utc_now() -> datetime:
 def utc_timestamp() -> str:
     return utc_now().strftime("%Y-%m-%d %H:%M:%S")
 
-# --- TEAM ALIASES (FIX: weak normalization) ---
+# --- TEAM ALIASES ---
 TEAM_ALIASES = {
     "manchester united": "man utd",
     "man utd": "man utd",
@@ -226,9 +219,7 @@ def normalize_team(name: str) -> str:
     if not name:
         return ""
     value = str(name).lower().strip()
-    # Apply aliases first
     value = TEAM_ALIASES.get(value, value)
-
     replacements = {
         r"\brovers\b": "rvs",
         r"\brvs\b": "rvs",
@@ -404,7 +395,6 @@ def build_match_record(
     market_type: str = "1x2", market_specifier: str = "",
     event_id: Optional[str] = None,
 ) -> Dict[str, Any]:
-    # FIX: Normalise sport string so variations like "soccer" become "Football"
     sport_lower = (sport or "Football").lower()
     sport_map = {
         "soccer": "football",
@@ -533,7 +523,7 @@ def send_telegram_alert(opportunity: Dict[str, Any]) -> None:
         logger.error("Telegram error: %s", exc)
 
 # =============================================================================
-# Generic HTML scraper helper (used by multiple bookmakers)
+# Generic HTML scraper helper
 # =============================================================================
 
 def scrape_generic_html(
@@ -551,9 +541,6 @@ def scrape_generic_html(
     max_pages: int = 5,
     sport: str = "Football",
 ) -> List[Dict[str, Any]]:
-    """
-    Generic HTML scraper for bookmakers that display odds in tables/divs.
-    """
     logger.info(f"Fetching {bookmaker_name} via HTML...")
     all_odds = []
     session = requests.Session()
@@ -570,7 +557,6 @@ def scrape_generic_html(
 
     page = 1
     while page <= max_pages:
-        # Handle pagination
         if "?" in base_url:
             url = f"{base_url}&page={page}" if "page" not in base_url else base_url.replace("page=\\d+", f"page={page}")
         else:
@@ -584,18 +570,17 @@ def scrape_generic_html(
 
         soup = BeautifulSoup(html, "html.parser")
         matches = soup.select(match_selector)
-
         if not matches:
-            # Try alternative: look for table rows
+            # Try fallback: look for table rows
             rows = soup.select("table tr")
             if rows:
-                # Try to parse as table
+                # Attempt to parse as table
                 for row in rows:
                     cells = row.find_all(["td", "th"])
                     if len(cells) < 5:
                         continue
-                    # Try to identify columns by header or position
-                    # This is a fallback - specific bookmakers should override
+                    # Try to identify columns by header (first row)
+                    # This is just a fallback; better to use specific selectors
                     pass
             break
 
@@ -609,21 +594,17 @@ def scrape_generic_html(
             if not home_team or not away_team:
                 continue
 
-            # 1X2 odds
             odd_1 = None
             odd_x = None
             odd_2 = None
-
             if odds_1_selector:
                 el = match.select_one(odds_1_selector)
                 if el:
                     odd_1 = clean_odd(el.text.strip())
-
             if odds_x_selector:
                 el = match.select_one(odds_x_selector)
                 if el:
                     odd_x = clean_odd(el.text.strip())
-
             if odds_2_selector:
                 el = match.select_one(odds_2_selector)
                 if el:
@@ -636,7 +617,6 @@ def scrape_generic_html(
                     sport=sport
                 ))
 
-            # Over/Under
             if over_selector and under_selector:
                 over_el = match.select_one(over_selector)
                 under_el = match.select_one(under_selector)
@@ -651,19 +631,17 @@ def scrape_generic_html(
                         market_specifier="2.5"
                     ))
 
-        # Check for next page
         if next_page_selector:
             next_btn = soup.select_one(next_page_selector)
             if not next_btn or "disabled" in next_btn.get("class", []):
                 break
         else:
-            # Check for common pagination patterns
             next_link = soup.find("a", text=re.compile(r"Next|»|→", re.I))
             if not next_link:
                 break
 
         page += 1
-        time.sleep(1)  # Be polite
+        time.sleep(1)
 
     logger.info(f"{bookmaker_name}: {len(all_odds)} records")
     return all_odds
@@ -701,7 +679,7 @@ def scrape_sportybet() -> List[Dict[str, Any]]:
         logger.error("SportyBet error: %s", exc)
     return odds
 
-# ---------- ChampionBet helpers ----------
+# ---------- ChampionBet ----------
 def championbet_market_items(bet_map: Dict[str, Any], keys: List[Any]) -> List[Dict[str, Any]]:
     result = []
     for key in keys:
@@ -858,10 +836,7 @@ def scrape_championbet() -> List[Dict[str, Any]]:
         matches = data.get("esMatches", []) if isinstance(data, dict) else []
         for match in matches:
             try:
-                sport_token = str(match.get("sportToken", "")).lower()
-                sport_name = str(match.get("sportName", "")).lower()
-                if "soccer" not in sport_token and "football" not in sport_token and "soccer" not in sport_name and "football" not in sport_name:
-                    continue
+                # Allow if no sportToken – we'll try anyway
                 match_id = match.get("id") or match.get("matchId")
                 if not match_id:
                     continue
@@ -905,14 +880,37 @@ def scrape_championbet() -> List[Dict[str, Any]]:
         logger.error("ChampionBet error: %s", exc)
     return odds
 
-# ---------- AbaBet ----------
+# ---------- AbaBet (improved with pagination) ----------
 def scrape_ababet() -> List[Dict[str, Any]]:
     logger.info("Fetching AbaBet...")
     odds = []
-    try:
-        html = http.get_text("https://www.ababet.ug/soccer/match_result?mobile=1")
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": (
+            "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/149.0.7827.159 Mobile Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://www.ababet.ug/",
+        "Connection": "keep-alive",
+    })
+
+    base_url = "https://www.ababet.ug/soccer/match_result?mobile=1"
+    page = 1
+    max_pages = 5  # safety limit
+
+    while page <= max_pages:
+        url = f"{base_url}&page={page}" if "?" in base_url else f"{base_url}?page={page}"
+        try:
+            html = session.get(url, timeout=30).text
+        except Exception as e:
+            logger.error("AbaBet page %s fetch error: %s", page, e)
+            break
+
         soup = BeautifulSoup(html, "html.parser")
         tables = soup.find_all("table")
+        found = False
         for table in tables:
             first_row = table.find("tr")
             if not first_row:
@@ -920,6 +918,7 @@ def scrape_ababet() -> List[Dict[str, Any]]:
             headers = [cell.get_text(" ", strip=True) for cell in first_row.find_all(["th", "td"])]
             if "Home" not in headers or "Away" not in headers:
                 continue
+            found = True
             for row in table.find_all("tr")[1:]:
                 cells = [cell.get_text(" ", strip=True) for cell in row.find_all(["td", "th"])]
                 if len(cells) < 5:
@@ -940,9 +939,15 @@ def scrape_ababet() -> List[Dict[str, Any]]:
                 if over_odd and under_odd:
                     odds.append(build_match_record(home, away, "AbaBet", over_odd, under_odd, None,
                                                    market_type="Over/Under 2.5", market_specifier="2.5"))
-        logger.info("AbaBet: %s records", len(odds))
-    except Exception as exc:
-        logger.error("AbaBet error: %s", exc)
+        if not found:
+            break
+        next_link = soup.find("a", text=re.compile(r"Next|»|→", re.I))
+        if not next_link:
+            break
+        page += 1
+        time.sleep(1)
+
+    logger.info("AbaBet: %s records", len(odds))
     return odds
 
 # ---------- Fortebet ----------
@@ -1054,7 +1059,7 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
         logger.error("Fortebet error: %s", exc)
     return odds
 
-# ---------- Shared bookmakers (1xBet, 22Bet, Melbet) ----------
+# ---------- Shared bookmakers (1xBet, 22Bet) ----------
 def shared_feed_url(config: Dict[str, Any]) -> str:
     return (f"{config['base_url']}/service-api/LineFeed/Get1x2_VZip"
             f"?count=1000&lng={config.get('lng', 'en')}&tz={config.get('tz', 3)}"
@@ -1135,9 +1140,28 @@ def scrape_shared_1x_like(bookmaker: str, config: Dict[str, Any]) -> List[Dict[s
         logger.error("%s error: %s", bookmaker, exc)
     return odds
 
+# ---------- Melbet (HTML scraper – API broken) ----------
+def scrape_melbet_html() -> List[Dict[str, Any]]:
+    return scrape_generic_html(
+        bookmaker_name="Melbet",
+        base_url="https://melbet.ug/line",
+        match_selector="div.event, div.match, div.game-item, div.fixture",
+        home_selector=".home, .team-home, .home-team, .home-name",
+        away_selector=".away, .team-away, .away-team, .away-name",
+        odds_1_selector=".odd-home, .home-odd, .odd-1, .btn-home",
+        odds_x_selector=".odd-draw, .draw-odd, .odd-x, .btn-draw",
+        odds_2_selector=".odd-away, .away-odd, .odd-2, .btn-away",
+        over_selector=".over, .over-odd",
+        under_selector=".under, .under-odd",
+        next_page_selector="a.next, .pagination-next",
+        max_pages=5,
+    )
+
+# ---------- Shared extra markets (skip Melbet) ----------
 def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
     all_odds = []
-    for bookmaker, config in SHARED_BOOKMAKERS.items():
+    for bookmaker in ["1xBet", "22Bet"]:
+        config = SHARED_BOOKMAKERS[bookmaker]
         try:
             data = http.get_json(shared_feed_url(config), headers=shared_headers(config))
             values = data.get("Value", []) if isinstance(data, dict) else []
@@ -1168,11 +1192,11 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
                     all_odds.append(build_match_record(home, away, bookmaker,
                                                        extracted["btts_yes"], None, extracted["btts_no"],
                                                        market_type="BTTS", event_id=event_id))
-        except Exception as exc:
-            logger.exception("%s extra markets failed: %s", bookmaker, exc)
+        except Exception:
+            logger.exception("%s extra markets failed", bookmaker)
     return all_odds
 
-# ---------- kbet ----------
+# ---------- kbet (improved) ----------
 def scrape_kbet() -> List[Dict[str, Any]]:
     logger.info("Fetching kbet...")
     odds = []
@@ -1182,6 +1206,8 @@ def scrape_kbet() -> List[Dict[str, Any]]:
             events = data
         elif isinstance(data, dict):
             events = data.get("data", [])
+            if not events:
+                events = data.get("events", [])
         else:
             events = []
         for event in events:
@@ -1205,132 +1231,56 @@ def scrape_kbet() -> List[Dict[str, Any]]:
         logger.error("kbet error: %s", exc)
     return odds
 
-# =============================================================================
-# NEW: HTML-based scrapers for Ugandan bookmakers
-# =============================================================================
-
-# ---------- Betway Uganda ----------
+# ---------- HTML scrapers for Betway, BetPawa, PremierBet ----------
 def scrape_betway() -> List[Dict[str, Any]]:
-    """Scrape Betway Uganda (https://betway.ug)"""
     return scrape_generic_html(
         bookmaker_name="Betway",
         base_url="https://betway.ug/en/sports/football",
-        match_selector="div.event-wrapper, div.event-item, div.match-row",
-        home_selector="span.home-team, div.team-home, .home-name",
-        away_selector="span.away-team, div.team-away, .away-name",
-        odds_1_selector="button.odds-1, .odd-home, .home-odd",
-        odds_x_selector="button.odds-x, .odd-draw, .draw-odd",
-        odds_2_selector="button.odds-2, .odd-away, .away-odd",
+        match_selector="div.event-wrapper, div.event-item, div.match-row, div.game-row",
+        home_selector="span.home-team, div.team-home, .home-name, .home",
+        away_selector="span.away-team, div.team-away, .away-name, .away",
+        odds_1_selector="button.odds-1, .odd-home, .home-odd, .btn-home",
+        odds_x_selector="button.odds-x, .odd-draw, .draw-odd, .btn-draw",
+        odds_2_selector="button.odds-2, .odd-away, .away-odd, .btn-away",
         over_selector=".over-odd, .over",
         under_selector=".under-odd, .under",
-        next_page_selector="a.next, .pagination-next",
+        next_page_selector="a.next, .pagination-next, .next-page",
         max_pages=5,
     )
 
-# ---------- BetPawa Uganda ----------
 def scrape_betpawa() -> List[Dict[str, Any]]:
-    """Scrape BetPawa Uganda (https://www.betpawa.ug)"""
     return scrape_generic_html(
         bookmaker_name="BetPawa",
         base_url="https://www.betpawa.ug/en/sports/football",
-        match_selector="div.fixture, div.match-item, div.game-row",
-        home_selector=".home-team, .team-home, .home",
-        away_selector=".away-team, .team-away, .away",
-        odds_1_selector=".bet-button-home, .odd-1, .home-odd",
-        odds_x_selector=".bet-button-draw, .odd-x, .draw-odd",
-        odds_2_selector=".bet-button-away, .odd-2, .away-odd",
+        match_selector="div.fixture, div.match-item, div.game-row, div.event",
+        home_selector=".home-team, .team-home, .home, .home-name",
+        away_selector=".away-team, .team-away, .away, .away-name",
+        odds_1_selector=".bet-button-home, .odd-1, .home-odd, .btn-home",
+        odds_x_selector=".bet-button-draw, .odd-x, .draw-odd, .btn-draw",
+        odds_2_selector=".bet-button-away, .odd-2, .away-odd, .btn-away",
         over_selector=".over, .over-odd",
         under_selector=".under, .under-odd",
         next_page_selector="a.next, .pagination-next",
         max_pages=5,
     )
 
-# ---------- PremierBet Uganda ----------
 def scrape_premierbet() -> List[Dict[str, Any]]:
-    """Scrape PremierBet Uganda (https://www.premierbet.ug)"""
     return scrape_generic_html(
         bookmaker_name="PremierBet",
         base_url="https://www.premierbet.ug/en/sports/football",
-        match_selector="div.event, div.match, div.game-item",
-        home_selector=".home, .team-home, .home-team",
-        away_selector=".away, .team-away, .away-team",
-        odds_1_selector=".odd-home, .home-odd, .odd-1",
-        odds_x_selector=".odd-draw, .draw-odd, .odd-x",
-        odds_2_selector=".odd-away, .away-odd, .odd-2",
+        match_selector="div.event, div.match, div.game-item, div.fixture",
+        home_selector=".home, .team-home, .home-team, .home-name",
+        away_selector=".away, .team-away, .away-team, .away-name",
+        odds_1_selector=".odd-home, .home-odd, .odd-1, .btn-home",
+        odds_x_selector=".odd-draw, .draw-odd, .odd-x, .btn-draw",
+        odds_2_selector=".odd-away, .away-odd, .odd-2, .btn-away",
         over_selector=".over, .over-odd",
         under_selector=".under, .under-odd",
         next_page_selector="a.next, .pagination-next",
         max_pages=5,
     )
 
-# ---------- NileBet Uganda ----------
-def scrape_nilebet() -> List[Dict[str, Any]]:
-    """Scrape NileBet Uganda (https://nilebet.ug)"""
-    return scrape_generic_html(
-        bookmaker_name="NileBet",
-        base_url="https://nilebet.ug/sports/football",
-        match_selector="div.match-row, div.game, div.event-item",
-        home_selector=".home-team, .team-home, .home",
-        away_selector=".away-team, .team-away, .away",
-        odds_1_selector=".odd-home, .home-odd, .odd-1",
-        odds_x_selector=".odd-draw, .draw-odd, .odd-x",
-        odds_2_selector=".odd-away, .away-odd, .odd-2",
-        over_selector=".over, .over-odd",
-        under_selector=".under, .under-odd",
-        next_page_selector="a.next, .pagination-next",
-        max_pages=5,
-    )
-
-# ---------- LigaBet Uganda ----------
-def scrape_ligabet() -> List[Dict[str, Any]]:
-    """Scrape LigaBet Uganda"""
-    return scrape_generic_html(
-        bookmaker_name="LigaBet",
-        base_url="https://ligabet.ug/sports/football",
-        match_selector="div.match, div.game, div.event",
-        home_selector=".home, .home-team",
-        away_selector=".away, .away-team",
-        odds_1_selector=".odd-1, .home-odd",
-        odds_x_selector=".odd-x, .draw-odd",
-        odds_2_selector=".odd-2, .away-odd",
-        over_selector=".over",
-        under_selector=".under",
-        next_page_selector="a.next",
-        max_pages=5,
-    )
-
-# ---------- BetKing Uganda ----------
-def scrape_betking() -> List[Dict[str, Any]]:
-    """Scrape BetKing Uganda"""
-    return scrape_generic_html(
-        bookmaker_name="BetKing",
-        base_url="https://www.betking.ug/sports/football",
-        match_selector="div.event, div.match, div.game",
-        home_selector=".home, .home-team",
-        away_selector=".away, .away-team",
-        odds_1_selector=".odd-1, .home-odd",
-        odds_x_selector=".odd-x, .draw-odd",
-        odds_2_selector=".odd-2, .away-odd",
-        over_selector=".over",
-        under_selector=".under",
-        next_page_selector="a.next",
-        max_pages=5,
-    )
-
-# ---------- 22Bet (already in SHARED_BOOKMAKERS, but adding explicit scraper) ----------
-def scrape_22bet() -> List[Dict[str, Any]]:
-    """Scrape 22Bet Uganda using shared feed"""
-    return scrape_shared_1x_like("22Bet", SHARED_BOOKMAKERS["22Bet"])
-
-# ---------- 1xBet (already in SHARED_BOOKMAKERS) ----------
-def scrape_1xbet() -> List[Dict[str, Any]]:
-    """Scrape 1xBet Uganda using shared feed"""
-    return scrape_shared_1x_like("1xBet", SHARED_BOOKMAKERS["1xBet"])
-
-# ---------- Melbet (already in SHARED_BOOKMAKERS) ----------
-def scrape_melbet() -> List[Dict[str, Any]]:
-    """Scrape Melbet Uganda using shared feed"""
-    return scrape_shared_1x_like("Melbet", SHARED_BOOKMAKERS["Melbet"])
+# ---------- Removed: NileBet, LigaBet, BetKing (DNS unreachable) ----------
 
 # =============================================================================
 # Arbitrage calculations
@@ -1467,10 +1417,9 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             specifier = first_record.get("market_specifier", "")
             match_name = first_record.get("match", "")
 
-            # FIX: Determine if draw odds exist, not based on sport name
             has_draw = any(clean_odd(rec.get("draw")) is not None for rec in records)
 
-            # 3-way markets (1X2 with draw odds)
+            # 3-way markets
             if market_type == "1x2" and has_draw:
                 best_home, best_draw, best_away = {}, {}, {}
                 for rec in records:
@@ -1499,7 +1448,7 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                             if opp:
                                 opportunities.append(opp)
 
-            # 2-way markets (including 1X2 without draw odds)
+            # 2-way markets
             else:
                 bookmakers = {}
                 for rec in records:
@@ -1520,7 +1469,6 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                         home_odd = bookmakers[bm1]["home"]
                         away_odd = bookmakers[bm2]["away"]
                         if home_odd and away_odd:
-                            # FIX: Use correct outcome labels based on market type
                             if market_type == "Over/Under 2.5":
                                 outcome1, outcome2 = "Over", "Under"
                             elif market_type == "Asian Handicap":
@@ -1539,7 +1487,6 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                             if opp:
                                 opportunities.append(opp)
 
-    # Deduplicate by match + market type + specifier
     best = {}
     for opp in opportunities:
         ident = f"{opp['match']}::{opp['sport']}::{opp['market_type']}::{opp['market_specifier']}"
@@ -1567,29 +1514,25 @@ def load_current_opportunities() -> List[Dict[str, Any]]:
 
 def run_scan() -> List[Dict[str, Any]]:
     reset_scanner_status()
-    logger.info("================================================")
+    logger.info("=" * 48)
     logger.info("STARTING ARBITRAGE SCAN")
-    logger.info("================================================")
+    logger.info("=" * 48)
 
     all_odds = []
     scrapers = [
-        # Existing bookmakers
         ("SportyBet", scrape_sportybet),
         ("ChampionBet", scrape_championbet),
         ("AbaBet", scrape_ababet),
         ("Fortebet", scrape_fortebet),
-        ("1xBet", scrape_1xbet),
-        ("22Bet", scrape_22bet),
-        ("Melbet", scrape_melbet),
+        ("1xBet", lambda: scrape_shared_1x_like("1xBet", SHARED_BOOKMAKERS["1xBet"])),
+        ("22Bet", lambda: scrape_shared_1x_like("22Bet", SHARED_BOOKMAKERS["22Bet"])),
+        ("Melbet", scrape_melbet_html),   # now HTML
         ("SharedExtraMarkets", scrape_shared_extra_markets),
         ("kbet", scrape_kbet),
-        # NEW: Ugandan bookmakers (HTML scrapers)
         ("Betway", scrape_betway),
         ("BetPawa", scrape_betpawa),
         ("PremierBet", scrape_premierbet),
-        ("NileBet", scrape_nilebet),
-        ("LigaBet", scrape_ligabet),
-        ("BetKing", scrape_betking),
+        # NileBet, LigaBet, BetKing removed (DNS unreachable)
     ]
 
     for bookmaker, scraper in scrapers:
@@ -1625,7 +1568,6 @@ def run_scan() -> List[Dict[str, Any]]:
     opportunities = find_arbitrage(all_odds)
     logger.info("Found %s arbitrage opportunities", len(opportunities))
 
-    # Update history
     with history_lock:
         history = load_arbitrage_history()
         timestamp = utc_timestamp()
@@ -1633,7 +1575,6 @@ def run_scan() -> List[Dict[str, Any]]:
         save_arbitrage_history(history)
         atomic_json_write(OPPORTUNITIES_FILE, opportunities)
 
-    # Telegram alerts for new high-profit opportunities
     for opp in opportunities:
         key = opportunity_key(opp)
         if key not in history:
@@ -1921,7 +1862,7 @@ def submit_payment():
         return jsonify({"ok": False, "error": "Internal server error, please try again later"}), 500
 
 # =============================================================================
-# Admin API endpoints (with improved error handling)
+# Admin API endpoints
 # =============================================================================
 
 @app.route("/api/admin/payments", methods=["GET"])
@@ -2018,7 +1959,7 @@ def robots():
     return Response(content, mimetype="text/plain")
 
 # =============================================================================
-# Frontend serving (index.html & admin.html)
+# Frontend serving
 # =============================================================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
