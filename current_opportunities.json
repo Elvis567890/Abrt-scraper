@@ -2,88 +2,54 @@
   {
     "match": "Home vs Away",
     "sport": "Football",
-    "type": "Double Chance",
-    "market_type": "Double Chance",
-    "market_specifier": "1X_X2",
-    "profit_percent": 24.88,
-    "profit_ugx": 24884,
+    "type": "Asian Handicap",
+    "market_type": "Asian Handicap",
+    "market_specifier": "-1.5",
+    "profit_percent": 6.27,
+    "profit_ugx": 6265,
     "total_stake": 100000,
-    "arb_sum": 0.751158,
+    "arb_sum": 0.937346,
     "bets": [
       {
         "bookmaker": "1xBet",
         "outcome": "Home",
-        "odd": 3.09,
-        "stake": 43083,
-        "win": 133126
+        "odd": 2.108,
+        "stake": 50609,
+        "win": 106684
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Away",
-        "odd": 2.339,
-        "stake": 56917,
-        "win": 133129
+        "odd": 2.16,
+        "stake": 49391,
+        "win": 106685
       }
     ]
   },
   {
     "match": "Home vs Away",
     "sport": "Football",
-    "type": "Asian Handicap",
-    "market_type": "Asian Handicap",
-    "market_specifier": "",
-    "profit_percent": 2.9,
-    "profit_ugx": 2898,
+    "type": "Double Chance",
+    "market_type": "Double Chance",
+    "market_specifier": "1X_X2",
+    "profit_percent": 5.9,
+    "profit_ugx": 5904,
     "total_stake": 100000,
-    "arb_sum": 0.971017,
+    "arb_sum": 0.940957,
     "bets": [
       {
         "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.035,
-        "stake": 50607,
-        "win": 102985
+        "outcome": "1X",
+        "odd": 2.055,
+        "stake": 51715,
+        "win": 106274
       },
       {
         "bookmaker": "22Bet",
-        "outcome": "Away",
-        "odd": 2.085,
-        "stake": 49393,
-        "win": 102984
-      }
-    ]
-  },
-  {
-    "match": "Minnesota vs Atlanta",
-    "sport": "Football",
-    "type": "3-way",
-    "market_type": "1x2",
-    "market_specifier": "",
-    "profit_percent": 1.78,
-    "profit_ugx": 1783,
-    "total_stake": 100000,
-    "arb_sum": 0.982165,
-    "bets": [
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Home",
-        "odd": 2.103,
-        "stake": 48415,
-        "win": 101817
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Draw",
-        "odd": 3.85,
-        "stake": 26446,
-        "win": 101817
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 4.05,
-        "stake": 25139,
-        "win": 101813
+        "outcome": "X2",
+        "odd": 2.201,
+        "stake": 48285,
+        "win": 106275
       }
     ]
   }
