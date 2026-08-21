@@ -2,9 +2,7 @@ name: Arbitrage Scanner
 
 on:
   schedule:
-    # Run every 5 minutes (adjust as needed)
     - cron: '*/5 * * * *'
-  # Also allow manual trigger from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -22,12 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 lxml flask flask-cors apscheduler tenacity
+          pip install requests beautifulsoup4 lxml flask flask-cors apscheduler tenacity python-dotenv
 
       - name: Run scanner
         run: python run_scanner.py
         env:
-          # Optional: Telegram alerts
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
