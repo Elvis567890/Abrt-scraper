@@ -1,86 +1,40 @@
-name: Build and Push to ghcr.io
+name: Arbitrage Scanner
 
 on:
   schedule:
-    - cron: '0 8 * * *'
-  push:
-    branches: [ main ]
+    # Run every 5 minutes (adjust as needed)
+    - cron: '*/5 * * * *'
+  # Also allow manual trigger from the Actions tab
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
-  build-and-scan:
+  scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    permissions:
-      contents: read
-      packages: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}   # Ensure this secret exists (classic PAT with write:packages)
+          python-version: '3.10'
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: |
-            ghcr.io/elvis567890/abrt-scraper:latest
-            ghcr.io/elvis567890/abrt-scraper:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Run scraper
+      - name: Install dependencies
         run: |
-          docker run --rm \
-            -v "${{ github.workspace }}:/app" \
-            -e SECRET_KEY="${{ secrets.SECRET_KEY }}" \
-            -e DATABASE_URL="sqlite:////tmp/users.db" \
-            -e ADMIN_EMAILS="${{ secrets.ADMIN_EMAILS }}" \
-            -e ENABLE_SCHEDULER="false" \
-            -e OPPORTUNITIES_FILE="/app/current_opportunities.json" \
-            -e HISTORY_FILE="/app/arb_history.json" \
-            -e SCANNER_STATUS_FILE="/app/scanner_status.json" \
-            ghcr.io/elvis567890/abrt-scraper:latest \
-            python -c "from scraper import run_scan_and_store; run_scan_and_store()"
+          pip install requests beautifulsoup4 lxml flask flask-cors apscheduler tenacity
 
-      - name: Upload opportunities file
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: opportunities
-          path: ${{ github.workspace }}/current_opportunities.json
+      - name: Run scanner
+        run: python run_scanner.py
+        env:
+          # Optional: Telegram alerts
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
-      # ----------------------------------------------------------------------
-      # OPTIONAL: Deploy the generated JSON to your live server via SSH/SCP.
-      # Uncomment and configure the following step if you want your live app
-      # to automatically receive the updated opportunities file.
-      # You will need to add these secrets to your repository:
-      #   DEPLOY_HOST   - your server IP or domain
-      #   DEPLOY_USER   - SSH username
-      #   DEPLOY_KEY    - SSH private key (or use password)
-      #   DEPLOY_PATH   - remote directory where the app expects the file
-      # ----------------------------------------------------------------------
-      # - name: Deploy opportunities to server
-      #   if: always()
-      #   uses: appleboy/scp-action@v0.1.7
-      #   with:
-      #     host: ${{ secrets.DEPLOY_HOST }}
-      #     username: ${{ secrets.DEPLOY_USER }}
-      #     key: ${{ secrets.DEPLOY_KEY }}
-      #     source: "current_opportunities.json"
-      #     target: ${{ secrets.DEPLOY_PATH }}
+      - name: Commit and push updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add current_opportunities.json arb_history.json scanner_status.json
+          git diff --staged --quiet || git commit -m "Auto-update arbitrage opportunities [skip ci]"
+          git push
