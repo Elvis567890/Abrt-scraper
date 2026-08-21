@@ -1,5 +1,5 @@
 # =============================================================================
-# scraper.py – Full Arbitrage Scanner with Admin Panel
+# scraper.py – Minimal Arbitrage Scanner (No auth, no admin, just scanning)
 # =============================================================================
 
 import json
@@ -9,17 +9,14 @@ import re
 import threading
 import time
 from datetime import datetime, timedelta, timezone
-from functools import wraps
 from typing import Any, Dict, List, Optional, Tuple
 
-import bcrypt
-import jwt
 import requests
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from flask import Flask, Response, g, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from tenacity import (
@@ -49,23 +46,12 @@ DEFAULT_STAKE = int(os.getenv("DEFAULT_STAKE", "100000"))
 HISTORY_FILE = os.getenv("HISTORY_FILE", "arb_history.json")
 OPPORTUNITIES_FILE = os.getenv("OPPORTUNITIES_FILE", "current_opportunities.json")
 SCANNER_STATUS_FILE = os.getenv("SCANNER_STATUS_FILE", "scanner_status.json")
-SECRET_KEY = os.getenv("SECRET_KEY")
-if not SECRET_KEY:
-    raise RuntimeError("SECRET_KEY environment variable is required.")
-FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "*")
-ADMIN_EMAILS = {
-    email.strip().lower()
-    for email in os.getenv("ADMIN_EMAILS", "").split(",")
-    if email.strip()
-}
 ENABLE_SCHEDULER = os.getenv("ENABLE_SCHEDULER", "false").lower() == "true"
 SCAN_INTERVAL_MINUTES = max(1, int(os.getenv("SCAN_INTERVAL_MINUTES", "2")))
 MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN = max(
     1, int(os.getenv("MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN", "2"))
 )
 ZERO_RECORDS_ARE_ERRORS = os.getenv("ZERO_RECORDS_ARE_ERRORS", "true").lower() == "true"
-
-VALID_PLANS = {"day", "monthly", "quarterly"}
 
 # =============================================================================
 # Bookmaker API constants
@@ -84,7 +70,7 @@ CHAMPIONBET_MATCH_API = (
 )
 KBET_API_BASE = "https://kbet.ug/api/events"
 
-# NEW: ChampionBet official API endpoints (based on provided logs)
+# ChampionBet official API
 CHAMPIONBET_SPORTS_API = (
     "https://www.championbet.ug/restapi/offer/en/top/sports/mob"
     "?annex=13&mobileVersion=2.47.4.6&locale=en"
@@ -111,7 +97,6 @@ SHARED_BOOKMAKERS = {
         "gr": 525,
         "referer": "https://22bet.ug/line",
     },
-    # Melbet moved to HTML scraper (API broken)
 }
 
 # =============================================================================
@@ -433,7 +418,7 @@ def build_match_record(
     }
 
 # =============================================================================
-# History
+# History (for tracking seen opportunities)
 # =============================================================================
 
 def load_arbitrage_history() -> Dict[str, Any]:
@@ -497,7 +482,7 @@ def update_arbitrage_history(current: List[Dict[str, Any]], history: Dict[str, A
         entry.pop("updated_this_cycle", None)
 
 # =============================================================================
-# Telegram alerts
+# Telegram alerts (optional)
 # =============================================================================
 
 def send_telegram_alert(opportunity: Dict[str, Any]) -> None:
@@ -660,7 +645,7 @@ def scrape_generic_html(
 # Scrapers (all)
 # =============================================================================
 
-# ---------- SportyBet (existing proxy) ----------
+# ---------- SportyBet (proxy) ----------
 def scrape_sportybet() -> List[Dict[str, Any]]:
     logger.info("Fetching SportyBet...")
     odds = []
@@ -689,23 +674,12 @@ def scrape_sportybet() -> List[Dict[str, Any]]:
         logger.error("SportyBet error: %s", exc)
     return odds
 
-# ---------- NEW: SportyBet Official API scraper ----------
+# ---------- SportyBet Official API (experimental) ----------
 def scrape_sportybet_official() -> List[Dict[str, Any]]:
-    """
-    Scrapes odds using SportyBet's official API endpoints.
-    This implementation uses the endpoints provided in the user's request:
-      - /factsCenter/wapPopularAndSportOption/v2  (to get tournaments)
-      - /factsCenter/event/list?tournamentId=...  (to get events)
-      - /factsCenter/event/odds?eventId=...       (to get odds)
-
-    Note: The exact endpoints for events and odds are assumed; you may need
-    to adjust them based on actual API responses.
-    """
     logger.info("Fetching SportyBet (official API)...")
     odds = []
     try:
         base_headers = {"Referer": "https://www.sportybet.com/ng/m/"}
-        # Step 1: Get football tournament list
         sport_list_url = "https://www.sportybet.com/factsCenter/wapPopularAndSportOption/v2"
         data = http.get_json(sport_list_url, headers=base_headers)
         if data.get("bizCode") != 10000:
@@ -718,15 +692,12 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
             logger.warning("Football not found in SportyBet sports list")
             return odds
         categories = football.get("categories", [])
-        # For each category, get tournaments
         for category in categories:
             tournaments = category.get("tournaments", [])
             for tournament in tournaments:
                 tournament_id = tournament.get("id")
                 if not tournament_id:
                     continue
-                # Step 2: Get events for this tournament
-                # Assumed endpoint: /factsCenter/event/list?tournamentId=...
                 event_list_url = f"https://www.sportybet.com/factsCenter/event/list?tournamentId={tournament_id}"
                 try:
                     event_data = http.get_json(event_list_url, headers=base_headers)
@@ -742,8 +713,6 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
                     away = event.get("awayTeamName") or event.get("away")
                     if not event_id or not home or not away:
                         continue
-                    # Step 3: Get odds for this event
-                    # Assumed endpoint: /factsCenter/event/odds?eventId=...
                     odds_url = f"https://www.sportybet.com/factsCenter/event/odds?eventId={event_id}"
                     try:
                         odds_data = http.get_json(odds_url, headers=base_headers)
@@ -753,25 +722,23 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
                     if odds_data.get("bizCode") != 10000:
                         continue
                     ods = odds_data.get("data", {})
-                    # Attempt to extract odds; adjust keys based on actual response
                     home_odd = clean_odd(ods.get("homeOdd") or ods.get("home") or ods.get("1"))
                     draw_odd = clean_odd(ods.get("drawOdd") or ods.get("draw") or ods.get("x"))
                     away_odd = clean_odd(ods.get("awayOdd") or ods.get("away") or ods.get("2"))
                     if home_odd and away_odd:
                         odds.append(build_match_record(home, away, "SportyBetOfficial", home_odd, draw_odd, away_odd, event_id=event_id))
-                    # Over/Under
                     over_odd = clean_odd(ods.get("overOdd") or ods.get("over") or ods.get("over_odd"))
                     under_odd = clean_odd(ods.get("underOdd") or ods.get("under") or ods.get("under_odd"))
                     if over_odd and under_odd:
                         odds.append(build_match_record(home, away, "SportyBetOfficial", over_odd, under_odd, None,
                                                        market_type="Over/Under 2.5", market_specifier="2.5", event_id=event_id))
-                    time.sleep(0.05)  # be gentle
+                    time.sleep(0.05)
         logger.info("SportyBetOfficial: %s records", len(odds))
     except Exception as exc:
         logger.error("SportyBet official API error: %s", exc)
     return odds
 
-# ---------- ChampionBet (old API) ----------
+# ---------- ChampionBet extraction helpers ----------
 def championbet_market_items(bet_map: Dict[str, Any], keys: List[Any]) -> List[Dict[str, Any]]:
     result = []
     for key in keys:
@@ -920,6 +887,7 @@ def extract_championbet_extra(bet_map: Dict[str, Any]) -> Tuple[
 
     return asian_result, double_chance, btts
 
+# ---------- ChampionBet (old API) ----------
 def scrape_championbet() -> List[Dict[str, Any]]:
     logger.info("Fetching ChampionBet...")
     odds = []
@@ -928,7 +896,6 @@ def scrape_championbet() -> List[Dict[str, Any]]:
         matches = data.get("esMatches", []) if isinstance(data, dict) else []
         for match in matches:
             try:
-                # Allow if no sportToken – we'll try anyway
                 match_id = match.get("id") or match.get("matchId")
                 if not match_id:
                     continue
@@ -972,26 +939,17 @@ def scrape_championbet() -> List[Dict[str, Any]]:
         logger.error("ChampionBet error: %s", exc)
     return odds
 
-# ---------- NEW: ChampionBet Official API scraper (using endpoints from logs) ----------
+# ---------- ChampionBet Official API ----------
 def scrape_championbet_official() -> List[Dict[str, Any]]:
-    """
-    Scrapes odds using ChampionBet's official /top/mob? sport=... endpoint.
-    This version fetches all matches for a given sport (S = Football) in one call.
-    """
     logger.info("Fetching ChampionBet (official API)...")
     odds = []
     try:
-        # First, get the sport list to find the token for Football
         sports_data = http.get_json(CHAMPIONBET_SPORTS_API, headers={"Referer": "https://www.championbet.ug/"})
         if not isinstance(sports_data, list):
             logger.warning("ChampionBet sports list is not a list")
             return odds
-        # Find the token for Football (usually "S")
         sport_token = None
         for token in sports_data:
-            # We assume "S" is Football based on logs; but we can also search by name
-            # The list contains tokens like "S", "B", "T", etc.
-            # We'll just use "S" if present
             if token == "S":
                 sport_token = "S"
                 break
@@ -999,10 +957,8 @@ def scrape_championbet_official() -> List[Dict[str, Any]]:
             logger.warning("Football token not found in ChampionBet sports list")
             return odds
 
-        # Now fetch matches for that sport
-        # We'll use offset=0 and fetch in chunks of 30 (or larger) until no more matches
         offset = 0
-        limit = 100  # increase to get more per request
+        limit = 100
         while True:
             url = f"{CHAMPIONBET_TOP_API}&sport={sport_token}&offset={offset}"
             data = http.get_json(url, headers={"Referer": "https://www.championbet.ug/"})
@@ -1019,7 +975,6 @@ def scrape_championbet_official() -> List[Dict[str, Any]]:
                     if not home or not away:
                         continue
                     bet_map = match.get("betMap", {})
-                    # Reuse existing extraction functions
                     home_odd, draw_odd, away_odd = extract_championbet_1x2(bet_map)
                     competition = match.get("leagueName", "")
                     if home_odd and away_odd:
@@ -1047,21 +1002,19 @@ def scrape_championbet_official() -> List[Dict[str, Any]]:
                 except Exception:
                     logger.exception("ChampionBet official match processing error")
                     continue
-            # Check if we have all matches; if totalMatchCount is provided, we can break when offset >= total
             total = data.get("totalMatchCount")
             if total is not None and offset + limit >= total:
                 break
-            # If no total, we rely on getting fewer than limit matches to stop
             if len(matches) < limit:
                 break
             offset += limit
-            time.sleep(0.5)  # be respectful
+            time.sleep(0.5)
         logger.info("ChampionBetOfficial: %s records", len(odds))
     except Exception as exc:
         logger.error("ChampionBet official API error: %s", exc)
     return odds
 
-# ---------- AbaBet (improved with pagination) ----------
+# ---------- AbaBet ----------
 def scrape_ababet() -> List[Dict[str, Any]]:
     logger.info("Fetching AbaBet...")
     odds = []
@@ -1079,7 +1032,7 @@ def scrape_ababet() -> List[Dict[str, Any]]:
 
     base_url = "https://www.ababet.ug/soccer/match_result?mobile=1"
     page = 1
-    max_pages = 5  # safety limit
+    max_pages = 5
 
     while page <= max_pages:
         url = f"{base_url}&page={page}" if "?" in base_url else f"{base_url}?page={page}"
@@ -1321,7 +1274,7 @@ def scrape_shared_1x_like(bookmaker: str, config: Dict[str, Any]) -> List[Dict[s
         logger.error("%s error: %s", bookmaker, exc)
     return odds
 
-# ---------- Melbet (HTML scraper – API broken) ----------
+# ---------- Melbet (HTML) ----------
 def scrape_melbet_html() -> List[Dict[str, Any]]:
     return scrape_generic_html(
         bookmaker_name="Melbet",
@@ -1338,7 +1291,7 @@ def scrape_melbet_html() -> List[Dict[str, Any]]:
         max_pages=5,
     )
 
-# ---------- Shared extra markets (skip Melbet) ----------
+# ---------- Shared extra markets ----------
 def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
     all_odds = []
     for bookmaker in ["1xBet", "22Bet"]:
@@ -1377,7 +1330,7 @@ def scrape_shared_extra_markets() -> List[Dict[str, Any]]:
             logger.exception("%s extra markets failed", bookmaker)
     return all_odds
 
-# ---------- kbet (improved) ----------
+# ---------- kbet ----------
 def scrape_kbet() -> List[Dict[str, Any]]:
     logger.info("Fetching kbet...")
     odds = []
@@ -1412,7 +1365,7 @@ def scrape_kbet() -> List[Dict[str, Any]]:
         logger.error("kbet error: %s", exc)
     return odds
 
-# ---------- HTML scrapers for Betway, BetPawa, PremierBet ----------
+# ---------- Betway, BetPawa, PremierBet (HTML) ----------
 def scrape_betway() -> List[Dict[str, Any]]:
     return scrape_generic_html(
         bookmaker_name="Betway",
@@ -1460,8 +1413,6 @@ def scrape_premierbet() -> List[Dict[str, Any]]:
         next_page_selector="a.next, .pagination-next",
         max_pages=5,
     )
-
-# ---------- Removed: NileBet, LigaBet, BetKing (DNS unreachable) ----------
 
 # =============================================================================
 # Arbitrage calculations
@@ -1704,7 +1655,7 @@ def run_scan() -> List[Dict[str, Any]]:
         ("SportyBet", scrape_sportybet),
         ("SportyBetOfficial", scrape_sportybet_official),
         ("ChampionBet", scrape_championbet),
-        ("ChampionBetOfficial", scrape_championbet_official),  # NEW: official API
+        ("ChampionBetOfficial", scrape_championbet_official),
         ("AbaBet", scrape_ababet),
         ("Fortebet", scrape_fortebet),
         ("1xBet", lambda: scrape_shared_1x_like("1xBet", SHARED_BOOKMAKERS["1xBet"])),
@@ -1715,7 +1666,6 @@ def run_scan() -> List[Dict[str, Any]]:
         ("Betway", scrape_betway),
         ("BetPawa", scrape_betpawa),
         ("PremierBet", scrape_premierbet),
-        # NileBet, LigaBet, BetKing removed (DNS unreachable)
     ]
 
     for bookmaker, scraper in scrapers:
@@ -1751,50 +1701,21 @@ def run_scan() -> List[Dict[str, Any]]:
     opportunities = find_arbitrage(all_odds)
     logger.info("Found %s arbitrage opportunities", len(opportunities))
 
-    # --- Write opportunities to the shared database ---
-    try:
-        # Delete all existing opportunities
-        db.session.query(Opportunity).delete()
-        # Insert new opportunities
-        for opp in opportunities:
-            db_opp = Opportunity(
-                match=opp["match"],
-                sport=opp["sport"],
-                market_type=opp.get("market_type", opp.get("type", "1x2")),
-                market_specifier=opp.get("market_specifier", ""),
-                profit_percent=opp["profit_percent"],
-                profit_ugx=opp["profit_ugx"],
-                total_stake=opp["total_stake"],
-                arb_sum=opp["arb_sum"],
-                bets=opp["bets"]
-            )
-            db.session.add(db_opp)
-        db.session.commit()
-        logger.info("Opportunities saved to database.")
-    except Exception as e:
-        db.session.rollback()
-        logger.exception("Failed to save opportunities to database: %s", e)
-        # Fallback: still write JSON files
-        try:
-            atomic_json_write(OPPORTUNITIES_FILE, opportunities)
-            logger.info("Opportunities written to JSON fallback.")
-        except Exception as e2:
-            logger.exception("Fallback JSON write also failed: %s", e2)
-
-    # Also write JSON for artifact upload and/or backward compatibility
+    # Write to JSON file
     try:
         atomic_json_write(OPPORTUNITIES_FILE, opportunities)
-    except Exception:
-        logger.exception("Could not write JSON opportunities file (non-critical)")
+        logger.info("Opportunities written to JSON.")
+    except Exception as e:
+        logger.exception("Failed to write opportunities to JSON: %s", e)
 
-    # Update history (still using JSON file)
+    # Update history
     with history_lock:
         history = load_arbitrage_history()
         timestamp = utc_timestamp()
         update_arbitrage_history(opportunities, history, timestamp)
         save_arbitrage_history(history)
 
-    # Send Telegram alerts for new opportunities with profit >= 5%
+    # Send Telegram alerts
     for opp in opportunities:
         key = opportunity_key(opp)
         if key not in history:
@@ -1830,144 +1751,11 @@ def run_scan_and_store():
         scan_lock.release()
 
 # =============================================================================
-# Flask application
+# Flask application (minimal)
 # =============================================================================
 
 app = Flask(__name__)
-
-database_url = os.getenv("DATABASE_URL", "sqlite:///users.db")
-if database_url.startswith("postgres://"):
-    database_url = database_url.replace("postgres://", "postgresql://", 1)
-app.config["SQLALCHEMY_DATABASE_URI"] = database_url
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = SECRET_KEY
-
-db = SQLAlchemy(app)
-
-CORS(app, resources={r"/api/*": {"origins": FRONTEND_ORIGIN}},
-     allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
-     methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"])
-
-# =============================================================================
-# Database models
-# =============================================================================
-
-class User(db.Model):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255), unique=True, nullable=False, index=True)
-    password_hash = db.Column(db.String(255), nullable=False)
-    name = db.Column(db.String(255), nullable=True)
-    created_at = db.Column(db.DateTime(timezone=True), default=utc_now, nullable=False)
-    subscription_status = db.Column(db.String(50), default="free", nullable=False)
-    subscription_expires_at = db.Column(db.DateTime(timezone=True), nullable=True)
-
-    def set_password(self, password: str) -> None:
-        self.password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
-
-    def check_password(self, password: str) -> bool:
-        try:
-            return bcrypt.checkpw(password.encode("utf-8"), self.password_hash.encode("utf-8"))
-        except (TypeError, ValueError):
-            return False
-
-class CompletedArb(db.Model):
-    __tablename__ = "completed_arbs"
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False, index=True)
-    match = db.Column(db.String(255), nullable=False)
-    profit = db.Column(db.Float, default=0.0, nullable=False)
-    timestamp = db.Column(db.DateTime(timezone=True), default=utc_now, nullable=False)
-
-class Payment(db.Model):
-    __tablename__ = "payments"
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False, index=True)
-    plan = db.Column(db.String(50), nullable=False)
-    transaction_id = db.Column(db.String(100), unique=True, nullable=False, index=True)
-    status = db.Column(db.String(20), default="pending", nullable=False)
-    submitted_at = db.Column(db.DateTime(timezone=True), default=utc_now, nullable=False)
-    approved_at = db.Column(db.DateTime(timezone=True), nullable=True)
-
-# --- NEW: Opportunity model for storing arbitrage opportunities in DB ---
-class Opportunity(db.Model):
-    __tablename__ = "opportunities"
-    id = db.Column(db.Integer, primary_key=True)
-    match = db.Column(db.String(255), nullable=False)
-    sport = db.Column(db.String(50), nullable=False)
-    market_type = db.Column(db.String(50), nullable=False)
-    market_specifier = db.Column(db.String(50), default="")
-    profit_percent = db.Column(db.Float, nullable=False)
-    profit_ugx = db.Column(db.Integer, nullable=False)
-    total_stake = db.Column(db.Integer, nullable=False)
-    arb_sum = db.Column(db.Float, nullable=False)
-    bets = db.Column(db.JSON, nullable=False)  # list of bet dicts
-    created_at = db.Column(db.DateTime(timezone=True), default=utc_now, nullable=False)
-    updated_at = db.Column(db.DateTime(timezone=True), default=utc_now, onupdate=utc_now, nullable=False)
-
-with app.app_context():
-    db.create_all()
-
-# =============================================================================
-# Authentication
-# =============================================================================
-
-def serialize_user(user: User) -> Dict[str, Any]:
-    return {
-        "id": user.id,
-        "email": user.email,
-        "name": user.name,
-        "subscription_status": user.subscription_status,
-        "subscription_expires_at": user.subscription_expires_at.isoformat() if user.subscription_expires_at else None,
-    }
-
-def generate_token(user_id: int) -> str:
-    payload = {"user_id": user_id, "exp": utc_now() + timedelta(days=7)}
-    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
-
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.headers.get("Authorization", "")
-        if not auth.startswith("Bearer "):
-            return jsonify({"ok": False, "error": "Missing authentication token"}), 401
-        token = auth[7:].strip()
-        if not token:
-            return jsonify({"ok": False, "error": "Missing authentication token"}), 401
-        try:
-            payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-            g.user_id = int(payload["user_id"])
-        except jwt.ExpiredSignatureError:
-            return jsonify({"ok": False, "error": "Token has expired"}), 401
-        except (jwt.InvalidTokenError, KeyError, TypeError, ValueError):
-            return jsonify({"ok": False, "error": "Invalid authentication token"}), 401
-        return f(*args, **kwargs)
-    return decorated
-
-def admin_required(f):
-    @wraps(f)
-    @token_required
-    def decorated(*args, **kwargs):
-        user = db.session.get(User, g.user_id)
-        if not user:
-            return jsonify({"ok": False, "error": "User not found"}), 404
-        if user.email.lower() not in ADMIN_EMAILS:
-            return jsonify({"ok": False, "error": "Admin access required"}), 403
-        return f(*args, **kwargs)
-    return decorated
-
-def subscription_required(f):
-    @wraps(f)
-    @token_required
-    def decorated(*args, **kwargs):
-        user = db.session.get(User, g.user_id)
-        if not user:
-            return jsonify({"ok": False, "error": "User not found"}), 404
-        now = utc_now()
-        if user.subscription_status == "free" or not user.subscription_expires_at or user.subscription_expires_at <= now:
-            return jsonify({"ok": False, "error": "Active subscription required", "code": "SUBSCRIPTION_REQUIRED"}), 403
-        return f(*args, **kwargs)
-    return decorated
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # =============================================================================
 # API routes
@@ -1982,85 +1770,16 @@ def api_scanner_status():
     with status_lock:
         return jsonify({"ok": True, "status": dict(scanner_status)})
 
-@app.route("/api/signup", methods=["POST"])
-def signup():
-    data = request.get_json(silent=True) or {}
-    email = str(data.get("email", "")).strip().lower()
-    password = str(data.get("password", ""))
-    name = str(data.get("name", "")).strip()
-    if not email or "@" not in email or len(password) < 6:
-        return jsonify({"ok": False, "error": "Invalid email or password"}), 400
-    if User.query.filter_by(email=email).first():
-        return jsonify({"ok": False, "error": "Email already registered"}), 409
-    user = User(email=email, name=name or None, subscription_status="free")
-    user.set_password(password)
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({"ok": True, "token": generate_token(user.id), "user": serialize_user(user)}), 201
-
-@app.route("/api/login", methods=["POST"])
-def login():
-    data = request.get_json(silent=True) or {}
-    email = str(data.get("email", "")).strip().lower()
-    password = str(data.get("password", ""))
-    user = User.query.filter_by(email=email).first()
-    if not user or not user.check_password(password):
-        return jsonify({"ok": False, "error": "Invalid email or password"}), 401
-    return jsonify({"ok": True, "token": generate_token(user.id), "user": serialize_user(user)})
-
-@app.route("/api/me", methods=["GET"])
-@token_required
-def get_current_user():
-    user = db.session.get(User, g.user_id)
-    if not user:
-        return jsonify({"ok": False, "error": "User not found"}), 404
-    return jsonify({"ok": True, "user": serialize_user(user)})
-
-# --- UPDATED /api/arbs: now reads from database ---
 @app.route("/api/arbs", methods=["GET"])
-@subscription_required
 def get_arbs():
     try:
-        # Order by highest profit first
-        opportunities = Opportunity.query.order_by(Opportunity.profit_percent.desc()).all()
-        arbs = [{
-            "match": o.match,
-            "sport": o.sport,
-            "market_type": o.market_type,
-            "market_specifier": o.market_specifier,
-            "profit_percent": o.profit_percent,
-            "profit_ugx": o.profit_ugx,
-            "total_stake": o.total_stake,
-            "arb_sum": o.arb_sum,
-            "bets": o.bets,
-        } for o in opportunities]
-        return jsonify({"ok": True, "arbs": arbs, "count": len(arbs)})
+        data = load_current_opportunities()
+        return jsonify({"ok": True, "arbs": data, "count": len(data)})
     except Exception as e:
-        logger.exception("Error fetching arbs from DB")
-        return jsonify({"ok": False, "error": "Database error"}), 500
-
-@app.route("/api/history", methods=["GET"])
-@token_required
-def get_history():
-    history = load_arbitrage_history()
-    entries = []
-    for key, entry in history.items():
-        entries.append({
-            "key": key,
-            "match": entry.get("match", ""),
-            "sport": entry.get("sport", "Football"),
-            "market_type": entry.get("market_type", "1x2"),
-            "market_specifier": entry.get("market_specifier", ""),
-            "first_seen": entry.get("first_seen", ""),
-            "last_seen": entry.get("last_seen", ""),
-            "valid": entry.get("valid", False),
-            "versions": entry.get("versions", []),
-        })
-    entries.sort(key=lambda x: x["last_seen"], reverse=True)
-    return jsonify({"ok": True, "history": entries})
+        logger.exception("Error fetching arbs")
+        return jsonify({"ok": False, "error": str(e)}), 500
 
 @app.route("/api/scan", methods=["POST"])
-@admin_required
 def api_scan():
     if not scan_lock.acquire(blocking=False):
         return jsonify({"ok": False, "error": "A scan is already running"}), 409
@@ -2075,149 +1794,12 @@ def api_scan():
     finally:
         scan_lock.release()
 
-@app.route("/api/complete", methods=["POST"])
-@token_required
-def complete_arb():
-    data = request.get_json(silent=True) or {}
-    match = str(data.get("match", "Unknown")).strip()
-    try:
-        profit = float(data.get("profit", 0.0))
-    except (TypeError, ValueError):
-        return jsonify({"ok": False, "error": "Invalid profit"}), 400
-    if profit < 0 or profit > 1_000_000:
-        return jsonify({"ok": False, "error": "Invalid profit"}), 400
-    record = CompletedArb(user_id=g.user_id, match=match, profit=profit)
-    db.session.add(record)
-    db.session.commit()
-    return jsonify({"ok": True, "message": "Arbitrage recorded"})
-
-@app.route("/api/payments", methods=["POST"])
-@token_required
-def submit_payment():
-    data = request.get_json(silent=True) or {}
-    plan = str(data.get("plan", "")).strip().lower()
-    transaction_id = str(data.get("transaction_id", "")).strip().upper()
-    if plan not in VALID_PLANS:
-        return jsonify({"ok": False, "error": "Invalid plan"}), 400
-    if not transaction_id or len(transaction_id) > 100:
-        return jsonify({"ok": False, "error": "Valid Transaction ID required (max 100 chars)"}), 400
-    existing = Payment.query.filter_by(transaction_id=transaction_id).first()
-    if existing:
-        return jsonify({"ok": False, "error": "Transaction ID already used"}), 409
-    try:
-        payment = Payment(user_id=g.user_id, plan=plan, transaction_id=transaction_id, status="pending")
-        db.session.add(payment)
-        db.session.commit()
-        return jsonify({"ok": True, "message": "Payment submitted for review"})
-    except Exception as e:
-        db.session.rollback()
-        logger.exception("Payment submission failed for user %s", g.user_id)
-        return jsonify({"ok": False, "error": "Internal server error, please try again later"}), 500
-
-# =============================================================================
-# Admin API endpoints
-# =============================================================================
-
-@app.route("/api/admin/payments", methods=["GET"])
-@admin_required
-def admin_list_payments():
-    try:
-        payments = Payment.query.order_by(Payment.submitted_at.desc()).all()
-        result = []
-        for p in payments:
-            user = db.session.get(User, p.user_id)
-            result.append({
-                "id": p.id,
-                "email": user.email if user else "?",
-                "plan": p.plan,
-                "transaction_id": p.transaction_id,
-                "status": p.status,
-                "submitted_at": p.submitted_at.isoformat(),
-                "approved_at": p.approved_at.isoformat() if p.approved_at else None,
-            })
-        return jsonify({"ok": True, "payments": result})
-    except Exception as e:
-        logger.exception("Admin payments list failed")
-        return jsonify({"ok": False, "error": str(e)}), 500
-
-@app.route("/api/admin/payments/<int:payment_id>/approve", methods=["POST"])
-@admin_required
-def admin_approve_payment(payment_id):
-    try:
-        payment = db.session.get(Payment, payment_id)
-        if not payment:
-            return jsonify({"ok": False, "error": "Payment not found"}), 404
-        if payment.status != "pending":
-            return jsonify({"ok": False, "error": "Already processed"}), 409
-        user = db.session.get(User, payment.user_id)
-        if not user:
-            return jsonify({"ok": False, "error": "User not found"}), 404
-        days = {"day": 1, "monthly": 30, "quarterly": 90}.get(payment.plan)
-        if not days:
-            return jsonify({"ok": False, "error": "Invalid payment plan"}), 400
-        now = utc_now()
-        current_expiry = user.subscription_expires_at
-        if current_expiry and current_expiry > now:
-            start = current_expiry
-        else:
-            start = now
-        user.subscription_status = payment.plan
-        user.subscription_expires_at = start + timedelta(days=days)
-        payment.status = "approved"
-        payment.approved_at = now
-        db.session.commit()
-        return jsonify({"ok": True, "message": "Payment approved"})
-    except Exception as e:
-        db.session.rollback()
-        logger.exception("Admin approve payment failed")
-        return jsonify({"ok": False, "error": str(e)}), 500
-
-@app.route("/api/admin/payments/<int:payment_id>/reject", methods=["POST"])
-@admin_required
-def admin_reject_payment(payment_id):
-    try:
-        payment = db.session.get(Payment, payment_id)
-        if not payment:
-            return jsonify({"ok": False, "error": "Payment not found"}), 404
-        if payment.status != "pending":
-            return jsonify({"ok": False, "error": "Already processed"}), 409
-        payment.status = "rejected"
-        db.session.commit()
-        return jsonify({"ok": True, "message": "Payment rejected"})
-    except Exception as e:
-        db.session.rollback()
-        logger.exception("Admin reject payment failed")
-        return jsonify({"ok": False, "error": str(e)}), 500
-
-# =============================================================================
-# Sitemap & Robots
-# =============================================================================
-
-@app.route("/sitemap.xml")
-def sitemap():
-    xml = '''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://abrt-scraper-bsin.onrender.com/</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-</urlset>'''
-    return Response(xml, mimetype="application/xml")
-
-@app.route("/robots.txt")
-def robots():
-    content = "User-agent: *\nAllow: /\nSitemap: https://abrt-scraper-bsin.onrender.com/sitemap.xml\n"
-    return Response(content, mimetype="text/plain")
-
 # =============================================================================
 # Frontend serving
 # =============================================================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 INDEX_FILE = os.path.join(BASE_DIR, "index.html")
-ADMIN_FILE = os.path.join(BASE_DIR, "admin.html")
 
 @app.route("/", methods=["GET"])
 def serve_frontend():
@@ -2225,18 +1807,10 @@ def serve_frontend():
         return jsonify({"ok": False, "error": "index.html not found"}), 404
     return send_file(INDEX_FILE)
 
-@app.route("/admin", methods=["GET"])
-def admin_panel():
-    if not os.path.exists(ADMIN_FILE):
-        return jsonify({"ok": False, "error": "admin.html not found"}), 404
-    return send_file(ADMIN_FILE)
-
 @app.route("/<path:path>", methods=["GET"])
 def frontend_fallback(path: str):
     if path.startswith("api/"):
         return jsonify({"ok": False, "error": "API route not found"}), 404
-    if path == "admin.html" and os.path.exists(ADMIN_FILE):
-        return send_file(ADMIN_FILE)
     if not os.path.exists(INDEX_FILE):
         return jsonify({"ok": False, "error": "index.html not found"}), 404
     return send_file(INDEX_FILE)
