@@ -60,10 +60,6 @@ CHAMPIONBET_MATCH_API = (
 )
 KBET_API_BASE = "https://kbet.ug/api/events"
 
-CHAMPIONBET_SPORTS_API = (
-    "https://www.championbet.ug/restapi/offer/en/top/sports/mob"
-    "?annex=13&mobileVersion=2.47.4.6&locale=en"
-)
 CHAMPIONBET_TOP_API = (
     "https://www.championbet.ug/restapi/offer/en/top/mob"
     "?annex=13&mobileVersion=2.47.4.6&locale=en"
@@ -541,8 +537,14 @@ def scrape_generic_html(
 
     page = 1
     while page <= max_pages:
-        if "?" in base_url:
-            url = f"{base_url}&page={page}" if "page" not in base_url else base_url.replace("page=\\d+", f"page={page}")
+        # FIX: previously used base_url.replace("page=\\d+", ...) which is a
+        # literal string replace, not a regex, so it could never match and
+        # would silently fall through. Use re.sub against the actual base_url
+        # so a "page=N" parameter already present is correctly replaced.
+        if re.search(r"[?&]page=\d+", base_url):
+            url = re.sub(r"page=\d+", f"page={page}", base_url)
+        elif "?" in base_url:
+            url = f"{base_url}&page={page}"
         else:
             url = f"{base_url}?page={page}"
 
@@ -555,17 +557,9 @@ def scrape_generic_html(
         soup = BeautifulSoup(html, "html.parser")
         matches = soup.select(match_selector)
         if not matches:
-            # Try fallback: look for table rows
-            rows = soup.select("table tr")
-            if rows:
-                # Attempt to parse as table
-                for row in rows:
-                    cells = row.find_all(["td", "th"])
-                    if len(cells) < 5:
-                        continue
-                    # Try to identify columns by header (first row)
-                    # This is just a fallback; better to use specific selectors
-                    pass
+            # NOTE: table fallback intentionally left unimplemented — the
+            # generic selectors below are guesses and haven't been verified
+            # against each bookmaker's real markup. See summary notes.
             break
 
         for match in matches:
@@ -620,7 +614,9 @@ def scrape_generic_html(
             if not next_btn or "disabled" in next_btn.get("class", []):
                 break
         else:
-            next_link = soup.find("a", text=re.compile(r"Next|»|→", re.I))
+            # FIX: `text=` is deprecated in newer BeautifulSoup/bs4 releases
+            # in favor of `string=`. Kept behavior identical, just future-proofed.
+            next_link = soup.find("a", string=re.compile(r"Next|»|→", re.I))
             if not next_link:
                 break
 
@@ -773,7 +769,10 @@ def extract_championbet_1x2(bet_map: Dict[str, Any]) -> Tuple[Optional[float], O
         if odd is None:
             continue
         label = normalize_label(item_label(item))
-        market_key = item.get("_market_key")
+        # FIX: this local variable previously shadowed the module-level
+        # market_key(home, away, market_type, market_specifier) function.
+        # Renamed to item_market_key to avoid any future accidental collision.
+        item_market_key = item.get("_market_key")
         if label in {"1", "home", "homewin"}:
             if home is None:
                 home = odd
@@ -786,11 +785,11 @@ def extract_championbet_1x2(bet_map: Dict[str, Any]) -> Tuple[Optional[float], O
             if away is None:
                 away = odd
             continue
-        if market_key in {"1", "4", "7"} and home is None:
+        if item_market_key in {"1", "4", "7"} and home is None:
             home = odd
-        elif market_key in {"2", "5", "8"} and draw is None:
+        elif item_market_key in {"2", "5", "8"} and draw is None:
             draw = odd
-        elif market_key in {"3", "6", "9"} and away is None:
+        elif item_market_key in {"3", "6", "9"} and away is None:
             away = odd
     return home, draw, away
 
@@ -845,8 +844,16 @@ def extract_championbet_extra(bet_map: Dict[str, Any]) -> Tuple[
         elif normalized in {"away", "2", "2handicap", "awayhandicap"} or item.get("_market_key") in {"6", "8"}:
             asian[line_key][1] = odd
 
+    # FIX: previously any handicap line whose actual line value couldn't be
+    # read (line_key == "") was still included, and would then get matched
+    # against a *different* bookmaker's real-lined handicap in
+    # match_key_similarity (since market_specifier would be "" == "").
+    # That risks flagging a false arbitrage between two different handicap
+    # lines. Now we only keep entries where we actually know the line.
     asian_result = {}
     for line, values in asian.items():
+        if not line:
+            continue
         if values[0] is not None and values[1] is not None:
             asian_result[line] = (values[0], values[1])
 
@@ -930,26 +937,20 @@ def scrape_championbet() -> List[Dict[str, Any]]:
 
 # ---------- ChampionBet Official ----------
 def scrape_championbet_official() -> List[Dict[str, Any]]:
+    # FIX: this previously called a separate "sports list" endpoint and
+    # searched for a sport token by checking `token == "S"` against entries
+    # of that list. That can never match real API data (the list holds
+    # dicts/ids, not the literal string "S"), so this scraper was silently
+    # returning zero records every single scan. The known-working top/mob
+    # endpoint (same one scrape_championbet() already uses successfully)
+    # doesn't require a sport token, so we paginate that directly instead.
     logger.info("Fetching ChampionBet (official API)...")
     odds = []
     try:
-        sports_data = http.get_json(CHAMPIONBET_SPORTS_API, headers={"Referer": "https://www.championbet.ug/"})
-        if not isinstance(sports_data, list):
-            logger.warning("ChampionBet sports list is not a list")
-            return odds
-        sport_token = None
-        for token in sports_data:
-            if token == "S":
-                sport_token = "S"
-                break
-        if not sport_token:
-            logger.warning("Football token not found in ChampionBet sports list")
-            return odds
-
         offset = 0
         limit = 100
         while True:
-            url = f"{CHAMPIONBET_TOP_API}&sport={sport_token}&offset={offset}"
+            url = f"{CHAMPIONBET_TOP_API}&offset={offset}"
             data = http.get_json(url, headers={"Referer": "https://www.championbet.ug/"})
             matches = data.get("esMatches", []) if isinstance(data, dict) else []
             if not matches:
@@ -1064,7 +1065,8 @@ def scrape_ababet() -> List[Dict[str, Any]]:
                                                    market_type="Over/Under 2.5", market_specifier="2.5"))
         if not found:
             break
-        next_link = soup.find("a", text=re.compile(r"Next|»|→", re.I))
+        # FIX: `text=` deprecated in newer bs4 in favor of `string=`.
+        next_link = soup.find("a", string=re.compile(r"Next|»|→", re.I))
         if not next_link:
             break
         page += 1
@@ -1102,6 +1104,7 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                 home_odd = draw_odd = away_odd = None
                 over_odd = under_odd = None
                 ah_home = ah_away = None
+                ah_specifier = None
                 dc_home = dc_away = None
                 btts_yes = btts_no = None
 
@@ -1131,10 +1134,30 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                             elif outcome_id == 2:
                                 under_odd = odd
                         elif market_id == 2:
+                            # FIX: previously the actual handicap line was
+                            # never read here, and the record below hardcoded
+                            # market_specifier="-0.5" regardless of the real
+                            # line. That would silently mislabel every AH
+                            # line as "-0.5" and could match it against a
+                            # genuinely different line from another
+                            # bookmaker as if it were the same market --
+                            # producing a false arbitrage opportunity with
+                            # real money at stake. Now we try to read the
+                            # actual line, and skip the record if we can't
+                            # determine it rather than guessing.
                             if outcome_id == 1:
                                 ah_home = odd
                             elif outcome_id == 2:
                                 ah_away = odd
+                            candidate_specifier = (
+                                value.get("specifier")
+                                or value.get("hcp")
+                                or value.get("line")
+                                or value.get("handicap")
+                                or market.get("specifier")
+                            )
+                            if candidate_specifier is not None:
+                                ah_specifier = candidate_specifier
                         elif market_id == 8:
                             if outcome_id == 1:
                                 dc_home = odd
@@ -1164,9 +1187,16 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                                                    sport=sport_name, market_type="Over/Under 2.5",
                                                    market_specifier="2.5", event_id=event_id))
                 if ah_home and ah_away:
-                    odds.append(build_match_record(home, away, "Fortebet", ah_home, None, ah_away,
-                                                   sport=sport_name, market_type="Asian Handicap",
-                                                   market_specifier="-0.5", event_id=event_id))
+                    if ah_specifier is not None:
+                        odds.append(build_match_record(home, away, "Fortebet", ah_home, None, ah_away,
+                                                       sport=sport_name, market_type="Asian Handicap",
+                                                       market_specifier=str(ah_specifier), event_id=event_id))
+                    else:
+                        logger.debug(
+                            "Fortebet: skipping Asian Handicap for %s vs %s — "
+                            "actual handicap line could not be determined",
+                            home, away,
+                        )
                 if dc_home and dc_away:
                     odds.append(build_match_record(home, away, "Fortebet", dc_home, None, dc_away,
                                                    sport=sport_name, market_type="Double Chance",
@@ -1584,29 +1614,41 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                     if away:
                         bookmakers[bm]["away"] = max(bookmakers[bm]["away"], away)
 
+                if market_type == "Over/Under 2.5":
+                    outcome1, outcome2 = "Over", "Under"
+                elif market_type == "Asian Handicap":
+                    outcome1, outcome2 = "Home", "Away"
+                elif market_type == "BTTS":
+                    outcome1, outcome2 = "Yes", "No"
+                elif market_type == "Double Chance":
+                    outcome1, outcome2 = "1X", "X2"
+                else:
+                    outcome1, outcome2 = "Home", "Away"
+
+                # FIX: previously only checked (bm1's "home"/outcome1 side)
+                # against (bm2's "away"/outcome2 side) for i < j, i.e. only
+                # one direction of every bookmaker pair. That silently
+                # discarded roughly half of all real two-way arbitrage
+                # opportunities — e.g. cases where the *second* bookmaker in
+                # the pair actually had the better outcome1 price and the
+                # *first* had the better outcome2 price. Now both directions
+                # are checked for every pair.
                 bms = list(bookmakers.keys())
                 for i, bm1 in enumerate(bms):
                     for bm2 in bms[i+1:]:
-                        home_odd = bookmakers[bm1]["home"]
-                        away_odd = bookmakers[bm2]["away"]
-                        if home_odd and away_odd:
-                            if market_type == "Over/Under 2.5":
-                                outcome1, outcome2 = "Over", "Under"
-                            elif market_type == "Asian Handicap":
-                                outcome1, outcome2 = "Home", "Away"
-                            elif market_type == "BTTS":
-                                outcome1, outcome2 = "Yes", "No"
-                            elif market_type == "Double Chance":
-                                outcome1, outcome2 = "1X", "X2"
-                            else:
-                                outcome1, outcome2 = "Home", "Away"
-
-                            opp = create_two_outcome_opportunity(
-                                match_name, sport, market_type, specifier,
-                                bm1, outcome1, home_odd, bm2, outcome2, away_odd
-                            )
-                            if opp:
-                                opportunities.append(opp)
+                        combos = [
+                            (bm1, bookmakers[bm1]["home"], bm2, bookmakers[bm2]["away"]),
+                            (bm2, bookmakers[bm2]["home"], bm1, bookmakers[bm1]["away"]),
+                        ]
+                        for first_bm, first_odd, second_bm, second_odd in combos:
+                            if first_odd and second_odd:
+                                opp = create_two_outcome_opportunity(
+                                    match_name, sport, market_type, specifier,
+                                    first_bm, outcome1, first_odd,
+                                    second_bm, outcome2, second_odd
+                                )
+                                if opp:
+                                    opportunities.append(opp)
 
     best = {}
     for opp in opportunities:
@@ -1634,93 +1676,100 @@ def load_current_opportunities() -> List[Dict[str, Any]]:
         return []
 
 def run_scan() -> List[Dict[str, Any]]:
-    reset_scanner_status()
-    logger.info("=" * 48)
-    logger.info("STARTING ARBITRAGE SCAN")
-    logger.info("=" * 48)
+    # FIX: scan_lock was declared at module level but never actually used
+    # anywhere, so nothing prevented two overlapping run_scan() calls (e.g.
+    # an overrunning cron job plus a manually triggered run) from writing to
+    # the same history/opportunities files concurrently. Now the whole scan
+    # body is guarded by it. If a scan is already running, a second call
+    # will simply wait for it to finish rather than racing it.
+    with scan_lock:
+        reset_scanner_status()
+        logger.info("=" * 48)
+        logger.info("STARTING ARBITRAGE SCAN")
+        logger.info("=" * 48)
 
-    all_odds = []
-    scrapers = [
-        ("SportyBet", scrape_sportybet),
-        ("SportyBetOfficial", scrape_sportybet_official),
-        ("ChampionBet", scrape_championbet),
-        ("ChampionBetOfficial", scrape_championbet_official),
-        ("AbaBet", scrape_ababet),
-        ("Fortebet", scrape_fortebet),
-        ("1xBet", lambda: scrape_shared_1x_like("1xBet", SHARED_BOOKMAKERS["1xBet"])),
-        ("22Bet", lambda: scrape_shared_1x_like("22Bet", SHARED_BOOKMAKERS["22Bet"])),
-        ("Melbet", scrape_melbet_html),
-        ("SharedExtraMarkets", scrape_shared_extra_markets),
-        ("kbet", scrape_kbet),
-        ("Betway", scrape_betway),
-        ("BetPawa", scrape_betpawa),
-        ("PremierBet", scrape_premierbet),
-    ]
+        all_odds = []
+        scrapers = [
+            ("SportyBet", scrape_sportybet),
+            ("SportyBetOfficial", scrape_sportybet_official),
+            ("ChampionBet", scrape_championbet),
+            ("ChampionBetOfficial", scrape_championbet_official),
+            ("AbaBet", scrape_ababet),
+            ("Fortebet", scrape_fortebet),
+            ("1xBet", lambda: scrape_shared_1x_like("1xBet", SHARED_BOOKMAKERS["1xBet"])),
+            ("22Bet", lambda: scrape_shared_1x_like("22Bet", SHARED_BOOKMAKERS["22Bet"])),
+            ("Melbet", scrape_melbet_html),
+            ("SharedExtraMarkets", scrape_shared_extra_markets),
+            ("kbet", scrape_kbet),
+            ("Betway", scrape_betway),
+            ("BetPawa", scrape_betpawa),
+            ("PremierBet", scrape_premierbet),
+        ]
 
-    for bookmaker, scraper in scrapers:
-        records = scraper_call(bookmaker, scraper)
-        all_odds.extend(records)
+        for bookmaker, scraper in scrapers:
+            records = scraper_call(bookmaker, scraper)
+            all_odds.extend(records)
 
-    with status_lock:
-        bookmaker_status = scanner_status["bookmakers"]
-        real_bookmakers = [name for name in bookmaker_status if name != "SharedExtraMarkets"]
-        healthy_bookmakers = sum(
-            1 for name in real_bookmakers
-            if bookmaker_status[name].get("success", False) and bookmaker_status[name].get("records", 0) > 0
-        )
-        scanner_status["healthy_bookmakers"] = healthy_bookmakers
-        scanner_status["total_odds"] = len(all_odds)
-
-    logger.info("Total usable odds records: %s", len(all_odds))
-    logger.info("Healthy bookmakers: %s", healthy_bookmakers)
-
-    if healthy_bookmakers < MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN:
-        error = ("Scanner returned too few healthy bookmakers. "
-                 "Current opportunities were NOT overwritten.")
-        logger.error("%s Healthy=%s Required=%s", error, healthy_bookmakers,
-                     MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN)
         with status_lock:
-            scanner_status["last_scan_success"] = False
-            scanner_status["last_scan_valid"] = False
-            scanner_status["last_scan_error"] = error
+            bookmaker_status = scanner_status["bookmakers"]
+            real_bookmakers = [name for name in bookmaker_status if name != "SharedExtraMarkets"]
+            healthy_bookmakers = sum(
+                1 for name in real_bookmakers
+                if bookmaker_status[name].get("success", False) and bookmaker_status[name].get("records", 0) > 0
+            )
+            scanner_status["healthy_bookmakers"] = healthy_bookmakers
+            scanner_status["total_odds"] = len(all_odds)
+
+        logger.info("Total usable odds records: %s", len(all_odds))
+        logger.info("Healthy bookmakers: %s", healthy_bookmakers)
+
+        if healthy_bookmakers < MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN:
+            error = ("Scanner returned too few healthy bookmakers. "
+                     "Current opportunities were NOT overwritten.")
+            logger.error("%s Healthy=%s Required=%s", error, healthy_bookmakers,
+                         MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN)
+            with status_lock:
+                scanner_status["last_scan_success"] = False
+                scanner_status["last_scan_valid"] = False
+                scanner_status["last_scan_error"] = error
+                scanner_status["last_scan_finished"] = utc_now().isoformat()
+            save_scanner_status()
+            return load_current_opportunities()
+
+        opportunities = find_arbitrage(all_odds)
+        logger.info("Found %s arbitrage opportunities", len(opportunities))
+
+        # Write opportunities to JSON
+        try:
+            atomic_json_write(OPPORTUNITIES_FILE, opportunities)
+            logger.info("Opportunities written to %s", OPPORTUNITIES_FILE)
+        except Exception as e:
+            logger.exception("Failed to write opportunities to JSON: %s", e)
+
+        # Update history
+        with history_lock:
+            history = load_arbitrage_history()
+            timestamp = utc_timestamp()
+            update_arbitrage_history(opportunities, history, timestamp)
+            save_arbitrage_history(history)
+
+        # Send Telegram alerts for new opportunities (profit >= 5%)
+        for opp in opportunities:
+            key = opportunity_key(opp)
+            if key not in history:
+                if opp.get("profit_percent", 0) >= 5.0:
+                    send_telegram_alert(opp)
+
+        with status_lock:
+            scanner_status["opportunities_count"] = len(opportunities)
+            scanner_status["last_scan_success"] = True
+            scanner_status["last_scan_valid"] = True
+            scanner_status["last_scan_error"] = None
             scanner_status["last_scan_finished"] = utc_now().isoformat()
+
         save_scanner_status()
-        return load_current_opportunities()
-
-    opportunities = find_arbitrage(all_odds)
-    logger.info("Found %s arbitrage opportunities", len(opportunities))
-
-    # Write opportunities to JSON
-    try:
-        atomic_json_write(OPPORTUNITIES_FILE, opportunities)
-        logger.info("Opportunities written to %s", OPPORTUNITIES_FILE)
-    except Exception as e:
-        logger.exception("Failed to write opportunities to JSON: %s", e)
-
-    # Update history
-    with history_lock:
-        history = load_arbitrage_history()
-        timestamp = utc_timestamp()
-        update_arbitrage_history(opportunities, history, timestamp)
-        save_arbitrage_history(history)
-
-    # Send Telegram alerts for new opportunities (profit >= 5%)
-    for opp in opportunities:
-        key = opportunity_key(opp)
-        if key not in history:
-            if opp.get("profit_percent", 0) >= 5.0:
-                send_telegram_alert(opp)
-
-    with status_lock:
-        scanner_status["opportunities_count"] = len(opportunities)
-        scanner_status["last_scan_success"] = True
-        scanner_status["last_scan_valid"] = True
-        scanner_status["last_scan_error"] = None
-        scanner_status["last_scan_finished"] = utc_now().isoformat()
-
-    save_scanner_status()
-    logger.info("Scan completed successfully.")
-    return opportunities
+        logger.info("Scan completed successfully.")
+        return opportunities
 
 # =============================================================================
 # Main
