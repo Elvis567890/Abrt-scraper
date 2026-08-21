@@ -84,6 +84,16 @@ CHAMPIONBET_MATCH_API = (
 )
 KBET_API_BASE = "https://kbet.ug/api/events"
 
+# NEW: ChampionBet official API endpoints (based on provided logs)
+CHAMPIONBET_SPORTS_API = (
+    "https://www.championbet.ug/restapi/offer/en/top/sports/mob"
+    "?annex=13&mobileVersion=2.47.4.6&locale=en"
+)
+CHAMPIONBET_TOP_API = (
+    "https://www.championbet.ug/restapi/offer/en/top/mob"
+    "?annex=13&mobileVersion=2.47.4.6&locale=en"
+)
+
 SHARED_BOOKMAKERS = {
     "1xBet": {
         "base_url": "https://1xbet.ug",
@@ -761,7 +771,7 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
         logger.error("SportyBet official API error: %s", exc)
     return odds
 
-# ---------- ChampionBet ----------
+# ---------- ChampionBet (old API) ----------
 def championbet_market_items(bet_map: Dict[str, Any], keys: List[Any]) -> List[Dict[str, Any]]:
     result = []
     for key in keys:
@@ -960,6 +970,95 @@ def scrape_championbet() -> List[Dict[str, Any]]:
         logger.info("ChampionBet: %s records", len(odds))
     except Exception as exc:
         logger.error("ChampionBet error: %s", exc)
+    return odds
+
+# ---------- NEW: ChampionBet Official API scraper (using endpoints from logs) ----------
+def scrape_championbet_official() -> List[Dict[str, Any]]:
+    """
+    Scrapes odds using ChampionBet's official /top/mob? sport=... endpoint.
+    This version fetches all matches for a given sport (S = Football) in one call.
+    """
+    logger.info("Fetching ChampionBet (official API)...")
+    odds = []
+    try:
+        # First, get the sport list to find the token for Football
+        sports_data = http.get_json(CHAMPIONBET_SPORTS_API, headers={"Referer": "https://www.championbet.ug/"})
+        if not isinstance(sports_data, list):
+            logger.warning("ChampionBet sports list is not a list")
+            return odds
+        # Find the token for Football (usually "S")
+        sport_token = None
+        for token in sports_data:
+            # We assume "S" is Football based on logs; but we can also search by name
+            # The list contains tokens like "S", "B", "T", etc.
+            # We'll just use "S" if present
+            if token == "S":
+                sport_token = "S"
+                break
+        if not sport_token:
+            logger.warning("Football token not found in ChampionBet sports list")
+            return odds
+
+        # Now fetch matches for that sport
+        # We'll use offset=0 and fetch in chunks of 30 (or larger) until no more matches
+        offset = 0
+        limit = 100  # increase to get more per request
+        while True:
+            url = f"{CHAMPIONBET_TOP_API}&sport={sport_token}&offset={offset}"
+            data = http.get_json(url, headers={"Referer": "https://www.championbet.ug/"})
+            matches = data.get("esMatches", []) if isinstance(data, dict) else []
+            if not matches:
+                break
+            for match in matches:
+                try:
+                    match_id = match.get("id")
+                    if not match_id:
+                        continue
+                    home = match.get("home")
+                    away = match.get("away")
+                    if not home or not away:
+                        continue
+                    bet_map = match.get("betMap", {})
+                    # Reuse existing extraction functions
+                    home_odd, draw_odd, away_odd = extract_championbet_1x2(bet_map)
+                    competition = match.get("leagueName", "")
+                    if home_odd and away_odd:
+                        odds.append(build_match_record(home, away, "ChampionBetOfficial", home_odd, draw_odd, away_odd,
+                                                       competition=competition, event_id=match_id))
+                    over_odd, under_odd = extract_championbet_ou(bet_map)
+                    if over_odd and under_odd:
+                        odds.append(build_match_record(home, away, "ChampionBetOfficial", over_odd, under_odd, None,
+                                                       competition=competition, market_type="Over/Under 2.5",
+                                                       market_specifier="2.5", event_id=match_id))
+                    ah_odds, dc_odds, btts_odds = extract_championbet_extra(bet_map)
+                    for line, values in ah_odds.items():
+                        ah_home, ah_away = values
+                        if ah_home and ah_away:
+                            odds.append(build_match_record(home, away, "ChampionBetOfficial", ah_home, None, ah_away,
+                                                           competition=competition, market_type="Asian Handicap",
+                                                           market_specifier=str(line), event_id=match_id))
+                    if dc_odds.get("1X") and dc_odds.get("X2"):
+                        odds.append(build_match_record(home, away, "ChampionBetOfficial", dc_odds["1X"], None, dc_odds["X2"],
+                                                       competition=competition, market_type="Double Chance",
+                                                       market_specifier="1X_X2", event_id=match_id))
+                    if btts_odds.get("yes") and btts_odds.get("no"):
+                        odds.append(build_match_record(home, away, "ChampionBetOfficial", btts_odds["yes"], None, btts_odds["no"],
+                                                       competition=competition, market_type="BTTS", event_id=match_id))
+                except Exception:
+                    logger.exception("ChampionBet official match processing error")
+                    continue
+            # Check if we have all matches; if totalMatchCount is provided, we can break when offset >= total
+            total = data.get("totalMatchCount")
+            if total is not None and offset + limit >= total:
+                break
+            # If no total, we rely on getting fewer than limit matches to stop
+            if len(matches) < limit:
+                break
+            offset += limit
+            time.sleep(0.5)  # be respectful
+        logger.info("ChampionBetOfficial: %s records", len(odds))
+    except Exception as exc:
+        logger.error("ChampionBet official API error: %s", exc)
     return odds
 
 # ---------- AbaBet (improved with pagination) ----------
@@ -1603,8 +1702,9 @@ def run_scan() -> List[Dict[str, Any]]:
     all_odds = []
     scrapers = [
         ("SportyBet", scrape_sportybet),
-        ("SportyBetOfficial", scrape_sportybet_official),  # NEW: official API scraper
+        ("SportyBetOfficial", scrape_sportybet_official),
         ("ChampionBet", scrape_championbet),
+        ("ChampionBetOfficial", scrape_championbet_official),  # NEW: official API
         ("AbaBet", scrape_ababet),
         ("Fortebet", scrape_fortebet),
         ("1xBet", lambda: scrape_shared_1x_like("1xBet", SHARED_BOOKMAKERS["1xBet"])),
