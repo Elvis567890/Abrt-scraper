@@ -52,6 +52,9 @@ jobs:
             -e DATABASE_URL="sqlite:////tmp/users.db" \
             -e ADMIN_EMAILS="${{ secrets.ADMIN_EMAILS }}" \
             -e ENABLE_SCHEDULER="false" \
+            -e OPPORTUNITIES_FILE="/app/current_opportunities.json" \
+            -e HISTORY_FILE="/app/arb_history.json" \
+            -e SCANNER_STATUS_FILE="/app/scanner_status.json" \
             ghcr.io/elvis567890/abrt-scraper:latest \
             python -c "from scraper import run_scan_and_store; run_scan_and_store()"
 
@@ -61,3 +64,23 @@ jobs:
         with:
           name: opportunities
           path: ${{ github.workspace }}/current_opportunities.json
+
+      # ----------------------------------------------------------------------
+      # OPTIONAL: Deploy the generated JSON to your live server via SSH/SCP.
+      # Uncomment and configure the following step if you want your live app
+      # to automatically receive the updated opportunities file.
+      # You will need to add these secrets to your repository:
+      #   DEPLOY_HOST   - your server IP or domain
+      #   DEPLOY_USER   - SSH username
+      #   DEPLOY_KEY    - SSH private key (or use password)
+      #   DEPLOY_PATH   - remote directory where the app expects the file
+      # ----------------------------------------------------------------------
+      # - name: Deploy opportunities to server
+      #   if: always()
+      #   uses: appleboy/scp-action@v0.1.7
+      #   with:
+      #     host: ${{ secrets.DEPLOY_HOST }}
+      #     username: ${{ secrets.DEPLOY_USER }}
+      #     key: ${{ secrets.DEPLOY_KEY }}
+      #     source: "current_opportunities.json"
+      #     target: ${{ secrets.DEPLOY_PATH }}
