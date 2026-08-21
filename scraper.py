@@ -280,7 +280,7 @@ def match_key_similarity(key1: str, key2: str) -> bool:
     teams2 = parts2[0].split(" vs ", 1)
     if len(teams1) != 2 or len(teams2) != 2:
         return False
-    return teams_match(teams1[0], teams2[0]) and teams_match(teams1[1], teams2[1])
+    return teams_match(teams1[0], teams1[1]) and teams_match(teams2[0], teams2[1])
 
 def clean_odd(value: Any, min_odd: float = 1.01, max_odd: float = 100.0) -> Optional[float]:
     try:
@@ -650,7 +650,7 @@ def scrape_generic_html(
 # Scrapers (all)
 # =============================================================================
 
-# ---------- SportyBet ----------
+# ---------- SportyBet (existing proxy) ----------
 def scrape_sportybet() -> List[Dict[str, Any]]:
     logger.info("Fetching SportyBet...")
     odds = []
@@ -677,6 +677,88 @@ def scrape_sportybet() -> List[Dict[str, Any]]:
         logger.info("SportyBet: %s records", len(odds))
     except Exception as exc:
         logger.error("SportyBet error: %s", exc)
+    return odds
+
+# ---------- NEW: SportyBet Official API scraper ----------
+def scrape_sportybet_official() -> List[Dict[str, Any]]:
+    """
+    Scrapes odds using SportyBet's official API endpoints.
+    This implementation uses the endpoints provided in the user's request:
+      - /factsCenter/wapPopularAndSportOption/v2  (to get tournaments)
+      - /factsCenter/event/list?tournamentId=...  (to get events)
+      - /factsCenter/event/odds?eventId=...       (to get odds)
+
+    Note: The exact endpoints for events and odds are assumed; you may need
+    to adjust them based on actual API responses.
+    """
+    logger.info("Fetching SportyBet (official API)...")
+    odds = []
+    try:
+        base_headers = {"Referer": "https://www.sportybet.com/ng/m/"}
+        # Step 1: Get football tournament list
+        sport_list_url = "https://www.sportybet.com/factsCenter/wapPopularAndSportOption/v2"
+        data = http.get_json(sport_list_url, headers=base_headers)
+        if data.get("bizCode") != 10000:
+            logger.warning("SportyBet official API error: %s", data.get("message"))
+            return odds
+        sport_data = data.get("data", {})
+        sport_list = sport_data.get("sportList", [])
+        football = next((s for s in sport_list if s.get("id") == "sr:sport:1"), None)
+        if not football:
+            logger.warning("Football not found in SportyBet sports list")
+            return odds
+        categories = football.get("categories", [])
+        # For each category, get tournaments
+        for category in categories:
+            tournaments = category.get("tournaments", [])
+            for tournament in tournaments:
+                tournament_id = tournament.get("id")
+                if not tournament_id:
+                    continue
+                # Step 2: Get events for this tournament
+                # Assumed endpoint: /factsCenter/event/list?tournamentId=...
+                event_list_url = f"https://www.sportybet.com/factsCenter/event/list?tournamentId={tournament_id}"
+                try:
+                    event_data = http.get_json(event_list_url, headers=base_headers)
+                except Exception:
+                    logger.warning("Failed to fetch events for tournament %s", tournament_id)
+                    continue
+                if event_data.get("bizCode") != 10000:
+                    continue
+                events = event_data.get("data", {}).get("events", [])
+                for event in events:
+                    event_id = event.get("id")
+                    home = event.get("homeTeamName") or event.get("home")
+                    away = event.get("awayTeamName") or event.get("away")
+                    if not event_id or not home or not away:
+                        continue
+                    # Step 3: Get odds for this event
+                    # Assumed endpoint: /factsCenter/event/odds?eventId=...
+                    odds_url = f"https://www.sportybet.com/factsCenter/event/odds?eventId={event_id}"
+                    try:
+                        odds_data = http.get_json(odds_url, headers=base_headers)
+                    except Exception:
+                        logger.warning("Failed to fetch odds for event %s", event_id)
+                        continue
+                    if odds_data.get("bizCode") != 10000:
+                        continue
+                    ods = odds_data.get("data", {})
+                    # Attempt to extract odds; adjust keys based on actual response
+                    home_odd = clean_odd(ods.get("homeOdd") or ods.get("home") or ods.get("1"))
+                    draw_odd = clean_odd(ods.get("drawOdd") or ods.get("draw") or ods.get("x"))
+                    away_odd = clean_odd(ods.get("awayOdd") or ods.get("away") or ods.get("2"))
+                    if home_odd and away_odd:
+                        odds.append(build_match_record(home, away, "SportyBetOfficial", home_odd, draw_odd, away_odd, event_id=event_id))
+                    # Over/Under
+                    over_odd = clean_odd(ods.get("overOdd") or ods.get("over") or ods.get("over_odd"))
+                    under_odd = clean_odd(ods.get("underOdd") or ods.get("under") or ods.get("under_odd"))
+                    if over_odd and under_odd:
+                        odds.append(build_match_record(home, away, "SportyBetOfficial", over_odd, under_odd, None,
+                                                       market_type="Over/Under 2.5", market_specifier="2.5", event_id=event_id))
+                    time.sleep(0.05)  # be gentle
+        logger.info("SportyBetOfficial: %s records", len(odds))
+    except Exception as exc:
+        logger.error("SportyBet official API error: %s", exc)
     return odds
 
 # ---------- ChampionBet ----------
@@ -1521,12 +1603,13 @@ def run_scan() -> List[Dict[str, Any]]:
     all_odds = []
     scrapers = [
         ("SportyBet", scrape_sportybet),
+        ("SportyBetOfficial", scrape_sportybet_official),  # NEW: official API scraper
         ("ChampionBet", scrape_championbet),
         ("AbaBet", scrape_ababet),
         ("Fortebet", scrape_fortebet),
         ("1xBet", lambda: scrape_shared_1x_like("1xBet", SHARED_BOOKMAKERS["1xBet"])),
         ("22Bet", lambda: scrape_shared_1x_like("22Bet", SHARED_BOOKMAKERS["22Bet"])),
-        ("Melbet", scrape_melbet_html),   # now HTML
+        ("Melbet", scrape_melbet_html),
         ("SharedExtraMarkets", scrape_shared_extra_markets),
         ("kbet", scrape_kbet),
         ("Betway", scrape_betway),
