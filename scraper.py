@@ -1,5 +1,6 @@
 # =============================================================================
-# scraper.py – Minimal Arbitrage Scanner (No auth, no admin, just scanning)
+# scanner.py – Pure Arbitrage Scanner (No Flask, No Database)
+# For use in GitHub Actions or command-line cron jobs
 # =============================================================================
 
 import json
@@ -8,27 +9,18 @@ import os
 import re
 import threading
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
 import requests
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.interval import IntervalTrigger
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request, send_file
-from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from tenacity import (
     retry,
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
 )
-
-# =============================================================================
-# Environment and logging
-# =============================================================================
 
 load_dotenv()
 
@@ -46,8 +38,6 @@ DEFAULT_STAKE = int(os.getenv("DEFAULT_STAKE", "100000"))
 HISTORY_FILE = os.getenv("HISTORY_FILE", "arb_history.json")
 OPPORTUNITIES_FILE = os.getenv("OPPORTUNITIES_FILE", "current_opportunities.json")
 SCANNER_STATUS_FILE = os.getenv("SCANNER_STATUS_FILE", "scanner_status.json")
-ENABLE_SCHEDULER = os.getenv("ENABLE_SCHEDULER", "false").lower() == "true"
-SCAN_INTERVAL_MINUTES = max(1, int(os.getenv("SCAN_INTERVAL_MINUTES", "2")))
 MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN = max(
     1, int(os.getenv("MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN", "2"))
 )
@@ -70,7 +60,6 @@ CHAMPIONBET_MATCH_API = (
 )
 KBET_API_BASE = "https://kbet.ug/api/events"
 
-# ChampionBet official API
 CHAMPIONBET_SPORTS_API = (
     "https://www.championbet.ug/restapi/offer/en/top/sports/mob"
     "?annex=13&mobileVersion=2.47.4.6&locale=en"
@@ -418,7 +407,7 @@ def build_match_record(
     }
 
 # =============================================================================
-# History (for tracking seen opportunities)
+# History
 # =============================================================================
 
 def load_arbitrage_history() -> Dict[str, Any]:
@@ -482,7 +471,7 @@ def update_arbitrage_history(current: List[Dict[str, Any]], history: Dict[str, A
         entry.pop("updated_this_cycle", None)
 
 # =============================================================================
-# Telegram alerts (optional)
+# Telegram alerts
 # =============================================================================
 
 def send_telegram_alert(opportunity: Dict[str, Any]) -> None:
@@ -642,10 +631,10 @@ def scrape_generic_html(
     return all_odds
 
 # =============================================================================
-# Scrapers (all)
+# Scrapers
 # =============================================================================
 
-# ---------- SportyBet (proxy) ----------
+# ---------- SportyBet ----------
 def scrape_sportybet() -> List[Dict[str, Any]]:
     logger.info("Fetching SportyBet...")
     odds = []
@@ -674,7 +663,7 @@ def scrape_sportybet() -> List[Dict[str, Any]]:
         logger.error("SportyBet error: %s", exc)
     return odds
 
-# ---------- SportyBet Official API (experimental) ----------
+# ---------- SportyBet Official (experimental) ----------
 def scrape_sportybet_official() -> List[Dict[str, Any]]:
     logger.info("Fetching SportyBet (official API)...")
     odds = []
@@ -738,7 +727,7 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
         logger.error("SportyBet official API error: %s", exc)
     return odds
 
-# ---------- ChampionBet extraction helpers ----------
+# ---------- ChampionBet helpers ----------
 def championbet_market_items(bet_map: Dict[str, Any], keys: List[Any]) -> List[Dict[str, Any]]:
     result = []
     for key in keys:
@@ -887,7 +876,7 @@ def extract_championbet_extra(bet_map: Dict[str, Any]) -> Tuple[
 
     return asian_result, double_chance, btts
 
-# ---------- ChampionBet (old API) ----------
+# ---------- ChampionBet (old) ----------
 def scrape_championbet() -> List[Dict[str, Any]]:
     logger.info("Fetching ChampionBet...")
     odds = []
@@ -939,7 +928,7 @@ def scrape_championbet() -> List[Dict[str, Any]]:
         logger.error("ChampionBet error: %s", exc)
     return odds
 
-# ---------- ChampionBet Official API ----------
+# ---------- ChampionBet Official ----------
 def scrape_championbet_official() -> List[Dict[str, Any]]:
     logger.info("Fetching ChampionBet (official API)...")
     odds = []
@@ -1365,7 +1354,7 @@ def scrape_kbet() -> List[Dict[str, Any]]:
         logger.error("kbet error: %s", exc)
     return odds
 
-# ---------- Betway, BetPawa, PremierBet (HTML) ----------
+# ---------- Betway, BetPawa, PremierBet ----------
 def scrape_betway() -> List[Dict[str, Any]]:
     return scrape_generic_html(
         bookmaker_name="Betway",
@@ -1630,7 +1619,7 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return result
 
 # =============================================================================
-# Scanner
+# Scanner core
 # =============================================================================
 
 def load_current_opportunities() -> List[Dict[str, Any]]:
@@ -1701,10 +1690,10 @@ def run_scan() -> List[Dict[str, Any]]:
     opportunities = find_arbitrage(all_odds)
     logger.info("Found %s arbitrage opportunities", len(opportunities))
 
-    # Write to JSON file
+    # Write opportunities to JSON
     try:
         atomic_json_write(OPPORTUNITIES_FILE, opportunities)
-        logger.info("Opportunities written to JSON.")
+        logger.info("Opportunities written to %s", OPPORTUNITIES_FILE)
     except Exception as e:
         logger.exception("Failed to write opportunities to JSON: %s", e)
 
@@ -1715,7 +1704,7 @@ def run_scan() -> List[Dict[str, Any]]:
         update_arbitrage_history(opportunities, history, timestamp)
         save_arbitrage_history(history)
 
-    # Send Telegram alerts
+    # Send Telegram alerts for new opportunities (profit >= 5%)
     for opp in opportunities:
         key = opportunity_key(opp)
         if key not in history:
@@ -1733,112 +1722,9 @@ def run_scan() -> List[Dict[str, Any]]:
     logger.info("Scan completed successfully.")
     return opportunities
 
-def run_scan_and_store():
-    if not scan_lock.acquire(blocking=False):
-        logger.warning("Scan already running. Skipping.")
-        return
-    try:
-        run_scan()
-    except Exception as exc:
-        logger.exception("Scheduled scan failed")
-        with status_lock:
-            scanner_status["last_scan_success"] = False
-            scanner_status["last_scan_valid"] = False
-            scanner_status["last_scan_error"] = str(exc)
-            scanner_status["last_scan_finished"] = utc_now().isoformat()
-        save_scanner_status()
-    finally:
-        scan_lock.release()
-
-# =============================================================================
-# Flask application (minimal)
-# =============================================================================
-
-app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-# =============================================================================
-# API routes
-# =============================================================================
-
-@app.route("/health", methods=["GET"])
-def health():
-    return jsonify({"ok": True, "time": utc_now().isoformat()})
-
-@app.route("/api/scanner-status", methods=["GET"])
-def api_scanner_status():
-    with status_lock:
-        return jsonify({"ok": True, "status": dict(scanner_status)})
-
-@app.route("/api/arbs", methods=["GET"])
-def get_arbs():
-    try:
-        data = load_current_opportunities()
-        return jsonify({"ok": True, "arbs": data, "count": len(data)})
-    except Exception as e:
-        logger.exception("Error fetching arbs")
-        return jsonify({"ok": False, "error": str(e)}), 500
-
-@app.route("/api/scan", methods=["POST"])
-def api_scan():
-    if not scan_lock.acquire(blocking=False):
-        return jsonify({"ok": False, "error": "A scan is already running"}), 409
-    try:
-        opportunities = run_scan()
-        with status_lock:
-            valid = scanner_status["last_scan_valid"]
-        return jsonify({"ok": True, "count": len(opportunities), "scan_valid": valid})
-    except Exception:
-        logger.exception("Manual scan failed")
-        return jsonify({"ok": False, "error": "Scan failed"}), 500
-    finally:
-        scan_lock.release()
-
-# =============================================================================
-# Frontend serving
-# =============================================================================
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-INDEX_FILE = os.path.join(BASE_DIR, "index.html")
-
-@app.route("/", methods=["GET"])
-def serve_frontend():
-    if not os.path.exists(INDEX_FILE):
-        return jsonify({"ok": False, "error": "index.html not found"}), 404
-    return send_file(INDEX_FILE)
-
-@app.route("/<path:path>", methods=["GET"])
-def frontend_fallback(path: str):
-    if path.startswith("api/"):
-        return jsonify({"ok": False, "error": "API route not found"}), 404
-    if not os.path.exists(INDEX_FILE):
-        return jsonify({"ok": False, "error": "index.html not found"}), 404
-    return send_file(INDEX_FILE)
-
-# =============================================================================
-# Scheduler
-# =============================================================================
-
-scheduler = None
-if ENABLE_SCHEDULER:
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(
-        func=run_scan_and_store,
-        trigger=IntervalTrigger(minutes=SCAN_INTERVAL_MINUTES),
-        id="arbitrage_scanner",
-        replace_existing=True,
-        max_instances=1,
-        coalesce=True,
-    )
-    scheduler.start()
-    logger.info("Scheduler started (every %s minutes)", SCAN_INTERVAL_MINUTES)
-else:
-    logger.info("Scheduler disabled (set ENABLE_SCHEDULER=true to enable)")
-
 # =============================================================================
 # Main
 # =============================================================================
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", "5000"))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    run_scan()
