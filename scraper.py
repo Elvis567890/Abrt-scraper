@@ -184,10 +184,51 @@ def utc_now() -> datetime:
 def utc_timestamp() -> str:
     return utc_now().strftime("%Y-%m-%d %H:%M:%S")
 
+# --- TEAM ALIASES (FIX: weak normalization) ---
+TEAM_ALIASES = {
+    "manchester united": "man utd",
+    "man utd": "man utd",
+    "man united": "man utd",
+    "manchester city": "man city",
+    "man city": "man city",
+    "wolverhampton wanderers": "wolves",
+    "wolverhampton": "wolves",
+    "wolves": "wolves",
+    "tottenham hotspur": "spurs",
+    "tottenham": "spurs",
+    "spurs": "spurs",
+    "newcastle united": "newcastle",
+    "leicester city": "leicester",
+    "west ham united": "west ham",
+    "brighton and hove albion": "brighton",
+    "sheffield united": "sheffield utd",
+    "nottingham forest": "forest",
+    "luton town": "luton",
+    "bayern munich": "bayern",
+    "bayern munchen": "bayern",
+    "borussia dortmund": "dortmund",
+    "eintracht frankfurt": "frankfurt",
+    "bayer leverkusen": "leverkusen",
+    "real madrid": "real madrid",
+    "barcelona": "barcelona",
+    "atletico madrid": "atletico",
+    "athletic bilbao": "bilbao",
+    "real sociedad": "sociedad",
+    "paris saint-germain": "psg",
+    "psg": "psg",
+    "inter milan": "inter",
+    "ac milan": "milan",
+    "juventus": "juventus",
+    "napoli": "napoli",
+}
+
 def normalize_team(name: str) -> str:
     if not name:
         return ""
     value = str(name).lower().strip()
+    # Apply aliases first
+    value = TEAM_ALIASES.get(value, value)
+
     replacements = {
         r"\brovers\b": "rvs",
         r"\brvs\b": "rvs",
@@ -363,6 +404,17 @@ def build_match_record(
     market_type: str = "1x2", market_specifier: str = "",
     event_id: Optional[str] = None,
 ) -> Dict[str, Any]:
+    # FIX: Normalise sport string so variations like "soccer" become "Football"
+    sport_lower = (sport or "Football").lower()
+    sport_map = {
+        "soccer": "football",
+        "futbol": "football",
+        "football": "football",
+        "rugby": "rugby",
+        "futsal": "futsal",
+    }
+    sport = sport_map.get(sport_lower, sport_lower).capitalize()
+
     return {
         "match": f"{home_team} vs {away_team}",
         "home_team": home_team,
@@ -373,7 +425,7 @@ def build_match_record(
         "home": home,
         "draw": draw,
         "away": away,
-        "sport": sport or "Football",
+        "sport": sport,
         "market_type": market_type or "1x2",
         "market_specifier": market_specifier or "",
         "event_id": str(event_id) if event_id is not None else None,
@@ -1152,8 +1204,11 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             specifier = first_record.get("market_specifier", "")
             match_name = first_record.get("match", "")
 
-            # 3-way markets
-            if market_type == "1x2" and sport in {"Football", "Rugby", "Futsal"}:
+            # FIX: Determine if draw odds exist, not based on sport name
+            has_draw = any(clean_odd(rec.get("draw")) is not None for rec in records)
+
+            # 3-way markets (1X2 with draw odds)
+            if market_type == "1x2" and has_draw:
                 best_home, best_draw, best_away = {}, {}, {}
                 for rec in records:
                     bm = rec.get("bookmaker")
@@ -1181,7 +1236,7 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                             if opp:
                                 opportunities.append(opp)
 
-            # 2-way markets
+            # 2-way markets (including 1X2 without draw odds)
             else:
                 bookmakers = {}
                 for rec in records:
@@ -1202,9 +1257,21 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                         home_odd = bookmakers[bm1]["home"]
                         away_odd = bookmakers[bm2]["away"]
                         if home_odd and away_odd:
+                            # FIX: Use correct outcome labels based on market type
+                            if market_type == "Over/Under 2.5":
+                                outcome1, outcome2 = "Over", "Under"
+                            elif market_type == "Asian Handicap":
+                                outcome1, outcome2 = "Home", "Away"
+                            elif market_type == "BTTS":
+                                outcome1, outcome2 = "Yes", "No"
+                            elif market_type == "Double Chance":
+                                outcome1, outcome2 = "1X", "X2"
+                            else:
+                                outcome1, outcome2 = "Home", "Away"
+
                             opp = create_two_outcome_opportunity(
                                 match_name, sport, market_type, specifier,
-                                bm1, "Home", home_odd, bm2, "Away", away_odd
+                                bm1, outcome1, home_odd, bm2, outcome2, away_odd
                             )
                             if opp:
                                 opportunities.append(opp)
