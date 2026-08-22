@@ -828,6 +828,40 @@
     "market_specifier": ""
   },
   {
+    "match": "austin vs philadelphia union",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 19.55,
+    "profit_ugx": 19552,
+    "total_stake": 100000,
+    "arb_sum": 0.8045,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 3.4,
+        "stake": 36560,
+        "win": 124304
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 33595,
+        "win": 124302
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.165,
+        "stake": 29845,
+        "win": 124304
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "newcastle utd vs liverpool",
     "sport": "Football",
     "type": "Double Chance 1X",
