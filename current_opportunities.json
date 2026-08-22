@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "match": "Troyes vs Paris FC",
+    "sport": "Football",
+    "type": "3-way",
+    "market_type": "1x2",
+    "market_specifier": "",
+    "profit_percent": 0.45,
+    "profit_ugx": 446,
+    "total_stake": 100000,
+    "arb_sum": 0.995544,
+    "bets": [
+      {
+        "bookmaker": "ChampionBet",
+        "outcome": "Home",
+        "odd": 3.42,
+        "stake": 29371,
+        "win": 100449
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.78,
+        "stake": 26573,
+        "win": 100446
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 2.28,
+        "stake": 44056,
+        "win": 100448
+      }
+    ]
+  }
+]
