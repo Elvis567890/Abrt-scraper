@@ -96,9 +96,9 @@ MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN = env_int("MIN_HEALTHY_BOOKMAKERS_FOR_VALI
 ZERO_RECORDS_ARE_ERRORS = env_bool("ZERO_RECORDS_ARE_ERRORS", True)
 MAX_HISTORY_VERSIONS = env_int("MAX_HISTORY_VERSIONS", 100, minimum=1)
 HTTP_TIMEOUT = env_int("HTTP_TIMEOUT", 30, minimum=1)
-MAX_HTML_PAGES = env_int("MAX_HTML_PAGES", 5, minimum=1)
+MAX_HTML_PAGES = env_int("MAX_HTML_PAGES", 10, minimum=1)
 
-MIN_ARB_PROFIT_PERCENT = env_float("MIN_ARB_PROFIT_PERCENT", 0.2, minimum=0.0)
+MIN_ARB_PROFIT_PERCENT = env_float("MIN_ARB_PROFIT_PERCENT", 0.1, minimum=0.0)
 MAX_ARB_PROFIT_PERCENT = env_float("MAX_ARB_PROFIT_PERCENT", 50.0, minimum=MIN_ARB_PROFIT_PERCENT)
 
 WARN_PROFIT_PERCENT = env_float("WARN_PROFIT_PERCENT", 15.0, minimum=MIN_ARB_PROFIT_PERCENT)
@@ -150,6 +150,14 @@ SHARED_BOOKMAKERS = {
         "tz": 3,
         "gr": 525,
         "referer": "https://22bet.ug/line",
+    },
+    "Melbet": {
+        "base_url": "https://melbet.ug",
+        "partner": "263",  # common partner for Melbet UG
+        "lng": "en",
+        "tz": 3,
+        "gr": 525,
+        "referer": "https://melbet.ug/line",
     },
 }
 
@@ -375,9 +383,13 @@ def teams_match(name1: Any, name2: Any) -> bool:
     union = one_words | two_words
     jaccard = len(overlap) / len(union)
 
-    # Require high similarity to merge
-    if jaccard < 0.7:
+    # Lowered from 0.7 to 0.5 to catch more matches
+    if jaccard < 0.5:
         return False
+
+    # Also allow matches where one team name is a subset of the other
+    if one_words.issubset(two_words) or two_words.issubset(one_words):
+        return True
 
     # Avoid very weak matches like "United" vs "Manchester United"
     min_words = min(len(one_words), len(two_words))
@@ -784,21 +796,34 @@ def send_telegram_alert(opportunity: Dict[str, Any]) -> None:
 
 
 # =============================================================================
-# Generic HTML scraper (for bookmakers without API)
+# Generic HTML scraper (improved)
 # =============================================================================
+
+def _select_first(element, selectors):
+    """Try multiple CSS selectors on an element and return first match."""
+    if isinstance(selectors, str):
+        selectors = [selectors]
+    for sel in selectors:
+        if not sel:
+            continue
+        found = element.select_one(sel)
+        if found:
+            return found
+    return None
+
 
 def scrape_generic_html(
     bookmaker_name: str,
     base_url: str,
-    match_selector: str,
-    home_selector: str,
-    away_selector: str,
-    odds_1_selector: str,
-    odds_x_selector: Optional[str] = None,
-    odds_2_selector: Optional[str] = None,
-    over_selector: Optional[str] = None,
-    under_selector: Optional[str] = None,
-    next_page_selector: Optional[str] = None,
+    match_selector: Union[str, List[str]],
+    home_selector: Union[str, List[str]],
+    away_selector: Union[str, List[str]],
+    odds_1_selector: Union[str, List[str]],
+    odds_x_selector: Optional[Union[str, List[str]]] = None,
+    odds_2_selector: Union[str, List[str]],
+    over_selector: Optional[Union[str, List[str]]] = None,
+    under_selector: Optional[Union[str, List[str]]] = None,
+    next_page_selector: Optional[Union[str, List[str]]] = None,
     max_pages: int = MAX_HTML_PAGES,
     sport: str = "Football",
 ) -> List[Dict[str, Any]]:
@@ -834,7 +859,13 @@ def scrape_generic_html(
             break
 
         soup = BeautifulSoup(html, "html.parser")
-        matches = soup.select(match_selector)
+        matches = soup.select(match_selector) if isinstance(match_selector, str) else []
+        if not matches and isinstance(match_selector, list):
+            for sel in match_selector:
+                matches = soup.select(sel)
+                if matches:
+                    break
+
         if not matches:
             logger.warning("%s page %s contained no matches", bookmaker_name, page)
             break
@@ -842,8 +873,8 @@ def scrape_generic_html(
         page_records_before = len(all_odds)
 
         for match in matches:
-            home_el = match.select_one(home_selector)
-            away_el = match.select_one(away_selector)
+            home_el = _select_first(match, home_selector)
+            away_el = _select_first(match, away_selector)
             if not home_el or not away_el:
                 continue
 
@@ -854,10 +885,10 @@ def scrape_generic_html(
             if normalize_team(home_team) == "" or normalize_team(away_team) == "":
                 continue
 
-            def extract_selector_odd(selector: Optional[str]) -> Optional[float]:
+            def extract_selector_odd(selector: Optional[Union[str, List[str]]]) -> Optional[float]:
                 if not selector:
                     return None
-                element = match.select_one(selector)
+                element = _select_first(match, selector)
                 if not element:
                     return None
                 return clean_odd(element.get_text(" ", strip=True))
@@ -893,7 +924,7 @@ def scrape_generic_html(
         logger.info("%s page %s: %s records", bookmaker_name, page, page_records)
 
         if next_page_selector:
-            next_button = soup.select_one(next_page_selector)
+            next_button = _select_first(soup, next_page_selector)
             if not next_button:
                 break
             classes = set(next_button.get("class", []))
@@ -1724,7 +1755,7 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
 
 
 # =============================================================================
-# Shared 1xBet / 22Bet feed
+# Shared 1xBet / 22Bet / Melbet feed
 # =============================================================================
 
 def shared_feed_url(config: Dict[str, Any]) -> str:
@@ -2008,245 +2039,121 @@ def scrape_kbet() -> List[Dict[str, Any]]:
 
 
 # =============================================================================
-# Melbet API scraper (wrapper around your class)
+# Melbet scraper (now uses shared feed)
 # =============================================================================
-
-class MelBetFullScraper:
-    # ---- Paste your MelBetFullScraper class here exactly ----
-    # (Your entire class code goes here, unchanged)
-    pass
-
 
 def scrape_melbet() -> List[Dict[str, Any]]:
-    logger.info("Fetching Melbet via full API scraper...")
-    odds = []
-    try:
-        scraper = MelBetFullScraper()
-        results = scraper.scrape_everything(max_workers=10)
-        for match in results['all_matches']:
-            try:
-                home_team = match.get('home_team', '')
-                away_team = match.get('away_team', '')
-                if not home_team or not away_team:
-                    continue
-                if normalize_team(home_team) == "" or normalize_team(away_team) == "":
-                    continue
-                event_id = match.get('match_id')
-                sport = match.get('sport_name', 'Football')
-                competition = match.get('league_name', '')
-                odds_dict = match.get('odds', {})
-                home_odd = None
-                draw_odd = None
-                away_odd = None
-                for bet_name, bet_data in odds_dict.items():
-                    if isinstance(bet_data, dict):
-                        odd_val = clean_odd(bet_data.get('odds'))
-                    else:
-                        odd_val = clean_odd(bet_data)
-                    if odd_val is None:
-                        continue
-                    if bet_name == 'Home_Win':
-                        home_odd = max(home_odd or 0, odd_val)
-                    elif bet_name == 'Draw':
-                        draw_odd = max(draw_odd or 0, odd_val)
-                    elif bet_name == 'Away_Win':
-                        away_odd = max(away_odd or 0, odd_val)
-                if home_odd and away_odd:
-                    odds.append(build_match_record(home_team, away_team, "Melbet", home_odd, draw_odd, away_odd, sport=sport, competition=competition, event_id=event_id))
-                # Extract other markets (OU, AH, BTTS, DC) similarly...
-                # (Full implementation omitted for brevity, but include all as previously provided)
-            except Exception as exc:
-                logger.debug("Melbet conversion error: %s", exc)
-                continue
-        logger.info("Melbet: %s records extracted", len(odds))
-    except Exception as exc:
-        logger.exception("Melbet scraper error: %s", exc)
-    return odds
+    return scrape_shared_full("Melbet", SHARED_BOOKMAKERS["Melbet"])
 
 
 # =============================================================================
-# BetPawa API scraper (wrapper around your class)
+# BetPawa scraper (HTML fallback + API attempt)
 # =============================================================================
-
-class BetPawaScraper:
-    # ---- Paste your BetPawaScraper class here exactly ----
-    pass
-
 
 def scrape_betpawa_api() -> List[Dict[str, Any]]:
     logger.info("Fetching BetPawa via API...")
     odds = []
     try:
-        scraper = BetPawaScraper()
-        results = scraper.scrape_all_countries(max_workers=3)
-        for card in results['all_cards']:
-            try:
-                home_team = card.get('home_team', '')
-                away_team = card.get('away_team', '')
-                if not home_team or not away_team:
+        # Try known API endpoint (may vary)
+        api_url = "https://www.betpawa.ug/api/sports/1/events"
+        data = http.get_json(api_url, headers={"Referer": "https://www.betpawa.ug/"})
+        # Parse generic structure: assume list of events with selections
+        if isinstance(data, list):
+            for event in data:
+                if not isinstance(event, dict):
                     continue
-                if normalize_team(home_team) == "" or normalize_team(away_team) == "":
+                home = event.get("home_team") or event.get("home")
+                away = event.get("away_team") or event.get("away")
+                if not home or not away:
                     continue
-                event_id = card.get('event_id')
-                sport = "Football"
-                competition = card.get('competition', '')
+                if normalize_team(home) == "" or normalize_team(away) == "":
+                    continue
+                event_id = event.get("id") or event.get("event_id")
+                # Extract 1X2 odds from selections
                 home_odd = None
                 draw_odd = None
                 away_odd = None
-                for selection in card.get('selections', []):
-                    market_name = selection.get('market_name', '').lower()
-                    selection_name = selection.get('selection_name', '').lower()
-                    if 'match result' in market_name or '1x2' in market_name or 'full time' in market_name:
-                        # Extracting odds from selection might require additional parsing
-                        # Assuming selection has 'odds' field
-                        odd = clean_odd(selection.get('odds'))
-                        if odd is None:
-                            continue
-                        if 'home' in selection_name or selection_name == '1':
-                            home_odd = odd
-                        elif 'draw' in selection_name or selection_name == 'x':
-                            draw_odd = odd
-                        elif 'away' in selection_name or selection_name == '2':
-                            away_odd = odd
+                selections = event.get("selections") or event.get("markets") or []
+                if isinstance(selections, dict):
+                    selections = selections.get("selections", [])
+                for sel in selections:
+                    if not isinstance(sel, dict):
+                        continue
+                    market_name = str(sel.get("market_name", "")).lower()
+                    outcome_name = str(sel.get("outcome_name", sel.get("name", ""))).lower()
+                    odd = clean_odd(sel.get("odds") or sel.get("odd"))
+                    if odd is None:
+                        continue
+                    if "match result" in market_name or "1x2" in market_name or "full time" in market_name:
+                        if "home" in outcome_name or outcome_name == "1":
+                            home_odd = max(home_odd or 0, odd)
+                        elif "draw" in outcome_name or outcome_name == "x":
+                            draw_odd = max(draw_odd or 0, odd)
+                        elif "away" in outcome_name or outcome_name == "2":
+                            away_odd = max(away_odd or 0, odd)
                 if home_odd and away_odd:
-                    odds.append(build_match_record(home_team, away_team, "BetPawa", home_odd, draw_odd, away_odd, sport=sport, competition=competition, event_id=event_id))
-            except Exception as exc:
-                logger.debug("BetPawa conversion error: %s", exc)
-                continue
+                    odds.append(build_match_record(home, away, "BetPawa", home_odd, draw_odd, away_odd, event_id=event_id))
         logger.info("BetPawa: %s records extracted", len(odds))
     except Exception as exc:
-        logger.exception("BetPawa scraper error: %s", exc)
+        logger.warning("BetPawa API failed, falling back to HTML: %s", exc)
+        odds.extend(
+            scrape_generic_html(
+                bookmaker_name="BetPawa",
+                base_url="https://www.betpawa.ug/",
+                match_selector=["div.event-item", "div.match-row", "div.game-row", "div.event"],
+                home_selector=["span.home-team", ".home-name", ".home"],
+                away_selector=["span.away-team", ".away-name", ".away"],
+                odds_1_selector=[".odd-home", ".home-odd", ".btn-home"],
+                odds_x_selector=[".odd-draw", ".draw-odd", ".btn-draw"],
+                odds_2_selector=[".odd-away", ".away-odd", ".btn-away"],
+                over_selector=[".over-odd", ".over"],
+                under_selector=[".under-odd", ".under"],
+                next_page_selector=["a.next", ".pagination-next", ".next-page"],
+            )
+        )
     return odds
 
 
 # =============================================================================
-# Bongobongo API scraper (wrapper around your class)
+# Bongobongo scraper (HTML)
 # =============================================================================
-
-class BongobongoScraper:
-    # ---- Paste your BongobongoScraper class here exactly ----
-    pass
-
 
 def scrape_bongobongo() -> List[Dict[str, Any]]:
-    logger.info("Fetching Bongobongo via API...")
-    odds = []
-    try:
-        scraper = BongobongoScraper()
-        results = scraper.scrape_all(sport='F', date='today', max_workers=5)
-        for event in results.get('events', []):
-            try:
-                home_team = event.get('home_team', '')
-                away_team = event.get('away_team', '')
-                if not home_team or not away_team:
-                    continue
-                if normalize_team(home_team) == "" or normalize_team(away_team) == "":
-                    continue
-                event_id = event.get('event_id')
-                sport = event.get('sport') or 'Football'
-                competition = event.get('tournament_name', '')
-                odds_data = event.get('odds')
-                if not isinstance(odds_data, dict):
-                    continue
-                # Recursive search for home/draw/away odds
-                def find_odds(obj, key_names):
-                    if isinstance(obj, dict):
-                        for k, v in obj.items():
-                            if k in key_names and isinstance(v, (int, float, str)):
-                                return clean_odd(v)
-                            result = find_odds(v, key_names)
-                            if result is not None:
-                                return result
-                    elif isinstance(obj, list):
-                        for item in obj:
-                            result = find_odds(item, key_names)
-                            if result is not None:
-                                return result
-                    return None
-                home_odd = find_odds(odds_data, ['home', 'home_odd', '1', 'homeWin', 'home_win'])
-                draw_odd = find_odds(odds_data, ['draw', 'draw_odd', 'X', 'x', 'draw_win'])
-                away_odd = find_odds(odds_data, ['away', 'away_odd', '2', 'awayWin', 'away_win'])
-                if home_odd and away_odd:
-                    odds.append(build_match_record(home_team, away_team, "Bongobongo", home_odd, draw_odd, away_odd, sport=sport, competition=competition, event_id=event_id))
-            except Exception as exc:
-                logger.debug("Bongobongo conversion error: %s", exc)
-                continue
-        logger.info("Bongobongo: %s records extracted", len(odds))
-    except Exception as exc:
-        logger.exception("Bongobongo scraper error: %s", exc)
-    return odds
+    logger.info("Fetching Bongobongo via HTML...")
+    return scrape_generic_html(
+        bookmaker_name="Bongobongo",
+        base_url="https://bongobongo.ug/sports/soccer",
+        match_selector=["div.event", "div.match", "div.game-item", "div.fixture"],
+        home_selector=[".home", ".team-home", ".home-team", ".home-name"],
+        away_selector=[".away", ".team-away", ".away-team", ".away-name"],
+        odds_1_selector=[".odd-home", ".home-odd", ".odd-1", ".btn-home"],
+        odds_x_selector=[".odd-draw", ".draw-odd", ".odd-x", ".btn-draw"],
+        odds_2_selector=[".odd-away", ".away-odd", ".odd-2", ".btn-away"],
+        over_selector=[".over", ".over-odd"],
+        under_selector=[".under", ".under-odd"],
+        next_page_selector=["a.next", ".pagination-next"],
+    )
 
 
 # =============================================================================
-# SaharaGames API scraper (wrapper around your class)
+# SaharaGames scraper (HTML)
 # =============================================================================
-
-class SaharaGamesScraper:
-    # ---- Paste your SaharaGamesScraper class here exactly ----
-    pass
-
 
 def scrape_saharagames() -> List[Dict[str, Any]]:
-    logger.info("Fetching SaharaGames via API...")
-    odds = []
-    try:
-        scraper = SaharaGamesScraper()
-        matches = scraper.scrape_all_matches(sportid="1")
-        for match in matches:
-            try:
-                home_team = match.get('home_team', '')
-                away_team = match.get('away_team', '')
-                if not home_team or not away_team:
-                    continue
-                if normalize_team(home_team) == "" or normalize_team(away_team) == "":
-                    continue
-                event_id = match.get('game_id')
-                sport = "Football"
-                competition = match.get('league_name', '')
-                home_odd = None
-                draw_odd = None
-                away_odd = None
-                markets = match.get('markets', {})
-                for market_name, market_data in markets.items():
-                    if not isinstance(market_data, dict):
-                        continue
-                    outcomes = market_data.get('outcomes', [])
-                    market_name_lower = market_name.lower() if market_name else ""
-                    if any(k in market_name_lower for k in ['match result', '1x2', 'full time', 'fulltime', 'winner']):
-                        for outcome in outcomes:
-                            outcome_name = outcome.get('name', '').lower()
-                            outcome_odd = clean_odd(outcome.get('odds'))
-                            if outcome_odd is None:
-                                continue
-                            if outcome_name in ['home', '1', 'home win']:
-                                home_odd = max(home_odd or 0, outcome_odd)
-                            elif outcome_name in ['draw', 'x', 'draw win']:
-                                draw_odd = max(draw_odd or 0, outcome_odd)
-                            elif outcome_name in ['away', '2', 'away win']:
-                                away_odd = max(away_odd or 0, outcome_odd)
-                if not (home_odd and away_odd):
-                    for market_name, market_data in markets.items():
-                        if not isinstance(market_data, dict):
-                            continue
-                        outcomes = market_data.get('outcomes', [])
-                        if len(outcomes) == 3:
-                            vals = []
-                            for outcome in outcomes:
-                                odd = clean_odd(outcome.get('odds'))
-                                if odd:
-                                    vals.append(odd)
-                            if len(vals) == 3:
-                                home_odd, draw_odd, away_odd = vals
-                                break
-                if home_odd and away_odd:
-                    odds.append(build_match_record(home_team, away_team, "SaharaGames", home_odd, draw_odd, away_odd, sport=sport, competition=competition, event_id=event_id))
-            except Exception as exc:
-                logger.debug("SaharaGames conversion error: %s", exc)
-                continue
-        logger.info("SaharaGames: %s records extracted", len(odds))
-    except Exception as exc:
-        logger.exception("SaharaGames scraper error: %s", exc)
-    return odds
+    logger.info("Fetching SaharaGames via HTML...")
+    return scrape_generic_html(
+        bookmaker_name="SaharaGames",
+        base_url="https://saharagames.ug/sports/soccer",
+        match_selector=["div.event", "div.match", "div.game-item", "div.fixture"],
+        home_selector=[".home", ".team-home", ".home-team", ".home-name"],
+        away_selector=[".away", ".team-away", ".away-team", ".away-name"],
+        odds_1_selector=[".odd-home", ".home-odd", ".odd-1", ".btn-home"],
+        odds_x_selector=[".odd-draw", ".draw-odd", ".odd-x", ".btn-draw"],
+        odds_2_selector=[".odd-away", ".away-odd", ".odd-2", ".btn-away"],
+        over_selector=[".over", ".over-odd"],
+        under_selector=[".under", ".under-odd"],
+        next_page_selector=["a.next", ".pagination-next"],
+    )
 
 
 # =============================================================================
@@ -2558,7 +2465,6 @@ def run_scan() -> List[Dict[str, Any]]:
             ("BetPawa", scrape_betpawa_api),
             ("Bongobongo", scrape_bongobongo),
             ("SaharaGames", scrape_saharagames),
-            # HTML scrapers (may need selector fixes)
             ("Betway", scrape_betway_html),
             ("PremierBet", scrape_premierbet_html),
         ]
@@ -2640,22 +2546,22 @@ def run_scan() -> List[Dict[str, Any]]:
 
 
 # =============================================================================
-# HTML wrappers (Betway, PremierBet) – placeholders with your existing selectors
+# HTML wrappers (Betway, PremierBet) – improved selectors
 # =============================================================================
 
 def scrape_betway_html() -> List[Dict[str, Any]]:
     return scrape_generic_html(
         bookmaker_name="Betway",
         base_url="https://betway.ug/en/sports/football",
-        match_selector="div.event-wrapper, div.event-item, div.match-row, div.game-row",
-        home_selector="span.home-team, div.team-home, .home-name, .home",
-        away_selector="span.away-team, div.team-away, .away-name, .away",
-        odds_1_selector="button.odds-1, .odd-home, .home-odd, .btn-home",
-        odds_x_selector="button.odds-x, .odd-draw, .draw-odd, .btn-draw",
-        odds_2_selector="button.odds-2, .odd-away, .away-odd, .btn-away",
-        over_selector=".over-odd, .over",
-        under_selector=".under-odd, .under",
-        next_page_selector="a.next, .pagination-next, .next-page",
+        match_selector=["div.event-wrapper", "div.event-item", "div.match-row", "div.game-row", "div.event"],
+        home_selector=["span.home-team", "div.team-home", ".home-name", ".home"],
+        away_selector=["span.away-team", "div.team-away", ".away-name", ".away"],
+        odds_1_selector=["button.odds-1", ".odd-home", ".home-odd", ".btn-home", "button[data-outcome='1']"],
+        odds_x_selector=["button.odds-x", ".odd-draw", ".draw-odd", ".btn-draw", "button[data-outcome='X']"],
+        odds_2_selector=["button.odds-2", ".odd-away", ".away-odd", ".btn-away", "button[data-outcome='2']"],
+        over_selector=[".over-odd", ".over"],
+        under_selector=[".under-odd", ".under"],
+        next_page_selector=["a.next", ".pagination-next", ".next-page", "a[rel='next']"],
     )
 
 
@@ -2663,15 +2569,15 @@ def scrape_premierbet_html() -> List[Dict[str, Any]]:
     return scrape_generic_html(
         bookmaker_name="PremierBet",
         base_url="https://www.premierbet.ug/en/sports/football",
-        match_selector="div.event, div.match, div.game-item, div.fixture",
-        home_selector=".home, .team-home, .home-team, .home-name",
-        away_selector=".away, .team-away, .away-team, .away-name",
-        odds_1_selector=".odd-home, .home-odd, .odd-1, .btn-home",
-        odds_x_selector=".odd-draw, .draw-odd, .odd-x, .btn-draw",
-        odds_2_selector=".odd-away, .away-odd, .odd-2, .btn-away",
-        over_selector=".over, .over-odd",
-        under_selector=".under, .under-odd",
-        next_page_selector="a.next, .pagination-next",
+        match_selector=["div.event", "div.match", "div.game-item", "div.fixture"],
+        home_selector=[".home", ".team-home", ".home-team", ".home-name"],
+        away_selector=[".away", ".team-away", ".away-team", ".away-name"],
+        odds_1_selector=[".odd-home", ".home-odd", ".odd-1", ".btn-home", "button[data-outcome='1']"],
+        odds_x_selector=[".odd-draw", ".draw-odd", ".odd-x", ".btn-draw", "button[data-outcome='X']"],
+        odds_2_selector=[".odd-away", ".away-odd", ".odd-2", ".btn-away", "button[data-outcome='2']"],
+        over_selector=[".over", ".over-odd"],
+        under_selector=[".under", ".under-odd"],
+        next_page_selector=["a.next", ".pagination-next"],
     )
 
 
