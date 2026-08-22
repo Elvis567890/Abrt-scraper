@@ -37,31 +37,65 @@
     "match": "le mans vs brest",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.25,
-    "profit_ugx": 1248,
+    "profit_percent": 1.49,
+    "profit_ugx": 1488,
     "total_stake": 100000,
-    "arb_sum": 0.9875,
+    "arb_sum": 0.9851,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 2.49,
-        "stake": 40668,
-        "win": 101263
+        "odd": 2.505,
+        "stake": 40523,
+        "win": 101510
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.3,
-        "stake": 30686,
-        "win": 101264
+        "stake": 30761,
+        "win": 101511
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.535,
-        "stake": 28646,
-        "win": 101264
+        "stake": 28716,
+        "win": 101511
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "toulouse vs lyon",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.56,
+    "profit_ugx": 563,
+    "total_stake": 100000,
+    "arb_sum": 0.9944,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.35,
+        "stake": 42794,
+        "win": 100566
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.4,
+        "stake": 29578,
+        "win": 100565
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.64,
+        "stake": 27628,
+        "win": 100566
       }
     ],
     "market_type": "1x2",
@@ -105,31 +139,31 @@
     "match": "genoa vs napoli",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 13.76,
-    "profit_ugx": 13758,
+    "profit_percent": 12.83,
+    "profit_ugx": 12831,
     "total_stake": 100000,
-    "arb_sum": 0.8624,
+    "arb_sum": 0.8717,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 4.32,
-        "stake": 26841,
-        "win": 115953
+        "odd": 4.26,
+        "stake": 26929,
+        "win": 114718
       },
       {
         "bookmaker": "Fortebet",
         "outcome": "Draw",
         "odd": 3.15,
-        "stake": 36810,
-        "win": 115952
+        "stake": 36419,
+        "win": 114720
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.19,
-        "stake": 36349,
-        "win": 115953
+        "odd": 3.13,
+        "stake": 36652,
+        "win": 114721
       }
     ],
     "market_type": "1x2",
