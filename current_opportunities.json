@@ -556,6 +556,40 @@
     "market_specifier": ""
   },
   {
+    "match": "west brom vs burnley",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.99,
+    "profit_ugx": 2988,
+    "total_stake": 100000,
+    "arb_sum": 0.9701,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Home",
+        "odd": 2.8,
+        "stake": 36814,
+        "win": 103079
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Draw",
+        "odd": 3.35,
+        "stake": 30770,
+        "win": 103080
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 3.18,
+        "stake": 32415,
+        "win": 103080
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "greuther furth vs bochum",
     "sport": "Football",
     "type": "3-way",
@@ -831,65 +865,31 @@
     "match": "inter miami vs toronto",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.05,
-    "profit_ugx": 2048,
+    "profit_percent": 0.9,
+    "profit_ugx": 895,
     "total_stake": 100000,
-    "arb_sum": 0.9795,
+    "arb_sum": 0.991,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 1.36,
-        "stake": 75067,
-        "win": 102091
+        "odd": 1.37,
+        "stake": 73652,
+        "win": 100903
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 7.9,
-        "stake": 12923,
-        "win": 102092
+        "odd": 6.97,
+        "stake": 14477,
+        "win": 100905
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 8.5,
-        "stake": 12011,
-        "win": 102094
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
-    "match": "guadalajara vs tijuana",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 1.59,
-    "profit_ugx": 1589,
-    "total_stake": 100000,
-    "arb_sum": 0.9841,
-    "bets": [
-      {
-        "bookmaker": "22Bet",
-        "outcome": "Home",
-        "odd": 1.49,
-        "stake": 68198,
-        "win": 101615
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 6.71,
-        "stake": 15144,
-        "win": 101616
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 6.1,
-        "stake": 16658,
-        "win": 101614
+        "stake": 11871,
+        "win": 100904
       }
     ],
     "market_type": "1x2",
