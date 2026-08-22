@@ -3,31 +3,85 @@
     "match": "athletic bilbao vs sevilla",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 4.33,
-    "profit_ugx": 4332,
+    "profit_percent": 4.05,
+    "profit_ugx": 4054,
     "total_stake": 100000,
-    "arb_sum": 0.9567,
+    "arb_sum": 0.9595,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 1.79,
-        "stake": 58396,
-        "win": 104529
+        "stake": 58226,
+        "win": 104225
       },
       {
         "bookmaker": "22Bet",
         "outcome": "Draw",
-        "odd": 5.05,
-        "stake": 20699,
-        "win": 104530
+        "odd": 4.98,
+        "stake": 20929,
+        "win": 104226
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
         "odd": 5.0,
-        "stake": 20906,
-        "win": 104530
+        "stake": 20845,
+        "win": 104225
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "athletic bilbao vs sevilla",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 1.21,
+    "profit_ugx": 1210,
+    "total_stake": 100000,
+    "arb_sum": 0.9879,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 3.55,
+        "stake": 28514,
+        "win": 101225
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.416,
+        "stake": 71486,
+        "win": 101224
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "athletic bilbao vs sevilla",
+    "sport": "Football",
+    "type": "Asian Handicap -0.5",
+    "profit_percent": 1.21,
+    "profit_ugx": 1210,
+    "total_stake": 100000,
+    "arb_sum": 0.9879,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "AH -0.5 (Home)",
+        "odd": 3.55,
+        "stake": 28514,
+        "win": 101225
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "AH -0.5 (Away)",
+        "odd": 1.416,
+        "stake": 71486,
+        "win": 101224
       }
     ],
     "market_type": "1x2",
