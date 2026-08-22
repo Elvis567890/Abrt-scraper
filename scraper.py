@@ -1,5 +1,5 @@
 # =============================================================================
-# scanner.py – Pure Arbitrage Scanner (Expanded Markets + Safety Enhancements)
+# scanner.py – Pure Arbitrage Scanner (Expanded + More Bookmakers)
 # =============================================================================
 
 from __future__ import annotations
@@ -97,14 +97,11 @@ MAX_HISTORY_VERSIONS = env_int("MAX_HISTORY_VERSIONS", 100, minimum=1)
 HTTP_TIMEOUT = env_int("HTTP_TIMEOUT", 30, minimum=1)
 MAX_HTML_PAGES = env_int("MAX_HTML_PAGES", 5, minimum=1)
 
-# Minimum and maximum profit percentage for an arbitrage
 MIN_ARB_PROFIT_PERCENT = env_float("MIN_ARB_PROFIT_PERCENT", 0.2, minimum=0.0)
 MAX_ARB_PROFIT_PERCENT = env_float("MAX_ARB_PROFIT_PERCENT", 50.0, minimum=MIN_ARB_PROFIT_PERCENT)
 
-# Warn if profit exceeds this (suspiciously high)
 WARN_PROFIT_PERCENT = env_float("WARN_PROFIT_PERCENT", 15.0, minimum=MIN_ARB_PROFIT_PERCENT)
 
-# Reject records older than this many minutes (0 = disabled)
 MAX_ODDS_AGE_MINUTES = env_int("MAX_ODDS_AGE_MINUTES", 10, minimum=0)
 
 TELEGRAM_MIN_PROFIT = env_float("TELEGRAM_MIN_PROFIT", 5.0, minimum=0.0)
@@ -155,6 +152,12 @@ SHARED_BOOKMAKERS = {
     },
 }
 
+# New bookmakers (adjust endpoints if needed)
+BETIKA_API = "https://api.betika.com/v1/uo/matches?page=1&limit=100&sport_id=1&tab=upcoming"
+MOZZARTBET_API = "https://www.mozzartbet.com/api/offer/1"  # placeholder, needs real endpoint
+SPORTPESA_API = "https://www.sportpesa.co.ke/api/upcoming"  # placeholder
+ODIBETS_API = "https://odibets.com/api/events"  # placeholder
+
 
 # =============================================================================
 # Bookmaker identity
@@ -174,6 +177,10 @@ BOOKMAKER_CANONICAL = {
     "Betway": "Betway",
     "BetPawa": "BetPawa",
     "PremierBet": "PremierBet",
+    "Betika": "Betika",
+    "Mozzartbet": "Mozzartbet",
+    "SportPesa": "SportPesa",
+    "Odibets": "Odibets",
 }
 
 
@@ -298,7 +305,6 @@ TEAM_ALIASES = {
     "ac milan": "milan",
     "juventus": "juventus",
     "napoli": "napoli",
-    # Extra aliases
     "borussia monchengladbach": "gladbach",
     "monchengladbach": "gladbach",
     "bayer 04 leverkusen": "leverkusen",
@@ -307,7 +313,7 @@ TEAM_ALIASES = {
     "real betis": "betis",
     "sevilla": "sevilla",
     "valencia": "valencia",
-    # Add more as needed
+    # Add more aliases as needed
 }
 
 GENERIC_TEAM_NAMES = {
@@ -333,7 +339,6 @@ def normalize_team(name: Any) -> str:
     if not value:
         return ""
 
-    # If the name is generic, return empty to prevent matching
     if value in GENERIC_TEAM_NAMES:
         return ""
 
@@ -378,24 +383,21 @@ def teams_match(name1: Any, name2: Any) -> bool:
     one_words = set(one.split())
     two_words = set(two.split())
 
-    # Reject if either team name contains only one word (too generic)
-    if len(one_words) < 2 or len(two_words) < 2:
+    if not one_words or not two_words:
         return False
 
     overlap = one_words & two_words
     if not overlap:
         return False
 
-    # Calculate Jaccard similarity to be more precise
     union = one_words | two_words
     jaccard = len(overlap) / len(union)
 
-    # Require high similarity (>= 0.7) to merge
+    # Require high similarity to merge
     if jaccard < 0.7:
         return False
 
-    # Additional safeguard: both teams must share at least 2 words,
-    # or the entire shorter name must be contained in the longer.
+    # Avoid very weak matches like "United" vs "Manchester United"
     min_words = min(len(one_words), len(two_words))
     if len(overlap) < min_words and len(overlap) < 2:
         return False
@@ -521,12 +523,11 @@ def atomic_json_write(filename: str, data: Any) -> None:
 # =============================================================================
 
 def is_odds_fresh(record: Dict[str, Any]) -> bool:
-    """Return True if the record is not older than MAX_ODDS_AGE_MINUTES."""
     if MAX_ODDS_AGE_MINUTES <= 0:
         return True
     scraped_at = record.get("scraped_at")
     if not scraped_at:
-        return True  # If no timestamp, assume fresh
+        return True
     try:
         scraped_dt = datetime.strptime(scraped_at, "%Y-%m-%d %H:%M:%S")
         scraped_dt = scraped_dt.replace(tzinfo=timezone.utc)
@@ -597,7 +598,6 @@ def scraper_call(
         records = list(records)
         duration = time.monotonic() - started
 
-        # Apply freshness filter
         if MAX_ODDS_AGE_MINUTES > 0:
             records = [r for r in records if is_odds_fresh(r)]
 
@@ -1000,11 +1000,11 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
         football = next((s for s in sport_list if isinstance(s, dict) and s.get("id") == "sr:sport:1"), None)
         if not football:
             raise RuntimeError("Football not found in SportyBet sports list")
-        categories = football.get("categories", [])
+        categories = football.get("categories") or []
         for category in categories:
             if not isinstance(category, dict):
                 continue
-            tournaments = category.get("tournaments", [])
+            tournaments = category.get("tournaments") or []
             for tournament in tournaments:
                 if not isinstance(tournament, dict):
                     continue
@@ -1021,6 +1021,8 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
                     continue
                 event_data_payload = event_data.get("data", {})
                 events = event_data_payload.get("events", []) if isinstance(event_data_payload, dict) else []
+                if not isinstance(events, list):
+                    events = []
                 for event in events:
                     if not isinstance(event, dict):
                         continue
@@ -1340,7 +1342,6 @@ def append_championbet_match(odds: List[Dict[str, Any]], match: Dict[str, Any], 
             )
         )
 
-    # Double Chance – only add if we have both components and they are not identical
     dc = extract_championbet_double_chance(bet_map)
     if dc.get("1X") and away_odd and dc["1X"] != away_odd:
         odds.append(
@@ -1451,7 +1452,7 @@ def scrape_championbet_official() -> List[Dict[str, Any]]:
                     append_championbet_match(odds, match, "ChampionBetOfficial")
                 except Exception:
                     logger.exception("ChampionBet official match processing error")
-            total = safe_int(data.get("totalMatchCount"), 0)
+            total = safe_int(data.get("totalMatchCount") or data.get("totalMatches"), 0)
             if total and offset + len(matches) >= total:
                 break
             if new_matches == 0:
@@ -1646,7 +1647,6 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                             elif outcome_id == 2:
                                 asian[line_key]["away"] = odd
                         elif market_id == 8:  # Double Chance
-                            # Fortebet mapping: 1=1X, 2=12, 3=X2 (assumed)
                             if outcome_id == 1:
                                 dc["1X"] = odd
                             elif outcome_id == 2:
@@ -1717,7 +1717,6 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                             event_id=event_id,
                         )
                     )
-                # Double Chance
                 if dc.get("1X") and away_odd and dc["1X"] != away_odd:
                     odds.append(
                         build_match_record(
@@ -1837,10 +1836,9 @@ def extract_shared_outcomes(match: Dict[str, Any]) -> Dict[str, Any]:
         elif outcome_type in {"9", "10"}:
             if p is None:
                 continue
-            line = safe_float(p, None)
-            if line is None:
+            line_key = normalize_market_specifier(p)
+            if not line_key:
                 continue
-            line_key = str(line)
             result["ou"].setdefault(line_key, {"over": None, "under": None})
             if outcome_type == "9":
                 result["ou"][line_key]["over"] = max(result["ou"][line_key]["over"] or 0, odd)
@@ -1872,7 +1870,6 @@ def extract_shared_extra_from_values(bookmaker: str, values: List[Dict[str, Any]
             continue
         extracted = extract_shared_outcomes(match)
         event_id = match.get("I") or match.get("Id")
-        # Asian Handicap
         for line, vals in extracted["ah"].items():
             ah_home, ah_away = vals.get("home"), vals.get("away")
             if ah_home and ah_away:
@@ -1889,7 +1886,6 @@ def extract_shared_extra_from_values(bookmaker: str, values: List[Dict[str, Any]
                         event_id=event_id,
                     )
                 )
-        # Over/Under all lines
         for line, vals in extracted["ou"].items():
             over_odd, under_odd = vals.get("over"), vals.get("under")
             if over_odd and under_odd:
@@ -1906,7 +1902,6 @@ def extract_shared_extra_from_values(bookmaker: str, values: List[Dict[str, Any]
                         event_id=event_id,
                     )
                 )
-        # BTTS
         if extracted["btts_yes"] and extracted["btts_no"]:
             all_odds.append(
                 build_match_record(
@@ -1920,7 +1915,6 @@ def extract_shared_extra_from_values(bookmaker: str, values: List[Dict[str, Any]
                     event_id=event_id,
                 )
             )
-        # Double Chance – verify all components are present and distinct
         dc = extracted["dc"]
         if dc["1X"] and extracted["away"] and dc["1X"] != extracted["away"]:
             all_odds.append(
@@ -1972,7 +1966,6 @@ def scrape_shared_full(bookmaker: str, config: Dict[str, Any]) -> List[Dict[str,
         values = data.get("Value", []) if isinstance(data, dict) else []
         if not isinstance(values, list):
             raise ValueError("Shared feed Value is not a list")
-        # 1X2
         for match in values:
             if not isinstance(match, dict):
                 continue
@@ -1996,7 +1989,6 @@ def scrape_shared_full(bookmaker: str, config: Dict[str, Any]) -> List[Dict[str,
                         event_id=event_id,
                     )
                 )
-        # Extra markets
         odds.extend(extract_shared_extra_from_values(bookmaker, values))
         logger.info("%s: %s records (1x2 + extras)", bookmaker, len(odds))
     except Exception as exc:
@@ -2128,6 +2120,127 @@ def scrape_premierbet() -> List[Dict[str, Any]]:
 
 
 # =============================================================================
+# New bookmaker scrapers (placeholders – adjust endpoints/selectors as needed)
+# =============================================================================
+
+def scrape_betika() -> List[Dict[str, Any]]:
+    logger.info("Fetching Betika...")
+    odds = []
+    try:
+        data = http.get_json(BETIKA_API)
+        events = data if isinstance(data, list) else data.get("data", [])
+        if not isinstance(events, list):
+            events = []
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            home = event.get("home_team") or event.get("homeTeam") or event.get("home")
+            away = event.get("away_team") or event.get("awayTeam") or event.get("away")
+            if not home or not away:
+                continue
+            if normalize_team(home) == "" or normalize_team(away) == "":
+                continue
+            odds_data = event.get("odds", {}) if isinstance(event.get("odds"), dict) else event
+            home_odd = clean_odd(odds_data.get("1") or odds_data.get("home"))
+            draw_odd = clean_odd(odds_data.get("X") or odds_data.get("draw"))
+            away_odd = clean_odd(odds_data.get("2") or odds_data.get("away"))
+            if home_odd and away_odd:
+                odds.append(build_match_record(home, away, "Betika", home_odd, draw_odd, away_odd, event_id=event.get("id")))
+        logger.info("Betika: %s records", len(odds))
+    except Exception as exc:
+        logger.exception("Betika error: %s", exc)
+    return odds
+
+
+def scrape_mozzartbet() -> List[Dict[str, Any]]:
+    logger.info("Fetching Mozzartbet...")
+    odds = []
+    try:
+        # Adjust the JSON structure based on actual API
+        data = http.get_json(MOZZARTBET_API)
+        events = data.get("matches", []) if isinstance(data, dict) else data
+        if not isinstance(events, list):
+            events = []
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            home = event.get("home") or event.get("home_name")
+            away = event.get("away") or event.get("away_name")
+            if not home or not away:
+                continue
+            if normalize_team(home) == "" or normalize_team(away) == "":
+                continue
+            odds_data = event.get("odds", {}) if isinstance(event.get("odds"), dict) else event
+            home_odd = clean_odd(odds_data.get("1") or odds_data.get("home"))
+            draw_odd = clean_odd(odds_data.get("X") or odds_data.get("draw"))
+            away_odd = clean_odd(odds_data.get("2") or odds_data.get("away"))
+            if home_odd and away_odd:
+                odds.append(build_match_record(home, away, "Mozzartbet", home_odd, draw_odd, away_odd, event_id=event.get("id")))
+        logger.info("Mozzartbet: %s records", len(odds))
+    except Exception as exc:
+        logger.exception("Mozzartbet error: %s", exc)
+    return odds
+
+
+def scrape_sportpesa() -> List[Dict[str, Any]]:
+    logger.info("Fetching SportPesa...")
+    odds = []
+    try:
+        data = http.get_json(SPORTPESA_API)
+        events = data.get("events", []) if isinstance(data, dict) else data
+        if not isinstance(events, list):
+            events = []
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            home = event.get("home_team") or event.get("home")
+            away = event.get("away_team") or event.get("away")
+            if not home or not away:
+                continue
+            if normalize_team(home) == "" or normalize_team(away) == "":
+                continue
+            odds_data = event.get("odds", {}) if isinstance(event.get("odds"), dict) else event
+            home_odd = clean_odd(odds_data.get("1") or odds_data.get("home"))
+            draw_odd = clean_odd(odds_data.get("X") or odds_data.get("draw"))
+            away_odd = clean_odd(odds_data.get("2") or odds_data.get("away"))
+            if home_odd and away_odd:
+                odds.append(build_match_record(home, away, "SportPesa", home_odd, draw_odd, away_odd, event_id=event.get("id")))
+        logger.info("SportPesa: %s records", len(odds))
+    except Exception as exc:
+        logger.exception("SportPesa error: %s", exc)
+    return odds
+
+
+def scrape_odibets() -> List[Dict[str, Any]]:
+    logger.info("Fetching Odibets...")
+    odds = []
+    try:
+        data = http.get_json(ODIBETS_API)
+        events = data.get("data", []) if isinstance(data, dict) else data
+        if not isinstance(events, list):
+            events = []
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            home = event.get("home_team") or event.get("home")
+            away = event.get("away_team") or event.get("away")
+            if not home or not away:
+                continue
+            if normalize_team(home) == "" or normalize_team(away) == "":
+                continue
+            odds_data = event.get("odds", {}) if isinstance(event.get("odds"), dict) else event
+            home_odd = clean_odd(odds_data.get("1") or odds_data.get("home"))
+            draw_odd = clean_odd(odds_data.get("X") or odds_data.get("draw"))
+            away_odd = clean_odd(odds_data.get("2") or odds_data.get("away"))
+            if home_odd and away_odd:
+                odds.append(build_match_record(home, away, "Odibets", home_odd, draw_odd, away_odd, event_id=event.get("id")))
+        logger.info("Odibets: %s records", len(odds))
+    except Exception as exc:
+        logger.exception("Odibets error: %s", exc)
+    return odds
+
+
+# =============================================================================
 # Arbitrage calculations
 # =============================================================================
 
@@ -2183,7 +2296,6 @@ def create_two_outcome_opportunity(
     profit_percent = (1 - arb_sum) * 100
     if not (MIN_ARB_PROFIT_PERCENT <= profit_percent <= MAX_ARB_PROFIT_PERCENT):
         return None
-    # Log warning for suspiciously high profit
     if profit_percent > WARN_PROFIT_PERCENT:
         logger.warning(
             "High profit %.2f%% for %s (%s vs %s). Could be stale odds or mismatch.",
@@ -2345,7 +2457,6 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             match_name = first_record.get("match", "")
             if market_type == "Double Chance":
                 continue  # Legacy, ignore
-            # 3-way 1X2
             if market_type == "1x2":
                 best_home: Dict[str, float] = {}
                 best_draw: Dict[str, float] = {}
@@ -2394,7 +2505,6 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                     bookmakers[bm]["home"] = max(bookmakers[bm]["home"], home)
                 if away:
                     bookmakers[bm]["away"] = max(bookmakers[bm]["away"], away)
-            # Determine outcome names
             if market_type == "Over/Under 2.5":
                 outcome1, outcome2 = "Over", "Under"
             elif market_type.startswith("Over/Under "):
@@ -2503,11 +2613,15 @@ def run_scan() -> List[Dict[str, Any]]:
             ("Betway", scrape_betway),
             ("BetPawa", scrape_betpawa),
             ("PremierBet", scrape_premierbet),
+            # Add new bookmakers here
+            ("Betika", scrape_betika),
+            ("Mozzartbet", scrape_mozzartbet),
+            ("SportPesa", scrape_sportpesa),
+            ("Odibets", scrape_odibets),
         ]
         for bookmaker, scraper in scrapers:
             records = scraper_call(bookmaker, scraper)
             all_odds.extend(records)
-        # Count healthy bookmakers
         with status_lock:
             bookmaker_status = dict(scanner_status["bookmakers"])
             healthy_canonical = set()
@@ -2586,15 +2700,22 @@ def run_scan() -> List[Dict[str, Any]]:
 
 
 # =============================================================================
-# Main
+# Main – continuous loop
 # =============================================================================
 
 if __name__ == "__main__":
-    try:
-        opportunities = run_scan()
-        logger.info("Final opportunities: %s", len(opportunities))
-    except KeyboardInterrupt:
-        logger.warning("Scanner interrupted by user.")
-    except Exception:
-        logger.exception("Fatal scanner error.")
-        raise
+    import time
+
+    interval = env_int("SCAN_INTERVAL_SECONDS", 60, minimum=10)
+
+    while True:
+        try:
+            opportunities = run_scan()
+            logger.info("Scan complete. Opportunities found: %s", len(opportunities))
+        except KeyboardInterrupt:
+            logger.warning("Scanner interrupted by user.")
+            break
+        except Exception:
+            logger.exception("Scanner error. Retrying after %s seconds.", interval)
+
+        time.sleep(interval)
