@@ -3,31 +3,31 @@
     "match": "lens vs auxerre",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 2.82,
-    "profit_ugx": 2821,
+    "profit_percent": 3.77,
+    "profit_ugx": 3766,
     "total_stake": 100000,
-    "arb_sum": 0.9718,
+    "arb_sum": 0.9623,
     "bets": [
       {
         "bookmaker": "22Bet",
         "outcome": "Home",
-        "odd": 1.45,
-        "stake": 70968,
-        "win": 102904
+        "odd": 1.43,
+        "stake": 72667,
+        "win": 103914
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Draw",
-        "odd": 7.18,
-        "stake": 14332,
-        "win": 102904
+        "odd": 7.71,
+        "stake": 13478,
+        "win": 103915
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Away",
-        "odd": 7.0,
-        "stake": 14700,
-        "win": 102900
+        "odd": 7.5,
+        "stake": 13855,
+        "win": 103912
       }
     ],
     "market_type": "1x2",
@@ -822,6 +822,60 @@
         "odd": 1.912,
         "stake": 60274,
         "win": 115244
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "le havre vs as monaco",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.96,
+    "profit_ugx": 6963,
+    "total_stake": 100000,
+    "arb_sum": 0.9304,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 1.971,
+        "stake": 54533,
+        "win": 107485
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.364,
+        "stake": 45467,
+        "win": 107484
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "le havre vs as monaco",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 6.96,
+    "profit_ugx": 6963,
+    "total_stake": 100000,
+    "arb_sum": 0.9304,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 1.971,
+        "stake": 54533,
+        "win": 107485
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.364,
+        "stake": 45467,
+        "win": 107484
       }
     ],
     "market_type": "1x2",
