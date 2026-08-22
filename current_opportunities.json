@@ -3,31 +3,31 @@
     "match": "brighton vs aston villa",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 0.74,
-    "profit_ugx": 738,
+    "profit_percent": 0.7,
+    "profit_ugx": 700,
     "total_stake": 100000,
-    "arb_sum": 0.9926,
+    "arb_sum": 0.993,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.28,
-        "stake": 44186,
-        "win": 100744
+        "stake": 44169,
+        "win": 100705
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 3.6,
-        "stake": 27984,
-        "win": 100742
+        "stake": 27974,
+        "win": 100706
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 3.62,
-        "stake": 27830,
-        "win": 100745
+        "odd": 3.615,
+        "stake": 27858,
+        "win": 100707
       }
     ],
     "market_type": "1x2",
@@ -822,6 +822,40 @@
         "odd": 3.53,
         "stake": 30583,
         "win": 107958
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "inter miami vs toronto",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.05,
+    "profit_ugx": 2048,
+    "total_stake": 100000,
+    "arb_sum": 0.9795,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.36,
+        "stake": 75067,
+        "win": 102091
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.9,
+        "stake": 12923,
+        "win": 102092
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 8.5,
+        "stake": 12011,
+        "win": 102094
       }
     ],
     "market_type": "1x2",
