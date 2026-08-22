@@ -1,7 +1,5 @@
 # =============================================================================
-# scanner.py – Pure Arbitrage Scanner (Expanded Markets)
-# No Flask, No Database
-# Suitable for GitHub Actions / cron / CLI
+# scanner.py – Pure Arbitrage Scanner (Expanded Markets + Safety Enhancements)
 # =============================================================================
 
 from __future__ import annotations
@@ -13,7 +11,7 @@ import os
 import re
 import threading
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
 import requests
@@ -46,70 +44,44 @@ logger = logging.getLogger("arbitrage_scanner")
 
 def env_int(name: str, default: int, minimum: Optional[int] = None) -> int:
     raw = os.getenv(name)
-
     if raw is None or not raw.strip():
         value = default
     else:
         try:
             value = int(raw)
         except ValueError:
-            logger.warning(
-                "Invalid integer environment variable %s=%r; using %s",
-                name,
-                raw,
-                default,
-            )
+            logger.warning("Invalid integer environment variable %s=%r; using %s", name, raw, default)
             value = default
-
     if minimum is not None:
         value = max(minimum, value)
-
     return value
 
 
 def env_float(name: str, default: float, minimum: Optional[float] = None) -> float:
     raw = os.getenv(name)
-
     if raw is None or not raw.strip():
         value = default
     else:
         try:
             value = float(raw)
         except ValueError:
-            logger.warning(
-                "Invalid float environment variable %s=%r; using %s",
-                name,
-                raw,
-                default,
-            )
+            logger.warning("Invalid float environment variable %s=%r; using %s", name, raw, default)
             value = default
-
     if minimum is not None:
         value = max(minimum, value)
-
     return value
 
 
 def env_bool(name: str, default: bool) -> bool:
     raw = os.getenv(name)
-
     if raw is None:
         return default
-
     value = raw.strip().lower()
-
     if value in {"1", "true", "yes", "y", "on"}:
         return True
-
     if value in {"0", "false", "no", "n", "off"}:
         return False
-
-    logger.warning(
-        "Invalid boolean environment variable %s=%r; using %s",
-        name,
-        raw,
-        default,
-    )
+    logger.warning("Invalid boolean environment variable %s=%r; using %s", name, raw, default)
     return default
 
 
@@ -119,23 +91,21 @@ HISTORY_FILE = os.getenv("HISTORY_FILE", "arb_history.json")
 OPPORTUNITIES_FILE = os.getenv("OPPORTUNITIES_FILE", "current_opportunities.json")
 SCANNER_STATUS_FILE = os.getenv("SCANNER_STATUS_FILE", "scanner_status.json")
 
-MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN = env_int(
-    "MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN",
-    2,
-    minimum=1,
-)
-
+MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN = env_int("MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN", 2, minimum=1)
 ZERO_RECORDS_ARE_ERRORS = env_bool("ZERO_RECORDS_ARE_ERRORS", True)
-
 MAX_HISTORY_VERSIONS = env_int("MAX_HISTORY_VERSIONS", 100, minimum=1)
-
 HTTP_TIMEOUT = env_int("HTTP_TIMEOUT", 30, minimum=1)
-
 MAX_HTML_PAGES = env_int("MAX_HTML_PAGES", 5, minimum=1)
 
-# New: minimum profit percentage for an arbitrage to be considered.
-# Lower it to capture more opportunities.
+# Minimum and maximum profit percentage for an arbitrage
 MIN_ARB_PROFIT_PERCENT = env_float("MIN_ARB_PROFIT_PERCENT", 0.2, minimum=0.0)
+MAX_ARB_PROFIT_PERCENT = env_float("MAX_ARB_PROFIT_PERCENT", 50.0, minimum=MIN_ARB_PROFIT_PERCENT)
+
+# Warn if profit exceeds this (suspiciously high)
+WARN_PROFIT_PERCENT = env_float("WARN_PROFIT_PERCENT", 15.0, minimum=MIN_ARB_PROFIT_PERCENT)
+
+# Reject records older than this many minutes (0 = disabled)
+MAX_ODDS_AGE_MINUTES = env_int("MAX_ODDS_AGE_MINUTES", 10, minimum=0)
 
 TELEGRAM_MIN_PROFIT = env_float("TELEGRAM_MIN_PROFIT", 5.0, minimum=0.0)
 
@@ -243,13 +213,7 @@ class HTTPClient:
         self.session = requests.Session()
         self.session.headers.update(
             {
-                "User-Agent": (
-                    "Mozilla/5.0 (Linux; Android 14) "
-                    "AppleWebKit/537.36 "
-                    "(KHTML, like Gecko) "
-                    "Chrome/149.0.7827.159 "
-                    "Mobile Safari/537.36"
-                ),
+                "User-Agent": "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.7827.159 Mobile Safari/537.36",
                 "Accept": "application/json, text/plain, */*",
                 "Accept-Language": "en-US,en;q=0.9",
                 "Connection": "keep-alive",
@@ -259,9 +223,7 @@ class HTTPClient:
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=2, max=10),
-        retry=retry_if_exception_type(
-            (requests.RequestException, ConnectionError, TimeoutError)
-        ),
+        retry=retry_if_exception_type((requests.RequestException, ConnectionError, TimeoutError)),
         reraise=True,
     )
     def get_response(
@@ -273,31 +235,15 @@ class HTTPClient:
         request_headers = self.session.headers.copy()
         if headers:
             request_headers.update(headers)
-
-        response = self.session.get(
-            url,
-            headers=request_headers,
-            params=params,
-            timeout=self.timeout,
-        )
+        response = self.session.get(url, headers=request_headers, params=params, timeout=self.timeout)
         response.raise_for_status()
         return response
 
-    def get_json(
-        self,
-        url: str,
-        headers: Optional[Dict[str, str]] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> Any:
+    def get_json(self, url: str, headers: Optional[Dict[str, str]] = None, params: Optional[Dict[str, Any]] = None) -> Any:
         response = self.get_response(url, headers=headers, params=params)
         return response.json()
 
-    def get_text(
-        self,
-        url: str,
-        headers: Optional[Dict[str, str]] = None,
-        params: Optional[Dict[str, Any]] = None,
-    ) -> str:
+    def get_text(self, url: str, headers: Optional[Dict[str, str]] = None, params: Optional[Dict[str, Any]] = None) -> str:
         response = self.get_response(url, headers=headers, params=params)
         return response.text
 
@@ -352,7 +298,7 @@ TEAM_ALIASES = {
     "ac milan": "milan",
     "juventus": "juventus",
     "napoli": "napoli",
-    # Extra aliases to improve matching
+    # Extra aliases
     "borussia monchengladbach": "gladbach",
     "monchengladbach": "gladbach",
     "bayer 04 leverkusen": "leverkusen",
@@ -361,15 +307,34 @@ TEAM_ALIASES = {
     "real betis": "betis",
     "sevilla": "sevilla",
     "valencia": "valencia",
+    # Add more as needed
+}
+
+GENERIC_TEAM_NAMES = {
+    "home",
+    "away",
+    "team a",
+    "team b",
+    "tbd",
+    "tba",
+    "unknown",
+    "none",
+    "null",
+    "draw",
+    "over",
+    "under",
 }
 
 
 def normalize_team(name: Any) -> str:
     if name is None:
         return ""
-
     value = str(name).lower().strip()
     if not value:
+        return ""
+
+    # If the name is generic, return empty to prevent matching
+    if value in GENERIC_TEAM_NAMES:
         return ""
 
     value = TEAM_ALIASES.get(value, value)
@@ -391,7 +356,6 @@ def normalize_team(name: Any) -> str:
         r"\bwomen\b": "",
         r"\bmen\b": "",
     }
-
     for pattern, replacement in replacements.items():
         value = re.sub(pattern, replacement, value)
 
@@ -414,34 +378,43 @@ def teams_match(name1: Any, name2: Any) -> bool:
     one_words = set(one.split())
     two_words = set(two.split())
 
-    overlap = one_words & two_words
+    # Reject if either team name contains only one word (too generic)
+    if len(one_words) < 2 or len(two_words) < 2:
+        return False
 
+    overlap = one_words & two_words
     if not overlap:
         return False
 
+    # Calculate Jaccard similarity to be more precise
+    union = one_words | two_words
+    jaccard = len(overlap) / len(union)
+
+    # Require high similarity (>= 0.7) to merge
+    if jaccard < 0.7:
+        return False
+
+    # Additional safeguard: both teams must share at least 2 words,
+    # or the entire shorter name must be contained in the longer.
     min_words = min(len(one_words), len(two_words))
+    if len(overlap) < min_words and len(overlap) < 2:
+        return False
 
-    if min_words <= 2:
-        return len(overlap) >= min_words
-
-    return len(overlap) >= 2
+    return True
 
 
 def normalize_market_specifier(value: Any) -> str:
     if value is None:
         return ""
-
     text = str(value).strip()
     if not text:
         return ""
-
     try:
         number = float(text)
         if math.isfinite(number):
             return f"{number:g}"
     except (TypeError, ValueError):
         pass
-
     return text.lower()
 
 
@@ -462,28 +435,20 @@ def market_key(
 def match_key_similarity(key1: str, key2: str) -> bool:
     if key1 == key2:
         return True
-
     parts1 = key1.split("|")
     parts2 = key2.split("|")
-
     if len(parts1) != 3 or len(parts2) != 3:
         return False
-
     if parts1[1] != parts2[1]:
         return False
-
     if not parts1[2] or not parts2[2]:
         return False
-
     if parts1[2] != parts2[2]:
         return False
-
     teams1 = parts1[0].split(" vs ", 1)
     teams2 = parts2[0].split(" vs ", 1)
-
     if len(teams1) != 2 or len(teams2) != 2:
         return False
-
     return teams_match(teams1[0], teams2[0]) and teams_match(teams1[1], teams2[1])
 
 
@@ -536,7 +501,6 @@ def atomic_json_write(filename: str, data: Any) -> None:
     directory = os.path.dirname(os.path.abspath(filename)) or "."
     os.makedirs(directory, exist_ok=True)
     temporary = os.path.join(directory, f".{os.path.basename(filename)}.tmp")
-
     try:
         with open(temporary, "w", encoding="utf-8") as file:
             json.dump(data, file, indent=2, ensure_ascii=False)
@@ -550,6 +514,26 @@ def atomic_json_write(filename: str, data: Any) -> None:
         except OSError:
             pass
         raise
+
+
+# =============================================================================
+# Odds freshness check
+# =============================================================================
+
+def is_odds_fresh(record: Dict[str, Any]) -> bool:
+    """Return True if the record is not older than MAX_ODDS_AGE_MINUTES."""
+    if MAX_ODDS_AGE_MINUTES <= 0:
+        return True
+    scraped_at = record.get("scraped_at")
+    if not scraped_at:
+        return True  # If no timestamp, assume fresh
+    try:
+        scraped_dt = datetime.strptime(scraped_at, "%Y-%m-%d %H:%M:%S")
+        scraped_dt = scraped_dt.replace(tzinfo=timezone.utc)
+        age = datetime.now(timezone.utc) - scraped_dt
+        return age <= timedelta(minutes=MAX_ODDS_AGE_MINUTES)
+    except ValueError:
+        return True
 
 
 # =============================================================================
@@ -613,6 +597,10 @@ def scraper_call(
         records = list(records)
         duration = time.monotonic() - started
 
+        # Apply freshness filter
+        if MAX_ODDS_AGE_MINUTES > 0:
+            records = [r for r in records if is_odds_fresh(r)]
+
         if ZERO_RECORDS_ARE_ERRORS and not records:
             error = "Bookmaker returned zero usable odds records."
             update_bookmaker_status(bookmaker, success=False, records=0, error=error, duration=duration)
@@ -622,7 +610,6 @@ def scraper_call(
             logger.info("%s: %s usable records", bookmaker, len(records))
 
         return records
-
     except Exception as exc:
         duration = time.monotonic() - started
         update_bookmaker_status(bookmaker, success=False, records=0, error=str(exc), duration=duration)
@@ -794,14 +781,12 @@ def send_telegram_alert(opportunity: Dict[str, Any]) -> None:
         f"⚽ *{match}*",
         f"💰 Profit: *{profit:.2f}%* (UGX {profit_ugx:,})",
     ]
-
     for bet in opportunity.get("bets", []):
         bookmaker = escape_telegram_markdown(bet.get("bookmaker", "Unknown"))
         outcome = escape_telegram_markdown(bet.get("outcome", "Unknown"))
         odd = safe_float(bet.get("odd", 0))
         stake = safe_int(bet.get("stake", 0))
         lines.append(f"▶ {bookmaker} ({outcome}) @ {odd:g} - Stake: UGX {stake:,}")
-
     message = "\n".join(lines)
 
     try:
@@ -852,12 +837,7 @@ def scrape_generic_html(
     page = 1
     while page <= max_pages:
         if re.search(r"([?&])page=\d+", base_url, re.IGNORECASE):
-            url = re.sub(
-                r"([?&])page=\d+",
-                lambda match: f"{match.group(1)}page={page}",
-                base_url,
-                flags=re.IGNORECASE,
-            )
+            url = re.sub(r"([?&])page=\d+", lambda m: f"{m.group(1)}page={page}", base_url, flags=re.IGNORECASE)
         elif "?" in base_url:
             url = f"{base_url}&page={page}"
         else:
@@ -888,6 +868,8 @@ def scrape_generic_html(
             home_team = home_el.get_text(" ", strip=True)
             away_team = away_el.get_text(" ", strip=True)
             if not home_team or not away_team:
+                continue
+            if normalize_team(home_team) == "" or normalize_team(away_team) == "":
                 continue
 
             def extract_selector_odd(selector: Optional[str]) -> Optional[float]:
@@ -949,38 +931,32 @@ def scrape_generic_html(
 
 
 # =============================================================================
-# SportyBet (simple)
+# SportyBet
 # =============================================================================
 
 def scrape_sportybet() -> List[Dict[str, Any]]:
     logger.info("Fetching SportyBet...")
     odds = []
-
     try:
         data = http.get_json(SPORTYBET_API)
         if not isinstance(data, list):
             raise ValueError("SportyBet API did not return a list")
-
         for event in data:
             if not isinstance(event, dict):
                 continue
-
             home = first_not_empty(event, ["home_team", "homeTeam", "home"])
             away = first_not_empty(event, ["away_team", "awayTeam", "away"])
             if not home or not away:
                 continue
-
+            if normalize_team(home) == "" or normalize_team(away) == "":
+                continue
             sport = event.get("sport", "Football") or "Football"
             home_odd = clean_odd(event.get("home"))
             draw_odd = clean_odd(event.get("draw"))
             away_odd = clean_odd(event.get("away"))
             event_id = event.get("id") or event.get("event_id") or event.get("eventId")
-
             if home_odd and away_odd:
-                odds.append(
-                    build_match_record(home, away, "SportyBet", home_odd, draw_odd, away_odd, sport=sport, event_id=event_id)
-                )
-
+                odds.append(build_match_record(home, away, "SportyBet", home_odd, draw_odd, away_odd, sport=sport, event_id=event_id))
             over_odd = clean_odd(event.get("over_odd"))
             under_odd = clean_odd(event.get("under_odd"))
             if over_odd and under_odd:
@@ -998,11 +974,9 @@ def scrape_sportybet() -> List[Dict[str, Any]]:
                         event_id=event_id,
                     )
                 )
-
         logger.info("SportyBet: %s records", len(odds))
     except Exception as exc:
         logger.exception("SportyBet error: %s", exc)
-
     return odds
 
 
@@ -1014,87 +988,65 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
     logger.info("Fetching SportyBet official API...")
     odds = []
     base_headers = {"Referer": "https://www.sportybet.com/ng/m/"}
-
     try:
         sport_list_url = "https://www.sportybet.com/factsCenter/wapPopularAndSportOption/v2"
         data = http.get_json(sport_list_url, headers=base_headers)
-
         if not isinstance(data, dict):
             raise ValueError("SportyBet official API returned invalid JSON")
         if data.get("bizCode") != 10000:
             raise RuntimeError(f"SportyBet API error: {data.get('message')}")
-
         sport_data = data.get("data", {})
         sport_list = sport_data.get("sportList", []) if isinstance(sport_data, dict) else []
-        football = next(
-            (sport for sport in sport_list if isinstance(sport, dict) and sport.get("id") == "sr:sport:1"),
-            None,
-        )
+        football = next((s for s in sport_list if isinstance(s, dict) and s.get("id") == "sr:sport:1"), None)
         if not football:
             raise RuntimeError("Football not found in SportyBet sports list")
-
         categories = football.get("categories", [])
-
         for category in categories:
             if not isinstance(category, dict):
                 continue
             tournaments = category.get("tournaments", [])
-
             for tournament in tournaments:
                 if not isinstance(tournament, dict):
                     continue
                 tournament_id = tournament.get("id")
                 if not tournament_id:
                     continue
-
                 event_list_url = f"https://www.sportybet.com/factsCenter/event/list?tournamentId={tournament_id}"
                 try:
                     event_data = http.get_json(event_list_url, headers=base_headers)
                 except Exception as exc:
                     logger.warning("Failed to fetch events for tournament %s: %s", tournament_id, exc)
                     continue
-
                 if not isinstance(event_data, dict) or event_data.get("bizCode") != 10000:
                     continue
-
                 event_data_payload = event_data.get("data", {})
                 events = event_data_payload.get("events", []) if isinstance(event_data_payload, dict) else []
-
                 for event in events:
                     if not isinstance(event, dict):
                         continue
-
                     event_id = event.get("id")
                     home = event.get("homeTeamName") or event.get("home")
                     away = event.get("awayTeamName") or event.get("away")
                     if not event_id or not home or not away:
                         continue
-
+                    if normalize_team(home) == "" or normalize_team(away) == "":
+                        continue
                     odds_url = f"https://www.sportybet.com/factsCenter/event/odds?eventId={event_id}"
                     try:
                         odds_data = http.get_json(odds_url, headers=base_headers)
                     except Exception as exc:
                         logger.warning("Failed to fetch odds for event %s: %s", event_id, exc)
                         continue
-
                     if not isinstance(odds_data, dict) or odds_data.get("bizCode") != 10000:
                         continue
-
                     payload = odds_data.get("data", {})
                     if not isinstance(payload, dict):
                         continue
-
                     home_odd = clean_odd(payload.get("homeOdd") or payload.get("home") or payload.get("1"))
                     draw_odd = clean_odd(payload.get("drawOdd") or payload.get("draw") or payload.get("x"))
                     away_odd = clean_odd(payload.get("awayOdd") or payload.get("away") or payload.get("2"))
-
                     if home_odd and away_odd:
-                        odds.append(
-                            build_match_record(
-                                home, away, "SportyBetOfficial", home_odd, draw_odd, away_odd, event_id=event_id
-                            )
-                        )
-
+                        odds.append(build_match_record(home, away, "SportyBetOfficial", home_odd, draw_odd, away_odd, event_id=event_id))
                     over_odd = clean_odd(payload.get("overOdd") or payload.get("over") or payload.get("over_odd"))
                     under_odd = clean_odd(payload.get("underOdd") or payload.get("under") or payload.get("under_odd"))
                     if over_odd and under_odd:
@@ -1111,25 +1063,21 @@ def scrape_sportybet_official() -> List[Dict[str, Any]]:
                                 event_id=event_id,
                             )
                         )
-
                     time.sleep(0.05)
-
         logger.info("SportyBetOfficial: %s records", len(odds))
     except Exception as exc:
         logger.exception("SportyBet official API error: %s", exc)
-
     return odds
 
 
 # =============================================================================
-# ChampionBet helpers (updated for multiple OU lines and double chance)
+# ChampionBet helpers
 # =============================================================================
 
 def championbet_market_items(bet_map: Dict[str, Any], keys: Iterable[Any]) -> List[Dict[str, Any]]:
     result = []
     if not isinstance(bet_map, dict):
         return result
-
     for key in keys:
         market = bet_map.get(str(key))
         if not isinstance(market, dict):
@@ -1173,7 +1121,6 @@ def extract_championbet_1x2(bet_map: Dict[str, Any]) -> Tuple[Optional[float], O
     home = None
     draw = None
     away = None
-
     items = championbet_market_items(bet_map, [1, 2, 3, 4, 5, 6, 7, 8, 9])
     for item in items:
         odd = extract_odd_from_item(item)
@@ -1181,7 +1128,6 @@ def extract_championbet_1x2(bet_map: Dict[str, Any]) -> Tuple[Optional[float], O
             continue
         label = normalize_label(item_label(item))
         item_market_key = item.get("_market_key")
-
         if label in {"1", "home", "homewin"}:
             if home is None:
                 home = odd
@@ -1194,65 +1140,65 @@ def extract_championbet_1x2(bet_map: Dict[str, Any]) -> Tuple[Optional[float], O
             if away is None:
                 away = odd
             continue
-
         if item_market_key in {"1", "4", "7"} and home is None:
             home = odd
         elif item_market_key in {"2", "5", "8"} and draw is None:
             draw = odd
         elif item_market_key in {"3", "6", "9"} and away is None:
             away = odd
-
     return home, draw, away
 
 
 def extract_championbet_ou_all(bet_map: Dict[str, Any]) -> Dict[str, Tuple[Optional[float], Optional[float]]]:
-    """Extract all Over/Under lines, keyed by line (e.g., '1.5', '2.5', '3.5')."""
     ou: Dict[str, Dict[str, Optional[float]]] = {}
-
-    # Common market keys for Over/Under in ChampionBet: 21, 22, 51, 52
     items = championbet_market_items(bet_map, [21, 22, 51, 52])
     for item in items:
         odd = extract_odd_from_item(item)
         if odd is None:
             continue
-
         label = normalize_label(item_label(item))
-        line = item.get("P") or item.get("p") or item.get("specifier") or item.get("line")
+        line = item.get("P")
+        if line is None:
+            line = item.get("p")
+        if line is None:
+            line = item.get("specifier")
+        if line is None:
+            line = item.get("line")
         if line is None:
             continue
-
         line_key = normalize_market_specifier(line)
         if not line_key:
             continue
-
         ou.setdefault(line_key, {"over": None, "under": None})
-
         if "over" in label:
             if ou[line_key]["over"] is None or odd > ou[line_key]["over"]:
                 ou[line_key]["over"] = odd
         elif "under" in label:
             if ou[line_key]["under"] is None or odd > ou[line_key]["under"]:
                 ou[line_key]["under"] = odd
-
-    # If no label, fallback based on market key mapping
+    # Fallback by market key
     for item in items:
         odd = extract_odd_from_item(item)
         if odd is None:
             continue
-        line = item.get("P") or item.get("p") or item.get("specifier") or item.get("line")
+        line = item.get("P")
+        if line is None:
+            line = item.get("p")
+        if line is None:
+            line = item.get("specifier")
+        if line is None:
+            line = item.get("line")
         if line is None:
             continue
         line_key = normalize_market_specifier(line)
         if not line_key:
             continue
-
         ou.setdefault(line_key, {"over": None, "under": None})
         item_market_key = item.get("_market_key")
         if item_market_key in {"21", "51"} and ou[line_key]["over"] is None:
             ou[line_key]["over"] = odd
         elif item_market_key in {"22", "52"} and ou[line_key]["under"] is None:
             ou[line_key]["under"] = odd
-
     result = {}
     for line, vals in ou.items():
         if vals["over"] is not None and vals["under"] is not None:
@@ -1268,7 +1214,6 @@ def extract_championbet_double_chance(bet_map: Dict[str, Any]) -> Dict[str, Opti
         if odd is None:
             continue
         label = normalize_label(item_label(item))
-
         if label in {"1x", "homedraw", "homeordraw"}:
             dc["1X"] = odd
         elif label in {"12", "homeaway"}:
@@ -1285,7 +1230,6 @@ def extract_championbet_ah(bet_map: Dict[str, Any]) -> Dict[str, Tuple[Optional[
         odd = extract_odd_from_item(item)
         if odd is None:
             continue
-
         line = item.get("P")
         if line is None:
             line = item.get("p")
@@ -1295,20 +1239,16 @@ def extract_championbet_ah(bet_map: Dict[str, Any]) -> Dict[str, Tuple[Optional[
             line = item.get("line")
         if line is None:
             continue
-
         line_key = normalize_market_specifier(line)
         if not line_key:
             continue
-
         asian.setdefault(line_key, [None, None])
         label = normalize_label(item_label(item))
         market_key_value = item.get("_market_key")
-
         if label in {"home", "1", "1handicap", "homehandicap"} or market_key_value in {"5", "7"}:
             asian[line_key][0] = odd
         elif label in {"away", "2", "2handicap", "awayhandicap"} or market_key_value in {"6", "8"}:
             asian[line_key][1] = odd
-
     result = {}
     for line, values in asian.items():
         if values[0] is not None and values[1] is not None:
@@ -1335,26 +1275,21 @@ def append_championbet_match(odds: List[Dict[str, Any]], match: Dict[str, Any], 
     match_id = match.get("id") or match.get("matchId")
     if not match_id:
         return
-
     home = match.get("home") or match.get("homeName") or match.get("homeTeam")
     away = match.get("away") or match.get("awayName") or match.get("awayTeam")
     if not home or not away:
         return
-
+    if normalize_team(home) == "" or normalize_team(away) == "":
+        return
     bet_map = match.get("betMap", {})
     if not isinstance(bet_map, dict):
         bet_map = {}
-
     competition = match.get("leagueName") or match.get("competitionName") or ""
 
-    # 1X2
     home_odd, draw_odd, away_odd = extract_championbet_1x2(bet_map)
     if home_odd and away_odd:
-        odds.append(
-            build_match_record(home, away, bookmaker, home_odd, draw_odd, away_odd, competition=competition, event_id=match_id)
-        )
+        odds.append(build_match_record(home, away, bookmaker, home_odd, draw_odd, away_odd, competition=competition, event_id=match_id))
 
-    # Over/Under all lines
     ou_lines = extract_championbet_ou_all(bet_map)
     for line, (over_odd, under_odd) in ou_lines.items():
         odds.append(
@@ -1372,7 +1307,6 @@ def append_championbet_match(odds: List[Dict[str, Any]], match: Dict[str, Any], 
             )
         )
 
-    # Asian Handicap
     ah_lines = extract_championbet_ah(bet_map)
     for line, (ah_home, ah_away) in ah_lines.items():
         odds.append(
@@ -1390,7 +1324,6 @@ def append_championbet_match(odds: List[Dict[str, Any]], match: Dict[str, Any], 
             )
         )
 
-    # BTTS
     btts = extract_championbet_btts(bet_map)
     if btts.get("yes") and btts.get("no"):
         odds.append(
@@ -1407,9 +1340,9 @@ def append_championbet_match(odds: List[Dict[str, Any]], match: Dict[str, Any], 
             )
         )
 
-    # Double Chance (valid two-outcome arbs)
+    # Double Chance – only add if we have both components and they are not identical
     dc = extract_championbet_double_chance(bet_map)
-    if dc.get("1X") and away_odd:
+    if dc.get("1X") and away_odd and dc["1X"] != away_odd:
         odds.append(
             build_match_record(
                 home,
@@ -1423,7 +1356,7 @@ def append_championbet_match(odds: List[Dict[str, Any]], match: Dict[str, Any], 
                 event_id=match_id,
             )
         )
-    if dc.get("X2") and home_odd:
+    if dc.get("X2") and home_odd and dc["X2"] != home_odd:
         odds.append(
             build_match_record(
                 home,
@@ -1437,7 +1370,7 @@ def append_championbet_match(odds: List[Dict[str, Any]], match: Dict[str, Any], 
                 event_id=match_id,
             )
         )
-    if dc.get("12") and draw_odd:
+    if dc.get("12") and draw_odd and dc["12"] != draw_odd:
         odds.append(
             build_match_record(
                 home,
@@ -1461,7 +1394,6 @@ def scrape_championbet() -> List[Dict[str, Any]]:
         matches = data.get("esMatches", []) if isinstance(data, dict) else []
         if not isinstance(matches, list):
             raise ValueError("ChampionBet esMatches is not a list")
-
         for match in matches:
             if not isinstance(match, dict):
                 continue
@@ -1494,19 +1426,16 @@ def scrape_championbet_official() -> List[Dict[str, Any]]:
         offset = 0
         page_size = 100
         seen_match_ids = set()
-
         while True:
             url = f"{CHAMPIONBET_TOP_API}&offset={offset}&limit={page_size}"
             data = http.get_json(url, headers={"Referer": "https://www.championbet.ug/"})
             if not isinstance(data, dict):
                 raise ValueError("ChampionBet official API returned invalid JSON")
-
             matches = data.get("esMatches", [])
             if not matches:
                 break
             if not isinstance(matches, list):
                 break
-
             new_matches = 0
             for match in matches:
                 if not isinstance(match, dict):
@@ -1522,18 +1451,14 @@ def scrape_championbet_official() -> List[Dict[str, Any]]:
                     append_championbet_match(odds, match, "ChampionBetOfficial")
                 except Exception:
                     logger.exception("ChampionBet official match processing error")
-
             total = safe_int(data.get("totalMatchCount"), 0)
             if total and offset + len(matches) >= total:
                 break
-
             if new_matches == 0:
                 logger.warning("ChampionBet pagination returned no new matches")
                 break
-
             offset += page_size
             time.sleep(0.5)
-
         logger.info("ChampionBetOfficial: %s records", len(odds))
     except Exception as exc:
         logger.exception("ChampionBet official API error: %s", exc)
@@ -1556,10 +1481,8 @@ def scrape_ababet() -> List[Dict[str, Any]]:
             "Referer": "https://www.ababet.ug/",
         }
     )
-
     base_url = "https://www.ababet.ug/soccer/match_result?mobile=1"
     page = 1
-
     while page <= MAX_HTML_PAGES:
         url = f"{base_url}&page={page}"
         try:
@@ -1569,11 +1492,9 @@ def scrape_ababet() -> List[Dict[str, Any]]:
         except requests.RequestException as exc:
             logger.error("AbaBet page %s fetch error: %s", page, exc)
             break
-
         soup = BeautifulSoup(html, "html.parser")
         tables = soup.find_all("table")
         found_table = False
-
         for table in tables:
             first_row = table.find("tr")
             if not first_row:
@@ -1582,28 +1503,23 @@ def scrape_ababet() -> List[Dict[str, Any]]:
             if "Home" not in headers or "Away" not in headers:
                 continue
             found_table = True
-
             for row in table.find_all("tr")[1:]:
                 cells = [cell.get_text(" ", strip=True) for cell in row.find_all(["td", "th"])]
                 if len(cells) < 5:
                     continue
                 row_data = dict(zip(headers, cells))
-
                 home = row_data.get("Home")
                 away = row_data.get("Away")
                 if not home or not away or home == "-" or away == "-":
                     continue
-
+                if normalize_team(home) == "" or normalize_team(away) == "":
+                    continue
                 home_odd = clean_odd(row_data.get("1"))
                 draw_odd = clean_odd(row_data.get("X"))
                 away_odd = clean_odd(row_data.get("2"))
                 competition = row_data.get("League", "") or ""
-
                 if home_odd and away_odd:
-                    odds.append(
-                        build_match_record(home, away, "AbaBet", home_odd, draw_odd, away_odd, competition=competition)
-                    )
-
+                    odds.append(build_match_record(home, away, "AbaBet", home_odd, draw_odd, away_odd, competition=competition))
                 over_odd = clean_odd(row_data.get("Over"))
                 under_odd = clean_odd(row_data.get("Under"))
                 if over_odd and under_odd:
@@ -1620,23 +1536,19 @@ def scrape_ababet() -> List[Dict[str, Any]]:
                             market_specifier="2.5",
                         )
                     )
-
         if not found_table:
             break
-
         next_link = soup.find("a", string=re.compile(r"^\s*(Next|»|→)\s*$", re.IGNORECASE))
         if not next_link:
             break
-
         page += 1
         time.sleep(1)
-
     logger.info("AbaBet: %s records", len(odds))
     return odds
 
 
 # =============================================================================
-# Fortebet (updated for multiple OU lines and double chance)
+# Fortebet
 # =============================================================================
 
 def scrape_fortebet() -> List[Dict[str, Any]]:
@@ -1647,18 +1559,14 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
         data = http.get_json(url, headers={"Referer": "https://desktop.fortebet.ug/prematch/landing"})
         if not isinstance(data, dict):
             raise ValueError("Fortebet response is not an object")
-
         inner = data.get("data", {})
         if not isinstance(inner, dict):
             return odds
-
         events = inner.get("event", {})
         markets = inner.get("markets", {})
         competitors = inner.get("competitors", {})
-
         if not all(isinstance(v, dict) for v in (events, markets, competitors)):
             return odds
-
         event_markets: Dict[str, List[Dict[str, Any]]] = {}
         for market in markets.values():
             if not isinstance(market, dict):
@@ -1666,7 +1574,6 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
             event_id = str(market.get("eventId", ""))
             if event_id:
                 event_markets.setdefault(event_id, []).append(market)
-
         for event_id, event in events.items():
             if not isinstance(event, dict):
                 continue
@@ -1674,14 +1581,14 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                 comp_ids = event.get("competitors", [])
                 if not isinstance(comp_ids, list) or len(comp_ids) < 2:
                     continue
-
                 home_data = competitors.get(str(comp_ids[0]), {})
                 away_data = competitors.get(str(comp_ids[1]), {})
                 home = home_data.get("name") if isinstance(home_data, dict) else ""
                 away = away_data.get("name") if isinstance(away_data, dict) else ""
                 if not home or not away:
                     continue
-
+                if normalize_team(home) == "" or normalize_team(away) == "":
+                    continue
                 home_odd = None
                 draw_odd = None
                 away_odd = None
@@ -1690,13 +1597,11 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                 dc = {"1X": None, "12": None, "X2": None}
                 btts_yes = None
                 btts_no = None
-
                 for market in event_markets.get(str(event_id), []):
                     market_id = safe_int(market.get("marketId"), -1)
                     market_odds = market.get("odds", {})
                     if not isinstance(market_odds, dict):
                         continue
-
                     for value in market_odds.values():
                         if not isinstance(value, dict):
                             continue
@@ -1704,7 +1609,6 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                         if odd is None:
                             continue
                         outcome_id = safe_int(value.get("outcomeId"), -1)
-
                         if market_id == 1:  # 1X2
                             if outcome_id == 1:
                                 home_odd = max(home_odd or 0, odd)
@@ -1712,10 +1616,7 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                                 draw_odd = max(draw_odd or 0, odd)
                             elif outcome_id == 3:
                                 away_odd = max(away_odd or 0, odd)
-
-                        elif market_id == 5:  # Over/Under 2.5 (maybe also others?)
-                            # Fortebet may use different market IDs for other lines.
-                            # We'll assume market_id 5 is 2.5; we can expand later.
+                        elif market_id == 5:  # Over/Under 2.5
                             if outcome_id == 1:
                                 if "2.5" not in ou_lines:
                                     ou_lines["2.5"] = [None, None]
@@ -1724,7 +1625,6 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                                 if "2.5" not in ou_lines:
                                     ou_lines["2.5"] = [None, None]
                                 ou_lines["2.5"][1] = odd
-
                         elif market_id == 2:  # Asian Handicap
                             line = value.get("specifier")
                             if line is None:
@@ -1737,32 +1637,27 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                                 line = market.get("specifier")
                             if line is None:
                                 continue
-
                             line_key = normalize_market_specifier(line)
                             if not line_key:
                                 continue
-
                             asian.setdefault(line_key, {"home": None, "away": None})
                             if outcome_id == 1:
                                 asian[line_key]["home"] = odd
                             elif outcome_id == 2:
                                 asian[line_key]["away"] = odd
-
                         elif market_id == 8:  # Double Chance
-                            # Fortebet: 1 = 1X, 2 = 12, 3 = X2 (guess)
+                            # Fortebet mapping: 1=1X, 2=12, 3=X2 (assumed)
                             if outcome_id == 1:
                                 dc["1X"] = odd
                             elif outcome_id == 2:
                                 dc["12"] = odd
                             elif outcome_id == 3:
                                 dc["X2"] = odd
-
                         elif market_id == 12:  # BTTS
                             if outcome_id == 1:
                                 btts_yes = odd
                             elif outcome_id == 2:
                                 btts_no = odd
-
                 sport_raw = str(event.get("sportName", event.get("sport", "")) or "").lower()
                 if "basketball" in sport_raw:
                     sport_name = "Basketball"
@@ -1772,14 +1667,8 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                     sport_name = "Rugby"
                 else:
                     sport_name = "Football"
-
-                # 1X2
                 if home_odd and away_odd:
-                    odds.append(
-                        build_match_record(home, away, "Fortebet", home_odd, draw_odd, away_odd, sport=sport_name, event_id=event_id)
-                    )
-
-                # Over/Under
+                    odds.append(build_match_record(home, away, "Fortebet", home_odd, draw_odd, away_odd, sport=sport_name, event_id=event_id))
                 for line, vals in ou_lines.items():
                     over_odd, under_odd = vals
                     if over_odd and under_odd:
@@ -1797,8 +1686,6 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                                 event_id=event_id,
                             )
                         )
-
-                # Asian Handicap
                 for line, vals in asian.items():
                     ah_home, ah_away = vals.get("home"), vals.get("away")
                     if ah_home and ah_away:
@@ -1816,8 +1703,6 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                                 event_id=event_id,
                             )
                         )
-
-                # BTTS
                 if btts_yes and btts_no:
                     odds.append(
                         build_match_record(
@@ -1832,9 +1717,8 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                             event_id=event_id,
                         )
                     )
-
                 # Double Chance
-                if dc.get("1X") and away_odd:
+                if dc.get("1X") and away_odd and dc["1X"] != away_odd:
                     odds.append(
                         build_match_record(
                             home,
@@ -1848,7 +1732,7 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                             event_id=event_id,
                         )
                     )
-                if dc.get("X2") and home_odd:
+                if dc.get("X2") and home_odd and dc["X2"] != home_odd:
                     odds.append(
                         build_match_record(
                             home,
@@ -1862,7 +1746,7 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                             event_id=event_id,
                         )
                     )
-                if dc.get("12") and draw_odd:
+                if dc.get("12") and draw_odd and dc["12"] != draw_odd:
                     odds.append(
                         build_match_record(
                             home,
@@ -1876,10 +1760,8 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
                             event_id=event_id,
                         )
                     )
-
             except Exception:
                 logger.exception("Fortebet event failed")
-
         logger.info("Fortebet: %s records", len(odds))
     except Exception as exc:
         logger.exception("Fortebet error: %s", exc)
@@ -1887,7 +1769,7 @@ def scrape_fortebet() -> List[Dict[str, Any]]:
 
 
 # =============================================================================
-# Shared 1xBet / 22Bet feed (updated for multiple OU lines and double chance)
+# Shared 1xBet / 22Bet feed
 # =============================================================================
 
 def shared_feed_url(config: Dict[str, Any]) -> str:
@@ -1918,36 +1800,29 @@ def extract_shared_outcomes(match: Dict[str, Any]) -> Dict[str, Any]:
         "home": None,
         "draw": None,
         "away": None,
-        "ou": {},  # line -> {"over": odd, "under": odd}
-        "ah": {},  # line -> {"home": odd, "away": odd}
+        "ou": {},
+        "ah": {},
         "dc": {"1X": None, "12": None, "X2": None},
         "btts_yes": None,
         "btts_no": None,
     }
-
     outcomes = match.get("E", [])
     if not isinstance(outcomes, list):
         return result
-
     for outcome in outcomes:
         if not isinstance(outcome, dict):
             continue
         odd = clean_odd(outcome.get("C"))
         if odd is None:
             continue
-
         outcome_type = str(outcome.get("T", "")).strip()
         p = outcome.get("P")
-
-        # 1X2
         if outcome_type == "1":
             result["home"] = max(result["home"] or 0, odd)
         elif outcome_type == "2":
             result["draw"] = max(result["draw"] or 0, odd)
         elif outcome_type == "3":
             result["away"] = max(result["away"] or 0, odd)
-
-        # Asian Handicap
         elif outcome_type in {"7", "8"}:
             if p is None:
                 continue
@@ -1959,8 +1834,6 @@ def extract_shared_outcomes(match: Dict[str, Any]) -> Dict[str, Any]:
                 result["ah"][line]["home"] = max(result["ah"][line]["home"] or 0, odd)
             else:
                 result["ah"][line]["away"] = max(result["ah"][line]["away"] or 0, odd)
-
-        # Over/Under (any line)
         elif outcome_type in {"9", "10"}:
             if p is None:
                 continue
@@ -1973,21 +1846,16 @@ def extract_shared_outcomes(match: Dict[str, Any]) -> Dict[str, Any]:
                 result["ou"][line_key]["over"] = max(result["ou"][line_key]["over"] or 0, odd)
             else:
                 result["ou"][line_key]["under"] = max(result["ou"][line_key]["under"] or 0, odd)
-
-        # Double Chance
         elif outcome_type == "4":
             result["dc"]["1X"] = max(result["dc"]["1X"] or 0, odd)
         elif outcome_type == "5":
             result["dc"]["12"] = max(result["dc"]["12"] or 0, odd)
         elif outcome_type == "6":
             result["dc"]["X2"] = max(result["dc"]["X2"] or 0, odd)
-
-        # BTTS
         elif outcome_type == "19":
             result["btts_yes"] = max(result["btts_yes"] or 0, odd)
         elif outcome_type == "20":
             result["btts_no"] = max(result["btts_no"] or 0, odd)
-
     return result
 
 
@@ -1996,18 +1864,14 @@ def extract_shared_extra_from_values(bookmaker: str, values: List[Dict[str, Any]
     for match in values:
         if not isinstance(match, dict):
             continue
-
         home = match.get("O1") or match.get("O1Name")
         away = match.get("O2") or match.get("O2Name")
         if not home or not away:
             continue
-
+        if normalize_team(home) == "" or normalize_team(away) == "":
+            continue
         extracted = extract_shared_outcomes(match)
         event_id = match.get("I") or match.get("Id")
-
-        # 1X2 already added in scrape_shared_full, but we can also add here for completeness? No, we'll not duplicate.
-        # Instead we'll add the extra markets below.
-
         # Asian Handicap
         for line, vals in extracted["ah"].items():
             ah_home, ah_away = vals.get("home"), vals.get("away")
@@ -2025,7 +1889,6 @@ def extract_shared_extra_from_values(bookmaker: str, values: List[Dict[str, Any]
                         event_id=event_id,
                     )
                 )
-
         # Over/Under all lines
         for line, vals in extracted["ou"].items():
             over_odd, under_odd = vals.get("over"), vals.get("under")
@@ -2043,7 +1906,6 @@ def extract_shared_extra_from_values(bookmaker: str, values: List[Dict[str, Any]
                         event_id=event_id,
                     )
                 )
-
         # BTTS
         if extracted["btts_yes"] and extracted["btts_no"]:
             all_odds.append(
@@ -2058,51 +1920,47 @@ def extract_shared_extra_from_values(bookmaker: str, values: List[Dict[str, Any]
                     event_id=event_id,
                 )
             )
-
-        # Double Chance
-        # 1X vs 2
-        if extracted["dc"]["1X"] and extracted["away"]:
+        # Double Chance – verify all components are present and distinct
+        dc = extracted["dc"]
+        if dc["1X"] and extracted["away"] and dc["1X"] != extracted["away"]:
             all_odds.append(
                 build_match_record(
                     home,
                     away,
                     bookmaker,
-                    extracted["dc"]["1X"],
+                    dc["1X"],
                     None,
                     extracted["away"],
                     market_type="Double Chance 1X vs 2",
                     event_id=event_id,
                 )
             )
-        # X2 vs 1
-        if extracted["dc"]["X2"] and extracted["home"]:
+        if dc["X2"] and extracted["home"] and dc["X2"] != extracted["home"]:
             all_odds.append(
                 build_match_record(
                     home,
                     away,
                     bookmaker,
-                    extracted["dc"]["X2"],
+                    dc["X2"],
                     None,
                     extracted["home"],
                     market_type="Double Chance X2 vs 1",
                     event_id=event_id,
                 )
             )
-        # 12 vs X
-        if extracted["dc"]["12"] and extracted["draw"]:
+        if dc["12"] and extracted["draw"] and dc["12"] != extracted["draw"]:
             all_odds.append(
                 build_match_record(
                     home,
                     away,
                     bookmaker,
-                    extracted["dc"]["12"],
+                    dc["12"],
                     None,
                     extracted["draw"],
                     market_type="Double Chance 12 vs X",
                     event_id=event_id,
                 )
             )
-
     return all_odds
 
 
@@ -2114,7 +1972,6 @@ def scrape_shared_full(bookmaker: str, config: Dict[str, Any]) -> List[Dict[str,
         values = data.get("Value", []) if isinstance(data, dict) else []
         if not isinstance(values, list):
             raise ValueError("Shared feed Value is not a list")
-
         # 1X2
         for match in values:
             if not isinstance(match, dict):
@@ -2123,12 +1980,10 @@ def scrape_shared_full(bookmaker: str, config: Dict[str, Any]) -> List[Dict[str,
             away = match.get("O2") or match.get("O2Name")
             if not home or not away:
                 continue
-            if str(home).strip().lower() == "home" and str(away).strip().lower() == "away":
+            if normalize_team(home) == "" or normalize_team(away) == "":
                 continue
-
             extracted = extract_shared_outcomes(match)
             event_id = match.get("I") or match.get("Id")
-
             if extracted["home"] and extracted["away"]:
                 odds.append(
                     build_match_record(
@@ -2141,10 +1996,8 @@ def scrape_shared_full(bookmaker: str, config: Dict[str, Any]) -> List[Dict[str,
                         event_id=event_id,
                     )
                 )
-
         # Extra markets
         odds.extend(extract_shared_extra_from_values(bookmaker, values))
-
         logger.info("%s: %s records (1x2 + extras)", bookmaker, len(odds))
     except Exception as exc:
         logger.exception("%s full feed error: %s", bookmaker, exc)
@@ -2168,29 +2021,25 @@ def scrape_kbet() -> List[Dict[str, Any]]:
                 events = data.get("events", [])
         else:
             events = []
-
         if not isinstance(events, list):
             events = []
-
         for event in events:
             if not isinstance(event, dict):
                 continue
-
             home = event.get("home_team") or event.get("home") or ""
             away = event.get("away_team") or event.get("away") or ""
             if not home or not away:
                 continue
-
+            if normalize_team(home) == "" or normalize_team(away) == "":
+                continue
             home_odd = clean_odd(event.get("home_odd") or event.get("odds_1"))
             draw_odd = clean_odd(event.get("draw_odd") or event.get("odds_x"))
             away_odd = clean_odd(event.get("away_odd") or event.get("odds_2"))
-
             if not home_odd and isinstance(event.get("odds"), dict):
                 nested = event["odds"]
                 home_odd = clean_odd(nested.get("1") or nested.get("home"))
                 draw_odd = clean_odd(nested.get("x") or nested.get("draw"))
                 away_odd = clean_odd(nested.get("2") or nested.get("away"))
-
             if home_odd and away_odd:
                 odds.append(
                     build_match_record(
@@ -2204,7 +2053,6 @@ def scrape_kbet() -> List[Dict[str, Any]]:
                         event_id=event.get("id"),
                     )
                 )
-
         logger.info("kbet: %s records", len(odds))
     except Exception as exc:
         logger.exception("kbet error: %s", exc)
@@ -2212,7 +2060,7 @@ def scrape_kbet() -> List[Dict[str, Any]]:
 
 
 # =============================================================================
-# HTML bookmaker wrappers (selectors are placeholders; update as needed)
+# HTML bookmaker wrappers
 # =============================================================================
 
 def scrape_melbet_html() -> List[Dict[str, Any]]:
@@ -2286,25 +2134,21 @@ def scrape_premierbet() -> List[Dict[str, Any]]:
 def calculate_stakes(odds: List[float], total_stake: int) -> List[int]:
     if total_stake <= 0 or not odds:
         return []
-
     valid_odds = []
     for odd in odds:
         cleaned = clean_odd(odd)
         if cleaned is None or cleaned <= 1:
             return []
         valid_odds.append(cleaned)
-
     inverse_sum = sum(1 / odd for odd in valid_odds)
     if not math.isfinite(inverse_sum) or inverse_sum <= 0:
         return []
-
     raw_stakes = [total_stake * (1 / odd) / inverse_sum for odd in valid_odds]
     stakes = [int(round(value)) for value in raw_stakes]
     difference = total_stake - sum(stakes)
     if not stakes:
         return []
     stakes[-1] += difference
-
     if any(stake <= 0 for stake in stakes):
         return []
     return stakes
@@ -2325,7 +2169,6 @@ def create_two_outcome_opportunity(
 ) -> Optional[Dict[str, Any]]:
     first_odd = clean_odd(first_odd)
     second_odd = clean_odd(second_odd)
-
     if (
         first_odd is None
         or second_odd is None
@@ -2334,19 +2177,24 @@ def create_two_outcome_opportunity(
         or first_bm == second_bm
     ):
         return None
-
     arb_sum = 1 / first_odd + 1 / second_odd
     if not math.isfinite(arb_sum) or arb_sum >= 1:
         return None
-
     profit_percent = (1 - arb_sum) * 100
-    if not (MIN_ARB_PROFIT_PERCENT <= profit_percent <= 50):
+    if not (MIN_ARB_PROFIT_PERCENT <= profit_percent <= MAX_ARB_PROFIT_PERCENT):
         return None
-
+    # Log warning for suspiciously high profit
+    if profit_percent > WARN_PROFIT_PERCENT:
+        logger.warning(
+            "High profit %.2f%% for %s (%s vs %s). Could be stale odds or mismatch.",
+            profit_percent,
+            match,
+            first_outcome,
+            second_outcome,
+        )
     stakes = calculate_stakes([first_odd, second_odd], stake)
     if len(stakes) != 2:
         return None
-
     return {
         "match": match,
         "sport": sport,
@@ -2390,26 +2238,25 @@ def create_three_outcome_opportunity(
     home_odd = clean_odd(home_odd)
     draw_odd = clean_odd(draw_odd)
     away_odd = clean_odd(away_odd)
-
     if any(odd is None or odd <= 1 for odd in (home_odd, draw_odd, away_odd)):
         return None
-
-    # Require all three legs from distinct bookmakers.
     if len({home_bm, draw_bm, away_bm}) != 3:
         return None
-
     arb_sum = 1 / home_odd + 1 / draw_odd + 1 / away_odd
     if not math.isfinite(arb_sum) or arb_sum >= 1:
         return None
-
     profit_percent = (1 - arb_sum) * 100
-    if not (MIN_ARB_PROFIT_PERCENT <= profit_percent <= 50):
+    if not (MIN_ARB_PROFIT_PERCENT <= profit_percent <= MAX_ARB_PROFIT_PERCENT):
         return None
-
+    if profit_percent > WARN_PROFIT_PERCENT:
+        logger.warning(
+            "High profit %.2f%% for %s (3-way). Could be stale odds or mismatch.",
+            profit_percent,
+            match,
+        )
     stakes = calculate_stakes([home_odd, draw_odd, away_odd], stake)
     if len(stakes) != 3:
         return None
-
     return {
         "match": match,
         "sport": sport,
@@ -2458,20 +2305,17 @@ def merge_matching_groups(groups: Dict[str, List[Dict[str, Any]]]) -> List[List[
     keys = list(groups.keys())
     merged = []
     visited = set()
-
     for index, first_key in enumerate(keys):
         if first_key in visited:
             continue
         group = list(groups[first_key])
         visited.add(first_key)
-
         for second_key in keys[index + 1:]:
             if second_key in visited:
                 continue
             if match_key_similarity(first_key, second_key):
                 group.extend(groups[second_key])
                 visited.add(second_key)
-
         merged.append(group)
     return merged
 
@@ -2479,41 +2323,33 @@ def merge_matching_groups(groups: Dict[str, List[Dict[str, Any]]]) -> List[List[
 def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     opportunities = []
     all_odds = merge_duplicate_records(all_odds)
-
     sports: Dict[str, List[Dict[str, Any]]] = {}
     for odd in all_odds:
         if not isinstance(odd, dict):
             continue
         sport = odd.get("sport", "Football") or "Football"
         sports.setdefault(sport, []).append(odd)
-
     for sport, sport_odds in sports.items():
         groups: Dict[str, List[Dict[str, Any]]] = {}
         for odd in sport_odds:
             key = odd.get("match_key", "")
             if key:
                 groups.setdefault(key, []).append(odd)
-
         merged_groups = merge_matching_groups(groups)
-
         for records in merged_groups:
             if len(records) < 2:
                 continue
-
             first_record = records[0]
             market_type = first_record.get("market_type", "1x2")
             specifier = first_record.get("market_specifier", "")
             match_name = first_record.get("match", "")
-
             if market_type == "Double Chance":
-                continue
-
+                continue  # Legacy, ignore
             # 3-way 1X2
             if market_type == "1x2":
                 best_home: Dict[str, float] = {}
                 best_draw: Dict[str, float] = {}
                 best_away: Dict[str, float] = {}
-
                 for record in records:
                     bm = canonical_bookmaker(record.get("bookmaker"))
                     if not bm:
@@ -2521,14 +2357,12 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                     home = clean_odd(record.get("home"))
                     draw = clean_odd(record.get("draw"))
                     away = clean_odd(record.get("away"))
-
                     if home and (bm not in best_home or home > best_home[bm]):
                         best_home[bm] = home
                     if draw and (bm not in best_draw or draw > best_draw[bm]):
                         best_draw[bm] = draw
                     if away and (bm not in best_away or away > best_away[bm]):
                         best_away[bm] = away
-
                 for home_bm, home_odd in best_home.items():
                     for draw_bm, draw_odd in best_draw.items():
                         for away_bm, away_odd in best_away.items():
@@ -2547,7 +2381,6 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                             if opportunity:
                                 opportunities.append(opportunity)
                 continue
-
             # 2-way markets
             bookmakers: Dict[str, Dict[str, float]] = {}
             for record in records:
@@ -2561,7 +2394,6 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                     bookmakers[bm]["home"] = max(bookmakers[bm]["home"], home)
                 if away:
                     bookmakers[bm]["away"] = max(bookmakers[bm]["away"], away)
-
             # Determine outcome names
             if market_type == "Over/Under 2.5":
                 outcome1, outcome2 = "Over", "Under"
@@ -2581,18 +2413,15 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             else:
                 logger.debug("Skipping unsupported market type: %s", market_type)
                 continue
-
             bookmaker_names = list(bookmakers.keys())
             for i, bm1 in enumerate(bookmaker_names):
                 for bm2 in bookmaker_names[i + 1:]:
                     if bm1 == bm2:
                         continue
-
                     combinations = [
                         (bm1, bookmakers[bm1]["home"], bm2, bookmakers[bm2]["away"]),
                         (bm2, bookmakers[bm2]["home"], bm1, bookmakers[bm1]["away"]),
                     ]
-
                     for first_bm, first_odd, second_bm, second_odd in combinations:
                         if not (first_odd and second_odd):
                             continue
@@ -2610,7 +2439,6 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                         )
                         if opportunity:
                             opportunities.append(opportunity)
-
     # Final deduplication
     best: Dict[str, Dict[str, Any]] = {}
     for opportunity in opportunities:
@@ -2629,7 +2457,6 @@ def find_arbitrage(all_odds: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         existing = best.get(identifier)
         if existing is None or opportunity["profit_percent"] > existing["profit_percent"]:
             best[identifier] = opportunity
-
     result = list(best.values())
     result.sort(key=lambda x: x.get("profit_percent", 0), reverse=True)
     return result
@@ -2661,9 +2488,7 @@ def run_scan() -> List[Dict[str, Any]]:
         logger.info("=" * 60)
         logger.info("STARTING ARBITRAGE SCAN")
         logger.info("=" * 60)
-
         all_odds: List[Dict[str, Any]] = []
-
         scrapers = [
             ("SportyBet", scrape_sportybet),
             ("SportyBetOfficial", scrape_sportybet_official),
@@ -2679,11 +2504,9 @@ def run_scan() -> List[Dict[str, Any]]:
             ("BetPawa", scrape_betpawa),
             ("PremierBet", scrape_premierbet),
         ]
-
         for bookmaker, scraper in scrapers:
             records = scraper_call(bookmaker, scraper)
             all_odds.extend(records)
-
         # Count healthy bookmakers
         with status_lock:
             bookmaker_status = dict(scanner_status["bookmakers"])
@@ -2696,11 +2519,8 @@ def run_scan() -> List[Dict[str, Any]]:
             healthy_bookmakers = len(healthy_canonical)
             scanner_status["healthy_bookmakers"] = healthy_bookmakers
             scanner_status["total_odds"] = len(all_odds)
-
         logger.info("Total usable odds records: %s", len(all_odds))
         logger.info("Healthy real bookmakers: %s", healthy_bookmakers)
-
-        # Safety gate
         if healthy_bookmakers < MIN_HEALTHY_BOOKMAKERS_FOR_VALID_SCAN:
             error = (
                 "Scanner returned too few healthy bookmakers. "
@@ -2714,20 +2534,13 @@ def run_scan() -> List[Dict[str, Any]]:
                 scanner_status["last_scan_finished"] = utc_now().isoformat()
             save_scanner_status()
             return load_current_opportunities()
-
         opportunities = find_arbitrage(all_odds)
         logger.info("Found %s arbitrage opportunities", len(opportunities))
-
-        # Determine new opportunities
         with history_lock:
             history = load_arbitrage_history()
             existing_keys = set(history.keys())
-        new_opportunities = [
-            opp for opp in opportunities if opportunity_key(opp) not in existing_keys
-        ]
+        new_opportunities = [opp for opp in opportunities if opportunity_key(opp) not in existing_keys]
         logger.info("New opportunities: %s", len(new_opportunities))
-
-        # Write opportunities
         try:
             atomic_json_write(OPPORTUNITIES_FILE, opportunities)
             logger.info("Opportunities written to %s", OPPORTUNITIES_FILE)
@@ -2741,8 +2554,6 @@ def run_scan() -> List[Dict[str, Any]]:
                 scanner_status["last_scan_finished"] = utc_now().isoformat()
             save_scanner_status()
             return load_current_opportunities()
-
-        # Update history
         try:
             with history_lock:
                 timestamp = utc_timestamp()
@@ -2758,24 +2569,18 @@ def run_scan() -> List[Dict[str, Any]]:
                 scanner_status["last_scan_finished"] = utc_now().isoformat()
             save_scanner_status()
             return opportunities
-
-        # Telegram alerts
         for opportunity in new_opportunities:
             profit = safe_float(opportunity.get("profit_percent", 0))
             if profit >= TELEGRAM_MIN_PROFIT:
                 send_telegram_alert(opportunity)
-
-        # Final status
         with status_lock:
             scanner_status["opportunities_count"] = len(opportunities)
             scanner_status["last_scan_success"] = True
             scanner_status["last_scan_valid"] = True
             scanner_status["last_scan_error"] = None
             scanner_status["last_scan_finished"] = utc_now().isoformat()
-
         if not save_scanner_status():
             logger.warning("Scan succeeded but scanner status could not be persisted.")
-
         logger.info("Scan completed successfully.")
         return opportunities
 
