@@ -71,6 +71,40 @@
     "match": "manchester vs bournemouth",
     "sport": "Football",
     "type": "3-way",
+    "profit_percent": 1.2,
+    "profit_ugx": 1182,
+    "total_stake": 100000,
+    "arb_sum": 0.9882,
+    "bets": [
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Home",
+        "odd": 1.48,
+        "stake": 68376.06837606838,
+        "win": 101197
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 6.4,
+        "stake": 15811.965811965812,
+        "win": 101197
+      },
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Away",
+        "odd": 6.4,
+        "stake": 15811.965811965812,
+        "win": 101197
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "manchester vs bournemouth",
+    "sport": "Football",
+    "type": "3-way",
     "profit_percent": 1.91,
     "profit_ugx": 1876,
     "total_stake": 100000,
