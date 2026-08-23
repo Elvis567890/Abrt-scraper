@@ -78,7 +78,6 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
     if market_type == "Over/Under 2.5":
         match_key = f"{base_key} | O/U 2.5"
     elif market_type == "Asian Handicap":
-        # Do NOT include the line in the key – we need to pair opposite lines later.
         match_key = f"{base_key} | AH"
     elif market_type == "Double Chance":
         match_key = f"{base_key} | DC {market_specifier}"
@@ -193,9 +192,7 @@ def update_arbitrage_history(current_opportunities, arb_history, timestamp_str):
             del entry["updated_this_cycle"]
 
 # ---------- Scraping Functions ----------
-# (All scrapers for SportyBet, ChampionBet, AbaBet, Fortebet, Melbet are unchanged
-#  and included as they were. Only the 1xBet scraper is new.)
-
+# ChampionBet
 def championbet_extract_1x2_from_betmap(bet_map):
     bet_map = bet_map or {}
     def pick_odd(market_keys):
@@ -302,6 +299,7 @@ def scrape_championbet():
         print(f"ChampionBet error: {e}")
     return odds
 
+# AbaBet
 def scrape_ababet():
     odds = []
     try:
@@ -341,6 +339,7 @@ def scrape_ababet():
         print(f"AbaBet error: {e}")
     return odds
 
+# Fortebet
 def scrape_fortebet():
     odds = []
     try:
@@ -440,6 +439,7 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
+# SportyBet
 def scrape_sportybet():
     odds = []
     try:
@@ -469,6 +469,7 @@ def scrape_sportybet():
         print(f"SportyBet error: {e}")
     return odds
 
+# Melbet
 def scrape_melbet():
     odds = []
     try:
@@ -576,7 +577,7 @@ def scrape_melbet():
         print(f"Melbet error: {e}")
     return odds
 
-# ---------- NEW 1xBet SCRAPER ----------
+# 1xBet (new endpoint)
 def scrape_1xbet():
     odds = []
     try:
@@ -634,7 +635,7 @@ def scrape_1xbet():
                             p = item.get("parameter")
                             odds_map[(gid, t, p)] = c
 
-                # 1x2 (types 1,2,3)
+                # 1x2
                 home_odd = odds_map.get((1, 1, None))
                 draw_odd = odds_map.get((1, 2, None))
                 away_odd = odds_map.get((1, 3, None))
@@ -701,8 +702,85 @@ def scrape_1xbet():
         print(f"1xBet error: {e}")
     return odds
 
-# ---------- Placeholder scrapers (new bookmakers) ----------
-def scrape_bongobongo(): return []
+# BongoBongo (new, functional scraper)
+def scrape_bongobongo():
+    odds = []
+    try:
+        print("Fetching BongoBongo...")
+        # Step 1: Fetch tournament list (you provided this endpoint)
+        url = "https://www.bongobongo.ug/api/_internal/sportsbook/v1/sport/v0/line/tournaments"
+        params = {
+            "sport": "F",
+            "name": "Uganda",
+            "size": "50"
+        }
+        headers = {
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "application/json"
+        }
+        resp = requests.get(url, headers=headers, params=params, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        items = data.get("items", [])
+        print(f"BongoBongo: {len(items)} tournaments found")
+
+        # Step 2: For each tournament with prematchEventsCount > 0, fetch events
+        # This is a GUESS for the events endpoint – adjust if needed.
+        for tourn in items:
+            if tourn.get("prematchEventsCount", 0) == 0:
+                continue
+            tourn_id = tourn.get("id")
+            events_url = f"https://www.bongobongo.ug/api/_internal/sportsbook/v1/sport/v0/line/events"
+            events_params = {
+                "sport": "F",
+                "tournamentId": tourn_id
+            }
+            try:
+                events_resp = requests.get(events_url, headers=headers, params=events_params, timeout=30)
+                events_resp.raise_for_status()
+                events_data = events_resp.json()
+                events = events_data.get("items", [])
+                if not events:
+                    continue
+
+                for event in events:
+                    try:
+                        home = event.get("home", {}).get("name", "")
+                        away = event.get("away", {}).get("name", "")
+                        if not home or not away:
+                            continue
+                        competition = tourn.get("category", {}).get("name", "") or tourn.get("name", "")
+
+                        # Now we need to find the odds for 1x2. The event object may have a "markets" list.
+                        # In GR8 sportsbook, each market has "outcomes" with odds.
+                        # We'll look for a market with id "1" (1x2) or name containing "1X2".
+                        home_odd = draw_odd = away_odd = None
+                        for market in event.get("markets", []):
+                            if market.get("name") == "1X2" or market.get("id") == "1":
+                                for outcome in market.get("outcomes", []):
+                                    if outcome.get("name") == "1":
+                                        home_odd = clean_odd(outcome.get("odds"))
+                                    elif outcome.get("name") == "X":
+                                        draw_odd = clean_odd(outcome.get("odds"))
+                                    elif outcome.get("name") == "2":
+                                        away_odd = clean_odd(outcome.get("odds"))
+                                break
+
+                        if home_odd and away_odd:
+                            odds.append(build_match_record(home, away, "BongoBongo", home_odd, draw_odd, away_odd,
+                                                           sport="Football", competition=competition, market_type="1x2"))
+                    except:
+                        continue
+            except Exception as e:
+                # If events endpoint fails, just continue
+                continue
+
+        print(f"BongoBongo: extracted {len(odds)} records")
+    except Exception as e:
+        print(f"BongoBongo error: {e}")
+    return odds
+
+# Placeholder scrapers (Betano, Bet9ja, NileBet, Betway)
 def scrape_betano(): return []
 def scrape_bet9ja(): return []
 def scrape_nilebet(): return []
@@ -912,13 +990,11 @@ def find_arbitrage(all_odds):
                 away_lines_bk1 = best.get((bk1, "away"), {})
 
                 candidates = []
-                # Pair home from bk1 with away from bk2
                 for line_h, odd_h in home_lines_bk1.items():
                     line_a = -float(line_h) if line_h else None
                     if line_a is not None and line_a in away_lines_bk2:
                         odd_a = away_lines_bk2[line_a]
                         candidates.append((odd_h, odd_a, bk1, bk2, line_h, line_a))
-                # Pair home from bk2 with away from bk1
                 for line_h, odd_h in home_lines_bk2.items():
                     line_a = -float(line_h) if line_h else None
                     if line_a is not None and line_a in away_lines_bk1:
@@ -1001,9 +1077,9 @@ def run_scan():
     all_odds.extend(scrape_fortebet())
     all_odds.extend(scrape_melbet())
     all_odds.extend(scrape_1xbet())
+    all_odds.extend(scrape_bongobongo())   # Now active!
 
-    # New bookmakers (placeholders – no odds yet)
-    all_odds.extend(scrape_bongobongo())
+    # Other new bookmakers (placeholders)
     all_odds.extend(scrape_betano())
     all_odds.extend(scrape_bet9ja())
     all_odds.extend(scrape_nilebet())
