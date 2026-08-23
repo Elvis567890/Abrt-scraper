@@ -559,31 +559,31 @@
     "match": "west brom vs burnley",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 3.56,
-    "profit_ugx": 3564,
+    "profit_percent": 2.86,
+    "profit_ugx": 2860,
     "total_stake": 100000,
-    "arb_sum": 0.9644,
+    "arb_sum": 0.9714,
     "bets": [
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 2.83,
-        "stake": 36641,
-        "win": 103694
+        "odd": 2.81,
+        "stake": 36635,
+        "win": 102944
       },
       {
-        "bookmaker": "Fortebet",
+        "bookmaker": "AbaBet",
         "outcome": "Draw",
-        "odd": 3.35,
-        "stake": 30954,
-        "win": 103696
+        "odd": 3.3,
+        "stake": 31195,
+        "win": 102944
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 3.2,
-        "stake": 32405,
-        "win": 103696
+        "stake": 32170,
+        "win": 102944
       }
     ],
     "market_type": "1x2",
@@ -862,6 +862,74 @@
     "market_specifier": ""
   },
   {
+    "match": "austin vs philadelphia union",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 25.69,
+    "profit_ugx": 25689,
+    "total_stake": 100000,
+    "arb_sum": 0.7431,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 4.2,
+        "stake": 32040,
+        "win": 134568
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 36370,
+        "win": 134569
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.26,
+        "stake": 31589,
+        "win": 134569
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "san diego vs colorado rapids",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.44,
+    "profit_ugx": 1439,
+    "total_stake": 100000,
+    "arb_sum": 0.9856,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.01,
+        "stake": 50478,
+        "win": 101461
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 4.0,
+        "stake": 25365,
+        "win": 101460
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "Away",
+        "odd": 4.2,
+        "stake": 24157,
+        "win": 101459
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "newcastle utd vs liverpool",
     "sport": "Football",
     "type": "Double Chance 1X",
@@ -1072,6 +1140,60 @@
         "odd": 2.364,
         "stake": 45062,
         "win": 106527
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "austin vs philadelphia union",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.93,
+    "profit_ugx": 8925,
+    "total_stake": 100000,
+    "arb_sum": 0.9107,
+    "bets": [
+      {
+        "bookmaker": "1xBet",
+        "outcome": "1X",
+        "odd": 2.087,
+        "stake": 52611,
+        "win": 109799
+      },
+      {
+        "bookmaker": "22Bet",
+        "outcome": "X2",
+        "odd": 2.317,
+        "stake": 47389,
+        "win": 109800
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "austin vs philadelphia union",
+    "sport": "Football",
+    "type": "Double Chance 1X",
+    "profit_percent": 8.93,
+    "profit_ugx": 8925,
+    "total_stake": 100000,
+    "arb_sum": 0.9107,
+    "bets": [
+      {
+        "bookmaker": "22Bet",
+        "outcome": "1X",
+        "odd": 2.087,
+        "stake": 52611,
+        "win": 109799
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "X2",
+        "odd": 2.317,
+        "stake": 47389,
+        "win": 109800
       }
     ],
     "market_type": "1x2",
