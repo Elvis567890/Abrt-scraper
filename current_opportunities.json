@@ -726,40 +726,6 @@
     "market_specifier": ""
   },
   {
-    "match": "medellin vs cucuta",
-    "sport": "Football",
-    "type": "3-way",
-    "profit_percent": 10.41,
-    "profit_ugx": 10408,
-    "total_stake": 100000,
-    "arb_sum": 0.8959,
-    "bets": [
-      {
-        "bookmaker": "AbaBet",
-        "outcome": "Home",
-        "odd": 1.33,
-        "stake": 83923,
-        "win": 111618
-      },
-      {
-        "bookmaker": "1xBet",
-        "outcome": "Draw",
-        "odd": 14.9,
-        "stake": 7491,
-        "win": 111616
-      },
-      {
-        "bookmaker": "Fortebet",
-        "outcome": "Away",
-        "odd": 13.0,
-        "stake": 8586,
-        "win": 111618
-      }
-    ],
-    "market_type": "1x2",
-    "market_specifier": ""
-  },
-  {
     "match": "makhachkala vs krasnodar",
     "sport": "Football",
     "type": "3-way",
@@ -896,34 +862,102 @@
     "market_specifier": ""
   },
   {
+    "match": "vancouver whitecaps vs dallas",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 0.71,
+    "profit_ugx": 710,
+    "total_stake": 100000,
+    "arb_sum": 0.9929,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.51,
+        "stake": 66699,
+        "win": 100715
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 5.86,
+        "stake": 17187,
+        "win": 100716
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 6.25,
+        "stake": 16114,
+        "win": 100712
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
     "match": "san diego vs colorado rapids",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 1.44,
-    "profit_ugx": 1439,
+    "profit_percent": 1.94,
+    "profit_ugx": 1939,
     "total_stake": 100000,
-    "arb_sum": 0.9856,
+    "arb_sum": 0.9806,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
         "odd": 2.01,
-        "stake": 50478,
-        "win": 101461
+        "stake": 50735,
+        "win": 101977
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.0,
-        "stake": 25365,
-        "win": 101460
+        "stake": 25494,
+        "win": 101976
       },
       {
-        "bookmaker": "22Bet",
+        "bookmaker": "1xBet",
         "outcome": "Away",
-        "odd": 4.2,
-        "stake": 24157,
-        "win": 101459
+        "odd": 4.29,
+        "stake": 23771,
+        "win": 101978
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "san jose earthquakes vs minnesota utd",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 6.66,
+    "profit_ugx": 6663,
+    "total_stake": 100000,
+    "arb_sum": 0.9334,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.33,
+        "stake": 45982,
+        "win": 107138
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Draw",
+        "odd": 3.7,
+        "stake": 28956,
+        "win": 107137
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Away",
+        "odd": 4.275,
+        "stake": 25062,
+        "win": 107140
       }
     ],
     "market_type": "1x2",
