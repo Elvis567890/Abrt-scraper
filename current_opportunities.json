@@ -358,5 +358,39 @@
     ],
     "market_type": "1x2",
     "market_specifier": ""
+  },
+  {
+    "match": "paok vs levadiakos",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 2.39,
+    "profit_ugx": 2335,
+    "total_stake": 100000,
+    "arb_sum": 0.9766,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 1.4,
+        "stake": 73136.42756680732,
+        "win": 102391
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 7.28,
+        "stake": 14064.697609001405,
+        "win": 102391
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 8.0,
+        "stake": 12798.87482419128,
+        "win": 102391
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
   }
 ]
