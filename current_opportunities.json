@@ -661,31 +661,31 @@
     "match": "jena vs darmstadt",
     "sport": "Football",
     "type": "3-way",
-    "profit_percent": 36.0,
-    "profit_ugx": 35996,
+    "profit_percent": 35.31,
+    "profit_ugx": 35310,
     "total_stake": 100000,
-    "arb_sum": 0.64,
+    "arb_sum": 0.6469,
     "bets": [
       {
         "bookmaker": "Fortebet",
         "outcome": "Home",
-        "odd": 5.5,
-        "stake": 28407,
-        "win": 156238
+        "odd": 5.3,
+        "stake": 29167,
+        "win": 154585
       },
       {
         "bookmaker": "AbaBet",
         "outcome": "Draw",
         "odd": 4.33,
-        "stake": 36083,
-        "win": 156239
+        "stake": 35701,
+        "win": 154585
       },
       {
         "bookmaker": "1xBet",
         "outcome": "Away",
         "odd": 4.4,
-        "stake": 35509,
-        "win": 156240
+        "stake": 35133,
+        "win": 154585
       }
     ],
     "market_type": "1x2",
@@ -856,6 +856,40 @@
         "odd": 3.54,
         "stake": 30437,
         "win": 107747
+      }
+    ],
+    "market_type": "1x2",
+    "market_specifier": ""
+  },
+  {
+    "match": "eibar vs valladolid",
+    "sport": "Football",
+    "type": "3-way",
+    "profit_percent": 1.55,
+    "profit_ugx": 1554,
+    "total_stake": 100000,
+    "arb_sum": 0.9845,
+    "bets": [
+      {
+        "bookmaker": "Fortebet",
+        "outcome": "Home",
+        "odd": 2.26,
+        "stake": 44946,
+        "win": 101578
+      },
+      {
+        "bookmaker": "1xBet",
+        "outcome": "Draw",
+        "odd": 3.785,
+        "stake": 26837,
+        "win": 101578
+      },
+      {
+        "bookmaker": "AbaBet",
+        "outcome": "Away",
+        "odd": 3.6,
+        "stake": 28216,
+        "win": 101578
       }
     ],
     "market_type": "1x2",
