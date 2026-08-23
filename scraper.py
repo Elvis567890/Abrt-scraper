@@ -78,7 +78,8 @@ def build_match_record(home_team, away_team, bookmaker, home, draw, away, sport=
     if market_type == "Over/Under 2.5":
         match_key = f"{base_key} | O/U 2.5"
     elif market_type == "Asian Handicap":
-        match_key = f"{base_key} | AH {market_specifier}"
+        # Do NOT include the line in the key – we need to pair opposite lines later.
+        match_key = f"{base_key} | AH"
     elif market_type == "Double Chance":
         match_key = f"{base_key} | DC {market_specifier}"
     elif market_type == "BTTS":
@@ -191,7 +192,10 @@ def update_arbitrage_history(current_opportunities, arb_history, timestamp_str):
         if "updated_this_cycle" in entry:
             del entry["updated_this_cycle"]
 
-# ---------- Scraping Functions (Active Bookmakers) ----------
+# ---------- Scraping Functions ----------
+# (All scrapers for SportyBet, ChampionBet, AbaBet, Fortebet, Melbet are unchanged
+#  and included as they were. Only the 1xBet scraper is new.)
+
 def championbet_extract_1x2_from_betmap(bet_map):
     bet_map = bet_map or {}
     def pick_odd(market_keys):
@@ -465,130 +469,6 @@ def scrape_sportybet():
         print(f"SportyBet error: {e}")
     return odds
 
-# ---------- 1xBet SCRAPER (fixed mapping) ----------
-def scrape_1xbet():
-    odds = []
-    try:
-        print("Fetching 1xBet Uganda (fixed mapping)...")
-        url = "https://1xbet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner=135&getEmpty=true&virtualSports=true"
-        headers = {
-            "content-type": "application/json",
-            "accept": "application/json, text/plain, */*",
-            "x-requested-with": "XMLHttpRequest",
-            "is-srv": "false",
-            "x-svc-source": "__BETTING_APP__",
-            "x-app-n": "__BETTING_APP__",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
-            "Referer": "https://1xbet.ug/en/line/football",
-        }
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            raw = resp.read()
-            try:
-                data = json.loads(raw.decode("utf-8"))
-            except:
-                data = json.loads(raw.decode("utf-8-sig"))
-        values = data.get("Value", []) if isinstance(data, dict) else []
-        count = 0
-        for match in values:
-            try:
-                home_team = match.get("O1")
-                away_team = match.get("O2")
-                if not home_team or not away_team: continue
-                if home_team.strip() == "Home" and away_team.strip() == "Away":
-                    continue
-                home_odd = draw_odd = away_odd = None
-                for e in match.get("E", []):
-                    t = str(e.get("T", "")).strip()
-                    c = clean_odd(e.get("C"))
-                    if c is None: continue
-                    # FIXED MAPPING: T=1 -> home, T=2 -> draw, T=3 -> away
-                    if t == "1": home_odd = c
-                    elif t == "2": draw_odd = c
-                    elif t == "3": away_odd = c
-                if home_odd is not None and away_odd is not None:
-                    count += 1
-                    odds.append(build_match_record(home_team, away_team, "1xBet", home_odd, draw_odd, away_odd, market_type="1x2"))
-            except: continue
-        print(f"1xBet: {count} matches extracted")
-    except Exception as e:
-        print(f"1xBet error: {e}")
-    return odds
-
-def scrape_1x_over_under(bookmaker_name, base_url, partner_id):
-    odds = []
-    try:
-        print(f"Fetching {bookmaker_name} Over/Under (fixed mapping)...")
-        url = f"{base_url}/service-api/LineFeed/GetEvents_VZip?count=1000&lng=en&mode=4&country=191&partner={partner_id}&market=5,6&getEmpty=true&virtualSports=true&eventType=1"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for match in data.get("Value", []):
-            home, away = match.get("O1"), match.get("O2")
-            if not home or not away: continue
-            over = under = None
-            for e in match.get("E", []):
-                t = str(e.get("T", "")).strip()
-                c = clean_odd(e.get("C"))
-                if not c: continue
-                # T=5 -> over, T=6 -> under (standard)
-                if t == "5": over = c
-                elif t == "6": under = c
-            if over and under:
-                record = build_match_record(home, away, bookmaker_name, over, under, None, market_type="Over/Under 2.5")
-                odds.append(record)
-    except Exception as e:
-        print(f"{bookmaker_name} Over/Under error: {e}")
-    return odds
-
-def scrape_1x_ah_dc_btts(bookmaker_name, base_url, partner_id):
-    odds = []
-    try:
-        print(f"Fetching {bookmaker_name} AH, DC, BTTS (fixed mapping)...")
-        url = f"{base_url}/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en&mode=4&country=191&partner={partner_id}&getEmpty=true"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())
-        for match in data.get("Value", []):
-            home = match.get("O1")
-            away = match.get("O2")
-            if not home or not away: continue
-            if home.strip() == "Home" and away.strip() == "Away":
-                continue
-
-            ah_home = ah_away = None
-            dc_home = dc_away = None
-            btts_yes = btts_no = None
-
-            for e in match.get("E", []):
-                t = str(e.get("T", "")).strip()
-                c = clean_odd(e.get("C"))
-                if not c: continue
-                p = e.get("P")
-
-                # AH: T=7 -> home, T=8 -> away (as per original code)
-                if t == "7" and p is not None: ah_home = c
-                elif t == "8" and p is not None: ah_away = c
-                # DC: T=4/180 -> 1X, T=181 -> 12 (as before)
-                elif t == "4" or t == "180": dc_home = c
-                elif t == "181": dc_away = c
-                # BTTS: T=19 -> yes, T=20 -> no
-                elif t == "19": btts_yes = c
-                elif t == "20": btts_no = c
-
-            if ah_home and ah_away:
-                odds.append(build_match_record(home, away, bookmaker_name, ah_home, None, ah_away, market_type="Asian Handicap", market_specifier="-0.5"))
-            if dc_home and dc_away:
-                odds.append(build_match_record(home, away, bookmaker_name, dc_home, None, dc_away, market_type="Double Chance", market_specifier="1X"))
-            if btts_yes and btts_no:
-                odds.append(build_match_record(home, away, bookmaker_name, btts_yes, None, btts_no, market_type="BTTS"))
-
-        print(f"{bookmaker_name} extra markets: {len(odds)} records")
-    except Exception as e:
-        print(f"{bookmaker_name} extra markets error: {e}")
-    return odds
-
-# ---------- MELBET SCRAPER ----------
 def scrape_melbet():
     odds = []
     try:
@@ -696,44 +576,142 @@ def scrape_melbet():
         print(f"Melbet error: {e}")
     return odds
 
-# ---------- New Bookmaker Placeholders ----------
-def scrape_bongobongo():
-    """BongoBongo – modern GR8 Tech API. TODO: fill in real endpoint."""
-    print("BongoBongo: placeholder – no odds extracted (needs API endpoint)")
-    return []
+# ---------- NEW 1xBet SCRAPER ----------
+def scrape_1xbet():
+    odds = []
+    try:
+        print("Fetching 1xBet (main-live-feed/v3/games1x2)...")
+        base_url = "https://1x-bet.mobi"
+        url = f"{base_url}/service-api/main-live-feed/v3/games1x2"
+        params = {
+            "cfView": "3",
+            "count": "50",
+            "fcountry": "191",
+            "gr": "455",
+            "grMode": "4",
+            "lng": "en",
+            "ref": "1"
+        }
+        headers = {
+            "content-type": "application/json",
+            "accept": "application/json, text/plain, */*",
+            "x-mobile-project-id": "0",
+            "x-requested-with": "XMLHttpRequest",
+            "is-srv": "false",
+            "x-svc-source": "__BETTING_APP__",
+            "x-app-n": "__BETTING_APP__",
+            "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
+            "Referer": f"{base_url}/en/line/football",
+        }
+        resp = requests.get(url, headers=headers, params=params, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
 
-def scrape_betano():
-    """Betano – JSON API. TODO: fill in real endpoint."""
-    print("Betano: placeholder – no odds extracted (needs API endpoint)")
-    return []
+        if not isinstance(data, list):
+            print("1xBet: API returned non-list")
+            return odds
 
-def scrape_bet9ja():
-    """Bet9ja – JSON API. TODO: fill in real endpoint."""
-    print("Bet9ja: placeholder – no odds extracted (needs API endpoint)")
-    return []
+        for event in data:
+            try:
+                sport_id = event.get("sport", {}).get("id", 0)
+                if sport_id != 1:   # Football only
+                    continue
+                home = event.get("opponent1", {}).get("fullName", "")
+                away = event.get("opponent2", {}).get("fullName", "")
+                if not home or not away:
+                    continue
+                competition = event.get("liga", {}).get("name", "")
 
-def scrape_nilebet():
-    """NileBet – JSON API. TODO: fill in real endpoint."""
-    print("NileBet: placeholder – no odds extracted (needs API endpoint)")
-    return []
+                odds_map = {}  # (group_id, type, parameter) -> odd
+                for group in event.get("eventGroups", []):
+                    gid = group.get("groupId")
+                    for event_list in group.get("events", []):
+                        for item in event_list:
+                            t = item.get("type")
+                            c = clean_odd(item.get("cf"))
+                            if c is None:
+                                continue
+                            p = item.get("parameter")
+                            odds_map[(gid, t, p)] = c
 
-def scrape_betway_uganda():
-    """Betway Uganda – JSON API. TODO: fill in real endpoint."""
-    print("Betway Uganda: placeholder – no odds extracted (needs API endpoint)")
-    return []
+                # 1x2 (types 1,2,3)
+                home_odd = odds_map.get((1, 1, None))
+                draw_odd = odds_map.get((1, 2, None))
+                away_odd = odds_map.get((1, 3, None))
+                if home_odd and away_odd:
+                    odds.append(build_match_record(home, away, "1xBet", home_odd, draw_odd, away_odd,
+                                                   sport="Football", competition=competition, market_type="1x2"))
 
-# ---------- Arbitrage Detection (with 15% tax on profit) ----------
+                # Over/Under – pick the 2.5 line if present
+                ou_lines = {}
+                for (gid, t, p), c in odds_map.items():
+                    if gid == 17 and t == 9:
+                        ou_lines.setdefault(p, {})["over"] = c
+                    elif gid == 17 and t == 10:
+                        ou_lines.setdefault(p, {})["under"] = c
+                for line, vals in ou_lines.items():
+                    if line is None:
+                        continue
+                    over = vals.get("over")
+                    under = vals.get("under")
+                    if over and under:
+                        odds.append(build_match_record(home, away, "1xBet", over, under, None,
+                                                       sport="Football", competition=competition,
+                                                       market_type="Over/Under", market_specifier=str(line)))
+                        if line == 2.5:
+                            break
+
+                # Asian Handicap – group 2, types 7 and 8
+                ah_home = {}
+                ah_away = {}
+                for (gid, t, p), c in odds_map.items():
+                    if gid == 2 and t == 7:
+                        ah_home[p] = c
+                    elif gid == 2 and t == 8:
+                        ah_away[p] = c
+                for line in set(ah_home.keys()) & set(ah_away.keys()):
+                    if line is None:
+                        continue
+                    odds.append(build_match_record(home, away, "1xBet", ah_home[line], None, ah_away[line],
+                                                   sport="Football", competition=competition,
+                                                   market_type="Asian Handicap", market_specifier=str(line)))
+
+                # Double Chance – group 8 or 19
+                dc_1x = odds_map.get((8, 4, None)) or odds_map.get((19, 180, None))
+                dc_x2 = odds_map.get((8, 5, None)) or odds_map.get((19, 182, None))
+                dc_12 = odds_map.get((8, 6, None)) or odds_map.get((19, 181, None))
+                if dc_1x:
+                    odds.append(build_match_record(home, away, "1xBet", dc_1x, None, None,
+                                                   sport="Football", competition=competition,
+                                                   market_type="Double Chance", market_specifier="1X"))
+                if dc_x2:
+                    odds.append(build_match_record(home, away, "1xBet", None, None, dc_x2,
+                                                   sport="Football", competition=competition,
+                                                   market_type="Double Chance", market_specifier="X2"))
+                if dc_12:
+                    odds.append(build_match_record(home, away, "1xBet", dc_12, None, None,
+                                                   sport="Football", competition=competition,
+                                                   market_type="Double Chance", market_specifier="12"))
+
+            except Exception:
+                continue
+
+        print(f"1xBet: extracted {len(odds)} records")
+    except Exception as e:
+        print(f"1xBet error: {e}")
+    return odds
+
+# ---------- Placeholder scrapers (new bookmakers) ----------
+def scrape_bongobongo(): return []
+def scrape_betano(): return []
+def scrape_bet9ja(): return []
+def scrape_nilebet(): return []
+def scrape_betway_uganda(): return []
+
+# ---------- Arbitrage Detection ----------
 def find_arbitrage(all_odds):
-    """
-    Finds valid arbitrage opportunities.
-    Rules:
-      1. Pairings cover all outcomes with no gap.
-      2. No shared feed blocking (we treat all bookmakers as independent).
-      3. Accept only arbs with arb_sum between 0.625 and 0.99 (raw profit 1%-60%).
-      4. After 15% tax on profit, net profit must be > 0.
-    """
     opportunities = []
-    SHARED = set()  # No shared feed blocking now (1xBet is independent)
+    SHARED = set()
 
     def market_type_standard(mt):
         mt = (mt or "").lower().strip()
@@ -817,9 +795,8 @@ def find_arbitrage(all_odds):
 
                 odds = [h, d, a]
                 stakes = [STAKE * (1/odd) / arb_sum for odd in odds]
-
                 raw_profits = [stake_i * odd_i - STAKE for stake_i, odd_i in zip(stakes, odds)]
-                net_profits = [raw * 0.85 for raw in raw_profits]  # 15% tax on profit
+                net_profits = [raw * 0.85 for raw in raw_profits]
 
                 if any(np <= 0 for np in net_profits):
                     continue
@@ -844,7 +821,7 @@ def find_arbitrage(all_odds):
                     "bets": bets
                 })
 
-        else:
+        elif mt == "OU" or mt == "BTTS":
             best = {}
             for side in group:
                 _, _, s, line, bk, odd, sport = side
@@ -857,14 +834,10 @@ def find_arbitrage(all_odds):
                 if bk1 in SHARED and bk2 in SHARED:
                     continue
 
-                if mt == "AH":
-                    side1, side2 = "home", "away"
-                elif mt == "OU":
+                if mt == "OU":
                     side1, side2 = "over", "under"
-                elif mt == "BTTS":
-                    side1, side2 = "yes", "no"
                 else:
-                    continue
+                    side1, side2 = "yes", "no"
 
                 o1 = best[bk1].get(side1)
                 o2 = best[bk2].get(side2)
@@ -888,7 +861,6 @@ def find_arbitrage(all_odds):
 
                 odds = [odd1, odd2]
                 stakes = [STAKE * (1/odd) / arb_sum for odd in odds]
-
                 raw_profits = [stake_i * odd_i - STAKE for stake_i, odd_i in zip(stakes, odds)]
                 net_profits = [raw * 0.85 for raw in raw_profits]
 
@@ -898,13 +870,10 @@ def find_arbitrage(all_odds):
                 net_profit = min(net_profits)
                 net_profit_percent = (net_profit / STAKE) * 100
 
-                if mt == "AH":
-                    label1 = f"AH {group[0][3]} {side_a}"
-                    label2 = f"AH {group[0][3]} {side_b}"
-                elif mt == "OU":
+                if mt == "OU":
                     label1 = "Over" if side_a == "over" else "Under"
                     label2 = "Over" if side_b == "over" else "Under"
-                elif mt == "BTTS":
+                else:
                     label1 = "Yes" if side_a == "yes" else "No"
                     label2 = "Yes" if side_b == "yes" else "No"
 
@@ -916,6 +885,77 @@ def find_arbitrage(all_odds):
                     "match": mk.split(" | ")[0] if " | " in mk else mk,
                     "sport": group[0][6],
                     "type": mt,
+                    "profit_percent": round(net_profit_percent, 2),
+                    "profit_ugx": round(net_profit),
+                    "total_stake": STAKE,
+                    "arb_sum": round(arb_sum, 4),
+                    "tax_applied": f"{WINNINGS_TAX_RATE*100:.0f}%",
+                    "bets": bets
+                })
+
+        elif mt == "AH":
+            best = {}  # (bookmaker, side) -> {line: odd}
+            for side in group:
+                _, _, s, line, bk, odd, sport = side
+                best.setdefault((bk, s), {})[line] = max(best.get((bk, s), {}).get(line, 0), odd)
+
+            bookies = list({bk for (bk, s) in best.keys()})
+            for bk1, bk2 in combinations(bookies, 2):
+                if bk1 == bk2:
+                    continue
+                if bk1 in SHARED and bk2 in SHARED:
+                    continue
+
+                home_lines_bk1 = best.get((bk1, "home"), {})
+                away_lines_bk2 = best.get((bk2, "away"), {})
+                home_lines_bk2 = best.get((bk2, "home"), {})
+                away_lines_bk1 = best.get((bk1, "away"), {})
+
+                candidates = []
+                # Pair home from bk1 with away from bk2
+                for line_h, odd_h in home_lines_bk1.items():
+                    line_a = -float(line_h) if line_h else None
+                    if line_a is not None and line_a in away_lines_bk2:
+                        odd_a = away_lines_bk2[line_a]
+                        candidates.append((odd_h, odd_a, bk1, bk2, line_h, line_a))
+                # Pair home from bk2 with away from bk1
+                for line_h, odd_h in home_lines_bk2.items():
+                    line_a = -float(line_h) if line_h else None
+                    if line_a is not None and line_a in away_lines_bk1:
+                        odd_a = away_lines_bk1[line_a]
+                        candidates.append((odd_h, odd_a, bk2, bk1, line_h, line_a))
+
+                if not candidates:
+                    continue
+
+                best_candidate = min(candidates, key=lambda x: 1/x[0] + 1/x[1])
+                odd1, odd2, bk_a, bk_b, line_h, line_a = best_candidate
+                arb_sum = 1/odd1 + 1/odd2
+                if arb_sum >= 0.99 or arb_sum < 0.625:
+                    continue
+
+                odds = [odd1, odd2]
+                stakes = [STAKE * (1/odd) / arb_sum for odd in odds]
+                raw_profits = [stake_i * odd_i - STAKE for stake_i, odd_i in zip(stakes, odds)]
+                net_profits = [raw * 0.85 for raw in raw_profits]
+
+                if any(np <= 0 for np in net_profits):
+                    continue
+
+                net_profit = min(net_profits)
+                net_profit_percent = (net_profit / STAKE) * 100
+
+                label1 = f"AH {line_h} (Home)"
+                label2 = f"AH {line_a} (Away)"
+
+                bets = [
+                    {"bookmaker": bk_a, "outcome": label1, "odd": odd1, "stake": stakes[0], "win": round(stakes[0] * odd1)},
+                    {"bookmaker": bk_b, "outcome": label2, "odd": odd2, "stake": stakes[1], "win": round(stakes[1] * odd2)}
+                ]
+                opportunities.append({
+                    "match": mk.split(" | ")[0] if " | " in mk else mk,
+                    "sport": group[0][6],
+                    "type": "AH",
                     "profit_percent": round(net_profit_percent, 2),
                     "profit_ugx": round(net_profit),
                     "total_stake": STAKE,
@@ -960,14 +1000,9 @@ def run_scan():
     all_odds.extend(scrape_ababet())
     all_odds.extend(scrape_fortebet())
     all_odds.extend(scrape_melbet())
-
-    # Re-added 1xBet with fixed mapping (and extra markets)
     all_odds.extend(scrape_1xbet())
-    # For 1xBet extra markets:
-    all_odds.extend(scrape_1x_over_under("1xBet", "https://1xbet.ug", "135"))
-    all_odds.extend(scrape_1x_ah_dc_btts("1xBet", "https://1xbet.ug", "135"))
 
-    # New bookmakers (placeholders)
+    # New bookmakers (placeholders – no odds yet)
     all_odds.extend(scrape_bongobongo())
     all_odds.extend(scrape_betano())
     all_odds.extend(scrape_bet9ja())
