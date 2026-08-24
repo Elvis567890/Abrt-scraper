@@ -1046,7 +1046,12 @@ def scan():
     else:
         print(f"\nTotal arbs found: {arbs_found}")
 
-# ---------- Main Loop ----------
+# ---------- Entry point for run_scanner.py ----------
+def run_scan():
+    """Runs one full scan (called by run_scanner.py)."""
+    scan()
+
+# ---------- Main Loop (when script is run directly) ----------
 if __name__ == "__main__":
     print("Starting full arbitrage scanner. Press Ctrl+C to stop.")
     while True:
