@@ -43,7 +43,8 @@ ONEXBET_API = "https://1x-bet.mobi/service-api/main-live-feed/v3/games1x2"
 
 # ---------- Helper Functions ----------
 def normalize(name):
-    name = (name or "").lower().strip()
+    # Convert to string first to avoid AttributeError on floats/ints
+    name = str(name or "").lower().strip()
     name = re.sub(r"\b(rovers|rvs)\b", "rvs", name)
     name = re.sub(r"\b(united|utd)\b", "utd", name)
     name = re.sub(r"\b(fc|sc|cf|ac|city|sports|club|football|soccer|women|men|u21|u23)\b", "", name)
@@ -844,7 +845,8 @@ def parse_betpawa(data):
 
 # ---------- Arbitrage Detection ----------
 def make_match_key(event):
-    league = event.get("league", "").strip().lower()
+    # Ensure league is string to avoid issues
+    league = str(event.get("league", "")).strip().lower()
     home = normalize(event.get("home", ""))
     away = normalize(event.get("away", ""))
     time_str = event.get("time", "")
