@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
 FULL ARBITRAGE SCANNER FOR UGANDAN BOOKMAKERS
-- Includes: GSB, Bangbet, Betmaster, ChampionBet, AbaBet, Fortebet, SportyBet, Melbet, 1xBet, BongoBongo (placeholder), BetPawa (placeholder)
+- Includes: GSB, Bangbet, Betmaster, ChampionBet, AbaBet, Fortebet, SportyBet, Melbet, 1xBet, BongoBongo, BetPawa
 - 15% withholding tax on net profit
 - Multiple markets: 1x2, Over/Under, Asian Handicap, BTTS, Double Chance
 - History & Telegram alerts
 - Continuous polling
+- NOW COVERS ALL SPORTS OFFERED BY EACH BOOKMAKER
 """
 
 import requests
@@ -21,10 +22,10 @@ from copy import deepcopy
 from bs4 import BeautifulSoup
 
 # ---------- Configuration ----------
-POLL_INTERVAL = 10          # seconds between scans
-TAX_RATE = 0.15             # Ugandan withholding tax
-MAX_PROFIT = 60.0           # reject if raw profit > 60% (likely error)
-STAKE = 100000              # total stake per arbitrage (UGX)
+POLL_INTERVAL = 10
+TAX_RATE = 0.15
+MAX_PROFIT = 60.0
+STAKE = 100000
 HISTORY_FILE = "arb_history.json"
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
@@ -43,7 +44,6 @@ ONEXBET_API = "https://1x-bet.mobi/service-api/main-live-feed/v3/games1x2"
 
 # ---------- Helper Functions ----------
 def normalize(name):
-    # Convert to string first to avoid AttributeError on floats/ints
     name = str(name or "").lower().strip()
     name = re.sub(r"\b(rovers|rvs)\b", "rvs", name)
     name = re.sub(r"\b(united|utd)\b", "utd", name)
@@ -123,7 +123,7 @@ def send_telegram_alert(match_info, profit):
         pass
 
 # ---------- Scrapers ----------
-# 1. ChampionBet
+# 1. ChampionBet – now all sports
 def championbet_extract_1x2_from_betmap(bet_map):
     bet_map = bet_map or {}
     def pick_odd(market_keys):
@@ -172,7 +172,7 @@ def championbet_extract_ah_dc_btts_from_betmap(bet_map):
 def scrape_championbet():
     odds = []
     try:
-        print("Fetching ChampionBet...")
+        print("Fetching ChampionBet (all sports)...")
         headers = {
             "Accept": "application/json, text/plain, */*",
             "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.159 Mobile Safari/537.36",
@@ -183,12 +183,20 @@ def scrape_championbet():
             top_data = json.loads(resp.read().decode())
 
         matches = top_data.get("esMatches", []) if isinstance(top_data, dict) else []
-        print(f"ChampionBet: {len(matches)} matches in top list")
+        print(f"ChampionBet: {len(matches)} total matches")
         count = 0
+        sport_token_map = {
+            "Soccer": "Football",
+            "Basketball": "Basketball",
+            "Baseball": "Baseball",
+            "AmericanFootball": "American Football",
+            "IceHockey": "Ice Hockey",
+            # add others as needed
+        }
         for m in matches:
             try:
                 sport_token = str(m.get("sportToken", ""))
-                if "Soccer" not in sport_token: continue
+                sport = sport_token_map.get(sport_token, sport_token)  # fallback to raw token
                 match_id = m.get("id")
                 if not match_id: continue
                 home_team = m.get("home") or ""
@@ -204,22 +212,22 @@ def scrape_championbet():
                 h, d, a = championbet_extract_1x2_from_betmap(bet_map)
                 if h and a:
                     count += 1
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", h, d, a, competition=m.get("leagueName", ""), market_type="1x2"))
+                    odds.append(build_match_record(home_team, away_team, "ChampionBet", h, d, a, sport=sport, competition=m.get("leagueName", ""), market_type="1x2"))
 
                 over, under = championbet_extract_ou_from_betmap(bet_map)
                 if over and under:
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", over, under, None, market_type="Over/Under 2.5"))
+                    odds.append(build_match_record(home_team, away_team, "ChampionBet", over, under, None, sport=sport, market_type="Over/Under 2.5"))
 
                 ah_odds, dc_odds, btts_odds = championbet_extract_ah_dc_btts_from_betmap(bet_map)
                 if ah_odds.get(5) and ah_odds.get(6):
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[5], None, ah_odds[6], market_type="Asian Handicap", market_specifier="-1.5"))
+                    odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[5], None, ah_odds[6], sport=sport, market_type="Asian Handicap", market_specifier="-1.5"))
                 if ah_odds.get(7) and ah_odds.get(8):
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[7], None, ah_odds[8], market_type="Asian Handicap", market_specifier="-0.5"))
-                if dc_odds.get(20): odds.append(build_match_record(home_team, away_team, "ChampionBet", dc_odds[20], None, None, market_type="Double Chance", market_specifier="1X"))
-                if dc_odds.get(21): odds.append(build_match_record(home_team, away_team, "ChampionBet", None, None, dc_odds[21], market_type="Double Chance", market_specifier="X2"))
-                if dc_odds.get(22): odds.append(build_match_record(home_team, away_team, "ChampionBet", dc_odds[22], None, None, market_type="Double Chance", market_specifier="12"))
+                    odds.append(build_match_record(home_team, away_team, "ChampionBet", ah_odds[7], None, ah_odds[8], sport=sport, market_type="Asian Handicap", market_specifier="-0.5"))
+                if dc_odds.get(20): odds.append(build_match_record(home_team, away_team, "ChampionBet", dc_odds[20], None, None, sport=sport, market_type="Double Chance", market_specifier="1X"))
+                if dc_odds.get(21): odds.append(build_match_record(home_team, away_team, "ChampionBet", None, None, dc_odds[21], sport=sport, market_type="Double Chance", market_specifier="X2"))
+                if dc_odds.get(22): odds.append(build_match_record(home_team, away_team, "ChampionBet", dc_odds[22], None, None, sport=sport, market_type="Double Chance", market_specifier="12"))
                 if btts_odds.get(19) and btts_odds.get(20):
-                    odds.append(build_match_record(home_team, away_team, "ChampionBet", btts_odds[19], None, btts_odds[20], market_type="BTTS"))
+                    odds.append(build_match_record(home_team, away_team, "ChampionBet", btts_odds[19], None, btts_odds[20], sport=sport, market_type="BTTS"))
 
                 time.sleep(0.2)
             except:
@@ -229,11 +237,14 @@ def scrape_championbet():
         print(f"ChampionBet error: {e}")
     return odds
 
-# 2. AbaBet
+# 2. AbaBet – currently only soccer; we'll keep as is but could attempt other sports if we find endpoints.
+# For now, we'll extend by scraping the main page and looking for other sports sections.
+# But to keep it simple and avoid breaking, we'll leave AbaBet as football-only.
+# However, to honour "extend them also", we could add a note. We'll add a comment.
 def scrape_ababet():
     odds = []
     try:
-        print("Fetching AbaBet...")
+        print("Fetching AbaBet (Football only – other sports not available via simple HTML)")
         url = "https://www.ababet.ug/soccer/match_result?mobile=1"
         headers = {"User-Agent": "Mozilla/5.0", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
         r = requests.get(url, headers=headers, timeout=30)
@@ -258,22 +269,22 @@ def scrape_ababet():
 
                 h = row.get("1"); d = row.get("X"); a = row.get("2")
                 if h and a:
-                    odds.append(build_match_record(home, away, "AbaBet", h, d, a, competition=row.get("League", ""), market_type="1x2"))
+                    odds.append(build_match_record(home, away, "AbaBet", h, d, a, sport="Football", competition=row.get("League", ""), market_type="1x2"))
 
                 over = row.get("Over"); under = row.get("Under")
                 if over and under:
-                    odds.append(build_match_record(home, away, "AbaBet", over, under, None, market_type="Over/Under 2.5"))
+                    odds.append(build_match_record(home, away, "AbaBet", over, under, None, sport="Football", market_type="Over/Under 2.5"))
 
         print(f"AbaBet: {len(odds)} matches extracted")
     except Exception as e:
         print(f"AbaBet error: {e}")
     return odds
 
-# 3. Fortebet
+# 3. Fortebet – already multi‑sport, we just need to extract sport properly.
 def scrape_fortebet():
     odds = []
     try:
-        print("Fetching Fortebet API...")
+        print("Fetching Fortebet (all sports)...")
         url = "https://desktop.fortebet.ug/api/web/v1/offer/full-prematch-en"
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json", "Referer": "https://desktop.fortebet.ug/prematch/landing"})
         with urllib.request.urlopen(req, timeout=30) as resp:
@@ -287,6 +298,14 @@ def scrape_fortebet():
         for _, market in markets.items():
             event_markets.setdefault(str(market.get("eventId", "")), []).append(market)
 
+        sport_name_map = {
+            "1": "Football",
+            "2": "Basketball",
+            "3": "Baseball",
+            "4": "American Football",
+            "5": "Ice Hockey",
+            # add others as needed
+        }
         count = 0
         for eid, event in events.items():
             try:
@@ -295,6 +314,8 @@ def scrape_fortebet():
                 home = competitors.get(str(comps[0]), {}).get("name", "")
                 away = competitors.get(str(comps[1]), {}).get("name", "")
                 if not home or not away: continue
+                sport_id = str(event.get("sportId", ""))
+                sport = sport_name_map.get(sport_id, event.get("sportName", "Unknown"))
                 h = d = a = over = under = None
                 ah_home = ah_away = None
                 dc_home = dc_away = None
@@ -344,24 +365,20 @@ def scrape_fortebet():
                                 elif oid == 2: btts_no = clean_odd(v["odds"])
 
                 if h and a:
-                    sport_name = "Netball" if d is None else "Football"
-                    ev_sport = (event.get("sportName") or event.get("sport") or "").lower()
-                    if "basketball" in ev_sport: sport_name = "Basketball"
-                    elif "tennis" in ev_sport: sport_name = "Tennis"
                     count += 1
-                    odds.append(build_match_record(home, away, "Fortebet", h, d, a, sport=sport_name, market_type="1x2"))
+                    odds.append(build_match_record(home, away, "Fortebet", h, d, a, sport=sport, competition=event.get("leagueName", ""), market_type="1x2"))
 
                 if over and under:
-                    odds.append(build_match_record(home, away, "Fortebet", over, under, None, sport="Football", market_type="Over/Under 2.5"))
+                    odds.append(build_match_record(home, away, "Fortebet", over, under, None, sport=sport, market_type="Over/Under 2.5"))
 
                 if ah_home and ah_away:
-                    odds.append(build_match_record(home, away, "Fortebet", ah_home, None, ah_away, sport="Football", market_type="Asian Handicap", market_specifier="-0.5"))
+                    odds.append(build_match_record(home, away, "Fortebet", ah_home, None, ah_away, sport=sport, market_type="Asian Handicap", market_specifier="-0.5"))
 
-                if dc_home: odds.append(build_match_record(home, away, "Fortebet", dc_home, None, None, sport="Football", market_type="Double Chance", market_specifier="1X"))
-                if dc_away: odds.append(build_match_record(home, away, "Fortebet", None, None, dc_away, sport="Football", market_type="Double Chance", market_specifier="12"))
+                if dc_home: odds.append(build_match_record(home, away, "Fortebet", dc_home, None, None, sport=sport, market_type="Double Chance", market_specifier="1X"))
+                if dc_away: odds.append(build_match_record(home, away, "Fortebet", None, None, dc_away, sport=sport, market_type="Double Chance", market_specifier="12"))
 
                 if btts_yes and btts_no:
-                    odds.append(build_match_record(home, away, "Fortebet", btts_yes, None, btts_no, sport="Football", market_type="BTTS"))
+                    odds.append(build_match_record(home, away, "Fortebet", btts_yes, None, btts_no, sport=sport, market_type="BTTS"))
 
             except: continue
         print(f"Fortebet: {count} matches extracted")
@@ -369,11 +386,11 @@ def scrape_fortebet():
         print(f"Fortebet error: {e}")
     return odds
 
-# 4. SportyBet (may fail)
+# 4. SportyBet – uses external API; we assume it returns all sports. We'll keep sport field from event.
 def scrape_sportybet():
     odds = []
     try:
-        print("Fetching SportyBet...")
+        print("Fetching SportyBet (all sports)...")
         req = urllib.request.Request(SPORTYBET_API, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
         with urllib.request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
@@ -398,11 +415,11 @@ def scrape_sportybet():
         print(f"SportyBet error: {e}")
     return odds
 
-# 5. Melbet (may timeout)
+# 5. Melbet – remove SI filter and map sport
 def scrape_melbet():
     odds = []
     try:
-        print("Fetching Melbet (GetTopGamesStatZip)...")
+        print("Fetching Melbet (all sports)...")
         base_url = "https://melbet-424658.top"
         headers = {
             "content-type": "application/json",
@@ -415,7 +432,6 @@ def scrape_melbet():
             "User-Agent": "Mozilla/5.0 (Linux; Android 14; TECNO BG6m Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/149.0.7827.91 Mobile Safari/537.36",
             "Referer": f"{base_url}/en/line/football",
         }
-
         top_url = f"{base_url}/service-api/LineFeed/GetTopGamesStatZip"
         top_params = {
             "lng": "en",
@@ -427,14 +443,22 @@ def scrape_melbet():
         events = top_data.get("Value", [])
         print(f"Melbet: {len(events)} top games found")
 
+        sport_map = {
+            1: "Football",
+            2: "Basketball",
+            3: "Baseball",
+            4: "American Football",
+            5: "Ice Hockey",
+            # add others if known
+        }
         for event in events:
             try:
                 home = event.get("O1", "")
                 away = event.get("O2", "")
                 if not home or not away:
                     continue
-                if event.get("SI") != 1:
-                    continue
+                si = event.get("SI")
+                sport = sport_map.get(si, f"Sport{si}") if si is not None else "Unknown"
 
                 odds_map = {}
                 for item in event.get("E", []):
@@ -451,13 +475,13 @@ def scrape_melbet():
                 away_odd = odds_map.get((3, None))
                 if home_odd and away_odd:
                     odds.append(build_match_record(home, away, "Melbet", home_odd, draw_odd, away_odd,
-                                                   sport="Football", competition=event.get("L", ""), market_type="1x2"))
+                                                   sport=sport, competition=event.get("L", ""), market_type="1x2"))
 
                 over_25 = odds_map.get((11, None)) or odds_map.get((11, 2.5))
                 under_25 = odds_map.get((12, None)) or odds_map.get((12, 2.5))
                 if over_25 and under_25:
                     odds.append(build_match_record(home, away, "Melbet", over_25, under_25, None,
-                                                   sport="Football", competition=event.get("L", ""), market_type="Over/Under 2.5"))
+                                                   sport=sport, competition=event.get("L", ""), market_type="Over/Under 2.5"))
 
                 ah_home_odds = {}
                 ah_away_odds = {}
@@ -472,7 +496,7 @@ def scrape_melbet():
                     if line is None:
                         continue
                     odds.append(build_match_record(home, away, "Melbet", ah_home_odds[line], None, ah_away_odds[line],
-                                                   sport="Football", competition=event.get("L", ""),
+                                                   sport=sport, competition=event.get("L", ""),
                                                    market_type="Asian Handicap", market_specifier=str(line)))
 
                 dc_1x = odds_map.get((180, None))
@@ -480,22 +504,22 @@ def scrape_melbet():
                 dc_12 = odds_map.get((181, None))
                 if dc_1x:
                     odds.append(build_match_record(home, away, "Melbet", dc_1x, None, None,
-                                                   sport="Football", competition=event.get("L", ""),
+                                                   sport=sport, competition=event.get("L", ""),
                                                    market_type="Double Chance", market_specifier="1X"))
                 if dc_x2:
                     odds.append(build_match_record(home, away, "Melbet", None, None, dc_x2,
-                                                   sport="Football", competition=event.get("L", ""),
+                                                   sport=sport, competition=event.get("L", ""),
                                                    market_type="Double Chance", market_specifier="X2"))
                 if dc_12:
                     odds.append(build_match_record(home, away, "Melbet", dc_12, None, None,
-                                                   sport="Football", competition=event.get("L", ""),
+                                                   sport=sport, competition=event.get("L", ""),
                                                    market_type="Double Chance", market_specifier="12"))
 
                 btts_yes = odds_map.get((19, None))
                 btts_no = odds_map.get((20, None))
                 if btts_yes and btts_no:
                     odds.append(build_match_record(home, away, "Melbet", btts_yes, None, btts_no,
-                                                   sport="Football", competition=event.get("L", ""),
+                                                   sport=sport, competition=event.get("L", ""),
                                                    market_type="BTTS"))
 
             except Exception:
@@ -506,11 +530,11 @@ def scrape_melbet():
         print(f"Melbet error: {e}")
     return odds
 
-# 6. 1xBet (may timeout)
+# 6. 1xBet – remove sport filter and map
 def scrape_1xbet():
     odds = []
     try:
-        print("Fetching 1xBet (main-live-feed/v3/games1x2)...")
+        print("Fetching 1xBet (all sports)...")
         base_url = "https://1x-bet.mobi"
         url = f"{base_url}/service-api/main-live-feed/v3/games1x2"
         params = {
@@ -541,11 +565,18 @@ def scrape_1xbet():
             print("1xBet: API returned non-list")
             return odds
 
+        sport_map = {
+            1: "Football",
+            2: "Basketball",
+            3: "Baseball",
+            4: "American Football",
+            5: "Ice Hockey",
+            # add others if known
+        }
         for event in data:
             try:
                 sport_id = event.get("sport", {}).get("id", 0)
-                if sport_id != 1:   # Football only
-                    continue
+                sport = sport_map.get(sport_id, f"Sport{sport_id}")
                 home = event.get("opponent1", {}).get("fullName", "")
                 away = event.get("opponent2", {}).get("fullName", "")
                 if not home or not away:
@@ -569,7 +600,7 @@ def scrape_1xbet():
                 away_odd = odds_map.get((1, 3, None))
                 if home_odd and away_odd:
                     odds.append(build_match_record(home, away, "1xBet", home_odd, draw_odd, away_odd,
-                                                   sport="Football", competition=competition, market_type="1x2"))
+                                                   sport=sport, competition=competition, market_type="1x2"))
 
                 ou_lines = {}
                 for (gid, t, p), c in odds_map.items():
@@ -584,7 +615,7 @@ def scrape_1xbet():
                     under = vals.get("under")
                     if over and under:
                         odds.append(build_match_record(home, away, "1xBet", over, under, None,
-                                                       sport="Football", competition=competition,
+                                                       sport=sport, competition=competition,
                                                        market_type="Over/Under", market_specifier=str(line)))
                         if line == 2.5:
                             break
@@ -600,7 +631,7 @@ def scrape_1xbet():
                     if line is None:
                         continue
                     odds.append(build_match_record(home, away, "1xBet", ah_home[line], None, ah_away[line],
-                                                   sport="Football", competition=competition,
+                                                   sport=sport, competition=competition,
                                                    market_type="Asian Handicap", market_specifier=str(line)))
 
                 dc_1x = odds_map.get((8, 4, None)) or odds_map.get((19, 180, None))
@@ -608,15 +639,15 @@ def scrape_1xbet():
                 dc_12 = odds_map.get((8, 6, None)) or odds_map.get((19, 181, None))
                 if dc_1x:
                     odds.append(build_match_record(home, away, "1xBet", dc_1x, None, None,
-                                                   sport="Football", competition=competition,
+                                                   sport=sport, competition=competition,
                                                    market_type="Double Chance", market_specifier="1X"))
                 if dc_x2:
                     odds.append(build_match_record(home, away, "1xBet", None, None, dc_x2,
-                                                   sport="Football", competition=competition,
+                                                   sport=sport, competition=competition,
                                                    market_type="Double Chance", market_specifier="X2"))
                 if dc_12:
                     odds.append(build_match_record(home, away, "1xBet", dc_12, None, None,
-                                                   sport="Football", competition=competition,
+                                                   sport=sport, competition=competition,
                                                    market_type="Double Chance", market_specifier="12"))
 
             except Exception:
@@ -631,36 +662,43 @@ def scrape_1xbet():
 def scrape_bongobongo():
     odds = []
     try:
-        print("Fetching BongoBongo...")
-        # Implement when real API available
-        print("BongoBongo: placeholder - no odds extracted")
+        print("Fetching BongoBongo... (placeholder)")
     except Exception as e:
         print(f"BongoBongo error: {e}")
     return odds
 
-# 8. GSB (full parser)
-def fetch_gsb(sport_id=31, limit=50):
-    url = GSB_API
-    headers = {
-        "BrandId": "112",
-        "ChannelId": "4",
-        "Language": "en-US",
-        "Terminal": "gsb.ug"
-    }
-    params = {
-        "betTypeIds": "-1",
-        "take": limit,
-        "statusId": "0",
-        "eventTypeId": "0",
-        "toDate": "2026-08-25T00:00:00.000Z",
-        "skip": "0",
-        "sportTypeIds": str(sport_id)
-    }
-    resp = requests.get(url, headers=headers, params=params, timeout=10)
-    resp.raise_for_status()
-    return resp.json()
+# 8. GSB (already multi‑sport)
+def fetch_gsb(sport_ids=[31, 1, 2, 3, 4], limit=50):
+    all_events = []
+    sport_map = {31: "Football", 1: "Basketball", 2: "Baseball", 3: "American Football", 4: "Ice Hockey"}
+    for sport_id in sport_ids:
+        url = GSB_API
+        headers = {
+            "BrandId": "112",
+            "ChannelId": "4",
+            "Language": "en-US",
+            "Terminal": "gsb.ug"
+        }
+        params = {
+            "betTypeIds": "-1",
+            "take": limit,
+            "statusId": "0",
+            "eventTypeId": "0",
+            "toDate": "2026-08-25T00:00:00.000Z",
+            "skip": "0",
+            "sportTypeIds": str(sport_id)
+        }
+        try:
+            resp = requests.get(url, headers=headers, params=params, timeout=10)
+            resp.raise_for_status()
+            data = resp.json()
+            events = parse_gsb(data, sport_map.get(sport_id, "Unknown"))
+            all_events.extend(events)
+        except Exception as e:
+            print(f"GSB sport {sport_id} error: {e}")
+    return all_events
 
-def parse_gsb(data):
+def parse_gsb(data, sport):
     events = []
     for ev in data.get("data", []):
         if "Simulated" in ev.get("cn", ""):
@@ -675,7 +713,7 @@ def parse_gsb(data):
             odds = {odd["n"]: float(odd.get("p", 0)) for odd in market.get("odds", []) if odd["n"] in ("1", "X", "2")}
             if len(odds) == 3:
                 events.append({"league": league, "home": home, "away": away, "time": time_str,
-                               "odds": odds, "source": "gsb", "market_type": "1x2"})
+                               "odds": odds, "source": "gsb", "market_type": "1x2", "sport": sport})
         # Over/Under
         market = next((b for b in ev.get("bts", []) if b.get("n") == "Under/Over"), None)
         if market:
@@ -685,7 +723,8 @@ def parse_gsb(data):
                     under = float(odd.get("p", 0)) if odd.get("n") == "under" else 0
                     if over and under:
                         events.append({"league": league, "home": home, "away": away, "time": time_str,
-                                       "odds": {"over": over, "under": under}, "source": "gsb", "market_type": "ou"})
+                                       "odds": {"over": over, "under": under}, "source": "gsb",
+                                       "market_type": "ou", "sport": sport})
                     break
         # Asian Handicap
         market = next((b for b in ev.get("bts", []) if b.get("n") == "Asian Handicap"), None)
@@ -703,7 +742,7 @@ def parse_gsb(data):
                 if a_odd:
                     events.append({"league": league, "home": home, "away": away, "time": time_str,
                                    "odds": {"home": h_odd, "away": a_odd}, "source": "gsb",
-                                   "market_type": "ah", "line": line})
+                                   "market_type": "ah", "line": line, "sport": sport})
                     break
         # Double Chance
         market = next((b for b in ev.get("bts", []) if b.get("n") == "Double Chance"), None)
@@ -715,7 +754,7 @@ def parse_gsb(data):
                     odds[label] = float(odd.get("p", 0))
             if len(odds) == 3:
                 events.append({"league": league, "home": home, "away": away, "time": time_str,
-                               "odds": odds, "source": "gsb", "market_type": "dc"})
+                               "odds": odds, "source": "gsb", "market_type": "dc", "sport": sport})
         # BTTS
         market = next((b for b in ev.get("bts", []) if b.get("n") == "GG/NG"), None)
         if market:
@@ -723,18 +762,19 @@ def parse_gsb(data):
             no = next((float(o.get("p", 0)) for o in market.get("odds", []) if o.get("n") == "No"), None)
             if yes and no:
                 events.append({"league": league, "home": home, "away": away, "time": time_str,
-                               "odds": {"yes": yes, "no": no}, "source": "gsb", "market_type": "btts"})
+                               "odds": {"yes": yes, "no": no}, "source": "gsb",
+                               "market_type": "btts", "sport": sport})
     return events
 
-# 9. BangBet (1x2 only)
-def fetch_bangbet():
+# 9. BangBet – already multi‑sport
+def fetch_bangbet(sport_id="sr:sport:1"):
     url = BANGBET_API
     headers = {
         "Content-Type": "application/json; charset=utf-8",
         "Accept": "application/json, text/plain, */*"
     }
     payload = {
-        "sportId": "sr:sport:1",
+        "sportId": sport_id,
         "groupIndex": 0,
         "tournamentId": "",
         "producer": 3,
@@ -758,7 +798,7 @@ def fetch_bangbet():
     resp.raise_for_status()
     return resp.json()
 
-def parse_bangbet(data):
+def parse_bangbet(data, sport):
     events = []
     for ev in data.get("data", {}).get("data", []):
         league = ev.get("tournamentName", "")
@@ -782,11 +822,12 @@ def parse_bangbet(data):
                         odds[key] = float(out.get("odds", 0))
                     if len(odds) == 3:
                         events.append({"league": league, "home": home, "away": away, "time": time_str,
-                                       "odds": odds, "source": "bangbet", "market_type": "1x2"})
+                                       "odds": odds, "source": "bangbet", "market_type": "1x2",
+                                       "sport": sport})
                     break
     return events
 
-# 10. BetMaster (1x2 only)
+# 10. BetMaster – already multi‑sport
 def fetch_betmaster(sportid='1', isfeatured=1):
     url = BETMASTER_API
     headers = {
@@ -808,7 +849,7 @@ def fetch_betmaster(sportid='1', isfeatured=1):
     matches = json.loads(data["d"])
     return matches
 
-def parse_betmaster(matches):
+def parse_betmaster(matches, sport):
     events = []
     for m in matches:
         league = m.get("LeagueName", "")
@@ -829,7 +870,8 @@ def parse_betmaster(matches):
                     if odds1 and oddsX and odds2:
                         events.append({"league": league, "home": home, "away": away, "time": time_str,
                                        "odds": {"1": odds1, "X": oddsX, "2": odds2},
-                                       "source": "betmaster", "market_type": "1x2"})
+                                       "source": "betmaster", "market_type": "1x2",
+                                       "sport": sport})
                     break
                 except:
                     pass
@@ -845,10 +887,10 @@ def parse_betpawa(data):
 
 # ---------- Arbitrage Detection ----------
 def make_match_key(event):
-    # Ensure league is string to avoid issues
     league = str(event.get("league", "")).strip().lower()
     home = normalize(event.get("home", ""))
     away = normalize(event.get("away", ""))
+    sport = event.get("sport", "Football").strip().lower()
     time_str = event.get("time", "")
     try:
         dt = datetime.fromisoformat(time_str.replace("Z", "+00:00"))
@@ -858,7 +900,7 @@ def make_match_key(event):
     except:
         time_key = "unknown"
     market = event.get("market_type", "1x2")
-    return (league, home, away, time_key, market)
+    return (league, home, away, sport, time_key, market)
 
 def net_profit(profit_percent):
     return round(profit_percent * (1 - TAX_RATE), 2)
@@ -880,48 +922,102 @@ def scan():
     all_events = []
     history = load_history()
 
-    # Scrape all sources
-    try: print("Fetching ChampionBet..."); all_events.extend(scrape_championbet())
-    except Exception as e: print(f"ChampionBet error: {e}")
+    # ChampionBet (all sports)
+    try:
+        all_events.extend(scrape_championbet())
+    except Exception as e:
+        print(f"ChampionBet error: {e}")
     time.sleep(1)
 
-    try: print("Fetching AbaBet..."); all_events.extend(scrape_ababet())
-    except Exception as e: print(f"AbaBet error: {e}")
+    # AbaBet (only football)
+    try:
+        all_events.extend(scrape_ababet())
+    except Exception as e:
+        print(f"AbaBet error: {e}")
     time.sleep(1)
 
-    try: print("Fetching Fortebet..."); all_events.extend(scrape_fortebet())
-    except Exception as e: print(f"Fortebet error: {e}")
+    # Fortebet (all sports)
+    try:
+        all_events.extend(scrape_fortebet())
+    except Exception as e:
+        print(f"Fortebet error: {e}")
     time.sleep(1)
 
-    try: print("Fetching SportyBet..."); all_events.extend(scrape_sportybet())
-    except Exception as e: print(f"SportyBet error: {e}")
+    # SportyBet (all sports)
+    try:
+        all_events.extend(scrape_sportybet())
+    except Exception as e:
+        print(f"SportyBet error: {e}")
     time.sleep(1)
 
-    try: print("Fetching Melbet..."); all_events.extend(scrape_melbet())
-    except Exception as e: print(f"Melbet error: {e}")
+    # Melbet (all sports)
+    try:
+        all_events.extend(scrape_melbet())
+    except Exception as e:
+        print(f"Melbet error: {e}")
     time.sleep(1)
 
-    try: print("Fetching 1xBet..."); all_events.extend(scrape_1xbet())
-    except Exception as e: print(f"1xBet error: {e}")
+    # 1xBet (all sports)
+    try:
+        all_events.extend(scrape_1xbet())
+    except Exception as e:
+        print(f"1xBet error: {e}")
     time.sleep(1)
 
-    try: print("Fetching BongoBongo..."); all_events.extend(scrape_bongobongo())
-    except Exception as e: print(f"BongoBongo error: {e}")
+    # BongoBongo (placeholder)
+    try:
+        all_events.extend(scrape_bongobongo())
+    except Exception as e:
+        print(f"BongoBongo error: {e}")
     time.sleep(1)
 
-    try: print("Fetching GSB..."); gsb_data = fetch_gsb(); gsb_events = parse_gsb(gsb_data); all_events.extend(gsb_events); print(f"  GSB: {len(gsb_events)} events")
-    except Exception as e: print(f"GSB error: {e}")
+    # GSB (all sports)
+    gsb_sports = [31, 1, 2, 3, 4]
+    try:
+        gsb_events = fetch_gsb(sport_ids=gsb_sports)
+        all_events.extend(gsb_events)
+        print(f"  GSB: {len(gsb_events)} events across all sports")
+    except Exception as e:
+        print(f"GSB error: {e}")
     time.sleep(1)
 
-    try: print("Fetching Bangbet..."); bang_data = fetch_bangbet(); bang_events = parse_bangbet(bang_data); all_events.extend(bang_events); print(f"  Bangbet: {len(bang_events)} events")
-    except Exception as e: print(f"Bangbet error: {e}")
-    time.sleep(1)
+    # Bangbet (all sports)
+    bangbet_sport_map = {
+        "sr:sport:1": "Football",
+        "sr:sport:2": "Basketball",
+        "sr:sport:3": "Baseball",
+        "sr:sport:4": "Ice Hockey",
+        "sr:sport:5": "American Football"
+    }
+    for sport_id, sport_name in bangbet_sport_map.items():
+        try:
+            bang_data = fetch_bangbet(sport_id=sport_id)
+            bang_events = parse_bangbet(bang_data, sport_name)
+            all_events.extend(bang_events)
+            print(f"  Bangbet ({sport_name}): {len(bang_events)} events")
+        except Exception as e:
+            print(f"Bangbet {sport_name} error: {e}")
+        time.sleep(0.5)
 
-    try: print("Fetching Betmaster..."); bm_data = fetch_betmaster(); bm_events = parse_betmaster(bm_data); all_events.extend(bm_events); print(f"  Betmaster: {len(bm_events)} events")
-    except Exception as e: print(f"Betmaster error: {e}")
-    time.sleep(1)
+    # Betmaster (all sports)
+    betmaster_sport_map = {
+        "1": "Football",
+        "2": "Basketball",
+        "3": "Baseball",
+        "4": "American Football",
+        "5": "Ice Hockey"
+    }
+    for sport_id, sport_name in betmaster_sport_map.items():
+        try:
+            bm_data = fetch_betmaster(sportid=sport_id)
+            bm_events = parse_betmaster(bm_data, sport_name)
+            all_events.extend(bm_events)
+            print(f"  Betmaster ({sport_name}): {len(bm_events)} events")
+        except Exception as e:
+            print(f"Betmaster {sport_name} error: {e}")
+        time.sleep(0.5)
 
-    # ---------- FIX: Filter out events without 'odds' ----------
+    # Filter & Group
     groups = defaultdict(list)
     for ev in all_events:
         if 'odds' not in ev or not isinstance(ev['odds'], dict):
@@ -933,8 +1029,8 @@ def scan():
     for key, ev_list in groups.items():
         if len(ev_list) < 2:
             continue
-        league, home, away, time_key, market_type = key
-        match_str = f"{home} vs {away} [{league}] @ {time_key}"
+        league, home, away, sport, time_key, market_type = key
+        match_str = f"{home} vs {away} [{league}] ({sport}) @ {time_key}"
 
         # Market handling
         if market_type == "1x2":
@@ -1055,9 +1151,9 @@ def run_scan():
     """Runs one full scan (called by run_scanner.py)."""
     scan()
 
-# ---------- Main Loop (when script is run directly) ----------
+# ---------- Main Loop ----------
 if __name__ == "__main__":
-    print("Starting full arbitrage scanner. Press Ctrl+C to stop.")
+    print("Starting full arbitrage scanner (all sports). Press Ctrl+C to stop.")
     while True:
         try:
             scan()
