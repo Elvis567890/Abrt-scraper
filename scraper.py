@@ -921,9 +921,11 @@ def scan():
     except Exception as e: print(f"Betmaster error: {e}")
     time.sleep(1)
 
-    # Group events
+    # ---------- FIX: Filter out events without 'odds' ----------
     groups = defaultdict(list)
     for ev in all_events:
+        if 'odds' not in ev or not isinstance(ev['odds'], dict):
+            continue
         key = make_match_key(ev)
         groups[key].append(ev)
 
