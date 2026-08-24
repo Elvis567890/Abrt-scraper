@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 FULL ARBITRAGE SCANNER FOR UGANDAN BOOKMAKERS
-- Includes: GSB, Bangbet, Betmaster, ChampionBet, AbaBet, Fortebet, SportyBet, Melbet, 1xBet, BongoBongo, BetPawa (placeholder)
+- Includes: GSB, Bangbet, Betmaster, ChampionBet, AbaBet, Fortebet, SportyBet, Melbet, 1xBet, BongoBongo (placeholder), BetPawa (placeholder)
 - 15% withholding tax on profit
 - Multiple markets: 1x2, Over/Under, Asian Handicap, BTTS, Double Chance
 - History & Telegram alerts
@@ -13,10 +13,12 @@ import json
 import re
 import time
 import os
+import urllib.request
 from datetime import datetime, timedelta
 from collections import defaultdict
 from itertools import combinations, permutations
 from copy import deepcopy
+from bs4 import BeautifulSoup
 
 # ---------- Configuration ----------
 POLL_INTERVAL = 10          # seconds between scans
