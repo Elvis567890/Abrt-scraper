@@ -2,7 +2,7 @@
 """
 FULL ARBITRAGE SCANNER FOR UGANDAN BOOKMAKERS
 - Includes: GSB, Bangbet, Betmaster, ChampionBet, AbaBet, Fortebet, SportyBet, Melbet, 1xBet, BongoBongo (placeholder), BetPawa (placeholder)
-- 15% withholding tax on profit
+- 15% withholding tax on net profit
 - Multiple markets: 1x2, Over/Under, Asian Handicap, BTTS, Double Chance
 - History & Telegram alerts
 - Continuous polling
@@ -22,7 +22,7 @@ from bs4 import BeautifulSoup
 
 # ---------- Configuration ----------
 POLL_INTERVAL = 10          # seconds between scans
-TAX_RATE = 0.15             # Ugandan withholding tax on net profit
+TAX_RATE = 0.15             # Ugandan withholding tax
 MAX_PROFIT = 60.0           # reject if raw profit > 60% (likely error)
 STAKE = 100000              # total stake per arbitrage (UGX)
 HISTORY_FILE = "arb_history.json"
@@ -30,7 +30,7 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 # API endpoints
-SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"  # likely outdated
+SPORTYBET_API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
 CHAMPIONBET_API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
 CHAMPIONBET_MATCH_API = "https://www.championbet.ug/restapi/offer/en/match/{match_id}?annex=13&mobileVersion=2.47.4.3&locale=en"
 GSB_API = "https://gsb.ug/services/evapi/event/GetEvents"
@@ -50,22 +50,6 @@ def normalize(name):
     name = re.sub(r"[^a-z0-9 ]", "", name)
     name = re.sub(r"\s+", " ", name).strip()
     return name
-
-def teams_match(name1, name2):
-    n1 = normalize(name1)
-    n2 = normalize(name2)
-    if not n1 or not n2:
-        return False
-    if n1 == n2:
-        return True
-    if len(n1) > 3 and len(n2) > 3:
-        if n1 in n2 or n2 in n1:
-            return True
-        w1 = n1.split()[0] if n1.split() else ""
-        w2 = n2.split()[0] if n2.split() else ""
-        if len(w1) > 4 and w1 == w2:
-            return True
-    return False
 
 def clean_odd(v, min_odd=1.01, max_odd=50.0):
     try:
@@ -179,7 +163,6 @@ def championbet_extract_ah_dc_btts_from_betmap(bet_map):
                     if odd is not None:
                         odds_dict[k] = odd
         return odds_dict
-
     ah_odds = get_odds([5, 6, 7, 8])
     dc_odds = get_odds([20, 21, 22])
     btts_odds = get_odds([19, 20])
@@ -648,7 +631,7 @@ def scrape_bongobongo():
     odds = []
     try:
         print("Fetching BongoBongo...")
-        # Placeholder - implement when real endpoint available
+        # Implement when real API available
         print("BongoBongo: placeholder - no odds extracted")
     except Exception as e:
         print(f"BongoBongo error: {e}")
@@ -692,7 +675,7 @@ def parse_gsb(data):
             if len(odds) == 3:
                 events.append({"league": league, "home": home, "away": away, "time": time_str,
                                "odds": odds, "source": "gsb", "market_type": "1x2"})
-        # Over/Under (2.5)
+        # Over/Under
         market = next((b for b in ev.get("bts", []) if b.get("n") == "Under/Over"), None)
         if market:
             for odd in market.get("odds", []):
@@ -703,7 +686,7 @@ def parse_gsb(data):
                         events.append({"league": league, "home": home, "away": away, "time": time_str,
                                        "odds": {"over": over, "under": under}, "source": "gsb", "market_type": "ou"})
                     break
-        # Asian Handicap (any line)
+        # Asian Handicap
         market = next((b for b in ev.get("bts", []) if b.get("n") == "Asian Handicap"), None)
         if market:
             home_odds = {}
@@ -720,7 +703,7 @@ def parse_gsb(data):
                     events.append({"league": league, "home": home, "away": away, "time": time_str,
                                    "odds": {"home": h_odd, "away": a_odd}, "source": "gsb",
                                    "market_type": "ah", "line": line})
-                    break  # only one line per match
+                    break
         # Double Chance
         market = next((b for b in ev.get("bts", []) if b.get("n") == "Double Chance"), None)
         if market:
@@ -781,7 +764,6 @@ def parse_bangbet(data):
         home = ev.get("homeTeamName", "")
         away = ev.get("awayTeamName", "")
         time_str = ev.get("scheduledDate", "")
-        # 1x2
         for market_list in ev.get("marketList", []):
             for market in market_list.get("markets", []):
                 if market.get("name") == "1x2":
@@ -803,7 +785,7 @@ def parse_bangbet(data):
                     break
     return events
 
-# 10. BetMaster (1x2 only for now)
+# 10. BetMaster (1x2 only)
 def fetch_betmaster(sportid='1', isfeatured=1):
     url = BETMASTER_API
     headers = {
@@ -880,7 +862,6 @@ def net_profit(profit_percent):
     return round(profit_percent * (1 - TAX_RATE), 2)
 
 def arb_exists(odds_dict):
-    """odds_dict: dict of {outcome: odd}. Returns net profit % or None."""
     if len(odds_dict) < 2:
         return None
     prob = sum(1 / odd for odd in odds_dict.values() if odd > 0)
@@ -898,92 +879,45 @@ def scan():
     history = load_history()
 
     # Scrape all sources
-    try:
-        print("Fetching ChampionBet...")
-        all_events.extend(scrape_championbet())
-    except Exception as e:
-        print(f"ChampionBet error: {e}")
+    try: print("Fetching ChampionBet..."); all_events.extend(scrape_championbet())
+    except Exception as e: print(f"ChampionBet error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching AbaBet...")
-        all_events.extend(scrape_ababet())
-    except Exception as e:
-        print(f"AbaBet error: {e}")
+    try: print("Fetching AbaBet..."); all_events.extend(scrape_ababet())
+    except Exception as e: print(f"AbaBet error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching Fortebet...")
-        all_events.extend(scrape_fortebet())
-    except Exception as e:
-        print(f"Fortebet error: {e}")
+    try: print("Fetching Fortebet..."); all_events.extend(scrape_fortebet())
+    except Exception as e: print(f"Fortebet error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching SportyBet...")
-        all_events.extend(scrape_sportybet())
-    except Exception as e:
-        print(f"SportyBet error: {e}")
+    try: print("Fetching SportyBet..."); all_events.extend(scrape_sportybet())
+    except Exception as e: print(f"SportyBet error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching Melbet...")
-        all_events.extend(scrape_melbet())
-    except Exception as e:
-        print(f"Melbet error: {e}")
+    try: print("Fetching Melbet..."); all_events.extend(scrape_melbet())
+    except Exception as e: print(f"Melbet error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching 1xBet...")
-        all_events.extend(scrape_1xbet())
-    except Exception as e:
-        print(f"1xBet error: {e}")
+    try: print("Fetching 1xBet..."); all_events.extend(scrape_1xbet())
+    except Exception as e: print(f"1xBet error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching BongoBongo...")
-        all_events.extend(scrape_bongobongo())
-    except Exception as e:
-        print(f"BongoBongo error: {e}")
+    try: print("Fetching BongoBongo..."); all_events.extend(scrape_bongobongo())
+    except Exception as e: print(f"BongoBongo error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching GSB...")
-        gsb_data = fetch_gsb()
-        gsb_events = parse_gsb(gsb_data)
-        all_events.extend(gsb_events)
-        print(f"  GSB: {len(gsb_events)} events")
-    except Exception as e:
-        print(f"GSB error: {e}")
+    try: print("Fetching GSB..."); gsb_data = fetch_gsb(); gsb_events = parse_gsb(gsb_data); all_events.extend(gsb_events); print(f"  GSB: {len(gsb_events)} events")
+    except Exception as e: print(f"GSB error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching Bangbet...")
-        bang_data = fetch_bangbet()
-        bang_events = parse_bangbet(bang_data)
-        all_events.extend(bang_events)
-        print(f"  Bangbet: {len(bang_events)} events")
-    except Exception as e:
-        print(f"Bangbet error: {e}")
+    try: print("Fetching Bangbet..."); bang_data = fetch_bangbet(); bang_events = parse_bangbet(bang_data); all_events.extend(bang_events); print(f"  Bangbet: {len(bang_events)} events")
+    except Exception as e: print(f"Bangbet error: {e}")
     time.sleep(1)
 
-    try:
-        print("Fetching Betmaster...")
-        bm_data = fetch_betmaster()
-        bm_events = parse_betmaster(bm_data)
-        all_events.extend(bm_events)
-        print(f"  Betmaster: {len(bm_events)} events")
-    except Exception as e:
-        print(f"Betmaster error: {e}")
+    try: print("Fetching Betmaster..."); bm_data = fetch_betmaster(); bm_events = parse_betmaster(bm_data); all_events.extend(bm_events); print(f"  Betmaster: {len(bm_events)} events")
+    except Exception as e: print(f"Betmaster error: {e}")
     time.sleep(1)
-
-    # BetPawa is disabled (placeholder)
-    # try:
-    #     print("Fetching BetPawa...")
-    #     bp_events = parse_betpawa(fetch_betpawa())
-    #     all_events.extend(bp_events)
-    # except Exception as e:
-    #     print(f"BetPawa error: {e}")
 
     # Group events
     groups = defaultdict(list)
@@ -998,7 +932,7 @@ def scan():
         league, home, away, time_key, market_type = key
         match_str = f"{home} vs {away} [{league}] @ {time_key}"
 
-        # Process per market type
+        # Market handling
         if market_type == "1x2":
             best = {"1": 0, "X": 0, "2": 0}
             for ev in ev_list:
@@ -1033,7 +967,6 @@ def scan():
                     send_telegram_alert(match_str, profit)
 
         elif market_type == "ah":
-            # group by line
             line_groups = defaultdict(list)
             for ev in ev_list:
                 line = ev.get("line")
