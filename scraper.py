@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# scraper.py – Full scanner code (all bookmakers, arbitrage logic, loop)
 
 import os
 import re
@@ -97,7 +98,7 @@ class BaseBookmaker:
         return r.json()
 
 # =========================
-# GSB (YOUR ORIGINAL CLASS – FIXED)
+# GSB
 # =========================
 
 class GSB(BaseBookmaker):
@@ -130,7 +131,7 @@ class GSB(BaseBookmaker):
 
     def fetch_league(self, league_id):
         events = []
-        skip = 0  # FIXED
+        skip = 0
         take = 100
 
         while True:
@@ -249,7 +250,7 @@ class GSB(BaseBookmaker):
         return all_events
 
 # =========================
-# BETMASTER (YOUR ORIGINAL CLASS – FIXED)
+# BETMASTER
 # =========================
 
 class Betmaster(BaseBookmaker):
@@ -262,8 +263,8 @@ class Betmaster(BaseBookmaker):
             "sportid": "1",
             "countryid": "",
             "leagueid": "",
-            "isfeatured": 0,  # FIXED
-            "searchteam": 0,  # FIXED
+            "isfeatured": 0,
+            "searchteam": 0,
             "filter": 100
         }
         r = requests.post(self.API, headers=HEADERS, json=payload, timeout=TIMEOUT)
@@ -290,7 +291,7 @@ class Betmaster(BaseBookmaker):
         return events
 
 # =========================
-# CHAMPIONBET (ADDED)
+# CHAMPIONBET
 # =========================
 
 class ChampionBet(BaseBookmaker):
@@ -346,7 +347,7 @@ class ChampionBet(BaseBookmaker):
         return events
 
 # =========================
-# ABABET (ADDED)
+# ABABET
 # =========================
 
 class AbaBet(BaseBookmaker):
@@ -389,7 +390,7 @@ class AbaBet(BaseBookmaker):
         return events
 
 # =========================
-# FORTEBET (ADDED)
+# FORTEBET
 # =========================
 
 class Fortebet(BaseBookmaker):
@@ -447,7 +448,7 @@ class Fortebet(BaseBookmaker):
         return events
 
 # =========================
-# SPORTYBET (ADDED)
+# SPORTYBET
 # =========================
 
 class SportyBet(BaseBookmaker):
@@ -481,7 +482,7 @@ class SportyBet(BaseBookmaker):
         return events
 
 # =========================
-# MELBET (ADDED)
+# MELBET
 # =========================
 
 class Melbet(BaseBookmaker):
@@ -523,7 +524,7 @@ class Melbet(BaseBookmaker):
         return events
 
 # =========================
-# 1XBET (ADDED)
+# 1XBET
 # =========================
 
 class OneXBet(BaseBookmaker):
@@ -592,7 +593,7 @@ class BetPawa(BaseBookmaker):
         return []
 
 # =========================
-# ARBITRAGE ENGINE (YOUR LOGIC – FIXED)
+# ARBITRAGE ENGINE
 # =========================
 
 def find_arbs(events):
@@ -693,7 +694,7 @@ def find_arbs(events):
     return arbs
 
 # =========================
-# MAIN SCAN
+# MAIN SCAN LOOP (called by run_scanner.py)
 # =========================
 
 BOOKMAKERS = [
@@ -709,7 +710,7 @@ BOOKMAKERS = [
     BetPawa(),
 ]
 
-def scan():
+def scan_once():
     all_events = []
     print("\n========================")
     print("STARTING SCAN")
@@ -754,17 +755,18 @@ def scan():
     with open("arbs.json", "w") as f:
         json.dump(arbs, f, indent=2)
 
-# =========================
-# LOOP
-# =========================
-
-if __name__ == "__main__":
+def run_scan():
+    """Main continuous loop."""
     while True:
         try:
-            scan()
+            scan_once()
             time.sleep(POLL_INTERVAL)
         except KeyboardInterrupt:
+            print("Scanner stopped.")
             break
         except Exception as e:
             print("Fatal Error:", e)
             time.sleep(10)
+
+if __name__ == "__main__":
+    run_scan()
