@@ -755,18 +755,14 @@ def scan_once():
     with open("arbs.json", "w") as f:
         json.dump(arbs, f, indent=2)
 
-def run_scan():
-    """Main continuous loop."""
-    while True:
-        try:
-            scan_once()
-            time.sleep(POLL_INTERVAL)
-        except KeyboardInterrupt:
-            print("Scanner stopped.")
-            break
-        except Exception as e:
-            print("Fatal Error:", e)
-            time.sleep(10)
+# =========================
+# SINGLE SCAN ENTRY POINT
+# =========================
 
 if __name__ == "__main__":
-    run_scan()
+    try:
+        scan_once()
+    except KeyboardInterrupt:
+        print("Scanner stopped.")
+    except Exception as e:
+        print("Fatal Error:", e)
