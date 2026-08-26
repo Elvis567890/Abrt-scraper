@@ -23,7 +23,8 @@ jobs:
           pip install requests beautifulsoup4 lxml tenacity python-dotenv
 
       - name: Run scanner
-        run: python run_scanner.py
+        # CHANGED: run scraper.py instead of run_scanner.py
+        run: python scraper.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -32,6 +33,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add current_opportunities.json arb_history.json scanner_status.json
+          # CHANGED: Added events.json and arbs.json to match scraper.py output
+          git add events.json arbs.json
           git diff --staged --quiet || git commit -m "Auto-update arbitrage opportunities [skip ci]"
           git push
