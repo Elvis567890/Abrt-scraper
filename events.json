@@ -486,8 +486,8 @@
     "away": "Brondby",
     "market": "1x2",
     "odds": {
-      "1": 2.06,
-      "X": 3.8,
+      "1": 2.0,
+      "X": 4.0,
       "2": 3.3
     }
   },
@@ -846,9 +846,9 @@
     "away": "Puebla",
     "market": "1x2",
     "odds": {
-      "1": 1.54,
-      "X": 4.5,
-      "2": 5.5
+      "1": 1.69,
+      "X": 4.15,
+      "2": 4.55
     }
   },
   {
@@ -5700,399 +5700,243 @@
     }
   },
   {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "Atlanta United",
-    "away": "Charlotte",
+    "bookmaker": "Betmaster",
+    "league": "Primera Division",
+    "home": "Alianza FC",
+    "away": "Atletico Balboa",
     "market": "1x2",
     "odds": {
-      "1": 6.23,
-      "X": 3.89,
-      "2": 1.63
+      "1": 1.45,
+      "X": 4.0,
+      "2": 6.23
     }
   },
   {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "D.C. United",
-    "away": "Los Angeles",
+    "bookmaker": "Betmaster",
+    "league": "Liga de Expansi\u00f3n MX",
+    "home": "Zacatecas Mineros",
+    "away": "Jaiba Brava",
     "market": "1x2",
     "odds": {
-      "1": 4.93,
-      "X": 2.675,
+      "1": 2.1,
+      "X": 3.6,
+      "2": 3.0
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "USL Championship",
+    "home": "El Paso",
+    "away": "Loudoun",
+    "market": "1x2",
+    "odds": {
+      "1": 1.67,
+      "X": 3.7,
+      "2": 4.0
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "Liga MX",
+    "home": "Club America",
+    "away": "Puebla",
+    "market": "1x2",
+    "odds": {
+      "1": 1.33,
+      "X": 4.75,
+      "2": 9.0
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "USL Championship",
+    "home": "New Mexico",
+    "away": "San Antonio",
+    "market": "1x2",
+    "odds": {
+      "1": 1.95,
+      "X": 3.4,
+      "2": 3.1
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "MLS",
+    "home": "Colorado Rapids",
+    "away": "Real Salt Lake",
+    "market": "1x2",
+    "odds": {
+      "1": 1.91,
+      "X": 3.7,
+      "2": 3.5
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "Primera Divisi\u00f3n",
+    "home": "Zeledon",
+    "away": "Alajuelense",
+    "market": "1x2",
+    "odds": {
+      "1": 4.03,
+      "X": 3.38,
+      "2": 1.8
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "USL Championship",
+    "home": "Monterey Bay",
+    "away": "Sacramento Republic",
+    "market": "1x2",
+    "odds": {
+      "1": 3.5,
+      "X": 3.3,
+      "2": 1.9
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "USL Championship",
+    "home": "Las Vegas Lights",
+    "away": "Charleston",
+    "market": "1x2",
+    "odds": {
+      "1": 3.0,
+      "X": 3.5,
+      "2": 2.05
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "USL Championship",
+    "home": "Phoenix Rising",
+    "away": "Indy Eleven",
+    "market": "1x2",
+    "odds": {
+      "1": 1.83,
+      "X": 3.5,
+      "2": 3.5
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "MLS",
+    "home": "Portland Timbers",
+    "away": "Austin FC",
+    "market": "1x2",
+    "odds": {
+      "1": 1.6,
+      "X": 4.2,
+      "2": 4.75
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "MLS",
+    "home": "San Diego FC",
+    "away": "Los Angeles Galaxy",
+    "market": "1x2",
+    "odds": {
+      "1": 1.85,
+      "X": 3.9,
+      "2": 3.6
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "Liga MX",
+    "home": "Santos Laguna",
+    "away": "Tigres UANL",
+    "market": "1x2",
+    "odds": {
+      "1": 4.5,
+      "X": 3.75,
+      "2": 1.7
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "New South Wales NPL",
+    "home": "Blacktown City",
+    "away": "WS Wanderers U21",
+    "market": "1x2",
+    "odds": {
+      "1": 1.73,
+      "X": 3.8,
+      "2": 3.6
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "New South Wales NPL",
+    "home": "Sydney Olympic",
+    "away": "Sydney FC U23",
+    "market": "1x2",
+    "odds": {
+      "1": 2.38,
+      "X": 3.4,
+      "2": 2.5
+    }
+  },
+  {
+    "bookmaker": "Betmaster",
+    "league": "New South Wales NPL",
+    "home": "Wollongong Wolves",
+    "away": "Manly Utd",
+    "market": "1x2",
+    "odds": {
+      "1": 2.75,
+      "X": 3.4,
       "2": 2.2
     }
   },
   {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "Houston Dynamo",
-    "away": "San Jose Earthquakes",
+    "bookmaker": "Betmaster",
+    "league": "New South Wales NPL",
+    "home": "Marconi Stallions",
+    "away": "NWS Spirit",
     "market": "1x2",
     "odds": {
       "1": 1.7,
-      "X": 4.07,
-      "2": 5.09
+      "X": 3.6,
+      "2": 4.0
     }
   },
   {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "Inter Miami",
-    "away": "CF Montreal",
+    "bookmaker": "Betmaster",
+    "league": "New South Wales NPL",
+    "home": "Rockdale Ilinden",
+    "away": "UNSW",
     "market": "1x2",
     "odds": {
-      "1": 1.18,
-      "X": 7.58,
-      "2": 19.6
+      "1": 1.67,
+      "X": 3.8,
+      "2": 3.9
     }
   },
   {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "Sporting Kansas City",
-    "away": "Vancouver Whitecaps",
+    "bookmaker": "Betmaster",
+    "league": "New South Wales NPL",
+    "home": "Sutherland Sharks",
+    "away": "SD Raiders",
     "market": "1x2",
     "odds": {
-      "1": 6.83,
-      "X": 5.26,
-      "2": 1.44
+      "1": 2.2,
+      "X": 3.5,
+      "2": 2.7
     }
   },
   {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "Minnesota United",
-    "away": "Orlando City",
+    "bookmaker": "Betmaster",
+    "league": "New South Wales NPL",
+    "home": "Sydney Utd",
+    "away": "St George Saints",
     "market": "1x2",
     "odds": {
-      "1": 1.89,
-      "X": 4.12,
-      "2": 3.86
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "New York Red Bulls",
-    "away": "Philadelphia Union",
-    "market": "1x2",
-    "odds": {
-      "1": 7.38,
-      "X": 4.17,
-      "2": 1.525
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "Nashville",
-    "away": "Cincinnati",
-    "market": "1x2",
-    "odds": {
-      "1": 1.775,
-      "X": 4.11,
-      "2": 4.45
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS",
-    "home": "Toronto",
-    "away": "New York City",
-    "market": "1x2",
-    "odds": {
-      "1": 6.87,
-      "X": 3.75,
-      "2": 1.616
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Argentina. Primera Division",
-    "home": "Atletico Tucuman",
-    "away": "Belgrano",
-    "market": "1x2",
-    "odds": {
-      "1": 2.95,
-      "X": 2.69,
-      "2": 3.025
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Argentina. Primera Division",
-    "home": "Talleres de Cordoba",
-    "away": "Central Cordoba de Santiago",
-    "market": "1x2",
-    "odds": {
-      "1": 1.936,
-      "X": 3.045,
-      "2": 5.07
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Brazil. Campeonato Brasileiro. Serie A",
-    "home": "CR Vasco da Gama",
-    "away": "Cruzeiro Esporte Clube",
-    "market": "1x2",
-    "odds": {
-      "1": 2.075,
-      "X": 3.105,
-      "2": 4.4
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Brazil. Campeonato Brasileiro. Serie A",
-    "home": "Sao Paulo",
-    "away": "Red Bull Bragantino",
-    "market": "1x2",
-    "odds": {
-      "1": 1.02,
-      "X": 19.0,
-      "2": 67.0
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Colombia. Categoria Primera A",
-    "home": "Junior de Barranquilla",
-    "away": "Club Independiente Santa Fe",
-    "market": "1x2",
-    "odds": {
-      "1": 2.7,
-      "X": 2.18,
-      "2": 4.94
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Mexico. Liga MX",
-    "home": "Pachuca",
-    "away": "Guadalajara",
-    "market": "1x2",
-    "odds": {
-      "1": 5.74,
-      "X": 2.05,
-      "2": 2.635
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Chile. Primera Division",
-    "home": "Nublense",
-    "away": "Club Deportes Concepcion",
-    "market": "1x2",
-    "odds": {
-      "1": 6.34,
-      "X": 3.485,
-      "2": 1.675
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Peru. Liga 1",
-    "home": "Alianza Lima",
-    "away": "Deportivo Garcilaso",
-    "market": "1x2",
-    "odds": {
-      "1": 1.375,
-      "X": 4.33,
-      "2": 9.04
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Honduras. Liga Nacional",
-    "home": "Platense Puerto Cortes",
-    "away": "CA Independiente Siguatepeque",
-    "market": "1x2",
-    "odds": {
-      "1": 1.035,
-      "X": 13.0,
-      "2": 26.0
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Nicaragua Championship",
-    "home": "Diriangen",
-    "away": "ART Municipal Jalapa",
-    "market": "1x2",
-    "odds": {
-      "1": 1.184,
-      "X": 7.08,
-      "2": 12.0
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. MLS Next Pro",
-    "home": "Connecticut United FC",
-    "away": "New York Red Bulls II",
-    "market": "1x2",
-    "odds": {
-      "1": 1.216,
-      "X": 5.12,
-      "2": 19.3
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "National Collegiate Athletic Association (NCAA)",
-    "home": "Drexel",
-    "away": "Monmouth University Hawks",
-    "market": "1x2",
-    "odds": {
-      "1": 18.5,
-      "X": 4.39,
-      "2": 1.24
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. USL",
-    "home": "Lexington",
-    "away": "Colorado Springs Switchbacks",
-    "market": "1x2",
-    "odds": {
-      "1": 15.7,
-      "X": 3.93,
-      "2": 1.33
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. USL",
-    "home": "Louisville City",
-    "away": "Detroit City",
-    "market": "1x2",
-    "odds": {
-      "1": 2.26,
-      "X": 2.656,
-      "2": 3.99
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. USL",
-    "home": "Oakland Roots",
-    "away": "Orange County Blues",
-    "market": "1x2",
-    "odds": {
-      "1": 1.296,
-      "X": 5.04,
-      "2": 10.1
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. USL",
-    "home": "Tulsa",
-    "away": "Rhode Island",
-    "market": "1x2",
-    "odds": {
-      "1": 1.57,
-      "X": 4.0,
-      "2": 5.49
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. USL",
-    "home": "Hartford Athletic",
-    "away": "Birmingham Legion",
-    "market": "1x2",
-    "odds": {
-      "1": 1.155,
-      "X": 6.14,
-      "2": 24.0
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Chile. Primera B",
-    "home": "Deportes Iquique",
-    "away": "San Luis de Quillota",
-    "market": "1x2",
-    "odds": {
-      "1": 2.315,
-      "X": 2.775,
-      "2": 3.61
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Ecuador. Serie A",
-    "home": "Manta",
-    "away": "Barcelona Sporting Club",
-    "market": "1x2",
-    "odds": {
-      "1": 2.0,
-      "X": 3.09,
-      "2": 4.07
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. NWSL. Women",
-    "home": "Denver Summit (Women)",
-    "away": "Chicago Stars (Women)",
-    "market": "1x2",
-    "odds": {
-      "1": 1.296,
-      "X": 5.58,
-      "2": 8.37
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "USA. NWSL. Women",
-    "home": "Orlando Pride (Women)",
-    "away": "Utah Royals (Women)",
-    "market": "1x2",
-    "odds": {
-      "1": 1.464,
-      "X": 4.06,
-      "2": 7.1
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Costa Rica. Segunda Division",
-    "home": "Municipal Grecia",
-    "away": "AD Sarchi",
-    "market": "1x2",
-    "odds": {
-      "1": 1.365,
-      "X": 4.43,
-      "2": 8.18
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Nicaragua Championship. Division 2",
-    "home": "Juventus Managua",
-    "away": "Real Madriz",
-    "market": "1x2",
-    "odds": {
-      "1": 2.82,
-      "X": 2.565,
-      "2": 3.075
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Panama. Liga Panamena de Futbol",
-    "home": "CD Universitario",
-    "away": "Club Deportivo \u00c1rabe Unido",
-    "market": "1x2",
-    "odds": {
-      "1": 4.38,
-      "X": 1.63,
-      "2": 4.38
+      "1": 1.5,
+      "X": 3.8,
+      "2": 5.5
     }
   },
   {
@@ -6572,7 +6416,7 @@
     "odds": {
       "1": 2.75,
       "X": 2.63,
-      "2": 3.1
+      "2": 3.2
     }
   },
   {
@@ -6584,7 +6428,7 @@
     "odds": {
       "1": 1.91,
       "X": 3.0,
-      "2": 5.0
+      "2": 4.75
     }
   },
   {
@@ -6618,7 +6462,7 @@
     "away": "Fundacion Amigos",
     "market": "1x2",
     "odds": {
-      "1": 21.0,
+      "1": 23.0,
       "X": 10.0,
       "2": 1.06
     }
@@ -7518,9 +7362,9 @@
     "away": "Itabirito (W)",
     "market": "1x2",
     "odds": {
-      "1": 7.0,
-      "X": 4.0,
-      "2": 1.5
+      "1": 7.5,
+      "X": 4.33,
+      "2": 1.4
     }
   },
   {
@@ -7530,8 +7374,8 @@
     "away": "Cruzeiro MG",
     "market": "1x2",
     "odds": {
-      "1": 1.95,
-      "X": 3.1,
+      "1": 2.0,
+      "X": 3.0,
       "2": 4.33
     }
   },
@@ -7670,18 +7514,6 @@
   {
     "bookmaker": "AbaBet",
     "league": "Chile - Primera B",
-    "home": "Deportes Iquique",
-    "away": "San Luis",
-    "market": "1x2",
-    "odds": {
-      "1": 2.38,
-      "X": 2.75,
-      "2": 3.4
-    }
-  },
-  {
-    "bookmaker": "AbaBet",
-    "league": "Chile - Primera B",
     "home": "Copiapo",
     "away": "Antofagasta",
     "market": "1x2",
@@ -7711,7 +7543,7 @@
     "market": "1x2",
     "odds": {
       "1": 6.5,
-      "X": 3.4,
+      "X": 3.5,
       "2": 1.62
     }
   },
@@ -7761,18 +7593,6 @@
       "1": 1.4,
       "X": 4.33,
       "2": 5.75
-    }
-  },
-  {
-    "bookmaker": "AbaBet",
-    "league": "Colombia - Primera A",
-    "home": "Junior",
-    "away": "Santa Fe",
-    "market": "1x2",
-    "odds": {
-      "1": 2.6,
-      "X": 2.1,
-      "2": 4.75
     }
   },
   {
@@ -7832,7 +7652,7 @@
     "odds": {
       "1": 1.33,
       "X": 4.33,
-      "2": 8.0
+      "2": 8.5
     }
   },
   {
@@ -8490,9 +8310,9 @@
     "away": "Barcelona SC",
     "market": "1x2",
     "odds": {
-      "1": 1.95,
-      "X": 3.1,
-      "2": 4.33
+      "1": 1.83,
+      "X": 3.2,
+      "2": 4.75
     }
   },
   {
@@ -10470,9 +10290,9 @@
     "away": "Jalapa",
     "market": "1x2",
     "odds": {
-      "1": 1.17,
-      "X": 6.5,
-      "2": 11.0
+      "1": 1.04,
+      "X": 13.0,
+      "2": 23.0
     }
   },
   {
@@ -11058,9 +10878,9 @@
     "away": "Sportivo Trinidense (w)",
     "market": "1x2",
     "odds": {
-      "1": 1.13,
-      "X": 6.0,
-      "2": 29.0
+      "1": 1.11,
+      "X": 6.5,
+      "2": 34.0
     }
   },
   {
@@ -11094,9 +10914,9 @@
     "away": "Deportivo Garcilaso",
     "market": "1x2",
     "odds": {
-      "1": 1.36,
-      "X": 4.33,
-      "2": 9.5
+      "1": 1.4,
+      "X": 4.0,
+      "2": 8.5
     }
   },
   {
@@ -13002,8 +12822,8 @@
     "away": "Huracan Buceo",
     "market": "1x2",
     "odds": {
-      "1": 2.1,
-      "X": 2.4,
+      "1": 2.2,
+      "X": 2.38,
       "2": 5.0
     }
   },
@@ -13015,8 +12835,8 @@
     "market": "1x2",
     "odds": {
       "1": 4.5,
-      "X": 2.6,
-      "2": 2.2
+      "X": 2.5,
+      "2": 2.25
     }
   },
   {
@@ -13026,9 +12846,9 @@
     "away": "Philadelphia Union",
     "market": "1x2",
     "odds": {
-      "1": 7.5,
-      "X": 4.0,
-      "2": 1.44
+      "1": 21.0,
+      "X": 9.5,
+      "2": 1.1
     }
   },
   {
@@ -13038,9 +12858,9 @@
     "away": "Montreal Impact",
     "market": "1x2",
     "odds": {
-      "1": 1.17,
-      "X": 7.0,
-      "2": 17.0
+      "1": 1.18,
+      "X": 6.5,
+      "2": 15.0
     }
   },
   {
@@ -13050,7 +12870,7 @@
     "away": "New York City FC",
     "market": "1x2",
     "odds": {
-      "1": 7.0,
+      "1": 7.5,
       "X": 3.6,
       "2": 1.53
     }
@@ -13075,8 +12895,8 @@
     "market": "1x2",
     "odds": {
       "1": 1.67,
-      "X": 4.0,
-      "2": 5.0
+      "X": 3.75,
+      "2": 4.75
     }
   },
   {
@@ -13170,9 +12990,9 @@
     "away": "New York RB II",
     "market": "1x2",
     "odds": {
-      "1": 1.2,
-      "X": 4.75,
-      "2": 17.0
+      "1": 4.5,
+      "X": 1.53,
+      "2": 4.33
     }
   },
   {
@@ -13182,7 +13002,7 @@
     "away": "Utah Royals (W)",
     "market": "1x2",
     "odds": {
-      "1": 1.44,
+      "1": 1.4,
       "X": 4.0,
       "2": 7.0
     }
@@ -13206,21 +13026,9 @@
     "away": "Boise Cutthroats FC",
     "market": "1x2",
     "odds": {
-      "1": 4.75,
-      "X": 1.62,
-      "2": 3.75
-    }
-  },
-  {
-    "bookmaker": "AbaBet",
-    "league": "USA - USL League One",
-    "home": "Union Omaha",
-    "away": "New York Cosmos",
-    "market": "1x2",
-    "odds": {
-      "1": 1.53,
-      "X": 4.0,
-      "2": 5.5
+      "1": 23.0,
+      "X": 5.5,
+      "2": 1.14
     }
   },
   {
@@ -13230,9 +13038,9 @@
     "away": "Birmingham Legion",
     "market": "1x2",
     "odds": {
-      "1": 1.14,
+      "1": 1.13,
       "X": 6.0,
-      "2": 23.0
+      "2": 26.0
     }
   },
   {
@@ -13242,21 +13050,9 @@
     "away": "Colorado Springs",
     "market": "1x2",
     "odds": {
-      "1": 15.0,
-      "X": 3.75,
-      "2": 1.3
-    }
-  },
-  {
-    "bookmaker": "AbaBet",
-    "league": "USA - USL Pro",
-    "home": "Louisville City",
-    "away": "Detroit City FC",
-    "market": "1x2",
-    "odds": {
-      "1": 2.3,
-      "X": 2.63,
-      "2": 3.75
+      "1": 19.0,
+      "X": 4.0,
+      "2": 1.29
     }
   },
   {
@@ -13266,7 +13062,7 @@
     "away": "Orange County SC",
     "market": "1x2",
     "odds": {
-      "1": 1.29,
+      "1": 1.25,
       "X": 5.0,
       "2": 10.0
     }
@@ -13278,9 +13074,9 @@
     "away": "Rhode Island College",
     "market": "1x2",
     "odds": {
-      "1": 1.57,
+      "1": 1.53,
       "X": 4.0,
-      "2": 5.5
+      "2": 6.0
     }
   },
   {
@@ -13350,9 +13146,9 @@
     "away": "Tampa Bay Sun (W)",
     "market": "1x2",
     "odds": {
-      "1": 15.0,
+      "1": 17.0,
       "X": 3.75,
-      "2": 1.33
+      "2": 1.3
     }
   },
   {
@@ -13380,243 +13176,399 @@
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "Primera Division",
-    "home": "Alianza FC",
-    "away": "Atletico Balboa",
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "Atlanta United",
+    "away": "Charlotte",
     "market": "1x2",
     "odds": {
-      "1": 1.45,
+      "1": 6.23,
+      "X": 3.89,
+      "2": 1.63
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "D.C. United",
+    "away": "Los Angeles",
+    "market": "1x2",
+    "odds": {
+      "1": 4.95,
+      "X": 2.585,
+      "2": 2.26
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "Houston Dynamo",
+    "away": "San Jose Earthquakes",
+    "market": "1x2",
+    "odds": {
+      "1": 1.74,
+      "X": 3.92,
+      "2": 4.96
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "Inter Miami",
+    "away": "CF Montreal",
+    "market": "1x2",
+    "odds": {
+      "1": 1.195,
+      "X": 7.25,
+      "2": 17.8
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "Sporting Kansas City",
+    "away": "Vancouver Whitecaps",
+    "market": "1x2",
+    "odds": {
+      "1": 6.83,
+      "X": 5.26,
+      "2": 1.44
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "Minnesota United",
+    "away": "Orlando City",
+    "market": "1x2",
+    "odds": {
+      "1": 1.89,
+      "X": 4.12,
+      "2": 3.86
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "New York Red Bulls",
+    "away": "Philadelphia Union",
+    "market": "1x2",
+    "odds": {
+      "1": 23.0,
+      "X": 11.2,
+      "2": 1.112
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "Nashville",
+    "away": "Cincinnati",
+    "market": "1x2",
+    "odds": {
+      "1": 1.775,
+      "X": 4.11,
+      "2": 4.45
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS",
+    "home": "Toronto",
+    "away": "New York City",
+    "market": "1x2",
+    "odds": {
+      "1": 7.3,
+      "X": 3.71,
+      "2": 1.6
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Argentina. Primera Division",
+    "home": "Atletico Tucuman",
+    "away": "Belgrano",
+    "market": "1x2",
+    "odds": {
+      "1": 2.944,
+      "X": 2.664,
+      "2": 3.064
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Argentina. Primera Division",
+    "home": "Talleres de Cordoba",
+    "away": "Central Cordoba de Santiago",
+    "market": "1x2",
+    "odds": {
+      "1": 1.955,
+      "X": 3.075,
+      "2": 4.87
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Brazil. Campeonato Brasileiro. Serie A",
+    "home": "CR Vasco da Gama",
+    "away": "Cruzeiro Esporte Clube",
+    "market": "1x2",
+    "odds": {
+      "1": 2.125,
+      "X": 3.096,
+      "2": 4.22
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Brazil. Campeonato Brasileiro. Serie A",
+    "home": "Sao Paulo",
+    "away": "Red Bull Bragantino",
+    "market": "1x2",
+    "odds": {
+      "1": 1.016,
+      "X": 21.0,
+      "2": 81.0
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Colombia. Categoria Primera A",
+    "home": "Junior de Barranquilla",
+    "away": "Club Independiente Santa Fe",
+    "market": "1x2",
+    "odds": {
+      "1": 2.7,
+      "X": 2.18,
+      "2": 4.94
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Mexico. Liga MX",
+    "home": "Pachuca",
+    "away": "Guadalajara",
+    "market": "1x2",
+    "odds": {
+      "1": 4.78,
+      "X": 1.705,
+      "2": 4.05
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Chile. Primera Division",
+    "home": "Nublense",
+    "away": "Club Deportes Concepcion",
+    "market": "1x2",
+    "odds": {
+      "1": 6.29,
+      "X": 3.56,
+      "2": 1.66
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Peru. Liga 1",
+    "home": "Alianza Lima",
+    "away": "Deportivo Garcilaso",
+    "market": "1x2",
+    "odds": {
+      "1": 1.43,
+      "X": 4.05,
+      "2": 8.19
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Honduras. Liga Nacional",
+    "home": "Platense Puerto Cortes",
+    "away": "CA Independiente Siguatepeque",
+    "market": "1x2",
+    "odds": {
+      "1": 1.22,
+      "X": 5.54,
+      "2": 14.4
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "Nicaragua Championship",
+    "home": "Diriangen",
+    "away": "ART Municipal Jalapa",
+    "market": "1x2",
+    "odds": {
+      "1": 1.04,
+      "X": 14.5,
+      "2": 26.0
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. MLS Next Pro",
+    "home": "Connecticut United FC",
+    "away": "New York Red Bulls II",
+    "market": "1x2",
+    "odds": {
+      "1": 4.38,
+      "X": 1.525,
+      "2": 5.36
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "National Collegiate Athletic Association (NCAA)",
+    "home": "Drexel",
+    "away": "Monmouth University Hawks",
+    "market": "1x2",
+    "odds": {
+      "1": 19.4,
+      "X": 4.7,
+      "2": 1.205
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. USL",
+    "home": "Lexington",
+    "away": "Colorado Springs Switchbacks",
+    "market": "1x2",
+    "odds": {
+      "1": 19.2,
+      "X": 4.04,
+      "2": 1.3
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. USL",
+    "home": "Louisville City",
+    "away": "Detroit City",
+    "market": "1x2",
+    "odds": {
+      "1": 2.26,
+      "X": 2.656,
+      "2": 3.99
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. USL",
+    "home": "Oakland Roots",
+    "away": "Orange County Blues",
+    "market": "1x2",
+    "odds": {
+      "1": 1.275,
+      "X": 5.26,
+      "2": 10.5
+    }
+  },
+  {
+    "bookmaker": "1xBet",
+    "league": "USA. USL",
+    "home": "Tulsa",
+    "away": "Rhode Island",
+    "market": "1x2",
+    "odds": {
+      "1": 1.53,
       "X": 4.0,
-      "2": 6.23
+      "2": 6.0
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "Liga de Expansi\u00f3n MX",
-    "home": "Zacatecas Mineros",
-    "away": "Jaiba Brava",
+    "bookmaker": "1xBet",
+    "league": "USA. USL",
+    "home": "Hartford Athletic",
+    "away": "Birmingham Legion",
     "market": "1x2",
     "odds": {
-      "1": 2.1,
-      "X": 3.6,
-      "2": 3.0
+      "1": 1.125,
+      "X": 6.0,
+      "2": 26.0
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "USL Championship",
-    "home": "El Paso",
-    "away": "Loudoun",
+    "bookmaker": "1xBet",
+    "league": "Chile. Primera B",
+    "home": "Deportes Iquique",
+    "away": "San Luis de Quillota",
     "market": "1x2",
     "odds": {
-      "1": 1.67,
-      "X": 3.7,
-      "2": 4.0
+      "1": 2.35,
+      "X": 2.69,
+      "2": 3.67
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "Liga MX",
-    "home": "Club America",
-    "away": "Puebla",
+    "bookmaker": "1xBet",
+    "league": "Ecuador. Serie A",
+    "home": "Manta",
+    "away": "Barcelona Sporting Club",
     "market": "1x2",
     "odds": {
-      "1": 1.33,
-      "X": 4.75,
-      "2": 9.0
+      "1": 1.875,
+      "X": 3.195,
+      "2": 4.48
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "USL Championship",
-    "home": "New Mexico",
-    "away": "San Antonio",
+    "bookmaker": "1xBet",
+    "league": "USA. NWSL. Women",
+    "home": "Denver Summit (Women)",
+    "away": "Chicago Stars (Women)",
     "market": "1x2",
     "odds": {
-      "1": 1.95,
-      "X": 3.4,
-      "2": 3.1
+      "1": 1.296,
+      "X": 5.58,
+      "2": 8.37
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "MLS",
-    "home": "Colorado Rapids",
-    "away": "Real Salt Lake",
+    "bookmaker": "1xBet",
+    "league": "USA. NWSL. Women",
+    "home": "Orlando Pride (Women)",
+    "away": "Utah Royals (Women)",
     "market": "1x2",
     "odds": {
-      "1": 1.91,
-      "X": 3.7,
-      "2": 3.5
+      "1": 1.44,
+      "X": 4.19,
+      "2": 7.33
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "Primera Divisi\u00f3n",
-    "home": "Zeledon",
-    "away": "Alajuelense",
+    "bookmaker": "1xBet",
+    "league": "Costa Rica. Segunda Division",
+    "home": "Municipal Grecia",
+    "away": "AD Sarchi",
     "market": "1x2",
     "odds": {
-      "1": 4.03,
-      "X": 3.38,
-      "2": 1.8
+      "1": 1.355,
+      "X": 4.4,
+      "2": 8.64
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "USL Championship",
-    "home": "Monterey Bay",
-    "away": "Sacramento Republic",
+    "bookmaker": "1xBet",
+    "league": "Nicaragua Championship. Division 2",
+    "home": "Juventus Managua",
+    "away": "Real Madriz",
     "market": "1x2",
     "odds": {
-      "1": 3.5,
-      "X": 3.3,
-      "2": 1.9
+      "1": 2.904,
+      "X": 2.525,
+      "2": 3.032
     }
   },
   {
-    "bookmaker": "Betmaster",
-    "league": "USL Championship",
-    "home": "Las Vegas Lights",
-    "away": "Charleston",
+    "bookmaker": "1xBet",
+    "league": "Panama. Liga Panamena de Futbol",
+    "home": "CD Universitario",
+    "away": "Club Deportivo \u00c1rabe Unido",
     "market": "1x2",
     "odds": {
-      "1": 3.0,
-      "X": 3.5,
-      "2": 2.05
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "USL Championship",
-    "home": "Phoenix Rising",
-    "away": "Indy Eleven",
-    "market": "1x2",
-    "odds": {
-      "1": 1.83,
-      "X": 3.5,
-      "2": 3.5
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "MLS",
-    "home": "Portland Timbers",
-    "away": "Austin FC",
-    "market": "1x2",
-    "odds": {
-      "1": 1.6,
-      "X": 4.2,
-      "2": 4.75
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "MLS",
-    "home": "San Diego FC",
-    "away": "Los Angeles Galaxy",
-    "market": "1x2",
-    "odds": {
-      "1": 1.85,
-      "X": 3.9,
-      "2": 3.6
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "Liga MX",
-    "home": "Santos Laguna",
-    "away": "Tigres UANL",
-    "market": "1x2",
-    "odds": {
-      "1": 4.5,
-      "X": 3.75,
-      "2": 1.7
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "New South Wales NPL",
-    "home": "Blacktown City",
-    "away": "WS Wanderers U21",
-    "market": "1x2",
-    "odds": {
-      "1": 1.73,
-      "X": 3.8,
-      "2": 3.6
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "New South Wales NPL",
-    "home": "Sydney Olympic",
-    "away": "Sydney FC U23",
-    "market": "1x2",
-    "odds": {
-      "1": 2.38,
-      "X": 3.4,
-      "2": 2.5
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "New South Wales NPL",
-    "home": "Wollongong Wolves",
-    "away": "Manly Utd",
-    "market": "1x2",
-    "odds": {
-      "1": 2.75,
-      "X": 3.4,
-      "2": 2.2
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "New South Wales NPL",
-    "home": "Marconi Stallions",
-    "away": "NWS Spirit",
-    "market": "1x2",
-    "odds": {
-      "1": 1.7,
-      "X": 3.6,
-      "2": 4.0
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "New South Wales NPL",
-    "home": "Rockdale Ilinden",
-    "away": "UNSW",
-    "market": "1x2",
-    "odds": {
-      "1": 1.67,
-      "X": 3.8,
-      "2": 3.9
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "New South Wales NPL",
-    "home": "Sutherland Sharks",
-    "away": "SD Raiders",
-    "market": "1x2",
-    "odds": {
-      "1": 2.2,
-      "X": 3.5,
-      "2": 2.7
-    }
-  },
-  {
-    "bookmaker": "Betmaster",
-    "league": "New South Wales NPL",
-    "home": "Sydney Utd",
-    "away": "St George Saints",
-    "market": "1x2",
-    "odds": {
-      "1": 1.5,
-      "X": 3.8,
-      "2": 5.5
+      "1": 4.58,
+      "X": 1.525,
+      "2": 5.09
     }
   },
   {
