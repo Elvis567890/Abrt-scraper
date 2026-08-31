@@ -332,7 +332,7 @@
     "odds": {
       "1": 4.5,
       "X": 3.0,
-      "2": 1.91
+      "2": 1.95
     }
   },
   {
@@ -397,6 +397,18 @@
   },
   {
     "bookmaker": "AbaBet",
+    "league": "Brazil - Serie B",
+    "home": "Fortaleza EC",
+    "away": "Operario PR",
+    "market": "1x2",
+    "odds": {
+      "1": 1.83,
+      "X": 2.88,
+      "2": 5.5
+    }
+  },
+  {
+    "bookmaker": "AbaBet",
     "league": "Bulgaria - Second Professional League",
     "home": "PFC Hebar",
     "away": "FC Fratria",
@@ -417,6 +429,18 @@
       "1": 2.1,
       "X": 3.1,
       "2": 3.2
+    }
+  },
+  {
+    "bookmaker": "AbaBet",
+    "league": "Chile - Primera Division",
+    "home": "Union La Calera",
+    "away": "La Serena",
+    "market": "1x2",
+    "odds": {
+      "1": 2.38,
+      "X": 2.75,
+      "2": 3.4
     }
   },
   {
@@ -1089,18 +1113,6 @@
       "1": 1.42,
       "X": 4.5,
       "2": 5.0
-    }
-  },
-  {
-    "bookmaker": "AbaBet",
-    "league": "Paraguay - 2nd Division",
-    "home": "Encarnacion FC",
-    "away": "Benjamin Aceval",
-    "market": "1x2",
-    "odds": {
-      "1": 5.5,
-      "X": 3.2,
-      "2": 1.67
     }
   },
   {
@@ -1794,9 +1806,9 @@
     "away": "Deportivo Rayo Zuliano",
     "market": "1x2",
     "odds": {
-      "1": 2.3,
+      "1": 2.25,
       "X": 3.4,
-      "2": 2.88
+      "2": 3.0
     }
   },
   {
@@ -1809,66 +1821,6 @@
       "1": 1.36,
       "X": 4.0,
       "2": 8.0
-    }
-  },
-  {
-    "bookmaker": "Melbet",
-    "league": "England. Premier League",
-    "home": "Manchester City",
-    "away": "Coventry City",
-    "market": "1x2",
-    "odds": {
-      "1": 1.165,
-      "X": 7.7,
-      "2": 15.0
-    }
-  },
-  {
-    "bookmaker": "Melbet",
-    "league": "Germany. Bundesliga",
-    "home": "Schalke 04",
-    "away": "Bayern Munich",
-    "market": "1x2",
-    "odds": {
-      "1": 14.5,
-      "X": 8.4,
-      "2": 1.15
-    }
-  },
-  {
-    "bookmaker": "Melbet",
-    "league": "England. Premier League",
-    "home": "Ipswich Town",
-    "away": "Liverpool",
-    "market": "1x2",
-    "odds": {
-      "1": 5.25,
-      "X": 4.6,
-      "2": 1.545
-    }
-  },
-  {
-    "bookmaker": "Melbet",
-    "league": "Spain. La Liga",
-    "home": "Real Betis",
-    "away": "Real Madrid",
-    "market": "1x2",
-    "odds": {
-      "1": 6.55,
-      "X": 4.94,
-      "2": 1.43
-    }
-  },
-  {
-    "bookmaker": "Melbet",
-    "league": "Spain. La Liga",
-    "home": "Valencia",
-    "away": "Barcelona",
-    "market": "1x2",
-    "odds": {
-      "1": 7.8,
-      "X": 5.2,
-      "2": 1.365
     }
   },
   {
@@ -2586,9 +2538,9 @@
     "away": "Dorados Sinaloa",
     "market": "1x2",
     "odds": {
-      "1": 1.95,
+      "1": 1.83,
       "X": 3.45,
-      "2": 3.5
+      "2": 4.0
     }
   },
   {
@@ -4962,9 +4914,9 @@
     "away": "Barcelona",
     "market": "1x2",
     "odds": {
-      "1": 8.3,
-      "X": 6.1,
-      "2": 1.28
+      "1": 8.5,
+      "X": 6.3,
+      "2": 1.27
     }
   },
   {
@@ -8940,6 +8892,66 @@
     }
   },
   {
+    "bookmaker": "Melbet",
+    "league": "England. Premier League",
+    "home": "Manchester City",
+    "away": "Coventry City",
+    "market": "1x2",
+    "odds": {
+      "1": 1.165,
+      "X": 7.7,
+      "2": 15.0
+    }
+  },
+  {
+    "bookmaker": "Melbet",
+    "league": "Germany. Bundesliga",
+    "home": "Schalke 04",
+    "away": "Bayern Munich",
+    "market": "1x2",
+    "odds": {
+      "1": 14.5,
+      "X": 8.4,
+      "2": 1.15
+    }
+  },
+  {
+    "bookmaker": "Melbet",
+    "league": "England. Premier League",
+    "home": "Ipswich Town",
+    "away": "Liverpool",
+    "market": "1x2",
+    "odds": {
+      "1": 5.25,
+      "X": 4.6,
+      "2": 1.545
+    }
+  },
+  {
+    "bookmaker": "Melbet",
+    "league": "Spain. La Liga",
+    "home": "Real Betis",
+    "away": "Real Madrid",
+    "market": "1x2",
+    "odds": {
+      "1": 6.55,
+      "X": 4.94,
+      "2": 1.43
+    }
+  },
+  {
+    "bookmaker": "Melbet",
+    "league": "Spain. La Liga",
+    "home": "Valencia",
+    "away": "Barcelona",
+    "market": "1x2",
+    "odds": {
+      "1": 7.8,
+      "X": 5.2,
+      "2": 1.365
+    }
+  },
+  {
     "bookmaker": "1xBet",
     "league": "Argentina. Primera Division",
     "home": "Defensa y Justicia",
@@ -8958,9 +8970,9 @@
     "away": "Newell's Old Boys",
     "market": "1x2",
     "odds": {
-      "1": 1.912,
+      "1": 1.91,
       "X": 2.44,
-      "2": 9.18
+      "2": 9.28
     }
   },
   {
@@ -8970,9 +8982,9 @@
     "away": "Coritiba",
     "market": "1x2",
     "odds": {
-      "1": 2.19,
+      "1": 2.13,
       "X": 3.35,
-      "2": 3.62
+      "2": 3.8
     }
   },
   {
@@ -8982,9 +8994,9 @@
     "away": "Operario Ferroviario",
     "market": "1x2",
     "odds": {
-      "1": 1.78,
-      "X": 2.975,
-      "2": 5.8
+      "1": 1.808,
+      "X": 2.89,
+      "2": 5.88
     }
   },
   {
@@ -8994,9 +9006,9 @@
     "away": "Deportivo Pereira",
     "market": "1x2",
     "odds": {
-      "1": 1.744,
+      "1": 1.775,
       "X": 3.76,
-      "2": 5.23
+      "2": 4.98
     }
   },
   {
@@ -9006,9 +9018,9 @@
     "away": "Deportes La Serena",
     "market": "1x2",
     "odds": {
-      "1": 2.285,
-      "X": 2.97,
-      "2": 3.74
+      "1": 2.36,
+      "X": 2.85,
+      "2": 3.75
     }
   },
   {
@@ -9018,9 +9030,9 @@
     "away": "Deportivo Rayo Zuliano",
     "market": "1x2",
     "odds": {
-      "1": 2.225,
-      "X": 3.425,
-      "2": 3.048
+      "1": 2.175,
+      "X": 3.41,
+      "2": 3.165
     }
   },
   {
@@ -9042,9 +9054,9 @@
     "away": "Army West Point",
     "market": "1x2",
     "odds": {
-      "1": 6.7,
-      "X": 3.112,
-      "2": 1.62
+      "1": 8.86,
+      "X": 3.36,
+      "2": 1.475
     }
   },
   {
@@ -9054,7 +9066,7 @@
     "away": "Butler Bulldogs",
     "market": "1x2",
     "odds": {
-      "1": 1.045,
+      "1": 1.04,
       "X": 10.0,
       "2": 25.0
     }
@@ -9066,9 +9078,9 @@
     "away": "Siena College Saints",
     "market": "1x2",
     "odds": {
-      "1": 4.44,
-      "X": 1.825,
-      "2": 3.16
+      "1": 4.63,
+      "X": 1.75,
+      "2": 3.32
     }
   },
   {
@@ -9078,8 +9090,8 @@
     "away": "University of West Alabama",
     "market": "1x2",
     "odds": {
-      "1": 1.104,
-      "X": 7.05,
+      "1": 1.096,
+      "X": 7.68,
       "2": 25.0
     }
   },
@@ -9090,9 +9102,9 @@
     "away": "St. Bonaventure Bonnies (Women)",
     "market": "1x2",
     "odds": {
-      "1": 1.112,
-      "X": 7.51,
-      "2": 19.9
+      "1": 1.11,
+      "X": 7.53,
+      "2": 20.0
     }
   },
   {
@@ -9138,21 +9150,9 @@
     "away": "Corinthians Paulista (Women)",
     "market": "1x2",
     "odds": {
-      "1": 4.54,
-      "X": 3.03,
-      "2": 1.925
-    }
-  },
-  {
-    "bookmaker": "1xBet",
-    "league": "Honduras. Liga Nacional. Reserve League",
-    "home": "Genesis II",
-    "away": "Platense Puerto Cortes II",
-    "market": "1x2",
-    "odds": {
-      "1": 52.0,
-      "X": 13.0,
-      "2": 1.016
+      "1": 4.49,
+      "X": 2.995,
+      "2": 1.95
     }
   },
   {
@@ -9162,9 +9162,9 @@
     "away": "Motagua II",
     "market": "1x2",
     "odds": {
-      "1": 31.0,
-      "X": 5.05,
-      "2": 1.175
+      "1": 62.0,
+      "X": 10.1,
+      "2": 1.035
     }
   },
   {
