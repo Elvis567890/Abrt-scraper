@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# scraper.py – Full scanner code (all bookmakers, arbitrage logic, loop)
+# scraper.py – Full scanner (all bookmakers + SportyBet + ParseBot)
 
 import os
 import re
@@ -250,6 +250,158 @@ class GSB(BaseBookmaker):
         return all_events
 
 # =========================
+# TOPBET
+# =========================
+
+class TopBet(BaseBookmaker):
+    name = "TopBet"
+
+    CATEGORIES_API = "https://www.topbet.ug/restapi/offer/en/categories/sport/S/l?annex=13&mobileVersion=2.47.4.6&locale=en"
+    LEAGUE_API = "https://www.topbet.ug/restapi/offer/en/sport/S/league/{league_id}/mob?annex=13&mobileVersion=2.47.4.6&locale=en"
+
+    API_HEADERS = {
+        "Accept": "application/json, text/plain, */*",
+        "User-Agent": "Mozilla/5.0"
+    }
+
+    def get_leagues(self):
+        r = requests.get(self.CATEGORIES_API, headers=self.API_HEADERS, timeout=TIMEOUT)
+        data = r.json()
+        leagues = []
+        for cat in data.get("categories", []):
+            if cat.get("type") == "LEAGUE" and cat.get("count", 0) > 0:
+                leagues.append(cat["id"])
+        return leagues
+
+    def fetch_league(self, league_id):
+        events = []
+        try:
+            r = requests.get(self.LEAGUE_API.format(league_id=league_id), headers=self.API_HEADERS, timeout=TIMEOUT)
+            data = r.json()
+            for match in data.get("esMatches", []):
+                home = match.get("home")
+                away = match.get("away")
+                if not home or not away:
+                    continue
+                league = match.get("leagueName", "")
+                bet_map = match.get("betMap", {})
+
+                # 1x2 (keys "1","2","3" = home, draw, away)
+                h = clean_odd(bet_map.get("1", {}).get("NULL", {}).get("ov"))
+                d = clean_odd(bet_map.get("2", {}).get("NULL", {}).get("ov"))
+                a = clean_odd(bet_map.get("3", {}).get("NULL", {}).get("ov"))
+                if h and a:
+                    events.append({
+                        "bookmaker": self.name,
+                        "league": league,
+                        "home": home,
+                        "away": away,
+                        "market": "1x2",
+                        "odds": {"1": h, "X": d, "2": a}
+                    })
+
+                # Over/Under: key "227" = Over, "228" = Under, each has subkeys like "total=2.5"
+                over_map = bet_map.get("227", {})
+                under_map = bet_map.get("228", {})
+                for line in ["total=1.5", "total=2.5"]:
+                    if line in over_map and line in under_map:
+                        over = clean_odd(over_map[line].get("ov"))
+                        under = clean_odd(under_map[line].get("ov"))
+                        if over and under:
+                            events.append({
+                                "bookmaker": self.name,
+                                "league": league,
+                                "home": home,
+                                "away": away,
+                                "market": "over15",
+                                "odds": {"over": over, "under": under}
+                            })
+                            break
+
+                # Double Chance: keys "397" = 1X, "398" = 12, "399" = X2
+                dc_map = bet_map.get("397", {})
+                dc_1x = clean_odd(dc_map.get("NULL", {}).get("ov")) if "NULL" in dc_map else None
+                dc_map = bet_map.get("398", {})
+                dc_12 = clean_odd(dc_map.get("NULL", {}).get("ov")) if "NULL" in dc_map else None
+                dc_map = bet_map.get("399", {})
+                dc_x2 = clean_odd(dc_map.get("NULL", {}).get("ov")) if "NULL" in dc_map else None
+                if dc_1x and dc_12 and dc_x2:
+                    events.append({
+                        "bookmaker": self.name,
+                        "league": league,
+                        "home": home,
+                        "away": away,
+                        "market": "dc",
+                        "odds": {"1X": dc_1x, "12": dc_12, "X2": dc_x2}
+                    })
+
+        except Exception as e:
+            pass
+        return events
+
+    def fetch(self):
+        leagues = self.get_leagues()
+        all_events = []
+        with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+            futures = [executor.submit(self.fetch_league, lid) for lid in leagues]
+            for future in as_completed(futures):
+                try:
+                    all_events.extend(future.result())
+                except:
+                    pass
+        return all_events
+
+# =========================
+# 22BET
+# =========================
+
+class Bet22(BaseBookmaker):
+    name = "22Bet"
+
+    SPORT_INFO_API = "https://22bet.ug/service-api/RestCore/api/External/v1/Web/SportInfo?lng=en_GB&ref=151&gr=525&fcountry=191"
+    EVENTS_API = "https://22bet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en_GB&tz=3&country=191&partner=151&gr=525&getEmpty=true&virtualSports=true"
+
+    API_HEADERS = {
+        "Accept": "application/json, text/plain, */*",
+        "X-Requested-With": "XMLHttpRequest",
+        "User-Agent": "Mozilla/5.0"
+    }
+
+    def fetch(self):
+        events = []
+        try:
+            r = requests.get(self.EVENTS_API, headers=self.API_HEADERS, timeout=TIMEOUT)
+            data = r.json()
+            for match in data.get("Value", []):
+                home = match.get("O1")
+                away = match.get("O2")
+                if not home or not away:
+                    continue
+                league = match.get("L", "")
+                odds_map = {}
+                for e in match.get("E", []):
+                    t = e.get("T")
+                    c = clean_odd(e.get("C"))
+                    if c:
+                        odds_map[(t, e.get("P"))] = c
+
+                h = odds_map.get((1, None))
+                d = odds_map.get((2, None))
+                a = odds_map.get((3, None))
+                if h and a:
+                    events.append({
+                        "bookmaker": self.name,
+                        "league": league,
+                        "home": home,
+                        "away": away,
+                        "market": "1x2",
+                        "odds": {"1": h, "X": d, "2": a}
+                    })
+        except Exception as e:
+            print(f"{self.name} error: {e}")
+        return events
+
+# =========================
 # BETMASTER
 # =========================
 
@@ -448,34 +600,88 @@ class Fortebet(BaseBookmaker):
         return events
 
 # =========================
-# SPORTYBET
+# SPORTYBET (UPDATED – WORKS)
 # =========================
 
 class SportyBet(BaseBookmaker):
     name = "SportyBet"
 
-    API = "https://betting-odds-scraper--hkltfsmjgkfde.replit.app/api/odds/simple"
+    API = "https://www.sportybet.com/factsCenter/wapConfigurableEventsByOrder"
+
+    API_HEADERS = {
+        "User-Agent": "Mozilla/5.0",
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
 
     def fetch(self):
         events = []
         try:
-            r = requests.get(self.API, headers=HEADERS, timeout=TIMEOUT)
+            payload = {
+                "productId": 3,
+                "sportId": "sr:sport:1",
+                "order": 0,
+                "pageNum": 1,
+                "pageSize": 20,
+                "withTwoUpMarket": True,
+                "withOneUpMarket": True
+            }
+            r = requests.post(self.API, headers=self.API_HEADERS, json=payload, timeout=TIMEOUT)
             data = r.json()
-            if isinstance(data, list):
-                for event in data:
-                    home = event.get("home_team", "")
-                    away = event.get("away_team", "")
-                    h = clean_odd(event.get("home"))
-                    d = clean_odd(event.get("draw"))
-                    a = clean_odd(event.get("away"))
+            tournaments = data.get("data", {}).get("tournaments", [])
+            for tourn in tournaments:
+                for ev in tourn.get("events", []):
+                    home = ev.get("homeTeamName")
+                    away = ev.get("awayTeamName")
+                    if not home or not away:
+                        continue
+                    league = tourn.get("name", "")
+
+                    # Extract 1x2
+                    h = d = a = None
+                    # Over/Under 1.5
+                    over = under = None
+
+                    for market in ev.get("markets", []):
+                        mid = market.get("id")
+                        if mid == "1":  # 1x2
+                            for outcome in market.get("outcomes", []):
+                                oid = outcome.get("id")
+                                odd = clean_odd(outcome.get("odds"))
+                                if oid == "1" and odd:
+                                    h = odd
+                                elif oid == "2" and odd:
+                                    d = odd
+                                elif oid == "3" and odd:
+                                    a = odd
+                        elif mid == "18":  # Over/Under
+                            specifier = market.get("specifier", "")
+                            if specifier == "total=1.5":
+                                for outcome in market.get("outcomes", []):
+                                    oid = outcome.get("id")
+                                    odd = clean_odd(outcome.get("odds"))
+                                    if oid == "12" and odd:  # Over
+                                        over = odd
+                                    elif oid == "13" and odd:  # Under
+                                        under = odd
+
                     if h and a:
                         events.append({
                             "bookmaker": self.name,
-                            "league": event.get("competition", ""),
+                            "league": league,
                             "home": home,
                             "away": away,
                             "market": "1x2",
                             "odds": {"1": h, "X": d, "2": a}
+                        })
+                    if over and under:
+                        events.append({
+                            "bookmaker": self.name,
+                            "league": league,
+                            "home": home,
+                            "away": away,
+                            "market": "over15",
+                            "odds": {"over": over, "under": under}
                         })
         except Exception as e:
             print(f"{self.name} error: {e}")
@@ -573,13 +779,92 @@ class OneXBet(BaseBookmaker):
         return events
 
 # =========================
+# PARSEBOT
+# =========================
+
+class ParseBot(BaseBookmaker):
+    name = "ParseBot"
+
+    API = "https://api.parse.bot/scraper/8ffd9f0c-6174-43af-80dc-4898f47f074b/get_upcoming_events"
+
+    def fetch(self):
+        events = []
+        try:
+            params = {
+                "page": 1,
+                "sport": "football",
+                "page_size": 50,
+                "market_ids": "1,18"
+            }
+            r = requests.get(self.API, params=params, headers=HEADERS, timeout=TIMEOUT)
+            data = r.json()
+
+            if isinstance(data, list):
+                events_list = data
+            elif isinstance(data, dict) and "data" in data:
+                events_list = data["data"]
+            else:
+                events_list = []
+
+            for ev in events_list:
+                home = ev.get("home_team") or ev.get("home") or ev.get("homeTeam")
+                away = ev.get("away_team") or ev.get("away") or ev.get("awayTeam")
+                league = ev.get("league") or ev.get("competition") or ""
+                if not home or not away:
+                    continue
+
+                odds = {}
+                for market in ev.get("markets", []):
+                    market_id = market.get("id")
+                    if market_id == 1:
+                        for outcome in market.get("outcomes", []):
+                            name = outcome.get("name")
+                            odd = clean_odd(outcome.get("odds"))
+                            if name == "1" and odd:
+                                odds["1"] = odd
+                            elif name == "X" and odd:
+                                odds["X"] = odd
+                            elif name == "2" and odd:
+                                odds["2"] = odd
+                    elif market_id == 18:
+                        for outcome in market.get("outcomes", []):
+                            name = outcome.get("name")
+                            line = outcome.get("line")
+                            odd = clean_odd(outcome.get("odds"))
+                            if name == "Over" and line == "1.5" and odd:
+                                odds["over"] = odd
+                            elif name == "Under" and line == "1.5" and odd:
+                                odds["under"] = odd
+
+                if "1" in odds and "X" in odds and "2" in odds:
+                    events.append({
+                        "bookmaker": self.name,
+                        "league": league,
+                        "home": home,
+                        "away": away,
+                        "market": "1x2",
+                        "odds": {"1": odds["1"], "X": odds["X"], "2": odds["2"]}
+                    })
+                if "over" in odds and "under" in odds:
+                    events.append({
+                        "bookmaker": self.name,
+                        "league": league,
+                        "home": home,
+                        "away": away,
+                        "market": "over15",
+                        "odds": {"over": odds["over"], "under": odds["under"]}
+                    })
+        except Exception as e:
+            print(f"{self.name} error: {e}")
+        return events
+
+# =========================
 # BONGOBONGO (PLACEHOLDER)
 # =========================
 
 class BongoBongo(BaseBookmaker):
     name = "BongoBongo"
     def fetch(self):
-        # TODO: Implement when real endpoint provided
         return []
 
 # =========================
@@ -589,7 +874,6 @@ class BongoBongo(BaseBookmaker):
 class BetPawa(BaseBookmaker):
     name = "BetPawa"
     def fetch(self):
-        # TODO: Implement when protobuf schema available
         return []
 
 # =========================
@@ -694,11 +978,13 @@ def find_arbs(events):
     return arbs
 
 # =========================
-# MAIN SCAN LOOP (called by run_scanner.py)
+# MAIN SCAN LOOP
 # =========================
 
 BOOKMAKERS = [
     GSB(),
+    TopBet(),
+    Bet22(),
     Betmaster(),
     ChampionBet(),
     AbaBet(),
@@ -706,6 +992,7 @@ BOOKMAKERS = [
     SportyBet(),
     Melbet(),
     OneXBet(),
+    ParseBot(),
     BongoBongo(),
     BetPawa(),
 ]
@@ -755,14 +1042,17 @@ def scan_once():
     with open("arbs.json", "w") as f:
         json.dump(arbs, f, indent=2)
 
-# =========================
-# SINGLE SCAN ENTRY POINT
-# =========================
+def run_scan():
+    while True:
+        try:
+            scan_once()
+            time.sleep(POLL_INTERVAL)
+        except KeyboardInterrupt:
+            print("Scanner stopped.")
+            break
+        except Exception as e:
+            print("Fatal Error:", e)
+            time.sleep(10)
 
 if __name__ == "__main__":
-    try:
-        scan_once()
-    except KeyboardInterrupt:
-        print("Scanner stopped.")
-    except Exception as e:
-        print("Fatal Error:", e)
+    run_scan()
