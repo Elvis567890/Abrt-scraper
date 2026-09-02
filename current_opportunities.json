@@ -41,7 +41,7 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T12:50:21.351292+00:00"
+    "detected_at": "2026-09-02T12:52:22.210386+00:00"
   },
   {
     "id": "gv san jose_bolivar_1x2",
@@ -85,7 +85,7 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T12:50:21.354300+00:00"
+    "detected_at": "2026-09-02T12:52:22.213373+00:00"
   },
   {
     "id": "polkowice_polonia warszawa_1x2",
@@ -130,7 +130,51 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T12:50:21.354920+00:00"
+    "detected_at": "2026-09-02T12:52:22.213988+00:00"
+  },
+  {
+    "id": "orenburg_rubin kazan_1x2",
+    "match": "Orenburg vs Rubin Kazan",
+    "home": "Orenburg",
+    "away": "Rubin Kazan",
+    "league": "Cup",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 3.47,
+    "raw_profit": 4.08,
+    "probability": 0.959159,
+    "best_odds": {
+      "1": [
+        2.79,
+        "TopBet"
+      ],
+      "X": [
+        3.38,
+        "Betmaster"
+      ],
+      "2": [
+        3.28,
+        "Betmaster"
+      ]
+    },
+    "stakes": {
+      "1": 3700,
+      "X": 3100,
+      "2": 3200
+    },
+    "payouts": {
+      "1": 10323.0,
+      "X": 10478.0,
+      "2": 10496.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10323.0,
+    "actual_profit_after_rounding": 3.23,
+    "bookmakers": [
+      "Betmaster",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-02T12:52:22.214144+00:00"
   },
   {
     "id": "minerul lupeni_uta arad_1x2",
@@ -174,50 +218,6 @@
       "Betmaster",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T12:50:21.355034+00:00"
-  },
-  {
-    "id": "orenburg_rubin kazan_1x2",
-    "match": "Orenburg vs Rubin Kazan",
-    "home": "Orenburg",
-    "away": "Rubin Kazan",
-    "league": "Cup",
-    "market": "1X2",
-    "market_code": "1x2",
-    "profit": 1.49,
-    "raw_profit": 1.76,
-    "probability": 0.982415,
-    "best_odds": {
-      "1": [
-        2.62,
-        "TopBet"
-      ],
-      "X": [
-        3.38,
-        "Betmaster"
-      ],
-      "2": [
-        3.28,
-        "Betmaster"
-      ]
-    },
-    "stakes": {
-      "1": 3900,
-      "X": 3000,
-      "2": 3100
-    },
-    "payouts": {
-      "1": 10218.0,
-      "X": 10140.0,
-      "2": 10168.0
-    },
-    "total_stake": 10000,
-    "minimum_payout": 10140.0,
-    "actual_profit_after_rounding": 1.4,
-    "bookmakers": [
-      "Betmaster",
-      "TopBet"
-    ],
-    "detected_at": "2026-09-02T12:50:21.355075+00:00"
+    "detected_at": "2026-09-02T12:52:22.214101+00:00"
   }
 ]
