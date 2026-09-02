@@ -1,5 +1,49 @@
 [
   {
+    "id": "falkirk_rangers_1x2",
+    "match": "Falkirk vs Rangers",
+    "home": "Falkirk",
+    "away": "Rangers",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 14.7,
+    "raw_profit": 17.29,
+    "probability": 0.827106,
+    "best_odds": {
+      "1": [
+        5.55,
+        "TopBet"
+      ],
+      "X": [
+        4.41,
+        "TopBet"
+      ],
+      "2": [
+        2.38,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2200,
+      "X": 2750,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 12210.0,
+      "X": 12127.5,
+      "2": 12019.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 12019.0,
+    "actual_profit_after_rounding": 20.19,
+    "bookmakers": [
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-02T18:38:21.977103+00:00"
+  },
+  {
     "id": "spezia_vado_1x2",
     "match": "Spezia vs Vado ",
     "home": "Spezia",
@@ -42,7 +86,7 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T18:36:17.132747+00:00"
+    "detected_at": "2026-09-02T18:38:21.979925+00:00"
   },
   {
     "id": "motherwell_dundee utd_1x2",
@@ -86,6 +130,6 @@
       "Betmaster",
       "Fortebet"
     ],
-    "detected_at": "2026-09-02T18:36:17.130561+00:00"
+    "detected_at": "2026-09-02T18:38:21.977193+00:00"
   }
 ]
