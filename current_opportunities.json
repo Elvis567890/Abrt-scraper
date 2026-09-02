@@ -7,16 +7,16 @@
     "league": "",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 55.98,
-    "raw_profit": 65.86,
-    "probability": 0.341407,
+    "profit": 56.15,
+    "raw_profit": 66.06,
+    "probability": 0.339367,
     "best_odds": {
       "1": [
         21.25,
         "TopBet"
       ],
       "X": [
-        9.8,
+        10.0,
         "TopBet"
       ],
       "2": [
@@ -26,22 +26,22 @@
     },
     "stakes": {
       "1": 1400,
-      "X": 3000,
-      "2": 5600
+      "X": 2950,
+      "2": 5650
     },
     "payouts": {
       "1": 29750.0,
-      "X": 29400.0,
-      "2": 29120.0
+      "X": 29500.0,
+      "2": 29380.0
     },
     "total_stake": 10000,
-    "minimum_payout": 29120.0,
-    "actual_profit_after_rounding": 191.2,
+    "minimum_payout": 29380.0,
+    "actual_profit_after_rounding": 193.8,
     "bookmakers": [
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T15:14:21.210597+00:00"
+    "detected_at": "2026-09-02T15:16:21.059491+00:00"
   },
   {
     "id": "gv san jose_bolivar_1x2",
@@ -85,6 +85,51 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T15:14:21.211137+00:00"
+    "detected_at": "2026-09-02T15:16:21.059808+00:00"
+  },
+  {
+    "id": "pruszkow_cracovia_1x2",
+    "match": "Pruszkow vs Cracovia",
+    "home": "Pruszkow",
+    "away": "Cracovia",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 13.17,
+    "raw_profit": 15.49,
+    "probability": 0.84511,
+    "best_odds": {
+      "1": [
+        6.3,
+        "TopBet"
+      ],
+      "X": [
+        4.1,
+        "Betmaster"
+      ],
+      "2": [
+        2.26,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1900,
+      "X": 2900,
+      "2": 5200
+    },
+    "payouts": {
+      "1": 11970.0,
+      "X": 11890.0,
+      "2": 11752.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11752.0,
+    "actual_profit_after_rounding": 17.52,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-02T15:16:21.059216+00:00"
   }
 ]
