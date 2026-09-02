@@ -1,5 +1,49 @@
 [
   {
+    "id": "gv san jose_bolivar_1x2",
+    "match": "GV San Jose vs Bolivar",
+    "home": "GV San Jose",
+    "away": "Bolivar",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 11.68,
+    "raw_profit": 13.75,
+    "probability": 0.862536,
+    "best_odds": {
+      "1": [
+        4.95,
+        "TopBet"
+      ],
+      "X": [
+        4.43,
+        "TopBet"
+      ],
+      "2": [
+        2.3,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2350,
+      "X": 2600,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 11632.5,
+      "X": 11518.0,
+      "2": 11615.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11518.0,
+    "actual_profit_after_rounding": 15.18,
+    "bookmakers": [
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-02T12:16:18.298845+00:00"
+  },
+  {
     "id": "polkowice_polonia warszawa_1x2",
     "match": "Polkowice vs Polonia Warszawa",
     "home": "Polkowice",
@@ -42,7 +86,7 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T12:14:26.741820+00:00"
+    "detected_at": "2026-09-02T12:16:18.299619+00:00"
   },
   {
     "id": "minerul lupeni_uta arad_1x2",
@@ -86,6 +130,6 @@
       "Betmaster",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T12:14:26.741966+00:00"
+    "detected_at": "2026-09-02T12:16:18.299775+00:00"
   }
 ]
