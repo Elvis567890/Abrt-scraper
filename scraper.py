@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# scraper.py – Full scanner (all bookmakers + SportyBet + ParseBot)
+# scraper.py – Full scanner (runs once per execution)
 
 import os
 import re
@@ -16,7 +16,6 @@ import urllib.request
 # CONFIG
 # =========================
 
-POLL_INTERVAL = 15
 TAX_RATE = 0.15
 MAX_PROFIT = 60.0
 TIMEOUT = 20
@@ -600,7 +599,7 @@ class Fortebet(BaseBookmaker):
         return events
 
 # =========================
-# SPORTYBET (UPDATED – WORKS)
+# SPORTYBET (WORKS)
 # =========================
 
 class SportyBet(BaseBookmaker):
@@ -978,7 +977,54 @@ def find_arbs(events):
     return arbs
 
 # =========================
-# MAIN SCAN LOOP
+# HTML DASHBOARD GENERATOR
+# =========================
+
+def generate_html_dashboard(arbs):
+    html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbitrage Scanner – Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 20px; }
+        h1 { color: #333; }
+        .arb { background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin-bottom: 10px; }
+        .profit { color: green; font-weight: bold; }
+        .market { color: #555; }
+        .odds { margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Arbitrage Opportunities – Last Scan</h1>
+    <p>Total arbs: {total}</p>
+    {arbs}
+</body>
+</html>"""
+
+    arb_html = ""
+    for arb in arbs:
+        odds_text = ""
+        for outcome, data in arb["best_odds"].items():
+            odd, bookmaker = data if isinstance(data, tuple) else (data, "?")
+            odds_text += f"{outcome}: {odd} @ {bookmaker}<br>"
+        arb_html += f"""
+        <div class="arb">
+            <strong>{arb['match']}</strong> <span class="market">[{arb['market']}]</span><br>
+            League: {arb['league']}<br>
+            <span class="profit">Profit: {arb['profit']}%</span><br>
+            <div class="odds">
+                {odds_text}
+            </div>
+        </div>
+        """
+
+    with open("index.html", "w") as f:
+        f.write(html.format(total=len(arbs), arbs=arb_html))
+
+# =========================
+# MAIN SCAN (RUNS ONCE)
 # =========================
 
 BOOKMAKERS = [
@@ -1037,22 +1083,18 @@ def scan_once():
         )
         send_telegram(msg)
 
+    # Save all data
     with open("events.json", "w") as f:
         json.dump(all_events, f, indent=2)
-    with open("arbs.json", "w") as f:
+    with open("current_opportunities.json", "w") as f:
         json.dump(arbs, f, indent=2)
+    generate_html_dashboard(arbs)
+    print("\nSaved events.json, current_opportunities.json, index.html")
+    print("SCAN COMPLETE – Exiting.")
 
-def run_scan():
-    while True:
-        try:
-            scan_once()
-            time.sleep(POLL_INTERVAL)
-        except KeyboardInterrupt:
-            print("Scanner stopped.")
-            break
-        except Exception as e:
-            print("Fatal Error:", e)
-            time.sleep(10)
+# =========================
+# RUN ONCE
+# =========================
 
 if __name__ == "__main__":
-    run_scan()
+    scan_once()
