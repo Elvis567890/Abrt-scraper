@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# scraper.py – Full scanner (runs once per execution)
+# scraper.py – Full scanner (runs once) with all scrapers and no profit cap
 
 import os
 import re
@@ -8,18 +8,21 @@ import time
 import requests
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from collections import defaultdict
+from collections import defaultdict, Counter
 from bs4 import BeautifulSoup
 import urllib.request
+from string import Template
 
 # =========================
 # CONFIG
 # =========================
 
 TAX_RATE = 0.15
-MAX_PROFIT = 60.0
+MIN_PROFIT = 0.5          # reject if profit < 0.5% (too low to be worth it)
+PROB_LIMIT = 0.998        # implied probability sum must be < 0.998 (arbitrage condition)
 TIMEOUT = 20
 MAX_THREADS = 20
+TOTAL_STAKE = 10000       # UGX
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
@@ -27,6 +30,14 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
 }
+
+# Whitelist of "soft" bookmakers allowed for arb legs
+ALLOWED_BOOKMAKERS = {
+    "Fortebet", "BetPawa", "Betway Uganda", "AbaBet", "PremierBet Uganda",
+    "BongoBongo", "ParagonBet", "Betmaster"
+}
+# Sharp bookmakers that cannot appear 2+ legs (they void internal arbs)
+SHARP_BOOKMAKERS = {"Fortebet", "BetPawa", "AbaBet"}
 
 # =========================
 # HELPERS
@@ -69,6 +80,9 @@ def event_key(event):
 
 def net_profit(raw_profit):
     return round(raw_profit * (1 - TAX_RATE), 2)
+
+def round_to_50(amount):
+    return int(round(amount / 50) * 50)
 
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -285,7 +299,7 @@ class TopBet(BaseBookmaker):
                 league = match.get("leagueName", "")
                 bet_map = match.get("betMap", {})
 
-                # 1x2 (keys "1","2","3" = home, draw, away)
+                # 1x2
                 h = clean_odd(bet_map.get("1", {}).get("NULL", {}).get("ov"))
                 d = clean_odd(bet_map.get("2", {}).get("NULL", {}).get("ov"))
                 a = clean_odd(bet_map.get("3", {}).get("NULL", {}).get("ov"))
@@ -299,7 +313,7 @@ class TopBet(BaseBookmaker):
                         "odds": {"1": h, "X": d, "2": a}
                     })
 
-                # Over/Under: key "227" = Over, "228" = Under, each has subkeys like "total=2.5"
+                # Over/Under
                 over_map = bet_map.get("227", {})
                 under_map = bet_map.get("228", {})
                 for line in ["total=1.5", "total=2.5"]:
@@ -317,13 +331,10 @@ class TopBet(BaseBookmaker):
                             })
                             break
 
-                # Double Chance: keys "397" = 1X, "398" = 12, "399" = X2
-                dc_map = bet_map.get("397", {})
-                dc_1x = clean_odd(dc_map.get("NULL", {}).get("ov")) if "NULL" in dc_map else None
-                dc_map = bet_map.get("398", {})
-                dc_12 = clean_odd(dc_map.get("NULL", {}).get("ov")) if "NULL" in dc_map else None
-                dc_map = bet_map.get("399", {})
-                dc_x2 = clean_odd(dc_map.get("NULL", {}).get("ov")) if "NULL" in dc_map else None
+                # Double Chance
+                dc_1x = clean_odd(bet_map.get("397", {}).get("NULL", {}).get("ov")) if "NULL" in bet_map.get("397", {}) else None
+                dc_12 = clean_odd(bet_map.get("398", {}).get("NULL", {}).get("ov")) if "NULL" in bet_map.get("398", {}) else None
+                dc_x2 = clean_odd(bet_map.get("399", {}).get("NULL", {}).get("ov")) if "NULL" in bet_map.get("399", {}) else None
                 if dc_1x and dc_12 and dc_x2:
                     events.append({
                         "bookmaker": self.name,
@@ -599,7 +610,7 @@ class Fortebet(BaseBookmaker):
         return events
 
 # =========================
-# SPORTYBET (WORKS)
+# SPORTYBET
 # =========================
 
 class SportyBet(BaseBookmaker):
@@ -636,14 +647,12 @@ class SportyBet(BaseBookmaker):
                         continue
                     league = tourn.get("name", "")
 
-                    # Extract 1x2
+                    # 1x2
                     h = d = a = None
-                    # Over/Under 1.5
                     over = under = None
-
                     for market in ev.get("markets", []):
                         mid = market.get("id")
-                        if mid == "1":  # 1x2
+                        if mid == "1":
                             for outcome in market.get("outcomes", []):
                                 oid = outcome.get("id")
                                 odd = clean_odd(outcome.get("odds"))
@@ -653,15 +662,15 @@ class SportyBet(BaseBookmaker):
                                     d = odd
                                 elif oid == "3" and odd:
                                     a = odd
-                        elif mid == "18":  # Over/Under
-                            specifier = market.get("specifier", "")
-                            if specifier == "total=1.5":
+                        elif mid == "18":
+                            spec = market.get("specifier", "")
+                            if spec == "total=1.5":
                                 for outcome in market.get("outcomes", []):
                                     oid = outcome.get("id")
                                     odd = clean_odd(outcome.get("odds"))
-                                    if oid == "12" and odd:  # Over
+                                    if oid == "12" and odd:
                                         over = odd
-                                    elif oid == "13" and odd:  # Under
+                                    elif oid == "13" and odd:
                                         under = odd
 
                     if h and a:
@@ -876,8 +885,57 @@ class BetPawa(BaseBookmaker):
         return []
 
 # =========================
-# ARBITRAGE ENGINE
+# ARBITRAGE DETECTION (with validation, no profit cap)
 # =========================
+
+def is_valid_arb(best_odds, profit_net):
+    """
+    Validate an arbitrage.
+    best_odds: dict {outcome: (odd, bookmaker)}
+    profit_net: net profit after tax (%)
+    """
+    # Profit too low -> reject (not worth it)
+    if profit_net < MIN_PROFIT:
+        return False, "profit too low"
+    
+    # Distinct bookmakers
+    bookmakers = set()
+    for _, (_, bk) in best_odds.items():
+        if bk:
+            bookmakers.add(bk)
+    
+    if len(bookmakers) < 2:
+        return False, "single bookmaker"
+    
+    # Sharp bookmaker cannot appear 2+ times
+    bk_counter = Counter(bk for _, bk in best_odds.values() if bk)
+    for bk, count in bk_counter.items():
+        if count >= 2 and bk in SHARP_BOOKMAKERS:
+            return False, f"{bk} appears {count} times"
+    
+    # All bookmakers must be whitelisted
+    for bk in bookmakers:
+        if bk not in ALLOWED_BOOKMAKERS:
+            return False, f"{bk} not whitelisted"
+    
+    # Implied probability sum < PROB_LIMIT
+    odds = [odd for odd, _ in best_odds.values() if odd]
+    prob = sum(1 / odd for odd in odds)
+    if prob >= PROB_LIMIT:
+        return False, "prob sum too high"
+    
+    return True, "OK"
+
+def calculate_stakes(best_odds):
+    prob = sum(1 / odd for odd, _ in best_odds.values() if odd)
+    stakes = {}
+    for outcome, (odd, bk) in best_odds.items():
+        if odd:
+            stake = (TOTAL_STAKE * (1 / odd)) / prob
+            stakes[outcome] = round_to_50(stake)
+        else:
+            stakes[outcome] = 0
+    return stakes
 
 def find_arbs(events):
     grouped = defaultdict(list)
@@ -885,6 +943,7 @@ def find_arbs(events):
         grouped[event_key(ev)].append(ev)
 
     arbs = []
+    rejected = []
 
     for key, group in grouped.items():
         if len(group) < 2:
@@ -897,118 +956,125 @@ def find_arbs(events):
                 for outcome, odd in ev["odds"].items():
                     if odd > best[outcome][0]:
                         best[outcome] = (odd, ev["bookmaker"])
-
             try:
                 prob = 1 / best["1"][0] + 1 / best["X"][0] + 1 / best["2"][0]
             except ZeroDivisionError:
                 continue
-
             if prob < 1:
                 raw_profit = (1 - prob) * 100
-                if raw_profit > MAX_PROFIT:
-                    continue
                 profit = net_profit(raw_profit)
-                if profit <= 0:
+                valid, reason = is_valid_arb(best, profit)
+                if not valid:
+                    rejected.append((key, reason))
                     continue
-
+                stakes = calculate_stakes(best)
                 arbs.append({
                     "match": f"{group[0]['home']} vs {group[0]['away']}",
                     "league": group[0]["league"],
                     "market": "1x2",
                     "profit": profit,
-                    "best_odds": best
+                    "best_odds": best,
+                    "stakes": stakes
+                })
+        elif market == "over15":
+            best_over = max((ev["odds"]["over"], ev["bookmaker"]) for ev in group)
+            best_under = max((ev["odds"]["under"], ev["bookmaker"]) for ev in group)
+            best = {"over": best_over, "under": best_under}
+            prob = 1 / best["over"][0] + 1 / best["under"][0]
+            if prob < 1:
+                raw_profit = (1 - prob) * 100
+                profit = net_profit(raw_profit)
+                valid, reason = is_valid_arb(best, profit)
+                if not valid:
+                    rejected.append((key, reason))
+                    continue
+                stakes = calculate_stakes(best)
+                arbs.append({
+                    "match": f"{group[0]['home']} vs {group[0]['away']}",
+                    "league": group[0]["league"],
+                    "market": "Over 1.5",
+                    "profit": profit,
+                    "best_odds": best,
+                    "stakes": stakes
+                })
+        elif market == "btts":
+            best_yes = max((ev["odds"]["yes"], ev["bookmaker"]) for ev in group)
+            best_no = max((ev["odds"]["no"], ev["bookmaker"]) for ev in group)
+            best = {"yes": best_yes, "no": best_no}
+            prob = 1 / best["yes"][0] + 1 / best["no"][0]
+            if prob < 1:
+                raw_profit = (1 - prob) * 100
+                profit = net_profit(raw_profit)
+                valid, reason = is_valid_arb(best, profit)
+                if not valid:
+                    rejected.append((key, reason))
+                    continue
+                stakes = calculate_stakes(best)
+                arbs.append({
+                    "match": f"{group[0]['home']} vs {group[0]['away']}",
+                    "league": group[0]["league"],
+                    "market": "BTTS",
+                    "profit": profit,
+                    "best_odds": best,
+                    "stakes": stakes
+                })
+        elif market == "dc":
+            best_1x = max((ev["odds"]["1X"], ev["bookmaker"]) for ev in group)
+            best_12 = max((ev["odds"]["12"], ev["bookmaker"]) for ev in group)
+            best_x2 = max((ev["odds"]["X2"], ev["bookmaker"]) for ev in group)
+            best = {"1X": best_1x, "12": best_12, "X2": best_x2}
+            prob = 1 / best["1X"][0] + 1 / best["12"][0] + 1 / best["X2"][0]
+            if prob < 1:
+                raw_profit = (1 - prob) * 100
+                profit = net_profit(raw_profit)
+                valid, reason = is_valid_arb(best, profit)
+                if not valid:
+                    rejected.append((key, reason))
+                    continue
+                stakes = calculate_stakes(best)
+                arbs.append({
+                    "match": f"{group[0]['home']} vs {group[0]['away']}",
+                    "league": group[0]["league"],
+                    "market": "Double Chance",
+                    "profit": profit,
+                    "best_odds": best,
+                    "stakes": stakes
                 })
 
-        elif market == "over15":
-            best_over = max(ev["odds"]["over"] for ev in group)
-            best_under = max(ev["odds"]["under"] for ev in group)
-            prob = 1 / best_over + 1 / best_under
-            if prob < 1:
-                raw_profit = (1 - prob) * 100
-                if raw_profit > MAX_PROFIT:
-                    continue
-                profit = net_profit(raw_profit)
-                if profit > 0:
-                    arbs.append({
-                        "match": f"{group[0]['home']} vs {group[0]['away']}",
-                        "league": group[0]["league"],
-                        "market": "Over 1.5",
-                        "profit": profit,
-                        "best_odds": {"over": best_over, "under": best_under}
-                    })
-
-        elif market == "btts":
-            best_yes = max(ev["odds"]["yes"] for ev in group)
-            best_no = max(ev["odds"]["no"] for ev in group)
-            prob = 1 / best_yes + 1 / best_no
-            if prob < 1:
-                raw_profit = (1 - prob) * 100
-                if raw_profit > MAX_PROFIT:
-                    continue
-                profit = net_profit(raw_profit)
-                if profit > 0:
-                    arbs.append({
-                        "match": f"{group[0]['home']} vs {group[0]['away']}",
-                        "league": group[0]["league"],
-                        "market": "BTTS",
-                        "profit": profit,
-                        "best_odds": {"yes": best_yes, "no": best_no}
-                    })
-
-        elif market == "dc":
-            best_1x = max(ev["odds"]["1X"] for ev in group)
-            best_12 = max(ev["odds"]["12"] for ev in group)
-            best_x2 = max(ev["odds"]["X2"] for ev in group)
-            prob = 1 / best_1x + 1 / best_12 + 1 / best_x2
-            if prob < 1:
-                raw_profit = (1 - prob) * 100
-                if raw_profit > MAX_PROFIT:
-                    continue
-                profit = net_profit(raw_profit)
-                if profit > 0:
-                    arbs.append({
-                        "match": f"{group[0]['home']} vs {group[0]['away']}",
-                        "league": group[0]["league"],
-                        "market": "Double Chance",
-                        "profit": profit,
-                        "best_odds": {"1X": best_1x, "12": best_12, "X2": best_x2}
-                    })
-
-    return arbs
+    return arbs, rejected
 
 # =========================
-# HTML DASHBOARD GENERATOR (FIXED – CSS braces escaped)
+# HTML DASHBOARD GENERATOR (string.Template)
 # =========================
 
 def generate_html_dashboard(arbs):
-    html = """<!DOCTYPE html>
+    html_template = Template("""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arbitrage Scanner – Dashboard</title>
     <style>
-        body {{ font-family: Arial, sans-serif; background: #f4f4f4; margin: 20px; }}
-        h1 {{ color: #333; }}
-        .arb {{ background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin-bottom: 10px; }}
-        .profit {{ color: green; font-weight: bold; }}
-        .market {{ color: #555; }}
-        .odds {{ margin-top: 5px; }}
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 20px; }
+        h1 { color: #333; }
+        .arb { background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin-bottom: 10px; }
+        .profit { color: green; font-weight: bold; }
+        .market { color: #555; }
+        .odds { margin-top: 5px; }
     </style>
 </head>
 <body>
     <h1>Arbitrage Opportunities – Last Scan</h1>
-    <p>Total arbs: {total}</p>
-    {arbs}
+    <p>Total arbs: $total</p>
+    $arbs
 </body>
-</html>"""
+</html>""")
 
     arb_html = ""
     for arb in arbs:
         odds_text = ""
-        for outcome, data in arb["best_odds"].items():
-            odd, bookmaker = data if isinstance(data, tuple) else (data, "?")
-            odds_text += f"{outcome}: {odd} @ {bookmaker}<br>"
+        for outcome, (odd, bk) in arb["best_odds"].items():
+            odds_text += f"{outcome}: {odd} @ {bk}<br>"
         arb_html += f"""
         <div class="arb">
             <strong>{arb['match']}</strong> <span class="market">[{arb['market']}]</span><br>
@@ -1020,8 +1086,9 @@ def generate_html_dashboard(arbs):
         </div>
         """
 
+    html_out = html_template.substitute(total=len(arbs), arbs=arb_html)
     with open("index.html", "w") as f:
-        f.write(html.format(total=len(arbs), arbs=arb_html))
+        f.write(html_out)
 
 # =========================
 # MAIN SCAN (RUNS ONCE)
@@ -1039,8 +1106,8 @@ BOOKMAKERS = [
     Melbet(),
     OneXBet(),
     ParseBot(),
-    BongoBongo(),
-    BetPawa(),
+    BongoBongo(),   # placeholder
+    BetPawa(),      # placeholder
 ]
 
 def scan_once():
@@ -1064,17 +1131,17 @@ def scan_once():
                 print(f"{name} failed: {e}")
 
     print(f"\nTOTAL EVENTS: {len(all_events)}")
-    arbs = find_arbs(all_events)
-    print(f"ARBS FOUND: {len(arbs)}\n")
+    arbs, rejected = find_arbs(all_events)
+    print(f"ARBS FOUND (after filter): {len(arbs)}\n")
 
     for arb in arbs:
         print("=" * 60)
         print(f"{arb['match']} [{arb['market']}]")
-        print(arb["league"])
+        print(f"League: {arb['league']}")
         print(f"PROFIT: {arb['profit']}%")
-        for outcome, data in arb["best_odds"].items():
-            odd, bookmaker = data if isinstance(data, tuple) else (data, "?")
-            print(f"{outcome}: {odd} @ {bookmaker}")
+        for outcome, (odd, bk) in arb["best_odds"].items():
+            print(f"  {outcome}: {odd} @ {bk}")
+        print(f"  Stakes: {arb['stakes']}")
         msg = (
             f"ARB FOUND\n\n"
             f"{arb['match']} [{arb['market']}]\n"
@@ -1083,7 +1150,11 @@ def scan_once():
         )
         send_telegram(msg)
 
-    # Save all data
+    if rejected:
+        print("\n--- REJECTED FAKE ARBS ---")
+        for (key, reason) in rejected:
+            print(f"{key} -> {reason}")
+
     with open("events.json", "w") as f:
         json.dump(all_events, f, indent=2)
     with open("current_opportunities.json", "w") as f:
@@ -1091,10 +1162,6 @@ def scan_once():
     generate_html_dashboard(arbs)
     print("\nSaved events.json, current_opportunities.json, index.html")
     print("SCAN COMPLETE – Exiting.")
-
-# =========================
-# RUN ONCE
-# =========================
 
 if __name__ == "__main__":
     scan_once()
