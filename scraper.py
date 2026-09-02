@@ -1,124 +1,498 @@
 #!/usr/bin/env python3
-# scraper.py – Full scanner (runs once) with all scrapers and no profit cap
+"""
+scraper.py
+Production-oriented football arbitrage scanner.
+
+Features:
+- Multiple bookmaker fetchers
+- Concurrent scanning
+- HTTP retries + sessions
+- Strict event/odds validation
+- Deduplication
+- Arbitrage detection
+- Net-profit calculation
+- Stake calculation with UGX rounding
+- Telegram alerts
+- JSON persistence
+- Mobile-friendly HTML dashboard
+- Scan status + history
+- No maximum profit cap
+
+IMPORTANT:
+Bookmaker APIs can change at any time. Each bookmaker parser should be
+periodically verified against the bookmaker's current API response.
+"""
 
 import os
 import re
 import json
 import time
-import requests
-from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import html
+import tempfile
+import logging
+from datetime import datetime, timezone
 from collections import defaultdict, Counter
-from bs4 import BeautifulSoup
-import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from string import Template
 
-# =========================
-# CONFIG
-# =========================
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+from bs4 import BeautifulSoup
 
-TAX_RATE = 0.15
-MIN_PROFIT = 0.5          # reject if profit < 0.5% (too low to be worth it)
-PROB_LIMIT = 0.998        # implied probability sum must be < 0.998 (arbitrage condition)
-TIMEOUT = 20
-MAX_THREADS = 20
-TOTAL_STAKE = 10000       # UGX
+
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
+TAX_RATE = float(os.getenv("TAX_RATE", "0.15"))
+
+# Minimum NET profit percentage accepted.
+MIN_PROFIT = float(os.getenv("MIN_PROFIT", "0.5"))
+
+# Kept as a safety margin. A true mathematical arb has probability < 1.
+# 0.998 means at least ~0.2% theoretical margin before tax.
+PROB_LIMIT = float(os.getenv("PROB_LIMIT", "0.998"))
+
+TIMEOUT = int(os.getenv("TIMEOUT", "20"))
+MAX_THREADS = int(os.getenv("MAX_THREADS", "10"))
+
+TOTAL_STAKE = int(os.getenv("TOTAL_STAKE", "10000"))
+STAKE_STEP = int(os.getenv("STAKE_STEP", "50"))
+
+# Optional maximum number of stored opportunities.
+MAX_ARBS = int(os.getenv("MAX_ARBS", "500"))
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
+EVENTS_FILE = os.getenv("EVENTS_FILE", "events.json")
+ARBS_FILE = os.getenv(
+    "ARBS_FILE",
+    "current_opportunities.json"
+)
+STATUS_FILE = os.getenv(
+    "STATUS_FILE",
+    "scanner_status.json"
+)
+HISTORY_FILE = os.getenv(
+    "HISTORY_FILE",
+    "arb_history.json"
+)
+HTML_FILE = os.getenv("HTML_FILE", "index.html")
+
+
+# ============================================================
+# LOGGING
+# ============================================================
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s"
+)
+
+logger = logging.getLogger("arb-scanner")
+
+
+# ============================================================
+# HEADERS
+# ============================================================
+
 HEADERS = {
-    "User-Agent": "Mozilla/5.0"
+    "User-Agent": (
+        "Mozilla/5.0 (Linux; Android 10; K) "
+        "AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36"
+    ),
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Connection": "keep-alive",
 }
 
-# Whitelist of "soft" bookmakers allowed for arb legs
+
+# ============================================================
+# BOOKMAKER RULES
+# ============================================================
+
 ALLOWED_BOOKMAKERS = {
-    "Fortebet", "BetPawa", "Betway Uganda", "AbaBet", "PremierBet Uganda",
-    "BongoBongo", "ParagonBet", "Betmaster"
+    "Fortebet",
+    "BetPawa",
+    "Betway Uganda",
+    "AbaBet",
+    "PremierBet Uganda",
+    "BongoBongo",
+    "ParagonBet",
+    "Betmaster",
+    "GSB",
+    "TopBet",
+    "22Bet",
+    "ChampionBet",
+    "SportyBet",
+    "Melbet",
+    "1xBet",
+    "ParseBot",
 }
-# Sharp bookmakers that cannot appear 2+ legs (they void internal arbs)
-SHARP_BOOKMAKERS = {"Fortebet", "BetPawa", "AbaBet"}
 
-# =========================
-# HELPERS
-# =========================
+SHARP_BOOKMAKERS = {
+    "Fortebet",
+    "BetPawa",
+    "AbaBet",
+}
 
-def normalize(name):
-    if not name:
-        return ""
-    name = name.lower().strip()
-    replacements = {
-        "united": "utd",
-        "rovers": "rvs",
-        "football club": "",
-        "fc": "",
-        "sc": "",
-        "cf": "",
-        "club": "",
-    }
-    for k, v in replacements.items():
-        name = name.replace(k, v)
-    name = re.sub(r"[^a-z0-9 ]", "", name)
-    name = re.sub(r"\s+", " ", name)
-    return name.strip()
+
+# ============================================================
+# GENERAL HELPERS
+# ============================================================
+
+def utc_now():
+    return datetime.now(timezone.utc).isoformat()
+
+
+def safe_float(value):
+    try:
+        if value is None:
+            return None
+
+        if isinstance(value, str):
+            value = value.strip().replace(",", ".")
+
+        return float(value)
+
+    except (TypeError, ValueError):
+        return None
+
 
 def clean_odd(value):
-    try:
-        value = float(value)
-        if 1.01 <= value <= 100.0:
-            return value
-    except:
-        pass
-    return None
+    """
+    Return a valid decimal odd or None.
+
+    Decimal odds below 1.01 are rejected.
+    Extremely large odds are also rejected because they are
+    usually malformed API values rather than genuine prices.
+    """
+
+    odd = safe_float(value)
+
+    if odd is None:
+        return None
+
+    if not (1.01 <= odd <= 1000):
+        return None
+
+    return round(odd, 4)
+
+
+def normalize(name):
+    """
+    Safer team normalization.
+
+    Uses word-level substitutions rather than naive substring
+    replacements so names such as 'United' are not accidentally
+    modified inside unrelated words.
+    """
+
+    if not name:
+        return ""
+
+    name = str(name).lower().strip()
+
+    replacements = {
+        r"\bunited\b": "utd",
+        r"\brovers\b": "rvs",
+        r"\bfootball club\b": "",
+        r"\bfc\b": "",
+        r"\bsc\b": "",
+        r"\bcf\b": "",
+        r"\bclub\b": "",
+    }
+
+    for pattern, replacement in replacements.items():
+        name = re.sub(pattern, replacement, name)
+
+    name = re.sub(r"[^a-z0-9\s]", " ", name)
+    name = re.sub(r"\s+", " ", name)
+
+    return name.strip()
+
 
 def event_key(event):
+    """
+    Canonical event key.
+
+    NOTE:
+    If kickoff timestamps become available from the bookmakers,
+    they should also be incorporated here. Team names alone can
+    occasionally collide.
+    """
+
     return (
-        normalize(event["home"]),
-        normalize(event["away"]),
-        event["market"]
+        normalize(event.get("home")),
+        normalize(event.get("away")),
+        str(event.get("market", "")).lower().strip(),
     )
 
-def net_profit(raw_profit):
-    return round(raw_profit * (1 - TAX_RATE), 2)
 
-def round_to_50(amount):
-    return int(round(amount / 50) * 50)
+def valid_event(event):
+    if not isinstance(event, dict):
+        return False
+
+    home = event.get("home")
+    away = event.get("away")
+    bookmaker = event.get("bookmaker")
+    market = event.get("market")
+    odds = event.get("odds")
+
+    if not home or not away:
+        return False
+
+    if normalize(home) == normalize(away):
+        return False
+
+    if not bookmaker or not market:
+        return False
+
+    if not isinstance(odds, dict):
+        return False
+
+    return True
+
+
+def validate_odds(odds, required_outcomes):
+    """
+    Ensure every required outcome exists and has a valid decimal odd.
+    """
+
+    if not isinstance(odds, dict):
+        return False
+
+    for outcome in required_outcomes:
+        odd = clean_odd(odds.get(outcome))
+
+        if odd is None:
+            return False
+
+    return True
+
+
+def round_to_step(amount, step=STAKE_STEP):
+    if amount <= 0:
+        return 0
+
+    return int(round(amount / step) * step)
+
+
+def atomic_write(path, content):
+    """
+    Write a file atomically.
+
+    Prevents a process crash from leaving half-written JSON/HTML.
+    """
+
+    directory = os.path.dirname(os.path.abspath(path))
+
+    fd, temp_path = tempfile.mkstemp(
+        prefix=".tmp_",
+        dir=directory
+    )
+
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(content)
+            f.flush()
+            os.fsync(f.fileno())
+
+        os.replace(temp_path, path)
+
+    except Exception:
+        try:
+            os.unlink(temp_path)
+        except OSError:
+            pass
+
+        raise
+
+
+def write_json(path, data):
+    content = json.dumps(
+        data,
+        indent=2,
+        ensure_ascii=False
+    )
+
+    atomic_write(path, content)
+
+
+# ============================================================
+# HTTP SESSION
+# ============================================================
+
+def create_session():
+    session = requests.Session()
+
+    retry = Retry(
+        total=3,
+        connect=3,
+        read=3,
+        backoff_factor=0.5,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=frozenset(
+            ["GET", "POST"]
+        ),
+        raise_on_status=False,
+    )
+
+    adapter = HTTPAdapter(
+        max_retries=retry,
+        pool_connections=MAX_THREADS,
+        pool_maxsize=MAX_THREADS,
+    )
+
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+
+    session.headers.update(HEADERS)
+
+    return session
+
+
+# ============================================================
+# TELEGRAM
+# ============================================================
 
 def send_telegram(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        return
+        return False
+
+    url = (
+        f"https://api.telegram.org/"
+        f"bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    )
+
+    payload = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message,
+    }
+
     try:
-        requests.post(
-            f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
-            json={"chat_id": TELEGRAM_CHAT_ID, "text": message},
+        response = requests.post(
+            url,
+            json=payload,
             timeout=10
         )
-    except:
-        pass
 
-# =========================
-# BASE FETCHER
-# =========================
+        response.raise_for_status()
+        return True
+
+    except requests.RequestException as exc:
+        logger.warning(
+            "Telegram error: %s",
+            exc
+        )
+
+        return False
+
+
+# ============================================================
+# BASE BOOKMAKER
+# ============================================================
 
 class BaseBookmaker:
+
     name = "base"
+
+    def __init__(self):
+        self.session = create_session()
+
     def fetch(self):
         return []
 
-    def safe_get(self, url, **kwargs):
-        r = requests.get(url, headers=HEADERS, timeout=TIMEOUT, **kwargs)
-        r.raise_for_status()
-        return r.json()
+    def get_json(self, url, **kwargs):
+        response = self.session.get(
+            url,
+            timeout=TIMEOUT,
+            **kwargs
+        )
 
-# =========================
+        response.raise_for_status()
+
+        return response.json()
+
+    def post_json(self, url, payload, **kwargs):
+        response = self.session.post(
+            url,
+            json=payload,
+            timeout=TIMEOUT,
+            **kwargs
+        )
+
+        response.raise_for_status()
+
+        return response.json()
+
+    def safe_fetch(self):
+        started = time.time()
+
+        try:
+            events = self.fetch()
+
+            if not isinstance(events, list):
+                events = []
+
+            clean_events = []
+
+            for event in events:
+                if valid_event(event):
+                    clean_events.append(event)
+
+            duration = round(
+                time.time() - started,
+                2
+            )
+
+            return {
+                "bookmaker": self.name,
+                "events": clean_events,
+                "duration": duration,
+                "error": None,
+            }
+
+        except Exception as exc:
+
+            duration = round(
+                time.time() - started,
+                2
+            )
+
+            logger.exception(
+                "%s failed",
+                self.name
+            )
+
+            return {
+                "bookmaker": self.name,
+                "events": [],
+                "duration": duration,
+                "error": str(exc),
+            }
+
+
+# ============================================================
 # GSB
-# =========================
+# ============================================================
 
 class GSB(BaseBookmaker):
+
     name = "GSB"
 
-    TREE_API = "https://gsb.ug/services/evapi/event/GetSportsTree?statusId=0&eventTypeId=0"
-    EVENTS_API = "https://gsb.ug/services/evapi/event/GetEvents"
+    TREE_API = (
+        "https://gsb.ug/services/evapi/event/"
+        "GetSportsTree?statusId=0&eventTypeId=0"
+    )
+
+    EVENTS_API = (
+        "https://gsb.ug/services/evapi/event/"
+        "GetEvents"
+    )
 
     API_HEADERS = {
         "Accept": "*/*, application/json",
@@ -126,28 +500,53 @@ class GSB(BaseBookmaker):
         "BrandId": "112",
         "ChannelId": "4",
         "Language": "en-US",
-        "Terminal": "gsb.ug"
+        "Terminal": "gsb.ug",
     }
 
     def get_leagues(self):
-        r = requests.get(self.TREE_API, headers=self.API_HEADERS, timeout=TIMEOUT)
-        data = r.json()
-        leagues = []
-        root = data["data"]
-        soccer = next((x for x in root["cl"] if x["id"] == "31"), None)
+
+        response = self.session.get(
+            self.TREE_API,
+            headers=self.API_HEADERS,
+            timeout=TIMEOUT
+        )
+
+        response.raise_for_status()
+
+        data = response.json()
+
+        root = data.get("data", {})
+
+        soccer = None
+
+        for item in root.get("cl", []):
+            if str(item.get("id")) == "31":
+                soccer = item
+                break
+
         if not soccer:
             return []
-        for country in soccer["cl"]:
+
+        leagues = []
+
+        for country in soccer.get("cl", []):
             for league in country.get("cl", []):
-                leagues.append(league["id"])
-        return leagues
+                league_id = league.get("id")
+
+                if league_id:
+                    leagues.append(str(league_id))
+
+        return list(dict.fromkeys(leagues))
 
     def fetch_league(self, league_id):
+
         events = []
+
         skip = 0
         take = 100
 
         while True:
+
             params = {
                 "betTypeIds": "-1",
                 "take": take,
@@ -155,1013 +554,3286 @@ class GSB(BaseBookmaker):
                 "eventTypeId": "0",
                 "leagueIds": league_id,
                 "skip": skip,
-                "sportTypeIds": "31"
+                "sportTypeIds": "31",
             }
+
             try:
-                r = requests.get(self.EVENTS_API, headers=self.API_HEADERS, params=params, timeout=TIMEOUT)
-                data = r.json().get("data", [])
-                if not data:
+
+                response = self.session.get(
+                    self.EVENTS_API,
+                    headers=self.API_HEADERS,
+                    params=params,
+                    timeout=TIMEOUT
+                )
+
+                response.raise_for_status()
+
+                payload = response.json()
+
+                data = payload.get("data", [])
+
+                if not isinstance(data, list) or not data:
                     break
+
                 for ev in data:
+
                     home = ev.get("h")
                     away = ev.get("a")
-                    league = ev.get("ln")
+                    league = ev.get("ln", "")
 
-                    # 1x2
-                    market = next((x for x in ev.get("bts", []) if x.get("n") == "FT 1X2"), None)
+                    if not home or not away:
+                        continue
+
+                    bet_types = ev.get("bts", [])
+
+                    if not isinstance(bet_types, list):
+                        continue
+
+                    # ----------------------------
+                    # 1X2
+                    # ----------------------------
+
+                    market = next(
+                        (
+                            x for x in bet_types
+                            if x.get("n") == "FT 1X2"
+                        ),
+                        None
+                    )
+
                     if market:
+
                         odds = {}
+
                         for odd in market.get("odds", []):
-                            if odd["n"] == "1":
-                                odds["1"] = clean_odd(odd["p"])
-                            elif odd["n"] == "X":
-                                odds["X"] = clean_odd(odd["p"])
-                            elif odd["n"] == "2":
-                                odds["2"] = clean_odd(odd["p"])
-                        if len(odds) == 3:
+
+                            label = str(
+                                odd.get("n", "")
+                            ).upper()
+
+                            price = clean_odd(
+                                odd.get("p")
+                            )
+
+                            if label in ("1", "HOME"):
+                                odds["1"] = price
+
+                            elif label in ("X", "DRAW"):
+                                odds["X"] = price
+
+                            elif label in ("2", "AWAY"):
+                                odds["2"] = price
+
+                        if validate_odds(
+                            odds,
+                            ("1", "X", "2")
+                        ):
                             events.append({
                                 "bookmaker": self.name,
                                 "league": league,
                                 "home": home,
                                 "away": away,
                                 "market": "1x2",
-                                "odds": odds
+                                "odds": odds,
                             })
 
-                    # Over 1.5
-                    market = next((x for x in ev.get("bts", []) if x.get("n") == "Under/Over"), None)
+                    # ----------------------------
+                    # OVER/UNDER 1.5
+                    # ----------------------------
+
+                    market = next(
+                        (
+                            x for x in bet_types
+                            if str(x.get("n", "")).lower()
+                            in (
+                                "under/over",
+                                "under over",
+                                "over/under"
+                            )
+                        ),
+                        None
+                    )
+
                     if market:
+
+                        over = None
+                        under = None
+
                         for odd in market.get("odds", []):
-                            if odd.get("l") == "1.5":
-                                over = clean_odd(odd.get("p")) if odd.get("n") == "over" else None
-                                under = clean_odd(odd.get("p")) if odd.get("n") == "under" else None
-                                if over and under:
-                                    events.append({
-                                        "bookmaker": self.name,
-                                        "league": league,
-                                        "home": home,
-                                        "away": away,
-                                        "market": "over15",
-                                        "odds": {"over": over, "under": under}
-                                    })
-                                break
 
-                    # BTTS
-                    market = next((x for x in ev.get("bts", []) if x.get("n") == "GG/NG"), None)
-                    if market:
-                        yes = None
-                        no = None
-                        for odd in market.get("odds", []):
-                            if odd.get("n") == "Yes":
-                                yes = clean_odd(odd.get("p"))
-                            elif odd.get("n") == "No":
-                                no = clean_odd(odd.get("p"))
-                        if yes and no:
-                            events.append({
-                                "bookmaker": self.name,
-                                "league": league,
-                                "home": home,
-                                "away": away,
-                                "market": "btts",
-                                "odds": {"yes": yes, "no": no}
-                            })
+                            line = str(
+                                odd.get("l", "")
+                            )
 
-                    # Double Chance
-                    market = next((x for x in ev.get("bts", []) if x.get("n") == "Double Chance"), None)
-                    if market:
-                        odds = {}
-                        for odd in market.get("odds", []):
-                            if odd.get("n") in ("1X", "12", "X2"):
-                                odds[odd.get("n")] = clean_odd(odd.get("p"))
-                        if len(odds) == 3:
-                            events.append({
-                                "bookmaker": self.name,
-                                "league": league,
-                                "home": home,
-                                "away": away,
-                                "market": "dc",
-                                "odds": odds
-                            })
+                            if line != "1.5":
+                                continue
 
-                if len(data) < take:
-                    break
-                skip += take
-            except:
-                break
-        return events
+                            label = str(
+                                odd.get("n", "")
+                            ).lower()
 
-    def fetch(self):
-        leagues = self.get_leagues()
-        all_events = []
-        with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
-            futures = [executor.submit(self.fetch_league, lid) for lid in leagues]
-            for future in as_completed(futures):
-                try:
-                    all_events.extend(future.result())
-                except:
-                    pass
-        return all_events
+                            price = clean_odd(
+                                odd.get("p")
+                            )
 
-# =========================
-# TOPBET
-# =========================
+                            if label == "over":
+                                over = price
 
-class TopBet(BaseBookmaker):
-    name = "TopBet"
+                            elif label == "under":
+                                under = price
 
-    CATEGORIES_API = "https://www.topbet.ug/restapi/offer/en/categories/sport/S/l?annex=13&mobileVersion=2.47.4.6&locale=en"
-    LEAGUE_API = "https://www.topbet.ug/restapi/offer/en/sport/S/league/{league_id}/mob?annex=13&mobileVersion=2.47.4.6&locale=en"
-
-    API_HEADERS = {
-        "Accept": "application/json, text/plain, */*",
-        "User-Agent": "Mozilla/5.0"
-    }
-
-    def get_leagues(self):
-        r = requests.get(self.CATEGORIES_API, headers=self.API_HEADERS, timeout=TIMEOUT)
-        data = r.json()
-        leagues = []
-        for cat in data.get("categories", []):
-            if cat.get("type") == "LEAGUE" and cat.get("count", 0) > 0:
-                leagues.append(cat["id"])
-        return leagues
-
-    def fetch_league(self, league_id):
-        events = []
-        try:
-            r = requests.get(self.LEAGUE_API.format(league_id=league_id), headers=self.API_HEADERS, timeout=TIMEOUT)
-            data = r.json()
-            for match in data.get("esMatches", []):
-                home = match.get("home")
-                away = match.get("away")
-                if not home or not away:
-                    continue
-                league = match.get("leagueName", "")
-                bet_map = match.get("betMap", {})
-
-                # 1x2
-                h = clean_odd(bet_map.get("1", {}).get("NULL", {}).get("ov"))
-                d = clean_odd(bet_map.get("2", {}).get("NULL", {}).get("ov"))
-                a = clean_odd(bet_map.get("3", {}).get("NULL", {}).get("ov"))
-                if h and a:
-                    events.append({
-                        "bookmaker": self.name,
-                        "league": league,
-                        "home": home,
-                        "away": away,
-                        "market": "1x2",
-                        "odds": {"1": h, "X": d, "2": a}
-                    })
-
-                # Over/Under
-                over_map = bet_map.get("227", {})
-                under_map = bet_map.get("228", {})
-                for line in ["total=1.5", "total=2.5"]:
-                    if line in over_map and line in under_map:
-                        over = clean_odd(over_map[line].get("ov"))
-                        under = clean_odd(under_map[line].get("ov"))
                         if over and under:
+
                             events.append({
                                 "bookmaker": self.name,
                                 "league": league,
                                 "home": home,
                                 "away": away,
                                 "market": "over15",
-                                "odds": {"over": over, "under": under}
+                                "odds": {
+                                    "over": over,
+                                    "under": under,
+                                },
                             })
-                            break
 
-                # Double Chance
-                dc_1x = clean_odd(bet_map.get("397", {}).get("NULL", {}).get("ov")) if "NULL" in bet_map.get("397", {}) else None
-                dc_12 = clean_odd(bet_map.get("398", {}).get("NULL", {}).get("ov")) if "NULL" in bet_map.get("398", {}) else None
-                dc_x2 = clean_odd(bet_map.get("399", {}).get("NULL", {}).get("ov")) if "NULL" in bet_map.get("399", {}) else None
-                if dc_1x and dc_12 and dc_x2:
-                    events.append({
-                        "bookmaker": self.name,
-                        "league": league,
-                        "home": home,
-                        "away": away,
-                        "market": "dc",
-                        "odds": {"1X": dc_1x, "12": dc_12, "X2": dc_x2}
-                    })
+                    # ----------------------------
+                    # BTTS
+                    # ----------------------------
 
-        except Exception as e:
-            pass
+                    market = next(
+                        (
+                            x for x in bet_types
+                            if x.get("n") == "GG/NG"
+                        ),
+                        None
+                    )
+
+                    if market:
+
+                        yes = None
+                        no = None
+
+                        for odd in market.get("odds", []):
+
+                            label = str(
+                                odd.get("n", "")
+                            ).lower()
+
+                            price = clean_odd(
+                                odd.get("p")
+                            )
+
+                            if label == "yes":
+                                yes = price
+
+                            elif label == "no":
+                                no = price
+
+                        if yes and no:
+
+                            events.append({
+                                "bookmaker": self.name,
+                                "league": league,
+                                "home": home,
+                                "away": away,
+                                "market": "btts",
+                                "odds": {
+                                    "yes": yes,
+                                    "no": no,
+                                },
+                            })
+
+                if len(data) < take:
+                    break
+
+                skip += take
+
+            except Exception as exc:
+
+                logger.warning(
+                    "%s league %s failed: %s",
+                    self.name,
+                    league_id,
+                    exc
+                )
+
+                break
+
         return events
 
     def fetch(self):
+
         leagues = self.get_leagues()
-        all_events = []
-        with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
-            futures = [executor.submit(self.fetch_league, lid) for lid in leagues]
-            for future in as_completed(futures):
-                try:
-                    all_events.extend(future.result())
-                except:
-                    pass
-        return all_events
 
-# =========================
-# 22BET
-# =========================
+        if not leagues:
+            return []
 
-class Bet22(BaseBookmaker):
-    name = "22Bet"
-
-    SPORT_INFO_API = "https://22bet.ug/service-api/RestCore/api/External/v1/Web/SportInfo?lng=en_GB&ref=151&gr=525&fcountry=191"
-    EVENTS_API = "https://22bet.ug/service-api/LineFeed/Get1x2_VZip?sports=1&count=1000&lng=en_GB&tz=3&country=191&partner=151&gr=525&getEmpty=true&virtualSports=true"
-
-    API_HEADERS = {
-        "Accept": "application/json, text/plain, */*",
-        "X-Requested-With": "XMLHttpRequest",
-        "User-Agent": "Mozilla/5.0"
-    }
-
-    def fetch(self):
         events = []
+
+        workers = min(
+            MAX_THREADS,
+            max(1, len(leagues))
+        )
+
+        with ThreadPoolExecutor(
+            max_workers=workers
+        ) as executor:
+
+            futures = [
+                executor.submit(
+                    self.fetch_league,
+                    league_id
+                )
+                for league_id in leagues
+            ]
+
+            for future in as_completed(futures):
+
+                try:
+                    events.extend(
+                        future.result()
+                    )
+
+                except Exception:
+                    logger.exception(
+                        "%s league task failed",
+                        self.name
+                    )
+
+        return events
+
+
+# ============================================================
+# TOPBET
+# ============================================================
+
+class TopBet(BaseBookmaker):
+
+    name = "TopBet"
+
+    CATEGORIES_API = (
+        "https://www.topbet.ug/restapi/offer/en/"
+        "categories/sport/S/l?annex=13&"
+        "mobileVersion=2.47.4.6&locale=en"
+    )
+
+    LEAGUE_API = (
+        "https://www.topbet.ug/restapi/offer/en/"
+        "sport/S/league/{league_id}/mob?"
+        "annex=13&mobileVersion=2.47.4.6&locale=en"
+    )
+
+    def get_leagues(self):
+
+        data = self.get_json(
+            self.CATEGORIES_API
+        )
+
+        leagues = []
+
+        for category in data.get(
+            "categories",
+            []
+        ):
+
+            if (
+                category.get("type") == "LEAGUE"
+                and category.get("count", 0) > 0
+            ):
+                if category.get("id"):
+                    leagues.append(
+                        category["id"]
+                    )
+
+        return list(dict.fromkeys(leagues))
+
+    def fetch_league(self, league_id):
+
+        events = []
+
         try:
-            r = requests.get(self.EVENTS_API, headers=self.API_HEADERS, timeout=TIMEOUT)
-            data = r.json()
-            for match in data.get("Value", []):
-                home = match.get("O1")
-                away = match.get("O2")
+
+            data = self.get_json(
+                self.LEAGUE_API.format(
+                    league_id=league_id
+                )
+            )
+
+            for match in data.get(
+                "esMatches",
+                []
+            ):
+
+                home = match.get("home")
+                away = match.get("away")
+
                 if not home or not away:
                     continue
-                league = match.get("L", "")
-                odds_map = {}
-                for e in match.get("E", []):
-                    t = e.get("T")
-                    c = clean_odd(e.get("C"))
-                    if c:
-                        odds_map[(t, e.get("P"))] = c
 
-                h = odds_map.get((1, None))
-                d = odds_map.get((2, None))
-                a = odds_map.get((3, None))
-                if h and a:
+                league = match.get(
+                    "leagueName",
+                    ""
+                )
+
+                bet_map = match.get(
+                    "betMap",
+                    {}
+                )
+
+                # 1X2
+                h = clean_odd(
+                    bet_map.get(
+                        "1", {}
+                    ).get(
+                        "NULL",
+                        {}
+                    ).get("ov")
+                )
+
+                d = clean_odd(
+                    bet_map.get(
+                        "2", {}
+                    ).get(
+                        "NULL",
+                        {}
+                    ).get("ov")
+                )
+
+                a = clean_odd(
+                    bet_map.get(
+                        "3", {}
+                    ).get(
+                        "NULL",
+                        {}
+                    ).get("ov")
+                )
+
+                odds = {
+                    "1": h,
+                    "X": d,
+                    "2": a,
+                }
+
+                if validate_odds(
+                    odds,
+                    ("1", "X", "2")
+                ):
+
                     events.append({
                         "bookmaker": self.name,
                         "league": league,
                         "home": home,
                         "away": away,
                         "market": "1x2",
-                        "odds": {"1": h, "X": d, "2": a}
+                        "odds": odds,
                     })
-        except Exception as e:
-            print(f"{self.name} error: {e}")
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
         return events
 
-# =========================
-# BETMASTER
-# =========================
+    def fetch(self):
 
-class Betmaster(BaseBookmaker):
-    name = "Betmaster"
+        leagues = self.get_leagues()
 
-    API = "https://betmasterug.com/Sports.aspx/GetSportMarkets"
+        if not leagues:
+            return []
+
+        events = []
+
+        with ThreadPoolExecutor(
+            max_workers=min(
+                MAX_THREADS,
+                len(leagues)
+            )
+        ) as executor:
+
+            futures = [
+                executor.submit(
+                    self.fetch_league,
+                    league
+                )
+                for league in leagues
+            ]
+
+            for future in as_completed(futures):
+
+                try:
+                    events.extend(
+                        future.result()
+                    )
+
+                except Exception:
+                    logger.exception(
+                        "%s league task failed",
+                        self.name
+                    )
+
+        return events
+
+
+# ============================================================
+# 22BET
+# ============================================================
+
+class Bet22(BaseBookmaker):
+
+    name = "22Bet"
+
+    EVENTS_API = (
+        "https://22bet.ug/service-api/LineFeed/"
+        "Get1x2_VZip?sports=1&count=1000&lng="
+        "en_GB&tz=3&country=191&partner=151&"
+        "gr=525&getEmpty=true&virtualSports=true"
+    )
 
     def fetch(self):
+
+        events = []
+
+        try:
+
+            data = self.get_json(
+                self.EVENTS_API
+            )
+
+            values = data.get(
+                "Value",
+                []
+            )
+
+            for match in values:
+
+                home = match.get("O1")
+                away = match.get("O2")
+
+                if not home or not away:
+                    continue
+
+                odds_map = {}
+
+                for item in match.get("E", []):
+
+                    t = item.get("T")
+                    parameter = item.get("P")
+                    odd = clean_odd(
+                        item.get("C")
+                    )
+
+                    if odd:
+                        odds_map[
+                            (t, parameter)
+                        ] = odd
+
+                odds = {
+                    "1": odds_map.get((1, None)),
+                    "X": odds_map.get((2, None)),
+                    "2": odds_map.get((3, None)),
+                }
+
+                if validate_odds(
+                    odds,
+                    ("1", "X", "2")
+                ):
+
+                    events.append({
+                        "bookmaker": self.name,
+                        "league": match.get(
+                            "L",
+                            ""
+                        ),
+                        "home": home,
+                        "away": away,
+                        "market": "1x2",
+                        "odds": odds,
+                    })
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
+        return events
+
+
+# ============================================================
+# BETMASTER
+# ============================================================
+
+class Betmaster(BaseBookmaker):
+
+    name = "Betmaster"
+
+    API = (
+        "https://betmasterug.com/"
+        "Sports.aspx/GetSportMarkets"
+    )
+
+    def fetch(self):
+
         payload = {
             "sportid": "1",
             "countryid": "",
             "leagueid": "",
             "isfeatured": 0,
             "searchteam": 0,
-            "filter": 100
+            "filter": 100,
         }
-        r = requests.post(self.API, headers=HEADERS, json=payload, timeout=TIMEOUT)
-        data = json.loads(r.json()["d"])
-        events = []
-        for m in data:
-            try:
-                home = m["hometeam"]
-                away = m["awayteam"]
-                h = clean_odd(m.get("outcomeodd1market1"))
-                d = clean_odd(m.get("outcomeodd2market1"))
-                a = clean_odd(m.get("outcomeodd3market1"))
-                if h and d and a:
+
+        try:
+
+            response = self.session.post(
+                self.API,
+                json=payload,
+                timeout=TIMEOUT
+            )
+
+            response.raise_for_status()
+
+            outer = response.json()
+
+            raw = outer.get("d", "[]")
+
+            data = json.loads(raw)
+
+            events = []
+
+            if not isinstance(data, list):
+                return []
+
+            for match in data:
+
+                home = match.get(
+                    "hometeam"
+                )
+
+                away = match.get(
+                    "awayteam"
+                )
+
+                if not home or not away:
+                    continue
+
+                odds = {
+                    "1": clean_odd(
+                        match.get(
+                            "outcomeodd1market1"
+                        )
+                    ),
+                    "X": clean_odd(
+                        match.get(
+                            "outcomeodd2market1"
+                        )
+                    ),
+                    "2": clean_odd(
+                        match.get(
+                            "outcomeodd3market1"
+                        )
+                    ),
+                }
+
+                if validate_odds(
+                    odds,
+                    ("1", "X", "2")
+                ):
+
                     events.append({
                         "bookmaker": self.name,
-                        "league": m.get("LeagueName", ""),
+                        "league": match.get(
+                            "LeagueName",
+                            ""
+                        ),
                         "home": home,
                         "away": away,
                         "market": "1x2",
-                        "odds": {"1": h, "X": d, "2": a}
+                        "odds": odds,
                     })
-            except:
-                continue
-        return events
 
-# =========================
+            return events
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
+            return []
+
+
+# ============================================================
 # CHAMPIONBET
-# =========================
+# ============================================================
 
 class ChampionBet(BaseBookmaker):
+
     name = "ChampionBet"
 
-    API = "https://www.championbet.ug/restapi/offer/en/top/mob?annex=13&offset=30&mobileVersion=2.47.4.3&locale=en"
-    MATCH_API = "https://www.championbet.ug/restapi/offer/en/match/{match_id}?annex=13&mobileVersion=2.47.4.3&locale=en"
+    API = (
+        "https://www.championbet.ug/restapi/"
+        "offer/en/top/mob?annex=13&offset=30&"
+        "mobileVersion=2.47.4.3&locale=en"
+    )
+
+    MATCH_API = (
+        "https://www.championbet.ug/restapi/"
+        "offer/en/match/{match_id}?"
+        "annex=13&mobileVersion=2.47.4.3&locale=en"
+    )
 
     def extract_1x2(self, bet_map):
-        bet_map = bet_map or {}
+
+        if not isinstance(
+            bet_map,
+            dict
+        ):
+            return None, None, None
+
         def pick_odd(keys):
-            for k in keys:
-                market = bet_map.get(str(k), {}) or {}
-                if not isinstance(market, dict): continue
-                for _, item in market.items():
-                    if isinstance(item, dict):
-                        odd = clean_odd(item.get("ov"))
-                        if odd: return odd
+
+            for key in keys:
+
+                market = bet_map.get(
+                    str(key),
+                    {}
+                )
+
+                if not isinstance(
+                    market,
+                    dict
+                ):
+                    continue
+
+                for item in market.values():
+
+                    if not isinstance(
+                        item,
+                        dict
+                    ):
+                        continue
+
+                    odd = clean_odd(
+                        item.get("ov")
+                    )
+
+                    if odd:
+                        return odd
+
             return None
-        return pick_odd([1,4,7]), pick_odd([2,5,8]), pick_odd([3,6,9])
+
+        return (
+            pick_odd([1, 4, 7]),
+            pick_odd([2, 5, 8]),
+            pick_odd([3, 6, 9]),
+        )
 
     def fetch(self):
+
         events = []
+
         try:
-            r = requests.get(self.API, headers=HEADERS, timeout=TIMEOUT)
-            top_data = r.json()
-            matches = top_data.get("esMatches", []) if isinstance(top_data, dict) else []
-            for m in matches:
-                if "Soccer" not in str(m.get("sportToken", "")): continue
-                match_id = m.get("id")
-                if not match_id: continue
-                home = m.get("home")
-                away = m.get("away")
-                if not home or not away: continue
+
+            top_data = self.get_json(
+                self.API
+            )
+
+            matches = top_data.get(
+                "esMatches",
+                []
+            )
+
+            for match in matches:
+
+                if "soccer" not in str(
+                    match.get(
+                        "sportToken",
+                        ""
+                    )
+                ).lower():
+
+                    continue
+
+                match_id = match.get("id")
+
+                home = match.get("home")
+                away = match.get("away")
+
+                if not match_id or not home or not away:
+                    continue
+
                 try:
-                    mr = requests.get(self.MATCH_API.format(match_id=match_id), headers=HEADERS, timeout=TIMEOUT)
-                    match_data = mr.json()
-                    bet_map = match_data.get("betMap", {}) if isinstance(match_data, dict) else {}
-                    h, d, a = self.extract_1x2(bet_map)
-                    if h and a:
+
+                    match_data = self.get_json(
+                        self.MATCH_API.format(
+                            match_id=match_id
+                        )
+                    )
+
+                    bet_map = match_data.get(
+                        "betMap",
+                        {}
+                    )
+
+                    h, d, a = self.extract_1x2(
+                        bet_map
+                    )
+
+                    odds = {
+                        "1": h,
+                        "X": d,
+                        "2": a,
+                    }
+
+                    if validate_odds(
+                        odds,
+                        ("1", "X", "2")
+                    ):
+
                         events.append({
                             "bookmaker": self.name,
-                            "league": m.get("leagueName", ""),
+                            "league": match.get(
+                                "leagueName",
+                                ""
+                            ),
                             "home": home,
                             "away": away,
                             "market": "1x2",
-                            "odds": {"1": h, "X": d, "2": a}
+                            "odds": odds,
                         })
-                except:
-                    continue
-        except Exception as e:
-            print(f"{self.name} error: {e}")
+
+                except Exception as exc:
+
+                    logger.debug(
+                        "%s match %s failed: %s",
+                        self.name,
+                        match_id,
+                        exc
+                    )
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
         return events
 
-# =========================
+
+# ============================================================
 # ABABET
-# =========================
+# ============================================================
 
 class AbaBet(BaseBookmaker):
+
     name = "AbaBet"
 
-    URL = "https://www.ababet.ug/soccer/match_result?mobile=1"
+    URL = (
+        "https://www.ababet.ug/"
+        "soccer/match_result?mobile=1"
+    )
 
     def fetch(self):
+
         events = []
+
         try:
-            r = requests.get(self.URL, headers=HEADERS, timeout=TIMEOUT)
-            soup = BeautifulSoup(r.text, "html.parser")
-            tables = soup.find_all("table")
-            for table in tables:
+
+            response = self.session.get(
+                self.URL,
+                timeout=TIMEOUT
+            )
+
+            response.raise_for_status()
+
+            soup = BeautifulSoup(
+                response.text,
+                "html.parser"
+            )
+
+            for table in soup.find_all("table"):
+
                 first_row = table.find("tr")
-                if not first_row: continue
-                headers = [c.get_text(" ", strip=True) for c in first_row.find_all(["th","td"])]
-                if "Home" not in headers or "Away" not in headers: continue
+
+                if not first_row:
+                    continue
+
+                headers = [
+                    cell.get_text(
+                        " ",
+                        strip=True
+                    )
+                    for cell in first_row.find_all(
+                        ["th", "td"]
+                    )
+                ]
+
+                header_lower = {
+                    h.lower(): h
+                    for h in headers
+                }
+
+                if (
+                    "home" not in header_lower
+                    or "away" not in header_lower
+                ):
+                    continue
+
                 for tr in table.find_all("tr")[1:]:
-                    cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td","th"])]
-                    if len(cells) < 5: continue
-                    row = dict(zip(headers, cells[:len(headers)]))
-                    home = row.get("Home")
-                    away = row.get("Away")
-                    if not home or not away or home == "-" or away == "-": continue
-                    h = clean_odd(row.get("1"))
-                    d = clean_odd(row.get("X"))
-                    a = clean_odd(row.get("2"))
-                    if h and a:
+
+                    cells = [
+                        cell.get_text(
+                            " ",
+                            strip=True
+                        )
+                        for cell in tr.find_all(
+                            ["td", "th"]
+                        )
+                    ]
+
+                    if len(cells) < len(headers):
+                        continue
+
+                    row = dict(
+                        zip(
+                            headers,
+                            cells
+                        )
+                    )
+
+                    home = row.get(
+                        header_lower["home"]
+                    )
+
+                    away = row.get(
+                        header_lower["away"]
+                    )
+
+                    if not home or not away:
+                        continue
+
+                    odds = {
+                        "1": clean_odd(
+                            row.get("1")
+                        ),
+                        "X": clean_odd(
+                            row.get("X")
+                        ),
+                        "2": clean_odd(
+                            row.get("2")
+                        ),
+                    }
+
+                    if validate_odds(
+                        odds,
+                        ("1", "X", "2")
+                    ):
+
                         events.append({
                             "bookmaker": self.name,
-                            "league": row.get("League", ""),
+                            "league": row.get(
+                                "League",
+                                ""
+                            ),
                             "home": home,
                             "away": away,
                             "market": "1x2",
-                            "odds": {"1": h, "X": d, "2": a}
+                            "odds": odds,
                         })
-        except Exception as e:
-            print(f"{self.name} error: {e}")
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
         return events
 
-# =========================
+
+# ============================================================
 # FORTEBET
-# =========================
+# ============================================================
 
 class Fortebet(BaseBookmaker):
+
     name = "Fortebet"
 
-    API = "https://desktop.fortebet.ug/api/web/v1/offer/full-prematch-en"
+    API = (
+        "https://desktop.fortebet.ug/"
+        "api/web/v1/offer/full-prematch-en"
+    )
 
     def fetch(self):
+
         events = []
+
         try:
-            r = requests.get(self.API, headers=HEADERS, timeout=TIMEOUT)
-            data = r.json()
-            inner = data.get("data", {})
-            events_dict = inner.get("event", {})
-            markets_dict = inner.get("markets", {})
-            competitors = inner.get("competitors", {})
+
+            data = self.get_json(
+                self.API
+            )
+
+            inner = data.get(
+                "data",
+                {}
+            )
+
+            events_dict = inner.get(
+                "event",
+                {}
+            )
+
+            markets_dict = inner.get(
+                "markets",
+                {}
+            )
+
+            competitors = inner.get(
+                "competitors",
+                {}
+            )
+
             event_markets = defaultdict(list)
-            for _, market in markets_dict.items():
-                event_markets[str(market.get("eventId", ""))].append(market)
 
-            for eid, event in events_dict.items():
-                comps = event.get("competitors", [])
-                if len(comps) < 2: continue
-                home = competitors.get(str(comps[0]), {}).get("name", "")
-                away = competitors.get(str(comps[1]), {}).get("name", "")
-                if not home or not away: continue
+            for market in markets_dict.values():
 
-                h = d = a = None
-                for market in event_markets.get(eid, []):
-                    if market.get("marketId") == 1:
-                        odd_list = []
-                        mkt_odds = market.get("odds", {})
-                        for _, v in mkt_odds.items():
-                            if isinstance(v, dict) and "odds" in v:
-                                odd_list.append((v.get("outcomeId", 0), clean_odd(v["odds"])))
-                        odd_list = [(i, o) for i, o in odd_list if o]
-                        odd_list.sort(key=lambda x: x[0])
-                        if len(odd_list) >= 3:
-                            h, d, a = odd_list[0][1], odd_list[1][1], odd_list[2][1]
-                        elif len(odd_list) == 2:
-                            h, a = odd_list[0][1], odd_list[1][1]
-                        break
+                event_id = str(
+                    market.get(
+                        "eventId",
+                        ""
+                    )
+                )
 
-                if h and a:
+                event_markets[
+                    event_id
+                ].append(market)
+
+            for event_id, event in events_dict.items():
+
+                comps = event.get(
+                    "competitors",
+                    []
+                )
+
+                if len(comps) < 2:
+                    continue
+
+                home = competitors.get(
+                    str(comps[0]),
+                    {}
+                ).get(
+                    "name",
+                    ""
+                )
+
+                away = competitors.get(
+                    str(comps[1]),
+                    {}
+                ).get(
+                    "name",
+                    ""
+                )
+
+                if not home or not away:
+                    continue
+
+                h = None
+                d = None
+                a = None
+
+                for market in event_markets.get(
+                    str(event_id),
+                    []
+                ):
+
+                    if str(
+                        market.get("marketId")
+                    ) != "1":
+                        continue
+
+                    odds_list = []
+
+                    market_odds = market.get(
+                        "odds",
+                        {}
+                    )
+
+                    for value in market_odds.values():
+
+                        if not isinstance(
+                            value,
+                            dict
+                        ):
+                            continue
+
+                        odd = clean_odd(
+                            value.get("odds")
+                        )
+
+                        outcome_id = value.get(
+                            "outcomeId"
+                        )
+
+                        if odd:
+                            odds_list.append(
+                                (
+                                    outcome_id,
+                                    odd
+                                )
+                            )
+
+                    # IMPORTANT:
+                    # Do not blindly assume that the first three
+                    # outcome IDs are always Home/Draw/Away.
+                    #
+                    # We only use the historical ordering here.
+                    odds_list.sort(
+                        key=lambda item: str(
+                            item[0]
+                        )
+                    )
+
+                    if len(odds_list) >= 3:
+
+                        h = odds_list[0][1]
+                        d = odds_list[1][1]
+                        a = odds_list[2][1]
+
+                    break
+
+                odds = {
+                    "1": h,
+                    "X": d,
+                    "2": a,
+                }
+
+                if validate_odds(
+                    odds,
+                    ("1", "X", "2")
+                ):
+
                     events.append({
                         "bookmaker": self.name,
-                        "league": event.get("tournamentName", ""),
+                        "league": event.get(
+                            "tournamentName",
+                            ""
+                        ),
                         "home": home,
                         "away": away,
                         "market": "1x2",
-                        "odds": {"1": h, "X": d, "2": a}
+                        "odds": odds,
                     })
-        except Exception as e:
-            print(f"{self.name} error: {e}")
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
         return events
 
-# =========================
+
+# ============================================================
 # SPORTYBET
-# =========================
+# ============================================================
 
 class SportyBet(BaseBookmaker):
+
     name = "SportyBet"
 
-    API = "https://www.sportybet.com/factsCenter/wapConfigurableEventsByOrder"
-
-    API_HEADERS = {
-        "User-Agent": "Mozilla/5.0",
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    }
+    API = (
+        "https://www.sportybet.com/"
+        "factsCenter/wapConfigurableEventsByOrder"
+    )
 
     def fetch(self):
+
         events = []
+
+        payload = {
+            "productId": 3,
+            "sportId": "sr:sport:1",
+            "order": 0,
+            "pageNum": 1,
+            "pageSize": 20,
+            "withTwoUpMarket": True,
+            "withOneUpMarket": True,
+        }
+
         try:
-            payload = {
-                "productId": 3,
-                "sportId": "sr:sport:1",
-                "order": 0,
-                "pageNum": 1,
-                "pageSize": 20,
-                "withTwoUpMarket": True,
-                "withOneUpMarket": True
-            }
-            r = requests.post(self.API, headers=self.API_HEADERS, json=payload, timeout=TIMEOUT)
-            data = r.json()
-            tournaments = data.get("data", {}).get("tournaments", [])
-            for tourn in tournaments:
-                for ev in tourn.get("events", []):
-                    home = ev.get("homeTeamName")
-                    away = ev.get("awayTeamName")
+
+            data = self.post_json(
+                self.API,
+                payload
+            )
+
+            tournaments = (
+                data.get("data", {})
+                .get("tournaments", [])
+            )
+
+            for tournament in tournaments:
+
+                league = tournament.get(
+                    "name",
+                    ""
+                )
+
+                for event in tournament.get(
+                    "events",
+                    []
+                ):
+
+                    home = event.get(
+                        "homeTeamName"
+                    )
+
+                    away = event.get(
+                        "awayTeamName"
+                    )
+
                     if not home or not away:
                         continue
-                    league = tourn.get("name", "")
 
-                    # 1x2
-                    h = d = a = None
-                    over = under = None
-                    for market in ev.get("markets", []):
-                        mid = market.get("id")
-                        if mid == "1":
-                            for outcome in market.get("outcomes", []):
-                                oid = outcome.get("id")
-                                odd = clean_odd(outcome.get("odds"))
-                                if oid == "1" and odd:
+                    h = None
+                    d = None
+                    a = None
+                    over = None
+                    under = None
+
+                    for market in event.get(
+                        "markets",
+                        []
+                    ):
+
+                        market_id = str(
+                            market.get("id")
+                        )
+
+                        if market_id == "1":
+
+                            for outcome in market.get(
+                                "outcomes",
+                                []
+                            ):
+
+                                outcome_id = str(
+                                    outcome.get("id")
+                                )
+
+                                odd = clean_odd(
+                                    outcome.get(
+                                        "odds"
+                                    )
+                                )
+
+                                if outcome_id == "1":
                                     h = odd
-                                elif oid == "2" and odd:
-                                    d = odd
-                                elif oid == "3" and odd:
-                                    a = odd
-                        elif mid == "18":
-                            spec = market.get("specifier", "")
-                            if spec == "total=1.5":
-                                for outcome in market.get("outcomes", []):
-                                    oid = outcome.get("id")
-                                    odd = clean_odd(outcome.get("odds"))
-                                    if oid == "12" and odd:
-                                        over = odd
-                                    elif oid == "13" and odd:
-                                        under = odd
 
-                    if h and a:
+                                elif outcome_id == "2":
+                                    d = odd
+
+                                elif outcome_id == "3":
+                                    a = odd
+
+                        elif market_id == "18":
+
+                            specifier = str(
+                                market.get(
+                                    "specifier",
+                                    ""
+                                )
+                            )
+
+                            if specifier != "total=1.5":
+                                continue
+
+                            for outcome in market.get(
+                                "outcomes",
+                                []
+                            ):
+
+                                oid = str(
+                                    outcome.get("id")
+                                )
+
+                                odd = clean_odd(
+                                    outcome.get(
+                                        "odds"
+                                    )
+                                )
+
+                                if oid == "12":
+                                    over = odd
+
+                                elif oid == "13":
+                                    under = odd
+
+                    odds = {
+                        "1": h,
+                        "X": d,
+                        "2": a,
+                    }
+
+                    if validate_odds(
+                        odds,
+                        ("1", "X", "2")
+                    ):
+
                         events.append({
                             "bookmaker": self.name,
                             "league": league,
                             "home": home,
                             "away": away,
                             "market": "1x2",
-                            "odds": {"1": h, "X": d, "2": a}
+                            "odds": odds,
                         })
+
                     if over and under:
+
                         events.append({
                             "bookmaker": self.name,
                             "league": league,
                             "home": home,
                             "away": away,
                             "market": "over15",
-                            "odds": {"over": over, "under": under}
+                            "odds": {
+                                "over": over,
+                                "under": under,
+                            },
                         })
-        except Exception as e:
-            print(f"{self.name} error: {e}")
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
         return events
 
-# =========================
+
+# ============================================================
 # MELBET
-# =========================
+# ============================================================
 
 class Melbet(BaseBookmaker):
+
     name = "Melbet"
 
-    API = "https://melbet-424658.top/service-api/LineFeed/GetTopGamesStatZip"
+    API = (
+        "https://melbet-424658.top/"
+        "service-api/LineFeed/GetTopGamesStatZip"
+    )
 
     def fetch(self):
+
         events = []
+
+        params = {
+            "lng": "en",
+            "antisports": "66",
+            "partner": "8",
+        }
+
         try:
-            params = {"lng": "en", "antisports": "66", "partner": "8"}
-            r = requests.get(self.API, headers=HEADERS, params=params, timeout=TIMEOUT)
-            data = r.json()
-            for event in data.get("Value", []):
-                home = event.get("O1", "")
-                away = event.get("O2", "")
-                if not home or not away or event.get("SI") != 1:
+
+            data = self.get_json(
+                self.API,
+                params=params
+            )
+
+            for event in data.get(
+                "Value",
+                []
+            ):
+
+                if event.get("SI") != 1:
                     continue
-                odds_map = {}
-                for item in event.get("E", []):
-                    t = item.get("T")
-                    c = clean_odd(item.get("C"))
-                    if c:
-                        odds_map[(t, item.get("P"))] = c
-                h = odds_map.get((1, None))
-                d = odds_map.get((2, None))
-                a = odds_map.get((3, None))
-                if h and a:
-                    events.append({
-                        "bookmaker": self.name,
-                        "league": event.get("L", ""),
-                        "home": home,
-                        "away": away,
-                        "market": "1x2",
-                        "odds": {"1": h, "X": d, "2": a}
-                    })
-        except Exception as e:
-            print(f"{self.name} error: {e}")
-        return events
 
-# =========================
-# 1XBET
-# =========================
+                home = event.get(
+                    "O1",
+                    ""
+                )
 
-class OneXBet(BaseBookmaker):
-    name = "1xBet"
+                away = event.get(
+                    "O2",
+                    ""
+                )
 
-    API = "https://1x-bet.mobi/service-api/main-live-feed/v3/games1x2"
-
-    def fetch(self):
-        events = []
-        try:
-            params = {"cfView": "3", "count": "50", "fcountry": "191", "gr": "455", "grMode": "4", "lng": "en", "ref": "1"}
-            r = requests.get(self.API, headers=HEADERS, params=params, timeout=TIMEOUT)
-            data = r.json()
-            if not isinstance(data, list):
-                return []
-            for event in data:
-                if event.get("sport", {}).get("id") != 1:
-                    continue
-                home = event.get("opponent1", {}).get("fullName", "")
-                away = event.get("opponent2", {}).get("fullName", "")
                 if not home or not away:
                     continue
+
                 odds_map = {}
-                for group in event.get("eventGroups", []):
-                    gid = group.get("groupId")
-                    for event_list in group.get("events", []):
-                        for item in event_list:
-                            t = item.get("type")
-                            c = clean_odd(item.get("cf"))
-                            if c:
-                                odds_map[(gid, t, item.get("parameter"))] = c
-                h = odds_map.get((1, 1, None))
-                d = odds_map.get((1, 2, None))
-                a = odds_map.get((1, 3, None))
-                if h and a:
+
+                for item in event.get(
+                    "E",
+                    []
+                ):
+
+                    odd = clean_odd(
+                        item.get("C")
+                    )
+
+                    if odd:
+                        odds_map[
+                            (
+                                item.get("T"),
+                                item.get("P")
+                            )
+                        ] = odd
+
+                odds = {
+                    "1": odds_map.get(
+                        (1, None)
+                    ),
+                    "X": odds_map.get(
+                        (2, None)
+                    ),
+                    "2": odds_map.get(
+                        (3, None)
+                    ),
+                }
+
+                if validate_odds(
+                    odds,
+                    ("1", "X", "2")
+                ):
+
                     events.append({
                         "bookmaker": self.name,
-                        "league": event.get("liga", {}).get("name", ""),
+                        "league": event.get(
+                            "L",
+                            ""
+                        ),
                         "home": home,
                         "away": away,
                         "market": "1x2",
-                        "odds": {"1": h, "X": d, "2": a}
+                        "odds": odds,
                     })
-        except Exception as e:
-            print(f"{self.name} error: {e}")
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
         return events
 
-# =========================
-# PARSEBOT
-# =========================
 
-class ParseBot(BaseBookmaker):
-    name = "ParseBot"
+# ============================================================
+# 1XBET
+# ============================================================
 
-    API = "https://api.parse.bot/scraper/8ffd9f0c-6174-43af-80dc-4898f47f074b/get_upcoming_events"
+class OneXBet(BaseBookmaker):
+
+    name = "1xBet"
+
+    API = (
+        "https://1x-bet.mobi/"
+        "service-api/main-live-feed/v3/"
+        "games1x2"
+    )
 
     def fetch(self):
+
         events = []
+
+        params = {
+            "cfView": "3",
+            "count": "50",
+            "fcountry": "191",
+            "gr": "455",
+            "grMode": "4",
+            "lng": "en",
+            "ref": "1",
+        }
+
         try:
-            params = {
-                "page": 1,
-                "sport": "football",
-                "page_size": 50,
-                "market_ids": "1,18"
-            }
-            r = requests.get(self.API, params=params, headers=HEADERS, timeout=TIMEOUT)
-            data = r.json()
 
-            if isinstance(data, list):
-                events_list = data
-            elif isinstance(data, dict) and "data" in data:
-                events_list = data["data"]
+            data = self.get_json(
+                self.API,
+                params=params
+            )
+
+            if not isinstance(
+                data,
+                list
+            ):
+                return []
+
+            for event in data:
+
+                sport = event.get(
+                    "sport",
+                    {}
+                )
+
+                if sport.get("id") != 1:
+                    continue
+
+                home = (
+                    event.get(
+                        "opponent1",
+                        {}
+                    ).get(
+                        "fullName",
+                        ""
+                    )
+                )
+
+                away = (
+                    event.get(
+                        "opponent2",
+                        {}
+                    ).get(
+                        "fullName",
+                        ""
+                    )
+                )
+
+                if not home or not away:
+                    continue
+
+                odds_map = {}
+
+                for group in event.get(
+                    "eventGroups",
+                    []
+                ):
+
+                    group_id = group.get(
+                        "groupId"
+                    )
+
+                    for event_list in group.get(
+                        "events",
+                        []
+                    ):
+
+                        if not isinstance(
+                            event_list,
+                            list
+                        ):
+                            continue
+
+                        for item in event_list:
+
+                            odd = clean_odd(
+                                item.get("cf")
+                            )
+
+                            if odd:
+
+                                odds_map[
+                                    (
+                                        group_id,
+                                        item.get("type"),
+                                        item.get("parameter")
+                                    )
+                                ] = odd
+
+                odds = {
+                    "1": odds_map.get(
+                        (1, 1, None)
+                    ),
+                    "X": odds_map.get(
+                        (1, 2, None)
+                    ),
+                    "2": odds_map.get(
+                        (1, 3, None)
+                    ),
+                }
+
+                if validate_odds(
+                    odds,
+                    ("1", "X", "2")
+                ):
+
+                    events.append({
+                        "bookmaker": self.name,
+                        "league": event.get(
+                            "liga",
+                            {}
+                        ).get(
+                            "name",
+                            ""
+                        ),
+                        "home": home,
+                        "away": away,
+                        "market": "1x2",
+                        "odds": odds,
+                    })
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
+        return events
+
+
+# ============================================================
+# PARSEBOT
+# ============================================================
+
+class ParseBot(BaseBookmaker):
+
+    name = "ParseBot"
+
+    API = (
+        "https://api.parse.bot/"
+        "scraper/8ffd9f0c-6174-43af-80dc-4898f47f074b/"
+        "get_upcoming_events"
+    )
+
+    def fetch(self):
+
+        events = []
+
+        params = {
+            "page": 1,
+            "sport": "football",
+            "page_size": 50,
+            "market_ids": "1,18",
+        }
+
+        try:
+
+            data = self.get_json(
+                self.API,
+                params=params
+            )
+
+            if isinstance(
+                data,
+                list
+            ):
+                event_list = data
+
+            elif isinstance(
+                data,
+                dict
+            ):
+                event_list = data.get(
+                    "data",
+                    []
+                )
+
             else:
-                events_list = []
+                event_list = []
 
-            for ev in events_list:
-                home = ev.get("home_team") or ev.get("home") or ev.get("homeTeam")
-                away = ev.get("away_team") or ev.get("away") or ev.get("awayTeam")
-                league = ev.get("league") or ev.get("competition") or ""
+            for event in event_list:
+
+                home = (
+                    event.get("home_team")
+                    or event.get("home")
+                    or event.get("homeTeam")
+                )
+
+                away = (
+                    event.get("away_team")
+                    or event.get("away")
+                    or event.get("awayTeam")
+                )
+
+                league = (
+                    event.get("league")
+                    or event.get("competition")
+                    or ""
+                )
+
                 if not home or not away:
                     continue
 
                 odds = {}
-                for market in ev.get("markets", []):
-                    market_id = market.get("id")
-                    if market_id == 1:
-                        for outcome in market.get("outcomes", []):
-                            name = outcome.get("name")
-                            odd = clean_odd(outcome.get("odds"))
+
+                for market in event.get(
+                    "markets",
+                    []
+                ):
+
+                    market_id = market.get(
+                        "id"
+                    )
+
+                    for outcome in market.get(
+                        "outcomes",
+                        []
+                    ):
+
+                        name = str(
+                            outcome.get(
+                                "name",
+                                ""
+                            )
+                        ).upper()
+
+                        odd = clean_odd(
+                            outcome.get(
+                                "odds"
+                            )
+                        )
+
+                        line = str(
+                            outcome.get(
+                                "line",
+                                ""
+                            )
+                        )
+
+                        if market_id == 1:
+
                             if name == "1" and odd:
                                 odds["1"] = odd
+
                             elif name == "X" and odd:
                                 odds["X"] = odd
+
                             elif name == "2" and odd:
                                 odds["2"] = odd
-                    elif market_id == 18:
-                        for outcome in market.get("outcomes", []):
-                            name = outcome.get("name")
-                            line = outcome.get("line")
-                            odd = clean_odd(outcome.get("odds"))
-                            if name == "Over" and line == "1.5" and odd:
+
+                        elif market_id == 18:
+
+                            if (
+                                name == "OVER"
+                                and line == "1.5"
+                                and odd
+                            ):
                                 odds["over"] = odd
-                            elif name == "Under" and line == "1.5" and odd:
+
+                            elif (
+                                name == "UNDER"
+                                and line == "1.5"
+                                and odd
+                            ):
                                 odds["under"] = odd
 
-                if "1" in odds and "X" in odds and "2" in odds:
+                if validate_odds(
+                    odds,
+                    ("1", "X", "2")
+                ):
+
                     events.append({
                         "bookmaker": self.name,
                         "league": league,
                         "home": home,
                         "away": away,
                         "market": "1x2",
-                        "odds": {"1": odds["1"], "X": odds["X"], "2": odds["2"]}
+                        "odds": {
+                            "1": odds["1"],
+                            "X": odds["X"],
+                            "2": odds["2"],
+                        },
                     })
-                if "over" in odds and "under" in odds:
+
+                if (
+                    "over" in odds
+                    and "under" in odds
+                ):
+
                     events.append({
                         "bookmaker": self.name,
                         "league": league,
                         "home": home,
                         "away": away,
                         "market": "over15",
-                        "odds": {"over": odds["over"], "under": odds["under"]}
+                        "odds": {
+                            "over": odds["over"],
+                            "under": odds["under"],
+                        },
                     })
-        except Exception as e:
-            print(f"{self.name} error: {e}")
+
+        except Exception as exc:
+
+            logger.warning(
+                "%s error: %s",
+                self.name,
+                exc
+            )
+
         return events
 
-# =========================
-# BONGOBONGO (PLACEHOLDER)
-# =========================
+
+# ============================================================
+# PLACEHOLDERS
+# ============================================================
 
 class BongoBongo(BaseBookmaker):
+
     name = "BongoBongo"
+
     def fetch(self):
         return []
 
-# =========================
-# BETPAWA (PLACEHOLDER)
-# =========================
 
 class BetPawa(BaseBookmaker):
+
     name = "BetPawa"
+
     def fetch(self):
         return []
 
-# =========================
-# ARBITRAGE DETECTION (with validation, no profit cap)
-# =========================
 
-def is_valid_arb(best_odds, profit_net):
-    """
-    Validate an arbitrage.
-    best_odds: dict {outcome: (odd, bookmaker)}
-    profit_net: net profit after tax (%)
-    """
-    # Profit too low -> reject (not worth it)
+# ============================================================
+# EVENT DEDUPLICATION
+# ============================================================
+
+def deduplicate_events(events):
+
+    unique = {}
+
+    for event in events:
+
+        if not valid_event(event):
+            continue
+
+        market = event.get(
+            "market"
+        )
+
+        required = {
+            "1x2": ("1", "X", "2"),
+            "over15": ("over", "under"),
+            "btts": ("yes", "no"),
+            "dc": ("1X", "12", "X2"),
+        }.get(market)
+
+        if not required:
+            continue
+
+        if not validate_odds(
+            event.get("odds"),
+            required
+        ):
+            continue
+
+        key = (
+            event_key(event),
+            event.get("bookmaker")
+        )
+
+        unique[key] = event
+
+    return list(
+        unique.values()
+    )
+
+
+# ============================================================
+# ARBITRAGE HELPERS
+# ============================================================
+
+def probability_sum(best_odds):
+
+    total = 0.0
+
+    for odd, _ in best_odds.values():
+
+        odd = clean_odd(odd)
+
+        if odd is None:
+            return None
+
+        total += 1.0 / odd
+
+    return total
+
+
+def gross_profit_percent(probability):
+
+    return (
+        (1.0 - probability)
+        * 100.0
+    )
+
+
+def net_profit(raw_profit):
+
+    return round(
+        raw_profit
+        * (1.0 - TAX_RATE),
+        2
+    )
+
+
+def is_valid_arb(
+    best_odds,
+    profit_net
+):
+
+    if not best_odds:
+        return False, "empty odds"
+
     if profit_net < MIN_PROFIT:
         return False, "profit too low"
-    
-    # Distinct bookmakers
-    bookmakers = set()
-    for _, (_, bk) in best_odds.items():
-        if bk:
-            bookmakers.add(bk)
-    
-    if len(bookmakers) < 2:
+
+    bookmakers = []
+
+    for odd, bookmaker in best_odds.values():
+
+        if not clean_odd(odd):
+            return False, "invalid odd"
+
+        if not bookmaker:
+            return False, "missing bookmaker"
+
+        bookmakers.append(
+            bookmaker
+        )
+
+    bookmaker_set = set(
+        bookmakers
+    )
+
+    if len(bookmaker_set) < 2:
         return False, "single bookmaker"
-    
-    # Sharp bookmaker cannot appear 2+ times
-    bk_counter = Counter(bk for _, bk in best_odds.values() if bk)
-    for bk, count in bk_counter.items():
-        if count >= 2 and bk in SHARP_BOOKMAKERS:
-            return False, f"{bk} appears {count} times"
-    
-    # All bookmakers must be whitelisted
-    for bk in bookmakers:
-        if bk not in ALLOWED_BOOKMAKERS:
-            return False, f"{bk} not whitelisted"
-    
-    # Implied probability sum < PROB_LIMIT
-    odds = [odd for odd, _ in best_odds.values() if odd]
-    prob = sum(1 / odd for odd in odds)
-    if prob >= PROB_LIMIT:
-        return False, "prob sum too high"
-    
+
+    # Every bookmaker must be explicitly allowed.
+    for bookmaker in bookmaker_set:
+
+        if bookmaker not in ALLOWED_BOOKMAKERS:
+            return False, (
+                f"{bookmaker} not whitelisted"
+            )
+
+    # Sharp-bookmaker rule.
+    counts = Counter(
+        bookmakers
+    )
+
+    for bookmaker, count in counts.items():
+
+        if (
+            count >= 2
+            and bookmaker in SHARP_BOOKMAKERS
+        ):
+
+            return False, (
+                f"{bookmaker} appears "
+                f"{count} times"
+            )
+
+    probability = probability_sum(
+        best_odds
+    )
+
+    if probability is None:
+        return False, "invalid probability"
+
+    if probability >= PROB_LIMIT:
+        return False, "probability sum too high"
+
     return True, "OK"
 
+
+# ============================================================
+# STAKE CALCULATION
+# ============================================================
+
 def calculate_stakes(best_odds):
-    prob = sum(1 / odd for odd, _ in best_odds.values() if odd)
-    stakes = {}
-    for outcome, (odd, bk) in best_odds.items():
-        if odd:
-            stake = (TOTAL_STAKE * (1 / odd)) / prob
-            stakes[outcome] = round_to_50(stake)
-        else:
-            stakes[outcome] = 0
+
+    probability = probability_sum(
+        best_odds
+    )
+
+    if probability is None or probability <= 0:
+        return {}
+
+    raw_stakes = {}
+
+    for outcome, (
+        odd,
+        bookmaker
+    ) in best_odds.items():
+
+        raw_stakes[outcome] = (
+            TOTAL_STAKE
+            * (1.0 / odd)
+            / probability
+        )
+
+    # Round to UGX 50.
+    stakes = {
+        outcome: round_to_step(
+            amount
+        )
+        for outcome, amount
+        in raw_stakes.items()
+    }
+
+    # Correct rounding drift.
+    difference = (
+        TOTAL_STAKE
+        - sum(stakes.values())
+    )
+
+    if difference != 0:
+
+        # Adjust the largest stake.
+        largest = max(
+            stakes,
+            key=stakes.get
+        )
+
+        adjusted = (
+            stakes[largest]
+            + difference
+        )
+
+        if adjusted >= 0:
+            stakes[largest] = adjusted
+
     return stakes
 
+
+def calculate_payouts(
+    best_odds,
+    stakes
+):
+
+    payouts = {}
+
+    for outcome, (
+        odd,
+        bookmaker
+    ) in best_odds.items():
+
+        stake = stakes.get(
+            outcome,
+            0
+        )
+
+        payouts[outcome] = round(
+            stake * odd,
+            2
+        )
+
+    return payouts
+
+
+# ============================================================
+# ARBITRAGE DETECTION
+# ============================================================
+
+MARKET_CONFIG = {
+
+    "1x2": {
+        "outcomes": (
+            "1",
+            "X",
+            "2"
+        ),
+        "label": "1X2",
+    },
+
+    "over15": {
+        "outcomes": (
+            "over",
+            "under"
+        ),
+        "label": "Over 1.5",
+    },
+
+    "btts": {
+        "outcomes": (
+            "yes",
+            "no"
+        ),
+        "label": "BTTS",
+    },
+
+    "dc": {
+        "outcomes": (
+            "1X",
+            "12",
+            "X2"
+        ),
+        "label": "Double Chance",
+    },
+}
+
+
 def find_arbs(events):
+
+    events = deduplicate_events(
+        events
+    )
+
     grouped = defaultdict(list)
-    for ev in events:
-        grouped[event_key(ev)].append(ev)
+
+    for event in events:
+
+        key = event_key(event)
+
+        grouped[key].append(
+            event
+        )
 
     arbs = []
     rejected = []
 
     for key, group in grouped.items():
-        if len(group) < 2:
-            continue
+
         market = key[2]
 
-        if market == "1x2":
-            best = {"1": (0, ""), "X": (0, ""), "2": (0, "")}
-            for ev in group:
-                for outcome, odd in ev["odds"].items():
-                    if odd > best[outcome][0]:
-                        best[outcome] = (odd, ev["bookmaker"])
-            try:
-                prob = 1 / best["1"][0] + 1 / best["X"][0] + 1 / best["2"][0]
-            except ZeroDivisionError:
-                continue
-            if prob < 1:
-                raw_profit = (1 - prob) * 100
-                profit = net_profit(raw_profit)
-                valid, reason = is_valid_arb(best, profit)
-                if not valid:
-                    rejected.append((key, reason))
-                    continue
-                stakes = calculate_stakes(best)
-                arbs.append({
-                    "match": f"{group[0]['home']} vs {group[0]['away']}",
-                    "league": group[0]["league"],
-                    "market": "1x2",
-                    "profit": profit,
-                    "best_odds": best,
-                    "stakes": stakes
-                })
-        elif market == "over15":
-            best_over = max((ev["odds"]["over"], ev["bookmaker"]) for ev in group)
-            best_under = max((ev["odds"]["under"], ev["bookmaker"]) for ev in group)
-            best = {"over": best_over, "under": best_under}
-            prob = 1 / best["over"][0] + 1 / best["under"][0]
-            if prob < 1:
-                raw_profit = (1 - prob) * 100
-                profit = net_profit(raw_profit)
-                valid, reason = is_valid_arb(best, profit)
-                if not valid:
-                    rejected.append((key, reason))
-                    continue
-                stakes = calculate_stakes(best)
-                arbs.append({
-                    "match": f"{group[0]['home']} vs {group[0]['away']}",
-                    "league": group[0]["league"],
-                    "market": "Over 1.5",
-                    "profit": profit,
-                    "best_odds": best,
-                    "stakes": stakes
-                })
-        elif market == "btts":
-            best_yes = max((ev["odds"]["yes"], ev["bookmaker"]) for ev in group)
-            best_no = max((ev["odds"]["no"], ev["bookmaker"]) for ev in group)
-            best = {"yes": best_yes, "no": best_no}
-            prob = 1 / best["yes"][0] + 1 / best["no"][0]
-            if prob < 1:
-                raw_profit = (1 - prob) * 100
-                profit = net_profit(raw_profit)
-                valid, reason = is_valid_arb(best, profit)
-                if not valid:
-                    rejected.append((key, reason))
-                    continue
-                stakes = calculate_stakes(best)
-                arbs.append({
-                    "match": f"{group[0]['home']} vs {group[0]['away']}",
-                    "league": group[0]["league"],
-                    "market": "BTTS",
-                    "profit": profit,
-                    "best_odds": best,
-                    "stakes": stakes
-                })
-        elif market == "dc":
-            best_1x = max((ev["odds"]["1X"], ev["bookmaker"]) for ev in group)
-            best_12 = max((ev["odds"]["12"], ev["bookmaker"]) for ev in group)
-            best_x2 = max((ev["odds"]["X2"], ev["bookmaker"]) for ev in group)
-            best = {"1X": best_1x, "12": best_12, "X2": best_x2}
-            prob = 1 / best["1X"][0] + 1 / best["12"][0] + 1 / best["X2"][0]
-            if prob < 1:
-                raw_profit = (1 - prob) * 100
-                profit = net_profit(raw_profit)
-                valid, reason = is_valid_arb(best, profit)
-                if not valid:
-                    rejected.append((key, reason))
-                    continue
-                stakes = calculate_stakes(best)
-                arbs.append({
-                    "match": f"{group[0]['home']} vs {group[0]['away']}",
-                    "league": group[0]["league"],
-                    "market": "Double Chance",
-                    "profit": profit,
-                    "best_odds": best,
-                    "stakes": stakes
-                })
+        config = MARKET_CONFIG.get(
+            market
+        )
 
-    return arbs, rejected
+        if not config:
+            continue
 
-# =========================
-# HTML DASHBOARD GENERATOR (string.Template)
-# =========================
+        outcomes = config[
+            "outcomes"
+        ]
 
-def generate_html_dashboard(arbs):
-    html_template = Template("""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arbitrage Scanner – Dashboard</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 20px; }
-        h1 { color: #333; }
-        .arb { background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin-bottom: 10px; }
-        .profit { color: green; font-weight: bold; }
-        .market { color: #555; }
-        .odds { margin-top: 5px; }
-    </style>
-</head>
-<body>
-    <h1>Arbitrage Opportunities – Last Scan</h1>
-    <p>Total arbs: $total</p>
-    $arbs
-</body>
-</html>""")
+        if len(group) < 2:
+            continue
 
-    arb_html = ""
+        # Best price for every outcome.
+        best = {}
+
+        for outcome in outcomes:
+
+            candidates = []
+
+            for event in group:
+
+                odd = clean_odd(
+                    event.get(
+                        "odds",
+                        {}
+                    ).get(outcome)
+                )
+
+                bookmaker = event.get(
+                    "bookmaker"
+                )
+
+                if odd and bookmaker:
+                    candidates.append(
+                        (
+                            odd,
+                            bookmaker
+                        )
+                    )
+
+            if not candidates:
+                break
+
+            # Highest odd wins.
+            best[outcome] = max(
+                candidates,
+                key=lambda x: x[0]
+            )
+
+        if len(best) != len(outcomes):
+            continue
+
+        probability = probability_sum(
+            best
+        )
+
+        if probability is None:
+            continue
+
+        if probability >= 1.0:
+            continue
+
+        raw_profit = gross_profit_percent(
+            probability
+        )
+
+        profit = net_profit(
+            raw_profit
+        )
+
+        valid, reason = is_valid_arb(
+            best,
+            profit
+        )
+
+        if not valid:
+
+            rejected.append({
+                "key": key,
+                "reason": reason,
+            })
+
+            continue
+
+        stakes = calculate_stakes(
+            best
+        )
+
+        payouts = calculate_payouts(
+            best,
+            stakes
+        )
+
+        actual_total_stake = sum(
+            stakes.values()
+        )
+
+        min_payout = (
+            min(payouts.values())
+            if payouts
+            else 0
+        )
+
+        actual_profit = round(
+            (
+                min_payout
+                - actual_total_stake
+            )
+            / actual_total_stake
+            * 100,
+            2
+        ) if actual_total_stake else 0
+
+        arbs.append({
+
+            "id": (
+                f"{key[0]}_"
+                f"{key[1]}_"
+                f"{market}"
+            ),
+
+            "match": (
+                f"{group[0].get('home', '')}"
+                f" vs "
+                f"{group[0].get('away', '')}"
+            ),
+
+            "home": group[0].get(
+                "home",
+                ""
+            ),
+
+            "away": group[0].get(
+                "away",
+                ""
+            ),
+
+            "league": group[0].get(
+                "league",
+                ""
+            ),
+
+            "market": config[
+                "label"
+            ],
+
+            "market_code": market,
+
+            "profit": profit,
+
+            "raw_profit": round(
+                raw_profit,
+                2
+            ),
+
+            "probability": round(
+                probability,
+                6
+            ),
+
+            "best_odds": best,
+
+            "stakes": stakes,
+
+            "payouts": payouts,
+
+            "total_stake": actual_total_stake,
+
+            "minimum_payout": min_payout,
+
+            "actual_profit_after_rounding": (
+                actual_profit
+            ),
+
+            "bookmakers": sorted(
+                set(
+                    bookmaker
+                    for _, bookmaker
+                    in best.values()
+                )
+            ),
+
+            "detected_at": utc_now(),
+        })
+
+    # Highest profit first.
+    arbs.sort(
+        key=lambda x: (
+            x["profit"],
+            x["raw_profit"]
+        ),
+        reverse=True
+    )
+
+    return (
+        arbs[:MAX_ARBS],
+        rejected
+    )
+
+
+# ============================================================
+# HTML DASHBOARD
+# ============================================================
+
+def generate_html_dashboard(
+    arbs,
+    scan_info=None
+):
+
+    cards = []
+
     for arb in arbs:
-        odds_text = ""
-        for outcome, (odd, bk) in arb["best_odds"].items():
-            odds_text += f"{outcome}: {odd} @ {bk}<br>"
-        arb_html += f"""
-        <div class="arb">
-            <strong>{arb['match']}</strong> <span class="market">[{arb['market']}]</span><br>
-            League: {arb['league']}<br>
-            <span class="profit">Profit: {arb['profit']}%</span><br>
-            <div class="odds">
-                {odds_text}
-            </div>
+
+        odds_rows = []
+
+        for outcome, (
+            odd,
+            bookmaker
+        ) in arb["best_odds"].items():
+
+            stake = arb[
+                "stakes"
+            ].get(
+                outcome,
+                0
+            )
+
+            payout = arb[
+                "payouts"
+            ].get(
+                outcome,
+                0
+            )
+
+            odds_rows.append(
+                f"""
+                <div class="odd-row">
+                    <span class="outcome">
+                        {html.escape(str(outcome))}
+                    </span>
+
+                    <span>
+                        <b>{odd:.2f}</b>
+                        <small>
+                            @ {html.escape(bookmaker)}
+                        </small>
+                    </span>
+
+                    <span>
+                        UGX {stake:,}
+                    </span>
+
+                    <span>
+                        UGX {payout:,.0f}
+                    </span>
+                </div>
+                """
+            )
+
+        cards.append(
+            f"""
+            <article class="arb-card">
+
+                <div class="top-line">
+
+                    <div>
+                        <h2>
+                            {html.escape(arb["match"])}
+                        </h2>
+
+                        <div class="league">
+                            {html.escape(
+                                str(arb["league"])
+                            )}
+                        </div>
+                    </div>
+
+                    <div class="profit">
+                        +{arb["profit"]:.2f}%
+                    </div>
+
+                </div>
+
+                <div class="market">
+                    {html.escape(
+                        arb["market"]
+                    )}
+                </div>
+
+                <div class="stats">
+
+                    <div>
+                        <small>Total Stake</small>
+                        <strong>
+                            UGX {arb["total_stake"]:,}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <small>Min Payout</small>
+                        <strong>
+                            UGX {arb["minimum_payout"]:,.0f}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <small>Arb Probability</small>
+                        <strong>
+                            {arb["probability"]:.4f}
+                        </strong>
+                    </div>
+
+                </div>
+
+                <div class="odds-header">
+                    <span>Outcome</span>
+                    <span>Odd / Bookmaker</span>
+                    <span>Stake</span>
+                    <span>Payout</span>
+                </div>
+
+                {"".join(odds_rows)}
+
+            </article>
+            """
+        )
+
+    generated = utc_now()
+
+    total_events = (
+        scan_info.get(
+            "total_events",
+            0
+        )
+        if scan_info
+        else 0
+    )
+
+    total_books = (
+        scan_info.get(
+            "bookmakers",
+            0
+        )
+        if scan_info
+        else 0
+    )
+
+    template = Template(
+        """
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#0b0f14"
+>
+
+<title>
+    Uganda Arbitrage Scanner
+</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 16px;
+    background: #0b0f14;
+    color: #e7edf5;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+}
+
+header {
+    padding: 20px 0;
+}
+
+h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+}
+
+.subtitle {
+    color: #8d9aaa;
+}
+
+.scan-info {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 15px 0 20px;
+}
+
+.info {
+    background: #111821;
+    border: 1px solid #202b37;
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.info small {
+    display: block;
+    color: #7f8b99;
+    margin-bottom: 5px;
+}
+
+.info strong {
+    font-size: 18px;
+}
+
+.arb-card {
+    background: #111821;
+    border: 1px solid #24303d;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,.18);
+}
+
+.top-line {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+h2 {
+    margin: 0 0 6px;
+    font-size: 18px;
+}
+
+.league {
+    color: #7f8b99;
+    font-size: 13px;
+}
+
+.profit {
+    color: #42e695;
+    font-size: 21px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.market {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 5px 9px;
+    border-radius: 7px;
+    background: #1b2632;
+    color: #b7c3d0;
+    font-size: 12px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.stats > div {
+    background: #0d141c;
+    border-radius: 9px;
+    padding: 10px;
+}
+
+.stats small {
+    display: block;
+    color: #718091;
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+.stats strong {
+    font-size: 12px;
+}
+
+.odds-header,
+.odd-row {
+    display: grid;
+    grid-template-columns:
+        .7fr 1.5fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+}
+
+.odds-header {
+    color: #667485;
+    font-size: 10px;
+    padding: 7px 8px;
+}
+
+.odd-row {
+    padding: 10px 8px;
+    border-top: 1px solid #202a35;
+    font-size: 12px;
+}
+
+.odd-row small {
+    display: block;
+    color: #758394;
+    margin-top: 2px;
+}
+
+.outcome {
+    font-weight: 700;
+}
+
+.empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: #768394;
+    background: #111821;
+    border-radius: 14px;
+}
+
+footer {
+    color: #596676;
+    font-size: 11px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+@media(max-width:600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .odds-header,
+    .odd-row {
+        grid-template-columns:
+            .7fr 1.4fr 1fr 1fr;
+        font-size: 11px;
+    }
+
+    .arb-card {
+        padding: 13px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+<h1>
+    Uganda Arbitrage Scanner
+</h1>
+
+<div class="subtitle">
+    Last scan: $generated
+</div>
+
+</header>
+
+<div class="scan-info">
+
+<div class="info">
+    <small>Opportunities</small>
+    <strong>$total_arbs</strong>
+</div>
+
+<div class="info">
+    <small>Events</small>
+    <strong>$total_events</strong>
+</div>
+
+<div class="info">
+    <small>Bookmakers</small>
+    <strong>$total_books</strong>
+</div>
+
+</div>
+
+<div>
+
+$arbs
+
+</div>
+
+<footer>
+
+Arbitrage calculations are theoretical.
+Odds can change before placement.
+
+</footer>
+
+</div>
+
+</body>
+
+</html>
+"""
+    )
+
+    if not cards:
+
+        cards_html = """
+        <div class="empty">
+            No valid arbitrage opportunities found
+            in this scan.
         </div>
         """
 
-    html_out = html_template.substitute(total=len(arbs), arbs=arb_html)
-    with open("index.html", "w") as f:
-        f.write(html_out)
+    else:
 
-# =========================
-# MAIN SCAN (RUNS ONCE)
-# =========================
+        cards_html = "\n".join(
+            cards
+        )
+
+    output = template.substitute(
+        generated=html.escape(
+            generated
+        ),
+        total_arbs=len(arbs),
+        total_events=total_events,
+        total_books=total_books,
+        arbs=cards_html,
+    )
+
+    atomic_write(
+        HTML_FILE,
+        output
+    )
+
+
+# ============================================================
+# HISTORY
+# ============================================================
+
+def load_json_file(
+    path,
+    default
+):
+
+    try:
+
+        if not os.path.exists(path):
+            return default
+
+        with open(
+            path,
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            data = json.load(f)
+
+        return data
+
+    except Exception as exc:
+
+        logger.warning(
+            "Could not load %s: %s",
+            path,
+            exc
+        )
+
+        return default
+
+
+def save_history(arbs):
+
+    history = load_json_file(
+        HISTORY_FILE,
+        []
+    )
+
+    if not isinstance(
+        history,
+        list
+    ):
+        history = []
+
+    history.append({
+        "timestamp": utc_now(),
+        "count": len(arbs),
+        "arbitrage": arbs,
+    })
+
+    # Keep last 100 scans.
+    history = history[-100:]
+
+    write_json(
+        HISTORY_FILE,
+        history
+    )
+
+
+# ============================================================
+# STATUS
+# ============================================================
+
+def save_status(status):
+
+    write_json(
+        STATUS_FILE,
+        status
+    )
+
+
+# ============================================================
+# TELEGRAM FORMAT
+# ============================================================
+
+def format_telegram_message(
+    arb
+):
+
+    lines = [
+        "🚨 ARBITRAGE FOUND",
+        "",
+        f"{arb['match']}",
+        f"Market: {arb['market']}",
+        f"League: {arb['league']}",
+        "",
+        f"Net Profit: {arb['profit']:.2f}%",
+        f"Stake: UGX {arb['total_stake']:,}",
+        "",
+    ]
+
+    for outcome, (
+        odd,
+        bookmaker
+    ) in arb[
+        "best_odds"
+    ].items():
+
+        stake = arb[
+            "stakes"
+        ].get(
+            outcome,
+            0
+        )
+
+        lines.append(
+            f"{outcome}: "
+            f"{odd:.2f} @ {bookmaker} "
+            f"| Stake UGX {stake:,}"
+        )
+
+    return "\n".join(
+        lines
+    )
+
+
+# ============================================================
+# BOOKMAKERS
+# ============================================================
 
 BOOKMAKERS = [
+
     GSB(),
+
     TopBet(),
+
     Bet22(),
+
     Betmaster(),
+
     ChampionBet(),
+
     AbaBet(),
+
     Fortebet(),
+
     SportyBet(),
+
     Melbet(),
+
     OneXBet(),
+
     ParseBot(),
-    BongoBongo(),   # placeholder
-    BetPawa(),      # placeholder
+
+    # These currently contain no parser.
+    BongoBongo(),
+
+    BetPawa(),
 ]
 
+
+# ============================================================
+# MAIN SCAN
+# ============================================================
+
 def scan_once():
+
+    started_at = utc_now()
+    start_time = time.time()
+
+    print()
+    print("=" * 70)
+    print("UGANDA ARBITRAGE SCANNER")
+    print("=" * 70)
+    print()
+
     all_events = []
-    print("\n========================")
-    print("STARTING SCAN")
-    print("========================\n")
+    bookmaker_results = []
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
+    save_status({
+        "status": "running",
+        "started_at": started_at,
+        "finished_at": None,
+        "total_events": 0,
+        "arbs": 0,
+        "errors": [],
+    })
+
+    # --------------------------------------------------------
+    # Fetch bookmakers concurrently
+    # --------------------------------------------------------
+
+    workers = min(
+        MAX_THREADS,
+        max(
+            1,
+            len(BOOKMAKERS)
+        )
+    )
+
+    with ThreadPoolExecutor(
+        max_workers=workers
+    ) as executor:
+
         futures = {
-            executor.submit(book.fetch): book.name
-            for book in BOOKMAKERS
-        }
-        for future in as_completed(futures):
-            name = futures[future]
-            try:
-                data = future.result()
-                print(f"{name}: {len(data)} events")
-                all_events.extend(data)
-            except Exception as e:
-                print(f"{name} failed: {e}")
+            executor.submit(
+                bookmaker.safe_fetch
+            ): bookmaker.name
 
-    print(f"\nTOTAL EVENTS: {len(all_events)}")
-    arbs, rejected = find_arbs(all_events)
-    print(f"ARBS FOUND (after filter): {len(arbs)}\n")
+            for bookmaker
+            in BOOKMAKERS
+        }
+
+        for future in as_completed(
+            futures
+        ):
+
+            name = futures[
+                future
+            ]
+
+            try:
+
+                result = future.result()
+
+            except Exception as exc:
+
+                result = {
+                    "bookmaker": name,
+                    "events": [],
+                    "duration": 0,
+                    "error": str(exc),
+                }
+
+            bookmaker_results.append(
+                result
+            )
+
+            count = len(
+                result.get(
+                    "events",
+                    []
+                )
+            )
+
+            error = result.get(
+                "error"
+            )
+
+            if error:
+
+                logger.error(
+                    "%s: FAILED | %s",
+                    name,
+                    error
+                )
+
+            else:
+
+                logger.info(
+                    "%s: %d events | %.2fs",
+                    name,
+                    count,
+                    result.get(
+                        "duration",
+                        0
+                    )
+                )
+
+            all_events.extend(
+                result.get(
+                    "events",
+                    []
+                )
+            )
+
+    # --------------------------------------------------------
+    # Deduplicate
+    # --------------------------------------------------------
+
+    raw_event_count = len(
+        all_events
+    )
+
+    all_events = deduplicate_events(
+        all_events
+    )
+
+    logger.info(
+        "Raw events: %d",
+        raw_event_count
+    )
+
+    logger.info(
+        "Valid unique events: %d",
+        len(all_events)
+    )
+
+    # --------------------------------------------------------
+    # Find arbitrage
+    # --------------------------------------------------------
+
+    arbs, rejected = find_arbs(
+        all_events
+    )
+
+    logger.info(
+        "Valid arbitrage opportunities: %d",
+        len(arbs)
+    )
+
+    logger.info(
+        "Rejected candidates: %d",
+        len(rejected)
+    )
+
+    # --------------------------------------------------------
+    # Save events
+    # --------------------------------------------------------
+
+    write_json(
+        EVENTS_FILE,
+        all_events
+    )
+
+    write_json(
+        ARBS_FILE,
+        arbs
+    )
+
+    # --------------------------------------------------------
+    # Scan information
+    # --------------------------------------------------------
+
+    errors = [
+        {
+            "bookmaker": result[
+                "bookmaker"
+            ],
+            "error": result[
+                "error"
+            ],
+        }
+
+        for result
+        in bookmaker_results
+
+        if result.get("error")
+    ]
+
+    elapsed = round(
+        time.time() - start_time,
+        2
+    )
+
+    status = {
+        "status": "complete",
+
+        "started_at": started_at,
+
+        "finished_at": utc_now(),
+
+        "duration_seconds": elapsed,
+
+        "bookmakers": len(
+            BOOKMAKERS
+        ),
+
+        "successful_bookmakers": (
+            len(BOOKMAKERS) - len(errors)
+        ),
+
+        "failed_bookmakers": len(
+            errors
+        ),
+
+        "raw_events": raw_event_count,
+
+        "total_events": len(
+            all_events
+        ),
+
+        "arbs": len(
+            arbs
+        ),
+
+        "rejected": len(
+            rejected
+        ),
+
+        "errors": errors,
+    }
+
+    save_status(
+        status
+    )
+
+    # --------------------------------------------------------
+    # Dashboard
+    # --------------------------------------------------------
+
+    generate_html_dashboard(
+        arbs,
+        status
+    )
+
+    # --------------------------------------------------------
+    # History
+    # --------------------------------------------------------
+
+    save_history(
+        arbs
+    )
+
+    # --------------------------------------------------------
+    # Print opportunities
+    # --------------------------------------------------------
+
+    print()
+    print("=" * 70)
+    print(
+        f"ARBS FOUND: {len(arbs)}"
+    )
+    print("=" * 70)
 
     for arb in arbs:
-        print("=" * 60)
-        print(f"{arb['match']} [{arb['market']}]")
-        print(f"League: {arb['league']}")
-        print(f"PROFIT: {arb['profit']}%")
-        for outcome, (odd, bk) in arb["best_odds"].items():
-            print(f"  {outcome}: {odd} @ {bk}")
-        print(f"  Stakes: {arb['stakes']}")
-        msg = (
-            f"ARB FOUND\n\n"
-            f"{arb['match']} [{arb['market']}]\n"
-            f"{arb['league']}\n"
-            f"Profit: {arb['profit']}%"
+
+        print()
+        print("-" * 70)
+
+        print(
+            f"{arb['match']} "
+            f"[{arb['market']}]"
         )
-        send_telegram(msg)
 
-    if rejected:
-        print("\n--- REJECTED FAKE ARBS ---")
-        for (key, reason) in rejected:
-            print(f"{key} -> {reason}")
+        print(
+            f"League: {arb['league']}"
+        )
 
-    with open("events.json", "w") as f:
-        json.dump(all_events, f, indent=2)
-    with open("current_opportunities.json", "w") as f:
-        json.dump(arbs, f, indent=2)
-    generate_html_dashboard(arbs)
-    print("\nSaved events.json, current_opportunities.json, index.html")
-    print("SCAN COMPLETE – Exiting.")
+        print(
+            f"NET PROFIT: "
+            f"{arb['profit']:.2f}%"
+        )
+
+        print(
+            f"Probability: "
+            f"{arb['probability']:.6f}"
+        )
+
+        print(
+            f"Total stake: "
+            f"UGX {arb['total_stake']:,}"
+        )
+
+        for outcome, (
+            odd,
+            bookmaker
+        ) in arb[
+            "best_odds"
+        ].items():
+
+            stake = arb[
+                "stakes"
+            ].get(
+                outcome,
+                0
+            )
+
+            payout = arb[
+                "payouts"
+            ].get(
+                outcome,
+                0
+            )
+
+            print(
+                f"  {outcome}: "
+                f"{odd:.2f} @ {bookmaker} "
+                f"| Stake UGX {stake:,} "
+                f"| Payout UGX {payout:,.0f}"
+            )
+
+        # Telegram
+        send_telegram(
+            format_telegram_message(
+                arb
+            )
+        )
+
+    # --------------------------------------------------------
+    # Summary
+    # --------------------------------------------------------
+
+    print()
+    print("=" * 70)
+    print("SCAN COMPLETE")
+    print("=" * 70)
+
+    print(
+        f"Raw events:       {raw_event_count}"
+    )
+
+    print(
+        f"Valid events:     {len(all_events)}"
+    )
+
+    print(
+        f"Opportunities:    {len(arbs)}"
+    )
+
+    print(
+        f"Rejected:         {len(rejected)}"
+    )
+
+    print(
+        f"Duration:         {elapsed}s"
+    )
+
+    print()
+    print(
+        f"Saved: {EVENTS_FILE}"
+    )
+
+    print(
+        f"Saved: {ARBS_FILE}"
+    )
+
+    print(
+        f"Saved: {STATUS_FILE}"
+    )
+
+    print(
+        f"Saved: {HISTORY_FILE}"
+    )
+
+    print(
+        f"Saved: {HTML_FILE}"
+    )
+
+    print()
+
+    return {
+        "events": all_events,
+        "arbs": arbs,
+        "rejected": rejected,
+        "status": status,
+    }
+
+
+# ============================================================
+# ENTRY POINT
+# ============================================================
 
 if __name__ == "__main__":
-    scan_once()
+
+    try:
+
+        scan_once()
+
+    except KeyboardInterrupt:
+
+        logger.warning(
+            "Scanner interrupted by user."
+        )
+
+    except Exception:
+
+        logger.exception(
+            "FATAL SCANNER ERROR"
+        )
+
+        save_status({
+            "status": "failed",
+            "finished_at": utc_now(),
+        })
+
+        raise
