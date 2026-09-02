@@ -1,49 +1,5 @@
 [
   {
-    "id": "gv san jose_bolivar_1x2",
-    "match": "GV San Jose vs Bolivar",
-    "home": "GV San Jose",
-    "away": "Bolivar",
-    "league": "",
-    "market": "1X2",
-    "market_code": "1x2",
-    "profit": 11.68,
-    "raw_profit": 13.75,
-    "probability": 0.862536,
-    "best_odds": {
-      "1": [
-        4.95,
-        "TopBet"
-      ],
-      "X": [
-        4.43,
-        "TopBet"
-      ],
-      "2": [
-        2.3,
-        "Fortebet"
-      ]
-    },
-    "stakes": {
-      "1": 2350,
-      "X": 2600,
-      "2": 5050
-    },
-    "payouts": {
-      "1": 11632.5,
-      "X": 11518.0,
-      "2": 11615.0
-    },
-    "total_stake": 10000,
-    "minimum_payout": 11518.0,
-    "actual_profit_after_rounding": 15.18,
-    "bookmakers": [
-      "Fortebet",
-      "TopBet"
-    ],
-    "detected_at": "2026-09-02T12:20:19.503174+00:00"
-  },
-  {
     "id": "polkowice_polonia warszawa_1x2",
     "match": "Polkowice vs Polonia Warszawa",
     "home": "Polkowice",
@@ -86,7 +42,7 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T12:20:19.503910+00:00"
+    "detected_at": "2026-09-02T12:22:21.964614+00:00"
   },
   {
     "id": "minerul lupeni_uta arad_1x2",
@@ -96,16 +52,16 @@
     "league": "Cupa României",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 1.79,
-    "raw_profit": 2.11,
-    "probability": 0.978928,
+    "profit": 3.2,
+    "raw_profit": 3.77,
+    "probability": 0.962341,
     "best_odds": {
       "1": [
-        6.75,
+        7.2,
         "TopBet"
       ],
       "X": [
-        4.45,
+        4.6,
         "TopBet"
       ],
       "2": [
@@ -114,22 +70,66 @@
       ]
     },
     "stakes": {
-      "1": 1500,
-      "X": 2300,
-      "2": 6200
+      "1": 1450,
+      "X": 2250,
+      "2": 6300
     },
     "payouts": {
-      "1": 10125.0,
-      "X": 10235.0,
-      "2": 10230.0
+      "1": 10440.0,
+      "X": 10350.0,
+      "2": 10395.0
     },
     "total_stake": 10000,
-    "minimum_payout": 10125.0,
-    "actual_profit_after_rounding": 1.25,
+    "minimum_payout": 10350.0,
+    "actual_profit_after_rounding": 3.5,
     "bookmakers": [
       "Betmaster",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T12:20:19.504081+00:00"
+    "detected_at": "2026-09-02T12:22:21.964747+00:00"
+  },
+  {
+    "id": "orenburg_rubin kazan_1x2",
+    "match": "Orenburg vs Rubin Kazan",
+    "home": "Orenburg",
+    "away": "Rubin Kazan",
+    "league": "Cup",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 1.13,
+    "raw_profit": 1.33,
+    "probability": 0.98675,
+    "best_odds": {
+      "1": [
+        2.59,
+        "TopBet"
+      ],
+      "X": [
+        3.36,
+        "Betmaster"
+      ],
+      "2": [
+        3.3,
+        "Betmaster"
+      ]
+    },
+    "stakes": {
+      "1": 3950,
+      "X": 3000,
+      "2": 3050
+    },
+    "payouts": {
+      "1": 10230.5,
+      "X": 10080.0,
+      "2": 10065.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10065.0,
+    "actual_profit_after_rounding": 0.65,
+    "bookmakers": [
+      "Betmaster",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-02T12:22:21.964785+00:00"
   }
 ]
