@@ -1,5 +1,49 @@
 [
   {
+    "id": "dynamo moscow_akhmat grozny_1x2",
+    "match": "Dynamo Moscow vs Akhmat Grozny",
+    "home": "Dynamo Moscow",
+    "away": "Akhmat Grozny",
+    "league": "Cup",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 2.74,
+    "raw_profit": 3.22,
+    "probability": 0.967792,
+    "best_odds": {
+      "1": [
+        2.24,
+        "Betmaster"
+      ],
+      "X": [
+        3.66,
+        "TopBet"
+      ],
+      "2": [
+        4.03,
+        "TopBet"
+      ]
+    },
+    "stakes": {
+      "1": 4650,
+      "X": 2800,
+      "2": 2550
+    },
+    "payouts": {
+      "1": 10416.0,
+      "X": 10248.0,
+      "2": 10276.5
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10248.0,
+    "actual_profit_after_rounding": 2.48,
+    "bookmakers": [
+      "Betmaster",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-02T22:30:23.851449+00:00"
+  },
+  {
     "id": "santos_palmeiras_1x2",
     "match": "Santos vs Palmeiras",
     "home": "Santos",
@@ -7,9 +51,9 @@
     "league": "",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 2.43,
-    "raw_profit": 2.86,
-    "probability": 0.971377,
+    "profit": 2.31,
+    "raw_profit": 2.71,
+    "probability": 0.972851,
     "best_odds": {
       "1": [
         3.4,
@@ -20,28 +64,28 @@
         "Betmaster"
       ],
       "2": [
-        2.61,
+        2.6,
         "TopBet"
       ]
     },
     "stakes": {
-      "1": 3050,
-      "X": 3050,
-      "2": 3900
+      "1": 3000,
+      "X": 3000,
+      "2": 4000
     },
     "payouts": {
-      "1": 10370.0,
-      "X": 10370.0,
-      "2": 10179.0
+      "1": 10200.0,
+      "X": 10200.0,
+      "2": 10400.0
     },
     "total_stake": 10000,
-    "minimum_payout": 10179.0,
-    "actual_profit_after_rounding": 1.79,
+    "minimum_payout": 10200.0,
+    "actual_profit_after_rounding": 2.0,
     "bookmakers": [
       "Betmaster",
       "TopBet"
     ],
-    "detected_at": "2026-09-02T22:28:16.171360+00:00"
+    "detected_at": "2026-09-02T22:30:23.848064+00:00"
   },
   {
     "id": "vitoria_vasco_1x2",
@@ -85,6 +129,6 @@
       "Betmaster",
       "Fortebet"
     ],
-    "detected_at": "2026-09-02T22:28:16.171297+00:00"
+    "detected_at": "2026-09-02T22:30:23.848007+00:00"
   }
 ]
