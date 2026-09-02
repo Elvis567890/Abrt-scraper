@@ -977,7 +977,7 @@ def find_arbs(events):
     return arbs
 
 # =========================
-# HTML DASHBOARD GENERATOR
+# HTML DASHBOARD GENERATOR (FIXED – CSS braces escaped)
 # =========================
 
 def generate_html_dashboard(arbs):
@@ -988,12 +988,12 @@ def generate_html_dashboard(arbs):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arbitrage Scanner – Dashboard</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 20px; }
-        h1 { color: #333; }
-        .arb { background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin-bottom: 10px; }
-        .profit { color: green; font-weight: bold; }
-        .market { color: #555; }
-        .odds { margin-top: 5px; }
+        body {{ font-family: Arial, sans-serif; background: #f4f4f4; margin: 20px; }}
+        h1 {{ color: #333; }}
+        .arb {{ background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin-bottom: 10px; }}
+        .profit {{ color: green; font-weight: bold; }}
+        .market {{ color: #555; }}
+        .odds {{ margin-top: 5px; }}
     </style>
 </head>
 <body>
