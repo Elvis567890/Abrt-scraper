@@ -54,6 +54,12 @@ MIN_PROFIT = float(os.getenv("MIN_PROFIT", "0.5"))
 # 0.998 means at least ~0.2% theoretical margin before tax.
 PROB_LIMIT = float(os.getenv("PROB_LIMIT", "0.998"))
 
+# Lower bound for probability sum (catches obviously wrong markets).
+MIN_PROB = float(os.getenv("MIN_PROB", "0.10"))
+
+# Maximum individual odd accepted (catches outliers like 21.25).
+ODD_LIMIT = float(os.getenv("ODD_LIMIT", "15.0"))
+
 TIMEOUT = int(os.getenv("TIMEOUT", "20"))
 MAX_THREADS = int(os.getenv("MAX_THREADS", "10"))
 
@@ -2393,8 +2399,14 @@ def is_valid_arb(
 
     for odd, bookmaker in best_odds.values():
 
-        if not clean_odd(odd):
+        odd = clean_odd(odd)
+
+        if odd is None:
             return False, "invalid odd"
+
+        # Reject unreasonably high odds (likely API errors).
+        if odd > ODD_LIMIT:
+            return False, f"odd too high {odd}"
 
         if not bookmaker:
             return False, "missing bookmaker"
@@ -2418,22 +2430,13 @@ def is_valid_arb(
                 f"{bookmaker} not whitelisted"
             )
 
-    # Sharp-bookmaker rule.
+    # Reject any duplicate bookmaker (no need for sharp-specific rule).
     counts = Counter(
         bookmakers
     )
 
-    for bookmaker, count in counts.items():
-
-        if (
-            count >= 2
-            and bookmaker in SHARP_BOOKMAKERS
-        ):
-
-            return False, (
-                f"{bookmaker} appears "
-                f"{count} times"
-            )
+    if any(c >= 2 for c in counts.values()):
+        return False, f"duplicate bookie {counts}"
 
     probability = probability_sum(
         best_odds
@@ -2444,6 +2447,11 @@ def is_valid_arb(
 
     if probability >= PROB_LIMIT:
         return False, "probability sum too high"
+
+    # Reject extremely high profits (probability too low) –
+    # likely wrong market or fake odds.
+    if probability < MIN_PROB:
+        return False, f"probability too low {probability}"
 
     return True, "OK"
 
