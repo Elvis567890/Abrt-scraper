@@ -1,5 +1,50 @@
 [
   {
+    "id": "napoli_arsenal_1x2",
+    "match": "Napoli vs Arsenal",
+    "home": "Napoli",
+    "away": "Arsenal",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 11.9,
+    "raw_profit": 14.0,
+    "probability": 0.859984,
+    "best_odds": {
+      "1": [
+        6.0,
+        "TopBet"
+      ],
+      "X": [
+        3.84,
+        "Melbet"
+      ],
+      "2": [
+        2.31,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1950,
+      "X": 3050,
+      "2": 5000
+    },
+    "payouts": {
+      "1": 11700.0,
+      "X": 11712.0,
+      "2": 11550.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11550.0,
+    "actual_profit_after_rounding": 15.5,
+    "bookmakers": [
+      "Fortebet",
+      "Melbet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-09T13:28:22.599123+00:00"
+  },
+  {
     "id": "modern sport_wadi degla_1x2",
     "match": "Modern Sport vs Wadi Degla",
     "home": "Modern Sport",
@@ -7,16 +52,16 @@
     "league": "",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 2.16,
-    "raw_profit": 2.54,
-    "probability": 0.974585,
+    "profit": 1.17,
+    "raw_profit": 1.38,
+    "probability": 0.986221,
     "best_odds": {
       "1": [
-        4.25,
+        4.15,
         "Fortebet"
       ],
       "X": [
-        2.92,
+        2.87,
         "ChampionBet"
       ],
       "2": [
@@ -25,23 +70,23 @@
       ]
     },
     "stakes": {
-      "1": 2400,
-      "X": 3500,
-      "2": 4100
+      "1": 2450,
+      "X": 3550,
+      "2": 4000
     },
     "payouts": {
-      "1": 10200.0,
-      "X": 10220.0,
-      "2": 10332.0
+      "1": 10167.5,
+      "X": 10188.5,
+      "2": 10080.0
     },
     "total_stake": 10000,
-    "minimum_payout": 10200.0,
-    "actual_profit_after_rounding": 2.0,
+    "minimum_payout": 10080.0,
+    "actual_profit_after_rounding": 0.8,
     "bookmakers": [
       "Betmaster",
       "ChampionBet",
       "Fortebet"
     ],
-    "detected_at": "2026-09-09T13:27:45.559029+00:00"
+    "detected_at": "2026-09-09T13:28:22.598522+00:00"
   }
 ]
