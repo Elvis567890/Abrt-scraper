@@ -1,5 +1,50 @@
 [
   {
+    "id": "racing montevideo_central esp_1x2",
+    "match": "Racing Montevideo vs Central Esp.",
+    "home": "Racing Montevideo",
+    "away": "Central Esp.",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 1.95,
+    "raw_profit": 2.29,
+    "probability": 0.977115,
+    "best_odds": {
+      "1": [
+        1.85,
+        "Betmaster"
+      ],
+      "X": [
+        3.65,
+        "Fortebet"
+      ],
+      "2": [
+        6.15,
+        "TopBet"
+      ]
+    },
+    "stakes": {
+      "1": 5550,
+      "X": 2800,
+      "2": 1650
+    },
+    "payouts": {
+      "1": 10267.5,
+      "X": 10220.0,
+      "2": 10147.5
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10147.5,
+    "actual_profit_after_rounding": 1.47,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-09T17:24:24.340956+00:00"
+  },
+  {
     "id": "botafogo sp_novorizontino_1x2",
     "match": "Botafogo SP vs Novorizontino",
     "home": "Botafogo SP",
@@ -42,6 +87,6 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-09T17:22:22.213478+00:00"
+    "detected_at": "2026-09-09T17:24:24.337215+00:00"
   }
 ]
