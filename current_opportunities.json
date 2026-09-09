@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "napoli_arsenal_1x2",
+    "match": "Napoli vs Arsenal",
+    "home": "Napoli",
+    "away": "Arsenal",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 12.33,
+    "raw_profit": 14.51,
+    "probability": 0.854919,
+    "best_odds": {
+      "1": [
+        6.0,
+        "TopBet"
+      ],
+      "X": [
+        3.86,
+        "Melbet"
+      ],
+      "2": [
+        2.33,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1950,
+      "X": 3050,
+      "2": 5000
+    },
+    "payouts": {
+      "1": 11700.0,
+      "X": 11773.0,
+      "2": 11650.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11650.0,
+    "actual_profit_after_rounding": 16.5,
+    "bookmakers": [
+      "Fortebet",
+      "Melbet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-09T13:00:20.182915+00:00"
+  }
+]
