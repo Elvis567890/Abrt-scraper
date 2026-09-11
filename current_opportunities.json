@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "airbus_tns_1x2",
+    "match": "Airbus  vs TNS",
+    "home": "Airbus ",
+    "away": "TNS",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 40.71,
+    "raw_profit": 47.9,
+    "probability": 0.521006,
+    "best_odds": {
+      "1": [
+        10.6,
+        "TopBet"
+      ],
+      "X": [
+        6.25,
+        "Betmaster"
+      ],
+      "2": [
+        3.75,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1800,
+      "X": 3050,
+      "2": 5150
+    },
+    "payouts": {
+      "1": 19080.0,
+      "X": 19062.5,
+      "2": 19312.5
+    },
+    "total_stake": 10000,
+    "minimum_payout": 19062.5,
+    "actual_profit_after_rounding": 90.62,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-11T18:30:20.238645+00:00"
+  }
+]
