@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "sunderland_arsenal_1x2",
+    "match": "Sunderland vs Arsenal",
+    "home": "Sunderland",
+    "away": "Arsenal",
+    "league": "England. Premier League",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 14.41,
+    "raw_profit": 16.96,
+    "probability": 0.830435,
+    "best_odds": {
+      "1": [
+        6.55,
+        "1xBet"
+      ],
+      "X": [
+        3.83,
+        "ChampionBet"
+      ],
+      "2": [
+        2.4,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1850,
+      "X": 3150,
+      "2": 5000
+    },
+    "payouts": {
+      "1": 12117.5,
+      "X": 12064.5,
+      "2": 12000.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 12000.0,
+    "actual_profit_after_rounding": 20.0,
+    "bookmakers": [
+      "1xBet",
+      "ChampionBet",
+      "Fortebet"
+    ],
+    "detected_at": "2026-09-12T18:50:17.794218+00:00"
+  }
+]
