@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "west ham_fulham_1x2",
+    "match": "West Ham vs Fulham",
+    "home": "West Ham",
+    "away": "Fulham",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 0.62,
+    "raw_profit": 0.73,
+    "probability": 0.992686,
+    "best_odds": {
+      "1": [
+        2.76,
+        "Fortebet"
+      ],
+      "X": [
+        3.66,
+        "ChampionBet"
+      ],
+      "2": [
+        2.8,
+        "Betmaster"
+      ]
+    },
+    "stakes": {
+      "1": 3650,
+      "X": 2750,
+      "2": 3600
+    },
+    "payouts": {
+      "1": 10074.0,
+      "X": 10065.0,
+      "2": 10080.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10065.0,
+    "actual_profit_after_rounding": 0.65,
+    "bookmakers": [
+      "Betmaster",
+      "ChampionBet",
+      "Fortebet"
+    ],
+    "detected_at": "2026-09-15T17:52:16.643469+00:00"
+  }
+]
