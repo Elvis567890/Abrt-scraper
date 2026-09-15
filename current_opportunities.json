@@ -1,5 +1,50 @@
 [
   {
+    "id": "elche_real madrid_1x2",
+    "match": "Elche vs Real Madrid",
+    "home": "Elche",
+    "away": "Real Madrid",
+    "league": "Spain. La Liga",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 48.44,
+    "raw_profit": 56.99,
+    "probability": 0.43009,
+    "best_odds": {
+      "1": [
+        12.6,
+        "TopBet"
+      ],
+      "X": [
+        7.5,
+        "Melbet"
+      ],
+      "2": [
+        4.6,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1850,
+      "X": 3100,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 23310.0,
+      "X": 23250.0,
+      "2": 23230.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 23230.0,
+    "actual_profit_after_rounding": 132.3,
+    "bookmakers": [
+      "Fortebet",
+      "Melbet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-15T12:52:26.864835+00:00"
+  },
+  {
     "id": "bunyodkor_lok tashkent_1x2",
     "match": "Bunyodkor vs Lok. Tashkent",
     "home": "Bunyodkor",
@@ -7,9 +52,9 @@
     "league": "",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 7.56,
-    "raw_profit": 8.89,
-    "probability": 0.911093,
+    "profit": 8.33,
+    "raw_profit": 9.8,
+    "probability": 0.902021,
     "best_odds": {
       "1": [
         5.75,
@@ -20,28 +65,28 @@
         "Betmaster"
       ],
       "2": [
-        2.08,
+        2.12,
         "Fortebet"
       ]
     },
     "stakes": {
-      "1": 1900,
-      "X": 2800,
-      "2": 5300
+      "1": 1950,
+      "X": 2850,
+      "2": 5200
     },
     "payouts": {
-      "1": 10925.0,
-      "X": 10920.0,
+      "1": 11212.5,
+      "X": 11115.0,
       "2": 11024.0
     },
     "total_stake": 10000,
-    "minimum_payout": 10920.0,
-    "actual_profit_after_rounding": 9.2,
+    "minimum_payout": 11024.0,
+    "actual_profit_after_rounding": 10.24,
     "bookmakers": [
       "Betmaster",
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-15T12:50:22.940077+00:00"
+    "detected_at": "2026-09-15T12:52:26.867523+00:00"
   }
 ]
