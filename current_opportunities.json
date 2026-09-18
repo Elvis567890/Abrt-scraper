@@ -1,5 +1,50 @@
 [
   {
+    "id": "birmingham u21_arsenal u21_1x2",
+    "match": "Birmingham U21 vs Arsenal U21",
+    "home": "Birmingham U21",
+    "away": "Arsenal U21",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 17.42,
+    "raw_profit": 20.49,
+    "probability": 0.795079,
+    "best_odds": {
+      "1": [
+        5.35,
+        "TopBet"
+      ],
+      "X": [
+        5.0,
+        "Betmaster"
+      ],
+      "2": [
+        2.45,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2350,
+      "X": 2500,
+      "2": 5150
+    },
+    "payouts": {
+      "1": 12572.5,
+      "X": 12500.0,
+      "2": 12617.5
+    },
+    "total_stake": 10000,
+    "minimum_payout": 12500.0,
+    "actual_profit_after_rounding": 25.0,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-18T11:48:22.517402+00:00"
+  },
+  {
     "id": "fleetwood u21_swansea u21_1x2",
     "match": "Fleetwood U21 vs Swansea U21",
     "home": "Fleetwood U21",
@@ -42,6 +87,6 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-18T11:46:18.842158+00:00"
+    "detected_at": "2026-09-18T11:48:22.517522+00:00"
   }
 ]
