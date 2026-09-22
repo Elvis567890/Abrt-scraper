@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "gillingham_cambridge utd_1x2",
+    "match": "Gillingham vs Cambridge Utd",
+    "home": "Gillingham",
+    "away": "Cambridge Utd",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 9.1,
+    "raw_profit": 10.71,
+    "probability": 0.892889,
+    "best_odds": {
+      "1": [
+        5.1,
+        "TopBet"
+      ],
+      "X": [
+        4.2,
+        "Betmaster"
+      ],
+      "2": [
+        2.18,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2200,
+      "X": 2650,
+      "2": 5150
+    },
+    "payouts": {
+      "1": 11220.0,
+      "X": 11130.0,
+      "2": 11227.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11130.0,
+    "actual_profit_after_rounding": 11.3,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-22T17:24:19.422914+00:00"
+  }
+]
