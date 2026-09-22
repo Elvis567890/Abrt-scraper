@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "stratford_bromsgrove_1x2",
+    "match": "Stratford  vs Bromsgrove",
+    "home": "Stratford ",
+    "away": "Bromsgrove",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 1.69,
+    "raw_profit": 1.99,
+    "probability": 0.980103,
+    "best_odds": {
+      "1": [
+        4.5,
+        "TopBet"
+      ],
+      "X": [
+        3.55,
+        "Fortebet"
+      ],
+      "2": [
+        2.1,
+        "Betmaster"
+      ]
+    },
+    "stakes": {
+      "1": 2250,
+      "X": 2850,
+      "2": 4900
+    },
+    "payouts": {
+      "1": 10125.0,
+      "X": 10117.5,
+      "2": 10290.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10117.5,
+    "actual_profit_after_rounding": 1.18,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-22T18:30:21.866208+00:00"
+  }
+]
