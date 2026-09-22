@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "tranmere_shrewsbury_1x2",
+    "match": "Tranmere vs Shrewsbury",
+    "home": "Tranmere",
+    "away": "Shrewsbury",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 1.88,
+    "raw_profit": 2.22,
+    "probability": 0.97784,
+    "best_odds": {
+      "1": [
+        3.12,
+        "TopBet"
+      ],
+      "X": [
+        3.2,
+        "Fortebet"
+      ],
+      "2": [
+        2.9,
+        "Betmaster"
+      ]
+    },
+    "stakes": {
+      "1": 3300,
+      "X": 3200,
+      "2": 3500
+    },
+    "payouts": {
+      "1": 10296.0,
+      "X": 10240.0,
+      "2": 10150.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10150.0,
+    "actual_profit_after_rounding": 1.5,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-22T17:08:17.496281+00:00"
+  }
+]
