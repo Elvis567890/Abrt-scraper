@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "turkey_france_1x2",
+    "match": "Turkey vs France",
+    "home": "Turkey",
+    "away": "France",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 29.12,
+    "raw_profit": 34.26,
+    "probability": 0.657378,
+    "best_odds": {
+      "1": [
+        7.7,
+        "Melbet"
+      ],
+      "X": [
+        5.15,
+        "TopBet"
+      ],
+      "2": [
+        3.0,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2000,
+      "X": 2950,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 15400.0,
+      "X": 15192.5,
+      "2": 15150.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 15150.0,
+    "actual_profit_after_rounding": 51.5,
+    "bookmakers": [
+      "Fortebet",
+      "Melbet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-24T21:06:19.236265+00:00"
+  }
+]
