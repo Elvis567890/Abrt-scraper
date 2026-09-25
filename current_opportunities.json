@@ -1,5 +1,50 @@
 [
   {
+    "id": "azerbaijan u21_czech republic u21_1x2",
+    "match": "Azerbaijan U21 vs Czech Republic U21",
+    "home": "Azerbaijan U21",
+    "away": "Czech Republic U21",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 39.27,
+    "raw_profit": 46.2,
+    "probability": 0.537976,
+    "best_odds": {
+      "1": [
+        11.1,
+        "TopBet"
+      ],
+      "X": [
+        5.75,
+        "Betmaster"
+      ],
+      "2": [
+        3.65,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1650,
+      "X": 3250,
+      "2": 5100
+    },
+    "payouts": {
+      "1": 18315.0,
+      "X": 18687.5,
+      "2": 18615.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 18315.0,
+    "actual_profit_after_rounding": 83.15,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-25T10:30:19.665584+00:00"
+  },
+  {
     "id": "turkey_france_1x2",
     "match": "Turkey vs France",
     "home": "Turkey",
@@ -42,7 +87,7 @@
       "Melbet",
       "TopBet"
     ],
-    "detected_at": "2026-09-25T10:28:16.609526+00:00"
+    "detected_at": "2026-09-25T10:30:19.663074+00:00"
   },
   {
     "id": "maritimo u23_benfica u23_1x2",
@@ -87,6 +132,6 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-25T10:28:16.611840+00:00"
+    "detected_at": "2026-09-25T10:30:19.664976+00:00"
   }
 ]
