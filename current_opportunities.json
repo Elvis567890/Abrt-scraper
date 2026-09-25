@@ -1,50 +1,5 @@
 [
   {
-    "id": "azerbaijan u21_czech republic u21_1x2",
-    "match": "Azerbaijan U21 vs Czech Republic U21",
-    "home": "Azerbaijan U21",
-    "away": "Czech Republic U21",
-    "league": "",
-    "market": "1X2",
-    "market_code": "1x2",
-    "profit": 41.67,
-    "raw_profit": 49.02,
-    "probability": 0.509786,
-    "best_odds": {
-      "1": [
-        12.2,
-        "TopBet"
-      ],
-      "X": [
-        6.5,
-        "1xBet"
-      ],
-      "2": [
-        3.65,
-        "Fortebet"
-      ]
-    },
-    "stakes": {
-      "1": 1600,
-      "X": 3000,
-      "2": 5400
-    },
-    "payouts": {
-      "1": 19520.0,
-      "X": 19500.0,
-      "2": 19710.0
-    },
-    "total_stake": 10000,
-    "minimum_payout": 19500.0,
-    "actual_profit_after_rounding": 95.0,
-    "bookmakers": [
-      "1xBet",
-      "Fortebet",
-      "TopBet"
-    ],
-    "detected_at": "2026-09-25T13:44:23.112468+00:00"
-  },
-  {
     "id": "iceland u21_france u21_1x2",
     "match": "Iceland U21 vs France U21",
     "home": "Iceland U21",
@@ -87,6 +42,51 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-25T13:44:23.112537+00:00"
+    "detected_at": "2026-09-25T13:46:20.912380+00:00"
+  },
+  {
+    "id": "cyprus u21_romania u21_1x2",
+    "match": "Cyprus U21 vs Romania U21",
+    "home": "Cyprus U21",
+    "away": "Romania U21",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 19.83,
+    "raw_profit": 23.33,
+    "probability": 0.766651,
+    "best_odds": {
+      "1": [
+        7.25,
+        "TopBet"
+      ],
+      "X": [
+        4.2,
+        "Betmaster"
+      ],
+      "2": [
+        2.56,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1800,
+      "X": 3100,
+      "2": 5100
+    },
+    "payouts": {
+      "1": 13050.0,
+      "X": 13020.0,
+      "2": 13056.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 13020.0,
+    "actual_profit_after_rounding": 30.2,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-25T13:46:20.912285+00:00"
   }
 ]
