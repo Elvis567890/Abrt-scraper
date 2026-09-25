@@ -1,5 +1,50 @@
 [
   {
+    "id": "bangladesh_malaysia_1x2",
+    "match": "Bangladesh vs Malaysia",
+    "home": "Bangladesh",
+    "away": "Malaysia",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 29.92,
+    "raw_profit": 35.19,
+    "probability": 0.648053,
+    "best_odds": {
+      "1": [
+        8.0,
+        "TopBet"
+      ],
+      "X": [
+        5.85,
+        "1xBet"
+      ],
+      "2": [
+        2.84,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1950,
+      "X": 2650,
+      "2": 5400
+    },
+    "payouts": {
+      "1": 15600.0,
+      "X": 15502.5,
+      "2": 15336.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 15336.0,
+    "actual_profit_after_rounding": 53.36,
+    "bookmakers": [
+      "1xBet",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-25T08:56:19.414572+00:00"
+  },
+  {
     "id": "maritimo u23_benfica u23_1x2",
     "match": "Maritimo U23 vs Benfica U23",
     "home": "Maritimo U23",
@@ -42,6 +87,6 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-25T08:54:20.332336+00:00"
+    "detected_at": "2026-09-25T08:56:19.417150+00:00"
   }
 ]
