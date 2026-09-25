@@ -1,5 +1,50 @@
 [
   {
+    "id": "turkey_france_1x2",
+    "match": "Turkey vs France",
+    "home": "Turkey",
+    "away": "France",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 33.62,
+    "raw_profit": 39.55,
+    "probability": 0.604453,
+    "best_odds": {
+      "1": [
+        8.7,
+        "Melbet"
+      ],
+      "X": [
+        5.5,
+        "TopBet"
+      ],
+      "2": [
+        3.25,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1900,
+      "X": 3000,
+      "2": 5100
+    },
+    "payouts": {
+      "1": 16530.0,
+      "X": 16500.0,
+      "2": 16575.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 16500.0,
+    "actual_profit_after_rounding": 65.0,
+    "bookmakers": [
+      "Fortebet",
+      "Melbet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-25T07:18:20.241677+00:00"
+  },
+  {
     "id": "maritimo u23_benfica u23_1x2",
     "match": "Maritimo U23 vs Benfica U23",
     "home": "Maritimo U23",
@@ -42,6 +87,6 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-09-25T07:16:20.543775+00:00"
+    "detected_at": "2026-09-25T07:18:20.243500+00:00"
   }
 ]
