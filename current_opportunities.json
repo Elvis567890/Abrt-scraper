@@ -1,5 +1,50 @@
 [
   {
+    "id": "burundi_algeria_1x2",
+    "match": "Burundi vs Algeria",
+    "home": "Burundi",
+    "away": "Algeria",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 36.66,
+    "raw_profit": 43.12,
+    "probability": 0.568757,
+    "best_odds": {
+      "1": [
+        12.0,
+        "Betmaster"
+      ],
+      "X": [
+        5.35,
+        "Melbet"
+      ],
+      "2": [
+        3.35,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1450,
+      "X": 3300,
+      "2": 5250
+    },
+    "payouts": {
+      "1": 17400.0,
+      "X": 17655.0,
+      "2": 17587.5
+    },
+    "total_stake": 10000,
+    "minimum_payout": 17400.0,
+    "actual_profit_after_rounding": 74.0,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "Melbet"
+    ],
+    "detected_at": "2026-09-29T12:40:20.202778+00:00"
+  },
+  {
     "id": "ethiopia_senegal_1x2",
     "match": "Ethiopia vs Senegal",
     "home": "Ethiopia",
@@ -7,41 +52,41 @@
     "league": "",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 32.05,
-    "raw_profit": 37.7,
-    "probability": 0.622963,
+    "profit": 33.06,
+    "raw_profit": 38.89,
+    "probability": 0.611095,
     "best_odds": {
       "1": [
         10.6,
-        "TopBet"
+        "ChampionBet"
       ],
       "X": [
         5.15,
         "Melbet"
       ],
       "2": [
-        2.99,
+        3.1,
         "Fortebet"
       ]
     },
     "stakes": {
-      "1": 1500,
-      "X": 3100,
-      "2": 5400
+      "1": 1550,
+      "X": 3200,
+      "2": 5250
     },
     "payouts": {
-      "1": 15900.0,
-      "X": 15965.0,
-      "2": 16146.0
+      "1": 16430.0,
+      "X": 16480.0,
+      "2": 16275.0
     },
     "total_stake": 10000,
-    "minimum_payout": 15900.0,
-    "actual_profit_after_rounding": 59.0,
+    "minimum_payout": 16275.0,
+    "actual_profit_after_rounding": 62.75,
     "bookmakers": [
+      "ChampionBet",
       "Fortebet",
-      "Melbet",
-      "TopBet"
+      "Melbet"
     ],
-    "detected_at": "2026-09-29T12:38:18.752843+00:00"
+    "detected_at": "2026-09-29T12:40:20.205949+00:00"
   }
 ]
