@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "mexico_peru_1x2",
+    "match": "Mexico vs Peru",
+    "home": "Mexico",
+    "away": "Peru",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 0.9,
+    "raw_profit": 1.06,
+    "probability": 0.989393,
+    "best_odds": {
+      "1": [
+        1.55,
+        "Betmaster"
+      ],
+      "X": [
+        4.4,
+        "Fortebet"
+      ],
+      "2": [
+        8.55,
+        "TopBet"
+      ]
+    },
+    "stakes": {
+      "1": 6500,
+      "X": 2300,
+      "2": 1200
+    },
+    "payouts": {
+      "1": 10075.0,
+      "X": 10120.0,
+      "2": 10260.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10075.0,
+    "actual_profit_after_rounding": 0.75,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-29T22:56:17.538855+00:00"
+  }
+]
