@@ -1,5 +1,50 @@
 [
   {
+    "id": "south sudan_egypt_1x2",
+    "match": "South Sudan vs Egypt",
+    "home": "South Sudan",
+    "away": "Egypt",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 43.62,
+    "raw_profit": 51.32,
+    "probability": 0.486842,
+    "best_odds": {
+      "1": [
+        14.25,
+        "TopBet"
+      ],
+      "X": [
+        6.0,
+        "Melbet"
+      ],
+      "2": [
+        4.0,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1450,
+      "X": 3400,
+      "2": 5150
+    },
+    "payouts": {
+      "1": 20662.5,
+      "X": 20400.0,
+      "2": 20600.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 20400.0,
+    "actual_profit_after_rounding": 104.0,
+    "bookmakers": [
+      "Fortebet",
+      "Melbet",
+      "TopBet"
+    ],
+    "detected_at": "2026-09-29T10:18:18.679501+00:00"
+  },
+  {
     "id": "ethiopia_senegal_1x2",
     "match": "Ethiopia vs Senegal",
     "home": "Ethiopia",
@@ -13,7 +58,7 @@
     "best_odds": {
       "1": [
         8.75,
-        "ChampionBet"
+        "TopBet"
       ],
       "X": [
         4.8,
@@ -38,10 +83,10 @@
     "minimum_payout": 14875.0,
     "actual_profit_after_rounding": 48.75,
     "bookmakers": [
-      "ChampionBet",
       "Fortebet",
-      "Melbet"
+      "Melbet",
+      "TopBet"
     ],
-    "detected_at": "2026-09-29T10:16:23.616601+00:00"
+    "detected_at": "2026-09-29T10:18:18.681855+00:00"
   }
 ]
