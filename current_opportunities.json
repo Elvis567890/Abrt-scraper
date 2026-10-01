@@ -1,5 +1,50 @@
 [
   {
+    "id": "dominica_guyana_1x2",
+    "match": "Dominica vs Guyana",
+    "home": "Dominica",
+    "away": "Guyana",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 41.94,
+    "raw_profit": 49.34,
+    "probability": 0.506559,
+    "best_odds": {
+      "1": [
+        12.7,
+        "TopBet"
+      ],
+      "X": [
+        6.5,
+        "Betmaster"
+      ],
+      "2": [
+        3.65,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1550,
+      "X": 3050,
+      "2": 5400
+    },
+    "payouts": {
+      "1": 19685.0,
+      "X": 19825.0,
+      "2": 19710.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 19685.0,
+    "actual_profit_after_rounding": 96.85,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-10-01T20:46:57.089028+00:00"
+  },
+  {
     "id": "nicaragua_costa rica_1x2",
     "match": "Nicaragua vs Costa Rica",
     "home": "Nicaragua",
@@ -42,6 +87,6 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-10-01T20:44:19.641819+00:00"
+    "detected_at": "2026-10-01T20:46:57.088964+00:00"
   }
 ]
