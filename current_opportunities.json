@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "greece_germany_1x2",
+    "match": "Greece vs Germany",
+    "home": "Greece",
+    "away": "Germany",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 1.01,
+    "raw_profit": 1.19,
+    "probability": 0.988095,
+    "best_odds": {
+      "1": [
+        4.2,
+        "ChampionBet"
+      ],
+      "X": [
+        4.0,
+        "Melbet"
+      ],
+      "2": [
+        2.0,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2400,
+      "X": 2550,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 10080.0,
+      "X": 10200.0,
+      "2": 10100.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10080.0,
+    "actual_profit_after_rounding": 0.8,
+    "bookmakers": [
+      "ChampionBet",
+      "Fortebet",
+      "Melbet"
+    ],
+    "detected_at": "2026-10-04T15:28:21.689717+00:00"
+  }
+]
