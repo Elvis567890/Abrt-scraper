@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "crawley_chesterfield_1x2",
+    "match": "Crawley vs Chesterfield",
+    "home": "Crawley",
+    "away": "Chesterfield",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 7.92,
+    "raw_profit": 9.32,
+    "probability": 0.906772,
+    "best_odds": {
+      "1": [
+        4.75,
+        "Betmaster"
+      ],
+      "X": [
+        4.21,
+        "TopBet"
+      ],
+      "2": [
+        2.18,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2300,
+      "X": 2600,
+      "2": 5100
+    },
+    "payouts": {
+      "1": 10925.0,
+      "X": 10946.0,
+      "2": 11118.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10925.0,
+    "actual_profit_after_rounding": 9.25,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-10-10T13:30:30.889571+00:00"
+  }
+]
