@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "mito_tokyo_1x2",
+    "match": "Mito vs Tokyo",
+    "home": "Mito",
+    "away": "Tokyo",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 10.59,
+    "raw_profit": 12.45,
+    "probability": 0.875456,
+    "best_odds": {
+      "1": [
+        5.1,
+        "TopBet"
+      ],
+      "X": [
+        4.33,
+        "Betmaster"
+      ],
+      "2": [
+        2.23,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2250,
+      "X": 2650,
+      "2": 5100
+    },
+    "payouts": {
+      "1": 11475.0,
+      "X": 11474.5,
+      "2": 11373.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11373.0,
+    "actual_profit_after_rounding": 13.73,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-10-14T08:04:18.610896+00:00"
+  }
+]
