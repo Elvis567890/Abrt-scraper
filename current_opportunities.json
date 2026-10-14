@@ -1,5 +1,50 @@
 [
   {
+    "id": "vranov_banska bystrica_1x2",
+    "match": "Vranov vs Banska Bystrica",
+    "home": "Vranov",
+    "away": "Banska Bystrica",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 44.95,
+    "raw_profit": 52.88,
+    "probability": 0.471201,
+    "best_odds": {
+      "1": [
+        13.0,
+        "Betmaster"
+      ],
+      "X": [
+        6.65,
+        "TopBet"
+      ],
+      "2": [
+        4.1,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1650,
+      "X": 3200,
+      "2": 5150
+    },
+    "payouts": {
+      "1": 21450.0,
+      "X": 21280.0,
+      "2": 21115.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 21115.0,
+    "actual_profit_after_rounding": 111.15,
+    "bookmakers": [
+      "Betmaster",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-10-14T11:46:20.538965+00:00"
+  },
+  {
     "id": "boleraz_namestovo_1x2",
     "match": "Boleraz vs Namestovo",
     "home": "Boleraz",
@@ -42,6 +87,6 @@
       "Fortebet",
       "TopBet"
     ],
-    "detected_at": "2026-10-14T11:44:19.534954+00:00"
+    "detected_at": "2026-10-14T11:46:20.538899+00:00"
   }
 ]
