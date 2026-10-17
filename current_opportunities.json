@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "dundee_rangers_1x2",
+    "match": "Dundee FC vs Rangers",
+    "home": "Dundee FC",
+    "away": "Rangers",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 25.84,
+    "raw_profit": 30.39,
+    "probability": 0.696059,
+    "best_odds": {
+      "1": [
+        7.11,
+        "1xBet"
+      ],
+      "X": [
+        4.86,
+        "TopBet"
+      ],
+      "2": [
+        2.86,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2000,
+      "X": 2950,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 14220.0,
+      "X": 14337.0,
+      "2": 14443.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 14220.0,
+    "actual_profit_after_rounding": 42.2,
+    "bookmakers": [
+      "1xBet",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-10-17T18:48:20.933103+00:00"
+  }
+]
