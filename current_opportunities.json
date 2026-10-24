@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "aston villa_manchester city_1x2",
+    "match": "Aston Villa vs Manchester City",
+    "home": "Aston Villa",
+    "away": "Manchester City",
+    "league": "England. Premier League",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 12.24,
+    "raw_profit": 14.41,
+    "probability": 0.855942,
+    "best_odds": {
+      "1": [
+        5.0,
+        "Melbet"
+      ],
+      "X": [
+        4.41,
+        "ChampionBet"
+      ],
+      "2": [
+        2.33,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2350,
+      "X": 2650,
+      "2": 5000
+    },
+    "payouts": {
+      "1": 11750.0,
+      "X": 11686.5,
+      "2": 11650.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11650.0,
+    "actual_profit_after_rounding": 16.5,
+    "bookmakers": [
+      "ChampionBet",
+      "Fortebet",
+      "Melbet"
+    ],
+    "detected_at": "2026-10-24T04:40:22.510786+00:00"
+  }
+]
