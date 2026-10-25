@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "barcelona_real madrid_1x2",
+    "match": "Barcelona vs Real Madrid",
+    "home": "Barcelona",
+    "away": "Real Madrid",
+    "league": "Spain. La Liga",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 0.5,
+    "raw_profit": 0.59,
+    "probability": 0.994123,
+    "best_odds": {
+      "1": [
+        1.66,
+        "Fortebet"
+      ],
+      "X": [
+        5.9,
+        "Melbet"
+      ],
+      "2": [
+        4.5,
+        "TopBet"
+      ]
+    },
+    "stakes": {
+      "1": 6050,
+      "X": 1700,
+      "2": 2250
+    },
+    "payouts": {
+      "1": 10043.0,
+      "X": 10030.0,
+      "2": 10125.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10030.0,
+    "actual_profit_after_rounding": 0.3,
+    "bookmakers": [
+      "Fortebet",
+      "Melbet",
+      "TopBet"
+    ],
+    "detected_at": "2026-10-25T19:40:21.471005+00:00"
+  }
+]
