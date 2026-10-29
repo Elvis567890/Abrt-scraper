@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "braga_famalicao_1x2",
+    "match": "Braga vs Famalicao",
+    "home": "Braga",
+    "away": "Famalicao",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 9.88,
+    "raw_profit": 11.62,
+    "probability": 0.883809,
+    "best_odds": {
+      "1": [
+        2.44,
+        "1xBet"
+      ],
+      "X": [
+        3.65,
+        "Fortebet"
+      ],
+      "2": [
+        5.0,
+        "TopBet"
+      ]
+    },
+    "stakes": {
+      "1": 4650,
+      "X": 3100,
+      "2": 2250
+    },
+    "payouts": {
+      "1": 11346.0,
+      "X": 11315.0,
+      "2": 11250.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11250.0,
+    "actual_profit_after_rounding": 12.5,
+    "bookmakers": [
+      "1xBet",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-10-29T19:04:24.587907+00:00"
+  }
+]
