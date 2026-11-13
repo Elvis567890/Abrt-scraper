@@ -7,17 +7,17 @@
     "league": "",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 44.8,
-    "raw_profit": 52.71,
-    "probability": 0.472928,
+    "profit": 45.16,
+    "raw_profit": 53.13,
+    "probability": 0.468727,
     "best_odds": {
       "1": [
         12.2,
         "ChampionBet"
       ],
       "X": [
-        6.8,
-        "Melbet"
+        7.0,
+        "GSB"
       ],
       "2": [
         4.1,
@@ -26,22 +26,67 @@
     },
     "stakes": {
       "1": 1750,
-      "X": 3100,
-      "2": 5150
+      "X": 3050,
+      "2": 5200
     },
     "payouts": {
       "1": 21350.0,
-      "X": 21080.0,
-      "2": 21115.0
+      "X": 21350.0,
+      "2": 21320.0
     },
     "total_stake": 10000,
-    "minimum_payout": 21080.0,
-    "actual_profit_after_rounding": 110.8,
+    "minimum_payout": 21320.0,
+    "actual_profit_after_rounding": 113.2,
     "bookmakers": [
       "ChampionBet",
       "Fortebet",
-      "Melbet"
+      "GSB"
     ],
-    "detected_at": "2026-11-13T19:14:25.942984+00:00"
+    "detected_at": "2026-11-13T19:16:25.733940+00:00"
+  },
+  {
+    "id": "jamaica_mexico_1x2",
+    "match": "Jamaica vs Mexico",
+    "home": "Jamaica",
+    "away": "Mexico",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 11.19,
+    "raw_profit": 13.16,
+    "probability": 0.868357,
+    "best_odds": {
+      "1": [
+        5.75,
+        "TopBet"
+      ],
+      "X": [
+        4.0,
+        "GSB"
+      ],
+      "2": [
+        2.25,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2000,
+      "X": 2900,
+      "2": 5100
+    },
+    "payouts": {
+      "1": 11500.0,
+      "X": 11600.0,
+      "2": 11475.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11475.0,
+    "actual_profit_after_rounding": 14.75,
+    "bookmakers": [
+      "Fortebet",
+      "GSB",
+      "TopBet"
+    ],
+    "detected_at": "2026-11-13T19:16:25.734228+00:00"
   }
 ]
