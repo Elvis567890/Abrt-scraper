@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "serbia_germany_1x2",
+    "match": "Serbia vs Germany",
+    "home": "Serbia",
+    "away": "Germany",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 42.94,
+    "raw_profit": 50.52,
+    "probability": 0.49477,
+    "best_odds": {
+      "1": [
+        11.1,
+        "ChampionBet"
+      ],
+      "X": [
+        6.6,
+        "Melbet"
+      ],
+      "2": [
+        3.95,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1800,
+      "X": 3050,
+      "2": 5150
+    },
+    "payouts": {
+      "1": 19980.0,
+      "X": 20130.0,
+      "2": 20342.5
+    },
+    "total_stake": 10000,
+    "minimum_payout": 19980.0,
+    "actual_profit_after_rounding": 99.8,
+    "bookmakers": [
+      "ChampionBet",
+      "Fortebet",
+      "Melbet"
+    ],
+    "detected_at": "2026-11-13T16:56:23.714620+00:00"
+  }
+]
