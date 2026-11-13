@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "jamaica_mexico_1x2",
+    "match": "Jamaica vs Mexico",
+    "home": "Jamaica",
+    "away": "Mexico",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 11.19,
+    "raw_profit": 13.16,
+    "probability": 0.868357,
+    "best_odds": {
+      "1": [
+        5.75,
+        "TopBet"
+      ],
+      "X": [
+        4.0,
+        "GSB"
+      ],
+      "2": [
+        2.25,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2000,
+      "X": 2900,
+      "2": 5100
+    },
+    "payouts": {
+      "1": 11500.0,
+      "X": 11600.0,
+      "2": 11475.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11475.0,
+    "actual_profit_after_rounding": 14.75,
+    "bookmakers": [
+      "Fortebet",
+      "GSB",
+      "TopBet"
+    ],
+    "detected_at": "2026-11-13T02:30:24.090542+00:00"
+  }
+]
