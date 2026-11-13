@@ -1,5 +1,50 @@
 [
   {
+    "id": "serbia_germany_1x2",
+    "match": "Serbia vs Germany",
+    "home": "Serbia",
+    "away": "Germany",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 44.28,
+    "raw_profit": 52.1,
+    "probability": 0.479026,
+    "best_odds": {
+      "1": [
+        12.2,
+        "ChampionBet"
+      ],
+      "X": [
+        6.8,
+        "Melbet"
+      ],
+      "2": [
+        4.0,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1700,
+      "X": 3050,
+      "2": 5250
+    },
+    "payouts": {
+      "1": 20740.0,
+      "X": 20740.0,
+      "2": 21000.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 20740.0,
+    "actual_profit_after_rounding": 107.4,
+    "bookmakers": [
+      "ChampionBet",
+      "Fortebet",
+      "Melbet"
+    ],
+    "detected_at": "2026-11-13T19:08:23.245478+00:00"
+  },
+  {
     "id": "jamaica_mexico_1x2",
     "match": "Jamaica vs Mexico",
     "home": "Jamaica",
@@ -42,6 +87,6 @@
       "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-13T19:06:21.286276+00:00"
+    "detected_at": "2026-11-13T19:08:23.245886+00:00"
   }
 ]
