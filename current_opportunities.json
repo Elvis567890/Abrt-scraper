@@ -7,13 +7,13 @@
     "league": "",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 49.06,
-    "raw_profit": 57.72,
-    "probability": 0.422843,
+    "profit": 49.34,
+    "raw_profit": 58.05,
+    "probability": 0.41951,
     "best_odds": {
       "1": [
-        12.0,
-        "TopBet"
+        12.5,
+        "GSB"
       ],
       "X": [
         9.35,
@@ -25,23 +25,68 @@
       ]
     },
     "stakes": {
-      "1": 1950,
+      "1": 1900,
       "X": 2550,
-      "2": 5500
+      "2": 5550
     },
     "payouts": {
-      "1": 23400.0,
+      "1": 23750.0,
       "X": 23842.5,
-      "2": 23650.0
+      "2": 23865.0
     },
     "total_stake": 10000,
-    "minimum_payout": 23400.0,
-    "actual_profit_after_rounding": 134.0,
+    "minimum_payout": 23750.0,
+    "actual_profit_after_rounding": 137.5,
     "bookmakers": [
       "1xBet",
       "Fortebet",
+      "GSB"
+    ],
+    "detected_at": "2026-11-14T21:26:22.246554+00:00"
+  },
+  {
+    "id": "sudan_senegal_1x2",
+    "match": "Sudan vs Senegal",
+    "home": "Sudan",
+    "away": "Senegal",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 31.37,
+    "raw_profit": 36.9,
+    "probability": 0.63096,
+    "best_odds": {
+      "1": [
+        10.1,
+        "TopBet"
+      ],
+      "X": [
+        4.9,
+        "GSB"
+      ],
+      "2": [
+        3.05,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1550,
+      "X": 3250,
+      "2": 5200
+    },
+    "payouts": {
+      "1": 15655.0,
+      "X": 15925.0,
+      "2": 15860.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 15655.0,
+    "actual_profit_after_rounding": 56.55,
+    "bookmakers": [
+      "Fortebet",
+      "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-14T21:24:26.286579+00:00"
+    "detected_at": "2026-11-14T21:26:22.249558+00:00"
   }
 ]
