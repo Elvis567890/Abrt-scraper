@@ -1,5 +1,50 @@
 [
   {
+    "id": "guatemala_canada_1x2",
+    "match": "Guatemala vs Canada",
+    "home": "Guatemala",
+    "away": "Canada",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 20.37,
+    "raw_profit": 23.97,
+    "probability": 0.760312,
+    "best_odds": {
+      "1": [
+        6.25,
+        "TopBet"
+      ],
+      "X": [
+        5.25,
+        "1xBet"
+      ],
+      "2": [
+        2.44,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2100,
+      "X": 2500,
+      "2": 5400
+    },
+    "payouts": {
+      "1": 13125.0,
+      "X": 13125.0,
+      "2": 13176.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 13125.0,
+    "actual_profit_after_rounding": 31.25,
+    "bookmakers": [
+      "1xBet",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-11-14T01:48:25.007258+00:00"
+  },
+  {
     "id": "jamaica_mexico_1x2",
     "match": "Jamaica vs Mexico",
     "home": "Jamaica",
@@ -42,6 +87,6 @@
       "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-14T01:46:27.659446+00:00"
+    "detected_at": "2026-11-14T01:48:25.007329+00:00"
   }
 ]
