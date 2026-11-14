@@ -1,5 +1,50 @@
 [
   {
+    "id": "haiti_usa_1x2",
+    "match": "Haiti vs USA",
+    "home": "Haiti",
+    "away": "USA",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 48.88,
+    "raw_profit": 57.51,
+    "probability": 0.424918,
+    "best_odds": {
+      "1": [
+        12.5,
+        "GSB"
+      ],
+      "X": [
+        8.9,
+        "1xBet"
+      ],
+      "2": [
+        4.3,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1900,
+      "X": 2650,
+      "2": 5450
+    },
+    "payouts": {
+      "1": 23750.0,
+      "X": 23585.0,
+      "2": 23435.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 23435.0,
+    "actual_profit_after_rounding": 134.35,
+    "bookmakers": [
+      "1xBet",
+      "Fortebet",
+      "GSB"
+    ],
+    "detected_at": "2026-11-14T21:20:28.130552+00:00"
+  },
+  {
     "id": "sudan_senegal_1x2",
     "match": "Sudan vs Senegal",
     "home": "Sudan",
@@ -42,6 +87,6 @@
       "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-14T21:18:23.435757+00:00"
+    "detected_at": "2026-11-14T21:20:28.133205+00:00"
   }
 ]
