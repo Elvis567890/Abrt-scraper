@@ -1,5 +1,50 @@
 [
   {
+    "id": "jamaica_mexico_1x2",
+    "match": "Jamaica vs Mexico",
+    "home": "Jamaica",
+    "away": "Mexico",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 32.93,
+    "raw_profit": 38.74,
+    "probability": 0.612627,
+    "best_odds": {
+      "1": [
+        10.5,
+        "GSB"
+      ],
+      "X": [
+        5.5,
+        "1xBet"
+      ],
+      "2": [
+        2.98,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1550,
+      "X": 2950,
+      "2": 5500
+    },
+    "payouts": {
+      "1": 16275.0,
+      "X": 16225.0,
+      "2": 16390.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 16225.0,
+    "actual_profit_after_rounding": 62.25,
+    "bookmakers": [
+      "1xBet",
+      "Fortebet",
+      "GSB"
+    ],
+    "detected_at": "2026-11-15T00:54:21.967731+00:00"
+  },
+  {
     "id": "sudan_senegal_1x2",
     "match": "Sudan vs Senegal",
     "home": "Sudan",
@@ -42,6 +87,6 @@
       "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-15T00:52:26.783073+00:00"
+    "detected_at": "2026-11-15T00:54:21.970632+00:00"
   }
 ]
