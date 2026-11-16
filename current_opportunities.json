@@ -13,7 +13,7 @@
     "best_odds": {
       "1": [
         13.9,
-        "ChampionBet"
+        "TopBet"
       ],
       "X": [
         6.2,
@@ -38,11 +38,11 @@
     "minimum_payout": 19795.0,
     "actual_profit_after_rounding": 97.95,
     "bookmakers": [
-      "ChampionBet",
       "Fortebet",
-      "GSB"
+      "GSB",
+      "TopBet"
     ],
-    "detected_at": "2026-11-16T18:46:22.344833+00:00"
+    "detected_at": "2026-11-16T18:48:25.335531+00:00"
   },
   {
     "id": "south sudan_angola_1x2",
@@ -58,7 +58,7 @@
     "best_odds": {
       "1": [
         11.7,
-        "ChampionBet"
+        "TopBet"
       ],
       "X": [
         5.2,
@@ -83,55 +83,10 @@
     "minimum_payout": 17252.5,
     "actual_profit_after_rounding": 72.52,
     "bookmakers": [
-      "ChampionBet",
       "Fortebet",
-      "GSB"
+      "GSB",
+      "TopBet"
     ],
-    "detected_at": "2026-11-16T18:46:22.344863+00:00"
-  },
-  {
-    "id": "lesotho_gabon_1x2",
-    "match": "Lesotho vs Gabon",
-    "home": "Lesotho",
-    "away": "Gabon",
-    "league": "",
-    "market": "1X2",
-    "market_code": "1x2",
-    "profit": 16.67,
-    "raw_profit": 19.62,
-    "probability": 0.803827,
-    "best_odds": {
-      "1": [
-        7.2,
-        "ChampionBet"
-      ],
-      "X": [
-        4.0,
-        "GSB"
-      ],
-      "2": [
-        2.41,
-        "Fortebet"
-      ]
-    },
-    "stakes": {
-      "1": 1750,
-      "X": 3100,
-      "2": 5150
-    },
-    "payouts": {
-      "1": 12600.0,
-      "X": 12400.0,
-      "2": 12411.5
-    },
-    "total_stake": 10000,
-    "minimum_payout": 12400.0,
-    "actual_profit_after_rounding": 24.0,
-    "bookmakers": [
-      "ChampionBet",
-      "Fortebet",
-      "GSB"
-    ],
-    "detected_at": "2026-11-16T18:46:22.344772+00:00"
+    "detected_at": "2026-11-16T18:48:25.335592+00:00"
   }
 ]
