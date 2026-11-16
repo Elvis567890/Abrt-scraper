@@ -42,7 +42,7 @@
       "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-16T10:30:21.965049+00:00"
+    "detected_at": "2026-11-16T10:32:25.154723+00:00"
   },
   {
     "id": "south sudan_angola_1x2",
@@ -87,7 +87,7 @@
       "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-16T10:30:21.964849+00:00"
+    "detected_at": "2026-11-16T10:32:25.154480+00:00"
   },
   {
     "id": "tanzania_nigeria_1x2",
@@ -132,7 +132,7 @@
       "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-16T10:30:21.965115+00:00"
+    "detected_at": "2026-11-16T10:32:25.154790+00:00"
   },
   {
     "id": "israel_austria_1x2",
@@ -177,6 +177,51 @@
       "GSB",
       "TopBet"
     ],
-    "detected_at": "2026-11-16T10:30:21.965330+00:00"
+    "detected_at": "2026-11-16T10:32:25.155028+00:00"
+  },
+  {
+    "id": "kenya_south africa_1x2",
+    "match": "Kenya vs South Africa",
+    "home": "Kenya",
+    "away": "South Africa",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 0.58,
+    "raw_profit": 0.68,
+    "probability": 0.993152,
+    "best_odds": {
+      "1": [
+        5.25,
+        "TopBet"
+      ],
+      "X": [
+        3.45,
+        "GSB"
+      ],
+      "2": [
+        1.95,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 1900,
+      "X": 2900,
+      "2": 5200
+    },
+    "payouts": {
+      "1": 9975.0,
+      "X": 10005.0,
+      "2": 10140.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 9975.0,
+    "actual_profit_after_rounding": -0.25,
+    "bookmakers": [
+      "Fortebet",
+      "GSB",
+      "TopBet"
+    ],
+    "detected_at": "2026-11-16T10:32:25.154592+00:00"
   }
 ]
