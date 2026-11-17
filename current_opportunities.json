@@ -1,22 +1,67 @@
 [
   {
+    "id": "wales_portugal_1x2",
+    "match": "Wales vs Portugal",
+    "home": "Wales",
+    "away": "Portugal",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 34.91,
+    "raw_profit": 41.08,
+    "probability": 0.589243,
+    "best_odds": {
+      "1": [
+        8.56,
+        "1xBet"
+      ],
+      "X": [
+        5.75,
+        "TopBet"
+      ],
+      "2": [
+        3.35,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2000,
+      "X": 2950,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 17120.0,
+      "X": 16962.5,
+      "2": 16917.5
+    },
+    "total_stake": 10000,
+    "minimum_payout": 16917.5,
+    "actual_profit_after_rounding": 69.17,
+    "bookmakers": [
+      "1xBet",
+      "Fortebet",
+      "TopBet"
+    ],
+    "detected_at": "2026-11-17T19:40:26.903855+00:00"
+  },
+  {
     "id": "israel_austria_1x2",
     "match": "Israel vs Austria",
     "home": "Israel",
     "away": "Austria",
-    "league": "UEFA Nations League",
+    "league": "",
     "market": "1X2",
     "market_code": "1x2",
-    "profit": 1.04,
-    "raw_profit": 1.23,
-    "probability": 0.987738,
+    "profit": 1.36,
+    "raw_profit": 1.6,
+    "probability": 0.983988,
     "best_odds": {
       "1": [
         4.24,
         "Melbet"
       ],
       "X": [
-        3.97,
+        4.03,
         "TopBet"
       ],
       "2": [
@@ -26,22 +71,22 @@
     },
     "stakes": {
       "1": 2400,
-      "X": 2550,
-      "2": 5050
+      "X": 2500,
+      "2": 5100
     },
     "payouts": {
       "1": 10176.0,
-      "X": 10123.5,
-      "2": 10100.0
+      "X": 10075.0,
+      "2": 10200.0
     },
     "total_stake": 10000,
-    "minimum_payout": 10100.0,
-    "actual_profit_after_rounding": 1.0,
+    "minimum_payout": 10075.0,
+    "actual_profit_after_rounding": 0.75,
     "bookmakers": [
       "Fortebet",
       "Melbet",
       "TopBet"
     ],
-    "detected_at": "2026-11-17T19:38:34.245574+00:00"
+    "detected_at": "2026-11-17T19:40:26.903927+00:00"
   }
 ]
