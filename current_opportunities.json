@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "brugge_liverpool_1x2",
+    "match": "Club Brugge vs Liverpool",
+    "home": "Club Brugge",
+    "away": "Liverpool",
+    "league": "UEFA Champions League",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 10.91,
+    "raw_profit": 12.84,
+    "probability": 0.871635,
+    "best_odds": {
+      "1": [
+        4.58,
+        "Melbet"
+      ],
+      "X": [
+        4.7,
+        "GSB"
+      ],
+      "2": [
+        2.27,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2500,
+      "X": 2450,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 11450.0,
+      "X": 11515.0,
+      "2": 11463.5
+    },
+    "total_stake": 10000,
+    "minimum_payout": 11450.0,
+    "actual_profit_after_rounding": 14.5,
+    "bookmakers": [
+      "Fortebet",
+      "GSB",
+      "Melbet"
+    ],
+    "detected_at": "2026-11-25T10:24:25.873521+00:00"
+  }
+]
