@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "everton_liverpool_1x2",
+    "match": "Everton vs Liverpool",
+    "home": "Everton",
+    "away": "Liverpool",
+    "league": "",
+    "market": "1X2",
+    "market_code": "1x2",
+    "profit": 4.63,
+    "raw_profit": 5.45,
+    "probability": 0.945489,
+    "best_odds": {
+      "1": [
+        4.56,
+        "TopBet"
+      ],
+      "X": [
+        4.0,
+        "GSB"
+      ],
+      "2": [
+        2.1,
+        "Fortebet"
+      ]
+    },
+    "stakes": {
+      "1": 2300,
+      "X": 2650,
+      "2": 5050
+    },
+    "payouts": {
+      "1": 10488.0,
+      "X": 10600.0,
+      "2": 10605.0
+    },
+    "total_stake": 10000,
+    "minimum_payout": 10488.0,
+    "actual_profit_after_rounding": 4.88,
+    "bookmakers": [
+      "Fortebet",
+      "GSB",
+      "TopBet"
+    ],
+    "detected_at": "2026-11-28T18:22:27.971006+00:00"
+  }
+]
